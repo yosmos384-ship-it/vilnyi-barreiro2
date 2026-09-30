@@ -1,0 +1,229 @@
+<title>Barreiro 2 · VILNYI</title>
+<meta name="description" content="Barreiro 2 by VILNYI: eight one- and two-bedroom apartments on Rua Eduardo Couto, Lavradio, Barreiro, across the Tagus from Lisbon.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Frank+Ruhl+Libre:wght@400;500;700&family=Heebo:wght@300;400;500;600&display=swap">
+<link rel="stylesheet" href="css/site.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+
+<a class="skip" href="#apartments" data-i18n="sel.title">Choose your apartment</a>
+
+<header class="top" id="topbar">
+  <div class="top-in">
+    <a class="brand" href="#top" aria-label="VILNYI · Barreiro 2">
+      <span class="brand-mark">VILNYI</span>
+      <span class="brand-sub">Barreiro 2</span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <a href="#apartments" data-i18n="nav.apartments">Apartments</a>
+      <a href="#location" data-i18n="nav.location">Location</a>
+      <a href="#building" data-i18n="nav.building">The building</a>
+    </nav>
+    <div class="top-tools">
+      <label class="lang">
+        <span class="sr" data-i18n="nav.lang">Language</span>
+        <select id="langSel" aria-label="Language">
+          <option value="en">EN</option><option value="pt">PT</option><option value="he">HE</option><option value="ru">RU</option>
+        </select>
+      </label>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Switch light / dark" data-i18n-aria="nav.theme">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
+      </button>
+      <a class="btn btn-solid btn-sm top-cta" href="#reserve" data-i18n="nav.reserve">Reserve</a>
+      <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu" data-i18n-aria="nav.menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div id="home">
+  <section class="hero" id="top" aria-labelledby="heroTitle">
+    <img class="hero-img" src="assets/street-dusk.jpg" alt="Barreiro 2 at dusk seen from Rua Eduardo Couto: white rendered façade, brick stair tower, glass balconies and zinc mansard" width="1800" height="945" fetchpriority="high">
+    <div class="hero-shade" aria-hidden="true"></div>
+    <div class="hero-in wrap">
+      <p class="eyebrow eyebrow-light" data-i18n="hero.eyebrow">Lavradio · Barreiro · Lisbon Metropolitan Area</p>
+      <h1 class="hero-title" id="heroTitle"><span class="hero-by">VILNYI</span><span data-i18n="hero.title">Barreiro 2</span></h1>
+      <p class="hero-sub" data-i18n="hero.sub">Eight apartments on Rua Eduardo Couto</p>
+      <div class="hero-ctas">
+        <a class="btn btn-light" href="#apartments" data-i18n="hero.cta.choose">Choose your apartment</a>
+        <button class="btn btn-ghost-light" type="button" data-act="explore">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 3.5 7.5v9L12 21l8.5-4.5v-9L12 3Zm0 0v18M3.5 7.5 12 12l8.5-4.5"/></svg>
+          <span data-i18n="hero.cta.3d">Explore in 3D</span>
+        </button>
+      </div>
+      <p class="hero-note" data-i18n="hero.note">Illustrative render. Preliminary study, subject to licensing.</p>
+    </div>
+  </section>
+
+  <section class="facts" aria-label="Key facts">
+    <ul class="facts-in wrap" id="facts">
+      <li><b>8</b><span data-i18n="hero.fact.units">apartments</span></li>
+      <li><b>T1 · T2</b><span data-i18n="hero.fact.types">one &amp; two bedrooms</span></li>
+      <li><b>386</b><span data-i18n="hero.fact.area">m² of living space</span></li>
+      <li><b>8 / 8</b><span data-i18n="hero.fact.parking">parking for every apartment</span></li>
+      <li><b>Q4 2028</b><span data-i18n="hero.fact.keys">keys handed over</span></li>
+    </ul>
+  </section>
+
+  <section class="intro wrap">
+    <p class="lede-big" data-i18n="hero.lede">A new building by VILNYI on a quiet residential street above the Tagus. Eight light-filled one- and two-bedroom homes under a zinc mansard, with private gardens, glass balconies and a parking space for every apartment. Lisbon is a twenty-minute ferry ride across the river.</p>
+  </section>
+
+  <section class="sel wrap" id="apartments" aria-labelledby="selTitle">
+    <div class="sec-head">
+      <p class="eyebrow" data-i18n="sel.eyebrow">The apartments</p>
+      <h2 id="selTitle" data-i18n="sel.title">Choose your apartment</h2>
+      <p class="lede" data-i18n="sel.lede">Tap a floor on the façade to open its plan. Every apartment is coloured by its current availability.</p>
+    </div>
+
+    <div class="sel-grid">
+      <div class="sel-visual">
+        <div class="seg" role="tablist" aria-label="View">
+          <button type="button" role="tab" class="seg-b is-on" id="selFacadeTab" aria-selected="true" data-i18n="sel.view.facade">Façade</button>
+          <button type="button" role="tab" class="seg-b" id="sel3dTab" aria-selected="false" data-i18n="sel.view.3d">3D model</button>
+        </div>
+        <div class="facade" id="facade">
+          <img src="assets/facade-day.jpg" alt="Street façade of Barreiro 2 in afternoon light" width="1368" height="1167">
+          <svg class="facade-svg" id="facadeSvg" viewBox="0 0 1368 1167" preserveAspectRatio="none" aria-label="Floors"></svg>
+          <div class="facade-tip" id="facadeTip" hidden></div>
+        </div>
+        <div class="sel3d" id="sel3d" hidden>
+          <div class="sel3d-poster" id="sel3dPoster">
+            <img src="assets/facade-day.jpg" alt="" width="1368" height="1167">
+            <button class="btn btn-light" type="button" id="sel3dLoad" data-i18n="sel.3d.load">Load the 3D model</button>
+          </div>
+          <p class="sel3d-hint" data-i18n="sel.3d.hint">Drag to orbit · tap a floor to open its plan</p>
+        </div>
+      </div>
+
+      <div class="sel-side">
+        <ol class="floors" id="floorList" aria-label="Floors"></ol>
+        <div class="legend" id="legend"></div>
+      </div>
+    </div>
+
+    <div class="planpanel" id="planPanel" hidden></div>
+
+    <div class="filters" id="filters"></div>
+    <div class="table-wrap">
+      <table class="avail" id="availTable"></table>
+    </div>
+    <p class="fineprint" id="availNote"></p>
+  </section>
+
+  <section class="loc" id="location" aria-labelledby="locTitle">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow" data-i18n="loc.eyebrow">Location</p>
+        <h2 id="locTitle" data-i18n="loc.title">Lavradio, on the south bank of the Tagus</h2>
+        <p class="lede" data-i18n="loc.lede">Rua Eduardo Couto is a residential street of two-storey houses in Lavradio, Barreiro.</p>
+      </div>
+      <div class="loc-grid">
+        <div class="gallery" id="gallery">
+          <figure class="g-a"><img src="assets/site-street.jpg" alt="" loading="lazy" width="720" height="1280"><figcaption data-i18n="loc.street">The plot from Rua Eduardo Couto</figcaption></figure>
+          <figure class="g-b"><img src="assets/site-plot.jpg" alt="" loading="lazy" width="720" height="1280"><figcaption data-i18n="loc.plot">Looking towards the rear boundary</figcaption></figure>
+          <figure class="g-c"><img src="assets/site-tejo.jpg" alt="" loading="lazy" width="464" height="848"><figcaption data-i18n="loc.tejo">The street runs down towards the river</figcaption></figure>
+          <figure class="g-d"><img src="assets/site-rear.jpg" alt="" loading="lazy" width="464" height="848"><figcaption data-i18n="loc.rear">Neighbouring blocks behind the plot</figcaption></figure>
+        </div>
+        <aside class="loc-side">
+          <p class="addr" id="addr"></p>
+          <div class="loc-actions">
+            <a class="btn btn-line" id="mapsLink" target="_blank" rel="noopener" data-i18n="loc.maps">Open in Google Maps</a>
+            <a class="btn btn-line" id="earthLink" target="_blank" rel="noopener" data-i18n="loc.earth">Open in Google Earth</a>
+            <button class="btn btn-solid" type="button" data-act="aerial">
+              <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3M12 8.5l2 3.5-2 3.5-2-3.5z"/></svg>
+              <span data-i18n="loc.aerial">Bird’s-eye 360°</span>
+            </button>
+          </div>
+          <h3 class="h-small" data-i18n="loc.distances">Nearby</h3>
+          <ul class="dist" id="distList"></ul>
+          <p class="fineprint"><span data-i18n="loc.distNote">Straight-line distances from the site.</span> <span class="mono" id="coords"></span></p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="bld wrap" id="building" aria-labelledby="bldTitle">
+    <div class="sec-head">
+      <p class="eyebrow" data-i18n="bld.eyebrow">The building</p>
+      <h2 id="bldTitle" data-i18n="bld.title">Built for light, quiet and low running costs</h2>
+      <p class="lede" data-i18n="bld.lede">Three floors of homes above a covered car park.</p>
+    </div>
+    <div class="bld-grid">
+      <figure class="bld-sketch"><img src="assets/sketch.jpg" alt="" loading="lazy" width="1744" height="1472"><figcaption data-i18n="bld.sketch">Design sketch</figcaption></figure>
+      <ul class="specs" id="specs"></ul>
+    </div>
+    <div class="timeline-block">
+      <h3 class="h-mid" data-i18n="bld.timeline">Programme</h3>
+      <ol class="timeline" id="timeline"></ol>
+      <p class="fineprint" data-i18n="bld.timelineNote">Indicative dates. They depend on the licensing process.</p>
+    </div>
+    <div class="finishes-block">
+      <h3 class="h-mid" data-i18n="bld.finishes">Three finishes</h3>
+      <p class="lede" data-i18n="bld.finishesLede">Choose the finish when you reserve.</p>
+      <div class="finish-cards" id="finishCards"></div>
+    </div>
+  </section>
+</div>
+
+<main id="page" hidden></main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div class="foot-brand">
+      <span class="brand-mark">VILNYI</span>
+      <p id="footDev"></p>
+    </div>
+    <div class="foot-contact">
+      <h3 class="h-small" data-i18n="foot.contact">Contact</h3>
+      <div id="footContact"></div>
+    </div>
+    <div class="foot-links">
+      <a href="#apartments" data-i18n="nav.apartments">Apartments</a>
+      <a href="#location" data-i18n="nav.location">Location</a>
+      <a href="#building" data-i18n="nav.building">The building</a>
+      <a href="#reserve" data-i18n="nav.reserve">Reserve</a>
+      <a href="#interest" data-i18n="unit.interest">Register interest</a>
+      <a href="#admin" id="adminLink" hidden>Admin</a>
+    </div>
+    <p class="disclaimer" data-i18n="foot.disclaimer">Barreiro 2 is a preliminary study and is subject to municipal licensing. Renders are illustrative. Prices are indicative.</p>
+  </div>
+</footer>
+
+<div class="imm" id="imm" hidden role="dialog" aria-modal="true" aria-label="3D">
+  <div class="imm-bar">
+    <span class="brand-mark imm-brand">VILNYI</span>
+    <div class="seg seg-dark" id="immModes" role="tablist">
+      <button type="button" class="seg-b" data-mode="exterior" data-i18n="v.exterior">Exterior</button>
+      <button type="button" class="seg-b" data-mode="aerial" data-i18n="v.aerial">Bird’s-eye</button>
+      <button type="button" class="seg-b" data-mode="walk" data-i18n="v.walk">Walk</button>
+    </div>
+    <label class="tod">
+      <span class="sr" data-i18n="v.time">Light</span>
+      <select id="todSel" aria-label="Light">
+        <option value="day" data-i18n="tod.day">Day</option>
+        <option value="golden" data-i18n="tod.golden">Golden hour</option>
+        <option value="dusk" data-i18n="tod.dusk">Dusk</option>
+      </select>
+    </label>
+    <button class="icon-btn imm-close" type="button" id="immClose" aria-label="Close" data-i18n-aria="v.close">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+  </div>
+  <div class="imm-stage" id="immStage"></div>
+  <div class="imm-place" id="immPlace" hidden></div>
+</div>
+
+<div class="modal" id="modal" hidden role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-card" id="modalCard"></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script type="module" src="js/app.js"></script>
