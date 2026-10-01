@@ -18,7 +18,7 @@
    "W": 2400,
    "H": 1350,
    "spp": 192,
-   "ev": 0.9890388590168255,
+   "ev": 1.0060091406329559,
    "tod": "golden",
    "position": [
     7.6,
@@ -35,9 +35,9 @@
    "kind": null,
    "lens": 18.0,
    "shift_y": 0.1764,
-   "seconds": 1324.6
+   "seconds": 1813.6
   }
  ],
- "seconds": 1449.9,
+ "seconds": 1990.6,
  "blender": "4.2.3 LTS"
 }
