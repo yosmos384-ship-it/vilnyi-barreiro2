@@ -1,0 +1,178 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.C",
+  "pkg": "lisboa",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "1.C-lisboa-h0",
+   "1.C-lisboa-h1",
+   "1.C-lisboa-h2",
+   "1.C-lisboa-h3",
+   "1.C-lisboa-h4"
+  ],
+  "out": "renders/units/1.C/lisboa",
+  "name": "u1.C-lisboa-0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "1.C-lisboa-h0",
+   "type": "pano",
+   "file": "renders/units/1.C/lisboa/1.C-lisboa-h0.jpg",
+   "thumb": "renders/units/1.C/lisboa/thumbs/1.C-lisboa-h0.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 4.126767297838718,
+   "tod": "day",
+   "position": [
+    3.7,
+    4.6,
+    9.95
+   ],
+   "lookAt": [
+    8.721,
+    4.25,
+    10.788
+   ],
+   "roomId": "1.C-hall",
+   "name": {
+    "en": "Hall",
+    "pt": "Hall",
+    "he": "מסדרון"
+   },
+   "kind": null,
+   "yawOffset": -1.73617,
+   "index": 0,
+   "seconds": 1614.4
+  },
+  {
+   "id": "1.C-lisboa-h1",
+   "type": "pano",
+   "file": "renders/units/1.C/lisboa/1.C-lisboa-h1.jpg",
+   "thumb": "renders/units/1.C/lisboa/thumbs/1.C-lisboa-h1.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.7083227256189786,
+   "tod": "day",
+   "position": [
+    6.799,
+    4.6,
+    10.125
+   ],
+   "lookAt": [
+    5.132,
+    4,
+    9.842
+   ],
+   "roomId": "1.C-hall",
+   "name": {
+    "en": "Hall · view 2",
+    "pt": "Hall · vista 2",
+    "he": "מסדרון · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": 1.40263,
+   "index": 1,
+   "seconds": 1616.5
+  },
+  {
+   "id": "1.C-lisboa-h2",
+   "type": "pano",
+   "file": "renders/units/1.C/lisboa/1.C-lisboa-h2.jpg",
+   "thumb": "renders/units/1.C/lisboa/thumbs/1.C-lisboa-h2.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 1.9640398898470979,
+   "tod": "day",
+   "position": [
+    8.15,
+    4.6,
+    8.59
+   ],
+   "lookAt": [
+    9.044,
+    4.3,
+    7.628
+   ],
+   "roomId": "1.C-wc",
+   "name": {
+    "en": "Bathroom",
+    "pt": "I.S.",
+    "he": "חדר רחצה"
+   },
+   "kind": null,
+   "yawOffset": -0.74878,
+   "index": 2,
+   "seconds": 1811.0
+  },
+  {
+   "id": "1.C-lisboa-h3",
+   "type": "pano",
+   "file": "renders/units/1.C/lisboa/1.C-lisboa-h3.jpg",
+   "thumb": "renders/units/1.C/lisboa/thumbs/1.C-lisboa-h3.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 2.413870945181304,
+   "tod": "day",
+   "position": [
+    10.26,
+    4.6,
+    7.21
+   ],
+   "lookAt": [
+    12.44,
+    4.25,
+    13.982
+   ],
+   "roomId": "1.C-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": null,
+   "yawOffset": -2.83015,
+   "index": 3,
+   "seconds": 1704.6
+  },
+  {
+   "id": "1.C-lisboa-h4",
+   "type": "pano",
+   "file": "renders/units/1.C/lisboa/1.C-lisboa-h4.jpg",
+   "thumb": "renders/units/1.C/lisboa/thumbs/1.C-lisboa-h4.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 2.109060014659471,
+   "tod": "day",
+   "position": [
+    13.086,
+    4.6,
+    13.882
+   ],
+   "lookAt": [
+    11.76,
+    4,
+    9.71
+   ],
+   "roomId": "1.C-living",
+   "name": {
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": 0.30774,
+   "index": 4,
+   "seconds": 1763.4
+  }
+ ],
+ "seconds": 8526.6,
+ "blender": "4.2.3 LTS"
+}
