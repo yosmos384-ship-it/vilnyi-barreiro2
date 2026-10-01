@@ -5,7 +5,9 @@
   "shots": [
    "0.A-living",
    "0.A-noir-h5",
-   "rear-garden"
+   "0.A-noir-h7",
+   "rear-garden",
+   "street-golden-34"
   ],
   "out": "renders/preview/exterior",
   "name": "preview-exterior",
@@ -15,6 +17,33 @@
  },
  "shots": [
   {
+   "id": "street-golden-34",
+   "type": "still",
+   "file": "renders/preview/exterior/street-golden-34.jpg",
+   "thumb": "renders/preview/exterior/thumbs/street-golden-34.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": -0.6482136813723829,
+   "tod": "golden",
+   "position": [
+    22.5,
+    0.72,
+    23.599999999999998
+   ],
+   "lookAt": [
+    6.5,
+    4,
+    13
+   ],
+   "roomId": null,
+   "name": "3/4 view from the street, golden hour",
+   "kind": null,
+   "lens": 24.0,
+   "shift_y": 0.1139,
+   "seconds": 93.6
+  },
+  {
    "id": "rear-garden",
    "type": "still",
    "file": "renders/preview/exterior/rear-garden.jpg",
@@ -22,7 +51,7 @@
    "W": 960,
    "H": 540,
    "spp": 64,
-   "ev": 1.0611563051101858,
+   "ev": 1.448296966551376,
    "tod": "golden",
    "position": [
     7.6,
@@ -39,9 +68,9 @@
    "kind": null,
    "lens": 18.0,
    "shift_y": 0.1764,
-   "seconds": 114.9
+   "seconds": 123.4
   }
  ],
- "seconds": 131.8,
+ "seconds": 255.9,
  "blender": "4.2.3 LTS"
 }
