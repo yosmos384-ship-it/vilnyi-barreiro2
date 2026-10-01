@@ -267,7 +267,7 @@ def render_group(job, q, quality, scn, tod, shots, tmp, out_dir):
     winfo = LI.setup_world(tod, dict(hdri_res=opts.get('hdri_res', '4k'), sky_override=opts.get('sky', {}).get(tod) if opts.get('sky') else None,
                                      sky_visible_gain=opts.get('sky_visible_gain', 1.0), sky_gain=opts.get('sky_gain', 1.4), tmpdir=tmp), log)
     LI.setup_render(dict(samples=q['still_spp'], adaptive_threshold=q['still_thr'], clamp_indirect=10.0,
-                         look=opts.get('look', 'AgX - Medium High Contrast' if not is_unit else 'AgX - Base Contrast')))
+                         look=opts.get('look', 'AgX - Medium High Contrast')))
     log(f'scene ready in {time.time() - t_load:.1f}s  (world {winfo.get("hdri")})')
 
     res = []

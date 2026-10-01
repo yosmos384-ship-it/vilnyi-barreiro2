@@ -407,8 +407,10 @@ def build(mat, key, variant, pkg, opts):
     """Rebuild `mat` in place according to the recipe for key/pkg. Returns recipe used (or None)."""
     r = L.recipe(key, pkg)
     info = gltf_info(mat)
-    if not info['vcol'] and mat.get('vb_vcol'):
-        info['vcol'] = mat['vb_vcol']
+    if mat.get('vb_vcol'):
+        # the real attribute name on the meshes (the importer's node may say 'Col' while the attribute is 'Color')
+        if info['vcol'] or key in ('render-white', 'render-cream', 'render-pink', 'roof-tile-terracotta', 'foliage'):
+            info['vcol'] = mat['vb_vcol']
     if opts.get('debug_mats') is not None:
         opts['debug_mats'].append(f"{mat.name}: key={key} col={tuple(round(c, 3) for c in info['color'][:3])} vcol={info['vcol']} img={info['image'].name if info['image'] else None} uv={info['image_uv']}")
     if r is None:
