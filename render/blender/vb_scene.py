@@ -331,7 +331,11 @@ def leafify(centre, radius=70.0, density=700.0, min_dim=0.3, max_area=6000.0, lo
         if not idx:
             continue
         me = ob.data
-        bm = bmesh.new(); bm.from_mesh(me); bm.faces.ensure_lookup_table()
+        bm = bmesh.new(); bm.from_mesh(me)
+        # flat-shaded exports have unshared vertices: weld the foliage faces so a crown is one island
+        fv = list({v for f in bm.faces if f.material_index in idx for v in f.verts})
+        bmesh.ops.remove_doubles(bm, verts=fv, dist=0.0005)
+        bm.faces.ensure_lookup_table()
         mw = ob.matrix_world
         seen = set(); crown_faces = []
         for f0 in bm.faces:
@@ -349,7 +353,8 @@ def leafify(centre, radius=70.0, density=700.0, min_dim=0.3, max_area=6000.0, lo
             mx = Vector((max(p.x for p in pts), max(p.y for p in pts), max(p.z for p in pts)))
             c = (mn + mx) / 2
             d = mx - mn
-            if min(d.x, d.y, d.z) < min_dim or (Vector((c.x, c.y)) - Vector((centre[0], centre[1]))).length > radius:
+            ds = sorted([d.x, d.y, d.z])
+            if ds[2] < 0.25 or ds[1] < 0.12 or (Vector((c.x, c.y)) - Vector((centre[0], centre[1]))).length > radius:
                 continue
             crown_faces += isl
         nf = sum(1 for f in bm.faces if f.material_index in idx)
