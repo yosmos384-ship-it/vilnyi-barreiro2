@@ -42,7 +42,10 @@ def main():
                 continue
             jobs.append(dict(scope='exterior', quality=q, shots=[c['id']], out='renders/exterior', name=f'ext-{c["id"]}', opts=opts))
     if st in ('common', 'all'):
-        jobs.append(dict(scope='common', quality=q, shots=want, out='renders/common', name='common', opts=opts))
+        for c in cams.get('common', []):     # one job per shot (lamp-lit common areas are slow)
+            if want != ['all'] and c['id'] not in want:
+                continue
+            jobs.append(dict(scope='common', quality=q, shots=[c['id']], out='renders/common', name=f'common-{c["id"]}', opts=opts))
     if st in ('units', 'all'):
         n = PER_SHARD.get(q, 4)
         for u in units:
