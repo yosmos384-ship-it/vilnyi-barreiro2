@@ -23,6 +23,7 @@ def b2t(v):
 
 def reset():
     bpy.ops.wm.read_factory_settings(use_empty=True)
+    M.reset_caches()
 
 
 def import_glb(path, tag):

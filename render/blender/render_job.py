@@ -51,6 +51,10 @@ QUALITY = {
     'standard': dict(still=(2400, 1350), still_spp=320, still_thr=0.015, pano=(4096, 2048), pano_spp=160, pano_thr=0.03, expo_samples=24),
     'high':     dict(still=(2400, 1350), still_spp=512, still_thr=0.01, pano=(4096, 2048), pano_spp=320, pano_thr=0.02, expo_samples=32),
 }
+# camera tweaks after looking at the previews (three.js coords deltas)
+CAM_OVERRIDES = {
+    'street-golden-34': {'dpos': [-1.0, 0.0, -2.6]},   # step off the far pavement (a parked car filled the foreground)
+}
 EXT_SPP = {'preview': 64, 'standard': 192, 'high': 256}
 
 
@@ -163,7 +167,19 @@ def main():
     # group shots by (scene set, tod) so each group loads once
     groups = {}
     for s in shots:
-        scn = tuple(sorted(s.get('scenes', ['building', 'context'])))
+        scn = list(s.get('scenes', ['building', 'context']))
+        if job['scope'] == 'exterior' and (job.get('opts') or {}).get('with_units', True):
+            scn = [x for x in scn if not x.startswith('unit-')] + [f'unit-{u}-*' for u in cams['unitsData'].keys()]
+        # per-shot camera overrides (three.js metres)
+        ov = CAM_OVERRIDES.get(s['id'])
+        if ov:
+            for k, v in ov.items():
+                if k in ('dpos', 'dlook'):
+                    key = 'position' if k == 'dpos' else 'lookAt'
+                    s[key] = [a + b for a, b in zip(s[key], v)]
+                else:
+                    s[k] = v
+        scn = tuple(sorted(scn))
         groups.setdefault((scn, s['tod']), []).append(s)
     results = []
     for (scn, tod), group in groups.items():
@@ -178,7 +194,7 @@ def resolve_scene_files(scn, job):
     files = []
     for s in scn:
         if s.endswith('*'):
-            pkg = job.get('pkg') or job.get('ext_pkg', 'atlantic')
+            pkg = job.get('pkg') or (job.get('opts') or {}).get('ext_pkg', 'atlantic')
             s = s[:-1] + pkg
         f = os.path.join(SCENES, s + ('' if s.endswith('.glb') else '.glb'))
         if os.path.exists(f):
@@ -193,7 +209,7 @@ def render_group(job, q, quality, scn, tod, shots, tmp, out_dir):
     S.reset()
     opts = dict(job.get('opts', {}) or {})
     is_unit = job['scope'] == 'unit'
-    pkg_default = job.get('pkg') or job.get('ext_pkg', 'atlantic')
+    pkg_default = job.get('pkg') or opts.get('ext_pkg', 'atlantic')
     objs_by = {}
     for tag, f in resolve_scene_files(scn, job):
         t1 = time.time()

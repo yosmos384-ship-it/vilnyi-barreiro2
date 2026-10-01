@@ -256,7 +256,8 @@ def measure_exposure(tmpdir, key, opts, log, w=None, h=None):
     sc = bpy.context.scene
     r = sc.render
     saved = (r.resolution_x, r.resolution_y, r.resolution_percentage, sc.cycles.samples, sc.cycles.use_denoising,
-             r.image_settings.file_format, r.image_settings.color_depth, sc.use_nodes, sc.cycles.use_adaptive_sampling)
+             r.image_settings.file_format, r.image_settings.color_depth, sc.use_nodes, sc.cycles.use_adaptive_sampling, r.film_transparent)
+    r.film_transparent = True   # alpha = 0 where the camera sees the sky -> meter on the architecture only
     W, H = r.resolution_x, r.resolution_y
     s = 200.0 / max(W, H)
     r.resolution_x, r.resolution_y, r.resolution_percentage = max(16, int(W * s)), max(8, int(H * s)), 100
@@ -267,11 +268,15 @@ def measure_exposure(tmpdir, key, opts, log, w=None, h=None):
     r.filepath = p
     bpy.ops.render.render(write_still=True)
     (r.resolution_x, r.resolution_y, r.resolution_percentage, sc.cycles.samples, sc.cycles.use_denoising,
-     r.image_settings.file_format, r.image_settings.color_depth, sc.use_nodes, sc.cycles.use_adaptive_sampling) = saved
+     r.image_settings.file_format, r.image_settings.color_depth, sc.use_nodes, sc.cycles.use_adaptive_sampling, r.film_transparent) = saved
     img = bpy.data.images.load(p)
     px = np.empty(img.size[0] * img.size[1] * 4, dtype=np.float32); img.pixels.foreach_get(px)
     bpy.data.images.remove(img)
     px = px.reshape(-1, 4)
+    geo = px[:, 3] > 0.5
+    if geo.sum() > 0.05 * len(px):
+        px = px[geo]
+        # un-premultiply is not needed for opaque pixels
     lum = 0.2126 * px[:, 0] + 0.7152 * px[:, 1] + 0.0722 * px[:, 2]
     lum = lum[np.isfinite(lum)]
     lo, hi = np.percentile(lum, [2, 97])
@@ -281,7 +286,7 @@ def measure_exposure(tmpdir, key, opts, log, w=None, h=None):
     lavg = float(np.exp(np.mean(np.log(sel + 1e-5))))
     ev = math.log2(key / max(lavg, 1e-6))
     # protect highlights: the 90th percentile (sunlit white render, sky) should stay below ~2.5 scene-linear
-    p99 = float(np.percentile(lum, 90.0))
+    p99 = float(np.percentile(lum, opts.get('hi_pct', 95.0)))
     ev_hi = math.log2(opts.get('hi_white', 2.5) / max(p99, 1e-6))
     evf = min(ev, ev_hi)
     evf = max(-12.0, min(12.0, evf))

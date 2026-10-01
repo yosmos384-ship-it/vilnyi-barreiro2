@@ -56,22 +56,32 @@ def load_img(path, colorspace):
         return None
 
 
-def img_mean(img):
-    """Mean linear luminance of an image (for 'keep_color' detail normalisation)."""
+def reset_caches():
+    _img_cache.clear(); _mean_cache.clear()
+    STATS.update({'materials': 0, 'textured': 0, 'missing_tex': set(), 'unknown_keys': {}, 'by_key': {}})
+
+
+def img_mean_rgb(img):
+    """Mean linear RGB of an image (sRGB-decoded by Blender when colorspace is sRGB)."""
     if img is None:
-        return 0.5
+        return (0.5, 0.5, 0.5)
     if img.name in _mean_cache:
         return _mean_cache[img.name]
     try:
         w, h = img.size
         px = np.empty(w * h * 4, dtype=np.float32)
         img.pixels.foreach_get(px)
-        px = px.reshape(-1, 4)[::97, :3]
-        m = float(np.mean(0.2126 * px[:, 0] + 0.7152 * px[:, 1] + 0.0722 * px[:, 2]))
+        px = px.reshape(-1, 4)[::31, :3]
+        m = tuple(max(0.01, float(x)) for x in px.mean(axis=0))
     except Exception:
-        m = 0.5
-    _mean_cache[img.name] = max(m, 0.02)
-    return _mean_cache[img.name]
+        m = (0.5, 0.5, 0.5)
+    _mean_cache[img.name] = m
+    return m
+
+
+def img_mean(img):
+    r, g, b = img_mean_rgb(img)
+    return max(0.02, 0.2126 * r + 0.7152 * g + 0.0722 * b)
 
 
 # ------------------------------------------------------------------ node helpers
@@ -470,7 +480,7 @@ def build(mat, key, variant, pkg, opts):
         color = tb['color']
         if r.get('invert'):
             inv = nb.node('ShaderNodeInvert'); nb.link(color, inv.inputs['Color']); color = inv.outputs['Color']
-        if r.get('hsv'):
+        if r.get('hsv') and not r.get('tint'):
             hs = nb.node('ShaderNodeHueSaturation')
             hs.inputs['Hue'].default_value, hs.inputs['Saturation'].default_value, hs.inputs['Value'].default_value = r['hsv']
             nb.link(color, hs.inputs['Color']); color = hs.outputs['Color']
@@ -489,7 +499,17 @@ def build(mat, key, variant, pkg, opts):
                 bcol = base
             color = nb.mix('MULTIPLY', bcol, dc.outputs[0], 1.0)
         elif r.get('tint'):
-            color = nb.mix('MULTIPLY', color, hex_lin(r['tint']), 1.0)
+            # tint = the target MEAN albedo (sRGB hex); the texture only contributes detail around it
+            m = img_mean_rgb(tb.get('img'))
+            if r.get('hsv') and tb.get('img') is not None:
+                m = img_mean_rgb(tb.get('img'))  # hsv shifts are small; mean of the raw map is good enough
+            tgt = hex_lin(r['tint'])
+            k = r.get('detail', 1.0)
+            sc = tuple(tgt[i] / m[i] for i in range(3))
+            det = nb.mix('MULTIPLY', color, (*sc, 1.0), 1.0)
+            if k != 1.0:
+                det = nb.mix('MIX', (*tgt[:3], 1.0), det, k)
+            color = det
     else:
         if r.get('keep_color'):
             base = info['color']

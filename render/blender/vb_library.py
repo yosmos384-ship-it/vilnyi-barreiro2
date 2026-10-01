@@ -26,11 +26,11 @@ Recipe fields (all optional):
 # ------------------------------------------------------------------ shared / exterior
 BASE = {
     # --- façades
-    'render-white':      dict(tex='white_plaster_02', size=1.2, tint='#f4f1ea', hsv=(0.5, 0.25, 1.0), rough=(0.80, 0.95), bump=0.12, var=0.05),
-    'render-pink':       dict(tex='white_plaster_02', size=1.2, tint='#e9a993', hsv=(0.5, 0.3, 1.0), rough=(0.8, 0.95), bump=0.15, var=0.07),
-    'render-cream':      dict(tex='white_plaster_02', size=1.2, tint='#eadcc0', hsv=(0.5, 0.3, 1.0), rough=(0.8, 0.95), bump=0.15, var=0.08),
+    'render-white':      dict(tex='white_plaster_02', size=1.2, tint='#ece8df', detail=0.6, rough=(0.80, 0.95), bump=0.12, var=0.04),
+    'render-pink':       dict(tex='white_plaster_02', size=1.2, tint='#e3a08c', detail=0.7, rough=(0.8, 0.95), bump=0.15, var=0.07),
+    'render-cream':      dict(tex='white_plaster_02', size=1.2, tint='#e6d9bf', detail=0.7, rough=(0.8, 0.95), bump=0.15, var=0.08),
     'brick-facade':      dict(tex='red_brick', size=1.4, hsv=(0.5, 0.95, 0.85), rough=(0.75, 0.95), bump=0.5, var=0.06),
-    'zinc-standing-seam': dict(color='#3b3e42', rough=0.42, metal=0.55, proc='seam', seam=0.43, var=0.05, spec=0.5),
+    'zinc-standing-seam': dict(color='#34373a', rough=0.5, metal=0.3, proc='seam', seam=0.43, var=0.05, spec=0.5),
     'stone-coping':      dict(tex='concrete_floor_02', size=2.0, tint='#e6e2da', hsv=(0.5, 0.2, 1.15), rough=(0.6, 0.85), bump=0.1),
     'concrete':          dict(tex='concrete_wall_008', size=2.7, hsv=(0.5, 0.5, 1.0), rough=(0.7, 0.95), bump=0.2, var=0.05),
     'glass-window':      dict(shader='glass_thin', color='#eef3f2', ior=1.52),
@@ -192,9 +192,12 @@ PACKAGE_FURNITURE_METAL = {'atlantic': '#c9c8c4', 'lisboa': '#c49a52', 'noir': '
 # ------------------------------------------------------------------ HDRI skies (Poly Haven ids)
 # name: (hdri id, target sun illuminance lux (None = no sun / sky-only), target horizontal sky illuminance lux)
 SKIES = {
-    'day':    dict(hdri='kloofendal_43d_clear_puresky', sun_lux=95000, sky_lux=18000, sun_az=200.0, sun_alt=None),
-    'golden': dict(hdri='syferfontein_18d_clear_puresky', sun_lux=45000, sky_lux=9000, sun_az=234.0, sun_alt=None),
-    'dusk':   dict(hdri='qwantani_dusk_2_puresky', sun_lux=None, sky_lux=900, sun_az=250.0, sun_alt=None),
+    'day':    dict(hdri='kloofendal_43d_clear_puresky', sun_lux=95000, sky_lux=18000, sun_az=200.0),
+    # golden: raking warm light across the street facade (facade normal bearing 151 deg) like assets/facade-day.jpg
+    'golden': dict(hdri='syferfontein_18d_clear_puresky', sun_lux=45000, sky_lux=9000, sun_az=222.0),
+    # dusk (assets/street-dusk.jpg): sun about to set in the WSW, long shadows, all lamps on
+    'dusk':   dict(hdri='syferfontein_6d_clear_puresky', sun_lux=14000, sky_lux=2500, sun_az=246.0),
+    'night':  dict(hdri='qwantani_dusk_2_puresky', sun_lux=None, sky_lux=900, sun_az=250.0),
 }
 
 # Every texture id referenced above (for the downloader)
