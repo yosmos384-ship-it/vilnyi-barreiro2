@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-10-01T03:54:38Z",
+ "generated": "2026-10-01T03:59:29Z",
  "license": "All assets CC0 1.0 (Poly Haven, ambientCG). Credits below.",
  "notes": {
   "normal": "OpenGL convention (+Y up), linear",
@@ -35,16 +35,18 @@
     "name": "Plaster 003",
     "url": "https://ambientcg.com/view?id=Plaster003",
     "maps": {
-     "albedo": "assets/pbr/plaster003/albedo.jpg",
-     "normal": "assets/pbr/plaster003/normal.jpg",
-     "roughness": "assets/pbr/plaster003/roughness.jpg"
+     "albedo": "assets/pbr/plaster003-pink/albedo.jpg",
+     "normal": "assets/pbr/plaster003-pink/normal.jpg",
+     "roughness": "assets/pbr/plaster003-pink/roughness.jpg"
     },
     "sizeMeters": [
      2,
      2
     ],
-    "tint": "#e6a58f",
-    "note": "neighbour pink render: multiply albedo by tint"
+    "note": "neighbour pink render: multiply albedo by tint",
+    "baked": {
+     "multiply": "#e6a58f"
+    }
    }
   },
   "render-cream": {
@@ -54,16 +56,18 @@
     "name": "Plaster 003",
     "url": "https://ambientcg.com/view?id=Plaster003",
     "maps": {
-     "albedo": "assets/pbr/plaster003/albedo.jpg",
-     "normal": "assets/pbr/plaster003/normal.jpg",
-     "roughness": "assets/pbr/plaster003/roughness.jpg"
+     "albedo": "assets/pbr/plaster003-cream/albedo.jpg",
+     "normal": "assets/pbr/plaster003-cream/normal.jpg",
+     "roughness": "assets/pbr/plaster003-cream/roughness.jpg"
     },
     "sizeMeters": [
      2,
      2
     ],
-    "tint": "#efe0c4",
-    "note": "context cream render: multiply albedo by tint"
+    "note": "context cream render: multiply albedo by tint",
+    "baked": {
+     "multiply": "#efe0c4"
+    }
    }
   },
   "brick-facade": {
@@ -894,18 +898,17 @@
     "name": "Painted Plaster 017",
     "url": "https://ambientcg.com/view?id=PaintedPlaster017",
     "maps": {
-     "albedo": "assets/pbr/paintedplaster017/albedo.jpg",
-     "normal": "assets/pbr/paintedplaster017/normal.jpg",
-     "roughness": "assets/pbr/paintedplaster017/roughness.jpg"
+     "albedo": "assets/pbr/paintedplaster017-warmwhite/albedo.jpg",
+     "normal": "assets/pbr/paintedplaster017-warmwhite/normal.jpg",
+     "roughness": "assets/pbr/paintedplaster017-warmwhite/roughness.jpg"
     },
     "sizeMeters": [
      2,
      2
     ],
-    "alt": [
-     "Plaster002"
-    ],
-    "tint": "#f3efe8"
+    "baked": {
+     "multiply": "#f6f2ea"
+    }
    },
    "lisboa": {
     "id": "Plaster002",
@@ -913,16 +916,18 @@
     "name": "Plaster 002",
     "url": "https://ambientcg.com/view?id=Plaster002",
     "maps": {
-     "albedo": "assets/pbr/plaster002/albedo.jpg",
-     "normal": "assets/pbr/plaster002/normal.jpg",
-     "roughness": "assets/pbr/plaster002/roughness.jpg"
+     "albedo": "assets/pbr/plaster002-lime/albedo.jpg",
+     "normal": "assets/pbr/plaster002-lime/normal.jpg",
+     "roughness": "assets/pbr/plaster002-lime/roughness.jpg"
     },
     "sizeMeters": [
      2,
      2
     ],
-    "tint": "#efe6d8",
-    "note": "lime plaster"
+    "note": "lime plaster",
+    "baked": {
+     "multiply": "#f2e9db"
+    }
    },
    "noir": {
     "id": "PaintedPlaster017",
@@ -930,19 +935,18 @@
     "name": "Painted Plaster 017",
     "url": "https://ambientcg.com/view?id=PaintedPlaster017",
     "maps": {
-     "albedo": "assets/pbr/paintedplaster017/albedo.jpg",
-     "normal": "assets/pbr/paintedplaster017/normal.jpg",
-     "roughness": "assets/pbr/paintedplaster017/roughness.jpg"
+     "albedo": "assets/pbr/paintedplaster017-warmgrey/albedo.jpg",
+     "normal": "assets/pbr/paintedplaster017-warmgrey/normal.jpg",
+     "roughness": "assets/pbr/paintedplaster017-warmgrey/roughness.jpg"
     },
     "sizeMeters": [
      2,
      2
     ],
-    "alt": [
-     "Plaster002"
-    ],
-    "tint": "#8f8a84",
-    "note": "warm grey paint"
+    "note": "warm grey paint",
+    "baked": {
+     "multiply": "#8f8a84"
+    }
    }
   },
   "wall-feature": {
@@ -1135,7 +1139,7 @@
      "Metal036"
     ],
     "baked": {
-     "multiply": "#b08a63"
+     "multiply": "#8c6e5c"
     }
    }
   },
@@ -1403,7 +1407,7 @@
      "Metal036"
     ],
     "baked": {
-     "multiply": "#b08a63"
+     "multiply": "#8c6e5c"
     }
    }
   },
@@ -1531,8 +1535,8 @@
      "ao": "assets/pbr/tiles010/ao.jpg"
     },
     "sizeMeters": [
-     0.9,
-     0.9
+     0.6,
+     0.6
     ],
     "note": "white marble subway tiles"
    },
@@ -1971,7 +1975,7 @@
      "Metal036"
     ],
     "baked": {
-     "multiply": "#b08a63"
+     "multiply": "#8c6e5c"
     }
    }
   },

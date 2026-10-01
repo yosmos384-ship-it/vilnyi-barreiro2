@@ -1,8 +1,8 @@
-mode=build cache=/home/runner/.cache/vilnyi-assets time=2026-10-01 03:54:38
+mode=build cache=/home/runner/.cache/vilnyi-assets time=2026-10-01 03:59:29
 == TEXTURES
   render-white             default   ambientcg  Plaster001                                   570 KB  [2, 2]
-  render-pink              default   ambientcg  Plaster003                                   783 KB  [2, 2]
-  render-cream             default   ambientcg  Plaster003                                     0 KB  [2, 2]
+  render-pink              default   ambientcg  Plaster003                                   730 KB  [2, 2]
+  render-cream             default   ambientcg  Plaster003                                   762 KB  [2, 2]
   brick-facade             default   ambientcg  Bricks051                                    637 KB  [1.25, 1.25]
   zinc-standing-seam       default   ambientcg  Metal032                                      98 KB  [1.0, 1.0]
   stone-coping             default   ambientcg  Travertine009                                201 KB  [1.2, 1.2]
@@ -39,9 +39,9 @@ mode=build cache=/home/runner/.cache/vilnyi-assets time=2026-10-01 03:54:38
   floor-main               atlantic  polyhaven  oak_wood_planks                              670 KB  [1.2, 1.2]
   floor-main               lisboa    ambientcg  WoodFloor014                                 416 KB  [1.8, 1.8]
   floor-main               noir      polyhaven  wood_floor                                   507 KB  [1.7, 1.7]
-  wall-paint               atlantic  ambientcg  PaintedPlaster017                              0 KB  [2, 2]
-  wall-paint               lisboa    ambientcg  Plaster002                                   676 KB  [2, 2]
-  wall-paint               noir      ambientcg  PaintedPlaster017                              0 KB  [2, 2]
+  wall-paint               atlantic  ambientcg  PaintedPlaster017                            673 KB  [2, 2]
+  wall-paint               lisboa    ambientcg  Plaster002                                   664 KB  [2, 2]
+  wall-paint               noir      ambientcg  PaintedPlaster017                            627 KB  [2, 2]
   wall-feature             atlantic  polyhaven  oak_veneer_01                                609 KB  [1.83, 1.83]
   wall-feature             lisboa    ambientcg  Wood051                                        0 KB  [0.8, 0.8]
   wall-feature             noir      ambientcg  Concrete030                                  787 KB  [2, 2]
@@ -51,7 +51,7 @@ mode=build cache=/home/runner/.cache/vilnyi-assets time=2026-10-01 03:54:38
   door-interior            noir      polyhaven  smoke_speckled_veneer                          0 KB  [1.0, 1.0]
   door-handle              atlantic  ambientcg  Metal009                                       0 KB  [1, 1]
   door-handle              lisboa    ambientcg  Metal048A                                      0 KB  [1.0, 1.0]
-  door-handle              noir      ambientcg  Metal048A                                     46 KB  [1.0, 1.0]
+  door-handle              noir      ambientcg  Metal048A                                     41 KB  [1.0, 1.0]
   bath-floor               atlantic  ambientcg  Tiles002                                     120 KB  [2.4, 2.4]
   bath-floor               lisboa    ambientcg  Tiles078                                     317 KB  [2.0, 2.0]
   bath-floor               noir      ambientcg  Tiles075                                     354 KB  [1.35, 1.35]
@@ -72,7 +72,7 @@ mode=build cache=/home/runner/.cache/vilnyi-assets time=2026-10-01 03:54:38
   kitchen-worktop          atlantic  ambientcg  Marble025                                    237 KB  [1.5, 1.5]
   kitchen-worktop          lisboa    ambientcg  Marble019                                    343 KB  [1.5, 1.5]
   kitchen-worktop          noir      ambientcg  Marble002                                      0 KB  [1.5, 1.5]
-  kitchen-splashback       atlantic  ambientcg  Tiles010                                     318 KB  [0.9, 0.9]
+  kitchen-splashback       atlantic  ambientcg  Tiles010                                     318 KB  [0.6, 0.6]
   kitchen-splashback       lisboa    ambientcg  Tiles101                                       0 KB  [1.2, 1.2]
   kitchen-splashback       noir      ambientcg  Marble002                                      0 KB  [1.5, 1.5]
   appliance-steel          default   ambientcg  Metal009                                       0 KB  [1, 1]
@@ -156,9 +156,9 @@ mode=build cache=/home/runner/.cache/vilnyi-assets time=2026-10-01 03:54:38
   island_tree_02                           blender-only
   shrub_04                                 blender-only
   grass_bermuda_01                         blender-only
-== SIZES (KB) {'pbr': 39366, 'hdri': 5263, 'models': 23288} total MB 69.5
+== SIZES (KB) {'pbr': 41359, 'hdri': 5263, 'models': 23288} total MB 71.6
 == FAILURES (0)
-40M	assets/pbr
+42M	assets/pbr
 5.2M	assets/hdri
 23M	assets/models
 2.7G	/home/runner/.cache/vilnyi-assets

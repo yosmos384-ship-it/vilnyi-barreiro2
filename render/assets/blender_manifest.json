@@ -36,7 +36,10 @@
     "sizeMeters": [
      2,
      2
-    ]
+    ],
+    "bake": {
+     "multiply": "#e6a58f"
+    }
    }
   },
   "render-cream": {
@@ -55,7 +58,10 @@
     "sizeMeters": [
      2,
      2
-    ]
+    ],
+    "bake": {
+     "multiply": "#efe0c4"
+    }
    }
   },
   "brick-facade": {
@@ -897,7 +903,10 @@
     "sizeMeters": [
      2,
      2
-    ]
+    ],
+    "bake": {
+     "multiply": "#f6f2ea"
+    }
    },
    "lisboa": {
     "source": "ambientcg",
@@ -914,7 +923,10 @@
     "sizeMeters": [
      2,
      2
-    ]
+    ],
+    "bake": {
+     "multiply": "#f2e9db"
+    }
    },
    "noir": {
     "source": "ambientcg",
@@ -931,7 +943,10 @@
     "sizeMeters": [
      2,
      2
-    ]
+    ],
+    "bake": {
+     "multiply": "#8f8a84"
+    }
    }
   },
   "wall-feature": {
@@ -1131,7 +1146,7 @@
      1.0
     ],
     "bake": {
-     "multiply": "#b08a63"
+     "multiply": "#8c6e5c"
     }
    }
   },
@@ -1400,7 +1415,7 @@
      1.0
     ],
     "bake": {
-     "multiply": "#b08a63"
+     "multiply": "#8c6e5c"
     }
    }
   },
@@ -1536,8 +1551,8 @@
     },
     "page": "https://ambientcg.com/view?id=Tiles010",
     "sizeMeters": [
-     0.9,
-     0.9
+     0.6,
+     0.6
     ]
    },
    "lisboa": {
@@ -2037,7 +2052,7 @@
      1.0
     ],
     "bake": {
-     "multiply": "#b08a63"
+     "multiply": "#8c6e5c"
     }
    }
   },
