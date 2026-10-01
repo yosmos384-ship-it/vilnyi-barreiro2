@@ -270,18 +270,102 @@ function createMaterials(THREE, T) {
     white: S({ name: 'white', color: 0xf2f2f0, roughness: 0.6 }),
     rubber: S({ name: 'rubber', color: 0x2f3134, roughness: 0.9 })
   };
+  for (const k of Object.keys(M)) { const sp = PBR[k]; M[k].userData.internal = k; if (sp) M[k].name = sp.name; }
   return M;
 }
 
+// internal material → CONTRACT3 vocabulary name (+ manifest texture key, tint and tweaks once the real CC0 maps are in)
+const PBR = {
+  render:     { name: 'render-white', key: 'render-white', color: 0xffffff, ns: 0.8 },
+  wall:       { name: 'plaster-white', key: 'plaster-white', color: 0xfbf7f0, ns: 0.5, maps: ['albedo', 'normal'] },
+  ceiling:    { name: 'ceiling-white', key: 'ceiling-white', color: 0xfbf9f5, ns: 0.4, maps: ['albedo', 'normal'] },
+  bCeil:      { name: 'ceiling-white:basement', color: 0xf2f0ec, ns: 0.4 },
+  bWall:      { name: 'plaster-white:basement', key: 'render-white', color: 0xeeebe5, ns: 0.6 },
+  zinc:       { name: 'zinc-standing-seam', key: 'zinc-standing-seam', color: 0xffffff, ns: 0.6, env: 0.9 },
+  zincTrim:   { name: 'zinc-standing-seam:trim', color: 0xcfcfcf, ns: 0.6 },
+  brick:      { name: 'brick-facade', key: 'brick-facade', color: 0xb8998b, ns: 1.2 },
+  capGrey:    { name: 'concrete:cap', color: 0x9a9a97 },
+  frame:      { name: 'aluminium-frame', color: 0xffffff },
+  glass:      { name: 'glass-window' }, railGlass: { name: 'glass-railing' }, glassEdge: { name: 'glass-railing:edge' }, frosted: { name: 'glass-railing:frosted' },
+  stoneFine:  { name: 'stone-coping', key: 'stone-coping', color: 0xf1ede6 },
+  stone:      { name: 'lobby-floor-stone', key: 'lobby-floor-stone', color: 0xffffff, roughMul: 0.75 },
+  baseFloor:  { name: 'concrete:screed', color: 0xe3d9c9 },
+  oak:        { name: 'timber-soffit', key: 'timber-soffit', color: 0xffffff, rot: true },
+  walnut:     { name: 'door-walnut', key: 'door-walnut', color: 0xffffff, rot: true, bright: 1.6 },
+  teak:       { name: 'deck-teak', key: 'deck-teak', color: 0xd9b58c },
+  lacquer:    { name: 'door-interior', style: 'atlantic', color: 0xf7f6f2 },
+  brass:      { name: 'brass' },
+  steel:      { name: 'handrail-steel' },
+  darkSteel:  { name: 'steel-dark' },
+  concrete:   { name: 'concrete', key: 'concrete' },
+  epoxy:      { name: 'concrete:epoxy', key: 'concrete', color: 0x9a9c9e, roughMul: 0.55 },
+  skirting:   { name: 'skirting', color: 0xf1eee8 },
+  gravel:     { name: 'gravel', key: 'gravel' }, lawn: { name: 'lawn', key: 'lawn' }, soil: { name: 'soil' },
+  pebble:     { name: 'gravel:pebble', color: 0xf2efe8 },
+  paving:     { name: 'paving-calcada', key: 'paving-calcada' },
+  garage:     { name: 'garage-door' },
+  trunk:      { name: 'bark' },
+  planterDark:{ name: 'planter-concrete:dark', color: 0x6a6b6c },
+  leaf: { name: 'foliage:leaf' }, olive: { name: 'foliage:olive' }, oliveLight: { name: 'foliage:olive-light' }, grass: { name: 'foliage:grass' }, grassDry: { name: 'foliage:grass-dry' }, ivy: { name: 'foliage:ivy' },
+  ledWarm: { name: 'led-strip-emissive' }, ledPanel: { name: 'led-strip-emissive:panel' }, logo: { name: 'led-strip-emissive:logo' }, downlight: { name: 'downlight-emissive' },
+  mirror: { name: 'mirror' }, pv: { name: 'pv-panel' }, white: { name: 'paint-white' }, black: { name: 'plastic-black' },
+  tyre: { name: 'car-tyre' }, carGlass: { name: 'car-glass' }, carPaint: { name: 'car-paint' }, tailLight: { name: 'car-taillight' }, headLight: { name: 'car-headlight' }, rubber: { name: 'rubber' }
+};
+
+// Real CC0 PBR maps (assets/manifest.json). Async and non-blocking: the procedural canvas maps stay until a full set has loaded,
+// and stay for good if anything fails (e.g. inside a sandboxed artifact where assets/ is not reachable).
+function loadPBR(THREE, M, renderer, onDone) {
+  let base;
+  try { base = new URL('../', import.meta.url); if (!/^https?:$/.test(base.protocol)) return; } catch (e) { return; }
+  const aniso = Math.min(8, (renderer && renderer.capabilities && renderer.capabilities.getMaxAnisotropy) ? renderer.capabilities.getMaxAnisotropy() : 4);
+  let lowMem = false;
+  try { lowMem = (typeof matchMedia === 'function' && matchMedia('(max-width: 820px)').matches) || (navigator.deviceMemory && navigator.deviceMemory <= 4); } catch (e) { /* ignore */ }
+  const shrink = (t) => { // phones: 512 px maps
+    if (!lowMem || !t.image || t.image.width <= 512) return t;
+    try { const c = makeCanvas(512, 512); c.getContext('2d').drawImage(t.image, 0, 0, 512, 512); const n = new THREE.CanvasTexture(c); t.dispose(); return n; } catch (e) { return t; }
+  };
+  const loader = new THREE.TextureLoader();
+  const cache = new Map();
+  const img = (path) => { if (!cache.has(path)) cache.set(path, new Promise((res, rej) => loader.load(new URL(path, base).href, (t) => res(shrink(t)), undefined, rej))); return cache.get(path); };
+  fetch(new URL('assets/manifest.json', base)).then(r => r.ok ? r.json() : Promise.reject(new Error('manifest ' + r.status))).then((man) => {
+    const jobs = [];
+    for (const k of Object.keys(PBR)) {
+      const sp = PBR[k], mat = M[k]; if (!sp.key || !mat) continue;
+      const ent = man.textures && man.textures[sp.key]; const set = ent && (ent.default || ent[sp.style || 'atlantic']);
+      if (!set || set.procedural || !set.maps || !set.maps.albedo) continue;
+      const names = (sp.maps || (lowMem ? ['albedo', 'normal'] : ['albedo', 'normal', 'roughness'])).filter(n => set.maps[n]);
+      jobs.push(Promise.all(names.map(n => img(set.maps[n]))).then((texs) => {
+        const size = set.sizeMeters || [1, 1];
+        const mk = (i, srgb) => { const t = texs[i].clone(); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(1 / size[0], 1 / size[1]); if (sp.rot) { t.rotation = Math.PI / 2; } t.anisotropy = aniso; t.colorSpace = srgb ? THREE.SRGBColorSpace : THREE.NoColorSpace; t.needsUpdate = true; return t; };
+        const get = (n, srgb) => { const i = names.indexOf(n); return i < 0 ? null : mk(i, srgb); };
+        mat.map = get('albedo', true);
+        mat.normalMap = get('normal', false); mat.bumpMap = null;
+        if (mat.normalMap) { mat.normalMapType = THREE.TangentSpaceNormalMap; const s = sp.ns != null ? sp.ns : 1; mat.normalScale = new THREE.Vector2(s, s); }
+        mat.roughnessMap = get('roughness', false); if (mat.roughnessMap) mat.roughness = sp.roughMul != null ? sp.roughMul : 1;
+        mat.aoMap = get('ao', false); if (mat.aoMap) mat.aoMapIntensity = 0.8;
+        mat.metalnessMap = get('metal', false); if (mat.metalnessMap) mat.metalness = 1;
+        const c = new THREE.Color(sp.color != null ? sp.color : 0xffffff); if (sp.bright) c.multiplyScalar(sp.bright); mat.color.copy(c);
+        if (sp.env != null) mat.envMapIntensity = sp.env;
+        mat.userData.pbr = set.id; mat.needsUpdate = true;
+      }).catch(() => { /* keep the procedural look for this material */ }));
+    }
+    return Promise.all(jobs);
+  }).then(() => { if (onDone) onDone(); }).catch(() => { /* procedural fallback */ });
+}
+
 // ───────────────────────── geometry batcher ─────────────────────────
+const TAGGED = new Set(['glass']);
 function createBatcher(THREE) {
   const buckets = new Map(); // `${gid}|${mat}` → { gid, mat, list }
   const m4 = new THREE.Matrix4(), q = new THREE.Quaternion(), e = new THREE.Euler(), v = new THREE.Vector3(), s = new THREE.Vector3();
   const boxCache = new Map();
   function unitBox() { if (!boxCache.has('u')) boxCache.set('u', NI(new THREE.BoxGeometry(1, 1, 1))); return boxCache.get('u'); }
+  let curTag = null; // when set, geometry goes to its own mesh carrying userData.opening
+  function withTag(tag, fn) { const prev = curTag; curTag = tag; try { return fn(); } finally { curTag = prev; } }
   function push(gid, mat, geo) {
-    const k = gid + '|' + mat;
-    let b = buckets.get(k); if (!b) { b = { gid, mat, list: [] }; buckets.set(k, b); }
+    const tk = curTag && TAGGED.has(mat) ? `w${curTag.wallIndex}o${curTag.openingIndex}` : '';
+    const k = gid + '|' + mat + '|' + tk;
+    let b = buckets.get(k); if (!b) { b = { gid, mat, list: [], tag: tk ? curTag : null, tk }; buckets.set(k, b); }
     b.list.push(geo);
   }
   // box by centre + size + optional rotations (ry about y, then rx about local x)
@@ -360,7 +444,7 @@ function createBatcher(THREE) {
   }
   function finalize(groups, M, opts = {}) {
     const meshes = [];
-    for (const { gid, mat, list } of buckets.values()) {
+    for (const { gid, mat, list, tag, tk } of buckets.values()) {
       if (!list.length) continue;
       const parts = [];
       for (const g of list) {
@@ -378,7 +462,8 @@ function createBatcher(THREE) {
         continue;
       }
       merged.computeBoundingSphere(); merged.computeBoundingBox();
-      const me = new THREE.Mesh(merged, M[mat]); me.name = `${gid}-${mat}`;
+      const me = new THREE.Mesh(merged, M[mat]); me.name = tag ? `opening-${tag.floorId}-${tk}-${mat}` : `${gid}-${mat}`;
+      if (tag) me.userData.opening = { ...tag };
       const transparent = M[mat].transparent;
       me.castShadow = !transparent && !(opts.noCast || []).includes(mat);
       me.receiveShadow = !transparent;
@@ -388,7 +473,7 @@ function createBatcher(THREE) {
     buckets.clear();
     return meshes;
   }
-  return { box, boxAB, rboxAB, boxAlong, geo, slab, prismX, prismZ, cyl, push, finalize, worldUV };
+  return { withTag, box, boxAB, rboxAB, boxAlong, geo, slab, prismX, prismZ, cyl, push, finalize, worldUV };
 }
 
 // ───────────────────────── plan helpers ─────────────────────────
@@ -563,7 +648,7 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
           piece(y0, ob);
           piece(ot, y1);
         }
-        buildOpening(fid, w, F, o, ob, ot, isExt);
+        B.withTag({ floorId: fid, wallIndex: floor.walls.indexOf(w), openingIndex: w.openings.indexOf(o), type: o.type }, () => buildOpening(fid, w, F, o, ob, ot, isExt));
       }
     }
   }
@@ -602,6 +687,7 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
 
   // ───────── openings: windows, glass doors, doors ─────────
   const leafGeo = new THREE.BoxGeometry(1, 1, 1);
+  function mbox(sx, sy, sz) { const g = NI(new THREE.BoxGeometry(sx, sy, sz)); B.worldUV(g); return g; }
   const handleGeo = new THREE.CylinderGeometry(0.011, 0.011, 1, 10);
   const plateTex = new Map();
   function unitAcross(floor, F, o) {
@@ -610,14 +696,16 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     const rA = roomAt(floor, pA[0], pA[1]), rB = roomAt(floor, pB[0], pB[1]);
     return { rA, rB };
   }
+  let curOpening = null;
   function makeDoor({ id, floorId, kind, F, o, y, side, max, leafMat, thick = 0.045, handleMat = 'steel', plate = null, height }) {
     const w = o.to - o.from, h = height || (OPEN_H[o.type] || [0, 2.1])[1];
     const pivot = new THREE.Object3D(); pivot.name = `door-${id}`;
     const hp = F.P(o.from + 0.01, side * 0.0);
     pivot.position.set(hp[0], y, hp[1]);
     const base = F.ry; pivot.rotation.y = base;
-    const leaf = new THREE.Mesh(leafGeo, M[leafMat]); leaf.name = `door-leaf-${id}`;
-    leaf.scale.set(w - 0.03, h - 0.01, thick); leaf.position.set((w - 0.02) / 2, (h - 0.01) / 2 + 0.005, 0);
+    const leaf = new THREE.Mesh(mbox(w - 0.03, h - 0.01, thick), M[leafMat]); leaf.name = `door-leaf-${id}`;
+    if (curOpening) { leaf.userData.opening = { ...curOpening }; pivot.userData.opening = { ...curOpening }; }
+    leaf.position.set((w - 0.02) / 2, (h - 0.01) / 2 + 0.005, 0);
     leaf.castShadow = true; leaf.receiveShadow = true; pivot.add(leaf);
     const hx = w - 0.1;
     for (const sgn of [1, -1]) {
@@ -642,7 +730,7 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     const center = V3(...(() => { const c = F.P((o.from + o.to) / 2, 0); return [c[0], y + 1.05, c[1]]; })());
     let cur = -1;
     const d = {
-      id, floorId, kind, center, pivot, leaf,
+      id, floorId, kind, center, pivot, leaf, opening: curOpening ? { ...curOpening } : null,
       setOpen(t) { t = Math.max(0, Math.min(1, +t || 0)); if (t === cur) return; cur = t; pivot.rotation.y = base - side * max * t; }
     };
     doors.push(d);
@@ -660,6 +748,7 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
 
   function buildOpening(fid, w, F, o, ob, ot, isExt) {
     const floor = FLOORS.find(f => f.id === fid); const y = floor.level.y;
+    curOpening = { floorId: fid, wallIndex: floor.walls.indexOf(w), openingIndex: w.openings.indexOf(o), type: o.type };
     const gid = (fid === 'second' && isExt && (w.mansard)) ? 'second' : fid;
     const h = w.t / 2;
     const s0 = o.from, s1 = o.to;
@@ -747,11 +836,13 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     const panel = new THREE.Mesh(new THREE.BoxGeometry(W, H, 0.05), M.garage); panel.castShadow = true; panel.receiveShadow = true;
     // proper UVs for the panel texture (horizontal grooves)
     const uv = panel.geometry.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * W, uv.getY(i) * H);
-    panel.position.set(0, H / 2, 0); grp.add(panel);
+    panel.position.set(0, H / 2, 0); grp.add(panel); panel.name = 'garage-door-panel';
+    if (curOpening) { panel.userData.opening = { ...curOpening }; grp.userData.opening = { ...curOpening }; }
+    for (let i = 1; i < 5; i++) { const gr = new THREE.Mesh(shared.box, M.black); gr.scale.set(W, 0.012, 0.004); gr.position.set(0, H * i / 5, -0.026); grp.add(gr); }
     const handle = new THREE.Mesh(handleGeo, M.steel); handle.rotation.x = Math.PI / 2; handle.scale.set(1.5, 0.08, 1.5); handle.position.set(0, 0.95, -0.04); grp.add(handle);
     const c = F.P((s0 + s1) / 2, -h + 0.1); grp.position.set(c[0], ob + 0.01, c[1]); grp.rotation.y = F.ry;
     G[gid].add(grp); garagePanel = { grp, H, y0: ob + 0.01 };
-    const d = { id: 'garage', floorId: 'ground', kind: 'garage', center: V3(c[0], ob + 1.1, c[1]), pivot: grp,
+    const d = { id: 'garage', floorId: 'ground', kind: 'garage', center: V3(c[0], ob + 1.1, c[1]), pivot: grp, opening: curOpening ? { ...curOpening } : null,
       setOpen(t) { t = Math.max(0, Math.min(1, +t || 0)); grp.position.y = garagePanel.y0 + t * (H - 0.25); } };
     doors.push(d);
   }
@@ -783,6 +874,11 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
         const poly = r.use === 'lobby' ? [[2.75, 9.2], [9.5, 9.2], [9.5, 14.55], [2.75, 14.55]] : r.poly.map(p => [p[0], p[1]]);
         if (r.use === 'landing') { poly[0][0] = poly[3][0] = 1.55; poly[0][1] = poly[1][1] = 7.15; }
         B.slab(f.id, 'stone', poly, f.level.y - 0.02, f.level.y);
+        { // large-format joints (1.20 x 0.60) as fine recessed-looking lines
+          const xs = poly.map(p => p[0]), zs = poly.map(p => p[1]); const x0 = Math.min(...xs), x1 = Math.max(...xs), z0 = Math.min(...zs), z1 = Math.max(...zs), yj = f.level.y;
+          for (let z = z0 + 0.6; z < z1 - 0.05; z += 0.6) B.boxAB(f.id, 'capGrey', x0, yj, z - 0.0015, x1, yj + 0.0012, z + 0.0015);
+          let row = 0; for (let z = z0; z < z1 - 0.01; z += 0.6, row++) for (let x = x0 + (row % 2 ? 0.6 : 1.2); x < x1 - 0.05; x += 1.2) B.boxAB(f.id, 'capGrey', x - 0.0015, yj, z, x + 0.0015, yj + 0.0012, Math.min(z + 0.6, z1));
+        }
       }
       // floor landing of the stairs
       B.slab(f.id, 'stone', [[0.25, 8.95], [2.75, 8.95], [2.75, 10.1], [0.25, 10.1]], f.level.y - 0.02, f.level.y);
@@ -910,6 +1006,11 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
   // ───────── lift ─────────
   const levels = { basement: LEVEL_Y.basement, ground: 0, first: 3, second: 6 };
   const liftObj = {};
+  function liftOpening(fid) {
+    const f = FLOORS.find(v => v.id === fid); if (!f) return null;
+    for (let wi = 0; wi < f.walls.length; wi++) { const oi = f.walls[wi].openings.findIndex(o => o.type === 'elevator'); if (oi >= 0) return { floorId: fid, wallIndex: wi, openingIndex: oi, type: 'elevator' }; }
+    return null;
+  }
   function buildLift() {
     const L = CORE.lift, sx = (L.x0 + L.x1) / 2, sz = (L.z0 + L.z1) / 2;
     const dz0 = L.doorZ[0], dz1 = L.doorZ[1], dW = dz1 - dz0;
@@ -919,7 +1020,7 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     // cab
     const cab = new THREE.Group(); cab.name = 'lift-cab';
     const cw = 0.98, cd = 1.38, ch = 2.2; // interior
-    const add = (geo, mat, x, y, z, sxx, syy, szz, name) => { const m = new THREE.Mesh(geo, M[mat] || mat); m.position.set(x, y, z); m.scale.set(sxx, syy, szz); if (name) m.name = name; m.castShadow = false; m.receiveShadow = true; cab.add(m); return m; };
+    const add = (geo, mat, x, y, z, sxx, syy, szz, name) => { const metric = geo === shared.box; const m = new THREE.Mesh(metric ? mbox(sxx, syy, szz) : geo, M[mat] || mat); m.position.set(x, y, z); if (!metric) m.scale.set(sxx, syy, szz); if (name) m.name = name; m.castShadow = false; m.receiveShadow = true; cab.add(m); return m; };
     const bx = shared.box;
     // cab coordinates: origin at cab floor centre; +x towards the doors
     add(bx, 'stone', 0, -0.03, 0, cw + 0.08, 0.06, cd + 0.08, 'cab-floor');
@@ -990,7 +1091,7 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
       B.boxAB(gid, 'steel', x, y + 0.95, dz1 + 0.17, x + 0.012, y + 1.15, dz1 + 0.27);
       const leaves = [];
       for (const sgn of [-1, 1]) {
-        const d = new THREE.Mesh(bx, M.steel); d.scale.set(0.03, 2.1, dW / 2 + 0.01); d.position.set(L.doorOnX + 0.05, y + 1.05, (dz0 + dz1) / 2 + sgn * dW / 4); d.name = `landing-door-${fid}`; d.castShadow = true; G[gid].add(d); leaves.push({ m: d, sgn, z0: d.position.z });
+        const d = new THREE.Mesh(bx, M.steel); d.scale.set(0.03, 2.1, dW / 2 + 0.01); d.position.set(L.doorOnX + 0.05, y + 1.05, (dz0 + dz1) / 2 + sgn * dW / 4); d.name = `landing-door-${fid}`; d.userData.opening = liftOpening(fid); d.castShadow = true; G[gid].add(d); leaves.push({ m: d, sgn, z0: d.position.z });
       }
       landing[fid] = leaves;
     }
@@ -1005,7 +1106,7 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     liftObj.setCabY(0); liftObj.setCabDoors(0);
     for (const fid of ORDER) liftObj.setLandingDoors(fid, 0);
     // register elevator 'doors' (kind 'elevator') so other modules can find them
-    for (const fid of ORDER) doors.push({ id: `lift-${fid}`, floorId: fid, kind: 'elevator', center: V3(L.doorOnX, LEVEL_Y[fid] + 1.05, (dz0 + dz1) / 2), pivot: landing[fid][0].m, setOpen: (t) => liftObj.setLandingDoors(fid, t) });
+    for (const fid of ORDER) doors.push({ id: `lift-${fid}`, floorId: fid, kind: 'elevator', center: V3(L.doorOnX, LEVEL_Y[fid] + 1.05, (dz0 + dz1) / 2), pivot: landing[fid][0].m, opening: liftOpening(fid), setOpen: (t) => liftObj.setLandingDoors(fid, t) });
   }
 
   // ───────── mansard (72° zinc) with dormer notches, interior lining ─────────
@@ -1061,6 +1162,17 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
       const holes = dormerHoles.get(wallKey(p, q)) || [];
       const fz = (y) => (y - CORNICE_Y) / (ROOF.y - CORNICE_Y);
       slopePlane('roofshell', 'zinc', p, q, -0.15, -0.15 + SLOPE_RUN, CORNICE_Y, ROOF.y, holes.map(([a, b, yt]) => [a, b, fz(yt)]), [proj(O0[i]), proj(O0[(i + 1) % n])], [proj(O1[i]), proj(O1[(i + 1) % n])], false);
+      { // seams: square ribs running up the slope, stopping at dormers and hips
+        const a0 = proj(O0[i]), b0 = proj(O0[(i + 1) % n]), a1 = proj(O1[i]), b1 = proj(O1[(i + 1) % n]);
+        const P3 = (s, f) => { const nn = -0.15 + SLOPE_RUN * f - 0.012 * Math.sin(MANSARD_PITCH * Math.PI / 180); return [p[0] + e.ux * s + e.nx * nn, CORNICE_Y + (ROOF.y - CORNICE_Y) * f + 0.012 * Math.cos(MANSARD_PITCH * Math.PI / 180), p[1] + e.uz * s + e.nz * nn]; };
+        for (let s = Math.ceil((Math.min(a0, a1) + 0.05) / 0.5) * 0.5; s < Math.max(b0, b1) - 0.05; s += 0.5) {
+          let f0 = 0, f1 = 1;
+          if (s < a0) f0 = Math.max(f0, (s - a0) / (a1 - a0)); if (s < a1) f1 = Math.min(f1, (s - a0) / (a1 - a0));
+          if (s > b0) f0 = Math.max(f0, (s - b0) / (b1 - b0)); if (s > b1) f1 = Math.min(f1, (s - b0) / (b1 - b0));
+          for (const [h0, h1, yt] of holes) if (s > h0 - 0.06 && s < h1 + 0.06) f0 = Math.max(f0, fz(yt));
+          if (f1 - f0 > 0.03) B.cyl('roofshell', 'zincTrim', P3(s, f0), P3(s, f1), 0.016, 4);
+        }
+      }
       // interior lining (second floor), notched at the window openings
       const w2 = FLOORS.find(f => f.id === 'second').walls.find(w => w.a[0] === p[0] && w.a[1] === p[1] && w.b[0] === q[0] && w.b[1] === q[1]);
       const ln = (w2 ? w2.openings.filter(o => o.type !== 'slit') : []).map(o => [o.from, o.to, ((OPEN_H[o.type] || [0, 2.3])[1] + 6 - CORNICE_Y) / (8.7 - CORNICE_Y)]);
@@ -1116,7 +1228,11 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     B.boxAB(g, 'frame', sx0, sy0, 14.62, sx0 + 0.04, sy1, 14.72); B.boxAB(g, 'frame', sx1 - 0.04, sy0, 14.62, sx1, sy1, 14.72);
     B.boxAB(g, 'frame', sx0, sy0, 14.62, sx1, sy0 + 0.04, 14.72); B.boxAB(g, 'frame', sx0, sy1 - 0.04, 14.62, sx1, sy1, 14.72);
     for (const yy of [2.85, 5.85].filter(v => v < sy1)) B.boxAB(g, 'frame', sx0, yy - 0.02, 14.63, sx1, yy + 0.02, 14.71);
-    B.boxAB(g, 'glass', sx0 + 0.03, sy0 + 0.03, 14.665, sx1 - 0.03, sy1 - 0.03, 14.675);
+    for (const [fid, ya, yb2] of [['ground', sy0 + 0.03, 2.83], ['first', 2.87, sy1 - 0.03]]) {
+      const f = FLOORS.find(v => v.id === fid); let tag = null;
+      f.walls.forEach((w, wi) => { const oi = w.openings.findIndex(o => o.type === 'slit'); if (oi >= 0) tag = { floorId: fid, wallIndex: wi, openingIndex: oi, type: 'slit' }; });
+      B.withTag(tag, () => B.boxAB(g, 'glass', sx0 + 0.03, ya, 14.665, sx1 - 0.03, yb2, 14.675));
+    }
     B.boxAB(g, 'stoneFine', sx0 - 0.02, sy0 - 0.04, 14.62, sx1 + 0.02, sy0, z1 + 0.03);
   }
 
@@ -1556,7 +1672,10 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
   // interiors don't need shadow casting from ceiling/floor finishes inside — keep the exterior shells casting
   group.traverse(o => { if (o.isMesh && /-(ceil)/.test(o.parent ? o.parent.name : '')) o.castShadow = false; });
 
+  group.traverse(o => { if (o.isMesh && o.material && !o.material.name) o.material.name = /picker|highlight/.test(o.name + (o.parent ? o.parent.name : '')) ? 'helper' : /button|call/.test(o.name) ? 'lift-steel:button' : 'signage'; });
   if (scene) scene.add(group);
+  const pbrState = { loaded: false };
+  try { loadPBR(THREE, M, renderer, () => { pbrState.loaded = true; }); } catch (e) { /* procedural fallback */ }
 
   // ───────── update ─────────
   function update(dt) {
@@ -1581,6 +1700,7 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     lift: liftObj,
     update,
     // extras
+    materials: M, pbr: pbrState,
     levels: LEVEL_Y,
     rampY,
     stairLayout: STAIR

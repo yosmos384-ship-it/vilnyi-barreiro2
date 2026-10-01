@@ -173,7 +173,7 @@ export function createViewer(container, options = {}) {
     await tick();
 
     progress(0.68, 'interiors');
-    interiors = await loadModule('interiors', './interiors.js', m => m.buildInteriors(THREE, { scene }));
+    interiors = await loadModule('interiors', './interiors.js', m => m.buildInteriors(THREE, { scene, building }));
     await tick();
 
     progress(0.8, 'walk');
@@ -352,6 +352,7 @@ export function createViewer(container, options = {}) {
       setHover(pick(ev), ev);
     });
     listen(dom, 'pointerleave', () => { if (mode === 'exterior') setHover(null); });
+    let lastTap = null, tapTimer = 0;
     listen(dom, 'pointerdown', ev => { down = { x: ev.clientX, y: ev.clientY, t: performance.now() }; lastIdle = performance.now(); controls.autoRotate = false; });
     listen(dom, 'pointerup', ev => {
       if (mode !== 'exterior' || !down) return;
@@ -361,8 +362,42 @@ export function createViewer(container, options = {}) {
       if (moved > 7 || !quick) return;
       const f = pick(ev);
       setHover(f, ev);
-      if (f) emit('floor-select', { floorId: f });
+      // double-tap / double-click on a window or door: step inside through it
+      const now = performance.now();
+      if (lastTap && now - lastTap.t < 380 && Math.hypot(ev.clientX - lastTap.x, ev.clientY - lastTap.y) < 34) {
+        clearTimeout(tapTimer); lastTap = null;
+        enterThrough(ev);
+        return;
+      }
+      lastTap = { x: ev.clientX, y: ev.clientY, t: now };
+      clearTimeout(tapTimer);
+      tapTimer = setTimeout(() => { lastTap = null; if (f && mode === 'exterior') emit('floor-select', { floorId: f }); }, 390);
     });
+    listen(dom, 'dblclick', ev => { ev.preventDefault(); });
+    const enterRay = new THREE.Raycaster();
+    async function enterThrough(ev) {
+      if (!walker || !building) return;
+      const r = dom.getBoundingClientRect();
+      const ndc = new THREE.Vector2(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
+      enterRay.setFromCamera(ndc, camera);
+      const hits = enterRay.intersectObject(building.group, true);
+      let target = null;
+      for (const h of hits) {
+        if (!h.object.visible || h.object.userData?.ui || h.object.material?.colorWrite === false) continue;
+        let o = h.object, op = null;
+        while (o && !op) { op = o.userData?.opening || null; o = o.parent; }
+        target = op ? { opening: op, point: h.point } : { point: h.point };
+        break;
+      }
+      if (!target) return;
+      setHover(null);
+      const ok = await setMode('walk', { keep: true });
+      if (ok === false) return;
+      let res = false;
+      try { if (typeof walker.enterAt === 'function') res = (target.opening && walker.enterAt(target.opening)) || walker.enterAt(target.point); } catch (e) { res = false; }
+      if (!res) { try { walker.goToLift('ground'); } catch (e) { /* stay */ } }
+      emit('enter', { via: target.opening || null });
+    }
     cleanups.push(() => { floorTip.hidden = true; });
   }
 

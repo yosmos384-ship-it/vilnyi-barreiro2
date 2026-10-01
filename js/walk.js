@@ -1,6 +1,6 @@
 // VILNYI · Barreiro 2 — WALK: first-person walkthrough, HUD, stairs and lift.
 // Depends only on data.js and the BUILDING contract API (doors[], lift{...}, floorPickers).
-import { FLOORS, CORE, BALCONIES, FOOTPRINT, UNITS } from './data.js';
+import { FLOORS, CORE, BALCONIES, FOOTPRINT, UNITS, LOT, RAMP, STREET_Y, LEVELS } from './data.js';
 
 // ───────────────────────────── constants ─────────────────────────────
 const EYE = 1.62;
@@ -16,8 +16,18 @@ const DOOR_TIME = 0.7;            // s to open / close a leaf
 const LIFT_DOOR_TIME = 0.9;
 const LIFT_SPEED = 1.0;           // m/s average
 const PITCH_MIN = -1.3, PITCH_MAX = 1.15;
-const PASSABLE = new Set(['door', 'entry', 'opening', 'glassdoor', 'main', 'elevator']);
-const LEAF = new Set(['door', 'entry', 'main']);
+// Every opening is passable (client request): windows, slits and the garage included. Leaves (doors) block
+// while closed and auto-open as you approach; the lift landing door only when the cab is there.
+const PASSABLE = new Set(['door', 'entry', 'opening', 'glassdoor', 'main', 'elevator', 'window', 'slit', 'garage']);
+const LEAF = new Set(['door', 'entry', 'main', 'garage']);
+const DROP_TOL = 0.5;             // larger drops become a gentle float-down
+const ENTER_STEP = 0.95;          // max step up when climbing into the building through an opening from outside
+const BODY_LO = 0.25, BODY_HI = 1.7; // vertical band (above feet) that collides with walls
+const AREA = 60;                  // free exterior walking within ±60 m of the site
+const BASE_POLY = [[0, -7.9], [8.2, -7.9], [10.9, 1.9], [13.88, 1.9], [13.88, 14.7], [0, 14.7]];
+const RAMP_X = [10.45, 13.73];
+const PATH_X = [3.45, 5.45];      // entrance path in the front yard
+const ROOF_Y = (LEVELS.roof && LEVELS.roof.y) || 9.3;
 
 const FLOOR_BY_ID = Object.fromEntries(FLOORS.map(f => [f.id, f]));
 const ORDER = FLOORS.slice().sort((a, b) => a.level.y - b.level.y).map(f => f.id);
@@ -47,9 +57,9 @@ const CAB_C = { x: (LIFT.x0 + LIFT.x1) / 2, z: (LIFT.z0 + LIFT.z1) / 2 };
 const LIFT_DOOR_PT = { x: LIFT.doorOnX, z: (LIFT.doorZ[0] + LIFT.doorZ[1]) / 2 };
 
 const T = {
-  en: { hint: 'Drag to look · Double-click to walk', hintTouch: 'Drag to look · Double-tap to walk', plan: 'Plan', lift: 'Lift', apartment: 'Apartment', balcony: 'Balcony', terrace: 'Terrace', deck: 'Garden deck', fwd: 'Forward', back: 'Back', left: 'Turn left', right: 'Turn right', lookUp: 'Look up', lookDown: 'Look down', up: 'Up', down: 'Down', floor: 'Floor', close: 'Close plan' },
-  pt: { hint: 'Arraste para olhar · Duplo clique para andar', hintTouch: 'Arraste para olhar · Toque duplo para andar', plan: 'Planta', lift: 'Elevador', apartment: 'Apartamento', balcony: 'Varanda', terrace: 'Terraço', deck: 'Deck do jardim', fwd: 'Avançar', back: 'Recuar', left: 'Rodar à esquerda', right: 'Rodar à direita', lookUp: 'Olhar para cima', lookDown: 'Olhar para baixo', up: 'Subir', down: 'Descer', floor: 'Piso', close: 'Fechar planta' },
-  he: { hint: 'גררו כדי להסתכל · לחיצה כפולה כדי ללכת', hintTouch: 'גררו כדי להסתכל · הקשה כפולה כדי ללכת', plan: 'תוכנית', lift: 'מעלית', apartment: 'דירה', balcony: 'מרפסת', terrace: 'טרסה', deck: 'דק גינה', fwd: 'קדימה', back: 'אחורה', left: 'פנייה שמאלה', right: 'פנייה ימינה', lookUp: 'הבט למעלה', lookDown: 'הבט למטה', up: 'למעלה', down: 'למטה', floor: 'קומה', close: 'סגירת תוכנית' }
+  en: { hint: 'Drag to look · Double-click to walk', hintTouch: 'Drag to look · Double-tap to walk', plan: 'Plan', lift: 'Lift', apartment: 'Apartment', balcony: 'Balcony', terrace: 'Terrace', deck: 'Garden deck', outside: 'Outside', fwd: 'Forward', back: 'Back', left: 'Turn left', right: 'Turn right', lookUp: 'Look up', lookDown: 'Look down', up: 'Up', down: 'Down', floor: 'Floor', close: 'Close plan' },
+  pt: { hint: 'Arraste para olhar · Duplo clique para andar', hintTouch: 'Arraste para olhar · Toque duplo para andar', plan: 'Planta', lift: 'Elevador', apartment: 'Apartamento', balcony: 'Varanda', terrace: 'Terraço', deck: 'Deck do jardim', outside: 'Exterior', fwd: 'Avançar', back: 'Recuar', left: 'Rodar à esquerda', right: 'Rodar à direita', lookUp: 'Olhar para cima', lookDown: 'Olhar para baixo', up: 'Subir', down: 'Descer', floor: 'Piso', close: 'Fechar planta' },
+  he: { hint: 'גררו כדי להסתכל · לחיצה כפולה כדי ללכת', hintTouch: 'גררו כדי להסתכל · הקשה כפולה כדי ללכת', plan: 'תוכנית', lift: 'מעלית', apartment: 'דירה', balcony: 'מרפסת', terrace: 'טרסה', deck: 'דק גינה', outside: 'בחוץ', fwd: 'קדימה', back: 'אחורה', left: 'פנייה שמאלה', right: 'פנייה ימינה', lookUp: 'הבט למעלה', lookDown: 'הבט למטה', up: 'למעלה', down: 'למטה', floor: 'קומה', close: 'סגירת תוכנית' }
 };
 
 // ───────────────────────────── small helpers ─────────────────────────────
@@ -184,6 +194,7 @@ const CSS = `
 @keyframes vw-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @keyframes vw-blink{0%,100%{opacity:1}50%{opacity:.35}}
 @media (pointer:coarse){.vw-root{--vw-b:48px}}
+@media (pointer:coarse) and (max-width:560px){.vw-root{--vw-b:42px}.vw-padgrid{gap:4px}}
 @media (max-width:560px){.vw-root{--vw-inset:12px}.vw-maptoggle span{display:none}.vw-maptoggle{width:var(--vw-b);padding:0;justify-content:center}.vw-label{max-width:56vw}.vw-lift{width:84px;padding:10px 0;gap:9px}.vw-lift-ind{width:58px;height:40px}.vw-lift-num{font-size:22px}.vw-lift-btns{gap:6px}.vw-lbtn{width:38px;height:38px;font-size:13px}.vw-lift-ud{width:66px;padding-top:8px}.vw-lift-ud .vw-btn{width:30px;height:30px}.vw-hint{inset-block-end:calc(var(--vw-inset) + 3 * var(--vw-b) + 26px);white-space:normal;text-align:center;width:max-content;max-width:78vw;line-height:1.5}}
 @media (prefers-reduced-motion:reduce){.vw-root *{transition:none!important;animation:none!important}}
 `;
@@ -243,11 +254,13 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   const doorRecs = [];
   for (const d of (building && building.doors) || []) {
     if (!d || !LEAF.has(d.kind) || typeof d.setOpen !== 'function') continue;
-    const interior = d.kind === 'door';
-    doorRecs.push({ d, t: interior ? 1 : 0, target: interior ? 1 : 0, interior, cx: d.center ? d.center.x : 0, cz: d.center ? d.center.z : 0 });
+    const interior = d.kind === 'door';      // BUILDING opens interior doors by default
+    const big = d.kind === 'garage';
+    doorRecs.push({ d, t: interior ? 1 : 0, target: interior ? 1 : 0, interior, cx: d.center ? d.center.x : 0, cz: d.center ? d.center.z : 0,
+      y: LEVEL_Y[d.floorId] ?? 0, near: big ? 3.4 : DOOR_NEAR, far: big ? 4.6 : DOOR_FAR });
   }
   function findDoor(fid, x, z) {
-    let best = null, bd = 0.8;
+    let best = null, bd = 1.0;
     for (const r of doorRecs) {
       if (r.d.floorId !== fid) continue;
       const dd = Math.hypot(r.cx - x, r.cz - z);
@@ -263,122 +276,265 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   let job = null;
   let rideSway = 0;
 
-  // ── collision segments per floor ──
-  const segCache = new Map();
-  function segsFor(fid) {
-    if (segCache.has(fid)) return segCache.get(fid);
-    const f = FLOOR_BY_ID[fid];
-    const segs = [];
-    const add = (s) => { if (s) segs.push(s); };
-    for (const w of f.walls) {
-      const L = Math.hypot(w.b[0] - w.a[0], w.b[1] - w.a[1]);
-      if (L < 1e-4) continue;
-      const ux = (w.b[0] - w.a[0]) / L, uz = (w.b[1] - w.a[1]) / L;
-      const P = (s) => [w.a[0] + ux * s, w.a[1] + uz * s];
-      const ops = (w.openings || []).filter(o => PASSABLE.has(o.type)).sort((a, b) => a.from - b.from);
-      let cur = 0;
-      for (const o of ops) {
-        if (o.from > cur) add(makeSeg(P(cur), P(o.from), w.t));
-        if (o.type === 'elevator') {
-          add(makeSeg(P(o.from), P(o.to), w.t, { y0: 2.1, cond: () => !(cabLevel === fid && !job?.moving && liftDoor > 0.7) }));
-        } else if (LEAF.has(o.type)) {
-          const m = P((o.from + o.to) / 2);
-          const rec = findDoor(fid, m[0], m[1]);
-          if (rec) add(makeSeg(P(o.from), P(o.to), w.t, { y0: o.type === 'main' ? 2.4 : 2.1, cond: () => rec.t < 0.5 }));
-        }
-        cur = Math.max(cur, o.to);
-      }
-      if (cur < L) add(makeSeg(P(cur), P(L), w.t));
-    }
-    // lift shaft sides (N/S) — solid on every level
-    add(makeSeg([LIFT.x0 - 0.3, LIFT.z0], [LIFT.x1, LIFT.z0], 0.1));
-    add(makeSeg([LIFT.x0 - 0.3, LIFT.z1], [LIFT.x1, LIFT.z1], 0.1));
-    // stairs: central balustrade between the flights, back wall behind the half landing
-    add(makeSeg([SL.xMid, SL.zLand], [SL.xMid, SL.zTurn], 0.08, { y0: -3.2, y1: 4.0 }));
-    add(makeSeg([SL.x0 - 0.3, SL.z1 + 0.04], [SL.x1, SL.z1 + 0.04], 0.08));
-    // balcony balustrades (all edges except the building side)
-    const onFacade = (p, q) => (Math.abs(p[1]) < 0.02 && Math.abs(q[1]) < 0.02) || (Math.abs(p[1] - 14.7) < 0.02 && Math.abs(q[1] - 14.7) < 0.02);
-    for (const b of balconiesOf(fid)) {
-      if (b.deck) continue;
-      const poly = b.poly;
-      for (let i = 0; i < poly.length; i++) {
-        const p = poly[i], q = poly[(i + 1) % poly.length];
-        if (!onFacade(p, q)) add(makeSeg(p, q, 0.06, { y1: 1.05 }));
-      }
-      if (b.split != null) {
-        const zs = poly.map(p => p[1]);
-        add(makeSeg([b.split, Math.min(...zs)], [b.split, Math.max(...zs)], 0.06, { y1: 1.6 }));
-      }
-    }
-    // gardens (ground): boundary walls & fence, clipped to the garden side of the rear façade
-    for (const r of f.rooms) {
-      if (r.use !== 'garden') continue;
-      for (let i = 0; i < r.poly.length; i++) {
-        const c = clipEdgeZMax(r.poly[i], r.poly[(i + 1) % r.poly.length], -0.02);
-        if (!c) continue;
-        if (c[0][1] > -0.3 && c[1][1] > -0.3) continue;
-        add(makeSeg(c[0], c[1], 0.1, { y1: 1.8 }));
-      }
-    }
-    segCache.set(fid, segs);
-    return segs;
+  // ── collision: wall segments of ALL levels with their world height band, bucketed in a 2 m grid ──
+  const SEGS = [];
+  let grid = null;
+  function addSeg(a, b, t, wy0, wy1, extra) {
+    const sg = makeSeg(a, b, t, extra);
+    if (!sg) return null;
+    sg.wy0 = wy0; sg.wy1 = wy1; SEGS.push(sg); grid = null;
+    return sg;
   }
-  function resolve(p, fid) {
-    const segs = segsFor(fid);
+  const boxSeg = (x0, z0, x1, z1, wy0, wy1) => (x1 - x0 >= z1 - z0
+    ? addSeg([x0, (z0 + z1) / 2], [x1, (z0 + z1) / 2], z1 - z0, wy0, wy1)
+    : addSeg([(x0 + x1) / 2, z0], [(x0 + x1) / 2, z1], x1 - x0, wy0, wy1));
+  function buildSegs() {
+    for (const f of FLOORS) {
+      const fid = f.id, y0 = f.level.y;
+      const nxt = ORDER[ORDER.indexOf(fid) + 1];
+      // basement walls stop below the surrounding grade (front yard −0.85) so the plinth doesn't block the façade openings
+      const y1 = fid === 'basement' ? -1.0 : nxt ? LEVEL_Y[nxt] : ROOF_Y;
+      for (const w of f.walls) {
+        const L = Math.hypot(w.b[0] - w.a[0], w.b[1] - w.a[1]);
+        if (L < 1e-4) continue;
+        const ux = (w.b[0] - w.a[0]) / L, uz = (w.b[1] - w.a[1]) / L;
+        const P = (d) => [w.a[0] + ux * d, w.a[1] + uz * d];
+        // basement walls across the car ramp are cut away (the ramp corridor runs through them)
+        const cutRamp = fid === 'basement' && Math.abs(uz) < 0.01 && w.a[1] > RAMP.zBottom && w.a[1] < LOT.zFront;
+        const solid = (d0, d1) => {
+          if (d1 - d0 < 1e-3) return;
+          if (cutRamp) {
+            const xa = w.a[0] + ux * d0, xb = w.a[0] + ux * d1;
+            const lo = Math.min(xa, xb), hi = Math.max(xa, xb);
+            const parts = [[lo, Math.min(hi, RAMP_X[0] - 0.05)], [Math.max(lo, RAMP_X[1] + 0.05), hi]];
+            for (const [p0, p1] of parts) if (p1 - p0 > 1e-3) addSeg([p0, w.a[1]], [p1, w.a[1]], w.t, y0, y1);
+            return;
+          }
+          addSeg(P(d0), P(d1), w.t, y0, y1);
+        };
+        const ops = (w.openings || []).slice().sort((a, b) => a.from - b.from);
+        let cur = 0;
+        for (const o of ops) {
+          if (o.from > cur) solid(cur, o.from);
+          if (!PASSABLE.has(o.type)) solid(o.from, o.to);
+          else if (o.type === 'elevator') {
+            addSeg(P(o.from), P(o.to), w.t, y0, y1, { cond: () => !(cabLevel === fid && !job?.moving && liftDoor > 0.7) });
+          } else if (LEAF.has(o.type)) {
+            const m = P((o.from + o.to) / 2);
+            const rec = findDoor(fid, m[0], m[1]);
+            if (rec) addSeg(P(o.from), P(o.to), w.t, y0, y1, { cond: () => rec.t < 0.5 });
+          }
+          cur = Math.max(cur, o.to);
+        }
+        if (cur < L) solid(cur, L);
+      }
+      // balcony balustrades (all edges except the building side), split screens
+      const onFacade = (p, q) => (Math.abs(p[1]) < 0.02 && Math.abs(q[1]) < 0.02) || (Math.abs(p[1] - 14.7) < 0.02 && Math.abs(q[1] - 14.7) < 0.02);
+      for (const b of balconiesOf(fid)) {
+        if (b.deck) continue;
+        const poly = b.poly;
+        for (let i = 0; i < poly.length; i++) {
+          const p = poly[i], q = poly[(i + 1) % poly.length];
+          if (!onFacade(p, q)) addSeg(p, q, 0.06, y0 - 0.2, y0 + 1.05);
+        }
+        if (b.split != null) {
+          const zs = poly.map(p => p[1]);
+          addSeg([b.split, Math.min(...zs)], [b.split, Math.max(...zs)], 0.06, y0 - 0.2, y0 + 1.6);
+        }
+      }
+      // gardens: boundary walls & the fence between them (not along the rear façade)
+      for (const r of f.rooms) {
+        if (r.use !== 'garden') continue;
+        for (let i = 0; i < r.poly.length; i++) {
+          const c = clipEdgeZMax(r.poly[i], r.poly[(i + 1) % r.poly.length], -0.02);
+          if (!c) continue;
+          if (c[0][1] > -0.3 && c[1][1] > -0.3) continue;
+          addSeg(c[0], c[1], 0.1, -0.5, 1.8);
+        }
+      }
+    }
+    const yb = LEVEL_Y.basement;
+    // lift shaft sides (N/S), stair centre wall + back wall — all levels
+    addSeg([LIFT.x0 - 0.3, LIFT.z0], [LIFT.x1, LIFT.z0], 0.1, yb, ROOF_Y);
+    addSeg([LIFT.x0 - 0.3, LIFT.z1], [LIFT.x1, LIFT.z1], 0.1, yb, ROOF_Y);
+    addSeg([SL.xMid, SL.zLand], [SL.xMid, SL.zTurn], 0.08, yb, ROOF_Y);
+    addSeg([SL.x0 - 0.3, SL.z1 + 0.04], [SL.x1, SL.z1 + 0.04], 0.08, yb, ROOF_Y);
+    // lot: brick tower, ramp retaining walls, planters, east boundary wall
+    boxSeg(0, 14.7, 2.9, 15.01, -1.2, ROOF_Y);
+    addSeg([RAMP_X[0] - 0.08, RAMP.zBottom], [RAMP_X[0] - 0.08, LOT.zFront], 0.15, yb, 0.15);
+    boxSeg(13.88, 14.7, 14.2, LOT.zFront, -1.3, 0.75);
+    boxSeg(LOT.x0 + 0.05, 15.95, PATH_X[0] - 0.1, 17.2, -1.0, -0.15);
+    boxSeg(PATH_X[1] + 0.12, 15.45, RAMP_X[0] - 0.3, 17.2, -1.0, 0.1);
+  }
+  function addContext(osm) {   // real neighbours from data/osm.json (already in the local frame)
+    const inLot = (x, z) => x > LOT.x0 - 0.5 && x < LOT.x1 + 0.5 && z > LOT.zRear - 0.5 && z < LOT.zFront + 0.5;
+    const near = (p) => p.some(([x, z]) => Math.abs(x - 7) < AREA + 15 && Math.abs(z - 7) < AREA + 15);
+    let n = 0;
+    for (const b of (osm && osm.b) || []) {
+      const ring = b && b.p;
+      if (!Array.isArray(ring) || ring.length < 3 || !near(ring)) continue;
+      const c = polyCentroid(ring);
+      if (inLot(c.x, c.z)) continue;
+      for (let i = 0; i < ring.length - 1; i++) { addSeg(ring[i], ring[i + 1], 0.2, -15, 60); n++; }
+    }
+    for (const w of (osm && osm.bar) || []) {
+      const line = w && w.p;
+      if (!Array.isArray(line) || line.length < 2 || !near(line) || line.some(([x, z]) => inLot(x, z))) continue;
+      for (let i = 0; i < line.length - 1; i++) addSeg(line[i], line[i + 1], 0.15, -15, 1.6);
+    }
+    return n;
+  }
+  const CELL = 2;
+  function cellKey(i, j) { return i * 4096 + j; }
+  function buildGrid() {
+    grid = new Map();
+    for (const sg of SEGS) {
+      const ex = sg.ax + sg.ux * sg.L, ez = sg.az + sg.uz * sg.L, pad = sg.ht + 1.0;
+      const i0 = Math.floor((Math.min(sg.ax, ex) - pad) / CELL), i1 = Math.floor((Math.max(sg.ax, ex) + pad) / CELL);
+      const j0 = Math.floor((Math.min(sg.az, ez) - pad) / CELL), j1 = Math.floor((Math.max(sg.az, ez) + pad) / CELL);
+      for (let i = i0; i <= i1; i++) for (let j = j0; j <= j1; j++) {
+        const k = cellKey(i, j);
+        let a = grid.get(k); if (!a) grid.set(k, a = []);
+        a.push(sg);
+      }
+    }
+  }
+  const NONE = [];
+  function segsAt(x, z) {
+    if (!grid) buildGrid();
+    return grid.get(cellKey(Math.floor(x / CELL), Math.floor(z / CELL))) || NONE;
+  }
+  const activeAt = (sg, fy) => sg.wy0 < fy + BODY_HI && sg.wy1 > fy + BODY_LO && (!sg.cond || sg.cond());
+  function resolve(p, fy) {
+    const segs = segsAt(p.x, p.z);
     for (let it = 0; it < 4; it++) {
       let moved = false;
-      for (const s of segs) {
-        if (s.cond && !s.cond()) continue;
-        if (pushOut(p, s, RADIUS)) moved = true;
-      }
+      for (const sg of segs) if (activeAt(sg, fy) && pushOut(p, sg, RADIUS)) moved = true;
       if (!moved) break;
     }
     return p;
   }
-  function clearance(x, z, fid) {
+  function clearance(x, z, fidOrY) {
+    const fy = typeof fidOrY === 'number' ? fidOrY : LEVEL_Y[fidOrY] ?? feetY;
     let m = Infinity;
-    for (const s of segsFor(fid)) m = Math.min(m, segDist(x, z, s));
+    for (const sg of segsAt(x, z)) if (sg.wy0 < fy + BODY_HI && sg.wy1 > fy + BODY_LO) m = Math.min(m, segDist(x, z, sg));
     return m;
   }
-  function inRegion(x, z, fid) {
-    if (fid === 'basement') return true;
-    if (pointInPoly(x, z, FOOTPRINT)) return true;
-    for (const b of balconiesOf(fid)) if (pointInPoly(x, z, b.poly)) return true;
-    if (fid === 'ground') for (const r of FLOOR_BY_ID.ground.rooms) if (r.use === 'garden' && pointInPoly(x, z, r.poly)) return true;
-    return false;
+
+  buildSegs();
+
+  // ── ground model: every walkable surface at a plan point; you stand on the highest one within reach ──
+  let envGround = null;
+  const rampY = (z) => {
+    if (building && typeof building.rampY === 'function') { try { const y = building.rampY(z); if (Number.isFinite(y)) return y; } catch (e) { /* */ } }
+    const zs = 16.9, ys = RAMP.yTop - (RAMP.zTop - zs) * 0.04;
+    if (z >= zs) return RAMP.yTop - (RAMP.zTop - z) * 0.04;
+    return Math.max(RAMP.yBottom, ys - (zs - z) * RAMP.slope);
+  };
+  const inRamp = (x, z) => x > RAMP_X[0] && x < RAMP_X[1] && z > RAMP.zBottom && z < LOT.zFront;
+  const inFoot = (x, z) => pointInPoly(x, z, FOOTPRINT);
+  function extGround(x, z) {
+    if (x >= LOT.x0 && x <= LOT.x1 && z >= LOT.zRear && z <= LOT.zFront) {
+      if (z > 14.7) {
+        if (x > PATH_X[0] && x < PATH_X[1]) return z <= 15.5 ? 0 : STREET_Y * (z - 15.5) / (LOT.zFront - 15.5);
+        return STREET_Y;
+      }
+      return -0.12;                                   // gardens & side yard
+    }
+    if (z > LOT.zFront - 0.01 && z < 31 && Math.abs(x - 7) < 45) return STREET_Y;   // pavements + Rua Eduardo Couto
+    if (envGround) { try { const y = envGround(x, z); if (Number.isFinite(y) && y > -40) return y; } catch (e) { /* */ } }
+    return z > LOT.zFront ? STREET_Y : -0.12;
   }
-  function surfaceAt(x, z, ref) {
-    const cands = inStairBox(x, z) ? stairHeights(x, z) : LEVEL_YS;
-    let best = null, bd = Infinity;
-    for (const c of cands) { const d = Math.abs(c - ref); if (d < bd) { bd = d; best = c; } }
-    return bd <= STEP_TOL ? best : null;
+  function surfaces(x, z) {
+    const out = [];
+    if (Math.abs(x - 7) > AREA || Math.abs(z - 7) > AREA) return out;
+    const ramp = inRamp(x, z), foot = inFoot(x, z);
+    if (inStairBox(x, z)) out.push(...stairHeights(x, z));
+    else {
+      if (ramp) out.push(rampY(z));
+      else if (pointInPoly(x, z, BASE_POLY)) out.push(LEVEL_Y.basement);
+      if (foot) {
+        if (!(x > 9.55 && z > 9.2)) out.push(LEVEL_Y.ground);   // no ground slab over the ramp void
+        out.push(LEVEL_Y.first, LEVEL_Y.second);
+      }
+    }
+    if (!foot) {
+      for (const b of BALCONIES) if (pointInPoly(x, z, b.poly)) out.push(b.deck ? 0 : LEVEL_Y[b.level]);
+      if (!ramp) out.push(extGround(x, z));
+    }
+    return out;
+  }
+  function pickSurface(cands, ref, up) {
+    let best = null;
+    for (const c of cands) if (c <= ref + up && (best === null || c > best)) best = c;
+    return best;
+  }
+  function surfaceAt(x, z, ref, up = STEP_TOL) { return pickSurface(surfaces(x, z), ref, up); }
+  function floorOf(x, z, h) {
+    if (!inFoot(x, z) && !inRamp(x, z) && !(h < -1.4 && pointInPoly(x, z, BASE_POLY))) {
+      for (const b of BALCONIES) if (!b.deck && pointInPoly(x, z, b.poly) && Math.abs(LEVEL_Y[b.level] - h) < 0.3) return b.level;
+      return 'ground';
+    }
+    return nearestFloorId(h);
+  }
+  function inRegion(x, z, fid) {     // a slab of that level exists here (helpers & mini-map)
+    const y = LEVEL_Y[fid];
+    return surfaces(x, z).some(c => Math.abs(c - y) < 0.3);
   }
   const inCabArea = (x, z) => x < LIFT.x1 - 0.02 && x > LIFT.x0 - 0.3 && z > LIFT.z0 && z < LIFT.z1;
   const playerInCab = () => inCabArea(pos.x, pos.z);
 
+  // ── float-down (stepping out of a window with nothing beneath) ──
+  let fall = null;
+  function startFall(to, dx, dz) {
+    const drop = feetY - to;
+    const l = Math.hypot(dx, dz) || 1;
+    fall = { y0: feetY, y1: to, t: 0, dur: drop > 1.5 ? 1.5 : clamp(0.35 + drop * 0.45, 0.4, 1.5), dx: dx / l, dz: dz / l, drift: drop > 1.5 ? 0.55 : 0.25 };
+    auto = null; vel.x = vel.z = 0;
+  }
+  function stepFall(dt) {
+    const f = fall;
+    const u0 = clamp(f.t / f.dur, 0, 1);
+    f.t += dt;
+    const u = clamp(f.t / f.dur, 0, 1);
+    // drift away from the façade while descending, as long as we stay above the same landing surface
+    const dd = f.drift * (easeInOut(u) - easeInOut(u0));
+    if (dd > 0) {
+      const nx = pos.x + f.dx * dd, nz = pos.z + f.dz * dd;
+      const h = pickSurface(surfaces(nx, nz), f.y1, 0.05);
+      if (h !== null && Math.abs(h - f.y1) < 0.05) { const p = resolve({ x: nx, z: nz }, f.y1); pos.x = p.x; pos.z = p.z; }
+    }
+    feetY = f.y0 + (f.y1 - f.y0) * easeInOut(u);
+    eyeY = feetY + EYE;
+    if (u >= 1) { feetY = f.y1; floorId = floorOf(pos.x, pos.z, feetY); fall = null; }
+  }
+
   function tryStep(nx, nz) {
-    const p = resolve({ x: nx, z: nz }, floorId);
-    const h = surfaceAt(p.x, p.z, feetY);
+    const p = resolve({ x: nx, z: nz }, feetY);
+    const entering = !inFoot(pos.x, pos.z) && inFoot(p.x, p.z);
+    const h = surfaceAt(p.x, p.z, feetY, entering ? ENTER_STEP : STEP_TOL);
     if (h === null) return false;
-    const nf = nearestFloorId(h);
-    if (!inRegion(p.x, p.z, nf)) return false;
     // never enter the shaft unless the cab is here with open doors
-    if (inCabArea(p.x, p.z) && !inCabArea(pos.x, pos.z) && !(cabLevel === nf && liftDoor > 0.7)) return false;
-    pos.x = p.x; pos.z = p.z; feetY = h; floorId = nf;
+    if (inCabArea(p.x, p.z) && !inCabArea(pos.x, pos.z) && !(cabLevel === nearestFloorId(h) && liftDoor > 0.7)) return false;
+    const dx = p.x - pos.x, dz = p.z - pos.z;
+    pos.x = p.x; pos.z = p.z;
+    if (h < feetY - DROP_TOL) { startFall(h, dx, dz); return 'fall'; }
+    feetY = h; floorId = floorOf(p.x, p.z, h);
     return true;
   }
   function moveBy(dx, dz) {
     const len = Math.hypot(dx, dz);
-    if (len < 1e-7) return 0;
+    if (len < 1e-7 || fall) return 0;
     const n = Math.max(1, Math.ceil(len / 0.06));
     const sx = dx / n, sz = dz / n;
     let moved = 0;
     for (let i = 0; i < n; i++) {
       const ox = pos.x, oz = pos.z;
-      if (!tryStep(pos.x + sx, pos.z + sz)) {
-        if (!(Math.abs(sx) > 1e-6 && tryStep(pos.x + sx, pos.z)) && !(Math.abs(sz) > 1e-6 && tryStep(pos.x, pos.z + sz))) break;
-      }
+      let r = tryStep(pos.x + sx, pos.z + sz);
+      if (!r) r = (Math.abs(sx) > 1e-6 && tryStep(pos.x + sx, pos.z)) || (Math.abs(sz) > 1e-6 && tryStep(pos.x, pos.z + sz));
+      if (!r) break;
       moved += Math.hypot(pos.x - ox, pos.z - oz);
+      if (r === 'fall') break;
     }
     return moved;
   }
@@ -399,12 +555,14 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     for (const j of all) try { j.resolve(false); } catch (e) { /* ignore */ }
     litButtons();
   }
-  function placeAt(x, z, fid) {
-    floorId = fid; feetY = LEVEL_Y[fid];
-    const h = surfaceAt(x, z, feetY);
-    if (h !== null) { feetY = h; floorId = nearestFloorId(h); }
-    const p = resolve({ x, z }, floorId);
+  function placeAt(x, z, fid, refY) {
+    floorId = fid; feetY = refY != null ? refY : LEVEL_Y[fid];
+    fall = null;
+    const h = surfaceAt(x, z, feetY + 0.05, 0.3);
+    if (h !== null) feetY = h;
+    const p = resolve({ x, z }, feetY);
     pos.x = p.x; pos.z = p.z;
+    floorId = floorOf(pos.x, pos.z, feetY);
     eyeY = feetY + EYE;
     placed = true;
     stopMotion();
@@ -416,8 +574,8 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   function teleport(position, lookAt) {
     if (!position) return;
     if (job && job.carry) cancelLift();
-    const guess = nearestFloorId((position.y ?? EYE) - 1.0);
-    placeAt(position.x, position.z, guess);
+    const ref = (Number.isFinite(position.y) ? position.y : EYE) - EYE;
+    placeAt(position.x, position.z, nearestFloorId(ref), ref);
     if (lookAt) lookDir(lookAt.x - pos.x, lookAt.y - eyeY, lookAt.z - pos.z);
     applyCamera();
     emitState(true);
@@ -757,7 +915,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     if (st.inLift) name = tr('lift');
     else if (st.room) name = st.room.name ? (st.room.name[l] || st.room.name.en) : '';
     hud.room.textContent = name || ' ';
-    hud.unit.textContent = st.unitId ? tr('apartment') + ' ' + st.unitId : '';
+    hud.unit.textContent = st.unitId ? tr('apartment') + ' \u2066' + st.unitId + '\u2069' : '';
     hud.mapCap.textContent = (f.label[l] || f.label.en);
   }
   function updateLiftPanel() {
@@ -887,7 +1045,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     g.clearRect(0, 0, hud.canvas.width, hud.canvas.height);
     g.drawImage(mapStatic, 0, 0);
     g.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const px = ox + pos.x * s, pz = oz + pos.z * s;
+    const px = clamp(ox + pos.x * s, 8, mapXf.cw - 8), pz = clamp(oz + pos.z * s, 26, mapXf.ch - 8);   // outside: pinned to the edge
     const ang = Math.atan2(-Math.cos(yaw), -Math.sin(yaw)); // canvas angle of forward (x right, z down)
     const r = 34;
     const grad = g.createRadialGradient(px, pz, 2, px, pz, r);
@@ -907,10 +1065,10 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     const x = (cx - mapXf.ox) / mapXf.s, z = (cz - mapXf.oz) / mapXf.s;
     if (job && job.carry) return;
     const fid = floorId;
-    const h = surfaceAt(x, z, LEVEL_Y[fid]);
-    if (h === null || !inRegion(x, z, fid) || clearance(x, z, fid) < RADIUS * 0.8 || inCabArea(x, z)) return;
+    const h = surfaceAt(x, z, feetY + 0.05, 0.3);
+    if (h === null || Math.abs(h - feetY) > 0.6 || clearance(x, z, h) < RADIUS * 0.8 || inCabArea(x, z)) return;
     const keepYaw = yaw, keepPitch = pitch;
-    placeAt(x, z, fid);
+    placeAt(x, z, fid, h);
     yaw = keepYaw; pitch = keepPitch;
     applyCamera();
     emitState(true);
@@ -938,7 +1096,8 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     ring.position.set(x, y + 0.015, z);
     ring.visible = true;
     ring.material.opacity = 0.85;
-    ringFade = 0;
+    ring.material.color.setRGB(1, 1, 1);
+    ringFade = 0; ringShake = 0;
   }
   function hideRing() { if (ring) ring.visible = false; }
 
@@ -972,49 +1131,55 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     }
     return null;
   }
-  // Tap-to-walk target by ray-marching the plan data (walls, rails, floors, stairs) — independent of the
-  // scene's mesh complexity (the OSM context can be ~1M triangles) and of furniture.
-  function marchTarget(o, d) {
-    const fid = floorId, base = LEVEL_Y[fid];
-    const occ = segsFor(fid);
-    const hl = Math.hypot(d.x, d.z) || 1e-6;
-    const back = (x, z, dist) => ({ x: x - (d.x / hl) * dist, z: z - (d.z / hl) * dist });
-    let g = feetY, lastIn = { x: pos.x, z: pos.z };
-    const STEP = 0.04;
-    for (let t = 0.05; t < 22; t += STEP) {
-      const x = o.x + d.x * t, y = o.y + d.y * t, z = o.z + d.z * t;
-      const cands = inStairBox(x, z) ? stairHeights(x, z) : LEVEL_YS;
-      let best = g, bd = Infinity;
-      for (const c of cands) { const dd = Math.abs(c - g); if (dd < bd) { bd = dd; best = c; } }
-      if (bd < 0.7) g = best;
-      if (y <= g + 0.002) return { x, z, y: g, hit: 'floor' };
-      const ry = y - base;
-      for (const sg of occ) {
-        const y0 = sg.y0 != null ? sg.y0 : -0.2, y1 = sg.y1 != null ? sg.y1 : 2.75;
-        if (ry < y0 || ry > y1) continue;
-        if (segDist(x, z, sg) < 0.015) { const b = back(x, z, 0.4 + RADIUS * 0.2); return { x: b.x, z: b.z, y: g, hit: 'wall' }; }
-      }
-      if (inRegion(x, z, fid)) lastIn = { x, z };
-      if (ry > 2.75 && !inStairBox(x, z)) return { x, z, y: g, hit: 'ceiling' };
-    }
-    return { x: lastIn.x, z: lastIn.z, y: g, hit: 'none' };
-  }
+  // Double-tap / double-click: ALWAYS step forward along the horizontal bearing of the tap ray, by the distance to
+  // the tapped floor point clamped to [1, 3] m. Collision slides along walls; if fully blocked the ring shakes.
   function walkToScreen(clientX, clientY) {
-    if (job && job.carry) return false;
-    camera.updateMatrixWorld();
+    if ((job && job.carry) || fall) return false;
+    applyCamera();
     raycaster.setFromCamera(ndc(clientX, clientY), camera);
     const o = raycaster.ray.origin, d = raycaster.ray.direction;
-    const tg = marchTarget({ x: o.x, y: o.y, z: o.z }, d);
-    if (Math.hypot(tg.x - pos.x, tg.z - pos.z) < 0.15) return false;
-    lastPick = tg;
-    return walkTo(tg.x, tg.z, tg.y);
+    let hl = Math.hypot(d.x, d.z), bx = d.x, bz = d.z;
+    if (hl < 0.05) { bx = -Math.sin(yaw); bz = -Math.cos(yaw); hl = 1; }
+    bx /= hl; bz /= hl;
+    let dist = 3;
+    if (d.y < -0.02) dist = ((o.y - feetY) / -d.y) * Math.hypot(d.x, d.z);
+    dist = clamp(dist, 1, 3);
+    return walkTo(pos.x + bx * dist, pos.z + bz * dist);
   }
   function walkTo(x, z, yHint) {
-    if (job && job.carry) return false;
-    auto = { x, z, stuck: 0 };
-    const sy = surfaceAt(x, z, yHint != null ? yHint : feetY);
-    showRing(x, sy != null ? sy : (yHint != null ? yHint : feetY), z);
+    if ((job && job.carry) || fall) return false;
+    auto = { x, z, stuck: 0, sx: pos.x, sz: pos.z, best: 0 };
+    const sy = surfaceAt(x, z, yHint != null ? yHint : feetY, 0.6);
+    showRing(x, sy != null && sy > feetY - DROP_TOL ? sy : feetY, z);
     return true;
+  }
+  let ringShake = 0, ringBase = null;
+  function shakeRing() {
+    if (!ring || !ring.visible) {
+      const fx = -Math.sin(yaw), fz = -Math.cos(yaw);
+      showRing(pos.x + fx * 0.9, feetY, pos.z + fz * 0.9);
+    }
+    ringBase = ring ? ring.position.clone() : null;
+    ringShake = 0.45; ringFade = 0;
+  }
+  function stepRing(dt) {
+    if (!ring || !ring.visible) return;
+    if (ringShake > 0 && ringBase) {
+      ringShake = Math.max(0, ringShake - dt);
+      const k = ringShake / 0.45;
+      const rx = Math.cos(yaw), rz = -Math.sin(yaw);
+      const off = reduceMotion ? 0 : Math.sin(ringShake * 70) * 0.06 * k;
+      ring.position.set(ringBase.x + rx * off, ringBase.y, ringBase.z + rz * off);
+      ring.material.color.setRGB(1, 1 - 0.45 * k, 1 - 0.55 * k);
+      ring.material.opacity = 0.85;
+      if (ringShake === 0) { ring.material.color.setRGB(1, 1, 1); ringFade = 0.001; }
+      return;
+    }
+    if (ringFade > 0 || !auto) {
+      ringFade += dt;
+      ring.material.opacity = Math.max(0, 0.85 * (1 - ringFade / 0.5));
+      if (ringFade >= 0.5) hideRing();
+    }
   }
 
   // ── input ──
@@ -1023,16 +1188,65 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   const touches = new Set();
   const LOOK_K = () => 0.0036 * ((camera.fov || 60) / 60);
   function on(target, type, fn, opts) { target.addEventListener(type, fn, opts); listeners.push([target, type, fn, opts]); }
+  const HAS_TOUCH = typeof window !== 'undefined' && ('ontouchstart' in window || (navigator.maxTouchPoints || 0) > 0);
+  const TAP_MS = 350, TAP_PX = 30;
+  let inputRoot = null;
+  function pickInputRoot() {
+    // the closest ancestor holding both the canvas and the HUD overlay: touches on overlays (labels, attribution, HUD
+    // glass) still reach us; real controls are skipped by isControl()
+    let r = overlay && overlay.parentElement;
+    while (r && dom && !r.contains(dom)) r = r.parentElement;
+    return r || dom;
+  }
+  function isControl(t) {
+    return !!(t && t.closest && t.closest('button,a,input,select,textarea,label,summary,[role=button],[role=slider],[role=dialog],[contenteditable],.vw-map,[data-walk-ignore]'));
+  }
+  // single tap: only the 3D lift buttons react; double tap (< 350 ms, < 30 px) walks forward
+  function handleTap(x, y, now) {
+    const fid = pickPanel(x, y);
+    if (fid) { ride(fid); lastTap.t = -1e9; return false; }
+    if (now - lastTap.t < TAP_MS && Math.hypot(x - lastTap.x, y - lastTap.y) < TAP_PX) {
+      lastTap.t = -1e9;
+      if (!walkToScreen(x, y)) shakeRing();
+      return true;
+    }
+    lastTap = { t: now, x, y };
+    return false;
+  }
+  const tt = { on: false, sx: 0, sy: 0, t0: 0, max: 0 };
+  function onTouchStartRoot(e) {
+    if (isControl(e.target)) return;
+    if (e.cancelable) e.preventDefault();       // no double-tap zoom, no scroll, no synthetic mouse events
+    unlockAudio();
+    if (e.touches.length === 1) { const t = e.touches[0]; tt.on = true; tt.sx = t.clientX; tt.sy = t.clientY; tt.t0 = performance.now(); tt.max = 0; }
+    else { tt.on = false; lastTap.t = -1e9; }
+  }
+  function onTouchMoveRoot(e) {
+    if (isControl(e.target)) return;
+    if (e.cancelable) e.preventDefault();
+    if (tt.on && e.touches.length === 1) { const t = e.touches[0]; tt.max = Math.max(tt.max, Math.hypot(t.clientX - tt.sx, t.clientY - tt.sy)); }
+  }
+  function onTouchEndRoot(e) {
+    if (!tt.on || isControl(e.target)) return;
+    tt.on = false;
+    const t = e.changedTouches && e.changedTouches[0];
+    if (!t) return;
+    const now = performance.now();
+    const d = Math.max(tt.max, Math.hypot(t.clientX - tt.sx, t.clientY - tt.sy));
+    if (d > 12 || now - tt.t0 > TAP_MS) { lastTap.t = -1e9; return; }
+    if (handleTap(t.clientX, t.clientY, now) && e.cancelable) e.preventDefault();
+  }
   function onPointerDown(e) {
     if (e.button !== undefined && e.button > 0 && e.pointerType === 'mouse') return;
+    if (isControl(e.target)) return;
     unlockAudio();
     touches.add(e.pointerId);
     if (ptr.id !== null) return;
     ptr.id = e.pointerId; ptr.x = ptr.sx = e.clientX; ptr.y = ptr.sy = e.clientY;
     ptr.t0 = ptr.lastT = performance.now(); ptr.moved = 0; ptr.vx = ptr.vy = 0;
     yawVel = pitchVel = 0;
-    try { dom.setPointerCapture(e.pointerId); } catch (er) { /* */ }
-    dom.style.cursor = 'grabbing';
+    try { (inputRoot || dom).setPointerCapture(e.pointerId); } catch (er) { /* */ }
+    if (dom) dom.style.cursor = 'grabbing';
     hideHint();
   }
   function onPointerMove(e) {
@@ -1056,16 +1270,10 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     dom.style.cursor = 'grab';
     const now = performance.now();
     if (now - ptr.lastT < 70 && ptr.moved > 8) { yawVel = clamp(ptr.vx, -6, 6); pitchVel = clamp(ptr.vy, -4, 4); }
-    const touch = e.pointerType !== 'mouse';
-    const isTap = ptr.moved < (touch ? 14 : 9) && now - ptr.t0 < (touch ? 400 : 350) && e.type === 'pointerup';
+    if (e.pointerType === 'touch' && HAS_TOUCH) return;   // touch taps are recognised from touch events
+    const isTap = ptr.moved < 10 && now - ptr.t0 < TAP_MS && e.type === 'pointerup';
     if (!isTap) { lastTap.t = -1e9; return; }
-    // single tap: only the 3D lift buttons react; everything else waits for the second tap
-    const fid = pickPanel(e.clientX, e.clientY);
-    if (fid) { ride(fid); lastTap.t = -1e9; return; }
-    if (now - lastTap.t < (touch ? 420 : 380) && Math.hypot(e.clientX - lastTap.x, e.clientY - lastTap.y) < (touch ? 48 : 36)) {
-      lastTap.t = -1e9;
-      walkToScreen(e.clientX, e.clientY);
-    } else lastTap = { t: now, x: e.clientX, y: e.clientY };
+    handleTap(e.clientX, e.clientY, now);
   }
   function onWheel(e) {
     e.preventDefault();
@@ -1086,7 +1294,6 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   function onKeyUp(e) { const k = KEYMAP[e.code]; if (k) keys.delete(k); }
   function onBlur() { keys.clear(); for (const k in hudIn) hudIn[k] = false; }
   function onContext(e) { e.preventDefault(); }
-  function onTouchStart(e) { if (e.cancelable) e.preventDefault(); } // belt-and-braces with touch-action:none: no double-tap zoom, no scroll
 
   const padLit = {};
   function syncPadHighlight() {
@@ -1103,7 +1310,8 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     const inLift = playerInCab();
     let room = null, unitId = null, roomId = null;
     if (inLift) room = f.rooms.find(r => r.use === 'lift') || null;
-    if (!room) room = f.rooms.find(r => r.use !== 'garden' && r.use !== 'ramp' && pointInPoly(pos.x, pos.z, r.poly)) || null;
+    const outside = !inFoot(pos.x, pos.z) && !(floorId === 'basement' && pointInPoly(pos.x, pos.z, BASE_POLY));
+    if (!room && !outside) room = f.rooms.find(r => r.use !== 'garden' && r.use !== 'ramp' && pointInPoly(pos.x, pos.z, r.poly)) || null;
     if (!room) {
       const b = balconiesOf(floorId).find(bb => pointInPoly(pos.x, pos.z, bb.poly));
       if (b) {
@@ -1113,6 +1321,8 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
       }
     }
     if (!room) room = f.rooms.find(r => r.use === 'garden' && pointInPoly(pos.x, pos.z, r.poly)) || null;
+    if (!room) room = f.rooms.find(r => r.use === 'ramp' && pointInPoly(pos.x, pos.z, r.poly)) || null;
+    if (!room && outside) room = { id: 'outside', unit: null, name: { en: T.en.outside, pt: T.pt.outside, he: T.he.outside } };
     if (!room && lastState && lastState.floorId === floorId && lastState.room) room = lastState.room;
     if (room) { roomId = room.id; unitId = room.unit || unitId || null; }
     return { floorId, roomId, unitId, inLift, room };
@@ -1144,11 +1354,10 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   function stepDoors(dt) {
     const riding = job && job.carry && job.moving;
     for (const r of doorRecs) {
-      if (r.interior) continue;       // interior doors stay as BUILDING set them (open by default)
-      const same = r.d.floorId === floorId && !riding && Math.abs(feetY - LEVEL_Y[floorId]) < 0.5;
+      const same = !riding && Math.abs(feetY - r.y) < 1.4;
       const d = Math.hypot(pos.x - r.cx, pos.z - r.cz);
-      if (same && d < DOOR_NEAR) r.target = 1;
-      else if (!same || d > DOOR_FAR) r.target = 0;
+      if (same && d < r.near) r.target = 1;
+      else if (!r.interior && (!same || d > r.far)) r.target = 0;   // interior doors stay open once open
       if (r.t !== r.target) {
         r.t = approach(r.t, r.target, dt / DOOR_TIME);
         try { r.d.setOpen(smooth(r.t)); } catch (e) { /* guard */ }
@@ -1196,7 +1405,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
         dvx = (ax / d) * s; dvz = (az / d) * s;
       }
     }
-    if (riding) { dvx = dvz = 0; auto = null; }
+    if (riding || fall) { dvx = dvz = 0; auto = null; }
     const k = 1 - Math.exp(-dt * 9);
     vel.x += (dvx - vel.x) * k; vel.z += (dvz - vel.z) * k;
     if (!dvx && !dvz && Math.hypot(vel.x, vel.z) < 0.02) vel.x = vel.z = 0;
@@ -1204,21 +1413,22 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     if (want > 0) {
       const moved = moveBy(vel.x * dt, vel.z * dt);
       if (auto) {
+        auto.best = Math.max(auto.best, Math.hypot(pos.x - auto.sx, pos.z - auto.sz));
         if (moved < want * 0.3) auto.stuck += dt; else auto.stuck = 0;
-        if (auto.stuck > 0.3) { auto = null; ringFade = 0.001; }
+        if (auto.stuck > 0.3) {
+          const blocked = auto.best < 0.15;
+          auto = null; ringFade = 0.001;
+          if (blocked) shakeRing();
+        }
       }
       if (moved < want * 0.2) { vel.x *= 0.5; vel.z *= 0.5; }
     }
-    // ring fade
-    if (ring && ring.visible && (ringFade > 0 || !auto)) {
-      ringFade += dt;
-      ring.material.opacity = Math.max(0, 0.85 * (1 - ringFade / 0.5));
-      if (ringFade >= 0.5) hideRing();
-    }
+    if (fall) stepFall(dt);
+    stepRing(dt);
     stepLift(dt);
     stepDoors(dt);
     // eye height (smooth over stairs; exact while riding)
-    if (job && job.carry && job.moving) eyeY = feetY + EYE;
+    if ((job && job.carry && job.moving) || fall) eyeY = feetY + EYE;
     else eyeY += (feetY + EYE - eyeY) * (1 - Math.exp(-dt * 14));
     if (!(job && job.carry && job.moving)) rideSway = 0;
     applyCamera();
@@ -1230,22 +1440,97 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
 
   // ── enable / disable ──
   const saved = {};
+  let ctxState = 0;   // 0 = not loaded, 1 = loading, 2 = done
+  function loadContext() {
+    if (!envGround && scene) {
+      const env = scene.getObjectByName && scene.getObjectByName('environment');
+      const fn = env && (env.userData.groundY || env.userData.heightAt || env.heightAt);
+      if (typeof fn === 'function') envGround = fn;
+    }
+    if (ctxState) return;
+    ctxState = 1;
+    if (!envGround) import('./environment.js').then(m => { if (!envGround) envGround = m.groundY || m.heightAt || null; }).catch(() => {});
+    try {
+      if (typeof fetch !== 'function') return;
+      fetch(new URL('../data/osm.json', import.meta.url)).then(r => (r.ok ? r.json() : null)).then(j => { if (j) addContext(j); ctxState = 2; }).catch(() => { ctxState = 2; });
+    } catch (e) { ctxState = 2; }
+  }
+
+  // Teleport just inside a wall opening, facing inwards. info = { floorId, wallIndex, openingIndex } or a world
+  // point (Vector3 / {x,y,z} / {point}) on or near a façade opening. Returns { floorId, x, z } or false.
+  function nearestOpening(p) {
+    let best = null, bd = 2.5;
+    for (const f of FLOORS) {
+      const y = f.level.y;
+      if (Number.isFinite(p.y) && (p.y < y - 0.6 || p.y > y + 3.0)) continue;
+      f.walls.forEach((w, wi) => (w.openings || []).forEach((o, oi) => {
+        if (!PASSABLE.has(o.type) || o.type === 'elevator') return;
+        const L = Math.hypot(w.b[0] - w.a[0], w.b[1] - w.a[1]);
+        const sg = makeSeg([w.a[0] + (w.b[0] - w.a[0]) * o.from / L, w.a[1] + (w.b[1] - w.a[1]) * o.from / L], [w.a[0] + (w.b[0] - w.a[0]) * o.to / L, w.a[1] + (w.b[1] - w.a[1]) * o.to / L], w.t);
+        const d = sg ? segDist(p.x, p.z, sg) : Infinity;
+        if (d < bd) { bd = d; best = { f, w, o, wi, oi }; }
+      }));
+    }
+    return best;
+  }
+  function enterAt(info) {
+    if (!info) return false;
+    let hit = null;
+    if (info.floorId != null && Number.isInteger(info.wallIndex)) {
+      const f = FLOOR_BY_ID[normFloor(info.floorId)];
+      const w = f && f.walls[info.wallIndex];
+      const o = w && w.openings && w.openings[info.openingIndex || 0];
+      if (o) hit = { f, w, o };
+    } else {
+      const p = info.isVector3 || Number.isFinite(info.x) ? info : (info.point || info.position);
+      if (p && Number.isFinite(p.x) && Number.isFinite(p.z)) hit = nearestOpening(p);
+    }
+    if (!hit) return false;
+    const { f, w, o } = hit;
+    const L = Math.hypot(w.b[0] - w.a[0], w.b[1] - w.a[1]);
+    const ux = (w.b[0] - w.a[0]) / L, uz = (w.b[1] - w.a[1]) / L;
+    const m = (o.from + o.to) / 2;
+    const mx = w.a[0] + ux * m, mz = w.a[1] + uz * m;
+    let nx = -uz, nz = ux;
+    const inside = (x, z) => (f.id === 'basement' ? pointInPoly(x, z, BASE_POLY) : inFoot(x, z));
+    const a = inside(mx + nx * 0.8, mz + nz * 0.8), b = inside(mx - nx * 0.8, mz - nz * 0.8);
+    if (a && b) {   // interior wall: enter on the side away from the viewer
+      const cx = camera ? camera.position.x : pos.x, cz = camera ? camera.position.z : pos.z;
+      if ((cx - mx) * nx + (cz - mz) * nz > 0) { nx = -nx; nz = -nz; }
+    } else if (!a) { nx = -nx; nz = -nz; }
+    if (job && job.carry) cancelLift();
+    placeAt(mx + nx * (w.t / 2 + 0.55), mz + nz * (w.t / 2 + 0.55), f.id);
+    lookDir(nx * 4, -0.25, nz * 4);
+    applyCamera();
+    emitState(true);
+    return { floorId: floorId, x: pos.x, z: pos.z };
+  }
+
   function enable() {
     if (enabled) return;
     enabled = true;
     if (dom) {
+      inputRoot = pickInputRoot();
       saved.touchAction = dom.style.touchAction; saved.cursor = dom.style.cursor; saved.us = dom.style.userSelect;
+      saved.rootTA = inputRoot.style.touchAction; saved.rootUS = inputRoot.style.webkitUserSelect;
       dom.style.touchAction = 'none'; dom.style.cursor = 'grab'; dom.style.userSelect = 'none';
-      on(dom, 'pointerdown', onPointerDown, { passive: true });
-      on(dom, 'pointermove', onPointerMove, { passive: true });
-      on(dom, 'pointerup', onPointerUp, { passive: true });
-      on(dom, 'pointercancel', onPointerUp, { passive: true });
+      inputRoot.style.touchAction = 'none'; inputRoot.style.webkitUserSelect = 'none';
+      const R = inputRoot;
+      on(R, 'pointerdown', onPointerDown, { passive: true });
+      on(R, 'pointermove', onPointerMove, { passive: true });
+      on(R, 'pointerup', onPointerUp, { passive: true });
+      on(R, 'pointercancel', onPointerUp, { passive: true });
+      on(R, 'touchstart', onTouchStartRoot, { passive: false });
+      on(R, 'touchmove', onTouchMoveRoot, { passive: false });
+      on(R, 'touchend', onTouchEndRoot, { passive: false });
+      on(R, 'touchcancel', () => { tt.on = false; }, { passive: true });
       on(dom, 'wheel', onWheel, { passive: false });
-      on(dom, 'contextmenu', onContext, false);
-      on(dom, 'dblclick', onContext, false);            // walking is handled on pointerup; never select/zoom
-      on(dom, 'gesturestart', onContext, false);        // iOS pinch/double-tap zoom
-      on(dom, 'touchstart', onTouchStart, { passive: false });
+      on(R, 'contextmenu', (e) => { if (!isControl(e.target)) e.preventDefault(); }, false);
+      on(R, 'dblclick', (e) => { if (!isControl(e.target)) e.preventDefault(); }, false);   // walking is recognised manually
+      on(R, 'gesturestart', onContext, false);          // iOS pinch zoom
+      on(R, 'gesturechange', onContext, false);
     }
+    loadContext();
     on(window, 'keydown', onKeyDown, false);
     on(window, 'keyup', onKeyUp, false);
     on(window, 'blur', onBlur, false);
@@ -1276,6 +1561,8 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     ptr.id = null; touches.clear();
     stopMotion();
     if (dom) { dom.style.touchAction = saved.touchAction || ''; dom.style.cursor = saved.cursor || ''; dom.style.userSelect = saved.us || ''; }
+    if (inputRoot && inputRoot !== dom) { inputRoot.style.touchAction = saved.rootTA || ''; inputRoot.style.webkitUserSelect = saved.rootUS || ''; }
+    fall = null;
     if (camera && saved.order) camera.rotation.order = saved.order;
     if (hud.root) hud.root.hidden = true;
     if (job && job.carry) { // finish the ride instantly so nobody is left in the shaft
@@ -1298,11 +1585,12 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     update,
     // extras
     walkTo(x, z) { return walkTo(x, z); },
+    enterAt,
     setLang(l) { langOverride = l; refreshHudText(); },
     setMapOpen,
     getState() {
       const st = lastState || locate();
-      return { floorId: st.floorId, roomId: st.roomId, unitId: st.unitId, inLift: st.inLift, x: pos.x, z: pos.z, feetY, eyeY, yaw, pitch, cabY, cabLevel, liftDoor, riding: !!(job && job.moving), autoWalking: !!auto };
+      return { floorId: st.floorId, roomId: st.roomId, unitId: st.unitId, inLift: st.inLift, x: pos.x, z: pos.z, feetY, eyeY, yaw, pitch, cabY, cabLevel, liftDoor, riding: !!(job && job.moving), autoWalking: !!auto, falling: !!fall, outside: !inFoot(pos.x, pos.z) };
     },
     dispose
   };

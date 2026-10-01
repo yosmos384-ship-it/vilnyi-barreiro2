@@ -3,7 +3,7 @@ import {
   PROJECT, BANK, PAYMENT_PLAN, LEVELS, FLOORS, UNITS, STYLES, LANDMARKS, PARKING, BALCONIES,
   unitById, floorById
 } from './data.js';
-import { t, L, setLang, getLang, langInfo, fmtMoney, fmtNum, LANGS } from './i18n.js';
+import { t, L, setLang, getLang, langInfo, fmtMoney, fmtNum, LANGS, DICTS } from './i18n.js';
 import { drawFloorplan, unitRoomAreas, floorUnits } from './floorplan.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
@@ -752,6 +752,240 @@ function renderPage(r, scrollTop) {
   if (scrollTop) window.scrollTo({ top: 0, behavior: 'auto' });
 }
 
+// ---------------------------------------------------------------- photoreal renders, materials, 360° tour, gallery
+// renders/manifest.json lists Blender Cycles stills and 360° panoramas. Its file paths are relative to the SITE root,
+// so they are made absolute here and handed to tour.js as a blob: manifest (tour.js resolves paths against the manifest URL).
+const renders = { m: null, url: null, commonUrl: null, p: null };
+const absUrl = f => { try { return new URL(f, document.baseURI).href; } catch (e) { return f; } };
+const blobJson = o => { try { return URL.createObjectURL(new Blob([JSON.stringify(o)], { type: 'application/json' })); } catch (e) { return null; } };
+function i18nAll(key) { const o = {}; for (const l of LANGS) o[l.id] = DICTS[l.id][key] || DICTS.en[key]; return o; }
+function withRu(name) {
+  if (!name || typeof name !== 'object' || name.ru || !name.en) return name;
+  const prev = getLang(); setLang('ru');
+  const ru = String(name.en).split(' · ').map(p => { const m = /^view (\d+)$/.exec(p); return m ? `вид ${m[1]}` : L({ en: p }); }).join(' · ');
+  setLang(prev);
+  return { ...name, ru };
+}
+function loadRenders() {
+  if (!renders.p) {
+    renders.p = (async () => {
+      try {
+        const r = await fetch('renders/manifest.json', { cache: 'no-cache' });
+        if (!r.ok) throw new Error(`renders ${r.status}`);
+        const j = await r.json();
+        const fix = (o, nameKey) => {
+          if (!o || typeof o !== 'object') return;
+          if (o.file) o.file = absUrl(o.file);
+          if (o.thumb) o.thumb = absUrl(o.thumb);
+          if (nameKey && DICTS.en[nameKey]) o.name = i18nAll(nameKey); else o.name = withRu(o.name);
+        };
+        for (const u of Object.values(j.units || {})) for (const pk of Object.values(u || {})) { (pk.panos || []).forEach(p => fix(p)); (pk.stills || []).forEach(s => fix(s)); }
+        (j.exterior || []).forEach(s => fix(s, `ext.${s.id}`));
+        (j.common || []).forEach(s => fix(s, `common.${s.id}`));
+        renders.m = j;
+        renders.url = blobJson(j);
+        renders.commonUrl = blobJson({ ...j, units: {}, exterior: j.common || [] });
+      } catch (e) { console.warn('[app] renders manifest unavailable', e); renders.m = null; }
+      return renders.m;
+    })();
+  }
+  return renders.p;
+}
+const STILL_ORDER = ['living', 'kitchen', 'bedroom', 'bedroom2', 'bathroom', 'balcony', 'garden'];
+function unitStills(unitId, pkg) {
+  const list = renders.m?.units?.[unitId]?.[pkg]?.stills || [];
+  const rank = s => { const i = STILL_ORDER.indexOf(s.kind); return i < 0 ? 50 : i; };
+  return [...list].sort((a, b) => rank(a) - rank(b));
+}
+const hasPanos = (unitId, pkg) => !!renders.m?.units?.[unitId]?.[pkg]?.panos?.length;
+const extStill = id => renders.m?.exterior?.find(s => s.id === id) || null;
+
+// CC0 material textures (assets/manifest.json → textures[key][package|default].maps.albedo)
+const materials = { m: null, p: null };
+function loadMaterials() {
+  if (!materials.p) {
+    materials.p = fetch('assets/manifest.json', { cache: 'no-cache' })
+      .then(r => (r.ok ? r.json() : null)).then(j => { materials.m = j; return j; })
+      .catch(() => null);
+  }
+  return materials.p;
+}
+const SPEC_TEX = {
+  floor: ['floor-main'], walls: ['wall-paint', 'wall-feature'], bath: ['bath-wall'], sanitary: ['tap-metal'],
+  kitchen: ['kitchen-front', 'kitchen-worktop'], appliances: ['appliance-steel'], doors: ['door-interior'], windows: ['aluminium-frame', 'window-sheer']
+};
+const SPEC_COLOR = { floor: 'floor', walls: 'wall', bath: 'bathTile', sanitary: 'metal', kitchen: 'joinery', appliances: 'metal', doors: 'joinery', windows: 'wall' };
+function texFor(key, pkg) {
+  const e = materials.m?.textures?.[key];
+  const ent = e?.[pkg] || e?.default;
+  const src = ent?.maps?.albedo;
+  return src ? { src, name: ent.name || ent.id || key } : null;
+}
+function boardHtml(styleId) {
+  const s = styleById(styleId);
+  return `<div class="board">${(s.spec || []).map(row => {
+    const texs = (SPEC_TEX[row.k] || []).map(k => texFor(k, s.id)).filter(Boolean);
+    const sw = texs.length
+      ? texs.map(x => `<img src="${esc(x.src)}" alt="" title="${esc(x.name)}" loading="lazy" decoding="async">`).join('')
+      : `<i style="background:${esc(s.palette[SPEC_COLOR[row.k]] || s.palette.wall)}"></i>`;
+    return `<div class="board-row"><div class="sw${texs.length > 1 ? ' is-pair' : ''}" aria-hidden="true">${sw}</div>
+      <div class="board-t"><span class="k">${esc(t('spec.' + row.k))}</span><p>${esc(L(row))}</p></div></div>`;
+  }).join('')}</div>`;
+}
+const tierOf = s => L(s.name).split(' · ')[0];
+const nameOf = s => { const p = L(s.name).split(' · '); return p.length > 1 ? p.slice(1).join(' · ') : p[0]; };
+const deltaOf = s => (s.extra ? t('pkg.delta', { p: fmtMoney(s.extra) }) : t('pkg.included'));
+
+// The 360° tour (tour.js) — one instance, opened over the page.
+let tourApi = null, tourP = null, tourUnit = null;
+function getTour() {
+  if (tourApi) return Promise.resolve(tourApi);
+  if (!tourP) {
+    tourP = (async () => {
+      await loadRenders();
+      const [THREE, m] = await Promise.all([import('three'), import('./tour.js')]);
+      const api = await m.createTour(document.body, {
+        THREE, manifestUrl: renders.url || undefined, lang: getLang(),
+        onClose: () => { document.body.classList.remove('no-scroll'); },
+        onPackageChange: pkg => onTourPackage(pkg)
+      });
+      tourApi = api;
+      return api;
+    })();
+    tourP.catch(() => { tourP = null; });
+  }
+  return tourP;
+}
+async function openTour(unitId, pkg, roomId) {
+  unitId = unitId || '1.C';
+  pkg = pkg || state.style[unitId] || 'atlantic';
+  tourUnit = unitId;
+  const slow = setTimeout(() => toast(t('tour.loading'), 2400), 350);
+  try {
+    const tr = await getTour();
+    clearTimeout(slow);
+    if (!$('#imm').hidden) closeImmersive(false);
+    const ok = await tr.open(unitId, pkg, roomId || undefined);
+    if (ok === false) toast(t('tour.failed'), 4200);
+    return ok !== false;
+  } catch (e) {
+    clearTimeout(slow);
+    console.warn('[app] 360 tour unavailable', e);
+    toast(t('tour.failed'), 4200);
+    return false;
+  }
+}
+function onTourPackage(pkg) {
+  if (!tourUnit || !STYLES.some(s => s.id === pkg)) return;
+  state.style[tourUnit] = pkg;
+  const page = $('#page');
+  if (state.route.startsWith('unit-') && unitFromRoute()?.id === tourUnit) applyPackage(page, unitById(tourUnit), pkg, true);
+}
+
+// Gallery section: three createGallery instances (exterior · common areas · apartments by package).
+const gal = { ext: null, common: null, units: null, pkg: 'lisboa', started: false };
+function initGallery() {
+  const box = $('#galleryBox');
+  if (!box || gal.started) return;
+  const start = async () => {
+    if (gal.started) return;
+    gal.started = true;
+    await loadRenders();
+    if (!renders.m) { box.innerHTML = `<p class="fineprint">${esc(t('gal.empty'))}</p>`; return; }
+    try {
+      const m = await import('./tour.js');
+      const lang = getLang();
+      [gal.ext, gal.common, gal.units] = await Promise.all([
+        m.createGallery($('#galExt'), { manifestUrl: renders.url, lang, include: 'exterior' }),
+        m.createGallery($('#galCommon'), { manifestUrl: renders.commonUrl, lang, include: 'exterior' }),
+        m.createGallery($('#galUnits'), { manifestUrl: renders.url, lang, include: 'interior', packageId: gal.pkg })
+      ]);
+      renderGalleryChips();
+    } catch (e) {
+      console.warn('[app] gallery unavailable', e);
+      box.innerHTML = `<p class="fineprint">${esc(t('gal.empty'))}</p>`;
+    }
+  };
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); start(); } }, { rootMargin: '800px 0px' });
+    io.observe(box);
+  } else start();
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-galpkg]');
+  if (!b) return;
+  gal.pkg = b.dataset.galpkg;
+  renderGalleryChips();
+  try { gal.units?.setFilter?.({ packageId: gal.pkg, include: 'interior' }); } catch (err) { /* gallery optional */ }
+});
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => initGallery()); else setTimeout(() => initGallery(), 0);
+function renderGalleryChips() {
+  const el = $('#galPkgs');
+  if (!el) return;
+  el.innerHTML = STYLES.map(s => `<button type="button" class="chip" data-galpkg="${s.id}" aria-pressed="${gal.pkg === s.id}">${esc(tierOf(s))} · ${esc(nameOf(s))}</button>`).join('');
+}
+
+// Package cards (unit page, reservation, building section)
+function packageCard(s, { pressed = false, asButton = true, thumb = null, compact = false } = {}) {
+  const p = s.palette;
+  const visual = thumb
+    ? `<span class="pk-img"><img src="${esc(thumb)}" alt="" loading="lazy" decoding="async"></span>`
+    : `<span class="swatches" aria-hidden="true">${[p.floor, p.wall, p.joinery, p.worktop, p.accent, p.metal].map(c => `<i style="background:${c}"></i>`).join('')}</span>`;
+  const inner = `${visual}<span class="pk-tier">${esc(tierOf(s))}</span><span class="pk-name">${esc(nameOf(s))}</span>
+    ${compact ? '' : `<span class="pk-blurb">${esc(L(s.blurb))}</span>`}<span class="fdelta">${esc(deltaOf(s))}</span>`;
+  return asButton
+    ? `<button type="button" class="pkcard" data-style="${s.id}" aria-pressed="${pressed}">${inner}</button>`
+    : `<div class="pkcard">${inner}</div>`;
+}
+
+// Unit page: photoreal stills, package thumbs and the materials board (loaded after first paint).
+async function refreshUnitVisuals(page, u) {
+  if (!page || !u || !page.isConnected) return;
+  await Promise.all([loadRenders(), loadMaterials()]);
+  if (!page.isConnected || !page.querySelector('#uBoard') || unitFromRoute()?.id !== u.id) return;
+  const pkg = state.style[u.id] || STYLES[0].id;
+  const stills = unitStills(u.id, pkg);
+  const poster = page.querySelector('#tourPoster img');
+  if (poster && stills[0]) { poster.src = stills[0].file; poster.style.objectFit = 'cover'; }
+  const strip = page.querySelector('#uStills');
+  if (strip) strip.innerHTML = stills.map((s, i) => `<button type="button" class="ustill" data-still="${i}" aria-label="${esc(L(s.name) || '')}"><img src="${esc(s.thumb || s.file)}" alt="" loading="lazy" decoding="async"></button>`).join('');
+  if (strip) strip._stills = stills;
+  const pick = page.querySelector('#finishPick');
+  if (pick && !pick.dataset.pk) {
+    pick.dataset.pk = '1';
+    pick.classList.add('finish-cards');
+    pick.innerHTML = STYLES.map(s => { const st = unitStills(u.id, s.id)[0]; return packageCard(s, { pressed: s.id === pkg, thumb: st ? (st.thumb || st.file) : null }); }).join('');
+  } else if (pick) {
+    pick.querySelectorAll('[data-style]').forEach(x => x.setAttribute('aria-pressed', x.dataset.style === pkg));
+  }
+  const board = page.querySelector('#uBoard');
+  if (board) board.innerHTML = boardHtml(pkg);
+}
+function applyPackage(page, u, pkg) {
+  const b = page.querySelector(`[data-style="${pkg}"]`);
+  if (b && b.getAttribute('aria-pressed') !== 'true') b.click(); else refreshUnitVisuals(page, u);
+}
+document.addEventListener('click', e => {
+  const page = $('#page');
+  if (!page) return;
+  const sb = e.target.closest('[data-style]');
+  if (sb && page.contains(sb) && state.route.startsWith('unit-')) {
+    const u = unitFromRoute();
+    if (u) setTimeout(() => refreshUnitVisuals(page, u), 0);
+    return;
+  }
+  const st = e.target.closest('[data-still]');
+  if (st && page.contains(st)) {
+    const strip = st.parentElement; const s = strip?._stills?.[+st.dataset.still];
+    const poster = page.querySelector('#tourPoster img');
+    if (s && poster) { poster.src = s.file; page.querySelector('#tour')?.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
+  }
+});
+function unitFromRoute() {
+  const tok = String(state.route || '').replace(/^unit-/, '');
+  return UNITS.find(x => unitToken(x.id) === tok) || null;
+}
+
 // ---------------------------------------------------------------- unit page
 function renderUnit(page, id) {
   const u = unitById(id);
@@ -796,10 +1030,12 @@ function renderUnit(page, id) {
           <div class="tour" id="tour">
             <div class="tour-poster" id="tourPoster">
               <img src="assets/${u.floor === 'second' ? 'street-dusk' : 'facade-day'}.jpg" alt="">
-              <div class="tp-in"><button type="button" class="btn btn-light" data-tour="start">${esc(t('unit.tour.start'))}</button><p>${esc(t('unit.tour.note'))}</p></div>
+              <div class="tp-in"><button type="button" class="btn btn-bronze" data-tour="pano">${esc(t('tour.photoreal'))}</button><button type="button" class="btn btn-light" data-tour="start">${esc(t('tour.free'))}</button><p>${esc(t('unit.tour.note'))}</p></div>
             </div>
           </div>
+          <div class="ustills" id="uStills"></div>
           <div class="tour-bar">
+            <button type="button" class="btn btn-bronze" data-tour="pano">${esc(t('tour.photoreal'))}</button>
             <button type="button" class="btn btn-line" data-tour="walk" aria-pressed="false">${esc(t('unit.walk'))}</button>
             <button type="button" class="btn btn-line" data-tour="views" aria-pressed="false">${esc(t('unit.views'))}</button>
             <button type="button" class="btn btn-line" data-tour="balcony">${esc(garden ? t('unit.gardenView') : t('unit.balconyView'))}</button>
@@ -812,6 +1048,7 @@ function renderUnit(page, id) {
         <section>
           <div class="block-h"><h3>${esc(t('unit.finish'))}</h3><p class="fineprint">${esc(t('unit.finishNote'))}</p></div>
           <div class="finish-pick" id="finishPick">${STYLES.map(s => finishCard(s, true, s.id === styleId)).join('')}</div>
+          <div id="uBoard"></div>
         </section>
         <section>
           <div class="block-h"><h3>${esc(t('unit.plan'))}</h3>
@@ -884,6 +1121,7 @@ function bindUnit(page, u) {
     hotEl.hidden = !hs.length;
     hotEl._hs = hs;
   };
+  refreshUnitVisuals(page, u);
   page.addEventListener('click', async e => {
     const b = e.target.closest('[data-tour]');
     if (b) {
@@ -895,6 +1133,7 @@ function bindUnit(page, u) {
         await openImmersive(v.getMode() === 'walk' ? 'keep' : 'exterior');
         return;
       }
+      if (action === 'pano') { await openTour(u.id, state.style[u.id] || 'atlantic'); return; }
       if (action === 'photoreal') {
         const cur = viewerApi?.isPhotoreal?.();
         if (!cur) {
@@ -915,6 +1154,7 @@ function bindUnit(page, u) {
       else if (action === 'balcony') ok = await v.balconyView(u.id);
       else if (action === 'lift') ok = await v.takeLift(u.floor === 'ground' ? 'basement' : 'ground', u.floor);
       if (!ok) msg(t('v.unavailable'));
+      else { try { await openImmersive('keep'); } catch (err) { /* stays inline */ } }
       return;
     }
     const hs = e.target.closest('[data-hs]');

@@ -1,10 +1,15 @@
 // VILNYI · Barreiro 2 — INTERIORS
-// Three complete interior schemes (Atlantic Light / Lisboa Heritage / Noir Riverside), all textures procedural.
-// API: STYLE_IDS, buildInteriors(THREE, { scene }) => { group, furnish, clear, getHotspots, update }
+// Three building-material packages (Essencial·Atlantic / Premium·Lisboa / Signature·Noir).
+// Real CC0 PBR textures (assets/manifest.json) + CC0 glTF props; procedural canvas textures are the fallback.
+// API: STYLE_IDS, prewarm(styleIds?, { renderer }), getPackageMaterial(vocabKey, styleId),
+//      buildInteriors(THREE, { scene, building? }) => { group, furnish, clear, getHotspots, update, prewarm, setBuilding, getPackageMaterial }
+// Every material is named with the CONTRACT3 vocabulary key ('<key>' or '<key>:<variant>').
 import * as THREE_NS from 'three';
 import { FLOORS, UNITS, STYLES, BALCONIES, LEVELS, FOOTPRINT, CORNICE_Y, MANSARD_PITCH, roomsOfUnit } from './data.js';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 
 export const STYLE_IDS = ['atlantic', 'lisboa', 'noir'];
 
@@ -527,7 +532,7 @@ function styleDef(id) {
     floorRough: 0.42,
     bathFloor: () => texHydraulic('lis-hydr', { a: '#b5652e', b: '#2f4a6b', bg: '#efe6d6', size: 0.8 }),
     hallFloor: null,
-    bathWall: () => texZellige('lis-zel', '#cfdde9', { size: 0.6, tiles: 6, grout: '#e9e6df' }), bathWallH: 1.25,
+    bathWall: () => texZellige('lis-zel', '#cfdde9', { size: 0.6, tiles: 6, grout: '#e9e6df' }), bathWallH: 9,
     showerWall: () => texAzulejo('lis-azu', { size: 0.6 }),
     splash: () => texAzulejo('lis-azu', { size: 0.6 }),
     worktop: () => texMarble('lis-marb', '#ece6db', '#8d7f6b', { size: 1.6, count: 6, alpha: 0.45 }),
@@ -546,7 +551,7 @@ function styleDef(id) {
     floorRough: 0.5,
     bathFloor: () => texMicrocement('noir-mc', '#5f5c58', { size: 3 }),
     hallFloor: () => texMicrocement('noir-mc', '#4c4b4a', { size: 3 }),
-    bathWall: () => texMicrocement('noir-mcw', '#7a756e', { size: 3 }), bathWallH: 2.45,
+    bathWall: () => texMicrocement('noir-mcw', '#7a756e', { size: 3 }), bathWallH: 9,
     showerWall: () => texMarble('noir-nero', '#151516', '#e6e2da', { size: 1.4, count: 6, width: 1.2, alpha: 0.75 }),
     splash: () => texMarble('noir-nero', '#151516', '#e6e2da', { size: 1.4, count: 6, width: 1.2, alpha: 0.75 }),
     worktop: () => texMarble('noir-nero', '#151516', '#e6e2da', { size: 1.4, count: 6, width: 1.2, alpha: 0.75 }),
@@ -565,7 +570,7 @@ function styleDef(id) {
     floorRough: 0.55,
     bathFloor: () => texMarble('atl-estremoz-t', '#eeebe5', '#a29d95', { size: 1.2, tiles: 2, grout: '#d6d1c9', count: 7, alpha: 0.5 }),
     hallFloor: null,
-    bathWall: () => texZellige('atl-zel', '#f2efe9', { size: 0.6, tiles: 8, grout: '#e2ded7' }), bathWallH: 2.45,
+    bathWall: () => texZellige('atl-zel', '#f2efe9', { size: 0.6, tiles: 8, grout: '#e2ded7' }), bathWallH: 9,
     showerWall: () => texMarble('atl-estremoz', '#eeebe5', '#a29d95', { size: 1.6, count: 7, alpha: 0.5 }),
     splash: () => texMarble('atl-estremoz', '#eeebe5', '#a29d95', { size: 1.6, count: 7, alpha: 0.5 }),
     worktop: () => texMarble('atl-estremoz', '#eeebe5', '#a29d95', { size: 1.6, count: 7, alpha: 0.5 }),
@@ -579,6 +584,148 @@ function styleDef(id) {
     ceramic: '#fbfaf7', tableTop: 'wood', table: 'round', lamp: '#fff1d8', pots: '#d9cfc0', chairFabric: '#e6ded1', light: 0xffd49a
   };
 }
+
+
+// ───────────────────────── real assets (CC0 PBR textures + glTF props) ─────────────────────────
+const ASSET_ROOT = (() => { try { return new URL('../', import.meta.url); } catch (e) { return null; } })();
+const assetURL = (rel) => new URL(rel, ASSET_ROOT).href;
+let MANIFEST = null, MANIFEST_P = null;
+function loadManifest() {
+  if (MANIFEST_P) return MANIFEST_P;
+  MANIFEST_P = (async () => {
+    try { const r = await fetch(assetURL('assets/manifest.json')); if (r.ok) MANIFEST = await r.json(); } catch (e) { MANIFEST = null; }
+    return MANIFEST;
+  })();
+  return MANIFEST_P;
+}
+function pbrEntry(key, styleId) {
+  const t = MANIFEST && MANIFEST.textures && MANIFEST.textures[key]; if (!t) return null;
+  let e = t[styleId] || t.default, guard = 0;
+  while (e && e.ref && guard++ < 5) { const [k, pkg] = e.ref.split('/'); e = MANIFEST.textures[k] && (MANIFEST.textures[k][pkg] || MANIFEST.textures[k].default); }
+  return e || null;
+}
+const TEXP = new Map(); // path|size -> Promise<Texture|null>
+let TEXLOADER = null;
+function loadMap(path, srgb, size) {
+  const k = path + '|' + size.join('x');
+  if (TEXP.has(k)) return TEXP.get(k);
+  if (!TEXLOADER) TEXLOADER = new T.TextureLoader();
+  const p = TEXLOADER.loadAsync(assetURL(path)).then(t => {
+    t.wrapS = t.wrapT = T.RepeatWrapping; t.anisotropy = 8;
+    t.colorSpace = srgb ? T.SRGBColorSpace : T.NoColorSpace;
+    t.repeat.set(1 / (size[0] || 1), 1 / (size[1] || size[0] || 1)); // UVs are world metres
+    t.name = path; return t;
+  }).catch(() => null);
+  TEXP.set(k, p);
+  return p;
+}
+const NSCALE = { 'wall-paint': 0.25, 'ceiling': 0.12, 'skirting': 0.3, 'kitchen-front': 0.4, 'joinery-wardrobe': 0.4, 'door-interior': 0.4, 'sanitary-ceramic': 0.3, 'ceramic-plate': 0.3, 'kitchen-worktop': 0.5 };
+const OFFSET = { polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -4 };
+// internal material key -> CONTRACT3 vocabulary key, manifest texture key, how to use it.
+//   full: albedo+normal+roughness(+ao,+metal), colour = tint || white;  detail: normal+roughness(+ao) only, keep colour;
+//   name: vocabulary name only (procedural/emissive/glass)
+const VOCAB = {
+  floor: ['floor-main', 'full', OFFSET], hallFloor: ['floor-main', 'full', OFFSET], bathFloor: ['bath-floor', 'full', OFFSET],
+  wall: ['wall-paint', 'full'], feature: ['wall-feature', 'full'], ceiling: ['ceiling', 'full'], skirting: ['skirting', 'full'],
+  bathWall: ['bath-wall', 'full'], showerWall: ['shower-wall', 'full'], splash: ['kitchen-splashback', 'full'], worktop: ['kitchen-worktop', 'full'],
+  joinery: ['kitchen-front', 'full'], joineryTall: ['joinery-wardrobe', 'full'],
+  wood: ['wood-furniture', 'full'], woodDark: ['wood-furniture', 'full'], oakLight: ['wood-furniture', 'full'],
+  metal: ['tap-metal', 'full'], chrome: ['tap-metal', 'full'], lamina: ['tap-metal', 'full'], handle: ['door-handle', 'full'],
+  steel: ['appliance-steel', 'full'], appliance: ['appliance-steel', 'detail'], cutlery: ['cutlery-steel', 'detail'],
+  blackGlass: ['appliance-glass-black', 'detail'], hob: ['appliance-glass-black', 'name'], tv: ['appliance-glass-black', 'name'],
+  ceramic: ['sanitary-ceramic', 'detail'], white: ['sanitary-ceramic', 'detail'], whiteGloss: ['sanitary-ceramic', 'detail'],
+  plate: ['ceramic-plate', 'detail'], plate2: ['ceramic-plate', 'detail'], stoneware: ['ceramic-plate', 'detail'],
+  sofa: ['fabric-sofa', 'full'], armchair: ['fabric-boucle', 'detail'], chairFabric: ['fabric-linen', 'detail'],
+  c0: ['fabric-linen', 'detail'], c1: ['fabric-boucle', 'detail'], c2: ['fabric-linen', 'detail'], c3: ['fabric-boucle', 'detail'],
+  throw: ['fabric-boucle', 'detail'], bedding: ['fabric-linen', 'detail'], duvet: ['fabric-linen', 'detail'], bedThrow: ['fabric-boucle', 'detail'],
+  headboard: ['fabric-linen', 'detail'], napkin: ['fabric-linen', 'detail'], towel: ['fabric-boucle', 'detail'], towel2: ['fabric-boucle', 'detail'],
+  outCushion: ['fabric-linen', 'detail'], curtain: ['curtain-fabric', 'full'], sheer: ['window-sheer', 'full'],
+  rug: ['rug', 'detail'], shade: ['lamp-shade', 'detail'], paper: ['book', 'name'], bookM: ['book', 'name'], passepartout: ['art-canvas', 'name'],
+  mirror: ['mirror', 'name'], glass: ['shower-glass', 'name'], glassware: ['glass-drinking', 'name'], wine: ['wine', 'name'],
+  wax: ['candle-wax', 'name'], flame: ['bulb-emissive', 'name'], bulb: ['bulb-emissive', 'name'], downlight: ['downlight-emissive', 'name'],
+  ledStrip: ['led-strip-emissive', 'name'], black: ['metal-furniture', 'name'], matteBlack: ['metal-furniture', 'name'], outdoor: ['metal-furniture', 'detail'],
+  deck: ['deck-teak', 'full', OFFSET], teak: ['deck-teak', 'full'], lawn: ['lawn', 'full', OFFSET], soil: ['soil', 'full'], bark: ['bark', 'full'],
+  pot: ['pot-terracotta', 'detail'], terracotta: ['pot-terracotta', 'full'],
+  leaf: ['plant-leaf', 'name'], leafDark: ['plant-leaf', 'name'], leafLight: ['plant-leaf', 'name'], leaf2: ['plant-leaf', 'name'], grassBlade: ['foliage', 'name'],
+  fruit: ['fruit', 'name'], rubber: ['rubber', 'name'], contact: ['contact-shadow', 'name'], dlGlow: ['light-glow', 'name']
+};
+// per-package colour multipliers for 'full' textures that are shared between packages
+const TINT = {
+  lisboa: { wood: '#9a6a48', woodDark: '#5a3a26', teak: '#ffffff' },
+  noir: { wood: '#6b5446', woodDark: '#4a3a30', feature: '#9a9894', showerWall: '#a09d99' },
+  atlantic: { woodDark: '#6b5446' }
+};
+function vocabOf(k) {
+  if (k.startsWith('tintFab:')) return ['fabric-linen', 'detail'];
+  if (k.startsWith('tint:')) return null;
+  if (k.startsWith('art:') || k.startsWith('art')) return ['art-canvas', 'name'];
+  return VOCAB[k] || null;
+}
+// apply manifest maps to a material; resolves true when textured
+async function applyPBR(m, key, styleId, mode, tint) {
+  const e = pbrEntry(key, styleId);
+  if (!e || e.procedural || !e.maps) return false;
+  const size = e.sizeMeters || [1, 1];
+  const want = mode === 'full' ? ['albedo', 'normal', 'roughness', 'ao', 'metal'] : ['normal', 'roughness', 'ao'];
+  const got = await Promise.all(want.map(f => e.maps[f] ? loadMap(e.maps[f], f === 'albedo', size) : Promise.resolve(null)));
+  const M = Object.fromEntries(want.map((f, i) => [f, got[i]]));
+  if (mode === 'full' && !M.albedo) return false;
+  if (M.albedo) { m.map = M.albedo; m.color.set(tint || '#ffffff'); }
+  if (M.normal && !m.userData.keepNormal) { const ns = NSCALE[key] !== undefined ? NSCALE[key] : 1; m.normalMap = M.normal; m.normalScale = new T.Vector2(ns, ns); }
+  if (M.roughness) { m.roughnessMap = M.roughness; m.roughness = m.userData.roughMul || 1; }
+  if (M.ao) { m.aoMap = M.ao; m.aoMapIntensity = 0.8; }
+  if (M.metal) { m.metalnessMap = M.metal; m.metalness = 1; }
+  m.userData.pbr = e.id || key;
+  m.needsUpdate = true;
+  return true;
+}
+
+// glTF props
+const MODELS = new Map(); // name -> { parts:[{geometry, material, matrix}], size:Vector3, min:Vector3, center }
+const MODEL_P = new Map();
+let GLTF = null;
+// CC0 models used by the layout (manifest.models); tris in brackets
+const MODEL_SET = ['modern_arm_chair_01', 'mid_century_lounge_chair', 'coffee_table_round_01', 'modern_coffee_table_01', 'ceramic_vase_01',
+  'standing_picture_frame_01', 'modern_ceiling_lamp_01', 'outdoor_table_chair_set_01', 'potted_plant_04',
+  'carved_wooden_plate', 'lemon', 'food_apple_01', 'food_pomegranate_01', 'wooden_cutting_board'];
+const MODEL_VOCAB = [[/glass/, 'glass-drinking'], [/artwork/, 'art-canvas'], [/frame/, 'wood-furniture'], [/leaves|plant_04/, 'plant-leaf'], [/pot/, 'pot-terracotta'],
+  [/vase/, 'ceramic-plate'], [/globe/, 'bulb-emissive'], [/lamp/, 'metal-furniture'], [/lounge_chair/, 'leather'], [/arm_chair.*pillow/, 'leather'], [/ottoman/i, 'fabric-sofa'],
+  [/arm_chair/, 'wood-furniture'], [/coffee_table_round/, 'marble-table'], [/coffee_table/, 'wood-furniture'], [/outdoor.*chair/, 'wood-furniture'], [/outdoor/, 'wood-furniture'],
+  [/plate|board|shel|side_table/, 'wood-furniture'], [/apple|lemon|pomegranate/, 'fruit']];
+function loadModel(name) {
+  if (MODEL_P.has(name)) return MODEL_P.get(name);
+  const p = (async () => {
+    const info = MANIFEST && MANIFEST.models && MANIFEST.models[name];
+    if (!info) return null;
+    if (!GLTF) { GLTF = new GLTFLoader(); GLTF.setMeshoptDecoder(MeshoptDecoder); }
+    try {
+      const g = await GLTF.loadAsync(assetURL(info.file));
+      g.scene.updateMatrixWorld(true);
+      const parts = [];
+      g.scene.traverse(o => {
+        if (!o.isMesh) return;
+        const mats = Array.isArray(o.material) ? o.material : [o.material];
+        for (const mt of mats) {
+          if (!mt.userData.vocab) {
+            const raw = mt.name || name; let v = 'wood-furniture';
+            for (const [re, k] of MODEL_VOCAB) if (re.test(raw.toLowerCase()) || re.test(name.toLowerCase()) && !/glass|artwork/.test(raw)) { v = k; break; }
+            if (/glass/.test(raw)) v = 'glass-drinking';
+            mt.userData.vocab = v; mt.name = `${v}:${raw}`;
+            if (v === 'bulb-emissive') { mt.emissive = new T.Color('#ffe2bd'); mt.emissiveIntensity = 6; }
+            if (mt.map) mt.map.anisotropy = 8;
+          }
+        }
+        parts.push({ geometry: o.geometry, material: Array.isArray(o.material) ? o.material[0] : o.material, matrix: o.matrixWorld.clone() });
+      });
+      const bb = new T.Box3().setFromObject(g.scene);
+      return { parts, size: bb.getSize(new T.Vector3()), min: bb.min.clone(), center: bb.getCenter(new T.Vector3()) };
+    } catch (e) { return null; }
+  })().then(m => { if (m) MODELS.set(name, m); return m; });
+  MODEL_P.set(name, p);
+  return p;
+}
+const hasModel = (n) => MODELS.has(n);
+function modelDims(n) { const m = MODELS.get(n); return m ? m.size : null; }
 
 // ───────────────────────── materials (cached per style) ─────────────────────────
 const MATS = new Map();
@@ -603,6 +750,7 @@ function matFactory(sd) {
     worktop: () => tex(sd.worktop(), '#ffffff', { roughness: 0.22 }, 0.4),
     feature: () => sd.feature === 'microcement' ? tex(texMicrocement('noir-feat', '#3b3b3d', { size: 3 }), '#ffffff', { roughness: 0.8 }, 1)
       : tex(texFluted('flute-' + sd.id, sd.featureColor, { size: 0.5, flutes: 16 }), '#ffffff', { roughness: 0.6 }, 4),
+    skirting: () => plain(sd.id === 'atlantic' ? '#f2efe9' : sd.id === 'lisboa' ? '#6e452b' : '#3a2c22', { roughness: 0.4 }),
     joinery: () => sd.id === 'noir' ? plain(p.joinery, { roughness: 0.55 }) : plain(sd.joinery, { roughness: 0.5 }),
     joineryTall: () => sd.joineryWood ? tex(wood(), sd.id === 'atlantic' ? '#f3e7d2' : '#ffffff', { roughness: 0.6 }, 1.5) : plain(sd.joineryTall, { roughness: 0.5 }),
     wood: () => tex(wood(), '#ffffff', { roughness: 0.55 }, 1.5),
@@ -611,7 +759,7 @@ function matFactory(sd) {
     metal: () => plain(sd.metal, { metalness: 1, roughness: sd.metalRough }),
     steel: () => plain('#c8cacc', { metalness: 1, roughness: 0.28 }),
     chrome: () => plain('#e8e8e8', { metalness: 1, roughness: 0.08 }),
-    cutlery: () => plain(sd.id === 'lisboa' ? '#d8b36a' : sd.id === 'noir' ? '#3a3633' : '#dcdcdc', { metalness: 1, roughness: sd.id === 'noir' ? 0.35 : 0.12 }),
+    cutlery: () => plain(sd.id === 'lisboa' ? '#d8b36a' : sd.id === 'noir' ? '#3a3633' : '#dcdcdc', { metalness: 1, roughness: sd.id === 'noir' ? 0.35 : 0.28 }),
     black: () => plain('#1b1b1c', { roughness: 0.45 }),
     matteBlack: () => plain('#222223', { roughness: 0.7, metalness: 0.3 }),
     blackGlass: () => plain('#070708', { roughness: 0.06, metalness: 0.3 }),
@@ -677,19 +825,51 @@ function matFactory(sd) {
   };
   return F;
 }
+const PBR_EXTRA = {
+  sheer: () => ({ side: T.DoubleSide, transparent: true, opacity: 0.62, depthWrite: false, roughness: 1 }),
+  curtain: () => ({ side: T.DoubleSide }),
+  worktop: () => ({ userData: { roughMul: 0.7 } }), splash: () => ({ userData: { roughMul: 0.8 } }),
+  bathWall: () => ({ userData: { roughMul: 0.8 } }), showerWall: () => ({ userData: { roughMul: 0.8 } }), bathFloor: () => ({ userData: { roughMul: 0.9 } })
+};
 function getMats(styleId) {
   if (MATS.has(styleId)) return MATS.get(styleId);
   const sd = styleDef(styleId), F = matFactory(sd), cache = {};
+  const pending = [];
   const api = {
-    sd,
+    sd, pending,
     get(k) {
       if (!cache[k]) {
         let f = F[k] || F.white; let r;
         if (k.startsWith('tint:')) f = () => ({ m: std({ color: k.slice(5), roughness: 0.55 }), wuv: false });
         else if (k.startsWith('tintFab:')) f = () => F.fabricOf(k.slice(8));
         else if (k.startsWith('art:')) f = () => F.artOf(k.slice(4));
-        try { r = f(); } catch (e) { r = { m: std({ color: '#ff00ff' }), wuv: false }; }
-        r.m.name = `int-${styleId}-${k}`; cache[k] = r;
+        const voc = vocabOf(k) || ['unknown', 'name'];
+        const [vkey, mode, flags] = voc;
+        const ent = MANIFEST && mode !== 'name' ? pbrEntry(vkey, sd.id) : null;
+        const usePBR = !!(ent && !ent.procedural && ent.maps);
+        try {
+          if (usePBR && mode === 'full') {
+            const x = PBR_EXTRA[k] ? PBR_EXTRA[k]() : {};
+            const ud = x.userData; delete x.userData;
+            r = { m: std({ color: '#d8d4cc', roughness: 0.8, ...(flags || {}), ...x }), wuv: true };
+            if (ud) Object.assign(r.m.userData, ud);
+          } else r = f();
+        } catch (e) { r = { m: std({ color: '#ff00ff' }), wuv: false }; }
+        if (usePBR) {
+          r.wuv = true;
+          if (sd.id === 'noir' && k === 'joinery') { // fluted smoked-oak fronts: keep a vertical flute relief
+            try { const ft = texFluted('flute-noir-k', '#5a4a3e', { size: 0.4, flutes: 16 }); r.m.normalMap = normalOf(ft, 4); r.m.userData.keepNormal = true; } catch (e) { /* plain */ }
+          }
+          const tint = TINT[sd.id] && TINT[sd.id][k];
+          const m = r.m;
+          pending.push(applyPBR(m, vkey, sd.id, mode, tint).then(ok => {
+            if (ok || mode !== 'full') return;
+            try { const fb = f().m; m.map = fb.map; m.normalMap = fb.normalMap; m.color.copy(fb.color); m.roughness = fb.roughness; m.metalness = fb.metalness; m.needsUpdate = true; } catch (e) { /* keep flat */ }
+          }).catch(() => {}));
+        }
+        r.m.name = !vocabOf(k) ? k : k === vkey ? vkey : `${vkey}:${k}`;
+        r.m.userData.vocab = vocabOf(k) ? vkey : null; r.m.userData.style = sd.id;
+        cache[k] = r;
       }
       return cache[k];
     }
@@ -699,6 +879,18 @@ function getMats(styleId) {
   MATS.set(styleId, api);
   return api;
 }
+// Named, package-resolved material (e.g. 'door-interior', 'door-handle', 'floor-main') for other modules. Textures stream in.
+export function getPackageMaterial(vkey, styleId = 'atlantic') {
+  const api = getMats(STYLE_IDS.includes(styleId) ? styleId : 'atlantic');
+  const k = 'pkg:' + vkey;
+  if (!api._pkg) api._pkg = {};
+  if (api._pkg[k]) return api._pkg[k];
+  const m = std({ color: '#ffffff', roughness: 0.6 }); m.name = vkey; m.userData.vocab = vkey;
+  api._pkg[k] = m;
+  const p = (MANIFEST ? Promise.resolve(MANIFEST) : loadManifest()).then(() => applyPBR(m, vkey, styleId, 'full')).catch(() => false);
+  api.pending.push(p);
+  return m;
+}
 
 // ───────────────────────── shared base geometries ─────────────────────────
 const G = {};
@@ -707,6 +899,7 @@ function geo(key, fn) { if (!GC.has(key)) { const g = fn(); for (const n of Obje
 function initGeos() {
   G.box = geo('box', () => new T.BoxGeometry(1, 1, 1).translate(0, 0.5, 0));
   G.cyl = geo('cyl', () => new T.CylinderGeometry(1, 1, 1, 24, 1).translate(0, 0.5, 0));
+  G.cylHi = geo('cylHi', () => new T.CylinderGeometry(1, 1, 1, 64, 1).translate(0, 0.5, 0));
   G.cyl8 = geo('cyl8', () => new T.CylinderGeometry(1, 1, 1, 10, 1).translate(0, 0.5, 0));
   G.sph = geo('sph', () => new T.SphereGeometry(1, 16, 12));
   G.sphLo = geo('sphLo', () => new T.SphereGeometry(1, 8, 6));
@@ -789,13 +982,24 @@ class Builder {
       const pl = new T.PointLight(L.color, L.intensity, L.distance, 2); pl.position.copy(L.v); pl.castShadow = false; pl.name = 'int-pendant-light';
       root.add(pl);
     }
+    if (this.models) for (const [name, list] of this.models) {
+      const M = MODELS.get(name); if (!M) continue;
+      M.parts.forEach((pt, i) => {
+        const im = new T.InstancedMesh(pt.geometry, pt.material, list.length); im.name = `int-model-${name}-${i}`;
+        list.forEach((mm, j) => im.setMatrixAt(j, mm.clone().multiply(pt.matrix)));
+        im.instanceMatrix.needsUpdate = true; im.computeBoundingSphere(); im.matrixAutoUpdate = false;
+        im.castShadow = !/glass/.test(pt.material.name); im.receiveShadow = true;
+        im.userData.model = name;
+        root.add(im);
+      });
+    }
     this.extras.forEach(o => root.add(o));
     return root;
   }
 }
 const CEIL_GAP = 0.012; // ceiling finish sits 12 mm below BUILDING's slab soffit
 const RASTER_ONLY = new Set(['contact', 'dlGlow']);
-const NO_CAST = new Set(['contact', 'dlGlow', 'floor', 'bathFloor', 'hallFloor', 'ceiling', 'wall', 'bathWall', 'showerWall', 'feature', 'rug', 'sheer', 'glass', 'glassware', 'wine', 'downlight', 'bulb', 'flame', 'ledStrip', 'lawn', 'deck', 'shade', 'splash']);
+const NO_CAST = new Set(['skirting', 'contact', 'dlGlow', 'floor', 'bathFloor', 'hallFloor', 'ceiling', 'wall', 'bathWall', 'showerWall', 'feature', 'rug', 'sheer', 'glass', 'glassware', 'wine', 'downlight', 'bulb', 'flame', 'ledStrip', 'lawn', 'deck', 'shade', 'splash']);
 // soft contact shadow on the floor under an object (local coords, y = floor)
 Builder.prototype.shadow = function (w, d, x = 0, z = 0, ry = 0, y = 0.014) {
   this.add(G.fplane, 'contact', x, y, z, 0, ry, 0, w, 1, d);
@@ -831,6 +1035,19 @@ function prefab(name, fn) {
 Builder.prototype.pf = function (name, fn, x, y, z, ry = 0, s = 1, color = null, rx = 0, rz = 0) {
   const parts = prefab(name, fn);
   for (const { mk, g } of parts) this.I(name, g, mk, x, y, z, rx, ry, rz, s, s, s, mk === 'tint' || mk === 'tintFab' ? color : null);
+};
+
+// place a glTF prop: fit = { w, d, h } (any subset, uniform scale to the tightest) or { s } absolute scale; anchor: bottom-centre
+Builder.prototype.model = function (name, x, y, z, ry = 0, fit = { s: 1 }) {
+  const M = MODELS.get(name); if (!M) return 0;
+  let s = fit.s || Infinity;
+  if (!fit.s) { if (fit.w) s = Math.min(s, fit.w / M.size.x); if (fit.d) s = Math.min(s, fit.d / M.size.z); if (fit.h) s = Math.min(s, fit.h / M.size.y); if (!isFinite(s)) s = 1; }
+  const norm = new T.Matrix4().makeScale(s, s, s).multiply(new T.Matrix4().makeTranslation(-M.center.x, -M.min.y, -M.center.z));
+  const place = this.mat(x, y, z, 0, ry, 0, 1, 1, 1).multiply(norm);
+  if (!this.models) this.models = new Map();
+  if (!this.models.has(name)) this.models.set(name, []);
+  this.models.get(name).push(place);
+  return s;
 };
 
 // ───────────────────────── plan analysis ─────────────────────────
@@ -1031,9 +1248,9 @@ function F_tv(b, y = 1.25, big = true) {
   b.box('black', w, h, 0.03, 0, y - h / 2, 0.035);
   b.add(G.plane, 'tv', 0, y, 0.0505, 0, 0, 0, w - 0.02, h - 0.02, 1);
 }
-function F_vase(b, x, y, z, s = 1, stems = true) {
+function F_vase(b, x, y, z, s = 1, stems = true, body = true) {
   const g = lathe('vase', [[0, 0], [0.05, 0], [0.07, 0.04], [0.075, 0.1], [0.055, 0.18], [0.03, 0.24], [0.034, 0.27], [0.03, 0.27], [0.0, 0.26]]);
-  b.add(g, 'stoneware', x, y, z, 0, 0, 0, s, s, s);
+  if (body) b.add(g, 'stoneware', x, y, z, 0, 0, 0, s, s, s);
   if (stems) for (let i = 0; i < 7; i++) {
     const a = i * 2.4, t = 0.18 + (i % 3) * 0.08;
     b.add(G.cyl8, 'grassBlade', x, y + 0.24 * s, z, Math.cos(a) * t, 0, Math.sin(a) * t, 0.003, 0.5 + (i % 3) * 0.12, 0.003);
@@ -1151,6 +1368,8 @@ function F_sofa(b, w, d, sd) {
 }
 function F_armchair(b, sd) {
   b.shadow(0.98, 0.98);
+  const mn = sd.id === 'noir' ? 'mid_century_lounge_chair' : 'modern_arm_chair_01';
+  if (hasModel(mn)) { b.model(mn, 0, 0, 0, 0, { w: sd.id === 'noir' ? 0.86 : 0.8, d: 0.9 }); return; }
   const w = 0.78, d = 0.8;
   for (const [x, z] of [[-0.32, -0.3], [0.32, -0.3], [-0.32, 0.3], [0.32, 0.3]]) b.cyl('wood', 0.018, 0.14, x, 0, z, true);
   b.rb('armchair', w, 0.28, d, 0, 0.14, 0, 0.06);
@@ -1161,6 +1380,16 @@ function F_armchair(b, sd) {
 }
 function F_coffeeTable(b, sd, w = 1.0, d = 0.6) {
   if (sd.table === 'round') b.shadow(w * 0.85, w * 0.85); else b.shadow(w + 0.05, d + 0.05);
+  const mn = sd.table === 'round' ? 'coffee_table_round_01' : 'modern_coffee_table_01';
+  if (hasModel(mn)) {
+    const round = sd.table === 'round';
+    const sc = round ? b.model(mn, 0, 0, 0, 0, { w: w * 0.95 }) : b.model(mn, 0, 0, 0, HP, { w: d, d: w });
+    const top = modelDims(mn).y * sc;
+    F_books(b, round ? -0.14 : -w * 0.22, top, 0.04, 2, 0.3);
+    F_vase(b, round ? 0.16 : w * 0.24, top, -0.06, 0.7, false);
+    if (hasModel('carved_wooden_plate')) b.model('carved_wooden_plate', round ? 0.02 : 0.02, top, 0.2, 0, { w: 0.24 });
+    return;
+  }
   if (sd.table === 'round') {
     b.cyl('wood', w / 2, 0.035, 0, 0.34, 0);
     b.cyl('wood', w * 0.3, 0.34, 0, 0, 0);
@@ -1183,7 +1412,9 @@ function F_sideboard(b, sd, w) {
   for (let i = 1; i < n; i++) b.box('black', 0.004, h - 0.18, 0.004, -w / 2 + i * w / n, 0.16, d / 2);
   for (let i = 0; i < n; i++) b.box('metal', 0.012, 0.12, 0.02, -w / 2 + (i + 0.5) * w / n + (i % 2 ? -0.18 : 0.18) * (w / n) / 0.5 * 0.5, 0.36, d / 2 + 0.01);
   F_books(b, -w / 2 + 0.3, h, 0.02, 4, 0.2);
-  F_vase(b, w / 2 - 0.25, h, 0, 1.0, true);
+  if (hasModel('ceramic_vase_01')) { b.model('ceramic_vase_01', w / 2 - 0.22, h, -0.02, 0.6, { h: 0.4 }); F_vase(b, w / 2 - 0.22, h + 0.28, -0.02, 0.5, true, false); }
+  else F_vase(b, w / 2 - 0.25, h, 0, 1.0, true);
+  if (hasModel('standing_picture_frame_01')) b.model('standing_picture_frame_01', -w / 2 + 0.62, h, -0.06, 0.25, { h: 0.25 });
   F_candle(b, w / 2 - 0.5, h, 0.05, 0.12);
 }
 function F_chairProto(pb) {
@@ -1245,7 +1476,7 @@ function F_diningTable(b, sd, n, round, w, d) {
   if (round) b.shadow(w + 0.75, w + 0.75); else b.shadow(w + 0.5, d + 1.0);
   const H = 0.75;
   if (round) {
-    b.cyl(sd.tableTop === 'nero' ? 'worktop' : 'wood', w / 2, 0.035, 0, H - 0.035, 0);
+    b.add(G.cylHi, sd.tableTop === 'nero' ? 'worktop' : 'wood', 0, H - 0.035, 0, 0, 0, 0, w / 2, 0.035, w / 2);
     b.add(lathe('tped', [[0, 0], [0.26, 0], [0.26, 0.02], [0.08, 0.06], [0.06, 0.7], [0.12, 0.715], [0, 0.715]], 28), sd.id === 'lisboa' ? 'wood' : 'stoneware', 0, 0, 0);
   } else {
     b.rb(sd.tableTop === 'nero' ? 'worktop' : 'wood', w, 0.035, d, 0, H - 0.035, 0, 0.006);
@@ -1272,7 +1503,14 @@ function F_diningTable(b, sd, n, round, w, d) {
   // centrepiece: candles + bowl with fruit
   F_candle(b, -0.1, H, 0.03, 0.18); F_candle(b, 0.1, H, -0.03, 0.14);
   b.add(lathe('cbowl', [[0, 0], [0.04, 0], [0.12, 0.06], [0.115, 0.062], [0.035, 0.008], [0, 0.008]], 24), 'stoneware', 0, H, round ? 0.14 : 0.0);
-  F_fruit(b, 0, H + 0.02, round ? 0.14 : 0.0, 5);
+  if (!F_fruitModels(b, 0, H + 0.012, round ? 0.14 : 0.0, 0)) F_fruit(b, 0, H + 0.02, round ? 0.14 : 0.0, 5);
+}
+// real fruit (glTF) in a bowl; returns false if the models are missing
+function F_fruitModels(b, x, y, z, seed = 0) {
+  if (!hasModel('lemon') || !hasModel('food_apple_01')) return false;
+  const pts = [[0, 0, 'food_apple_01', 0.085], [0.06, 0.03, 'lemon', 0.085], [-0.05, 0.045, 'lemon', 0.08], [-0.02, -0.06, hasModel('food_pomegranate_01') ? 'food_pomegranate_01' : 'food_apple_01', 0.09]];
+  pts.forEach(([dx, dz, n, h], i) => b.model(n, x + dx, y + (i ? 0.012 : 0.02), z + dz, seed + i * 1.7, { h }));
+  return true;
 }
 function F_fruit(b, x, y, z, n) {
   const cols = ['#e6a52a', '#d9761c', '#a8bf3a', '#c9361f', '#f0c64a', '#7aa33a'];
@@ -1284,6 +1522,7 @@ function F_pendant(b, sd, y0, ceil, H = 1.55, big = true) {
   b.cyl('metal', 0.04, 0.012, 0, ceil - 0.012, 0);
   if (sd.id === 'lisboa') b.add(lathe('pdome', [[0.001, 0.2], [0.07, 0.19], [0.2, 0.06], [0.22, 0.0], [0.215, 0.0], [0.195, 0.055], [0.068, 0.184], [0.001, 0.194]], 32), 'metal', 0, y0 + H - 0.2 + 0.2, 0, PI);
   else if (sd.id === 'noir') b.add(lathe('pcone', [[0.001, 0.02], [0.03, 0.02], [0.16, 0.22], [0.155, 0.22], [0.026, 0.024], [0.001, 0.024]], 32), 'matteBlack', 0, y0 + H + 0.02, 0, PI);
+  else if (hasModel('modern_ceiling_lamp_01')) { const d = modelDims('modern_ceiling_lamp_01'); b.model('modern_ceiling_lamp_01', 0, ceil - d.y, 0, 0, { s: 1 }); return; }
   else { b.sph('shade', 0.2, 0.2, 0.2, 0, y0 + H - 0.2, 0); }
   b.sph('bulb', 0.035, 0.035, 0.035, 0, y0 + H - 0.14, 0, true);
 }
@@ -1412,14 +1651,15 @@ function F_kitchenRun(b, sd, w, opts) {
     const cx = c2.x + c2.w / 2;
     b.box('wood', 0.1, 0.22, 0.14, cx - 0.15, H, z0 + 0.1, 0, -0.35);
     for (let i = 0; i < 4; i++) b.box('black', 0.018, 0.1, 0.012, cx - 0.18 + i * 0.02, H + 0.22, z0 + 0.075, 0, 0, -0.35);
-    b.box('wood', 0.3, 0.42, 0.02, cx + 0.1, H, z0 + 0.02, 0, 0, -0.1);
+    if (hasModel('wooden_cutting_board')) b.model('wooden_cutting_board', cx + 0.12, H, z0 + 0.2, 0.3, { w: 0.4 });
+    else b.box('wood', 0.3, 0.42, 0.02, cx + 0.1, H, z0 + 0.02, 0, 0, -0.1);
   }
   // fruit bowl on the worktop end next to the columns
   const fb = props[props.length - 1];
   if (fb && (props.length > 2 || !c2)) {
     const cx = fb.x + fb.w / 2 + (props.length > 2 ? 0 : 0.1);
-    b.add(lathe('fbowl', [[0, 0], [0.05, 0], [0.14, 0.07], [0.135, 0.072], [0.045, 0.008], [0, 0.008]], 24), 'stoneware', cx, H, z0 + 0.4);
-    F_fruit(b, cx, H + 0.02, z0 + 0.4, 6);
+    if (hasModel('carved_wooden_plate') && F_fruitModels(b, cx, H + 0.02, z0 + 0.38, 2)) b.model('carved_wooden_plate', cx, H, z0 + 0.38, 0, { w: 0.3 });
+    else { b.add(lathe('fbowl', [[0, 0], [0.05, 0], [0.14, 0.07], [0.135, 0.072], [0.045, 0.008], [0, 0.008]], 24), 'stoneware', cx, H, z0 + 0.4); F_fruit(b, cx, H + 0.02, z0 + 0.4, 6); }
   }
 }
 function F_island(b, sd, w, d, stools) {
@@ -1518,6 +1758,7 @@ function F_desk(b, sd, w) {
   b.pf('chair', F_chairProto, 0, 0, d / 2 + 0.05, PI, 1);
 }
 function F_console(b, sd, w) {
+  if (hasModel('potted_plant_04')) b.model('potted_plant_04', -w / 2 + 0.45, 0.8, -0.04, 0.5, { h: 0.27 });
   b.shadow(w + 0.05, 0.42);
   const d = 0.3, H = 0.8;
   b.rb(sd.id === 'noir' ? 'worktop' : 'wood', w, 0.03, d, 0, H - 0.03, 0, 0.005);
@@ -1741,6 +1982,24 @@ function wallFinish(b, sd, y, mk, { h0 = 0, h1 = 2.7, r0 = 0, r1 = null, d = 0.0
     if (cur < a1) sidePanel(b, sd, cur, a1, h0, h1, mk, y, d + inset, th);
   }
 }
+// fill wall-less edges of a room with a 10 cm partition (outside the polygon) and treat them as walls from now on
+function closeGaps(b, an, ceil) {
+  for (const sd of an.sides) {
+    const gaps = sd.openings.filter(o => o.type === 'gap');
+    if (!gaps.length) continue;
+    for (const g of gaps) {
+      // stretch to the neighbouring real wall faces (analysis pads covered ranges by 0.25)
+      let lo = 0, hi = sd.len;
+      for (const f of sd.faces) { if (f.s1 <= g.s0 + 0.3) lo = Math.max(lo, f.s1); if (f.s0 >= g.s1 - 0.3) hi = Math.min(hi, f.s0); }
+      g.s0 = Math.min(g.s0, Math.max(lo, g.s0 - 0.3)); g.s1 = Math.max(g.s1, Math.min(hi, g.s1 + 0.3));
+      sidePanelRaw(b, sd, g.s0 - 0.02, g.s1 + 0.02, 0, ceil, 'wall', 0, -0.1, 0.1);
+      sd.faces.push({ s0: g.s0, s1: g.s1, inset: 0 });
+    }
+    sd.openings = sd.openings.filter(o => o.type !== 'gap');
+    sd.hasWall = true;
+  }
+  an.zones = an.zones.filter(z => z.tag !== 'gap');
+}
 function ceilingOverlay(b, poly, ceil) {
   const shape = new T.Shape(poly.map(([x, z]) => new T.Vector2(x, z)));
   const g = new T.ShapeGeometry(shape).rotateX(HP); g.translate(0, ceil - CEIL_GAP, 0);
@@ -1921,14 +2180,14 @@ function layoutLiving(ctx, an, pl) {
 function F_diningTable2(b, sd, w) {
   b.shadow(w + 0.5, w + 1.1);
   const H = 0.75;
-  b.cyl(sd.tableTop === 'nero' ? 'worktop' : 'wood', w / 2, 0.035, 0, H - 0.035, 0);
+  b.add(G.cylHi, sd.tableTop === 'nero' ? 'worktop' : 'wood', 0, H - 0.035, 0, 0, 0, 0, w / 2, 0.035, w / 2);
   b.add(lathe('tped2', [[0, 0], [0.22, 0], [0.22, 0.02], [0.07, 0.06], [0.05, 0.7], [0.1, 0.715], [0, 0.715]], 28), sd.id === 'lisboa' ? 'wood' : 'stoneware', 0, 0, 0);
   for (const s of [1, -1]) {
     b.pf('chair', F_chairProto, 0, 0, s * (w / 2 + 0.12), s > 0 ? PI : 0, 1);
     b.push(0, H, 0); F_placeSetting(b, 0, s * (w / 2 - 0.17), s > 0 ? 0 : PI, true); b.pop();
   }
   F_candle(b, -0.08, H, 0.0, 0.18); F_candle(b, 0.08, H, 0.0, 0.14);
-  F_vase(b, 0.0, H, 0.0, 0.5, true);
+  F_vase(b, 0.0, H, 0.0, 0.55, false);
 }
 function plantsInCorners(ctx, an, pl, max, glazing) {
   const { b } = ctx; let n = 0;
@@ -2007,7 +2266,7 @@ function layoutBedroom(ctx, an, pl, isSecond) {
 function layoutBath(ctx, an, pl) {
   const { b, sd, y, ceil, mats } = ctx;
   // wall finish
-  for (const s of an.sides) wallFinish(b, s, y, 'bathWall', { h0: 0, h1: sd.bathWallH, d: 0.013 });
+  for (const s of an.sides) wallFinish(b, s, y, 'bathWall', { h0: 0, h1: Math.min(sd.bathWallH, ctx.ceil - CEIL_GAP), d: 0.013 });
   // shower: the short end with no door; prefer a corner
   const sides = an.sides.filter(s => s.hasWall);
   let shower = null;
@@ -2028,7 +2287,7 @@ function layoutBath(ctx, an, pl) {
     pl.take(shower.r);
     // marble/azulejo on the 3 shower walls: back side and neighbours inside the footprint
     const s = shower.s, d = shower.r.hd * 2;
-    wallFinish(b, s, y, 'showerWall', { r0: shower.s0, r1: shower.s0 + sw, h0: 0, h1: 2.3, d: 0.022, th: 0.012 });
+    wallFinish(b, s, y, 'showerWall', { r0: shower.s0, r1: shower.s0 + sw, h0: 0, h1: ctx.ceil - CEIL_GAP - 0.002, d: 0.022, th: 0.012 });
     const q = placeOf(shower.r);
     // glass on the open long side (the side facing the room) → local 'front'
     b.push(q.x, 0, q.z, q.ry); F_shower(b, sd, sw, d, 'front'); b.pop();
@@ -2038,7 +2297,7 @@ function layoutBath(ctx, an, pl) {
       const along = (shower.r.cx - s2.a.x) * s2.u.x + (shower.r.cz - s2.a.z) * s2.u.z, dist = sideDist(s2, shower.r.cx, shower.r.cz);
       const halfAlong = Math.abs(s2.u.x * shower.r.nx + s2.u.z * shower.r.nz) > 0.9 ? shower.r.hd : shower.r.hw;
       const halfDist = Math.abs(s2.n.x * shower.r.nx + s2.n.z * shower.r.nz) > 0.9 ? shower.r.hd : shower.r.hw;
-      if (Math.abs(dist - halfDist) < 0.05) wallFinish(b, s2, y, 'showerWall', { r0: along - halfAlong, r1: along + halfAlong, h0: 0, h1: 2.3, d: 0.022, th: 0.012 });
+      if (Math.abs(dist - halfDist) < 0.05) wallFinish(b, s2, y, 'showerWall', { r0: along - halfAlong, r1: along + halfAlong, h0: 0, h1: ctx.ceil - CEIL_GAP - 0.002, d: 0.022, th: 0.012 });
     }
   }
   // vanity
@@ -2086,7 +2345,8 @@ function layoutBalcony(ctx, bal, y, dirOut) {
   const cz = (minz + maxz) / 2;
   // bistro set near one end, planters at the other
   if (w > 2.0) {
-    b.push(minx + 0.8, 0, cz, 0); F_bistro(b, sd); b.pop();
+    if (hasModel('outdoor_table_chair_set_01') && d >= 1.0) { b.push(minx + 1.05, 0, cz, 0); b.shadow(1.8, 0.85); b.model('outdoor_table_chair_set_01', 0, 0, 0, HP, { d: 1.75, w: Math.min(0.8, d - 0.35) }); b.pop(); }
+    else { b.push(minx + 0.8, 0, cz, 0); F_bistro(b, sd); b.pop(); }
     b.push(maxx - 0.55, 0, cz + (dirOut > 0 ? 0.2 : -0.2), 0); F_planter(b, 0.8, 0.35, 0.45, 1); b.pop();
     if (w > 5) { b.push((minx + maxx) / 2 + 1.3, 0, cz, dirOut > 0 ? PI : 0); F_lounger2(b, sd); b.pop(); F_plant(b, (minx + maxx) / 2 - 0.6, cz + dirOut * 0.3, 1.0, 2, 0.2); }
   }
@@ -2224,30 +2484,24 @@ function roomHotspots(an, floorY, extra) {
 // ───────────────────────── prewarm ─────────────────────────
 // Generates (and optionally uploads) all procedural textures/materials of the given styles in small idle slices,
 // so a later furnish()/style switch only builds geometry. Safe to call before buildInteriors().
-export function prewarm(styleIds = STYLE_IDS, { renderer = null, sliceMs = 12 } = {}) {
+export function prewarm(styleIds = STYLE_IDS, { renderer = null } = {}) {
   const ids = (Array.isArray(styleIds) ? styleIds : [styleIds]).filter(id => STYLE_IDS.includes(id));
-  const idle = (cb) => (typeof requestIdleCallback === 'function' ? requestIdleCallback(cb, { timeout: 200 }) : setTimeout(cb, 0));
-  return new Promise((resolve) => {
-    const jobs = [];
+  return (async () => {
     try { initGeos(); } catch (e) { /* ignore */ }
+    await loadManifest();
+    const models = Promise.all(MODEL_SET.map(n => loadModel(n)));
     for (const id of ids) {
-      jobs.push(() => getMats(id));
-      jobs.push(() => { const m = getMats(id); m.keys.forEach(k => jobs.push(() => {
-        const mat = m.get(k).m;
-        if (renderer && renderer.initTexture) for (const t of [mat.map, mat.normalMap, mat.emissiveMap, mat.alphaMap]) if (t) { try { renderer.initTexture(t); } catch (e) { /* ignore */ } }
-      })); });
+      const m = getMats(id);
+      for (const k of Object.keys(VOCAB)) { if (vocabOf(k) && vocabOf(k)[1] !== 'name') { try { m.get(k); } catch (e) { /* ignore */ } } }
+      await Promise.all(m.pending.slice());
+      if (renderer && renderer.initTexture) for (const k of Object.keys(VOCAB)) { const mm = m.get(k).m; for (const t of [mm.map, mm.normalMap, mm.roughnessMap, mm.aoMap, mm.metalnessMap]) if (t) { try { renderer.initTexture(t); } catch (e) { /* ignore */ } } }
     }
-    const step = () => {
-      const t0 = performance.now();
-      try { while (jobs.length && performance.now() - t0 < sliceMs) jobs.shift()(); } catch (e) { /* keep going */ }
-      if (jobs.length) idle(step); else resolve();
-    };
-    idle(step);
-  });
+    await models;
+  })().catch(() => {});
 }
 
 // ───────────────────────── main ─────────────────────────
-export function buildInteriors(THREE, { scene } = {}) {
+export function buildInteriors(THREE, { scene, building = null } = {}) {
   if (THREE && THREE !== T && THREE.REVISION) T = THREE;
   initGeos();
   const group = new THREE.Group(); group.name = 'interiors';
@@ -2302,9 +2556,10 @@ export function buildInteriors(THREE, { scene } = {}) {
         const pl = new Planner(an);
         ctx.diningPos = null; ctx.focus = null; ctx.kitchenPos = null;
         const isBath = room.use === 'bath' || room.use === 'wc';
+        if (isBath) closeGaps(b, an, ceil); // wet rooms must be closed (data.js has no wall between some en-suites and the lift shaft)
         floorOverlay(b, room.poly, 0, isBath ? 'bathFloor' : room.use === 'hall' ? 'hallFloor' : 'floor');
         // skirting (joinery colour) around wall faces except openings
-        if (!isBath) for (const s of an.sides) { wallFinish(b, s, 0, 'joinery', { h0: 0, h1: 0.09, d: 0.0, th: 0.02 }); wallFinish(b, s, 0, 'wall', { h0: 0.09, h1: ceil - CEIL_GAP, d: 0.0, th: 0.004 }); }
+        if (!isBath) for (const s of an.sides) { wallFinish(b, s, 0, 'skirting', { h0: 0, h1: 0.09, d: 0.0, th: 0.02 }); wallFinish(b, s, 0, 'wall', { h0: 0.09, h1: ceil - CEIL_GAP, d: 0.0, th: 0.004 }); }
         if (room.use === 'kitchen-living') layoutLiving(ctx, an, pl);
         else if (room.use === 'bedroom' || room.use === 'suite') layoutBedroom(ctx, an, pl, room.use === 'bedroom' && rooms.some(r => r.use === 'suite') && unit.beds >= 2);
         else if (isBath) layoutBath(ctx, an, pl);
@@ -2342,15 +2597,48 @@ export function buildInteriors(THREE, { scene } = {}) {
     return { root, hotspots, styleId: sd.id };
   }
 
-  function furnish(unitId, styleId) {
-    return new Promise((resolve) => {
-      try {
-        clear(unitId);
-        const u = buildUnit(unitId, styleId);
-        group.add(u.root); units.set(unitId, u);
-      } catch (e) { CUR_FLOOR = null; if (typeof console !== 'undefined') console.warn('[interiors] furnish failed', unitId, e); }
-      resolve();
-    });
+  const tokens = new Map();
+  const timeout = (ms) => new Promise(r => setTimeout(r, ms));
+  let assetsReady = null;
+  function ensureAssets() {
+    if (!assetsReady) assetsReady = loadManifest().then(() => Promise.all(MODEL_SET.map(n => loadModel(n)))).catch(() => null);
+    return assetsReady;
+  }
+  // furnish: waits (bounded) for the manifest + glTF props, builds synchronously, then waits (bounded) for the package's PBR textures
+  async function furnish(unitId, styleId) {
+    const tk = (tokens.get(unitId) || 0) + 1; tokens.set(unitId, tk);
+    try { await Promise.race([ensureAssets(), timeout(15000)]); } catch (e) { /* procedural fallback */ }
+    if (tokens.get(unitId) !== tk) return;
+    let u = null;
+    try {
+      clear(unitId);
+      u = buildUnit(unitId, styleId);
+      group.add(u.root); units.set(unitId, u);
+      try { skinDoors(unitId, u.styleId); } catch (e) { /* optional */ }
+    } catch (e) { CUR_FLOOR = null; if (typeof console !== 'undefined') console.warn('[interiors] furnish failed', unitId, e); }
+    if (u) { const api = getMats(u.styleId); try { await Promise.race([Promise.all(api.pending.slice()), timeout(20000)]); } catch (e) { /* streamed */ } }
+  }
+  // Package door finish on BUILDING's interior door leaves of this unit (only if a building was passed in)
+  const doorSkins = new Map(); // mesh -> original material
+  function skinDoors(unitId, styleId) {
+    const doors = building && building.doors; if (!Array.isArray(doors)) return;
+    const unit = UNITS.find(q => q.id === unitId); if (!unit) return;
+    const rooms = roomsOfUnit(unitId);
+    const leaf = getPackageMaterial('door-interior', styleId), handle = getPackageMaterial('door-handle', styleId);
+    for (const d of doors) {
+      if (d.kind !== 'door' || d.floorId !== unit.floor || !d.center || !d.pivot) continue;
+      const near = rooms.some(r => { const c = centroid(r.poly); return pip(d.center.x, d.center.z, r.poly) || [[0.3, 0], [-0.3, 0], [0, 0.3], [0, -0.3]].some(([dx, dz]) => pip(d.center.x + dx, d.center.z + dz, r.poly)); });
+      if (!near) continue;
+      d.pivot.traverse(o => {
+        if (!o.isMesh || !o.material || Array.isArray(o.material)) return;
+        const orig = doorSkins.has(o) ? doorSkins.get(o) : o.material;
+        const n = (orig.name || '').toLowerCase();
+        const target = /steel|brass|handle|chrome/.test(n) ? handle : /lacquer|walnut|door|leaf/.test(n) ? leaf : null;
+        if (!target) return;
+        if (!doorSkins.has(o)) doorSkins.set(o, orig);
+        o.material = target;
+      });
+    }
   }
   function getHotspots(unitId) {
     const u = units.get(unitId);
@@ -2373,5 +2661,6 @@ export function buildInteriors(THREE, { scene } = {}) {
       const f = m.get('flame').m; f.emissiveIntensity = 11 + Math.sin(time * 13.1) * 1.2 + Math.sin(time * 7.3) * 0.9;
     }
   }
-  return { group, furnish, clear, getHotspots, update, prewarm: (ids, opts) => prewarm(ids, opts) };
+  function setBuilding(b) { building = b || null; }
+  return { group, furnish, clear, getHotspots, update, prewarm: (ids, opts) => prewarm(ids, opts), setBuilding, getPackageMaterial };
 }

@@ -280,24 +280,61 @@ export const UNITS = [
 ];
 
 // Three interior finishes offered for every apartment.
+// The three finish options for every apartment. Each option is a complete building-material package
+// (floors, walls, bathrooms, kitchen, joinery, ironmongery) with a matching furniture/decor scheme.
+// Ids are kept stable (atlantic | lisboa | noir) because every module keys on them.
+// `spec` = the materials board shown to buyers; `pbr` = CC0 texture ids per surface (filled by the asset pipeline).
 export const STYLES = [
   {
-    id: 'atlantic', name: { en: 'Atlantic Light', pt: 'Atlântico', he: 'אטלנטי בהיר' },
-    blurb: { en: 'Bleached oak, lime plaster, linen and white Estremoz marble.', pt: 'Carvalho claro, estuque de cal, linho e mármore branco de Estremoz.', he: 'אלון מולבן, טיח סיד, פשתן ושיש לבן מאסטרמוש.' },
+    id: 'atlantic', tier: 'essencial',
+    name: { en: 'Essencial · Atlantic Light', pt: 'Essencial · Atlântico', he: 'אסנסיאל · אטלנטי בהיר', ru: 'Essencial · Атлантик' },
+    blurb: { en: 'Light engineered oak, stone-look porcelain, white lacquer kitchen with quartz, chrome fittings.', pt: 'Carvalho natural, porcelânico efeito pedra, cozinha lacada branca com quartzo, torneiras cromadas.', he: 'פרקט אלון טבעי, פורצלן במראה אבן, מטבח לכה לבנה עם קוורץ, ברזים בכרום.', ru: 'Светлый дуб, керамогранит под камень, белая кухня с кварцем, хром.' },
     palette: { floor: '#d9c7a8', wall: '#f3efe8', ceiling: '#fbfaf7', joinery: '#e9e2d6', worktop: '#f1eeea', accent: '#7c93a3', fabric: '#e6ded1', metal: '#c9c4bb', bathTile: '#eeeae3', rug: '#cfc4b2', wood: '#c9a978' },
-    extra: 0
+    extra: 0,
+    spec: [
+      { k: 'floor',   en: 'Engineered natural oak, 190 mm boards, matt oil',             pt: 'Soalho de carvalho natural, réguas 190 mm, óleo mate',        he: 'פרקט אלון טבעי מהונדס, לוחות 190 מ״מ, שמן מט' },
+      { k: 'walls',   en: 'Smooth plaster, warm white mineral paint',                    pt: 'Estuque liso, tinta mineral branco quente',                   he: 'טיח חלק, צבע מינרלי לבן חם' },
+      { k: 'bath',    en: 'Stone-look porcelain 60×120, floor to ceiling in the shower', pt: 'Porcelânico efeito pedra 60×120, até ao teto no duche',       he: 'פורצלן במראה אבן 60×120, עד התקרה במקלחת' },
+      { k: 'sanitary',en: 'Wall-hung white ceramic WC and basin, chrome thermostatic set', pt: 'Louça suspensa branca, misturadora termostática cromada',   he: 'אסלה וכיור תלויים לבנים, ערכה תרמוסטטית בכרום' },
+      { k: 'kitchen', en: 'White matt lacquer fronts, 20 mm white quartz worktop',       pt: 'Frentes lacadas branco mate, bancada quartzo branco 20 mm',  he: 'חזיתות לכה לבנה מט, משטח קוורץ לבן 20 מ״מ' },
+      { k: 'appliances', en: 'A-rated integrated oven, induction, fridge, dishwasher',  pt: 'Forno, indução, frigorífico e máquina de loiça integrados, classe A', he: 'תנור, כיריים אינדוקציה, מקרר ומדיח אינטגרליים בדירוג A' },
+      { k: 'doors',   en: 'White lacquered interior doors, satin steel handles',         pt: 'Portas interiores lacadas brancas, puxadores aço acetinado',  he: 'דלתות פנים בלכה לבנה, ידיות פלדה מוברשת' },
+      { k: 'windows', en: 'Thermal-break aluminium, double glazing, motorised blinds',   pt: 'Alumínio com corte térmico, vidro duplo, estores motorizados', he: 'אלומיניום עם גשר תרמי, זיגוג כפול, תריסים חשמליים' }
+    ]
   },
   {
-    id: 'lisboa', name: { en: 'Lisboa Heritage', pt: 'Lisboa Clássico', he: 'ליסבון קלאסי' },
-    blurb: { en: 'Walnut herringbone, azulejo accents, brass and terracotta.', pt: 'Espinha de nogueira, apontamentos de azulejo, latão e terracota.', he: 'פרקט אגוז בדוגמת אדרה, אריחי אזולז׳ו, פליז וטרקוטה.' },
+    id: 'lisboa', tier: 'premium',
+    name: { en: 'Premium · Lisboa Heritage', pt: 'Premium · Lisboa Clássico', he: 'פרימיום · ליסבון קלאסי', ru: 'Premium · Лиссабон' },
+    blurb: { en: 'Walnut herringbone, Estremoz-marble bathrooms with azulejo accents, navy kitchen with brass.', pt: 'Espinha de nogueira, casas de banho em mármore de Estremoz com azulejo, cozinha azul com latão.', he: 'פרקט אגוז בדוגמת אדרה, חדרי רחצה משיש אסטרמוש עם אזולז׳ו, מטבח כחול עם פליז.', ru: 'Ёлочка из ореха, мрамор Эштремош и азулежу, синяя кухня с латунью.' },
     palette: { floor: '#8a5a3b', wall: '#efe6d8', ceiling: '#f7f1e6', joinery: '#2f4a6b', worktop: '#e8e2d8', accent: '#b5652e', fabric: '#c9a47a', metal: '#b8913f', bathTile: '#dbe6ef', rug: '#7b3b2a', wood: '#6e452b' },
-    extra: 9500
+    extra: 9500,
+    spec: [
+      { k: 'floor',   en: 'Solid walnut herringbone parquet, hand-oiled',                 pt: 'Parquet de nogueira maciça em espinha, oleado à mão',        he: 'פרקט אגוז מלא בדוגמת אדרה, שמן ביד' },
+      { k: 'walls',   en: 'Lime plaster finish, ceiling cornices',                        pt: 'Acabamento a estuque de cal, sancas',                        he: 'טיח סיד, כרכובים בתקרה' },
+      { k: 'bath',    en: 'Honed Estremoz marble, hand-made azulejo accent wall',          pt: 'Mármore de Estremoz amaciado, parede de azulejo artesanal',  he: 'שיש אסטרמוש מוברש, קיר אזולז׳ו בעבודת יד' },
+      { k: 'sanitary',en: 'Wall-hung sanitaryware, brushed brass mixers and rain shower', pt: 'Louça suspensa, misturadoras e chuveiro em latão escovado',  he: 'כלים סניטריים תלויים, ברזים ומקלחת גשם בפליז מוברש' },
+      { k: 'kitchen', en: 'Navy lacquer fronts, brass handles, Calacatta quartz worktop', pt: 'Frentes lacadas azul-marinho, puxadores latão, quartzo Calacatta', he: 'חזיתות לכה כחול כהה, ידיות פליז, משטח קוורץ קלקטה' },
+      { k: 'appliances', en: 'Premium integrated appliances, wine cooler',               pt: 'Eletrodomésticos integrados premium, garrafeira',           he: 'מכשירים אינטגרליים פרימיום, מקרר יין' },
+      { k: 'doors',   en: 'Walnut veneer interior doors, brass ironmongery',              pt: 'Portas interiores em folha de nogueira, ferragens latão',   he: 'דלתות פנים בפורניר אגוז, פרזול פליז' },
+      { k: 'windows', en: 'Thermal-break aluminium, acoustic double glazing, linen sheers', pt: 'Alumínio com corte térmico, vidro acústico, cortinados de linho', he: 'אלומיניום עם גשר תרמי, זיגוג אקוסטי, וילונות פשתן' }
+    ]
   },
   {
-    id: 'noir', name: { en: 'Noir Riverside', pt: 'Noir Ribeirinho', he: 'נואר על הנהר' },
-    blurb: { en: 'Smoked oak, charcoal microcement, Nero Marquina and bronze.', pt: 'Carvalho fumado, microcimento antracite, Nero Marquina e bronze.', he: 'אלון מעושן, מיקרוטופינג פחם, שיש נרו מרקינה וברונזה.' },
+    id: 'noir', tier: 'signature',
+    name: { en: 'Signature · Noir Riverside', pt: 'Signature · Noir Ribeirinho', he: 'סיגנצ׳ר · נואר על הנהר', ru: 'Signature · Нуар' },
+    blurb: { en: 'Wide smoked-oak planks, Nero Marquina marble, microcement, fluted oak kitchen with sintered stone, bronze.', pt: 'Carvalho fumado em réguas largas, mármore Nero Marquina, microcimento, cozinha ripada com pedra sinterizada, bronze.', he: 'לוחות אלון מעושן רחבים, שיש נרו מרקינה, מיקרוטופינג, מטבח אלון מחורץ עם אבן סינטר, ברונזה.', ru: 'Широкий копчёный дуб, мрамор Неро Маркина, микроцемент, кухня с керамикой, бронза.' },
     palette: { floor: '#4a3a2e', wall: '#3b3b3d', ceiling: '#2d2d2f', joinery: '#1f1f21', worktop: '#1a1a1a', accent: '#a07b4f', fabric: '#57524c', metal: '#8c6a43', bathTile: '#2a2a2c', rug: '#6b625a', wood: '#3a2c22' },
-    extra: 14500
+    extra: 14500,
+    spec: [
+      { k: 'floor',   en: 'Smoked oak wide planks 240 mm, brushed and oiled',             pt: 'Carvalho fumado em réguas de 240 mm, escovado e oleado',     he: 'אלון מעושן בלוחות 240 מ״מ, מוברש ומשומן' },
+      { k: 'walls',   en: 'Charcoal microcement feature walls, warm grey paint',          pt: 'Paredes em microcimento antracite, tinta cinza quente',      he: 'קירות מיקרוטופינג פחם, צבע אפור חם' },
+      { k: 'bath',    en: 'Polished Nero Marquina marble, microcement walk-in shower',     pt: 'Mármore Nero Marquina polido, duche em microcimento',       he: 'שיש נרו מרקינה מלוטש, מקלחת מיקרוטופינג' },
+      { k: 'sanitary',en: 'Stone basins, gunmetal/bronze fittings, concealed cisterns',   pt: 'Lavatórios em pedra, torneiras bronze/gunmetal, autoclismos embutidos', he: 'כיורי אבן, ברזים בברונזה/גאנמטל, מיכלים סמויים' },
+      { k: 'kitchen', en: 'Fluted smoked-oak fronts, 12 mm dark sintered-stone worktop',  pt: 'Frentes ripadas em carvalho fumado, bancada pedra sinterizada escura 12 mm', he: 'חזיתות אלון מעושן מחורצות, משטח אבן סינטר כהה 12 מ״מ' },
+      { k: 'appliances', en: 'Top-tier integrated appliances, steam oven, venting hob',   pt: 'Eletrodomésticos topo de gama, forno a vapor, placa com extração', he: 'מכשירים מהשורה הראשונה, תנור קיטור, כיריים עם יניקה' },
+      { k: 'doors',   en: 'Full-height flush doors in dark oak, concealed hinges',        pt: 'Portas de piso a teto em carvalho escuro, dobradiças ocultas', he: 'דלתות מרצפה לתקרה באלון כהה, צירים נסתרים' },
+      { k: 'windows', en: 'Slim-profile thermal-break aluminium, solar-control glazing',  pt: 'Alumínio de perfil fino, vidro de controlo solar',           he: 'אלומיניום בפרופיל דק, זיגוג בקרת שמש' }
+    ]
   }
 ];
 

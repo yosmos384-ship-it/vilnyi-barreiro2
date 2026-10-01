@@ -465,6 +465,7 @@ const SKY_FS = /* glsl */`
 uniform vec3 zenith; uniform vec3 horizon; uniform vec3 horizonAway; uniform vec3 mid; uniform vec3 ground; uniform vec3 sunCol; uniform vec3 glowCol;
 uniform vec3 sunDir; uniform float sunSize; uniform float cloudCover; uniform vec3 cloudLit; uniform vec3 cloudShade;
 uniform float time; uniform float stars;
+uniform sampler2D hdr; uniform float hdrMix; uniform float hdrRot; uniform float hdrGain;
 varying vec3 vDir;
 float h21(vec2 p){ p = fract(p*vec2(123.34,456.21)); p += dot(p,p+45.32); return fract(p.x*p.y); }
 float vn(vec2 p){ vec2 i=floor(p), f=fract(p); f=f*f*(3.0-2.0*f);
@@ -507,6 +508,19 @@ void main() {
     float s = step(0.9975, h21(floor(g))) * smoothstep(0.25, 0.7, y) * smoothstep(0.22, 0.05, length(fg)) * h21(floor(g) + 7.0);
     col += vec3(s) * stars;
   }
+  if (hdrMix > 0.0) {
+    // real HDRI sky (equirect, rotated about y so its sun sits on the scene sun), filmic tone-mapped here
+    float ph = atan(d.z, d.x) + hdrRot;
+    vec2 uv = vec2(ph * 0.15915494 + 0.5, asin(clamp(y, -1.0, 1.0)) * 0.31830989 + 0.5);
+    vec2 dx = dFdx(uv), dy = dFdy(uv);
+    if (abs(dx.x) > 0.5) dx.x = 0.0; if (abs(dy.x) > 0.5) dy.x = 0.0; // no seam at the wrap
+    vec3 h = textureGrad(hdr, uv, dx, dy).rgb * hdrGain;
+    h = min(h, vec3(40.0));
+    h = clamp((h * (2.51 * h + 0.03)) / (h * (2.43 * h + 0.59) + 0.14), 0.0, 1.0);
+    // HDRI ground half → scene haze colour, so the terrain's fog meets the sky seamlessly
+    h = mix(h, ground, smoothstep(0.035, -0.03, y));
+    col = mix(col, h, hdrMix);
+  }
   gl_FragColor = vec4(col, 1.0);
   #include <colorspace_fragment>
 }`;
@@ -518,7 +532,8 @@ function makeSky() {
       zenith: { value: new T.Color() }, horizon: { value: new T.Color() }, horizonAway: { value: new T.Color() }, mid: { value: new T.Color() }, ground: { value: new T.Color() },
       sunCol: { value: new T.Color() }, glowCol: { value: new T.Color() }, sunDir: { value: new T.Vector3(0, 1, 0) },
       sunSize: { value: 0.012 }, cloudCover: { value: 0.35 }, cloudLit: { value: new T.Color() }, cloudShade: { value: new T.Color() },
-      time: { value: 0 }, stars: { value: 0 }
+      time: { value: 0 }, stars: { value: 0 },
+      hdr: { value: null }, hdrMix: { value: 0 }, hdrRot: { value: 0 }, hdrGain: { value: 1 }
     },
     vertexShader: SKY_VS, fragmentShader: SKY_FS,
     side: T.BackSide, depthWrite: false, depthTest: false, fog: false, toneMapped: false
@@ -532,25 +547,26 @@ function makeSky() {
 }
 
 // Time-of-day presets. Sun azimuth from north, clockwise; Lisbon 38.67°N, late September.
-// 'day' ≈ 14:30 (az 200°, alt 47°), 'golden' ≈ 17:00 (az 234°, alt 24°: rakes along the SSE-facing street façade from the
-// left, as in the renders; any later sun leaves that façade in shade), 'dusk' ≈ sunset (az 268°, alt 3°).
+// Bearings match the Cycles renders (render/blender/vb_library.py SKIES): 'day' 200°, 'golden' 222° (rakes across the
+// SSE-facing street façade, normal bearing 151°), 'dusk' ≈ 250° (after-sunset glow). When the CC0 HDRI of a preset is loaded,
+// it is rotated so its own sun/glow sits on that bearing and the sun altitude is taken from the HDRI (clamped to hdriAlt).
 const TOD = {
   day: {
-    az: 200, alt: 47, sun: '#fff4e6', sunI: 3.4,
+    az: 200, alt: 47, sun: '#fff4e6', sunI: 3.6, hdriAlt: [40, 55], envE: 1.7, skyGain: 1.3,
     zenith: '#2f6fc0', mid: '#79a6dc', horizon: '#d6e3ef', away: '#c3d7ec', fogCol: '#c9d9e8', ground: '#b9c6cf', glow: '#fff3d8', sunDisc: 6.0,
     cloud: 0.36, cloudLit: '#ffffff', cloudShade: '#aeb8c6',
     hemiSky: '#bcd6f0', hemiGround: '#b59e82', hemiI: 0.55, env: 0.9,
     fog: 0.000055, exposure: 1.0, lamps: 0, city: 0, stars: 0, water: '#3f6f8f', waterSky: '#9fc0dc'
   },
   golden: {
-    az: 234, alt: 24, sun: '#ffb574', sunI: 3.6,
+    az: 222, alt: 22, sun: '#ffc48c', sunI: 3.4, hdriAlt: [18, 28], envE: 1.5, skyGain: 1.35,
     zenith: '#3b6db0', mid: '#86a9d0', horizon: '#f6cf9f', away: '#c8d3df', fogCol: '#d9d5cf', ground: '#c9b39b', glow: '#ffb66a', sunDisc: 5.0,
     cloud: 0.28, cloudLit: '#fff0dc', cloudShade: '#a9a2a8',
     hemiSky: '#b9c8e0', hemiGround: '#b08e6c', hemiI: 0.4, env: 0.6,
     fog: 0.000065, exposure: 1.0, lamps: 0, city: 0.15, stars: 0, water: '#3c5f7a', waterSky: '#d9c3a8'
   },
   dusk: {
-    az: 268, alt: 3, sun: '#ff9a6a', sunI: 0.35,
+    az: 250, alt: 3, sun: '#ff9a6a', sunI: 0.3, hdriAlt: null, envE: 0.6, skyGain: 0.42,
     zenith: '#1b2748', mid: '#46557e', horizon: '#ee9a6c', away: '#8b8aa3', fogCol: '#77738a', ground: '#3a3c4a', glow: '#ff8a55', sunDisc: 0.0,
     cloud: 0.18, cloudLit: '#f0a283', cloudShade: '#4a4a62',
     hemiSky: '#5a6c9a', hemiGround: '#3e3136', hemiI: 0.35, env: 0.25,
@@ -614,7 +630,7 @@ void main() {
 
 function buildWater(C) {
   const mat = new T.ShaderMaterial({
-    name: 'env-water',
+    name: 'water',
     uniforms: T.UniformsUtils.merge([T.UniformsLib.fog, {
       time: { value: 0 }, deep: { value: new T.Color('#3f6f8f') }, skyLow: { value: new T.Color('#c9dcef') },
       skyHigh: { value: new T.Color('#5d8fc9') }, sunCol: { value: new T.Color('#fff4e6') }, sunDir: { value: new T.Vector3(0, 1, 0) },
@@ -798,17 +814,17 @@ function makeMaterials(C, tex, fac) {
     emissive: new T.Color('#ffffff'), emissiveMap: fac.lit, emissiveIntensity: 0, envMapIntensity: 0.7 });
   M.city = new T.MeshStandardMaterial({ name: 'env-city', map: fac.map, vertexColors: true, roughness: 0.9, metalness: 0,
     emissive: new T.Color('#ffffff'), emissiveMap: fac.lit, emissiveIntensity: 0, envMapIntensity: 0.5 });
-  M.roof = new T.MeshStandardMaterial({ name: 'env-roof', map: tex.tiles, vertexColors: true, roughness: 0.78, metalness: 0, envMapIntensity: 0.6 });
-  M.plain = new T.MeshStandardMaterial({ name: 'env-plain', vertexColors: true, roughness: 0.85, metalness: 0, envMapIntensity: 0.7 });
-  M.metal = new T.MeshStandardMaterial({ name: 'env-metal', vertexColors: true, roughness: 0.45, metalness: 0.6, envMapIntensity: 0.9 });
-  M.asphalt = new T.MeshStandardMaterial({ name: 'env-asphalt', map: tex.asphalt, color: '#ffffff', roughness: 0.94, metalness: 0, envMapIntensity: 0.5 });
-  M.calcada = new T.MeshStandardMaterial({ name: 'env-calcada', map: tex.calcada, color: '#ffffff', roughness: 0.8, metalness: 0, envMapIntensity: 0.6 });
+  M.roof = new T.MeshStandardMaterial({ name: 'roof-tile-terracotta', map: tex.tiles, vertexColors: true, roughness: 0.78, metalness: 0, envMapIntensity: 0.6 });
+  M.plain = new T.MeshStandardMaterial({ name: 'render-cream:context', vertexColors: true, roughness: 0.85, metalness: 0, envMapIntensity: 0.7 });
+  M.metal = new T.MeshStandardMaterial({ name: 'steel-dark:context', vertexColors: true, roughness: 0.45, metalness: 0.6, envMapIntensity: 0.9 });
+  M.asphalt = new T.MeshStandardMaterial({ name: 'asphalt', map: tex.asphalt, color: '#ffffff', roughness: 0.94, metalness: 0, envMapIntensity: 0.5 });
+  M.calcada = new T.MeshStandardMaterial({ name: 'paving-calcada', map: tex.calcada, color: '#ffffff', roughness: 0.8, metalness: 0, envMapIntensity: 0.6 });
   for (const m of [M.asphalt, M.calcada]) Object.assign(m, { polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -2 });
-  M.dirt = new T.MeshStandardMaterial({ name: 'env-dirt', map: tex.yard, color: '#d9cbb0', roughness: 1, envMapIntensity: 0.5,
+  M.dirt = new T.MeshStandardMaterial({ name: 'gravel', map: tex.yard, color: '#d9cbb0', roughness: 1, envMapIntensity: 0.5,
     polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
-  M.terrain = new T.MeshStandardMaterial({ name: 'env-terrain', vertexColors: true, roughness: 1, metalness: 0, envMapIntensity: 0.55 });
+  M.terrain = new T.MeshStandardMaterial({ name: 'soil:terrain', vertexColors: true, roughness: 1, metalness: 0, envMapIntensity: 0.55 });
   // inner terrain + site ground: painted landuse map (2.5 m/px) × a tiling detail texture in world space
-  M.terrainInner = new T.MeshStandardMaterial({ name: 'env-ground', color: '#ffffff', roughness: 1, metalness: 0, envMapIntensity: 0.55 });
+  M.terrainInner = new T.MeshStandardMaterial({ name: 'soil:ground', color: '#ffffff', roughness: 1, metalness: 0, envMapIntensity: 0.55 });
   M.terrainInner.onBeforeCompile = (sh) => {
     sh.uniforms.detailMap = { value: tex.detail };
     sh.vertexShader = sh.vertexShader.replace('#include <common>', '#include <common>\nvarying vec2 vWXZ;')
@@ -820,27 +836,95 @@ function makeMaterials(C, tex, fac) {
   };
   M.terrainInner.customProgramCacheKey = () => 'env-ground-detail';
   M.ground = M.terrainInner;
-  M.stone = new T.MeshStandardMaterial({ name: 'env-stone', map: tex.stone, color: '#ffffff', roughness: 0.9, envMapIntensity: 0.6 });
-  M.yard = new T.MeshStandardMaterial({ name: 'env-yard', map: tex.yard, vertexColors: true, roughness: 1, envMapIntensity: 0.5 });
-  M.iron = new T.MeshStandardMaterial({ name: 'env-iron', map: tex.iron, color: '#f2f2ee', alphaTest: 0.5, side: T.DoubleSide, roughness: 0.6, metalness: 0.2 });
-  M.fence = new T.MeshStandardMaterial({ name: 'env-fence', map: tex.fence, color: '#ffffff', alphaTest: 0.5, side: T.DoubleSide, roughness: 0.7 });
-  M.glassDark = new T.MeshStandardMaterial({ name: 'env-window', color: '#28313a', roughness: 0.08, metalness: 0.2, envMapIntensity: 1.2,
+  M.stone = new T.MeshStandardMaterial({ name: 'stone-coping:rubble', map: tex.stone, color: '#ffffff', roughness: 0.9, envMapIntensity: 0.6 });
+  M.yard = new T.MeshStandardMaterial({ name: 'lawn', map: tex.yard, vertexColors: true, roughness: 1, envMapIntensity: 0.5 });
+  M.iron = new T.MeshStandardMaterial({ name: 'steel-dark:wrought-iron', map: tex.iron, color: '#f2f2ee', alphaTest: 0.5, side: T.DoubleSide, roughness: 0.6, metalness: 0.2 });
+  M.fence = new T.MeshStandardMaterial({ name: 'steel-dark:fence', map: tex.fence, color: '#ffffff', alphaTest: 0.5, side: T.DoubleSide, roughness: 0.7 });
+  M.glassDark = new T.MeshStandardMaterial({ name: 'glass-window:context', color: '#28313a', roughness: 0.08, metalness: 0.2, envMapIntensity: 1.2,
     emissive: new T.Color('#ffb56b'), emissiveIntensity: 0 });
-  M.lampHead = new T.MeshStandardMaterial({ name: 'env-lamp', color: '#e8e6e0', emissive: new T.Color('#ffc98a'), emissiveIntensity: 0, roughness: 0.3 });
+  M.lampHead = new T.MeshStandardMaterial({ name: 'bulb-emissive:streetlamp', color: '#e8e6e0', emissive: new T.Color('#ffc98a'), emissiveIntensity: 0, roughness: 0.3 });
   M.cable = new T.LineBasicMaterial({ name: 'env-cable', color: '#202224', transparent: true, opacity: 0.85 });
   M.glow = new T.MeshBasicMaterial({ name: 'env-glow', map: tex.glow, color: '#ffb870', transparent: true, opacity: 0, depthWrite: false,
     blending: T.AdditiveBlending, toneMapped: false });
   M.pool = new T.MeshBasicMaterial({ name: 'env-lightpool', map: tex.glow, color: '#ffae62', transparent: true, opacity: 0, depthWrite: false,
     blending: T.AdditiveBlending, toneMapped: false, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -4 });
-  M.tree = new T.MeshStandardMaterial({ name: 'env-tree', vertexColors: true, roughness: 0.95, flatShading: true, envMapIntensity: 0.5 });
+  M.tree = new T.MeshStandardMaterial({ name: 'foliage', vertexColors: true, roughness: 0.95, flatShading: true, envMapIntensity: 0.5 });
   M.car = new T.MeshStandardMaterial({ name: 'env-car', vertexColors: true, roughness: 0.32, metalness: 0.45, envMapIntensity: 1.0 });
-  M.redSteel = new T.MeshStandardMaterial({ name: 'env-bridge-red', color: '#b5432e', roughness: 0.6, metalness: 0.2 });
-  M.concrete = new T.MeshStandardMaterial({ name: 'env-concrete', color: '#d9d6cf', roughness: 0.9 });
+  M.redSteel = new T.MeshStandardMaterial({ name: 'steel-dark:bridge-red', color: '#b5432e', roughness: 0.6, metalness: 0.2 });
+  M.concrete = new T.MeshStandardMaterial({ name: 'concrete', color: '#d9d6cf', roughness: 0.9 });
   M.lights = new T.PointsMaterial({ name: 'env-citylights', size: 2.2, sizeAttenuation: false, vertexColors: true, transparent: true,
     opacity: 0, depthWrite: false, toneMapped: false, fog: false });
   M.redLights = new T.PointsMaterial({ name: 'env-aviation', size: 3, sizeAttenuation: false, color: '#ff3a2a', transparent: true, opacity: 0,
     depthWrite: false, toneMapped: false, fog: false });
+  M.kerb = new T.MeshStandardMaterial({ name: 'kerb-stone', color: '#d8d4ca', roughness: 0.85, metalness: 0, envMapIntensity: 0.6,
+    polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -2 });
+  // hand-modelled neighbours: same window atlas, own names (pink no. 4 / white gable house)
+  M.facadePink = M.facade.clone(); M.facadePink.name = 'render-pink';
+  M.facadeWhite = M.facade.clone(); M.facadeWhite.name = 'render-cream:neighbour';
   for (const k in M) if (M[k].map && M[k] !== M.glow && M[k] !== M.pool) M[k].map.colorSpace = T.SRGBColorSpace;
+}
+
+// ---------------------------------------------------------------- phase 3: real CC0 PBR textures + HDRI skies (async)
+const assetURL = (rel) => new URL('../' + rel, import.meta.url).href;
+let _manifest = null;
+function loadManifest() {
+  if (!_manifest) _manifest = fetch(assetURL('assets/manifest.json')).then(r => (r.ok ? r.json() : null)).catch(() => null);
+  return _manifest;
+}
+// PBR set → material. uvM = metres per UV unit of the geometry that uses the material. Procedural maps stay until each real map arrives.
+function applyPBR(C, mat, key, uvM, { normal = true, rough = true, ao = false, tint = null, noVertexColors = false, normalScale = 1 } = {}) {
+  return loadManifest().then((man) => {
+    const set = man && man.textures && man.textures[key] && (man.textures[key].default || Object.values(man.textures[key])[0]);
+    if (!set || !set.maps) return false;
+    const size = set.sizeMeters || [2, 2];
+    const loader = C.texLoader || (C.texLoader = new T.TextureLoader());
+    const load = (rel, srgb) => new Promise((res) => {
+      if (!rel) return res(null);
+      loader.load(assetURL(rel), (t) => {
+        t.wrapS = t.wrapT = T.RepeatWrapping;
+        t.repeat.set(uvM / size[0], uvM / size[1]);
+        t.anisotropy = C.aniso;
+        t.colorSpace = srgb ? T.SRGBColorSpace : T.NoColorSpace;
+        res(t);
+      }, undefined, () => res(null));
+    });
+    const jobs = [load(set.maps.albedo, true).then((t) => {
+      if (!t) return;
+      mat.map = t;
+      if (noVertexColors) mat.vertexColors = false;
+      if (Array.isArray(tint)) mat.color.setRGB(tint[0], tint[1], tint[2]); else mat.color.set(tint || '#ffffff');
+      mat.needsUpdate = true;
+    })];
+    if (normal && !C.low) jobs.push(load(set.maps.normal, false).then((t) => { if (t) { mat.normalMap = t; mat.normalScale.set(normalScale, normalScale); mat.needsUpdate = true; } }));
+    if (rough && !C.low) jobs.push(load(set.maps.roughness, false).then((t) => { if (t) { mat.roughnessMap = t; mat.roughness = 1; mat.needsUpdate = true; } }));
+    if (ao && !C.low) jobs.push(load(set.maps.ao, false).then((t) => { if (t) { mat.aoMap = t; mat.aoMapIntensity = 0.8; mat.needsUpdate = true; } }));
+    return Promise.all(jobs).then(() => true);
+  }).catch(() => false);
+}
+// surface relief only (keeps the material's own colour / vertex colours / atlas)
+function applyRelief(C, mat, key, uvM, scale = 0.6) {
+  if (C.low) return Promise.resolve(false);
+  return loadManifest().then((man) => {
+    const set = man && man.textures && man.textures[key] && man.textures[key].default;
+    if (!set || !set.maps || !set.maps.normal) return false;
+    const size = set.sizeMeters || [2, 2];
+    return new Promise((res) => (C.texLoader || (C.texLoader = new T.TextureLoader())).load(assetURL(set.maps.normal), (t) => {
+      t.wrapS = t.wrapT = T.RepeatWrapping; t.repeat.set(uvM / size[0], uvM / size[1]); t.anisotropy = C.aniso; t.colorSpace = T.NoColorSpace;
+      mat.normalMap = t; mat.normalScale.set(scale, scale); mat.needsUpdate = true; res(true);
+    }, undefined, () => res(false)));
+  }).catch(() => false);
+}
+function loadPBR(C) {
+  const M = C.mats;
+  return Promise.all([
+    applyPBR(C, M.asphalt, 'asphalt', 8),
+    applyPBR(C, M.calcada, 'paving-calcada', 1.6, { ao: true, tint: [1.5, 1.48, 1.42] }),   // white limestone: lift the baked albedo
+    applyPBR(C, M.kerb, 'kerb-stone', 1, { tint: '#e9e6de' }),
+    applyPBR(C, M.roof, 'roof-tile-terracotta', 3, { noVertexColors: true, ao: true, tint: '#f2e2d6' }),
+    applyPBR(C, M.yard, 'lawn', 6, { noVertexColors: true, tint: '#c9c9a8' }),
+    applyPBR(C, M.dirt, 'gravel', 6, { tint: '#e6dcc8' }),
+    applyRelief(C, M.plain, 'render-cream', 1, 0.5)
+  ]);
 }
 
 // world-scaled horizontal quad (y may vary per corner)
@@ -858,7 +942,7 @@ function buildNeighbours(C, rng) {
   // --- WEST: pink 2-storey house no. 4, attached to the party wall at x = 0 (front set back ~3.6 m)
   {
     const x0 = -12.0, x1 = -0.02, z0 = -0.8, z1 = 14.6, base = Y + 0.15, top = base + 6.1; // OSM footprint
-    g.facade.color(pink); facadeBox(g.facade, x0, z0, x1, z1, base, top, 0.4, 0.25);
+    g.facadePink.color(pink); facadeBox(g.facadePink, x0, z0, x1, z1, base, top, 0.4, 0.25);
     // eaves & tile roof (hipped, visible overhang as in the photo)
     g.plain.color([0.93, 0.9, 0.87]).box(x0 - 0.6, top - 0.2, z0 - 0.6, x1 + 0.02, top + 0.02, z1 + 0.6, 1, {});
     const rc = new T.Color('#b1553a'); g.roof.color(rc);
@@ -886,7 +970,7 @@ function buildNeighbours(C, rng) {
   // --- EAST: white 2-storey house with terracotta roof and round window (gable facing the street)
   {
     const x0 = 16.7, x1 = 27.7, z0 = 4.5, z1 = 13.0, base = Y + 0.6, top = base + 6.0; // OSM footprint
-    g.facade.color(white); facadeBox(g.facade, x0, z0, x1, z1, base, top, 1.6, 0.5);
+    g.facadeWhite.color(white); facadeBox(g.facadeWhite, x0, z0, x1, z1, base, top, 1.6, 0.5);
     const rc = new T.Color('#bf5a37'); g.roof.color(rc);
     gableRoof(g.roof, x0, z0, x1, z1, top, false, 0.5, 0.45);
     g.plain.color(white); gableEnds(g.plain, x0, z0, x1, z1, top, false, 0.5 * (x1 - x0 + 0.9) / (x1 - x0));
@@ -907,6 +991,14 @@ function buildNeighbours(C, rng) {
     addTree(C, 19.2, 15.0, 0.85, 1); addTree(C, 25.5, 15.3, 0.7, 2);
   }
 
+  // collision-friendly boxes (plan AABBs, y0..y1) for WALK: houses, front walls (gate closed), yard side wall
+  C.colliders.push(
+    { name: 'west-house', x0: -12.0, z0: -0.8, x1: -0.02, z1: 14.6, y0: Y - 0.4, y1: Y + 6.25 },
+    { name: 'west-front-wall', x0: -12.0, z0: 17.05, x1: 0.0, z1: 17.45, y0: Y - 0.2, y1: Y + 1.45 },
+    { name: 'west-yard-side-wall', x0: -12.0, z0: 14.6, x1: -11.8, z1: 17.25, y0: Y - 0.2, y1: Y + 1.3 },
+    { name: 'east-house', x0: 16.7, z0: 4.5, x1: 27.7, z1: 13.0, y0: Y - 1.0, y1: Y + 6.6 },
+    { name: 'east-front-wall', x0: 14.3, z0: 17.15, x1: 30.8, z1: 17.4, y0: Y - 0.3, y1: Y + 2.05 }
+  );
   // rear/side boundary walls, the houses behind and everything else come from OpenStreetMap (buildOSM)
 }
 
@@ -1517,8 +1609,11 @@ function buildSiteGround(C, osm) {
     let x = B.x0;
     const seg = (xa, xb) => {
       if (xb - xa < 0.3) return;
-      hq(pave, xa, z0, xb, z1, yP, 1.6);
-      pave.quad([xa, yR, kerbZ], [xb, yR, kerbZ], [xb, yP, kerbZ], [xa, yP, kerbZ], [[0, 0], [1, 0], [1, 0.08], [0, 0.08]], [0, 0, kerbOut]);
+      // calçada + a 15 cm limestone kerb stone along the road edge
+      const KW = 0.15, ka = kerbOut > 0 ? kerbZ - KW : kerbZ, kb = ka + KW;
+      hq(pave, xa, kerbOut > 0 ? z0 : kb, xb, kerbOut > 0 ? ka : z1, yP, 1.6);
+      hq(C.near.kerb, xa, ka, xb, kb, yP + 0.004, 1);
+      C.near.kerb.quad([xa, yR, kerbZ], [xb, yR, kerbZ], [xb, yP + 0.004, kerbZ], [xa, yP + 0.004, kerbZ], [[xa, 0], [xb, 0], [xb, yP - yR], [xa, yP - yR]], [0, 0, kerbOut]);
       for (const xe of [xa, xb]) pave.quad([xe, yR, z0], [xe, yR, z1], [xe, yP, z1], [xe, yP, z0], [[0, 0], [1, 0], [1, 0.08], [0, 0.08]], [xe === xa ? -1 : 1, 0, 0]);
     };
     for (const [a, b] of cuts) { seg(x, Math.max(x, a)); x = Math.max(x, b); }
@@ -1873,7 +1968,7 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
   group.name = 'environment';
   const rng = rngFrom(0x5EED2835);
   const aniso = renderer && renderer.capabilities ? Math.min(8, renderer.capabilities.getMaxAnisotropy()) : 4;
-  const C = { group, mats: {}, chunks: new Chunks(420), cars: [], trees: [], ironQuads: [], fenceQuads: [], low };
+  const C = { group, mats: {}, chunks: new Chunks(420), cars: [], trees: [], ironQuads: [], fenceQuads: [], low, aniso, colliders: [] };
   C.cov = coverageGrid(); C.covered = (x, z) => C.cov.has(x, z);
   C.bIndex = { inside: () => false };
   const safe = (name, fn) => { try { fn(); } catch (e) { console.warn('[environment] ' + name, e); } };
@@ -1882,7 +1977,7 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
   const fac = makeFacadeTextures(rng, low ? 512 : 1024, aniso);
   makeMaterials(C, tex, fac);
   const newNear = () => ({ facade: new GB(), plain: new GB(), roof: new GB(), stone: new GB(), yard: new GB(), metal: new GB(),
-    ground: new GB(), asphalt: new GB(), calcada: new GB(), osm_facade: new GB(), osm_plain: new GB(), osm_roof: new GB() });
+    ground: new GB(), asphalt: new GB(), calcada: new GB(), kerb: new GB(), facadePink: new GB(), facadeWhite: new GB(), osm_facade: new GB(), osm_plain: new GB(), osm_roof: new GB() });
   C.near = newNear();
   // far scenery (Lisbon, bridges, Cristo Rei) authored in the phase-1 frame, mapped onto the local frame
   C.far = new T.Group();
@@ -1915,17 +2010,100 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
   const lampLights = [];
   const flushNear = () => {
     const names = { osm_facade: 'facade', osm_plain: 'plain', osm_roof: 'roof' };
+    const rename = { facadePink: 'west-house-walls', facadeWhite: 'east-house-walls' };
     for (const k in C.near) {
       if (C.near[k].empty) continue;
       const mat = C.mats[names[k] || k];
       const m = new T.Mesh(C.near[k].build(), mat);
-      m.name = `env-near-${k}`;
-      m.castShadow = k !== 'ground' && k !== 'asphalt' && k !== 'calcada';
+      m.name = `env-near-${rename[k] || k}`;
+      m.castShadow = k !== 'ground' && k !== 'asphalt' && k !== 'calcada' && k !== 'kerb';
       m.receiveShadow = true;
       group.add(m);
     }
     C.near = newNear();
   };
+  // Walkable ground height near the site (WALK): lot yards, the two pavements (−0.85), the asphalt (−0.95), then the terrain mesh.
+  const walkY = (x, z) => {
+    if (x >= LOT.x0 && x <= LOT.x1 && z >= LOT.zRear && z <= LOT.zFront) return z > 14.7 ? PAVE_Y : -0.12; // front yard | rear garden
+    if (x >= SITE_ST.x0 && x <= SITE_ST.x1 && z > SITE_ST.paveN[0] && z < SITE_ST.paveS[1]) {
+      return z >= SITE_ST.road[0] && z <= SITE_ST.road[1] ? TERR_FLAT + ROAD_UP : PAVE_Y;
+    }
+    return groundY(x, z);
+  };
+  group.userData.groundY = group.userData.heightAt = walkY;
+  group.userData.colliders = C.colliders;
+
+  // --- phase 3: CC0 HDRI skies (assets/hdri via assets/manifest.json), loaded on demand per time of day
+  const hdri = {};          // name → { p: Promise, ready, tex, phi0, alt, hor:[r,g,b] (linear, pre-gain), env: {key → texture} }
+  let pmrem = null, baseEnv = null, envScene = null, envMat = null;
+  const filmic = (v) => clamp((v * (2.51 * v + 0.03)) / (v * (2.43 * v + 0.59) + 0.14), 0, 1);
+  const analyseHDRI = (tex) => {
+    const img = tex.image, w = img.width, h = img.height, d = img.data, half = d instanceof Uint16Array;
+    const val = (i) => (half ? T.DataUtils.fromHalfFloat(d[i]) : d[i]);
+    let best = 0, bc = 0, br = 0;
+    const colSum = new Float32Array(w), hor = [0, 0, 0]; let hn = 0, E = 0;
+    const rH = Math.floor(h / 2), r15 = Math.floor(h * (0.5 - 15 / 180)), r1 = Math.floor(h * (0.5 - 1 / 180)), r5 = Math.floor(h * (0.5 - 5 / 180));
+    for (let r = 0; r < rH; r += 2) for (let c = 0; c < w; c += 2) {
+      const i = (r * w + c) * 4, R = val(i), G = val(i + 1), B = val(i + 2), L = 0.2126 * R + 0.7152 * G + 0.0722 * B;
+      if (L > best) { best = L; bc = c; br = r; }
+      const el = (0.5 - (r + 0.5) / h) * Math.PI;   // sky irradiance on a horizontal plane, sun disc clamped like the env map
+      E += (0.2126 * Math.min(R, 14) + 0.7152 * Math.min(G, 14) + 0.0722 * Math.min(B, 14)) * Math.sin(el) * Math.cos(el);
+      if (r >= r15) colSum[c] += Math.min(L, 20);
+      if (r >= r5 && r <= r1) { hor[0] += Math.min(R, 40); hor[1] += Math.min(G, 40); hor[2] += Math.min(B, 40); hn++; }
+    }
+    let alt = null;
+    if (best > 60) alt = (0.5 - (br + 0.5) / h) * 180;   // a real sun disc
+    else { let m = -1; for (let c = 0; c < w; c += 2) { let a = 0; for (let k = -16; k <= 16; k += 2) a += colSum[(c + k + w) % w]; if (a > m) { m = a; bc = c; } } }
+    E *= 4 * (Math.PI / h) * (2 * Math.PI / w);
+    return { phi0: ((bc + 0.5) / w - 0.5) * Math.PI * 2, alt, E: Math.max(E, 1e-3), hor: hor.map(v => v / Math.max(1, hn)) };
+  };
+  const requestHDRI = (name) => {
+    if (hdri[name]) return hdri[name].p;
+    const H = hdri[name] = { ready: false, env: {} };
+    H.p = (async () => {
+      if (!renderer || typeof fetch !== 'function') return false;
+      const man = await loadManifest();
+      const rel = man && man.hdris && man.hdris[name] && man.hdris[name].web;
+      if (!rel) return false;
+      const { RGBELoader } = await import('three/addons/loaders/RGBELoader.js');
+      const tex = await new RGBELoader().loadAsync(assetURL(rel));
+      tex.mapping = T.EquirectangularReflectionMapping;
+      tex.wrapS = T.RepeatWrapping; tex.minFilter = T.LinearFilter; tex.magFilter = T.LinearFilter; tex.generateMipmaps = false;
+      tex.needsUpdate = true;
+      Object.assign(H, analyseHDRI(tex), { tex, ready: true });
+      if (current === name) setTimeOfDay(name);
+      return true;
+    })().catch((e) => { console.warn('[environment] HDRI ' + name + ' unavailable, procedural sky kept', e); return false; });
+    return H.p;
+  };
+  // PMREM of the HDRI rotated about y (r160 has no scene.environmentRotation) and scaled; the sun disc is clamped
+  // (the DirectionalLight is the sun) so the image-based light is sky + clouds + ground bounce only.
+  const hdriEnv = (H, rot, gain, groundCol) => {
+    const key = rot.toFixed(3) + '|' + gain;
+    if (H.env[key]) return H.env[key];
+    if (!pmrem) pmrem = new T.PMREMGenerator(renderer);
+    if (!envScene) {
+      envMat = new T.ShaderMaterial({
+        uniforms: { hdr: { value: null }, rot: { value: 0 }, gain: { value: 1 }, ground: { value: new T.Color() } },
+        vertexShader: 'varying vec3 vDir; void main(){ vDir = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
+        fragmentShader: `uniform sampler2D hdr; uniform float rot; uniform float gain; uniform vec3 ground; varying vec3 vDir;
+          void main(){ vec3 d = normalize(vDir);
+            vec2 uv = vec2((atan(d.z, d.x) + rot) * 0.15915494 + 0.5, asin(clamp(d.y, -1.0, 1.0)) * 0.31830989 + 0.5);
+            vec3 c = min(texture2D(hdr, uv).rgb, vec3(14.0)) * gain;
+            c = mix(c, ground, smoothstep(0.0, -0.12, d.y));
+            gl_FragColor = vec4(c, 1.0); }`,
+        side: T.BackSide, depthWrite: false, depthTest: false, toneMapped: false, fog: false
+      });
+      envScene = new T.Scene();
+      envScene.add(new T.Mesh(new T.SphereGeometry(10, 48, 24), envMat));
+    }
+    envMat.uniforms.hdr.value = H.tex; envMat.uniforms.rot.value = rot; envMat.uniforms.gain.value = gain;
+    envMat.uniforms.ground.value.copy(groundCol);
+    const rt = pmrem.fromScene(envScene, 0, 0.1, 100);
+    rt.texture.name = 'env-hdri-pmrem';
+    return (H.env[key] = rt.texture);
+  };
+
   // --- the real neighbourhood (async: data/osm.json, ~0.7 MB)
   const buildContext = (osm) => {
     const data = osm || {};
@@ -1961,6 +2139,7 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
       }
     });
     setTimeOfDay(current);
+    loadPBR(C);   // real CC0 PBR maps replace the procedural canvases as they arrive (never blocks the first frame)
   };
   const ready = (async () => {
     await null;
@@ -1977,7 +2156,7 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
   // --- time of day
   const col = (h) => new T.Color(h);
   let current = 'golden';
-  let envFactor = 1;
+  let envFactor = 1, envDirty = false;
   const applyEnvFactor = () => {
     scene.traverse(o => {
       if (!o.isMesh || !o.material) return;
@@ -1988,11 +2167,16 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
         m.envMapIntensity = m.userData.envBase * envFactor;
       }
     });
+    envDirty = envFactor !== 1;
   };
   function setTimeOfDay(name) {
     const P = TOD[name] || TOD.golden;
     current = TOD[name] ? name : 'golden';
-    const d = sunDirection(P.az, P.alt);
+    if (baseEnv === null) baseEnv = scene.environment || false;   // the viewer's RoomEnvironment (kept as fallback)
+    const H = hdri[current] && hdri[current].ready ? hdri[current] : null;
+    if (!hdri[current]) requestHDRI(current);
+    const alt = H && H.alt != null && P.hdriAlt ? clamp(H.alt, P.hdriAlt[0], P.hdriAlt[1]) : P.alt;
+    const d = sunDirection(P.az, alt);
     sun.position.set(7 + d.x * 120, Math.max(d.y, 0.035) * 120, 7 + d.z * 120);
     sun.color.set(P.sun); sun.intensity = P.sunI;
     const U = sky.material.uniforms;
@@ -2002,6 +2186,18 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
     hemi.color.set(P.hemiSky); hemi.groundColor.set(P.hemiGround); hemi.intensity = P.hemiI;
     scene.fog.color.set(P.fogCol); scene.fog.density = P.fog;
     scene.background = col(P.fogCol);
+    U.hdrMix.value = 0;
+    if (H) {
+      // real sky: rotate the HDRI so its sun / glow sits on the scene sun bearing; haze & fog take its horizon colour
+      const rot = H.phi0 - Math.atan2(d.z, d.x);
+      const hz = new T.Color(filmic(H.hor[0] * P.skyGain), filmic(H.hor[1] * P.skyGain), filmic(H.hor[2] * P.skyGain));
+      U.hdr.value = H.tex; U.hdrRot.value = rot; U.hdrGain.value = P.skyGain; U.hdrMix.value = 1;
+      U.ground.value.copy(hz); scene.fog.color.copy(hz); scene.background = hz.clone();
+      const gain = +(P.envE / H.E).toFixed(3);   // normalise every HDRI to the preset's sky irradiance
+      const bounce = new T.Color(P.hemiGround).multiplyScalar(P.envE * 0.09);
+      try { scene.environment = hdriEnv(H, rot, gain, bounce); } catch (e) { console.warn('[environment] PMREM', e); }
+      hemi.intensity = P.hemiI * 0.2;
+    } else if (baseEnv && scene.environment && scene.environment.name === 'env-hdri-pmrem') scene.environment = baseEnv;
     const W = C.mats.water && C.mats.water.uniforms;
     if (W) {
       W.deep.value.set(P.water); W.skyLow.value.set(P.waterSky); W.skyHigh.value.set(P.zenith);
@@ -2016,8 +2212,9 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
     M.glassDark.emissiveIntensity = P.lamps * 0.8;
     M.cable.color.set(name === 'dusk' ? '#0b0c10' : '#202224');
     for (const L of lampLights) L.intensity = P.lamps * 22;
-    envFactor = P.env;
+    envFactor = H ? 1 : P.env;
     applyEnvFactor();
+    if (H && W) { W.skyLow.value.copy(scene.fog.color); }
   }
 
   function geo(lat, lon) {
@@ -2032,7 +2229,7 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
     sky.material.uniforms.time.value = time;
     if (C.mats.water) C.mats.water.uniforms.time.value = time;
     envTimer += dt || 0;
-    if (envTimer > 2) { envTimer = 0; if (envFactor !== 1) applyEnvFactor(); } // materials added later (interiors) get the same factor
+    if (envTimer > 2) { envTimer = 0; if (envFactor !== 1 || envDirty) applyEnvFactor(); } // materials added later (interiors) get the same factor
   }
 
   setTimeOfDay('golden');
@@ -2041,7 +2238,10 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
     group, sun, hemi, setTimeOfDay, geo, update, ready,
     attribution: '© OpenStreetMap contributors (ODbL) · EU-DEM (Copernicus)',
     get timeOfDay() { return current; },
-    heightAt: (x, z) => groundY(x, z),
+    heightAt: walkY,                 // walkable ground: lot yards, pavements −0.85, asphalt −0.95, real terrain beyond
+    terrainAt: (x, z) => groundY(x, z),
+    colliders: C.colliders,          // [{ name, x0, z0, x1, z1, y0, y1 }] hand-modelled neighbour houses & walls (also group.userData.colliders)
+    hdriReady: (name) => requestHDRI(name || current),
     waterY: WATER_Y,
     street: { zKerb: STREET.zKerb, zRoad0: SITE_ST.road[0], zRoad1: SITE_ST.road[1], zFar: SITE_ST.paveS[1], pavementY: PAVE_Y, roadY: TERR_FLAT + ROAD_UP }
   };

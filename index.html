@@ -39,6 +39,7 @@
     </a>
     <nav class="nav" id="nav" aria-label="Main">
       <a href="#apartments" data-i18n="nav.apartments">Apartments</a>
+      <a href="#gallery-renders" data-i18n="nav.gallery">Gallery</a>
       <a href="#location" data-i18n="nav.location">Location</a>
       <a href="#building" data-i18n="nav.building">The building</a>
     </nav>
@@ -133,6 +134,21 @@
       <table class="avail" id="availTable"></table>
     </div>
     <p class="fineprint" id="availNote"></p>
+  </section>
+
+  <section class="gal wrap" id="gallery-renders" aria-labelledby="galTitle">
+    <p class="eyebrow" data-i18n="gal.eyebrow">Gallery</p>
+    <h2 id="galTitle" data-i18n="gal.title">Photoreal renders</h2>
+    <p class="lede" data-i18n="gal.lede">Every image is path-traced in Blender Cycles from the architect’s drawings, with the real materials of each package and the real neighbourhood around the plot.</p>
+    <div id="galleryBox" class="gal-box">
+      <h3 class="h-small" data-i18n="gal.exterior">Exterior</h3>
+      <div id="galExt" class="gal-grid"></div>
+      <h3 class="h-small" data-i18n="gal.common">Entrance &amp; common areas</h3>
+      <div id="galCommon" class="gal-grid"></div>
+      <h3 class="h-small" data-i18n="gal.apartments">Apartments</h3>
+      <div id="galPkgs" class="chips"></div>
+      <div id="galUnits" class="gal-grid"></div>
+    </div>
   </section>
 
   <section class="loc" id="location" aria-labelledby="locTitle">
