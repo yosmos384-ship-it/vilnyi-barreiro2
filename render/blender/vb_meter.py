@@ -28,28 +28,48 @@ def in_building(p, cam_z):
     return inside(FOOT, p.x, -p.y) and abs(p.z - cam_z) < 3.0
 
 
-def _see_through(ob, index):
-    try:
+_bvh = {'key': None, 'tree': None, 'through': None}
+
+
+def build_bvh():
+    """Own BVH over all render-visible meshes (scene.ray_cast is O(instances) per ray: unusable with millions of leaves)."""
+    from mathutils.bvhtree import BVHTree
+    objs = [o for o in bpy.data.objects if o.type == 'MESH' and not o.hide_render and not o.name.startswith('vb')]
+    key = tuple(sorted(o.name for o in objs))
+    if _bvh['key'] == key:
+        return
+    verts = []; polys = []; through = []
+    base = 0
+    for ob in objs:
         me = ob.data
-        mi = me.polygons[index].material_index if index < len(me.polygons) else 0
-        m = ob.material_slots[mi].material if mi < len(ob.material_slots) else None
-        return m is not None and (m.get('vb_key') in SEE_THROUGH_KEYS)
-    except Exception:
-        return False
+        nv = len(me.vertices)
+        if nv == 0 or len(me.polygons) == 0:
+            continue
+        co = np.empty(nv * 3, dtype=np.float64); me.vertices.foreach_get('co', co); co = co.reshape(-1, 3)
+        mw = np.array(ob.matrix_world, dtype=np.float64)
+        co = co @ mw[:3, :3].T + mw[:3, 3]
+        verts.extend(map(tuple, co))
+        st = [bool(s.material is not None and s.material.get('vb_key') in SEE_THROUGH_KEYS) for s in ob.material_slots] or [False]
+        for p in me.polygons:
+            polys.append([base + v for v in p.vertices])
+            through.append(st[p.material_index] if p.material_index < len(st) else False)
+        base += nv
+    _bvh.update(key=key, tree=BVHTree.FromPolygons(verts, polys, all_triangles=False), through=through)
 
 
 def cast(dg, origin, direction, far=200.0):
     """First opaque hit along a ray (passes glass / sheers). Returns (distance, location, through_glass) or (None, None, flag)."""
-    sc = bpy.context.scene
+    if _bvh['tree'] is None:
+        build_bvh()
+    tree, thr = _bvh['tree'], _bvh['through']
     o = Vector(origin); d = Vector(direction).normalized()
     total = 0.0; through = False
     for _ in range(8):
-        hit, loc, nrm, idx, ob, mat = sc.ray_cast(dg, o, d, distance=far - total)
-        if not hit:
+        loc, nrm, idx, dist = tree.ray_cast(o, d, far - total)
+        if loc is None:
             return None, None, through
-        dist = (loc - o).length
         total += dist
-        if ob is not None and _see_through(ob, idx):
+        if thr[idx]:
             through = True
             o = loc + d * 0.004; total += 0.004
             continue
@@ -84,7 +104,8 @@ def camera_rays(cam, W, H, pano):
 
 def classify(cam, W, H, pano):
     """Per pixel: 0 = sky, 1 = exterior geometry, 2 = interior (inside our building on the camera's storey)."""
-    dg = bpy.context.evaluated_depsgraph_get()
+    dg = None
+    build_bvh()
     rays = camera_rays(cam, W, H, pano)
     o = cam.matrix_world.translation
     cls = np.zeros((H, W), dtype=np.uint8)
@@ -210,7 +231,8 @@ def frame_hero(shot, log):
         cands += [(px, pz, True) for px, pz in door_points(fl, room, ins)]
     glaz = glazing_points(fl, room)
     targets = [tuple(p) for p in poly] + [(cx, cz)] + glaz
-    dg = bpy.context.evaluated_depsgraph_get()
+    dg = None
+    build_bvh()
     hfov = 2 * math.atan(18.0 / cfg['lens']); vfov = 2 * math.atan(18.0 * 9 / 16 / cfg['lens'])
     gx = [math.tan(a) for a in np.linspace(-hfov / 2 * 0.96, hfov / 2 * 0.96, 9)]
     gy = [math.tan(a) for a in np.linspace(-vfov / 2 * 0.96, vfov / 2 * 0.96, 5)]
