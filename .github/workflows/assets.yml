@@ -37,9 +37,21 @@ jobs:
         run: |
           du -sh assets/pbr assets/hdri assets/models 2>/dev/null | tee -a render/logs/assets.txt || true
           du -sh ~/.cache/vilnyi-assets | tee -a render/logs/assets.txt || true
-      - name: Commit
+      - name: Commit (only our paths, rebased onto latest main)
         run: |
           git config user.name "vilnyi-assets-bot"; git config user.email "yosmos384@gmail.com"
-          git add -A render/logs render/assets assets/pbr assets/hdri assets/models assets/manifest.json 2>/dev/null || git add -A render/logs render/assets
-          git commit -q -m "assets: $(python -c "import json;print(json.load(open('render/assets/request.json')).get('mode','build'))") [skip ci]" || { echo nothing; exit 0; }
-          for i in 1 2 3 4 5; do git pull --rebase -q && git push -q && break; sleep 5; done
+          MODE=$(python -c "import json;print(json.load(open('render/assets/request.json')).get('mode','build'))")
+          OUT=$RUNNER_TEMP/out; mkdir -p $OUT
+          PATHS="render/logs/assets.txt render/logs/contact-*.jpg render/logs/hdri-*.jpg render/assets/catalog render/assets/blender_manifest.json assets/pbr assets/hdri assets/models assets/manifest.json"
+          for p in $PATHS; do [ -e "$p" ] && cp -r --parents $p $OUT/ || true; done
+          for i in 1 2 3 4 5 6; do
+            git fetch -q origin main && git reset -q --hard origin/main
+            if [ "$MODE" = build ]; then rm -rf assets/pbr assets/hdri assets/models; fi
+            cp -r $OUT/. .
+            git add -A $PATHS 2>/dev/null; git add -A render/logs render/assets assets/pbr assets/hdri assets/models assets/manifest.json 2>/dev/null || true
+            git diff --cached --quiet && { echo "nothing to commit"; exit 0; }
+            git commit -q -m "assets: $MODE [skip ci]"
+            git push -q origin HEAD:main && { echo "pushed"; exit 0; }
+            sleep $((i*5))
+          done
+          echo "PUSH FAILED"; exit 1
