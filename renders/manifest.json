@@ -1,13 +1,385 @@
 {
  "version": 1,
- "generated": "2026-10-01T05:21:30Z",
+ "generated": "2026-10-01T06:40:21Z",
  "conventions": {
   "position": "three.js world metres (Y-up), eye point of the panorama",
   "yawOffset": "radians; three.js camera yaw (rotation.y, YXZ order; 0 looks along -Z, +pi/2 looks along -X) of the panorama CENTRE column (u = 0.5). u grows to the right (clockwise seen from above). Seam at u = 0/1 faces away.",
   "links": "indices into the same panos array (same room, or rooms connected by a door/opening/glass door, < 9 m)",
   "files": "repo-relative paths (the Pages site serves them at the same relative path)"
  },
- "units": {},
+ "units": {
+  "0.A": {
+   "atlantic": {
+    "panos": [
+     {
+      "id": "0.A-atlantic-h5",
+      "roomId": "0.A-wc",
+      "name": {
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
+      },
+      "file": "renders/units/0.A/atlantic/0.A-atlantic-h5.jpg",
+      "thumb": "renders/units/0.A/atlantic/thumbs/0.A-atlantic-h5.jpg",
+      "position": [
+       4.525,
+       1.6,
+       6.01
+      ],
+      "lookAt": [
+       2.796,
+       1.3,
+       6.732
+      ],
+      "yawOffset": 1.96637,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       1
+      ]
+     },
+     {
+      "id": "0.A-atlantic-h6",
+      "roomId": "0.A-hall",
+      "name": {
+       "en": "Entrance hall",
+       "pt": "Hall",
+       "he": "מבואה"
+      },
+      "file": "renders/units/0.A/atlantic/0.A-atlantic-h6.jpg",
+      "thumb": "renders/units/0.A/atlantic/thumbs/0.A-atlantic-h6.jpg",
+      "position": [
+       5.55,
+       1.6,
+       6.01
+      ],
+      "lookAt": [
+       5.248,
+       1.3,
+       6.732
+      ],
+      "yawOffset": 2.74543,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       0
+      ]
+     },
+     {
+      "id": "0.A-atlantic-h7",
+      "roomId": "0.A-garden",
+      "name": {
+       "en": "Private garden & deck",
+       "pt": "Jardim privado",
+       "he": "גינה פרטית ודק"
+      },
+      "file": "renders/units/0.A/atlantic/0.A-atlantic-h7.jpg",
+      "thumb": "renders/units/0.A/atlantic/thumbs/0.A-atlantic-h7.jpg",
+      "position": [
+       4.3,
+       1.6,
+       -2.75
+      ],
+      "lookAt": [
+       2.1,
+       1.3,
+       1.5
+      ],
+      "yawOffset": 2.66393,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       3
+      ]
+     },
+     {
+      "id": "0.A-atlantic-h8",
+      "roomId": "0.A-garden",
+      "name": {
+       "en": "Private garden & deck · view 2",
+       "pt": "Jardim privado · vista 2",
+       "he": "גינה פרטית ודק · מבט 2"
+      },
+      "file": "renders/units/0.A/atlantic/0.A-atlantic-h8.jpg",
+      "thumb": "renders/units/0.A/atlantic/thumbs/0.A-atlantic-h8.jpg",
+      "position": [
+       3.1,
+       1.6,
+       -1.2
+      ],
+      "lookAt": [
+       2.3,
+       1.2,
+       -3.75
+      ],
+      "yawOffset": 0.304,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       2
+      ]
+     }
+    ],
+    "stills": []
+   },
+   "noir": {
+    "panos": [
+     {
+      "id": "0.A-noir-h5",
+      "roomId": "0.A-wc",
+      "name": {
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
+      },
+      "file": "renders/units/0.A/noir/0.A-noir-h5.jpg",
+      "thumb": "renders/units/0.A/noir/thumbs/0.A-noir-h5.jpg",
+      "position": [
+       4.525,
+       1.6,
+       6.01
+      ],
+      "lookAt": [
+       2.796,
+       1.3,
+       6.732
+      ],
+      "yawOffset": 1.96637,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       1
+      ]
+     },
+     {
+      "id": "0.A-noir-h6",
+      "roomId": "0.A-hall",
+      "name": {
+       "en": "Entrance hall",
+       "pt": "Hall",
+       "he": "מבואה"
+      },
+      "file": "renders/units/0.A/noir/0.A-noir-h6.jpg",
+      "thumb": "renders/units/0.A/noir/thumbs/0.A-noir-h6.jpg",
+      "position": [
+       5.55,
+       1.6,
+       6.01
+      ],
+      "lookAt": [
+       5.248,
+       1.3,
+       6.732
+      ],
+      "yawOffset": 2.74543,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       0
+      ]
+     },
+     {
+      "id": "0.A-noir-h7",
+      "roomId": "0.A-garden",
+      "name": {
+       "en": "Private garden & deck",
+       "pt": "Jardim privado",
+       "he": "גינה פרטית ודק"
+      },
+      "file": "renders/units/0.A/noir/0.A-noir-h7.jpg",
+      "thumb": "renders/units/0.A/noir/thumbs/0.A-noir-h7.jpg",
+      "position": [
+       4.3,
+       1.6,
+       -2.75
+      ],
+      "lookAt": [
+       2.1,
+       1.3,
+       1.5
+      ],
+      "yawOffset": 2.66393,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       3
+      ]
+     },
+     {
+      "id": "0.A-noir-h8",
+      "roomId": "0.A-garden",
+      "name": {
+       "en": "Private garden & deck · view 2",
+       "pt": "Jardim privado · vista 2",
+       "he": "גינה פרטית ודק · מבט 2"
+      },
+      "file": "renders/units/0.A/noir/0.A-noir-h8.jpg",
+      "thumb": "renders/units/0.A/noir/thumbs/0.A-noir-h8.jpg",
+      "position": [
+       3.1,
+       1.6,
+       -1.2
+      ],
+      "lookAt": [
+       2.3,
+       1.2,
+       -3.75
+      ],
+      "yawOffset": 0.304,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       2
+      ]
+     }
+    ],
+    "stills": []
+   }
+  },
+  "0.B": {
+   "noir": {
+    "panos": [
+     {
+      "id": "0.B-noir-h5",
+      "roomId": "0.B-wc",
+      "name": {
+       "en": "Bathroom",
+       "pt": "I.S.",
+       "he": "חדר רחצה"
+      },
+      "file": "renders/units/0.B/noir/0.B-noir-h5.jpg",
+      "thumb": "renders/units/0.B/noir/thumbs/0.B-noir-h5.jpg",
+      "position": [
+       9.05,
+       1.6,
+       6.01
+      ],
+      "lookAt": [
+       8.496,
+       1.3,
+       6.732
+      ],
+      "yawOffset": 2.4871,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       1
+      ]
+     },
+     {
+      "id": "0.B-noir-h6",
+      "roomId": "0.B-suite",
+      "name": {
+       "en": "Suite",
+       "pt": "Suite",
+       "he": "סוויטה"
+      },
+      "file": "renders/units/0.B/noir/0.B-noir-h6.jpg",
+      "thumb": "renders/units/0.B/noir/thumbs/0.B-noir-h6.jpg",
+      "position": [
+       10.71,
+       1.6,
+       8.41
+      ],
+      "lookAt": [
+       11.91,
+       0.95,
+       7.272
+      ],
+      "yawOffset": -0.81191,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       2,
+       0
+      ]
+     },
+     {
+      "id": "0.B-noir-h7",
+      "roomId": "0.B-suite",
+      "name": {
+       "en": "Suite · view 2",
+       "pt": "Suite · vista 2",
+       "he": "סוויטה · מבט 2"
+      },
+      "file": "renders/units/0.B/noir/0.B-noir-h7.jpg",
+      "thumb": "renders/units/0.B/noir/thumbs/0.B-noir-h7.jpg",
+      "position": [
+       12.971,
+       1.6,
+       8.123
+      ],
+      "lookAt": [
+       11.175,
+       1,
+       7.845
+      ],
+      "yawOffset": 1.41723,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       1
+      ]
+     },
+     {
+      "id": "0.B-noir-h8",
+      "roomId": "0.B-garden",
+      "name": {
+       "en": "Private garden & deck",
+       "pt": "Jardim privado",
+       "he": "גינה פרטית ודק"
+      },
+      "file": "renders/units/0.B/noir/0.B-noir-h8.jpg",
+      "thumb": "renders/units/0.B/noir/thumbs/0.B-noir-h8.jpg",
+      "position": [
+       9.848,
+       1.6,
+       -2.75
+      ],
+      "lookAt": [
+       7.648,
+       1.3,
+       1.5
+      ],
+      "yawOffset": 2.66393,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       4
+      ]
+     },
+     {
+      "id": "0.B-noir-h9",
+      "roomId": "0.B-garden",
+      "name": {
+       "en": "Private garden & deck · view 2",
+       "pt": "Jardim privado · vista 2",
+       "he": "גינה פרטית ודק · מבט 2"
+      },
+      "file": "renders/units/0.B/noir/0.B-noir-h9.jpg",
+      "thumb": "renders/units/0.B/noir/thumbs/0.B-noir-h9.jpg",
+      "position": [
+       8.648,
+       1.6,
+       -1.2
+      ],
+      "lookAt": [
+       7.848,
+       1.2,
+       -3.75
+      ],
+      "yawOffset": 0.304,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       3
+      ]
+     }
+    ],
+    "stills": []
+   }
+  }
+ },
  "exterior": [
   {
    "id": "aerial-120",
@@ -19,7 +391,96 @@
    "lens": 35.0,
    "W": 2400,
    "H": 1350
+  },
+  {
+   "id": "rear-garden",
+   "roomId": null,
+   "name": "Rear gardens and garden façade (from the far end of the 0.B garden)",
+   "file": "renders/exterior/rear-garden.jpg",
+   "thumb": "renders/exterior/thumbs/rear-garden.jpg",
+   "tod": "golden",
+   "lens": 18.0,
+   "W": 2400,
+   "H": 1350
+  },
+  {
+   "id": "street-dusk",
+   "roomId": null,
+   "name": "Frontal street view at dusk (like assets/street-dusk.jpg)",
+   "file": "renders/exterior/street-dusk.jpg",
+   "thumb": "renders/exterior/thumbs/street-dusk.jpg",
+   "tod": "dusk",
+   "lens": 18.0,
+   "W": 2400,
+   "H": 1350
+  },
+  {
+   "id": "street-eye",
+   "roomId": null,
+   "name": "Street, eye level (like assets/site-street.jpg)",
+   "file": "renders/exterior/street-eye.jpg",
+   "thumb": "renders/exterior/thumbs/street-eye.jpg",
+   "tod": "day",
+   "lens": 24.0,
+   "W": 1350,
+   "H": 2400
+  },
+  {
+   "id": "street-golden-34",
+   "roomId": null,
+   "name": "3/4 view from the street, golden hour",
+   "file": "renders/exterior/street-golden-34.jpg",
+   "thumb": "renders/exterior/thumbs/street-golden-34.jpg",
+   "tod": "golden",
+   "lens": 24.0,
+   "W": 2400,
+   "H": 1350
   }
  ],
- "common": []
+ "common": [
+  {
+   "id": "basement",
+   "roomId": null,
+   "name": "Basement car park",
+   "file": "renders/common/basement.jpg",
+   "thumb": "renders/common/thumbs/basement.jpg",
+   "tod": "day",
+   "lens": 18.0,
+   "W": 2400,
+   "H": 1350
+  },
+  {
+   "id": "landing-first",
+   "roomId": null,
+   "name": "Typical landing (1st floor)",
+   "file": "renders/common/landing-first.jpg",
+   "thumb": "renders/common/thumbs/landing-first.jpg",
+   "tod": "day",
+   "lens": 18.0,
+   "W": 2400,
+   "H": 1350
+  },
+  {
+   "id": "lift-interior",
+   "roomId": null,
+   "name": "Lift car interior (cab at its default height)",
+   "file": "renders/common/lift-interior.jpg",
+   "thumb": "renders/common/thumbs/lift-interior.jpg",
+   "tod": "day",
+   "lens": 16.0,
+   "W": 2400,
+   "H": 1350
+  },
+  {
+   "id": "lobby",
+   "roomId": null,
+   "name": "Entrance lobby",
+   "file": "renders/common/lobby.jpg",
+   "thumb": "renders/common/thumbs/lobby.jpg",
+   "tod": "day",
+   "lens": 18.0,
+   "W": 2400,
+   "H": 1350
+  }
+ ]
 }
