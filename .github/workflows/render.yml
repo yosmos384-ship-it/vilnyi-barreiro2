@@ -1,0 +1,29 @@
+name: render
+on:
+  workflow_dispatch:
+    inputs:
+      set: { description: 'exterior | units | all | preview | catalog', default: 'preview' }
+permissions:
+  contents: write
+jobs:
+  catalog:
+    if: inputs.set == 'catalog'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          mkdir -p render/logs
+          curl -s -A "VILNYI-render/1.0" "https://api.polyhaven.com/assets?t=textures" -o render/logs/ph_textures.json
+          curl -s -A "VILNYI-render/1.0" "https://api.polyhaven.com/assets?t=hdris" -o render/logs/ph_hdris.json
+          curl -s -A "VILNYI-render/1.0" "https://api.polyhaven.com/assets?t=models" -o render/logs/ph_models.json
+          python3 - <<'PY'
+          import json
+          for t in ['textures','hdris','models']:
+              d=json.load(open(f'render/logs/ph_{t}.json'))
+              with open(f'render/logs/ph_{t}.txt','w') as f:
+                  for k,v in sorted(d.items()):
+                      f.write(f"{k}\t{','.join(v.get('categories',[]))}\t{','.join(v.get('tags',[]))[:120]}\t{v.get('dimensions','')}\n")
+          PY
+          rm render/logs/ph_*.json
+          git config user.name "vilnyi-render-bot"; git config user.email "yosmos384@gmail.com"
+          git add render/logs && git commit -m "render: polyhaven catalog [skip ci]" && for i in 1 2 3 4 5; do git pull --rebase -q && git push -q && break; sleep 5; done
