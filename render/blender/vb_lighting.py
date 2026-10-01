@@ -143,6 +143,8 @@ def setup_world(tod, opts, log):
     bg2 = nt.nodes.new('ShaderNodeBackground'); bg2.name = 'vbSkyCam'
     bg2.inputs['Strength'].default_value = scale * opts.get('sky_gain', 1.0) * opts.get('sky_visible_gain', 1.0)
     bg2['base'] = scale * opts.get('sky_gain', 1.0)
+    # rough camera-visible sky luminance (mean upper-hemisphere radiance), used when the metering pass sees no sky
+    bg2['est'] = scale * opts.get('sky_gain', 1.0) * res['sky_E'] / math.pi * 1.6
     hs = nt.nodes.new('ShaderNodeHueSaturation'); hs.inputs['Saturation'].default_value = opts.get('sky_saturation', 1.35)
     nt.links.new(env.outputs['Color'], hs.inputs['Color'])
     # photographic sky grade (polariser-like): deeper blue towards the zenith, untouched at the horizon
@@ -357,8 +359,12 @@ def set_sky_visible(ev, sky_lum, target, log):
     """Graduated-filter: scale the camera-visible sky so it lands at `target` (scene-linear after exposure)."""
     w = bpy.context.scene.world
     nd = w.node_tree.nodes.get('vbSkyCam') if w and w.node_tree else None
-    if nd is None or not sky_lum:
+    if nd is None:
         return
+    if not sky_lum:
+        sky_lum = nd.get('est')
+        if not sky_lum:
+            return
     # sky_lum was measured with the current camera-sky strength
     cur = nd.inputs['Strength'].default_value
     base = nd.get('base', cur)
