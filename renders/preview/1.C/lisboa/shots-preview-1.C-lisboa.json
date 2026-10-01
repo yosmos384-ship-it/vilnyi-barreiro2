@@ -1,0 +1,82 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.C",
+  "pkg": "lisboa",
+  "quality": "preview",
+  "tod": "day",
+  "shots": [
+   "1.C-living",
+   "1.C-lisboa-h3"
+  ],
+  "out": "renders/preview/1.C/lisboa",
+  "name": "preview-1.C-lisboa",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "1.C-lisboa-h3",
+   "type": "pano",
+   "file": "renders/preview/1.C/lisboa/1.C-lisboa-h3.jpg",
+   "thumb": "renders/preview/1.C/lisboa/thumbs/1.C-lisboa-h3.jpg",
+   "W": 2048,
+   "H": 1024,
+   "spp": 48,
+   "ev": 3.2252094262399815,
+   "tod": "day",
+   "position": [
+    10.26,
+    4.6,
+    7.21
+   ],
+   "lookAt": [
+    12.44,
+    4.25,
+    13.982
+   ],
+   "roomId": "1.C-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": null,
+   "yawOffset": -2.83015,
+   "index": 3,
+   "seconds": 591.0
+  },
+  {
+   "id": "1.C-living",
+   "type": "still",
+   "file": "renders/preview/1.C/lisboa/1.C-living.jpg",
+   "thumb": "renders/preview/1.C/lisboa/thumbs/1.C-living.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": 3.684609897299456,
+   "tod": "day",
+   "position": [
+    10.143,
+    4.45,
+    6.733
+   ],
+   "lookAt": [
+    12.838,
+    4.45,
+    12.623
+   ],
+   "roomId": "1.C-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 191.1
+  }
+ ],
+ "seconds": 785.8,
+ "blender": "4.2.3 LTS"
+}
