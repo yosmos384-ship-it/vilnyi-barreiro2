@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-10-01T06:40:21Z",
+ "generated": "2026-10-01T06:53:14Z",
  "conventions": {
   "position": "three.js world metres (Y-up), eye point of the panorama",
   "yawOffset": "radians; three.js camera yaw (rotation.y, YXZ order; 0 looks along -Z, +pi/2 looks along -X) of the panorama CENTRE column (u = 0.5). u grows to the right (clockwise seen from above). Seam at u = 0/1 faces away.",
@@ -102,6 +102,119 @@
       },
       "file": "renders/units/0.A/atlantic/0.A-atlantic-h8.jpg",
       "thumb": "renders/units/0.A/atlantic/thumbs/0.A-atlantic-h8.jpg",
+      "position": [
+       3.1,
+       1.6,
+       -1.2
+      ],
+      "lookAt": [
+       2.3,
+       1.2,
+       -3.75
+      ],
+      "yawOffset": 0.304,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       2
+      ]
+     }
+    ],
+    "stills": []
+   },
+   "lisboa": {
+    "panos": [
+     {
+      "id": "0.A-lisboa-h5",
+      "roomId": "0.A-wc",
+      "name": {
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
+      },
+      "file": "renders/units/0.A/lisboa/0.A-lisboa-h5.jpg",
+      "thumb": "renders/units/0.A/lisboa/thumbs/0.A-lisboa-h5.jpg",
+      "position": [
+       4.525,
+       1.6,
+       6.01
+      ],
+      "lookAt": [
+       2.796,
+       1.3,
+       6.732
+      ],
+      "yawOffset": 1.96637,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       1
+      ]
+     },
+     {
+      "id": "0.A-lisboa-h6",
+      "roomId": "0.A-hall",
+      "name": {
+       "en": "Entrance hall",
+       "pt": "Hall",
+       "he": "מבואה"
+      },
+      "file": "renders/units/0.A/lisboa/0.A-lisboa-h6.jpg",
+      "thumb": "renders/units/0.A/lisboa/thumbs/0.A-lisboa-h6.jpg",
+      "position": [
+       5.55,
+       1.6,
+       6.01
+      ],
+      "lookAt": [
+       5.248,
+       1.3,
+       6.732
+      ],
+      "yawOffset": 2.74543,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       0
+      ]
+     },
+     {
+      "id": "0.A-lisboa-h7",
+      "roomId": "0.A-garden",
+      "name": {
+       "en": "Private garden & deck",
+       "pt": "Jardim privado",
+       "he": "גינה פרטית ודק"
+      },
+      "file": "renders/units/0.A/lisboa/0.A-lisboa-h7.jpg",
+      "thumb": "renders/units/0.A/lisboa/thumbs/0.A-lisboa-h7.jpg",
+      "position": [
+       4.3,
+       1.6,
+       -2.75
+      ],
+      "lookAt": [
+       2.1,
+       1.3,
+       1.5
+      ],
+      "yawOffset": 2.66393,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       3
+      ]
+     },
+     {
+      "id": "0.A-lisboa-h8",
+      "roomId": "0.A-garden",
+      "name": {
+       "en": "Private garden & deck · view 2",
+       "pt": "Jardim privado · vista 2",
+       "he": "גינה פרטית ודק · מבט 2"
+      },
+      "file": "renders/units/0.A/lisboa/0.A-lisboa-h8.jpg",
+      "thumb": "renders/units/0.A/lisboa/thumbs/0.A-lisboa-h8.jpg",
       "position": [
        3.1,
        1.6,
@@ -233,10 +346,252 @@
       ]
      }
     ],
-    "stills": []
+    "stills": [
+     {
+      "id": "0.A-bathroom",
+      "roomId": "0.A-ensuite",
+      "name": {
+       "en": "En-suite bathroom",
+       "pt": "I.S. suite",
+       "he": "חדר רחצה צמוד"
+      },
+      "file": "renders/units/0.A/noir/0.A-bathroom.jpg",
+      "thumb": "renders/units/0.A/noir/thumbs/0.A-bathroom.jpg",
+      "kind": "bathroom",
+      "lens": 18.0,
+      "position": [
+       1.749,
+       1.45,
+       5.772
+      ],
+      "lookAt": [
+       0.662,
+       1.45,
+       6.641
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "0.A-bedroom",
+      "roomId": "0.A-suite",
+      "name": {
+       "en": "Master suite",
+       "pt": "Suite",
+       "he": "סוויטת הורים"
+      },
+      "file": "renders/units/0.A/noir/0.A-bedroom.jpg",
+      "thumb": "renders/units/0.A/noir/thumbs/0.A-bedroom.jpg",
+      "kind": "bedroom",
+      "lens": 24.0,
+      "position": [
+       0.449,
+       1.4,
+       4.763
+      ],
+      "lookAt": [
+       2.332,
+       1.4,
+       1.131
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "0.A-garden",
+      "roomId": "0.A-garden",
+      "name": {
+       "en": "Private garden & deck",
+       "pt": "Jardim privado",
+       "he": "גינה פרטית ודק"
+      },
+      "file": "renders/units/0.A/noir/0.A-garden.jpg",
+      "thumb": "renders/units/0.A/noir/thumbs/0.A-garden.jpg",
+      "kind": "garden",
+      "lens": 20.0,
+      "position": [
+       3.075,
+       1.6,
+       -7.15
+      ],
+      "lookAt": [
+       3.075,
+       2.4,
+       0
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "0.A-living",
+      "roomId": "0.A-living",
+      "name": {
+       "en": "Living & kitchen",
+       "pt": "Sala / cozinha",
+       "he": "סלון ומטבח"
+      },
+      "file": "renders/units/0.A/noir/0.A-living.jpg",
+      "thumb": "renders/units/0.A/noir/thumbs/0.A-living.jpg",
+      "kind": "living",
+      "lens": 24.0,
+      "position": [
+       3.668,
+       1.45,
+       4.132
+      ],
+      "lookAt": [
+       5.13,
+       1.45,
+       1.635
+      ],
+      "W": 2400,
+      "H": 1350
+     }
+    ]
    }
   },
   "0.B": {
+   "lisboa": {
+    "panos": [
+     {
+      "id": "0.B-lisboa-h5",
+      "roomId": "0.B-wc",
+      "name": {
+       "en": "Bathroom",
+       "pt": "I.S.",
+       "he": "חדר רחצה"
+      },
+      "file": "renders/units/0.B/lisboa/0.B-lisboa-h5.jpg",
+      "thumb": "renders/units/0.B/lisboa/thumbs/0.B-lisboa-h5.jpg",
+      "position": [
+       9.05,
+       1.6,
+       6.01
+      ],
+      "lookAt": [
+       8.496,
+       1.3,
+       6.732
+      ],
+      "yawOffset": 2.4871,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       1
+      ]
+     },
+     {
+      "id": "0.B-lisboa-h6",
+      "roomId": "0.B-suite",
+      "name": {
+       "en": "Suite",
+       "pt": "Suite",
+       "he": "סוויטה"
+      },
+      "file": "renders/units/0.B/lisboa/0.B-lisboa-h6.jpg",
+      "thumb": "renders/units/0.B/lisboa/thumbs/0.B-lisboa-h6.jpg",
+      "position": [
+       10.71,
+       1.6,
+       8.41
+      ],
+      "lookAt": [
+       11.91,
+       0.95,
+       7.272
+      ],
+      "yawOffset": -0.81191,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       2,
+       0
+      ]
+     },
+     {
+      "id": "0.B-lisboa-h7",
+      "roomId": "0.B-suite",
+      "name": {
+       "en": "Suite · view 2",
+       "pt": "Suite · vista 2",
+       "he": "סוויטה · מבט 2"
+      },
+      "file": "renders/units/0.B/lisboa/0.B-lisboa-h7.jpg",
+      "thumb": "renders/units/0.B/lisboa/thumbs/0.B-lisboa-h7.jpg",
+      "position": [
+       12.971,
+       1.6,
+       8.123
+      ],
+      "lookAt": [
+       11.175,
+       1,
+       7.845
+      ],
+      "yawOffset": 1.41723,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       1
+      ]
+     },
+     {
+      "id": "0.B-lisboa-h8",
+      "roomId": "0.B-garden",
+      "name": {
+       "en": "Private garden & deck",
+       "pt": "Jardim privado",
+       "he": "גינה פרטית ודק"
+      },
+      "file": "renders/units/0.B/lisboa/0.B-lisboa-h8.jpg",
+      "thumb": "renders/units/0.B/lisboa/thumbs/0.B-lisboa-h8.jpg",
+      "position": [
+       9.848,
+       1.6,
+       -2.75
+      ],
+      "lookAt": [
+       7.648,
+       1.3,
+       1.5
+      ],
+      "yawOffset": 2.66393,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       4
+      ]
+     },
+     {
+      "id": "0.B-lisboa-h9",
+      "roomId": "0.B-garden",
+      "name": {
+       "en": "Private garden & deck · view 2",
+       "pt": "Jardim privado · vista 2",
+       "he": "גינה פרטית ודק · מבט 2"
+      },
+      "file": "renders/units/0.B/lisboa/0.B-lisboa-h9.jpg",
+      "thumb": "renders/units/0.B/lisboa/thumbs/0.B-lisboa-h9.jpg",
+      "position": [
+       8.648,
+       1.6,
+       -1.2
+      ],
+      "lookAt": [
+       7.848,
+       1.2,
+       -3.75
+      ],
+      "yawOffset": 0.304,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       3
+      ]
+     }
+    ],
+    "stills": []
+   },
    "noir": {
     "panos": [
      {
