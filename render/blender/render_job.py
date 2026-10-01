@@ -47,7 +47,7 @@ def log(*a):
 
 QUALITY = {
     #            still res      still spp  thr     pano res      pano spp  thr
-    'preview':  dict(still=(960, 540), still_spp=64, still_thr=0.05, pano=(2048, 1024), pano_spp=48, pano_thr=0.06, expo_samples=16),
+    'preview':  dict(still=(960, 540), still_spp=64, still_thr=0.05, pano=(2048, 1024), pano_spp=32, pano_thr=0.06, expo_samples=16),
     'standard': dict(still=(2400, 1350), still_spp=320, still_thr=0.015, pano=(4096, 2048), pano_spp=160, pano_thr=0.03, expo_samples=24),
     'high':     dict(still=(2400, 1350), still_spp=512, still_thr=0.01, pano=(4096, 2048), pano_spp=320, pano_thr=0.02, expo_samples=32),
 }
@@ -225,7 +225,7 @@ def render_group(job, q, quality, scn, tod, shots, tmp, out_dir):
         if src.startswith('unit-'):
             return src.rsplit('-', 1)[-1]
         return pkg_default
-    mopts = dict(tex_res=opts.get('tex_res', '2k'), bevel=True, emit_scale=opts.get('emit_scale', 1.0))
+    mopts = dict(tex_res=opts.get('tex_res', '2k'), bevel=opts.get('bevel', False), emit_scale=opts.get('emit_scale', 1.0))
     st = M.apply_all(pkg_for, mopts)
     log(f'materials: built={st["materials"]} textured={st["textured"]} by_key={dict(sorted(st["by_key"].items()))}')
     if st['unknown_keys']:
@@ -262,6 +262,8 @@ def render_group(job, q, quality, scn, tod, shots, tmp, out_dir):
     log(f'scene ready in {time.time() - t_load:.1f}s  (world {winfo.get("hdri")})')
 
     res = []
+    if opts.get('profile'):
+        profile(shots[0], q, quality, tmp, opts)
     for s in shots:
         t1 = time.time()
         try:
@@ -272,6 +274,48 @@ def render_group(job, q, quality, scn, tod, shots, tmp, out_dir):
         except Exception as e:
             log('SHOT FAILED', s['id'], repr(e)); log(traceback.format_exc())
     return res
+
+
+def profile(s, q, quality, tmp, opts):
+    """Time small renders of the first shot with different Cycles settings (speed tuning)."""
+    sc = bpy.context.scene
+    cy = sc.cycles
+    place_camera(s, q, quality)
+    r = sc.render
+    r.resolution_x, r.resolution_y, r.resolution_percentage = 512, 256 if s['type'] == 'pano' else 288, 100
+    r.image_settings.file_format = 'JPEG'
+    base = dict(samples=32, use_adaptive_sampling=False, max_bounces=12, diffuse_bounces=4, glossy_bounces=4, transmission_bounces=12,
+                transparent_max_bounces=24, use_guiding=False, use_fast_gi=False)
+    portals = [o for o in bpy.data.objects if o.type == 'LIGHT' and o.data.type == 'AREA' and getattr(o.data.cycles, 'is_portal', False)]
+    tests = [('base', {}), ('bounces_lo', dict(max_bounces=6, diffuse_bounces=2, glossy_bounces=2, transmission_bounces=6, transparent_max_bounces=8)),
+             ('guiding', dict(use_guiding=True)), ('fast_gi', dict(use_fast_gi=True)), ('no_portals', '__portals__'), ('no_denoise', '__nodenoise__')]
+    for name, ch in tests:
+        for k, v in base.items():
+            try:
+                setattr(cy, k, v)
+            except Exception:
+                pass
+        cy.use_denoising = True
+        for o in portals:
+            o.hide_render = False
+        if ch == '__portals__':
+            for o in portals:
+                o.hide_render = True
+        elif ch == '__nodenoise__':
+            cy.use_denoising = False
+        else:
+            for k, v in ch.items():
+                try:
+                    setattr(cy, k, v)
+                except Exception as e:
+                    log('profile setattr fail', k, e)
+        r.filepath = os.path.join(tmp, f'prof-{name}.jpg')
+        t = time.time()
+        bpy.ops.render.render(write_still=True)
+        log(f'PROFILE {name}: {time.time() - t:.1f}s  (512px, 32 spp)')
+    for o in portals:
+        o.hide_render = False
+    LI.setup_render(dict(samples=q['still_spp'], adaptive_threshold=q['still_thr']))
 
 
 def render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod):
