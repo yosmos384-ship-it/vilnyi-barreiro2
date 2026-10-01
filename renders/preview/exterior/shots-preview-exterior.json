@@ -19,7 +19,7 @@
    "W": 960,
    "H": 540,
    "spp": 64,
-   "ev": 0.2679696590094659,
+   "ev": 0.2451170718179279,
    "tod": "golden",
    "position": [
     22.5,
@@ -36,7 +36,7 @@
    "kind": null,
    "lens": 24.0,
    "shift_y": 0.1139,
-   "seconds": 57.7
+   "seconds": 55.0
   },
   {
    "id": "street-dusk",
@@ -46,7 +46,7 @@
    "W": 960,
    "H": 540,
    "spp": 64,
-   "ev": 2.3617327867346973,
+   "ev": 2.3361396853262915,
    "tod": "dusk",
    "position": [
     7,
@@ -63,9 +63,9 @@
    "kind": null,
    "lens": 18.0,
    "shift_y": 0.1752,
-   "seconds": 328.4
+   "seconds": 303.5
   }
  ],
- "seconds": 406.1,
+ "seconds": 376.2,
  "blender": "4.2.3 LTS"
 }
