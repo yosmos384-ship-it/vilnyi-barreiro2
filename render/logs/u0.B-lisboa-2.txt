@@ -1,0 +1,18 @@
+[    0.0s] job u0.B-lisboa-2: scope=unit unit=0.B pkg=lisboa quality=standard shots=4
+[    0.7s] import building: 401 objects in 0.6s
+[    1.0s] import context: 123 objects in 0.3s
+[    1.3s] import unit-0.B-lisboa: 94 objects in 0.3s
+[    1.7s] box UVs on 554 meshes
+[    2.7s] materials: built=202 textured=64 by_key={'aluminium-frame': 1, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 5, 'asphalt': 1, 'bark': 2, 'bath-floor': 1, 'bath-wall': 1, 'book': 5, 'brass': 10, 'brick-facade': 1, 'bulb-emissive': 2, 'candle-wax': 1, 'car-glass': 1, 'car-light': 2, 'car-paint': 10, 'ceiling': 2, 'ceiling-white': 1, 'ceramic-plate': 3, 'concrete': 3, 'curtain-fabric': 1, 'cutlery-steel': 1, 'deck-teak': 2, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 3, 'epoxy-floor': 1, 'fabric-boucle': 2, 'fabric-linen': 12, 'fabric-sofa': 2, 'floor-main': 3, 'foliage': 17, 'fruit': 6, 'garage-door': 1, 'glass-drinking': 1, 'glass-railing': 2, 'glass-window': 3, 'gravel': 2, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 1, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 3, 'led-strip-emissive': 7, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 4, 'mirror': 2, 'paint-marking': 8, 'paving-calcada': 2, 'plant-leaf': 3, 'planter-concrete': 1, 'plaster-white': 2, 'pot-terracotta': 1, 'pv-panel': 1, 'render-cream': 1, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 2, 'rug': 1, 'sanitary-ceramic': 2, 'shower-glass': 1, 'skirting': 1, 'soil': 4, 'steel-dark': 11, 'stone-coping': 2, 'timber-slats': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 1, 'zinc-standing-seam': 2}
+[    2.8s] lights: imported=4 emissive->lights=109 portals=22 boost=2.5 total_lights=135 polys=258054
+[    3.4s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[    3.6s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[    3.6s] scene ready in 3.6s  (world kloofendal_43d_clear_puresky)
+[   12.3s] [expo] Lavg=0.009582 p95=0.6213 ev=4.38 ev_hi=2.01 -> 2.01 sky=None
+[   12.3s] [wb] gains (0.678, 1.0, 1.408)
+[ 1728.7s] SHOT 0.B-living still 2400x1350 spp<=96 ev=2.01 in 1725.1s -> renders/units/0.B/lisboa/0.B-living.jpg
+[ 1735.5s] [expo] Lavg=0.004491 p95=0.1567 ev=5.48 ev_hi=4.00 -> 4.00 sky=None
+[ 1735.5s] [wb] gains (0.625, 1.0, 1.6)
+[ 3558.0s] SHOT 0.B-bedroom still 2400x1350 spp<=96 ev=4.00 in 1829.3s -> renders/units/0.B/lisboa/0.B-bedroom.jpg
+[ 3565.2s] [expo] Lavg=0.0006836 p95=0.2883 ev=8.19 ev_hi=3.12 -> 3.12 sky=None
+[ 3565.2s] [wb] gains (0.625, 1.0, 1.6)
