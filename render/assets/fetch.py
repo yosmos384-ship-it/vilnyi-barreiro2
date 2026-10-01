@@ -383,7 +383,11 @@ def model(spec):
     tmp = os.path.join(CACHE, 'models', aid, 'tmp.glb')
     tmp2 = os.path.join(CACHE, 'models', aid, 'tmp2.glb')
     run(['gltf-transform', 'copy', gpath, tmp])
-    run(['gltf-transform', 'resize', tmp, tmp2, '--width', '1024', '--height', '1024'])
+    try:
+        run(['gltf-transform', 'resize', tmp, tmp2, '--width', '1024', '--height', '1024'])
+    except Exception as e:
+        log('  resize failed (keeping 1k source textures):', str(e)[:200])
+        shutil.copy(tmp, tmp2)
     run(['gltf-transform', 'meshopt', tmp2, out])
     dims = info.get('dimensions')
     entry = {'file': f'assets/models/{aid}.glb', 'name': info.get('name'), 'category': spec.get('category'),
@@ -405,6 +409,22 @@ def run(cmd):
     if r.returncode != 0:
         raise RuntimeError(f'{" ".join(cmd)}\n{r.stdout[-800:]}\n{r.stderr[-800:]}')
     return r.stdout
+
+
+HINTS = {  # physically-plausible parameters for keys that need no bitmap
+    'glass-window': {'color': '#dfe9ee', 'roughness': 0.02, 'metalness': 0, 'transmission': 1, 'ior': 1.52, 'thickness': 0.024, 'note': 'double glazing, slight green-blue tint'},
+    'glass-railing': {'color': '#e6efef', 'roughness': 0.03, 'metalness': 0, 'transmission': 1, 'ior': 1.52, 'thickness': 0.02},
+    'shower-glass': {'color': '#f2f6f6', 'roughness': 0.02, 'metalness': 0, 'transmission': 1, 'ior': 1.52, 'thickness': 0.01},
+    'glass-drinking': {'color': '#ffffff', 'roughness': 0.0, 'metalness': 0, 'transmission': 1, 'ior': 1.5, 'thickness': 0.003},
+    'mirror': {'color': '#f4f4f4', 'roughness': 0.0, 'metalness': 1},
+    'water': {'color': '#2f4f5a', 'roughness': 0.05, 'metalness': 0, 'transmission': 0.0, 'ior': 1.33, 'note': 'use animated normal (three Water/Water2) or Blender ocean/noise bump'},
+    'foliage': {'color': '#4d6b35', 'roughness': 0.6, 'metalness': 0, 'sheen': 0.3, 'translucency': 0.3, 'note': 'olive: #6f7f5a top / #9aa58a underside'},
+    'plant-leaf': {'color': '#3f6a2c', 'roughness': 0.5, 'metalness': 0, 'translucency': 0.3},
+    'candle-wax': {'color': '#f3ece0', 'roughness': 0.45, 'metalness': 0, 'subsurface': 0.5},
+    'bulb-emissive': {'color': '#ffffff', 'emissive': '#ffd7a8', 'kelvin': 2700, 'watts': 6},
+    'downlight-emissive': {'color': '#ffffff', 'emissive': '#ffe2bd', 'kelvin': 3000, 'watts': 8, 'lumens': 700},
+    'led-strip-emissive': {'color': '#ffffff', 'emissive': '#ffd9a8', 'kelvin': 2700, 'wattsPerMetre': 10},
+}
 
 
 def mode_build(req):
@@ -431,6 +451,10 @@ def mode_build(req):
         manifest['textures'][key] = {}
         blend['textures'][key] = {}
         for pkg, spec in per.items():
+            if spec is None:  # no texture: procedural material, see hint
+                manifest['textures'][key][pkg] = {'procedural': True, 'hint': HINTS.get(key, {})}
+                blend['textures'][key][pkg] = {'procedural': True, 'hint': HINTS.get(key, {})}
+                continue
             if isinstance(spec, str):  # alias "same as <pkg>" or "=key/pkg"
                 ref = spec[1:] if spec.startswith('=') else spec
                 rk, rp = (ref.split('/') + [None])[:2] if '/' in ref else (key, ref)
@@ -484,6 +508,21 @@ def mode_build(req):
     keep_models = set()
     for spec in sel['models']:
         aid = spec['id']
+        if spec.get('blenderOnly'):
+            try:
+                files = get(f'{PH_API}/files/{aid}')
+                g2 = files.get('gltf', {}).get('2k', {}).get('gltf', {})
+                bb = files.get('blend', {}).get('2k', {}).get('blend', {})
+                blend['models'][aid] = {'id': aid, 'category': spec.get('category'), 'blenderOnly': True, 'gltf2k': g2.get('url'),
+                                        'include2k': {k: v['url'] for k, v in (g2.get('include') or {}).items()},
+                                        'blend2k': bb.get('url'), 'blendInclude2k': {k: v['url'] for k, v in (bb.get('include') or {}).items()},
+                                        'dimensions': [round(x / 1000.0, 3) for x in (ph_info(aid).get('dimensions') or [])]}
+                info = ph_info(aid)
+                credits[f'https://polyhaven.com/a/{aid}'] = (info.get('name', aid), ', '.join((info.get('authors') or {}).keys()), f'https://polyhaven.com/a/{aid}', 'polyhaven')
+                log(f'  {aid:40s} blender-only')
+            except Exception as ex:
+                log(f'  FAIL blender-only model {aid}: {ex}'); FAIL.append(f'model {aid}: {ex}')
+            continue
         keep_models.add(f'{aid}.glb')
         try:
             e, b, sz, cr = model(spec)
