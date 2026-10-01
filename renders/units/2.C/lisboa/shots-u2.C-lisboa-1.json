@@ -1,0 +1,146 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.C",
+  "pkg": "lisboa",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "2.C-lisboa-h5",
+   "2.C-lisboa-h6",
+   "2.C-lisboa-h7",
+   "2.C-lisboa-h8"
+  ],
+  "out": "renders/units/2.C/lisboa",
+  "name": "u2.C-lisboa-1",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "2.C-lisboa-h5",
+   "type": "pano",
+   "file": "renders/units/2.C/lisboa/2.C-lisboa-h5.jpg",
+   "thumb": "renders/units/2.C/lisboa/thumbs/2.C-lisboa-h5.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 1.3887221446220361,
+   "tod": "day",
+   "position": [
+    5.5,
+    7.6,
+    13.91
+   ],
+   "lookAt": [
+    4.662,
+    6.95,
+    12.6
+   ],
+   "roomId": "2.C-bed1",
+   "name": {
+    "en": "Main bedroom",
+    "pt": "Quarto",
+    "he": "חדר שינה ראשי"
+   },
+   "kind": null,
+   "yawOffset": 0.5691,
+   "index": 5,
+   "seconds": 1448.9
+  },
+  {
+   "id": "2.C-lisboa-h6",
+   "type": "pano",
+   "file": "renders/units/2.C/lisboa/2.C-lisboa-h6.jpg",
+   "thumb": "renders/units/2.C/lisboa/thumbs/2.C-lisboa-h6.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 1.6127977189626654,
+   "tod": "day",
+   "position": [
+    8.16,
+    7.6,
+    11.96
+   ],
+   "lookAt": [
+    6.92,
+    7.25,
+    14.139
+   ],
+   "roomId": "2.C-bed2",
+   "name": {
+    "en": "Bedroom 2",
+    "pt": "Quarto 2",
+    "he": "חדר שינה 2"
+   },
+   "kind": null,
+   "yawOffset": 2.62423,
+   "index": 6,
+   "seconds": 1645.3
+  },
+  {
+   "id": "2.C-lisboa-h7",
+   "type": "pano",
+   "file": "renders/units/2.C/lisboa/2.C-lisboa-h7.jpg",
+   "thumb": "renders/units/2.C/lisboa/thumbs/2.C-lisboa-h7.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": -3.0079647517979247,
+   "tod": "day",
+   "position": [
+    7.9,
+    7.6,
+    15.05
+   ],
+   "lookAt": [
+    5.9,
+    7.4,
+    26.7
+   ],
+   "roomId": "2.front.1",
+   "name": {
+    "en": "Balcony",
+    "pt": "Varanda",
+    "he": "מרפסת"
+   },
+   "kind": null,
+   "yawOffset": 2.97158,
+   "index": 7,
+   "seconds": 854.4
+  },
+  {
+   "id": "2.C-lisboa-h8",
+   "type": "pano",
+   "file": "renders/units/2.C/lisboa/2.C-lisboa-h8.jpg",
+   "thumb": "renders/units/2.C/lisboa/thumbs/2.C-lisboa-h8.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": -3.008637449756906,
+   "tod": "day",
+   "position": [
+    11.75,
+    7.6,
+    15.05
+   ],
+   "lookAt": [
+    9.75,
+    7.4,
+    26.7
+   ],
+   "roomId": "2.front.2",
+   "name": {
+    "en": "Balcony",
+    "pt": "Varanda",
+    "he": "מרפסת"
+   },
+   "kind": null,
+   "yawOffset": 2.97158,
+   "index": 8,
+   "seconds": 851.8
+  }
+ ],
+ "seconds": 4817.2,
+ "blender": "4.2.3 LTS"
+}
