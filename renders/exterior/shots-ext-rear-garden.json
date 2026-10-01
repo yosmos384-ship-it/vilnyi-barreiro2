@@ -1,0 +1,43 @@
+{
+ "job": {
+  "scope": "exterior",
+  "quality": "standard",
+  "shots": [
+   "rear-garden"
+  ],
+  "out": "renders/exterior",
+  "name": "ext-rear-garden",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "rear-garden",
+   "type": "still",
+   "file": "renders/exterior/rear-garden.jpg",
+   "thumb": "renders/exterior/thumbs/rear-garden.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 192,
+   "ev": 0.5117480995373722,
+   "tod": "golden",
+   "position": [
+    7.6,
+    1.6,
+    -7.2
+   ],
+   "lookAt": [
+    5,
+    4.3,
+    0
+   ],
+   "roomId": null,
+   "name": "Rear gardens and garden façade (from the far end of the 0.B garden)",
+   "kind": null,
+   "lens": 18.0,
+   "shift_y": 0.1764,
+   "seconds": 1772.8
+  }
+ ],
+ "seconds": 1780.9,
+ "blender": "4.2.3 LTS"
+}
