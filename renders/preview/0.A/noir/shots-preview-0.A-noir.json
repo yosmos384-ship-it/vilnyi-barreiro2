@@ -8,7 +8,9 @@
   "shots": [
    "0.A-living",
    "0.A-noir-h5",
-   "rear-garden"
+   "0.A-noir-h7",
+   "rear-garden",
+   "street-golden-34"
   ],
   "out": "renders/preview/0.A/noir",
   "name": "preview-0.A-noir",
@@ -25,7 +27,7 @@
    "W": 2048,
    "H": 1024,
    "spp": 32,
-   "ev": 7.801196538988452,
+   "ev": 7.595227027606662,
    "tod": "day",
    "position": [
     4.525,
@@ -46,7 +48,38 @@
    "kind": null,
    "yawOffset": 1.96637,
    "index": 5,
-   "seconds": 347.3
+   "seconds": 327.4
+  },
+  {
+   "id": "0.A-noir-h7",
+   "type": "pano",
+   "file": "renders/preview/0.A/noir/0.A-noir-h7.jpg",
+   "thumb": "renders/preview/0.A/noir/thumbs/0.A-noir-h7.jpg",
+   "W": 2048,
+   "H": 1024,
+   "spp": 32,
+   "ev": -0.438149084689386,
+   "tod": "day",
+   "position": [
+    4.3,
+    1.6,
+    -2.75
+   ],
+   "lookAt": [
+    2.1,
+    1.3,
+    1.5
+   ],
+   "roomId": "0.A-garden",
+   "name": {
+    "en": "Private garden & deck",
+    "pt": "Jardim privado",
+    "he": "גינה פרטית ודק"
+   },
+   "kind": null,
+   "yawOffset": 2.66393,
+   "index": 7,
+   "seconds": 235.2
   },
   {
    "id": "0.A-living",
@@ -56,7 +89,7 @@
    "W": 960,
    "H": 540,
    "spp": 64,
-   "ev": 2.2707995523013706,
+   "ev": 2.910443471006697,
    "tod": "day",
    "position": [
     3.668,
@@ -77,9 +110,9 @@
    "kind": "living",
    "lens": 24.0,
    "shift_y": 0.0,
-   "seconds": 169.6
+   "seconds": 164.0
   }
  ],
- "seconds": 523.7,
+ "seconds": 735.8,
  "blender": "4.2.3 LTS"
 }
