@@ -352,6 +352,8 @@ def leafify(centre, radius=70.0, density=700.0, min_dim=0.3, max_area=6000.0, lo
             if min(d.x, d.y, d.z) < min_dim or (Vector((c.x, c.y)) - Vector((centre[0], centre[1]))).length > radius:
                 continue
             crown_faces += isl
+        nf = sum(1 for f in bm.faces if f.material_index in idx)
+        log(f'[foliage] {ob.name}: foliage faces={nf} crown faces={len(crown_faces)} src={ob.get("vb_src")}')
         if not crown_faces:
             bm.free(); continue
         area = sum(f.calc_area() for f in crown_faces) * (mw.to_scale()[0] ** 2)
@@ -384,5 +386,13 @@ def leafify(centre, radius=70.0, density=700.0, min_dim=0.3, max_area=6000.0, lo
         ob2.hide_render = False
         mod = ob2.modifiers.new('leaves', 'NODES'); mod.node_group = _leaf_gn(leaf, density)
         made += 1
+        try:
+            dg = bpy.context.evaluated_depsgraph_get()
+            ev = ob2.evaluated_get(dg)
+            ninst = sum(1 for i in dg.object_instances if i.is_instance and i.parent and i.parent.name == ob2.name)
+            cnt = sum(1 for p in ob.data.polygons if p.material_index == ii)
+            log(f'[foliage]   -> {ob2.name}: crown polys={len(me2.polygons)} instances={ninst} inner faces on source={cnt}')
+        except Exception as e:
+            log('[foliage] eval failed', repr(e))
     log(f'[foliage] leafified {made} objects, crown area {area_tot:.0f} m2 -> ~{int(area_tot * density)} leaves')
     return made
