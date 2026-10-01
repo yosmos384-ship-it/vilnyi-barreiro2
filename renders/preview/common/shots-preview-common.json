@@ -1,0 +1,45 @@
+{
+ "job": {
+  "scope": "common",
+  "quality": "preview",
+  "shots": [
+   "lobby"
+  ],
+  "out": "renders/preview/common",
+  "name": "preview-common",
+  "opts": {
+   "ev_bias": 0.7
+  }
+ },
+ "shots": [
+  {
+   "id": "lobby",
+   "type": "still",
+   "file": "renders/preview/common/lobby.jpg",
+   "thumb": "renders/preview/common/thumbs/lobby.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": 1.9462419676323628,
+   "tod": "day",
+   "position": [
+    9,
+    1.5,
+    14.25
+   ],
+   "lookAt": [
+    3.2,
+    1.45,
+    9.6
+   ],
+   "roomId": null,
+   "name": "Entrance lobby",
+   "kind": null,
+   "lens": 18.0,
+   "shift_y": -0.0034,
+   "seconds": 575.9
+  }
+ ],
+ "seconds": 579.5,
+ "blender": "4.2.3 LTS"
+}
