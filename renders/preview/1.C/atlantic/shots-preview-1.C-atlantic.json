@@ -1,0 +1,116 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.C",
+  "pkg": "atlantic",
+  "quality": "preview",
+  "tod": "day",
+  "shots": [
+   "1.C-atlantic-h2",
+   "1.C-living",
+   "1.C-bedroom"
+  ],
+  "out": "renders/preview/1.C/atlantic",
+  "name": "preview-1.C-atlantic",
+  "opts": {
+   "profile": false
+  }
+ },
+ "shots": [
+  {
+   "id": "1.C-atlantic-h2",
+   "type": "pano",
+   "file": "renders/preview/1.C/atlantic/1.C-atlantic-h2.jpg",
+   "thumb": "renders/preview/1.C/atlantic/thumbs/1.C-atlantic-h2.jpg",
+   "W": 2048,
+   "H": 1024,
+   "spp": 32,
+   "ev": 2.0067201759850724,
+   "tod": "day",
+   "position": [
+    8.15,
+    4.6,
+    8.59
+   ],
+   "lookAt": [
+    9.044,
+    4.3,
+    7.628
+   ],
+   "roomId": "1.C-wc",
+   "name": {
+    "en": "Bathroom",
+    "pt": "I.S.",
+    "he": "חדר רחצה"
+   },
+   "kind": null,
+   "yawOffset": -0.74878,
+   "index": 2,
+   "seconds": 491.3
+  },
+  {
+   "id": "1.C-living",
+   "type": "still",
+   "file": "renders/preview/1.C/atlantic/1.C-living.jpg",
+   "thumb": "renders/preview/1.C/atlantic/thumbs/1.C-living.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": 1.608761515986255,
+   "tod": "day",
+   "position": [
+    10.143,
+    4.45,
+    6.733
+   ],
+   "lookAt": [
+    12.838,
+    4.45,
+    12.623
+   ],
+   "roomId": "1.C-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 264.6
+  },
+  {
+   "id": "1.C-bedroom",
+   "type": "still",
+   "file": "renders/preview/1.C/atlantic/1.C-bedroom.jpg",
+   "thumb": "renders/preview/1.C/atlantic/thumbs/1.C-bedroom.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": -0.5036225042224279,
+   "tod": "day",
+   "position": [
+    3.219,
+    4.4,
+    11.598
+   ],
+   "lookAt": [
+    5.786,
+    4.4,
+    13.951
+   ],
+   "roomId": "1.C-bed1",
+   "name": {
+    "en": "Main bedroom",
+    "pt": "Quarto",
+    "he": "חדר שינה ראשי"
+   },
+   "kind": "bedroom",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 287.8
+  }
+ ],
+ "seconds": 1060.6,
+ "blender": "4.2.3 LTS"
+}
