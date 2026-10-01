@@ -359,7 +359,7 @@ def render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod):
     if w is not None:
         w.inputs['Strength'].default_value = w.get('base', w.inputs['Strength'].default_value)
     ev, sky_lum = LI.measure_exposure(tmp, key, dict(expo_samples=q.get('expo_samples', 16), hi_white=opts.get('hi_white', 2.5)), log)
-    if not is_unit and job['scope'] != 'common':
+    if True:   # interiors too: balcony/garden panoramas and views through windows
         LI.set_sky_visible(ev, sky_lum, opts.get('sky_target', 0.55 if tod != 'dusk' else 0.45), log)
     ev += float(opts.get('ev_bias', 0.0)) + float((opts.get('ev_shot') or {}).get(s['id'], 0.0))
     sc.view_settings.exposure = ev
