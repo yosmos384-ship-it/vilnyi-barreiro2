@@ -204,8 +204,8 @@ def setup_render(opts):
         cy.use_light_tree = True
     except Exception:
         pass
-    cy.max_bounces = 12; cy.diffuse_bounces = opts.get('diffuse_bounces', 4); cy.glossy_bounces = 4
-    cy.transmission_bounces = 12; cy.transparent_max_bounces = 24; cy.volume_bounces = 0
+    cy.max_bounces = 8; cy.diffuse_bounces = opts.get('diffuse_bounces', 3); cy.glossy_bounces = 3
+    cy.transmission_bounces = 8; cy.transparent_max_bounces = 12; cy.volume_bounces = 0
     cy.sample_clamp_direct = 0.0; cy.sample_clamp_indirect = opts.get('clamp_indirect', 10.0)
     cy.blur_glossy = 1.0; cy.caustics_reflective = False; cy.caustics_refractive = False
     cy.filter_width = 1.5

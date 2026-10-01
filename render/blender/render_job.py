@@ -48,8 +48,9 @@ def log(*a):
 QUALITY = {
     #            still res      still spp  thr     pano res      pano spp  thr
     'preview':  dict(still=(960, 540), still_spp=64, still_thr=0.05, pano=(2048, 1024), pano_spp=32, pano_thr=0.06, expo_samples=16),
-    'standard': dict(still=(2400, 1350), still_spp=320, still_thr=0.015, pano=(4096, 2048), pano_spp=160, pano_thr=0.03, expo_samples=24),
-    'high':     dict(still=(2400, 1350), still_spp=512, still_thr=0.01, pano=(4096, 2048), pano_spp=320, pano_thr=0.02, expo_samples=32),
+    # measured on GitHub ubuntu-latest (4 vCPU): ~180k interior samples/s -> 3072x1536 @64 spp ~ 25 min, 2400x1350 @96 ~ 28 min
+    'standard': dict(still=(2400, 1350), still_spp=96, still_thr=0.02, pano=(3072, 1536), pano_spp=64, pano_thr=0.035, expo_samples=24),
+    'high':     dict(still=(2400, 1350), still_spp=256, still_thr=0.01, pano=(4096, 2048), pano_spp=128, pano_thr=0.02, expo_samples=32),
 }
 # camera tweaks after looking at the previews (three.js coords deltas)
 CAM_OVERRIDES = {

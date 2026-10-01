@@ -8,7 +8,7 @@ import argparse, json, os, sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 # panoramas per shard by quality (a 4096x2048 interior pano at 160 spp ~ 15-25 min on 4 vCPU)
-PER_SHARD = {'preview': 20, 'standard': 4, 'high': 2}
+PER_SHARD = {'preview': 20, 'standard': 5, 'high': 2}
 
 
 def main():
@@ -56,10 +56,11 @@ def main():
                 stills = [h['id'] for h in ud.get('hero', [])]
                 if want != ['all']:
                     stills = [s for s in stills if s in want or 'stills' in want]
-                chunks = [hs[i:i + n] for i in range(0, len(hs), n)] or [[]]
-                # stills ride with the first (or a separate) shard
+                chunks = [hs[i:i + n] for i in range(0, len(hs), n)]
+                if stills:
+                    chunks.append(stills)   # stills in their own shard (~1.5 h)
                 for k, ch in enumerate(chunks):
-                    shots = list(ch) + (stills if k == len(chunks) - 1 else [])
+                    shots = list(ch)
                     if not shots:
                         continue
                     jobs.append(dict(scope='unit', unit=u, pkg=p, quality=q, tod=a.tod, shots=shots, out=f'renders/units/{u}/{p}',
