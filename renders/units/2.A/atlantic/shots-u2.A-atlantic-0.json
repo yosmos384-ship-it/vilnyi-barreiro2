@@ -1,0 +1,178 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.A",
+  "pkg": "atlantic",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "2.A-atlantic-h0",
+   "2.A-atlantic-h1",
+   "2.A-atlantic-h2",
+   "2.A-atlantic-h3",
+   "2.A-atlantic-h4"
+  ],
+  "out": "renders/units/2.A/atlantic",
+  "name": "u2.A-atlantic-0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "2.A-atlantic-h0",
+   "type": "pano",
+   "file": "renders/units/2.A/atlantic/2.A-atlantic-h0.jpg",
+   "thumb": "renders/units/2.A/atlantic/thumbs/2.A-atlantic-h0.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 2.2766616190443734,
+   "tod": "day",
+   "position": [
+    1.3,
+    7.6,
+    4.6
+   ],
+   "lookAt": [
+    1.028,
+    6.95,
+    2.75
+   ],
+   "roomId": "2.A-suite",
+   "name": {
+    "en": "Master suite",
+    "pt": "Suite",
+    "he": "סוויטת הורים"
+   },
+   "kind": null,
+   "yawOffset": 0.14598,
+   "index": 0,
+   "seconds": 2218.4
+  },
+  {
+   "id": "2.A-atlantic-h1",
+   "type": "pano",
+   "file": "renders/units/2.A/atlantic/2.A-atlantic-h1.jpg",
+   "thumb": "renders/units/2.A/atlantic/thumbs/2.A-atlantic-h1.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 1.4515806592555869,
+   "tod": "day",
+   "position": [
+    2.208,
+    7.6,
+    0.842
+   ],
+   "lookAt": [
+    1.397,
+    7,
+    3.672
+   ],
+   "roomId": "2.A-suite",
+   "name": {
+    "en": "Master suite · view 2",
+    "pt": "Suite · vista 2",
+    "he": "סוויטת הורים · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": 2.8625,
+   "index": 1,
+   "seconds": 1947.5
+  },
+  {
+   "id": "2.A-atlantic-h2",
+   "type": "pano",
+   "file": "renders/units/2.A/atlantic/2.A-atlantic-h2.jpg",
+   "thumb": "renders/units/2.A/atlantic/thumbs/2.A-atlantic-h2.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 1.1585830442834597,
+   "tod": "day",
+   "position": [
+    3.66,
+    7.6,
+    4.6
+   ],
+   "lookAt": [
+    5.06,
+    7.25,
+    0.474
+   ],
+   "roomId": "2.A-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": null,
+   "yawOffset": -0.32712,
+   "index": 2,
+   "seconds": 2179.3
+  },
+  {
+   "id": "2.A-atlantic-h3",
+   "type": "pano",
+   "file": "renders/units/2.A/atlantic/2.A-atlantic-h3.jpg",
+   "thumb": "renders/units/2.A/atlantic/thumbs/2.A-atlantic-h3.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 0.41042500866398296,
+   "tod": "day",
+   "position": [
+    4.751,
+    7.6,
+    2.306
+   ],
+   "lookAt": [
+    4.07,
+    7,
+    3.672
+   ],
+   "roomId": "2.A-living",
+   "name": {
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": 2.67912,
+   "index": 3,
+   "seconds": 2008.6
+  },
+  {
+   "id": "2.A-atlantic-h4",
+   "type": "pano",
+   "file": "renders/units/2.A/atlantic/2.A-atlantic-h4.jpg",
+   "thumb": "renders/units/2.A/atlantic/thumbs/2.A-atlantic-h4.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 1.5591842943090612,
+   "tod": "day",
+   "position": [
+    1.375,
+    7.6,
+    6.01
+   ],
+   "lookAt": [
+    0.548,
+    7.3,
+    6.732
+   ],
+   "roomId": "2.A-ensuite",
+   "name": {
+    "en": "En-suite bathroom",
+    "pt": "I.S. suite",
+    "he": "חדר רחצה צמוד"
+   },
+   "kind": null,
+   "yawOffset": 2.28851,
+   "index": 4,
+   "seconds": 2195.5
+  }
+ ],
+ "seconds": 10566.2,
+ "blender": "4.2.3 LTS"
+}
