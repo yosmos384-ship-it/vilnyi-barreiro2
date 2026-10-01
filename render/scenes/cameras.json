@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-10-01T03:37:59Z",
+ "generated": "2026-10-01T20:56:36Z",
  "space": "three-y-up",
  "units": "metres",
  "axes": "three.js world: +x = along Rua Eduardo Couto (bearing 61.4°), +y = up, +z = towards the street (0 = rear façade, 14.7 = street façade). y = 0 is ground-floor finished level (+12.70 m a.s.l.).",
@@ -18,7 +18,7 @@
    "name": "Street, eye level (like assets/site-street.jpg)",
    "position": [
     -3.5,
-    0.62,
+    0.65,
     21.8
    ],
    "lookAt": [
@@ -41,7 +41,7 @@
    "name": "3/4 view from the street, golden hour",
    "position": [
     23.5,
-    0.72,
+    0.85,
     26.2
    ],
    "lookAt": [
@@ -64,7 +64,7 @@
    "name": "Frontal street view at dusk (like assets/street-dusk.jpg)",
    "position": [
     7,
-    0.37,
+    0.5,
     26.2
    ],
    "lookAt": [
@@ -1687,14 +1687,14 @@
         "he": "חדר רחצה"
        },
        "position": [
-        9.142,
+        9.053,
         1.45,
-        5.862
+        5.982
        ],
        "lookAt": [
-        8.616,
+        8.688,
         1.45,
-        6.57
+        6.473
        ],
        "lens_mm": 18,
        "sensor_width_mm": 36,
@@ -3298,14 +3298,14 @@
         "he": "חדר רחצה"
        },
        "position": [
-        7.87,
+        7.993,
         4.45,
-        5.746
+        5.832
        ],
        "lookAt": [
-        9.184,
+        9.085,
         4.45,
-        6.662
+        6.594
        ],
        "lens_mm": 18,
        "sensor_width_mm": 36,
@@ -5554,14 +5554,14 @@
         "he": "חדר רחצה"
        },
        "position": [
-        7.87,
+        7.993,
         7.45,
-        5.746
+        5.832
        ],
        "lookAt": [
-        9.184,
+        9.085,
         7.45,
-        6.662
+        6.594
        ],
        "lens_mm": 18,
        "sensor_width_mm": 36,
