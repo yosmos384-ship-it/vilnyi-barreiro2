@@ -22,7 +22,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 1.4109360223089118,
+   "ev": 1.3937877269504468,
    "tod": "day",
    "position": [
     8.35,
@@ -43,7 +43,7 @@
    "kind": null,
    "yawOffset": -2.22887,
    "index": 5,
-   "seconds": 1917.9
+   "seconds": 1109.9
   },
   {
    "id": "2.B-atlantic-h6",
@@ -53,7 +53,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": -2.812666820662935,
+   "ev": -2.814768283972246,
    "tod": "day",
    "position": [
     7.95,
@@ -74,9 +74,9 @@
    "kind": null,
    "yawOffset": -0.17002,
    "index": 6,
-   "seconds": 798.2
+   "seconds": 442.3
   }
  ],
- "seconds": 2734.1,
+ "seconds": 1563.1,
  "blender": "4.2.3 LTS"
 }
