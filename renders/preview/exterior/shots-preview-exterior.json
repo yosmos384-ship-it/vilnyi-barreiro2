@@ -3,7 +3,9 @@
   "scope": "exterior",
   "quality": "preview",
   "shots": [
-   "0.A-bathroom"
+   "0.A-noir-h5",
+   "0.A-living",
+   "street-dusk"
   ],
   "out": "renders/preview/exterior",
   "name": "preview-exterior",
@@ -12,7 +14,35 @@
    "diag": true
   }
  },
- "shots": [],
- "seconds": 0.0,
+ "shots": [
+  {
+   "id": "street-dusk",
+   "type": "still",
+   "file": "renders/preview/exterior/street-dusk.jpg",
+   "thumb": "renders/preview/exterior/thumbs/street-dusk.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": 0.1643523891641206,
+   "tod": "dusk",
+   "position": [
+    7,
+    0.37,
+    26.2
+   ],
+   "lookAt": [
+    7,
+    4.4,
+    14.7
+   ],
+   "roomId": null,
+   "name": "Frontal street view at dusk (like assets/street-dusk.jpg)",
+   "kind": null,
+   "lens": 18.0,
+   "shift_y": 0.1752,
+   "seconds": 624.1
+  }
+ ],
+ "seconds": 837.0,
  "blender": "4.2.3 LTS"
 }
