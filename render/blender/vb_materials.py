@@ -202,9 +202,21 @@ def gltf_info(mat):
             return
         if nd.type in ('VERTEX_COLOR', 'ATTRIBUTE'):
             info['vcol'] = getattr(nd, 'layer_name', None) or getattr(nd, 'attribute_name', None) or 'Col'
+        if nd.type == 'RGB':
+            factors.append(tuple(nd.outputs[0].default_value))
+        if nd.type in ('MIX', 'MIX_RGB'):
+            # importer: Mix(MULTIPLY, <tex or vcol>, <baseColorFactor constant>)
+            for i in nd.inputs:
+                if getattr(i, 'type', '') == 'RGBA' and not i.is_linked:
+                    factors.append(tuple(i.default_value))
         for i in nd.inputs:
             walk(i, depth + 1)
+    factors = []
+    if bsdf.inputs['Base Color'].is_linked:
+        info['color'] = (1.0, 1.0, 1.0, 1.0)
     walk(bsdf.inputs['Base Color'])
+    if factors:
+        info['color'] = factors[0]
     if bsdf.inputs['Alpha'].is_linked:
         info['alpha_img'] = True
     # glTF importer packs emissive in Emission Color; when a lot of colour factor comes through 'Emission'

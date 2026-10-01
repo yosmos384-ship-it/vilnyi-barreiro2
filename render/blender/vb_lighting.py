@@ -143,8 +143,21 @@ def setup_world(tod, opts, log):
     bg2 = nt.nodes.new('ShaderNodeBackground'); bg2.name = 'vbSkyCam'
     bg2.inputs['Strength'].default_value = scale * opts.get('sky_gain', 1.0) * opts.get('sky_visible_gain', 1.0)
     bg2['base'] = scale * opts.get('sky_gain', 1.0)
-    hs = nt.nodes.new('ShaderNodeHueSaturation'); hs.inputs['Saturation'].default_value = opts.get('sky_saturation', 1.2)
-    nt.links.new(env.outputs['Color'], hs.inputs['Color']); nt.links.new(hs.outputs['Color'], bg2.inputs['Color'])
+    hs = nt.nodes.new('ShaderNodeHueSaturation'); hs.inputs['Saturation'].default_value = opts.get('sky_saturation', 1.35)
+    nt.links.new(env.outputs['Color'], hs.inputs['Color'])
+    # photographic sky grade (polariser-like): deeper blue towards the zenith, untouched at the horizon
+    sep = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(tc.outputs['Generated'], sep.inputs[0])
+    mr = nt.nodes.new('ShaderNodeMapRange'); mr.interpolation_type = 'SMOOTHSTEP'
+    mr.inputs['From Min'].default_value = 0.02; mr.inputs['From Max'].default_value = 0.75
+    nt.links.new(sep.outputs['Z'], mr.inputs['Value'])
+    mx2 = nt.nodes.new('ShaderNodeMix'); mx2.data_type = 'RGBA'; mx2.blend_type = 'MIX'
+    nt.links.new(mr.outputs['Result'], mx2.inputs['Factor'])
+    a_in = [i for i in mx2.inputs if i.type == 'RGBA']
+    a_in[0].default_value = (1, 1, 1, 1); a_in[1].default_value = opts.get('sky_zenith_tint', (0.45, 0.68, 1.3, 1))
+    mul = nt.nodes.new('ShaderNodeMix'); mul.data_type = 'RGBA'; mul.blend_type = 'MULTIPLY'; mul.inputs['Factor'].default_value = 1.0
+    m_in = [i for i in mul.inputs if i.type == 'RGBA']
+    nt.links.new(hs.outputs['Color'], m_in[0]); nt.links.new([o for o in mx2.outputs if o.type == 'RGBA'][0], m_in[1])
+    nt.links.new([o for o in mul.outputs if o.type == 'RGBA'][0], bg2.inputs['Color'])
     mx = nt.nodes.new('ShaderNodeMixShader')
     nt.links.new(lp.outputs['Is Camera Ray'], mx.inputs[0]); nt.links.new(bg.outputs[0], mx.inputs[1]); nt.links.new(bg2.outputs[0], mx.inputs[2])
     nt.links.new(mx.outputs[0], out.inputs[0])
@@ -235,6 +248,11 @@ def compositor(opts, pano=False):
     rl = nt.nodes.new('CompositorNodeRLayers')
     comp = nt.nodes.new('CompositorNodeComposite')
     cur = rl.outputs['Image']
+    wb = opts.get('wb')
+    if wb and any(abs(x - 1) > 0.01 for x in wb):
+        mul0 = nt.nodes.new('CompositorNodeMixRGB'); mul0.blend_type = 'MULTIPLY'; mul0.inputs[0].default_value = 1.0
+        mul0.inputs[2].default_value = (wb[0], wb[1], wb[2], 1.0)
+        nt.links.new(cur, mul0.inputs[1]); cur = mul0.outputs['Image']
     if opts.get('glare', True):
         g = nt.nodes.new('CompositorNodeGlare'); g.glare_type = 'FOG_GLOW'; g.quality = 'HIGH'
         g.threshold = opts.get('glare_threshold', 1.2); g.size = 8; g.mix = opts.get('glare_mix', -0.92)
@@ -254,6 +272,22 @@ def compositor(opts, pano=False):
 
 
 # ------------------------------------------------------------------ auto exposure
+WB = [None]
+
+
+def wb_gains(strength=0.6, max_gain=1.6):
+    """RGB multipliers that remove `strength` of the grey-world cast (keeps some warmth)."""
+    m = WB[0]
+    if not m:
+        return (1.0, 1.0, 1.0)
+    g = m[1]
+    out = []
+    for c in m:
+        full = g / max(c, 1e-6)
+        out.append(max(1 / max_gain, min(max_gain, full ** strength)))
+    return tuple(out)
+
+
 def measure_exposure(tmpdir, key, opts, log, w=None, h=None):
     """Render a tiny linear preview (same camera), return EV so that the log-average luminance maps to `key`."""
     sc = bpy.context.scene
@@ -298,6 +332,9 @@ def measure_exposure(tmpdir, key, opts, log, w=None, h=None):
     if sel.size == 0:
         return 0.0, sky_lum
     lavg = float(np.exp(np.mean(np.log(sel + 1e-5))))
+    # grey-world estimate on mid-tones (for a partial, photographer-style white balance)
+    mid = px[(lum > np.percentile(lum, 20)) & (lum < np.percentile(lum, 95))][:, :3]
+    WB[0] = tuple(float(x) for x in mid.mean(axis=0)) if len(mid) > 20 else None
     ev = math.log2(key / max(lavg, 1e-6))
     # protect highlights: the 90th percentile (sunlit white render, sky) should stay below ~2.5 scene-linear
     p99 = float(np.percentile(lum, opts.get('hi_pct', 95.0)))
@@ -318,6 +355,6 @@ def set_sky_visible(ev, sky_lum, target, log):
     cur = nd.inputs['Strength'].default_value
     base = nd.get('base', cur)
     g = target / max(sky_lum * (2 ** ev), 1e-6)
-    newv = max(base * 0.12, min(base * 1.0, cur * g))
+    newv = max(base * 0.05, min(base * 1.0, cur * g))
     nd.inputs['Strength'].default_value = newv
     log(f'[sky] visible sky x{newv / base:.2f} (measured {sky_lum:.3g}, ev {ev:.2f})')

@@ -63,7 +63,7 @@ BASE = {
     'lift-steel':        dict(color='#c4c4c2', rough=0.25, metal=1.0, aniso=0.6),
     'lift-walnut':       dict(tex='american_walnut_veneer', size=1.0, rough=(0.3, 0.5)),
     'mirror':            dict(shader='mirror', color='#e9ece9'),
-    'plaster-white':     dict(tex='white_plaster_02', size=1.5, tint='#f2efe9', hsv=(0.5, 0.1, 1.05), rough=(0.85, 0.95), bump=0.03, var=0.02),
+    'plaster-white':     dict(tex='white_plaster_02', size=1.5, tint='#eeebe5', detail=0.2, rough=(0.85, 0.95), bump=0.03, var=0.02),
     'ceiling-white':     dict(color='#f4f2ee', rough=0.9, var=0.01),
     'skirting':          dict(color='#f1eee8', rough=0.4, bevel=0.002),
     'door-walnut':       dict(tex='american_walnut_veneer', size=1.0, rot=90, rough=(0.3, 0.5), coat=0.2, bevel=0.002),
@@ -108,8 +108,8 @@ PACKAGES = {
     # Essencial · Atlantic Light — natural oak 190 mm, warm white plaster, stone-look porcelain 60x120, white lacquer + quartz, chrome
     'atlantic': {
         'floor-main':       dict(tex='plank_flooring_04', size=2.0, hsv=(0.5, 0.75, 1.15), rough=(0.45, 0.65), bump=0.08, var=0.05, coat=0.0),
-        'wall-paint':       dict(color='#f1ece3', rough=0.9, var=0.012, tex='white_plaster_02', size=1.5, tint='#f3efe8', hsv=(0.5, 0.0, 1.0), bump=0.02),
-        'wall-feature':     dict(color='#e7e0d4', rough=0.85, tex='white_plaster_02', size=1.5, tint='#e9e2d6', hsv=(0.5, 0.0, 1.0), bump=0.04),
+        'wall-paint':       dict(color='#f1ece3', rough=0.9, var=0.012, tex='white_plaster_02', size=1.5, tint='#efebe4', detail=0.15, bump=0.02),
+        'wall-feature':     dict(color='#e7e0d4', rough=0.85, tex='white_plaster_02', size=1.5, tint='#e6dfd3', detail=0.3, bump=0.04),
         'ceiling':          dict(color='#f8f6f2', rough=0.92),
         'skirting':         dict(color='#f2efe9', rough=0.35, bevel=0.002),
         'door-interior':    dict(color='#f3f1ec', rough=0.3, coat=0.15, bevel=0.002),
@@ -134,8 +134,8 @@ PACKAGES = {
     },
     # Premium · Lisboa Heritage — walnut herringbone, lime plaster, Estremoz marble + azulejo, navy lacquer + brass + Calacatta
     'lisboa': {
-        'floor-main':       dict(tex='herringbone_parquet', size=3.4, hsv=(0.5, 0.95, 0.75), tint='#c89a72', rough=(0.35, 0.55), bump=0.08, var=0.05, coat=0.1),
-        'wall-paint':       dict(tex='white_plaster_02', size=1.5, tint='#efe6d8', hsv=(0.5, 0.0, 1.0), rough=(0.85, 0.95), bump=0.05, var=0.02),
+        'floor-main':       dict(tex='herringbone_parquet', size=3.4, tint='#8a6446', detail=1.0, rough=(0.35, 0.55), bump=0.08, var=0.05, coat=0.1),
+        'wall-paint':       dict(tex='white_plaster_02', size=1.5, tint='#ece4d6', detail=0.25, rough=(0.85, 0.95), bump=0.05, var=0.02),
         'wall-feature':     dict(proc='azulejo', keep_map=True, color='#f3efe6', rough=0.12, coat=0.6, tiles=dict(w=0.14, h=0.14, grout=0.0025, grout_color='#d9d3c6', offset=0.0, jitter=0.03)),
         'ceiling':          dict(color='#f7f1e6', rough=0.92),
         'skirting':         dict(color='#efe7da', rough=0.35, bevel=0.002),
@@ -161,7 +161,7 @@ PACKAGES = {
     # Signature · Noir Riverside — smoked oak 240 mm, charcoal microcement, Nero Marquina, fluted smoked oak + sintered stone, bronze
     'noir': {
         'floor-main':       dict(tex='plank_flooring_04', size=2.0, hsv=(0.5, 0.8, 0.42), rough=(0.4, 0.6), bump=0.12, var=0.05),
-        'wall-paint':       dict(tex='white_plaster_02', size=1.5, tint='#8d8780', hsv=(0.5, 0.0, 1.0), rough=(0.85, 0.95), bump=0.04, var=0.02),
+        'wall-paint':       dict(tex='white_plaster_02', size=1.5, tint='#8d8780', detail=0.25, rough=(0.85, 0.95), bump=0.04, var=0.02),
         'wall-feature':     dict(tex='concrete_floor_02', size=2.0, tint='#4a4846', hsv=(0.5, 0.15, 1.0), proc='microcement', rough=(0.5, 0.75), bump=0.06, var=0.06),
         'ceiling':          dict(color='#e9e6e1', rough=0.92),
         'skirting':         dict(color='#2b2a29', rough=0.4, bevel=0.002),

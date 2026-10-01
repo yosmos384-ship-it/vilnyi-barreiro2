@@ -233,7 +233,7 @@ def render_group(job, q, quality, scn, tod, shots, tmp, out_dir):
     if st['missing_tex']:
         log(f'materials: MISSING textures: {sorted(st["missing_tex"])}')
 
-    lopts = dict(lamp_boost=opts.get('lamp_boost', 4.0 if is_unit else (6.0 if tod == 'dusk' else 3.0)))
+    lopts = dict(lamp_boost=opts.get('lamp_boost', 2.5 if is_unit else (6.0 if tod == 'dusk' else 3.0)))
     keep_imported = True
     n_imp = S.rescale_imported_lights(lopts, keep=keep_imported)
     region = None
@@ -344,7 +344,11 @@ def render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod):
         LI.set_sky_visible(ev, sky_lum, opts.get('sky_target', 0.55 if tod != 'dusk' else 0.45), log)
     ev += float(opts.get('ev_bias', 0.0)) + float((opts.get('ev_shot') or {}).get(s['id'], 0.0))
     sc.view_settings.exposure = ev
-    LI.compositor(dict(vignette=0.0 if pano else opts.get('vignette', 0.10), glare=True, glare_mix=opts.get('glare_mix', -0.93)), pano=pano)
+    wbs = opts.get('wb_strength', 0.55 if (is_unit or job['scope'] == 'common') else 0.25)
+    wb = LI.wb_gains(wbs) if wbs > 0 else None
+    if wb:
+        log(f'[wb] gains {tuple(round(x, 3) for x in wb)}')
+    LI.compositor(dict(vignette=0.0 if pano else opts.get('vignette', 0.10), glare=True, glare_mix=opts.get('glare_mix', -0.93), wb=wb), pano=pano)
     r.image_settings.file_format = 'JPEG'
     r.image_settings.quality = 82 if pano else 85
     r.image_settings.color_mode = 'RGB'
