@@ -227,7 +227,15 @@ def render_group(job, q, quality, scn, tod, shots, tmp, out_dir):
             return src.rsplit('-', 1)[-1]
         return pkg_default
     mopts = dict(tex_res=opts.get('tex_res', '2k'), bevel=opts.get('bevel', False), emit_scale=opts.get('emit_scale', 1.0))
+    mopts['debug_mats'] = []
     st = M.apply_all(pkg_for, mopts)
+    if job['scope'] == 'exterior' and opts.get('debug', True):
+        for line in mopts['debug_mats']:
+            if line.startswith('env-') or 'vcol=None' not in line:
+                log('  mat', line)
+        for ob in bpy.data.objects:
+            if ob.type == 'MESH' and ob.name.startswith('env-near'):
+                log('  obj', ob.name, [a.name + '/' + a.domain + '/' + a.data_type for a in ob.data.color_attributes], [s.material.name for s in ob.material_slots if s.material])
     log(f'materials: built={st["materials"]} textured={st["textured"]} by_key={dict(sorted(st["by_key"].items()))}')
     if st['unknown_keys']:
         log(f'materials: unknown keys kept as glTF: {st["unknown_keys"]}')

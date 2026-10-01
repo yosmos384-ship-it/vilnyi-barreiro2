@@ -394,6 +394,14 @@ def quartz(nb, uv_m, base, speck='#a9a49c', dark=False):
     return col
 
 
+def vcol_node(nb, name):
+    """Colour attribute reader (Attribute node works for any domain / data type)."""
+    nd = nb.node('ShaderNodeAttribute'); nd.attribute_type = 'GEOMETRY'; nd.attribute_name = name
+    class _W:  # mimic .outputs['Color']
+        outputs = {'Color': nd.outputs['Color']}
+    return _W
+
+
 # ------------------------------------------------------------------ main builder
 def build(mat, key, variant, pkg, opts):
     """Rebuild `mat` in place according to the recipe for key/pkg. Returns recipe used (or None)."""
@@ -401,6 +409,8 @@ def build(mat, key, variant, pkg, opts):
     info = gltf_info(mat)
     if not info['vcol'] and mat.get('vb_vcol'):
         info['vcol'] = mat['vb_vcol']
+    if opts.get('debug_mats') is not None:
+        opts['debug_mats'].append(f"{mat.name}: key={key} col={tuple(round(c, 3) for c in info['color'][:3])} vcol={info['vcol']} img={info['image'].name if info['image'] else None} uv={info['image_uv']}")
     if r is None:
         STATS['unknown_keys'][key] = STATS['unknown_keys'].get(key, 0) + 1
         return generic_upgrade(mat, info, key)
@@ -481,7 +491,7 @@ def build(mat, key, variant, pkg, opts):
             u2 = nb.node('ShaderNodeUVMap', uv_map=info['image_uv']); nb.link(u2.outputs['UV'], t.inputs['Vector'])
         color = nb.mix('MULTIPLY', t.outputs['Color'], info['color'], 1.0)
         if info['vcol']:
-            va = nb.node('ShaderNodeVertexColor', layer_name=info['vcol'])
+            va = vcol_node(nb, info['vcol'])
             color = nb.mix('MULTIPLY', color, va.outputs['Color'], 1.0)
         if info['alpha_img']:
             tb['alpha'] = t.outputs['Alpha']
@@ -505,7 +515,7 @@ def build(mat, key, variant, pkg, opts):
             dc = nb.node('ShaderNodeCombineColor'); [nb.link(det, dc.inputs[i]) for i in range(3)]
             base = info['color'] if info['color'][:3] != (0.8, 0.8, 0.8) else hex_lin(r.get('color', '#cccccc'))
             if info['vcol']:
-                va = nb.node('ShaderNodeVertexColor', layer_name=info['vcol'])
+                va = vcol_node(nb, info['vcol'])
                 bcol = nb.mix('MULTIPLY', va.outputs['Color'], base, 1.0)
             else:
                 bcol = base
@@ -533,7 +543,7 @@ def build(mat, key, variant, pkg, opts):
                 if info['alpha_img']:
                     tb['alpha'] = t.outputs['Alpha']
             elif info['vcol']:
-                va = nb.node('ShaderNodeVertexColor', layer_name=info['vcol'])
+                va = vcol_node(nb, info['vcol'])
                 color = nb.mix('MULTIPLY', va.outputs['Color'], base, 1.0)
             else:
                 color = nb.rgb(base)
