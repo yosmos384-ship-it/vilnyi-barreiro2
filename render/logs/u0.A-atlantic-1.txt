@@ -1,81 +1,82 @@
-[    0.0s] job u0.A-atlantic-1: scope=unit unit=0.A pkg=atlantic quality=standard shots=4
-[    0.7s] import building: 401 objects in 0.6s
-[    1.0s] import context: 123 objects in 0.3s
-[    1.3s] import unit-0.A-atlantic: 87 objects in 0.3s
-[    1.6s] box UVs on 547 meshes
-[    2.6s] [foliage] env-trees-0@ebebe1: foliage faces=650 crown faces=0 src=context
-[    2.6s] [foliage] env-trees-0@ebf5e1: foliage faces=390 crown faces=0 src=context
-[    2.6s] [foliage] env-trees-0@f5ebe1: foliage faces=390 crown faces=130 src=context
-[    2.8s] [foliage]   -> vbCrowns-env-trees-0@f5ebe1: crown polys=130 instances=115328 inner faces on source=130
-[    2.8s] [foliage] env-trees-0@f5ebeb: foliage faces=390 crown faces=0 src=context
-[    2.8s] [foliage] env-trees-0@f5f5e1: foliage faces=130 crown faces=0 src=context
-[    2.8s] [foliage] env-trees-0@f5f5eb: foliage faces=2340 crown faces=260 src=context
-[    3.1s] [foliage]   -> vbCrowns-env-trees-0@f5f5eb: crown polys=260 instances=251518 inner faces on source=260
-[    3.1s] [foliage] env-trees-0@f5ffeb: foliage faces=520 crown faces=130 src=context
-[    3.5s] [foliage]   -> vbCrowns-env-trees-0@f5ffeb: crown polys=130 instances=128357 inner faces on source=130
-[    3.5s] [foliage] env-trees-0@fff5eb: foliage faces=780 crown faces=0 src=context
-[    3.5s] [foliage] env-trees-0@fff5f5: foliage faces=429 crown faces=130 src=context
-[    4.0s] [foliage]   -> vbCrowns-env-trees-0@fff5f5: crown polys=130 instances=79223 inner faces on source=130
-[    4.0s] [foliage] env-trees-0@ffffeb: foliage faces=260 crown faces=0 src=context
-[    4.0s] [foliage] env-trees-0@fffff5: foliage faces=4436 crown faces=0 src=context
-[    4.0s] [foliage] env-trees-0@ffffff: foliage faces=4587 crown faces=280 src=context
-[    4.8s] [foliage]   -> vbCrowns-env-trees-0@ffffff: crown polys=280 instances=354908 inner faces on source=280
-[    4.8s] [foliage] env-trees-1@ebebe1: foliage faces=22 crown faces=0 src=context
-[    4.8s] [foliage] env-trees-1@f5f5eb: foliage faces=176 crown faces=0 src=context
-[    4.8s] [foliage] env-trees-1@fffff5: foliage faces=154 crown faces=22 src=context
-[    5.5s] [foliage]   -> vbCrowns-env-trees-1@fffff5: crown polys=22 instances=43110 inner faces on source=22
-[    5.5s] [foliage] env-trees-1@ffffff: foliage faces=110 crown faces=22 src=context
-[    6.2s] [foliage]   -> vbCrowns-env-trees-1@ffffff: crown polys=22 instances=21289 inner faces on source=22
-[    6.2s] [foliage] env-trees-2@ebebe1: foliage faces=270 crown faces=0 src=context
-[    6.2s] [foliage] env-trees-2@ebf5e1: foliage faces=180 crown faces=0 src=context
-[    6.2s] [foliage] env-trees-2@f5ebeb: foliage faces=90 crown faces=0 src=context
-[    6.3s] [foliage] env-trees-2@f5f5eb: foliage faces=360 crown faces=0 src=context
-[    6.3s] [foliage] env-trees-2@f5ffeb: foliage faces=270 crown faces=0 src=context
-[    6.3s] [foliage] env-trees-2@fff5f5: foliage faces=90 crown faces=0 src=context
-[    6.3s] [foliage] env-trees-2@ffffeb: foliage faces=180 crown faces=90 src=context
-[    7.1s] [foliage]   -> vbCrowns-env-trees-2@ffffeb: crown polys=90 instances=175751 inner faces on source=90
-[    7.1s] [foliage] env-trees-2@fffff5: foliage faces=540 crown faces=90 src=context
-[    8.1s] [foliage]   -> vbCrowns-env-trees-2@fffff5: crown polys=90 instances=78324 inner faces on source=90
-[    8.1s] [foliage] env-trees-2@ffffff: foliage faces=630 crown faces=0 src=context
-[    8.1s] [foliage] first-ivy: foliage faces=320 crown faces=0 src=building
-[    8.1s] [foliage] first-leaf: foliage faces=1200 crown faces=880 src=building
-[    9.0s] [foliage]   -> vbCrowns-first-leaf: crown polys=880 instances=3988 inner faces on source=880
-[    9.0s] [foliage] ground-olive: foliage faces=320 crown faces=320 src=building
-[    9.9s] [foliage]   -> vbCrowns-ground-olive: crown polys=320 instances=3467 inner faces on source=320
-[    9.9s] [foliage] int-grassBlade: foliage faces=1638 crown faces=518 src=unit-0.A-atlantic
-[   10.9s] [foliage]   -> vbCrowns-int-grassBlade: crown polys=518 instances=204 inner faces on source=518
-[   11.0s] [foliage] site-ivy: foliage faces=19860 crown faces=960 src=building
-[   11.9s] [foliage]   -> vbCrowns-site-ivy: crown polys=960 instances=2983 inner faces on source=960
-[   11.9s] [foliage] site-leaf: foliage faces=7120 crown faces=5360 src=building
-[   12.9s] [foliage]   -> vbCrowns-site-leaf: crown polys=5360 instances=44600 inner faces on source=5360
-[   13.0s] [foliage] site-olive: foliage faces=11920 crown faces=8800 src=building
-[   14.0s] [foliage]   -> vbCrowns-site-olive: crown polys=8800 instances=46394 inner faces on source=8800
-[   14.0s] [foliage] site-oliveLight: foliage faces=3120 crown faces=3120 src=building
-[   15.0s] [foliage]   -> vbCrowns-site-oliveLight: crown polys=3120 instances=20412 inner faces on source=3120
-[   15.0s] [foliage] leafified 16 objects, crown area 1054 m2 -> ~1369812 leaves
-[   15.0s] materials: built=201 textured=60 by_key={'aluminium-frame': 1, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 3, 'asphalt': 1, 'bark': 2, 'bath-floor': 1, 'bath-wall': 1, 'book': 3, 'brass': 10, 'brick-facade': 1, 'bulb-emissive': 2, 'candle-wax': 1, 'car-glass': 1, 'car-light': 2, 'car-paint': 10, 'ceiling': 2, 'ceiling-white': 1, 'ceramic-plate': 3, 'concrete': 3, 'curtain-fabric': 1, 'cutlery-steel': 1, 'deck-teak': 2, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 3, 'epoxy-floor': 1, 'fabric-boucle': 1, 'fabric-linen': 12, 'fabric-sofa': 2, 'floor-main': 3, 'foliage': 18, 'foliage-inner': 1, 'fruit': 6, 'garage-door': 1, 'glass-drinking': 1, 'glass-railing': 2, 'glass-window': 3, 'gravel': 2, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 1, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 3, 'led-strip-emissive': 7, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 4, 'mirror': 2, 'paint-marking': 8, 'paving-calcada': 2, 'plant-leaf': 3, 'planter-concrete': 1, 'plaster-white': 2, 'pot-terracotta': 1, 'pv-panel': 1, 'render-cream': 1, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 2, 'rug': 1, 'sanitary-ceramic': 3, 'shower-glass': 1, 'shower-wall': 1, 'skirting': 1, 'soil': 4, 'steel-dark': 11, 'stone-coping': 2, 'timber-slats': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 1, 'zinc-standing-seam': 2}
-[   15.0s] lights: imported=4 emissive->lights=202 portals=14 boost=2.5 total_lights=220 polys=259244
-[   15.6s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
-[   15.9s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
-[   15.9s] scene ready in 15.9s  (world kloofendal_43d_clear_puresky)
-[   40.3s] [expo] transparent-pass mean 0.1248  opaque-pass mean 0.1248  geo=1.00
-[   40.3s] [expo] Lavg=0.02743 p95=0.2541 ev=2.87 ev_hi=1.82 -> 1.82 sky=None
-[   40.3s] [sky] visible sky x0.05 (measured 21.1, ev 1.82)
-[   40.3s] [wb] gains (0.625, 1.0, 1.6)
-[ 2348.7s] SHOT 0.A-atlantic-h5 pano 3072x1536 spp<=64 ev=1.82 in 2332.8s -> renders/units/0.A/atlantic/0.A-atlantic-h5.jpg
-[ 2370.7s] [expo] transparent-pass mean 0.04872  opaque-pass mean 0.04879  geo=1.00
-[ 2370.7s] [expo] Lavg=0.005 p95=0.09483 ev=5.32 ev_hi=3.25 -> 3.25 sky=None
-[ 2370.7s] [sky] visible sky x0.05 (measured 21.1, ev 3.25)
-[ 2370.7s] [wb] gains (0.625, 1.0, 1.6)
-[ 4618.3s] SHOT 0.A-atlantic-h6 pano 3072x1536 spp<=64 ev=3.25 in 2269.6s -> renders/units/0.A/atlantic/0.A-atlantic-h6.jpg
-[ 4634.8s] [expo] transparent-pass mean 0.9749  opaque-pass mean 4.707  geo=1.00
-[ 4634.8s] [expo] Lavg=1.173 p95=13.06 ev=-2.55 ev_hi=-2.38 -> -2.55 sky=None
-[ 4634.8s] [sky] visible sky x0.15 (measured 21.1, ev -2.55)
-[ 4634.8s] [wb] gains (1.285, 1.0, 0.637)
-[ 5802.9s] SHOT 0.A-atlantic-h7 pano 3072x1536 spp<=64 ev=-2.55 in 1184.6s -> renders/units/0.A/atlantic/0.A-atlantic-h7.jpg
-[ 5820.1s] [expo] transparent-pass mean 0.9762  opaque-pass mean 3.477  geo=1.00
-[ 5820.1s] [expo] Lavg=0.813 p95=11.25 ev=-2.02 ev_hi=-2.17 -> -2.17 sky=None
-[ 5820.1s] [sky] visible sky x0.12 (measured 21.1, ev -2.17)
-[ 5820.1s] [wb] gains (1.214, 1.0, 0.657)
-[ 7182.9s] SHOT 0.A-atlantic-h8 pano 3072x1536 spp<=64 ev=-2.17 in 1379.9s -> renders/units/0.A/atlantic/0.A-atlantic-h8.jpg
-[ 7182.9s] DONE 4 images in 7182.9s
+[    0.3s] job u0.A-atlantic-1: scope=unit unit=0.A pkg=atlantic quality=standard shots=4
+[    0.9s] import building: 401 objects in 0.6s
+[    1.3s] import context: 123 objects in 0.4s
+[    1.6s] import unit-0.A-atlantic: 87 objects in 0.3s
+[    1.9s] box UVs on 547 meshes
+[    3.0s] [foliage] env-trees-0@ebebe1: foliage faces=650 crown faces=0 src=context
+[    3.0s] [foliage] env-trees-0@ebf5e1: foliage faces=390 crown faces=0 src=context
+[    3.0s] [foliage] env-trees-0@f5ebe1: foliage faces=390 crown faces=130 src=context
+[    3.2s] [foliage]   -> vbCrowns-env-trees-0@f5ebe1: crown polys=130 instances=115328 inner faces on source=130
+[    3.2s] [foliage] env-trees-0@f5ebeb: foliage faces=390 crown faces=0 src=context
+[    3.2s] [foliage] env-trees-0@f5f5e1: foliage faces=130 crown faces=0 src=context
+[    3.2s] [foliage] env-trees-0@f5f5eb: foliage faces=2340 crown faces=260 src=context
+[    3.5s] [foliage]   -> vbCrowns-env-trees-0@f5f5eb: crown polys=260 instances=251518 inner faces on source=260
+[    3.5s] [foliage] env-trees-0@f5ffeb: foliage faces=520 crown faces=130 src=context
+[    3.9s] [foliage]   -> vbCrowns-env-trees-0@f5ffeb: crown polys=130 instances=128357 inner faces on source=130
+[    3.9s] [foliage] env-trees-0@fff5eb: foliage faces=780 crown faces=0 src=context
+[    3.9s] [foliage] env-trees-0@fff5f5: foliage faces=429 crown faces=130 src=context
+[    4.4s] [foliage]   -> vbCrowns-env-trees-0@fff5f5: crown polys=130 instances=79223 inner faces on source=130
+[    4.4s] [foliage] env-trees-0@ffffeb: foliage faces=260 crown faces=0 src=context
+[    4.4s] [foliage] env-trees-0@fffff5: foliage faces=4436 crown faces=0 src=context
+[    4.4s] [foliage] env-trees-0@ffffff: foliage faces=4587 crown faces=280 src=context
+[    5.2s] [foliage]   -> vbCrowns-env-trees-0@ffffff: crown polys=280 instances=354908 inner faces on source=280
+[    5.2s] [foliage] env-trees-1@ebebe1: foliage faces=22 crown faces=0 src=context
+[    5.2s] [foliage] env-trees-1@f5f5eb: foliage faces=176 crown faces=0 src=context
+[    5.2s] [foliage] env-trees-1@fffff5: foliage faces=154 crown faces=22 src=context
+[    5.9s] [foliage]   -> vbCrowns-env-trees-1@fffff5: crown polys=22 instances=43110 inner faces on source=22
+[    5.9s] [foliage] env-trees-1@ffffff: foliage faces=110 crown faces=22 src=context
+[    6.7s] [foliage]   -> vbCrowns-env-trees-1@ffffff: crown polys=22 instances=21289 inner faces on source=22
+[    6.7s] [foliage] env-trees-2@ebebe1: foliage faces=270 crown faces=0 src=context
+[    6.7s] [foliage] env-trees-2@ebf5e1: foliage faces=180 crown faces=0 src=context
+[    6.7s] [foliage] env-trees-2@f5ebeb: foliage faces=90 crown faces=0 src=context
+[    6.7s] [foliage] env-trees-2@f5f5eb: foliage faces=360 crown faces=0 src=context
+[    6.7s] [foliage] env-trees-2@f5ffeb: foliage faces=270 crown faces=0 src=context
+[    6.7s] [foliage] env-trees-2@fff5f5: foliage faces=90 crown faces=0 src=context
+[    6.7s] [foliage] env-trees-2@ffffeb: foliage faces=180 crown faces=90 src=context
+[    7.5s] [foliage]   -> vbCrowns-env-trees-2@ffffeb: crown polys=90 instances=175751 inner faces on source=90
+[    7.5s] [foliage] env-trees-2@fffff5: foliage faces=540 crown faces=90 src=context
+[    8.5s] [foliage]   -> vbCrowns-env-trees-2@fffff5: crown polys=90 instances=78324 inner faces on source=90
+[    8.5s] [foliage] env-trees-2@ffffff: foliage faces=630 crown faces=0 src=context
+[    8.5s] [foliage] first-ivy: foliage faces=320 crown faces=320 src=building
+[    9.4s] [foliage]   -> vbCrowns-first-ivy: crown polys=320 instances=302 inner faces on source=320
+[    9.4s] [foliage] first-leaf: foliage faces=1200 crown faces=1200 src=building
+[   10.3s] [foliage]   -> vbCrowns-first-leaf: crown polys=1200 instances=4747 inner faces on source=1200
+[   10.3s] [foliage] ground-olive: foliage faces=320 crown faces=320 src=building
+[   11.2s] [foliage]   -> vbCrowns-ground-olive: crown polys=320 instances=3467 inner faces on source=320
+[   11.2s] [foliage] int-grassBlade: foliage faces=1642 crown faces=522 src=unit-0.A-atlantic
+[   12.1s] [foliage]   -> vbCrowns-int-grassBlade: crown polys=522 instances=208 inner faces on source=522
+[   12.3s] [foliage] site-ivy: foliage faces=19860 crown faces=19700 src=building
+[   13.3s] [foliage]   -> vbCrowns-site-ivy: crown polys=19700 instances=34406 inner faces on source=19700
+[   13.3s] [foliage] site-leaf: foliage faces=7120 crown faces=7120 src=building
+[   14.3s] [foliage]   -> vbCrowns-site-leaf: crown polys=7120 instances=47970 inner faces on source=7120
+[   14.4s] [foliage] site-olive: foliage faces=11920 crown faces=11920 src=building
+[   15.4s] [foliage]   -> vbCrowns-site-olive: crown polys=11920 instances=52104 inner faces on source=11920
+[   15.4s] [foliage] site-oliveLight: foliage faces=3120 crown faces=3120 src=building
+[   16.5s] [foliage]   -> vbCrowns-site-oliveLight: crown polys=3120 instances=20412 inner faces on source=3120
+[   16.5s] [foliage] leafified 17 objects, crown area 1086 m2 -> ~1411256 leaves
+[   16.5s] materials: built=201 textured=60 by_key={'aluminium-frame': 1, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 3, 'asphalt': 1, 'bark': 2, 'bath-floor': 1, 'bath-wall': 1, 'book': 3, 'brass': 10, 'brick-facade': 1, 'bulb-emissive': 2, 'candle-wax': 1, 'car-glass': 1, 'car-light': 2, 'car-paint': 10, 'ceiling': 2, 'ceiling-white': 1, 'ceramic-plate': 3, 'concrete': 3, 'curtain-fabric': 1, 'cutlery-steel': 1, 'deck-teak': 2, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 3, 'epoxy-floor': 1, 'fabric-boucle': 1, 'fabric-linen': 12, 'fabric-sofa': 2, 'floor-main': 3, 'foliage': 18, 'foliage-inner': 1, 'fruit': 6, 'garage-door': 1, 'glass-drinking': 1, 'glass-railing': 2, 'glass-window': 3, 'gravel': 2, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 1, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 3, 'led-strip-emissive': 7, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 4, 'mirror': 2, 'paint-marking': 8, 'paving-calcada': 2, 'plant-leaf': 3, 'planter-concrete': 1, 'plaster-white': 2, 'pot-terracotta': 1, 'pv-panel': 1, 'render-cream': 1, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 2, 'rug': 1, 'sanitary-ceramic': 3, 'shower-glass': 1, 'shower-wall': 1, 'skirting': 1, 'soil': 4, 'steel-dark': 11, 'stone-coping': 2, 'timber-slats': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 1, 'zinc-standing-seam': 2}
+[   16.5s] lights: imported=4 emissive->lights=202 portals=14 boost=2.5 total_lights=220 polys=283512
+[   17.1s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[   17.3s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[   17.3s] scene ready in 17.0s  (world kloofendal_43d_clear_puresky)
+[   42.3s] [expo] transparent-pass mean 0.1228  opaque-pass mean 0.1228  geo=1.00
+[   42.3s] [expo] Lavg=0.0274 p95=0.2509 ev=2.87 ev_hi=1.84 -> 1.84 sky=None
+[   42.3s] [sky] visible sky x0.05 (measured 21.1, ev 1.84)
+[   42.3s] [wb] gains (0.625, 1.0, 1.6)
+[ 2378.8s] SHOT 0.A-atlantic-h5 pano 3072x1536 spp<=64 ev=1.84 in 2361.5s -> renders/units/0.A/atlantic/0.A-atlantic-h5.jpg
+[ 2402.5s] [expo] transparent-pass mean 0.05029  opaque-pass mean 0.05033  geo=1.00
+[ 2402.5s] [expo] Lavg=0.005664 p95=0.09717 ev=5.14 ev_hi=3.21 -> 3.21 sky=None
+[ 2402.5s] [sky] visible sky x0.05 (measured 21.1, ev 3.21)
+[ 2402.5s] [wb] gains (0.625, 1.0, 1.6)
+[ 4714.3s] SHOT 0.A-atlantic-h6 pano 3072x1536 spp<=64 ev=3.21 in 2335.4s -> renders/units/0.A/atlantic/0.A-atlantic-h6.jpg
+[ 4732.3s] [expo] transparent-pass mean 0.9777  opaque-pass mean 4.71  geo=1.00
+[ 4732.3s] [expo] Lavg=1.181 p95=13.08 ev=-2.56 ev_hi=-2.39 -> -2.56 sky=None
+[ 4732.3s] [sky] visible sky x0.15 (measured 21.1, ev -2.56)
+[ 4732.3s] [wb] gains (1.285, 1.0, 0.637)
+[ 5923.2s] SHOT 0.A-atlantic-h7 pano 3072x1536 spp<=64 ev=-2.56 in 1208.9s -> renders/units/0.A/atlantic/0.A-atlantic-h7.jpg
+[ 5941.6s] [expo] transparent-pass mean 0.9732  opaque-pass mean 3.474  geo=1.00
+[ 5941.6s] [expo] Lavg=0.8163 p95=11.3 ev=-2.03 ev_hi=-2.18 -> -2.18 sky=None
+[ 5941.6s] [sky] visible sky x0.12 (measured 21.1, ev -2.18)
+[ 5941.6s] [wb] gains (1.215, 1.0, 0.656)
+[ 7314.0s] SHOT 0.A-atlantic-h8 pano 3072x1536 spp<=64 ev=-2.18 in 1390.8s -> renders/units/0.A/atlantic/0.A-atlantic-h8.jpg
+[ 7314.0s] DONE 4 images in 7314.0s
