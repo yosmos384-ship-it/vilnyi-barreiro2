@@ -4,7 +4,8 @@
   "quality": "preview",
   "shots": [
    "0.A-noir-h5",
-   "0.A-bathroom"
+   "0.A-living",
+   "0.A-noir-h7"
   ],
   "out": "renders/preview/exterior",
   "name": "preview-exterior",
