@@ -1,0 +1,31 @@
+name: render-smoke
+on:
+  workflow_dispatch:
+  push:
+    paths: ['render/smoke.py', '.github/workflows/smoke.yml']
+permissions:
+  contents: write
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: System info
+        run: nproc; free -g; df -h .
+      - name: Install Blender 4.2 LTS
+        run: |
+          curl -sL https://download.blender.org/release/Blender4.2/blender-4.2.3-linux-x64.tar.xz -o b.tar.xz
+          tar -xf b.tar.xz && mv blender-4.2.3-linux-x64 /opt/blender
+          /opt/blender/blender --version | head -1
+      - name: Poly Haven reachability
+        run: |
+          curl -s -A "VILNYI-render/1.0" https://api.polyhaven.com/files/kloofendal_48d_partly_cloudy_puresky | head -c 300; echo
+      - name: Render test
+        run: |
+          mkdir -p out
+          time /opt/blender/blender -b -noaudio --python render/smoke.py -- out/smoke.jpg
+      - name: Commit
+        run: |
+          mkdir -p renders/smoke && cp out/smoke.jpg renders/smoke/
+          git config user.name "vilnyi-render-bot"; git config user.email "yosmos384@gmail.com"
+          git add renders/smoke && git commit -m "render: smoke test [skip ci]" && git pull --rebase && git push || echo nothing
