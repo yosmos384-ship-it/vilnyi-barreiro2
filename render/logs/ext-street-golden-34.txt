@@ -1,160 +1,161 @@
 [    0.0s] job ext-street-golden-34: scope=exterior unit=None pkg=None quality=standard shots=1
-[    0.7s] import building: 401 objects in 0.6s
-[    1.0s] import context: 123 objects in 0.3s
-[    1.3s] import unit-0.A-atlantic: 87 objects in 0.3s
-[    1.7s] import unit-0.B-atlantic: 94 objects in 0.4s
-[    2.0s] import unit-1.A-atlantic: 85 objects in 0.3s
-[    2.4s] import unit-1.B-atlantic: 86 objects in 0.4s
-[    2.9s] import unit-1.C-atlantic: 94 objects in 0.5s
-[    3.4s] import unit-2.A-atlantic: 80 objects in 0.5s
-[    3.8s] import unit-2.B-atlantic: 79 objects in 0.5s
-[    4.4s] import unit-2.C-atlantic: 87 objects in 0.6s
-[    5.1s] box UVs on 1131 meshes
-[    7.8s] [foliage] env-trees-0@ebebe1: foliage faces=650 crown faces=130 src=context
-[    8.0s] [foliage]   -> vbCrowns-env-trees-0@ebebe1: crown polys=130 instances=72579 inner faces on source=130
-[    8.0s] [foliage] env-trees-0@ebf5e1: foliage faces=390 crown faces=130 src=context
-[    8.3s] [foliage]   -> vbCrowns-env-trees-0@ebf5e1: crown polys=130 instances=154522 inner faces on source=130
-[    8.3s] [foliage] env-trees-0@f5ebe1: foliage faces=390 crown faces=150 src=context
-[    8.7s] [foliage]   -> vbCrowns-env-trees-0@f5ebe1: crown polys=150 instances=129477 inner faces on source=150
-[    8.7s] [foliage] env-trees-0@f5ebeb: foliage faces=390 crown faces=130 src=context
-[    9.3s] [foliage]   -> vbCrowns-env-trees-0@f5ebeb: crown polys=130 instances=192032 inner faces on source=130
-[    9.3s] [foliage] env-trees-0@f5f5e1: foliage faces=130 crown faces=0 src=context
-[    9.3s] [foliage] env-trees-0@f5f5eb: foliage faces=2340 crown faces=780 src=context
-[   10.5s] [foliage]   -> vbCrowns-env-trees-0@f5f5eb: crown polys=780 instances=734002 inner faces on source=780
-[   10.5s] [foliage] env-trees-0@f5ffeb: foliage faces=520 crown faces=130 src=context
-[   11.8s] [foliage]   -> vbCrowns-env-trees-0@f5ffeb: crown polys=130 instances=128357 inner faces on source=130
-[   11.8s] [foliage] env-trees-0@fff5eb: foliage faces=780 crown faces=260 src=context
-[   13.3s] [foliage]   -> vbCrowns-env-trees-0@fff5eb: crown polys=260 instances=279020 inner faces on source=260
-[   13.3s] [foliage] env-trees-0@fff5f5: foliage faces=429 crown faces=130 src=context
-[   14.8s] [foliage]   -> vbCrowns-env-trees-0@fff5f5: crown polys=130 instances=79223 inner faces on source=130
-[   14.8s] [foliage] env-trees-0@ffffeb: foliage faces=260 crown faces=260 src=context
-[   16.6s] [foliage]   -> vbCrowns-env-trees-0@ffffeb: crown polys=260 instances=290511 inner faces on source=260
-[   16.6s] [foliage] env-trees-0@fffff5: foliage faces=4436 crown faces=1690 src=context
-[   20.2s] [foliage]   -> vbCrowns-env-trees-0@fffff5: crown polys=1690 instances=1845915 inner faces on source=1690
-[   20.2s] [foliage] env-trees-0@ffffff: foliage faces=4587 crown faces=1950 src=context
-[   25.4s] [foliage]   -> vbCrowns-env-trees-0@ffffff: crown polys=1950 instances=1931353 inner faces on source=1950
-[   25.4s] [foliage] env-trees-1@ebebe1: foliage faces=22 crown faces=22 src=context
-[   29.9s] [foliage]   -> vbCrowns-env-trees-1@ebebe1: crown polys=22 instances=45729 inner faces on source=22
-[   29.9s] [foliage] env-trees-1@f5f5eb: foliage faces=176 crown faces=66 src=context
-[   35.0s] [foliage]   -> vbCrowns-env-trees-1@f5f5eb: crown polys=66 instances=184803 inner faces on source=66
-[   35.0s] [foliage] env-trees-1@fffff5: foliage faces=154 crown faces=22 src=context
-[   40.1s] [foliage]   -> vbCrowns-env-trees-1@fffff5: crown polys=22 instances=43110 inner faces on source=22
-[   40.1s] [foliage] env-trees-1@ffffff: foliage faces=110 crown faces=66 src=context
-[   45.4s] [foliage]   -> vbCrowns-env-trees-1@ffffff: crown polys=66 instances=135193 inner faces on source=66
-[   45.4s] [foliage] env-trees-2@ebebe1: foliage faces=270 crown faces=180 src=context
-[   50.6s] [foliage]   -> vbCrowns-env-trees-2@ebebe1: crown polys=180 instances=440597 inner faces on source=180
-[   50.6s] [foliage] env-trees-2@ebf5e1: foliage faces=180 crown faces=0 src=context
-[   50.6s] [foliage] env-trees-2@f5ebeb: foliage faces=90 crown faces=90 src=context
-[   56.4s] [foliage]   -> vbCrowns-env-trees-2@f5ebeb: crown polys=90 instances=234777 inner faces on source=90
-[   56.4s] [foliage] env-trees-2@f5f5eb: foliage faces=360 crown faces=270 src=context
-[   62.8s] [foliage]   -> vbCrowns-env-trees-2@f5f5eb: crown polys=270 instances=595786 inner faces on source=270
-[   62.8s] [foliage] env-trees-2@f5ffeb: foliage faces=270 crown faces=0 src=context
-[   62.8s] [foliage] env-trees-2@fff5f5: foliage faces=90 crown faces=90 src=context
-[   69.2s] [foliage]   -> vbCrowns-env-trees-2@fff5f5: crown polys=90 instances=205517 inner faces on source=90
-[   69.2s] [foliage] env-trees-2@ffffeb: foliage faces=180 crown faces=180 src=context
-[   75.9s] [foliage]   -> vbCrowns-env-trees-2@ffffeb: crown polys=180 instances=337455 inner faces on source=180
-[   75.9s] [foliage] env-trees-2@fffff5: foliage faces=540 crown faces=180 src=context
-[   82.7s] [foliage]   -> vbCrowns-env-trees-2@fffff5: crown polys=180 instances=224830 inner faces on source=180
-[   82.7s] [foliage] env-trees-2@ffffff: foliage faces=630 crown faces=360 src=context
-[   89.8s] [foliage]   -> vbCrowns-env-trees-2@ffffff: crown polys=360 instances=730675 inner faces on source=360
-[   89.8s] [foliage] first-ivy: foliage faces=320 crown faces=0 src=building
-[   89.8s] [foliage] first-leaf: foliage faces=1200 crown faces=880 src=building
-[   96.6s] [foliage]   -> vbCrowns-first-leaf: crown polys=880 instances=3988 inner faces on source=880
-[   96.6s] [foliage] ground-olive: foliage faces=320 crown faces=320 src=building
-[  103.5s] [foliage]   -> vbCrowns-ground-olive: crown polys=320 instances=3467 inner faces on source=320
-[  103.5s] [foliage] int-grassBlade: foliage faces=1638 crown faces=518 src=unit-0.A-atlantic
-[  110.4s] [foliage]   -> vbCrowns-int-grassBlade: crown polys=518 instances=208 inner faces on source=518
-[  110.4s] [foliage] int-grassBlade.001: foliage faces=2450 crown faces=770 src=unit-0.B-atlantic
-[  117.8s] [foliage]   -> vbCrowns-int-grassBlade.001: crown polys=770 instances=305 inner faces on source=770
-[  117.8s] [foliage] int-grassBlade.002: foliage faces=818 crown faces=258 src=unit-1.A-atlantic
-[  125.4s] [foliage]   -> vbCrowns-int-grassBlade.002: crown polys=258 instances=98 inner faces on source=258
-[  125.4s] [foliage] int-grassBlade.003: foliage faces=817 crown faces=257 src=unit-1.B-atlantic
-[  132.5s] [foliage]   -> vbCrowns-int-grassBlade.003: crown polys=257 instances=99 inner faces on source=257
-[  132.6s] [foliage] int-grassBlade.004: foliage faces=3272 crown faces=1032 src=unit-1.C-atlantic
-[  140.0s] [foliage]   -> vbCrowns-int-grassBlade.004: crown polys=1032 instances=413 inner faces on source=1032
-[  140.0s] [foliage] int-grassBlade.005: foliage faces=818 crown faces=258 src=unit-2.A-atlantic
-[  147.4s] [foliage]   -> vbCrowns-int-grassBlade.005: crown polys=258 instances=98 inner faces on source=258
-[  147.4s] [foliage] int-grassBlade.006: foliage faces=819 crown faces=259 src=unit-2.B-atlantic
-[  154.9s] [foliage]   -> vbCrowns-int-grassBlade.006: crown polys=259 instances=92 inner faces on source=259
-[  154.9s] [foliage] int-grassBlade.007: foliage faces=3265 crown faces=1025 src=unit-2.C-atlantic
-[  162.4s] [foliage]   -> vbCrowns-int-grassBlade.007: crown polys=1025 instances=399 inner faces on source=1025
-[  162.4s] [foliage] int-inst-grass|grassBlade: foliage faces=418 crown faces=322 src=unit-1.A-atlantic
-[  169.6s] [foliage]   -> vbCrowns-int-inst-grass|grassBlade: crown polys=322 instances=548 inner faces on source=322
-[  169.6s] [foliage] int-inst-grass|grassBlade.001: foliage faces=418 crown faces=322 src=unit-1.B-atlantic
-[  176.8s] [foliage]   -> vbCrowns-int-inst-grass|grassBlade.001: crown polys=322 instances=548 inner faces on source=322
-[  176.8s] [foliage] int-inst-grass|grassBlade.002: foliage faces=418 crown faces=322 src=unit-1.C-atlantic
-[  183.9s] [foliage]   -> vbCrowns-int-inst-grass|grassBlade.002: crown polys=322 instances=548 inner faces on source=322
-[  183.9s] [foliage] int-inst-grass|grassBlade.003: foliage faces=418 crown faces=322 src=unit-2.A-atlantic
-[  191.2s] [foliage]   -> vbCrowns-int-inst-grass|grassBlade.003: crown polys=322 instances=548 inner faces on source=322
-[  191.2s] [foliage] int-inst-grass|grassBlade.004: foliage faces=418 crown faces=322 src=unit-2.B-atlantic
-[  198.4s] [foliage]   -> vbCrowns-int-inst-grass|grassBlade.004: crown polys=322 instances=548 inner faces on source=322
-[  198.4s] [foliage] int-inst-grass|grassBlade.005: foliage faces=836 crown faces=644 src=unit-2.C-atlantic
-[  205.7s] [foliage]   -> vbCrowns-int-inst-grass|grassBlade.005: crown polys=644 instances=1096 inner faces on source=644
-[  205.8s] [foliage] site-ivy: foliage faces=19860 crown faces=960 src=building
-[  212.7s] [foliage]   -> vbCrowns-site-ivy: crown polys=960 instances=2983 inner faces on source=960
-[  212.7s] [foliage] site-leaf: foliage faces=7120 crown faces=5360 src=building
-[  219.6s] [foliage]   -> vbCrowns-site-leaf: crown polys=5360 instances=44600 inner faces on source=5360
-[  219.7s] [foliage] site-olive: foliage faces=11920 crown faces=8800 src=building
-[  226.5s] [foliage]   -> vbCrowns-site-olive: crown polys=8800 instances=46394 inner faces on source=8800
-[  226.6s] [foliage] site-oliveLight: foliage faces=3120 crown faces=3120 src=building
-[  233.6s] [foliage]   -> vbCrowns-site-oliveLight: crown polys=3120 instances=20412 inner faces on source=3120
-[  233.6s] [foliage] leafified 42 objects, crown area 7033 m2 -> ~9142794 leaves
-[  233.6s]   mat carPaint: key=car-paint col=(1.0, 1.0, 1.0) vcol=Color img=None uv=None
-[  233.6s]   mat env-asphalt: key=asphalt col=(0.093, 0.095, 0.102) vcol=None img=None uv=None
-[  233.6s]   mat env-calcada: key=paving-calcada col=(0.71, 0.687, 0.637) vcol=None img=None uv=None
-[  233.6s]   mat env-dirt: key=soil col=(0.317, 0.232, 0.111) vcol=None img=None uv=None
-[  233.6s]   mat env-facade: key=render-cream col=(1.0, 1.0, 1.0) vcol=Color img=Image_2.001 uv=None
-[  233.6s]   mat env-fence: key=steel-dark col=(1.0, 1.0, 1.0) vcol=None img=Image_1.001 uv=None
-[  233.6s]   mat env-ground: key=soil col=(0.421, 0.41, 0.295) vcol=None img=None uv=None
-[  233.6s]   mat env-metal: key=steel-dark col=(1.0, 1.0, 1.0) vcol=Color img=None uv=None
-[  233.6s]   mat env-plain: key=render-white col=(1.0, 1.0, 1.0) vcol=Color img=None uv=None
-[  233.6s]   mat env-roof: key=roof-tile-terracotta col=(0.844, 0.841, 0.837) vcol=Color img=None uv=None
-[  233.6s]   mat env-stone: key=kerb-stone col=(0.4, 0.361, 0.298) vcol=None img=None uv=None
-[  233.6s]   mat env-yard: key=concrete col=(0.457, 0.389, 0.256) vcol=Color img=None uv=None
-[  233.6s]   mat env-car: key=car-paint col=(0.0, 0.0, 0.0) vcol=Color img=None uv=None
-[  233.6s]   mat env-car.008: key=car-paint col=(0.0, 0.084, 0.084) vcol=Color img=None uv=None
-[  233.6s]   mat env-car.002: key=car-paint col=(0.084, 0.084, 0.084) vcol=Color img=None uv=None
-[  233.6s]   mat env-car.003: key=car-paint col=(0.165, 0.0, 0.0) vcol=Color img=None uv=None
-[  233.6s]   mat env-car.006: key=car-paint col=(0.165, 0.165, 0.165) vcol=Color img=None uv=None
-[  233.6s]   mat env-car.004: key=car-paint col=(0.332, 0.332, 0.418) vcol=Color img=None uv=None
-[  233.6s]   mat env-car.001: key=car-paint col=(0.503, 0.503, 0.503) vcol=Color img=None uv=None
-[  233.6s]   mat env-car.007: key=car-paint col=(0.831, 0.753, 0.665) vcol=Color img=None uv=None
-[  233.6s]   mat env-car.005: key=car-paint col=(0.831, 0.831, 0.831) vcol=Color img=None uv=None
-[  233.6s]   mat env-window: key=glass-window col=(0.021, 0.031, 0.042) vcol=None img=None uv=None
-[  233.6s]   mat env-lamp: key=steel-dark col=(0.807, 0.791, 0.745) vcol=None img=None uv=None
-[  233.6s]   mat env-tree.006: key=foliage col=(0.831, 0.831, 0.753) vcol=Color img=None uv=None
-[  233.6s]   mat env-tree.004: key=foliage col=(0.831, 0.913, 0.753) vcol=Color img=None uv=None
-[  233.6s]   mat env-tree.008: key=foliage col=(0.913, 0.831, 0.753) vcol=Color img=None uv=None
-[  233.6s]   mat env-tree.003: key=foliage col=(0.913, 0.831, 0.831) vcol=Color img=None uv=None
-[  233.6s]   mat env-tree.011: key=foliage col=(0.913, 0.913, 0.753) vcol=Color img=None uv=None
-[  233.6s]   mat env-tree.001: key=foliage col=(0.913, 0.913, 0.831) vcol=Color img=None uv=None
-[  233.6s]   mat env-tree.010: key=foliage col=(0.913, 1.0, 0.831) vcol=Color img=None uv=None
-[  233.6s]   mat env-tree.009: key=foliage col=(1.0, 0.913, 0.831) vcol=Color img=None uv=None
-[  233.6s]   mat env-tree.005: key=foliage col=(1.0, 0.913, 0.913) vcol=Color img=None uv=None
-[  233.6s]   mat env-tree.007: key=foliage col=(1.0, 1.0, 0.831) vcol=Color img=None uv=None
-[  233.6s]   mat env-tree: key=foliage col=(1.0, 1.0, 0.913) vcol=Color img=None uv=None
-[  233.6s]   mat env-tree.002: key=foliage col=(1.0, 1.0, 1.0) vcol=Color img=None uv=None
-[  233.6s]   mat env-iron: key=steel-dark col=(0.888, 0.888, 0.855) vcol=None img=Image_0.001 uv=None
-[  233.6s]   obj env-near-asphalt.001 [] ['env-asphalt']
-[  233.6s]   obj env-near-calcada.001 [] ['env-calcada']
-[  233.6s]   obj env-near-facade.001 ['Color/CORNER/BYTE_COLOR'] ['env-facade']
-[  233.6s]   obj env-near-ground.001 [] ['env-ground']
-[  233.6s]   obj env-near-metal.001 ['Color/CORNER/BYTE_COLOR'] ['env-metal']
-[  233.6s]   obj env-near-osm_facade.001 ['Color/CORNER/BYTE_COLOR'] ['env-facade']
-[  233.6s]   obj env-near-osm_plain.001 ['Color/CORNER/BYTE_COLOR'] ['env-plain']
-[  233.6s]   obj env-near-osm_roof.001 ['Color/CORNER/BYTE_COLOR'] ['env-roof']
-[  233.6s]   obj env-near-plain.001 ['Color/CORNER/BYTE_COLOR'] ['env-plain']
-[  233.6s]   obj env-near-roof.001 ['Color/CORNER/BYTE_COLOR'] ['env-roof']
-[  233.6s]   obj env-near-stone.001 [] ['env-stone']
-[  233.6s]   obj env-near-yard.001 ['Color/CORNER/BYTE_COLOR'] ['env-yard']
-[  233.6s] materials: built=716 textured=250 by_key={'aluminium-frame': 1, 'appliance-glass-black': 17, 'appliance-steel': 8, 'art-canvas': 31, 'asphalt': 1, 'bark': 5, 'bath-floor': 8, 'bath-wall': 8, 'book': 34, 'brass': 10, 'brick-facade': 1, 'bulb-emissive': 16, 'candle-wax': 8, 'car-glass': 1, 'car-light': 2, 'car-paint': 10, 'ceiling': 9, 'ceiling-white': 1, 'ceramic-plate': 24, 'concrete': 3, 'curtain-fabric': 5, 'cutlery-steel': 8, 'deck-teak': 15, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 10, 'epoxy-floor': 1, 'fabric-boucle': 12, 'fabric-linen': 96, 'fabric-sofa': 11, 'floor-main': 17, 'foliage': 25, 'foliage-inner': 1, 'fruit': 46, 'garage-door': 1, 'glass-drinking': 8, 'glass-railing': 2, 'glass-window': 3, 'gravel': 2, 'handrail-steel': 1, 'joinery-wardrobe': 8, 'kerb-stone': 1, 'kitchen-front': 8, 'kitchen-splashback': 8, 'kitchen-worktop': 8, 'lamp-shade': 8, 'lawn': 3, 'led-strip-emissive': 14, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 32, 'mirror': 9, 'paint-marking': 8, 'paving-calcada': 2, 'plant-leaf': 14, 'planter-concrete': 1, 'plaster-white': 2, 'pot-terracotta': 5, 'pv-panel': 1, 'render-cream': 1, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 2, 'rug': 8, 'sanitary-ceramic': 24, 'shower-glass': 8, 'shower-wall': 7, 'skirting': 1, 'soil': 11, 'steel-dark': 11, 'stone-coping': 2, 'timber-slats': 1, 'wall-paint': 8, 'window-sheer': 5, 'wine': 8, 'wood-furniture': 8, 'zinc-standing-seam': 2}
-[  233.6s] lights: imported=18 emissive->lights=0 portals=0 boost=3.0 total_lights=18 polys=662887
-[  234.4s] [world] syferfontein_18d_clear_puresky 4096x2048 sun=True sun_E=13.182 sky_E=0.635
-[  234.6s] [world] sun at bearing 222.0 alt 18.4  E=65.9 W/m2(phot) = 45000 lux  sky x4.998
-[  234.6s] scene ready in 234.6s  (world syferfontein_18d_clear_puresky)
-[  349.0s] [expo] transparent-pass mean 0.5362  opaque-pass mean 1.661  geo=0.77
-[  349.0s] [expo] Lavg=0.3231 p95=2.818 ev=-0.84 ev_hi=-0.17 -> -0.84 sky=4.3692169189453125
-[  349.0s] [sky] visible sky x0.23 (measured 4.37, ev -0.84)
-[  349.0s] [wb] gains (0.984, 1.0, 1.038)
-[ 1765.4s] SHOT street-golden-34 still 2400x1350 spp<=192 ev=-0.84 in 1530.8s -> renders/exterior/street-golden-34.jpg
-[ 1765.4s] DONE 1 images in 1765.4s
+[    0.5s] import building: 401 objects in 0.5s
+[    0.8s] import context: 123 objects in 0.3s
+[    1.0s] import unit-0.A-atlantic: 87 objects in 0.2s
+[    1.4s] import unit-0.B-atlantic: 94 objects in 0.3s
+[    1.6s] import unit-1.A-atlantic: 85 objects in 0.3s
+[    1.9s] import unit-1.B-atlantic: 86 objects in 0.3s
+[    2.3s] import unit-1.C-atlantic: 94 objects in 0.4s
+[    2.6s] import unit-2.A-atlantic: 80 objects in 0.3s
+[    3.0s] import unit-2.B-atlantic: 79 objects in 0.4s
+[    3.4s] import unit-2.C-atlantic: 87 objects in 0.4s
+[    4.0s] box UVs on 1131 meshes
+[    6.2s] [foliage] env-trees-0@ebebe1: foliage faces=650 crown faces=130 src=context
+[    6.4s] [foliage]   -> vbCrowns-env-trees-0@ebebe1: crown polys=130 instances=72579 inner faces on source=130
+[    6.4s] [foliage] env-trees-0@ebf5e1: foliage faces=390 crown faces=130 src=context
+[    6.6s] [foliage]   -> vbCrowns-env-trees-0@ebf5e1: crown polys=130 instances=154522 inner faces on source=130
+[    6.6s] [foliage] env-trees-0@f5ebe1: foliage faces=390 crown faces=150 src=context
+[    6.9s] [foliage]   -> vbCrowns-env-trees-0@f5ebe1: crown polys=150 instances=129477 inner faces on source=150
+[    6.9s] [foliage] env-trees-0@f5ebeb: foliage faces=390 crown faces=130 src=context
+[    7.4s] [foliage]   -> vbCrowns-env-trees-0@f5ebeb: crown polys=130 instances=192032 inner faces on source=130
+[    7.4s] [foliage] env-trees-0@f5f5e1: foliage faces=130 crown faces=0 src=context
+[    7.4s] [foliage] env-trees-0@f5f5eb: foliage faces=2340 crown faces=780 src=context
+[    8.2s] [foliage]   -> vbCrowns-env-trees-0@f5f5eb: crown polys=780 instances=734002 inner faces on source=780
+[    8.2s] [foliage] env-trees-0@f5ffeb: foliage faces=520 crown faces=130 src=context
+[    9.1s] [foliage]   -> vbCrowns-env-trees-0@f5ffeb: crown polys=130 instances=128357 inner faces on source=130
+[    9.1s] [foliage] env-trees-0@fff5eb: foliage faces=780 crown faces=260 src=context
+[   10.2s] [foliage]   -> vbCrowns-env-trees-0@fff5eb: crown polys=260 instances=279020 inner faces on source=260
+[   10.2s] [foliage] env-trees-0@fff5f5: foliage faces=429 crown faces=130 src=context
+[   11.3s] [foliage]   -> vbCrowns-env-trees-0@fff5f5: crown polys=130 instances=79223 inner faces on source=130
+[   11.3s] [foliage] env-trees-0@ffffeb: foliage faces=260 crown faces=260 src=context
+[   12.6s] [foliage]   -> vbCrowns-env-trees-0@ffffeb: crown polys=260 instances=290511 inner faces on source=260
+[   12.6s] [foliage] env-trees-0@fffff5: foliage faces=4436 crown faces=1690 src=context
+[   15.1s] [foliage]   -> vbCrowns-env-trees-0@fffff5: crown polys=1690 instances=1845915 inner faces on source=1690
+[   15.2s] [foliage] env-trees-0@ffffff: foliage faces=4587 crown faces=1950 src=context
+[   18.8s] [foliage]   -> vbCrowns-env-trees-0@ffffff: crown polys=1950 instances=1931353 inner faces on source=1950
+[   18.8s] [foliage] env-trees-1@ebebe1: foliage faces=22 crown faces=22 src=context
+[   22.1s] [foliage]   -> vbCrowns-env-trees-1@ebebe1: crown polys=22 instances=45729 inner faces on source=22
+[   22.1s] [foliage] env-trees-1@f5f5eb: foliage faces=176 crown faces=66 src=context
+[   25.6s] [foliage]   -> vbCrowns-env-trees-1@f5f5eb: crown polys=66 instances=184803 inner faces on source=66
+[   25.6s] [foliage] env-trees-1@fffff5: foliage faces=154 crown faces=22 src=context
+[   29.1s] [foliage]   -> vbCrowns-env-trees-1@fffff5: crown polys=22 instances=43110 inner faces on source=22
+[   29.1s] [foliage] env-trees-1@ffffff: foliage faces=110 crown faces=66 src=context
+[   32.7s] [foliage]   -> vbCrowns-env-trees-1@ffffff: crown polys=66 instances=135193 inner faces on source=66
+[   32.7s] [foliage] env-trees-2@ebebe1: foliage faces=270 crown faces=180 src=context
+[   36.6s] [foliage]   -> vbCrowns-env-trees-2@ebebe1: crown polys=180 instances=440597 inner faces on source=180
+[   36.6s] [foliage] env-trees-2@ebf5e1: foliage faces=180 crown faces=0 src=context
+[   36.6s] [foliage] env-trees-2@f5ebeb: foliage faces=90 crown faces=90 src=context
+[   40.5s] [foliage]   -> vbCrowns-env-trees-2@f5ebeb: crown polys=90 instances=234777 inner faces on source=90
+[   40.5s] [foliage] env-trees-2@f5f5eb: foliage faces=360 crown faces=270 src=context
+[   44.8s] [foliage]   -> vbCrowns-env-trees-2@f5f5eb: crown polys=270 instances=595786 inner faces on source=270
+[   44.8s] [foliage] env-trees-2@f5ffeb: foliage faces=270 crown faces=0 src=context
+[   44.8s] [foliage] env-trees-2@fff5f5: foliage faces=90 crown faces=90 src=context
+[   49.2s] [foliage]   -> vbCrowns-env-trees-2@fff5f5: crown polys=90 instances=205517 inner faces on source=90
+[   49.2s] [foliage] env-trees-2@ffffeb: foliage faces=180 crown faces=180 src=context
+[   53.9s] [foliage]   -> vbCrowns-env-trees-2@ffffeb: crown polys=180 instances=337455 inner faces on source=180
+[   53.9s] [foliage] env-trees-2@fffff5: foliage faces=540 crown faces=180 src=context
+[   58.8s] [foliage]   -> vbCrowns-env-trees-2@fffff5: crown polys=180 instances=224830 inner faces on source=180
+[   58.8s] [foliage] env-trees-2@ffffff: foliage faces=630 crown faces=360 src=context
+[   64.0s] [foliage]   -> vbCrowns-env-trees-2@ffffff: crown polys=360 instances=730675 inner faces on source=360
+[   64.0s] [foliage] first-ivy: foliage faces=320 crown faces=320 src=building
+[   69.0s] [foliage]   -> vbCrowns-first-ivy: crown polys=320 instances=302 inner faces on source=320
+[   69.0s] [foliage] first-leaf: foliage faces=1200 crown faces=1200 src=building
+[   74.1s] [foliage]   -> vbCrowns-first-leaf: crown polys=1200 instances=4747 inner faces on source=1200
+[   74.1s] [foliage] ground-olive: foliage faces=320 crown faces=320 src=building
+[   79.2s] [foliage]   -> vbCrowns-ground-olive: crown polys=320 instances=3467 inner faces on source=320
+[   79.2s] [foliage] int-grassBlade: foliage faces=1642 crown faces=522 src=unit-0.A-atlantic
+[   84.3s] [foliage]   -> vbCrowns-int-grassBlade: crown polys=522 instances=198 inner faces on source=522
+[   84.4s] [foliage] int-grassBlade.001: foliage faces=2450 crown faces=770 src=unit-0.B-atlantic
+[   89.5s] [foliage]   -> vbCrowns-int-grassBlade.001: crown polys=770 instances=313 inner faces on source=770
+[   89.5s] [foliage] int-grassBlade.002: foliage faces=819 crown faces=259 src=unit-1.A-atlantic
+[   94.6s] [foliage]   -> vbCrowns-int-grassBlade.002: crown polys=259 instances=92 inner faces on source=259
+[   94.6s] [foliage] int-grassBlade.003: foliage faces=821 crown faces=261 src=unit-1.B-atlantic
+[   99.7s] [foliage]   -> vbCrowns-int-grassBlade.003: crown polys=261 instances=105 inner faces on source=261
+[   99.7s] [foliage] int-grassBlade.004: foliage faces=3263 crown faces=1023 src=unit-1.C-atlantic
+[  104.8s] [foliage]   -> vbCrowns-int-grassBlade.004: crown polys=1023 instances=399 inner faces on source=1023
+[  104.8s] [foliage] int-grassBlade.005: foliage faces=819 crown faces=259 src=unit-2.A-atlantic
+[  110.1s] [foliage]   -> vbCrowns-int-grassBlade.005: crown polys=259 instances=99 inner faces on source=259
+[  110.1s] [foliage] int-grassBlade.006: foliage faces=818 crown faces=258 src=unit-2.B-atlantic
+[  115.2s] [foliage]   -> vbCrowns-int-grassBlade.006: crown polys=258 instances=94 inner faces on source=258
+[  115.2s] [foliage] int-grassBlade.007: foliage faces=3265 crown faces=1025 src=unit-2.C-atlantic
+[  120.3s] [foliage]   -> vbCrowns-int-grassBlade.007: crown polys=1025 instances=401 inner faces on source=1025
+[  120.3s] [foliage] int-inst-grass|grassBlade: foliage faces=418 crown faces=322 src=unit-1.A-atlantic
+[  125.6s] [foliage]   -> vbCrowns-int-inst-grass|grassBlade: crown polys=322 instances=548 inner faces on source=322
+[  125.6s] [foliage] int-inst-grass|grassBlade.001: foliage faces=418 crown faces=322 src=unit-1.B-atlantic
+[  130.9s] [foliage]   -> vbCrowns-int-inst-grass|grassBlade.001: crown polys=322 instances=548 inner faces on source=322
+[  130.9s] [foliage] int-inst-grass|grassBlade.002: foliage faces=418 crown faces=322 src=unit-1.C-atlantic
+[  136.1s] [foliage]   -> vbCrowns-int-inst-grass|grassBlade.002: crown polys=322 instances=548 inner faces on source=322
+[  136.1s] [foliage] int-inst-grass|grassBlade.003: foliage faces=418 crown faces=322 src=unit-2.A-atlantic
+[  141.4s] [foliage]   -> vbCrowns-int-inst-grass|grassBlade.003: crown polys=322 instances=548 inner faces on source=322
+[  141.4s] [foliage] int-inst-grass|grassBlade.004: foliage faces=418 crown faces=322 src=unit-2.B-atlantic
+[  146.6s] [foliage]   -> vbCrowns-int-inst-grass|grassBlade.004: crown polys=322 instances=548 inner faces on source=322
+[  146.6s] [foliage] int-inst-grass|grassBlade.005: foliage faces=836 crown faces=644 src=unit-2.C-atlantic
+[  151.8s] [foliage]   -> vbCrowns-int-inst-grass|grassBlade.005: crown polys=644 instances=1096 inner faces on source=644
+[  151.9s] [foliage] site-ivy: foliage faces=19860 crown faces=19700 src=building
+[  157.1s] [foliage]   -> vbCrowns-site-ivy: crown polys=19700 instances=34406 inner faces on source=19700
+[  157.2s] [foliage] site-leaf: foliage faces=7120 crown faces=7120 src=building
+[  162.3s] [foliage]   -> vbCrowns-site-leaf: crown polys=7120 instances=47970 inner faces on source=7120
+[  162.4s] [foliage] site-olive: foliage faces=11920 crown faces=11920 src=building
+[  167.6s] [foliage]   -> vbCrowns-site-olive: crown polys=11920 instances=52104 inner faces on source=11920
+[  167.6s] [foliage] site-oliveLight: foliage faces=3120 crown faces=3120 src=building
+[  172.7s] [foliage]   -> vbCrowns-site-oliveLight: crown polys=3120 instances=20412 inner faces on source=3120
+[  172.7s] [foliage] leafified 43 objects, crown area 7065 m2 -> ~9184238 leaves
+[  172.8s]   mat carPaint: key=car-paint col=(1.0, 1.0, 1.0) vcol=Color img=None uv=None
+[  172.8s]   mat env-asphalt: key=asphalt col=(0.093, 0.095, 0.102) vcol=None img=None uv=None
+[  172.8s]   mat env-calcada: key=paving-calcada col=(0.71, 0.687, 0.637) vcol=None img=None uv=None
+[  172.8s]   mat env-dirt: key=soil col=(0.317, 0.232, 0.111) vcol=None img=None uv=None
+[  172.8s]   mat env-facade: key=render-cream col=(1.0, 1.0, 1.0) vcol=Color img=Image_2.001 uv=None
+[  172.8s]   mat env-fence: key=steel-dark col=(1.0, 1.0, 1.0) vcol=None img=Image_1.001 uv=None
+[  172.8s]   mat env-ground: key=soil col=(0.421, 0.41, 0.295) vcol=None img=None uv=None
+[  172.8s]   mat env-metal: key=steel-dark col=(1.0, 1.0, 1.0) vcol=Color img=None uv=None
+[  172.8s]   mat env-plain: key=render-white col=(1.0, 1.0, 1.0) vcol=Color img=None uv=None
+[  172.8s]   mat env-roof: key=roof-tile-terracotta col=(0.844, 0.841, 0.837) vcol=Color img=None uv=None
+[  172.8s]   mat env-stone: key=kerb-stone col=(0.4, 0.361, 0.298) vcol=None img=None uv=None
+[  172.8s]   mat env-yard: key=concrete col=(0.457, 0.389, 0.256) vcol=Color img=None uv=None
+[  172.8s]   mat env-car: key=car-paint col=(0.0, 0.0, 0.0) vcol=Color img=None uv=None
+[  172.8s]   mat env-car.008: key=car-paint col=(0.0, 0.084, 0.084) vcol=Color img=None uv=None
+[  172.8s]   mat env-car.002: key=car-paint col=(0.084, 0.084, 0.084) vcol=Color img=None uv=None
+[  172.8s]   mat env-car.003: key=car-paint col=(0.165, 0.0, 0.0) vcol=Color img=None uv=None
+[  172.8s]   mat env-car.006: key=car-paint col=(0.165, 0.165, 0.165) vcol=Color img=None uv=None
+[  172.8s]   mat env-car.004: key=car-paint col=(0.332, 0.332, 0.418) vcol=Color img=None uv=None
+[  172.8s]   mat env-car.001: key=car-paint col=(0.503, 0.503, 0.503) vcol=Color img=None uv=None
+[  172.8s]   mat env-car.007: key=car-paint col=(0.831, 0.753, 0.665) vcol=Color img=None uv=None
+[  172.8s]   mat env-car.005: key=car-paint col=(0.831, 0.831, 0.831) vcol=Color img=None uv=None
+[  172.8s]   mat env-window: key=glass-window col=(0.021, 0.031, 0.042) vcol=None img=None uv=None
+[  172.8s]   mat env-lamp: key=steel-dark col=(0.807, 0.791, 0.745) vcol=None img=None uv=None
+[  172.8s]   mat env-tree.006: key=foliage col=(0.831, 0.831, 0.753) vcol=Color img=None uv=None
+[  172.8s]   mat env-tree.004: key=foliage col=(0.831, 0.913, 0.753) vcol=Color img=None uv=None
+[  172.8s]   mat env-tree.008: key=foliage col=(0.913, 0.831, 0.753) vcol=Color img=None uv=None
+[  172.8s]   mat env-tree.003: key=foliage col=(0.913, 0.831, 0.831) vcol=Color img=None uv=None
+[  172.8s]   mat env-tree.011: key=foliage col=(0.913, 0.913, 0.753) vcol=Color img=None uv=None
+[  172.8s]   mat env-tree.001: key=foliage col=(0.913, 0.913, 0.831) vcol=Color img=None uv=None
+[  172.8s]   mat env-tree.010: key=foliage col=(0.913, 1.0, 0.831) vcol=Color img=None uv=None
+[  172.8s]   mat env-tree.009: key=foliage col=(1.0, 0.913, 0.831) vcol=Color img=None uv=None
+[  172.8s]   mat env-tree.005: key=foliage col=(1.0, 0.913, 0.913) vcol=Color img=None uv=None
+[  172.8s]   mat env-tree.007: key=foliage col=(1.0, 1.0, 0.831) vcol=Color img=None uv=None
+[  172.8s]   mat env-tree: key=foliage col=(1.0, 1.0, 0.913) vcol=Color img=None uv=None
+[  172.8s]   mat env-tree.002: key=foliage col=(1.0, 1.0, 1.0) vcol=Color img=None uv=None
+[  172.8s]   mat env-iron: key=steel-dark col=(0.888, 0.888, 0.855) vcol=None img=Image_0.001 uv=None
+[  172.8s]   obj env-near-asphalt.001 [] ['env-asphalt']
+[  172.8s]   obj env-near-calcada.001 [] ['env-calcada']
+[  172.8s]   obj env-near-facade.001 ['Color/CORNER/BYTE_COLOR'] ['env-facade']
+[  172.8s]   obj env-near-ground.001 [] ['env-ground']
+[  172.8s]   obj env-near-metal.001 ['Color/CORNER/BYTE_COLOR'] ['env-metal']
+[  172.8s]   obj env-near-osm_facade.001 ['Color/CORNER/BYTE_COLOR'] ['env-facade']
+[  172.8s]   obj env-near-osm_plain.001 ['Color/CORNER/BYTE_COLOR'] ['env-plain']
+[  172.8s]   obj env-near-osm_roof.001 ['Color/CORNER/BYTE_COLOR'] ['env-roof']
+[  172.8s]   obj env-near-plain.001 ['Color/CORNER/BYTE_COLOR'] ['env-plain']
+[  172.8s]   obj env-near-roof.001 ['Color/CORNER/BYTE_COLOR'] ['env-roof']
+[  172.8s]   obj env-near-stone.001 [] ['env-stone']
+[  172.8s]   obj env-near-yard.001 ['Color/CORNER/BYTE_COLOR'] ['env-yard']
+[  172.8s] materials: built=716 textured=250 by_key={'aluminium-frame': 1, 'appliance-glass-black': 17, 'appliance-steel': 8, 'art-canvas': 31, 'asphalt': 1, 'bark': 5, 'bath-floor': 8, 'bath-wall': 8, 'book': 34, 'brass': 10, 'brick-facade': 1, 'bulb-emissive': 16, 'candle-wax': 8, 'car-glass': 1, 'car-light': 2, 'car-paint': 10, 'ceiling': 9, 'ceiling-white': 1, 'ceramic-plate': 24, 'concrete': 3, 'curtain-fabric': 5, 'cutlery-steel': 8, 'deck-teak': 15, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 10, 'epoxy-floor': 1, 'fabric-boucle': 12, 'fabric-linen': 96, 'fabric-sofa': 11, 'floor-main': 17, 'foliage': 25, 'foliage-inner': 1, 'fruit': 46, 'garage-door': 1, 'glass-drinking': 8, 'glass-railing': 2, 'glass-window': 3, 'gravel': 2, 'handrail-steel': 1, 'joinery-wardrobe': 8, 'kerb-stone': 1, 'kitchen-front': 8, 'kitchen-splashback': 8, 'kitchen-worktop': 8, 'lamp-shade': 8, 'lawn': 3, 'led-strip-emissive': 14, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 32, 'mirror': 9, 'paint-marking': 8, 'paving-calcada': 2, 'plant-leaf': 14, 'planter-concrete': 1, 'plaster-white': 2, 'pot-terracotta': 5, 'pv-panel': 1, 'render-cream': 1, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 2, 'rug': 8, 'sanitary-ceramic': 24, 'shower-glass': 8, 'shower-wall': 7, 'skirting': 1, 'soil': 11, 'steel-dark': 11, 'stone-coping': 2, 'timber-slats': 1, 'wall-paint': 8, 'window-sheer': 5, 'wine': 8, 'wood-furniture': 8, 'zinc-standing-seam': 2}
+[  172.8s] lights: imported=18 emissive->lights=0 portals=0 boost=3.0 total_lights=18 polys=687147
+[  173.2s] [world] syferfontein_18d_clear_puresky 4096x2048 sun=True sun_E=13.182 sky_E=0.635
+[  173.4s] [world] sun at bearing 222.0 alt 18.4  E=65.9 W/m2(phot) = 45000 lux  sky x4.998
+[  173.4s] scene ready in 173.4s  (world syferfontein_18d_clear_puresky)
+[  278.6s] [expo] transparent-pass mean 0.545  opaque-pass mean 1.669  geo=0.77
+[  278.6s] [expo] Lavg=0.3315 p95=2.876 ev=-0.88 ev_hi=-0.20 -> -0.88 sky=4.366727352142334
+[  278.6s] [sky] visible sky x0.23 (measured 4.37, ev -0.88)
+[  278.6s] [wb] gains (0.987, 1.0, 1.034)
+[ 1464.6s] SHOT street-golden-34 still 2400x1350 spp<=192 ev=-0.88 in 1291.2s -> renders/exterior/street-golden-34.jpg
+[ 1464.6s] DONE 1 images in 1464.6s
