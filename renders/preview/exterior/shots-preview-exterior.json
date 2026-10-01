@@ -4,40 +4,13 @@
   "quality": "preview",
   "shots": [
    "street-dusk",
-   "street-golden-34"
+   "rear-garden"
   ],
   "out": "renders/preview/exterior",
   "name": "preview-exterior",
   "opts": {}
  },
  "shots": [
-  {
-   "id": "street-golden-34",
-   "type": "still",
-   "file": "renders/preview/exterior/street-golden-34.jpg",
-   "thumb": "renders/preview/exterior/thumbs/street-golden-34.jpg",
-   "W": 960,
-   "H": 540,
-   "spp": 64,
-   "ev": -0.5190064066527666,
-   "tod": "golden",
-   "position": [
-    22.5,
-    0.72,
-    23.599999999999998
-   ],
-   "lookAt": [
-    6.5,
-    4,
-    13
-   ],
-   "roomId": null,
-   "name": "3/4 view from the street, golden hour",
-   "kind": null,
-   "lens": 24.0,
-   "shift_y": 0.1139,
-   "seconds": 79.3
-  },
   {
    "id": "street-dusk",
    "type": "still",
@@ -46,7 +19,7 @@
    "W": 960,
    "H": 540,
    "spp": 64,
-   "ev": 0.14657246288621895,
+   "ev": 0.15503951812399894,
    "tod": "dusk",
    "position": [
     7,
@@ -63,9 +36,36 @@
    "kind": null,
    "lens": 18.0,
    "shift_y": 0.1752,
-   "seconds": 446.2
+   "seconds": 342.9
+  },
+  {
+   "id": "rear-garden",
+   "type": "still",
+   "file": "renders/preview/exterior/rear-garden.jpg",
+   "thumb": "renders/preview/exterior/thumbs/rear-garden.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": 1.0820229202457483,
+   "tod": "golden",
+   "position": [
+    7.6,
+    1.6,
+    -7.2
+   ],
+   "lookAt": [
+    5,
+    4.3,
+    0
+   ],
+   "roomId": null,
+   "name": "Rear gardens and garden façade (from the far end of the 0.B garden)",
+   "kind": null,
+   "lens": 18.0,
+   "shift_y": 0.1764,
+   "seconds": 106.0
   }
  ],
- "seconds": 542.9,
+ "seconds": 465.1,
  "blender": "4.2.3 LTS"
 }
