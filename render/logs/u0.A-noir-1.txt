@@ -1,0 +1,23 @@
+[    0.0s] job u0.A-noir-1: scope=unit unit=0.A pkg=noir quality=standard shots=4
+[    0.7s] import building: 401 objects in 0.6s
+[    1.0s] import context: 123 objects in 0.3s
+[    1.3s] import unit-0.A-noir: 87 objects in 0.3s
+[    1.6s] box UVs on 547 meshes
+[    2.7s] materials: built=200 textured=64 by_key={'aluminium-frame': 1, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 3, 'asphalt': 1, 'bark': 2, 'bath-floor': 1, 'bath-wall': 1, 'book': 3, 'brass': 10, 'brick-facade': 1, 'bulb-emissive': 2, 'candle-wax': 1, 'car-glass': 1, 'car-light': 2, 'car-paint': 10, 'ceiling': 2, 'ceiling-white': 1, 'ceramic-plate': 3, 'concrete': 3, 'curtain-fabric': 1, 'cutlery-steel': 1, 'deck-teak': 2, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 3, 'epoxy-floor': 1, 'fabric-boucle': 1, 'fabric-linen': 12, 'fabric-sofa': 2, 'floor-main': 3, 'foliage': 17, 'fruit': 6, 'garage-door': 1, 'glass-drinking': 1, 'glass-railing': 2, 'glass-window': 3, 'gravel': 2, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 1, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 3, 'led-strip-emissive': 7, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 4, 'mirror': 2, 'paint-marking': 8, 'paving-calcada': 2, 'plant-leaf': 3, 'planter-concrete': 1, 'plaster-white': 2, 'pot-terracotta': 1, 'pv-panel': 1, 'render-cream': 1, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 2, 'rug': 1, 'sanitary-ceramic': 3, 'shower-glass': 1, 'shower-wall': 1, 'skirting': 1, 'soil': 4, 'steel-dark': 11, 'stone-coping': 2, 'timber-slats': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 2, 'zinc-standing-seam': 2}
+[    2.7s] lights: imported=4 emissive->lights=116 portals=14 boost=2.5 total_lights=134 polys=236984
+[    3.3s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[    3.5s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[    3.5s] scene ready in 3.5s  (world kloofendal_43d_clear_puresky)
+[    9.6s] [expo] Lavg=0.0004506 p95=0.06523 ev=8.79 ev_hi=5.26 -> 5.26 sky=None
+[    9.6s] [wb] gains (0.64, 1.0, 1.6)
+[ 1175.8s] SHOT 0.A-noir-h5 pano 3072x1536 spp<=64 ev=5.26 in 1172.3s -> renders/units/0.A/noir/0.A-noir-h5.jpg
+[ 1180.7s] [expo] Lavg=0.0003769 p95=0.03774 ev=9.05 ev_hi=6.05 -> 6.05 sky=None
+[ 1180.7s] [wb] gains (0.625, 1.0, 1.6)
+[ 2351.9s] SHOT 0.A-noir-h6 pano 3072x1536 spp<=64 ev=6.05 in 1176.1s -> renders/units/0.A/noir/0.A-noir-h6.jpg
+[ 2355.2s] [expo] Lavg=0.02374 p95=4.03 ev=3.07 ev_hi=-0.69 -> -0.69 sky=None
+[ 2355.2s] [wb] gains (0.9, 1.0, 1.102)
+[ 3302.3s] SHOT 0.A-noir-h7 pano 3072x1536 spp<=64 ev=-0.69 in 950.4s -> renders/units/0.A/noir/0.A-noir-h7.jpg
+[ 3306.1s] [expo] Lavg=0.05067 p95=3.439 ev=1.98 ev_hi=-0.46 -> -0.46 sky=None
+[ 3306.1s] [wb] gains (0.889, 1.0, 1.06)
+[ 4420.3s] SHOT 0.A-noir-h8 pano 3072x1536 spp<=64 ev=-0.46 in 1118.0s -> renders/units/0.A/noir/0.A-noir-h8.jpg
+[ 4420.3s] DONE 4 images in 4420.3s
