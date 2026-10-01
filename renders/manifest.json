@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-10-01T04:57:14Z",
+ "generated": "2026-10-01T05:21:30Z",
  "conventions": {
   "position": "three.js world metres (Y-up), eye point of the panorama",
   "yawOffset": "radians; three.js camera yaw (rotation.y, YXZ order; 0 looks along -Z, +pi/2 looks along -X) of the panorama CENTRE column (u = 0.5). u grows to the right (clockwise seen from above). Seam at u = 0/1 faces away.",
@@ -8,6 +8,18 @@
   "files": "repo-relative paths (the Pages site serves them at the same relative path)"
  },
  "units": {},
- "exterior": [],
+ "exterior": [
+  {
+   "id": "aerial-120",
+   "roomId": null,
+   "name": "Aerial, 120 m above the site, looking NNW over Lavradio towards the Tagus",
+   "file": "renders/exterior/aerial-120.jpg",
+   "thumb": "renders/exterior/thumbs/aerial-120.jpg",
+   "tod": "golden",
+   "lens": 35.0,
+   "W": 2400,
+   "H": 1350
+  }
+ ],
  "common": []
 }
