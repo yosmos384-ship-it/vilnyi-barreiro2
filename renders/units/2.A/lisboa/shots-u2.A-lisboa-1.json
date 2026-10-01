@@ -1,0 +1,114 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.A",
+  "pkg": "lisboa",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "2.A-lisboa-h5",
+   "2.A-lisboa-h6",
+   "2.A-lisboa-h7"
+  ],
+  "out": "renders/units/2.A/lisboa",
+  "name": "u2.A-lisboa-1",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "2.A-lisboa-h5",
+   "type": "pano",
+   "file": "renders/units/2.A/lisboa/2.A-lisboa-h5.jpg",
+   "thumb": "renders/units/2.A/lisboa/thumbs/2.A-lisboa-h5.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 1.9318531751101629,
+   "tod": "day",
+   "position": [
+    4.525,
+    7.6,
+    6.01
+   ],
+   "lookAt": [
+    2.796,
+    7.3,
+    6.732
+   ],
+   "roomId": "2.A-wc",
+   "name": {
+    "en": "Guest bathroom",
+    "pt": "I.S. serviço",
+    "he": "חדר רחצה אורחים"
+   },
+   "kind": null,
+   "yawOffset": 1.96637,
+   "index": 5,
+   "seconds": 1850.1
+  },
+  {
+   "id": "2.A-lisboa-h6",
+   "type": "pano",
+   "file": "renders/units/2.A/lisboa/2.A-lisboa-h6.jpg",
+   "thumb": "renders/units/2.A/lisboa/thumbs/2.A-lisboa-h6.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.5044501384550792,
+   "tod": "day",
+   "position": [
+    5.55,
+    7.6,
+    6.01
+   ],
+   "lookAt": [
+    5.248,
+    7.3,
+    6.732
+   ],
+   "roomId": "2.A-hall",
+   "name": {
+    "en": "Entrance hall",
+    "pt": "Hall",
+    "he": "מבואה"
+   },
+   "kind": null,
+   "yawOffset": 2.74543,
+   "index": 6,
+   "seconds": 1662.8
+  },
+  {
+   "id": "2.A-lisboa-h7",
+   "type": "pano",
+   "file": "renders/units/2.A/lisboa/2.A-lisboa-h7.jpg",
+   "thumb": "renders/units/2.A/lisboa/thumbs/2.A-lisboa-h7.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": -2.742435259457641,
+   "tod": "day",
+   "position": [
+    4.5,
+    7.6,
+    -0.35
+   ],
+   "lookAt": [
+    6.5,
+    7.4,
+    -12
+   ],
+   "roomId": "2.rear.A",
+   "name": {
+    "en": "Balcony",
+    "pt": "Varanda",
+    "he": "מרפסת"
+   },
+   "kind": null,
+   "yawOffset": -0.17002,
+   "index": 7,
+   "seconds": 776.5
+  }
+ ],
+ "seconds": 4306.4,
+ "blender": "4.2.3 LTS"
+}
