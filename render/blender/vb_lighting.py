@@ -261,7 +261,7 @@ def compositor(opts, pano=False):
         nt.links.new(cur, mul0.inputs[1]); cur = mul0.outputs['Image']
     if opts.get('glare', True):
         g = nt.nodes.new('CompositorNodeGlare'); g.glare_type = 'FOG_GLOW'; g.quality = 'HIGH'
-        g.threshold = opts.get('glare_threshold', 4.0); g.size = 7; g.mix = opts.get('glare_mix', -0.92)
+        g.threshold = opts.get('glare_threshold', 10.0); g.size = 7; g.mix = opts.get('glare_mix', -0.92)
         nt.links.new(cur, g.inputs['Image']); cur = g.outputs['Image']
     if not pano and opts.get('vignette', 0.12) > 0:
         el = nt.nodes.new('CompositorNodeEllipseMask'); el.width = 1.25; el.height = 1.25
