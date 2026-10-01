@@ -3,45 +3,71 @@
   "scope": "exterior",
   "quality": "preview",
   "shots": [
-   "1.C-atlantic-h2",
-   "1.C-living",
-   "1.C-bedroom"
+   "aerial-dusk-34",
+   "rear-garden-golden"
   ],
   "out": "renders/preview/exterior",
   "name": "preview-exterior",
   "opts": {
-   "profile": false
+   "ev_bias": 0.7
   }
  },
  "shots": [
   {
-   "id": "street-dusk",
+   "id": "rear-garden-golden",
    "type": "still",
-   "file": "renders/preview/exterior/street-dusk.jpg",
-   "thumb": "renders/preview/exterior/thumbs/street-dusk.jpg",
+   "file": "renders/preview/exterior/rear-garden-golden.jpg",
+   "thumb": "renders/preview/exterior/thumbs/rear-garden-golden.jpg",
    "W": 960,
    "H": 540,
    "spp": 64,
-   "ev": 0.1643523891641206,
-   "tod": "dusk",
+   "ev": 1.4421034201691176,
+   "tod": "golden",
    "position": [
-    7,
-    0.37,
-    26.2
+    8.6,
+    1.75,
+    -7.2
    ],
    "lookAt": [
-    7,
-    4.4,
-    14.7
+    6.2,
+    3.9,
+    0.0
    ],
    "roomId": null,
-   "name": "Frontal street view at dusk (like assets/street-dusk.jpg)",
+   "name": "Rear gardens and garden facade, golden hour",
    "kind": null,
-   "lens": 18.0,
-   "shift_y": 0.1752,
-   "seconds": 624.1
+   "lens": 17.0,
+   "shift_y": 0.1338,
+   "seconds": 190.9
+  },
+  {
+   "id": "aerial-dusk-34",
+   "type": "still",
+   "file": "renders/preview/exterior/aerial-dusk-34.jpg",
+   "thumb": "renders/preview/exterior/thumbs/aerial-dusk-34.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": -0.14852135591580973,
+   "tod": "dusk",
+   "position": [
+    36.0,
+    24.0,
+    44.0
+   ],
+   "lookAt": [
+    6.5,
+    3.5,
+    8.0
+   ],
+   "roomId": null,
+   "name": "3/4 aerial at dusk",
+   "kind": null,
+   "lens": 35.0,
+   "shift_y": -0.4282,
+   "seconds": 332.6
   }
  ],
- "seconds": 837.0,
+ "seconds": 554.5,
  "blender": "4.2.3 LTS"
 }
