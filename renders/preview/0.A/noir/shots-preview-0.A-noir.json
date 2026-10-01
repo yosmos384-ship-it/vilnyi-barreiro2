@@ -6,47 +6,16 @@
   "quality": "preview",
   "tod": "day",
   "shots": [
-   "0.A-noir-h5",
    "0.A-bathroom"
   ],
   "out": "renders/preview/0.A/noir",
   "name": "preview-0.A-noir",
   "opts": {
-   "profile": false
+   "profile": false,
+   "diag": true
   }
  },
  "shots": [
-  {
-   "id": "0.A-noir-h5",
-   "type": "pano",
-   "file": "renders/preview/0.A/noir/0.A-noir-h5.jpg",
-   "thumb": "renders/preview/0.A/noir/thumbs/0.A-noir-h5.jpg",
-   "W": 2048,
-   "H": 1024,
-   "spp": 32,
-   "ev": 7.265059933547417,
-   "tod": "day",
-   "position": [
-    4.525,
-    1.6,
-    6.01
-   ],
-   "lookAt": [
-    2.796,
-    1.3,
-    6.732
-   ],
-   "roomId": "0.A-wc",
-   "name": {
-    "en": "Guest bathroom",
-    "pt": "I.S. serviço",
-    "he": "חדר רחצה אורחים"
-   },
-   "kind": null,
-   "yawOffset": 1.96637,
-   "index": 5,
-   "seconds": 361.3
-  },
   {
    "id": "0.A-bathroom",
    "type": "still",
@@ -55,7 +24,7 @@
    "W": 960,
    "H": 540,
    "spp": 64,
-   "ev": 7.18977104560754,
+   "ev": 7.205673762264108,
    "tod": "day",
    "position": [
     1.749,
@@ -76,9 +45,9 @@
    "kind": "bathroom",
    "lens": 18.0,
    "shift_y": 0.0,
-   "seconds": 137.6
+   "seconds": 141.1
   }
  ],
- "seconds": 514.7,
+ "seconds": 153.7,
  "blender": "4.2.3 LTS"
 }
