@@ -354,7 +354,9 @@ def leafify(centre, radius=70.0, density=700.0, min_dim=0.3, max_area=9000.0, lo
             c = (mn + mx) / 2
             d = mx - mn
             ds = sorted([d.x, d.y, d.z])
-            if ds[2] < 0.25 or ds[1] < 0.12 or (Vector((c.x, c.y)) - Vector((centre[0], centre[1]))).length > radius:
+            small_ok = any(t in ob.name.lower() for t in ('ivy', 'leaf', 'olive', 'hedge', 'shrub', 'bush'))
+            lim2, lim1 = (0.06, 0.04) if small_ok else (0.25, 0.12)
+            if ds[2] < lim2 or ds[1] < lim1 or (Vector((c.x, c.y)) - Vector((centre[0], centre[1]))).length > radius:
                 continue
             crown_faces += isl
         nf = sum(1 for f in bm.faces if f.material_index in idx)
