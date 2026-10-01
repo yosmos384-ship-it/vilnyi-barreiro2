@@ -311,6 +311,18 @@ def measure_exposure(tmpdir, key, opts, log, w=None, h=None):
     p2 = os.path.join(tmpdir, 'expo-sky.exr')
     r.filepath = p2
     bpy.ops.render.render(write_still=True)
+    if opts.get('diag'):
+        for tag, setup in (('denoise', dict(use_denoising=True)), ('adaptive', dict(use_adaptive_sampling=True)), ('spp128', dict(samples=128))):
+            for k, v in setup.items():
+                setattr(sc.cycles, k, v)
+            p3 = os.path.join(tmpdir, f'expo-{tag}.exr'); r.filepath = p3
+            bpy.ops.render.render(write_still=True)
+            im3 = bpy.data.images.load(p3); a3 = np.empty(im3.size[0] * im3.size[1] * 4, dtype=np.float32); im3.pixels.foreach_get(a3)
+            bpy.data.images.remove(im3)
+            a3 = a3.reshape(-1, 4)[:, :3]
+            log(f'[diag] {tag}: mean {float(a3.mean()):.4g} median {float(np.median(a3)):.4g} p88 {float(np.percentile(a3, 88)):.4g}')
+            for k in setup:
+                setattr(sc.cycles, k, {'use_denoising': False, 'use_adaptive_sampling': False, 'samples': opts.get('expo_samples', 24)}[k])
     (r.resolution_x, r.resolution_y, r.resolution_percentage, sc.cycles.samples, sc.cycles.use_denoising,
      r.image_settings.file_format, r.image_settings.color_depth, sc.use_nodes, sc.cycles.use_adaptive_sampling, r.film_transparent) = saved
     img = bpy.data.images.load(p)
