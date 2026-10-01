@@ -1,0 +1,43 @@
+{
+ "job": {
+  "scope": "exterior",
+  "quality": "standard",
+  "shots": [
+   "street-golden-34"
+  ],
+  "out": "renders/exterior",
+  "name": "ext-street-golden-34",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "street-golden-34",
+   "type": "still",
+   "file": "renders/exterior/street-golden-34.jpg",
+   "thumb": "renders/exterior/thumbs/street-golden-34.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 192,
+   "ev": -0.9210721916712169,
+   "tod": "golden",
+   "position": [
+    22.5,
+    0.72,
+    23.599999999999998
+   ],
+   "lookAt": [
+    6.5,
+    4,
+    13
+   ],
+   "roomId": null,
+   "name": "3/4 view from the street, golden hour",
+   "kind": null,
+   "lens": 24.0,
+   "shift_y": 0.1139,
+   "seconds": 1158.2
+  }
+ ],
+ "seconds": 1166.2,
+ "blender": "4.2.3 LTS"
+}
