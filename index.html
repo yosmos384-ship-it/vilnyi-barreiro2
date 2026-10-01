@@ -29,6 +29,7 @@
 <style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}</style>
 </head>
 <body>
+<script>(function(){try{var p=localStorage.getItem('vb2.palette');if(!p){var o=localStorage.getItem('vb2.theme');p=o==='dark'?'night':o==='light'?'stone':'';}if(/^(stone|sand|sage|atlantic|night)$/.test(p)){var r=document.documentElement;r.setAttribute('data-palette',p);r.setAttribute('data-theme',p==='night'?'dark':'light');}}catch(e){}})();</script>
 <a class="skip" href="#apartments" data-i18n="sel.title">Choose your apartment</a>
 
 <header class="top" id="topbar">
@@ -42,17 +43,20 @@
       <a href="#gallery-renders" data-i18n="nav.gallery">Gallery</a>
       <a href="#location" data-i18n="nav.location">Location</a>
       <a href="#building" data-i18n="nav.building">The building</a>
+      <div class="nav-extra">
+        <span class="h-small" data-i18n="nav.theme">Colour theme</span>
+        <div class="pal" id="palMenu" role="radiogroup" aria-label="Colour theme" data-i18n-aria="nav.theme"></div>
+      </div>
     </nav>
     <div class="top-tools">
-      <label class="lang">
-        <span class="sr" data-i18n="nav.lang">Language</span>
-        <select id="langSel" aria-label="Language">
-          <option value="en">EN</option><option value="pt">PT</option><option value="he">HE</option><option value="ru">RU</option>
-        </select>
-      </label>
-      <button class="icon-btn" id="themeBtn" type="button" aria-label="Switch light / dark" data-i18n-aria="nav.theme">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/></svg>
-      </button>
+      <div class="pal" id="palTop" role="radiogroup" aria-label="Colour theme" data-i18n-aria="nav.theme"></div>
+      <div class="lang" id="lang">
+        <button class="lang-btn" id="langBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="langMenu" aria-label="Language" data-i18n-aria="nav.lang">
+          <span id="langFlag"></span><span id="langCode">EN</span>
+          <svg class="chev" viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 3.5 5 7l3.5-3.5"/></svg>
+        </button>
+        <div class="lang-menu" id="langMenu" role="menu" aria-label="Language" data-i18n-aria="nav.lang" hidden></div>
+      </div>
       <a class="btn btn-solid btn-sm top-cta" href="#reserve" data-i18n="nav.reserve">Reserve</a>
       <button class="icon-btn menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="nav" aria-label="Menu" data-i18n-aria="nav.menu">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h16M4 16h16"/></svg>
@@ -76,6 +80,7 @@
           <span data-i18n="hero.cta.3d">Explore in 3D</span>
         </button>
       </div>
+      <p class="hero-price" id="heroPrice"></p>
       <p class="hero-note" data-i18n="hero.note">Illustrative render. Preliminary study, subject to licensing.</p>
     </div>
   </section>
@@ -86,7 +91,7 @@
       <li><b>T1 · T2</b><span data-i18n="hero.fact.types">one &amp; two bedrooms</span></li>
       <li><b>386</b><span data-i18n="hero.fact.area">m² of living space</span></li>
       <li><b>8 / 8</b><span data-i18n="hero.fact.parking">parking for every apartment</span></li>
-      <li><b>Q4 2028</b><span data-i18n="hero.fact.keys">keys handed over</span></li>
+      <li><b>Q4 2029</b><span data-i18n="hero.fact.keys">keys handed over</span></li>
     </ul>
   </section>
 
@@ -107,10 +112,17 @@
           <button type="button" role="tab" class="seg-b is-on" id="selFacadeTab" aria-selected="true" data-i18n="sel.view.facade">Façade</button>
           <button type="button" role="tab" class="seg-b" id="sel3dTab" aria-selected="false" data-i18n="sel.view.3d">3D model</button>
         </div>
-        <div class="facade" id="facade">
-          <img src="assets/facade-day.jpg" alt="Street façade of Barreiro 2 in afternoon light" width="1368" height="1167">
-          <svg class="facade-svg" id="facadeSvg" viewBox="0 0 1368 1167" preserveAspectRatio="none" aria-label="Floors"></svg>
-          <div class="facade-tip" id="facadeTip" hidden></div>
+        <div class="facade-slot" id="facadeSlot">
+          <div class="facade" id="facade">
+            <div class="facade-view" id="facadeView">
+              <div class="facade-scene" id="facadeScene">
+                <img src="assets/facade-day.jpg" alt="Street façade of Barreiro 2 in afternoon light" width="1368" height="1167">
+                <svg class="facade-svg" id="facadeSvg" viewBox="0 0 1368 1167" preserveAspectRatio="none" aria-label="Floors"></svg>
+              </div>
+            </div>
+            <div class="facade-tip" id="facadeTip" hidden></div>
+            <section class="flc" id="floorCard" role="dialog" aria-labelledby="flcTitle" hidden></section>
+          </div>
         </div>
         <div class="sel3d" id="sel3d" hidden>
           <div class="sel3d-poster" id="sel3dPoster">
@@ -126,8 +138,6 @@
         <div class="legend" id="legend"></div>
       </div>
     </div>
-
-    <div class="planpanel" id="planPanel" hidden></div>
 
     <div class="filters" id="filters"></div>
     <div class="table-wrap">
@@ -222,6 +232,7 @@
     <div class="foot-brand">
       <span class="brand-mark">VILNYI</span>
       <p id="footDev"></p>
+      <div id="footCredits" class="fineprint"></div>
     </div>
     <div class="foot-contact">
       <h3 class="h-small" data-i18n="foot.contact">Contact</h3>
@@ -240,18 +251,28 @@
 </footer>
 
 <div class="imm" id="imm" hidden role="dialog" aria-modal="true" aria-label="3D">
-  <div class="imm-bar">
+  <div class="imm-bar" id="immBar">
     <span class="brand-mark imm-brand">VILNYI</span>
-    <div class="seg seg-dark" id="immModes" role="tablist">
-      <button type="button" class="seg-b" data-mode="exterior" data-i18n="v.exterior">Exterior</button>
-      <button type="button" class="seg-b" data-mode="aerial" data-i18n="v.aerial">Bird’s-eye</button>
-      <button type="button" class="seg-b" data-mode="walk" data-i18n="v.walk">Walk</button>
+    <div class="seg seg-dark" id="immModes" role="group">
+      <button type="button" class="seg-b" data-mode="exterior" data-i18n-aria="v.exterior" aria-label="Exterior">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 21V8l8-4 8 4v13M2.5 21h19M9 21v-5h6v5M8.5 10.5h2M13.5 10.5h2"/></svg><span class="lbl" data-i18n="v.exterior">Exterior</span></button>
+      <button type="button" class="seg-b" data-mode="aerial" data-i18n-aria="v.aerial" aria-label="Bird’s-eye">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M15.5 8.5 13.4 13.4 8.5 15.5l2.1-4.9 4.9-2.1Z"/></svg><span class="lbl" data-i18n="v.aerial">Bird’s-eye</span></button>
+      <button type="button" class="seg-b" data-mode="walk" data-i18n-aria="v.walk" aria-label="Walk">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="13" cy="4.5" r="1.7"/><path d="M9.5 21l2-6-2.5-2.5 1-5 3 .5 2 3.5 3 1M10 7.5 6.5 9.5 6 13M14.5 21l-.8-4.5-2.2-2"/></svg><span class="lbl" data-i18n="v.walk">Walk</span></button>
     </div>
-    <button type="button" class="pr-btn" id="prBtn" aria-pressed="false">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/></svg>
-      <span data-i18n="v.photoreal">Photoreal</span>
+    <div class="imm-go" id="immGo">
+      <button type="button" class="imm-chip" data-go="lobby" data-i18n-aria="v.lobby" aria-label="Lobby">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 21V4.5a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1V21M3.5 21h17M14.5 12.2v1.6"/></svg><span class="lbl" data-i18n="v.lobby">Lobby</span></button>
+      <button type="button" class="imm-chip" data-go="parking" data-i18n-aria="v.parking" aria-label="Car park">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3.5" width="16" height="17" rx="2.5"/><path d="M9.5 17V7.5h3.2a3 3 0 0 1 0 6H9.5"/></svg><span class="lbl" data-i18n="v.parking">Car park</span></button>
+    </div>
+    <button type="button" class="pr-btn" id="prBtn" aria-pressed="false" data-i18n-aria="v.photoreal" aria-label="Photoreal">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l1.9 5.1 5.1 1.9-5.1 1.9L12 17.5l-1.9-5.1L5 10.5l5.1-1.9L12 3.5ZM18.5 16.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8.8-2.2Z"/></svg>
+      <span class="lbl" data-i18n="v.photoreal">Photoreal</span>
     </button>
     <label class="tod">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.6"/><path d="M12 3v2.2M12 18.8V21M3 12h2.2M18.8 12H21M5.6 5.6l1.6 1.6M16.8 16.8l1.6 1.6M5.6 18.4l1.6-1.6M16.8 7.2l1.6-1.6"/></svg>
       <span class="sr" data-i18n="v.time">Light</span>
       <select id="todSel" aria-label="Light">
         <option value="day" data-i18n="tod.day">Day</option>
@@ -263,6 +284,7 @@
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
     </button>
   </div>
+  <button class="imm-peek" id="immPeek" type="button" aria-label="Show controls" data-i18n-aria="v.showBar"></button>
   <div class="imm-stage" id="immStage"></div>
   <div class="imm-place" id="immPlace" hidden></div>
 </div>

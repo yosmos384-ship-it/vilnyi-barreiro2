@@ -57,9 +57,9 @@ const CAB_C = { x: (LIFT.x0 + LIFT.x1) / 2, z: (LIFT.z0 + LIFT.z1) / 2 };
 const LIFT_DOOR_PT = { x: LIFT.doorOnX, z: (LIFT.doorZ[0] + LIFT.doorZ[1]) / 2 };
 
 const T = {
-  en: { hint: 'Drag to look · Double-click to walk', hintTouch: 'Drag to look · Double-tap to walk', plan: 'Plan', lift: 'Lift', apartment: 'Apartment', balcony: 'Balcony', terrace: 'Terrace', deck: 'Garden deck', outside: 'Outside', fwd: 'Forward', back: 'Back', left: 'Turn left', right: 'Turn right', lookUp: 'Look up', lookDown: 'Look down', up: 'Up', down: 'Down', floor: 'Floor', close: 'Close plan' },
-  pt: { hint: 'Arraste para olhar · Duplo clique para andar', hintTouch: 'Arraste para olhar · Toque duplo para andar', plan: 'Planta', lift: 'Elevador', apartment: 'Apartamento', balcony: 'Varanda', terrace: 'Terraço', deck: 'Deck do jardim', outside: 'Exterior', fwd: 'Avançar', back: 'Recuar', left: 'Rodar à esquerda', right: 'Rodar à direita', lookUp: 'Olhar para cima', lookDown: 'Olhar para baixo', up: 'Subir', down: 'Descer', floor: 'Piso', close: 'Fechar planta' },
-  he: { hint: 'גררו כדי להסתכל · לחיצה כפולה כדי ללכת', hintTouch: 'גררו כדי להסתכל · הקשה כפולה כדי ללכת', plan: 'תוכנית', lift: 'מעלית', apartment: 'דירה', balcony: 'מרפסת', terrace: 'טרסה', deck: 'דק גינה', outside: 'בחוץ', fwd: 'קדימה', back: 'אחורה', left: 'פנייה שמאלה', right: 'פנייה ימינה', lookUp: 'הבט למעלה', lookDown: 'הבט למטה', up: 'למעלה', down: 'למטה', floor: 'קומה', close: 'סגירת תוכנית' }
+  en: { hint: 'Drag to look · Double-click to walk', hintTouch: 'Drag to look · Double-tap to walk', plan: 'Plan', lift: 'Lift', apartment: 'Apartment', balcony: 'Balcony', terrace: 'Terrace', deck: 'Garden deck', outside: 'Outside', fwd: 'Forward', back: 'Back', left: 'Turn left', right: 'Turn right', lookUp: 'Look up', lookDown: 'Look down', hideUi: 'Hide controls', showUi: 'Show controls', up: 'Up', down: 'Down', floor: 'Floor', close: 'Close plan' },
+  pt: { hint: 'Arraste para olhar · Duplo clique para andar', hintTouch: 'Arraste para olhar · Toque duplo para andar', plan: 'Planta', lift: 'Elevador', apartment: 'Apartamento', balcony: 'Varanda', terrace: 'Terraço', deck: 'Deck do jardim', outside: 'Exterior', fwd: 'Avançar', back: 'Recuar', left: 'Rodar à esquerda', right: 'Rodar à direita', lookUp: 'Olhar para cima', lookDown: 'Olhar para baixo', hideUi: 'Ocultar controlos', showUi: 'Mostrar controlos', up: 'Subir', down: 'Descer', floor: 'Piso', close: 'Fechar planta' },
+  he: { hint: 'גררו כדי להסתכל · לחיצה כפולה כדי ללכת', hintTouch: 'גררו כדי להסתכל · הקשה כפולה כדי ללכת', plan: 'תוכנית', lift: 'מעלית', apartment: 'דירה', balcony: 'מרפסת', terrace: 'טרסה', deck: 'דק גינה', outside: 'בחוץ', fwd: 'קדימה', back: 'אחורה', left: 'פנייה שמאלה', right: 'פנייה ימינה', lookUp: 'הבט למעלה', lookDown: 'הבט למטה', hideUi: 'הסתרת הפקדים', showUi: 'הצגת הפקדים', up: 'למעלה', down: 'למטה', floor: 'קומה', close: 'סגירת תוכנית' }
 };
 
 // ───────────────────────────── small helpers ─────────────────────────────
@@ -144,7 +144,7 @@ function balconiesOf(floorId) { return BALCONIES.filter(b => b.level === floorId
 const CSS = `
 .vw-root.vw-root{pointer-events:none}
 .vw-root{position:absolute;inset:0;pointer-events:none;z-index:6;color:#f5f1ea;font-family:inherit;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;
- --vw-glass:rgba(18,17,16,.62);--vw-glass-hi:rgba(30,28,26,.74);--vw-line:rgba(255,255,255,.16);--vw-line-hi:rgba(255,255,255,.34);--vw-accent:#cdb07a;--vw-inset:18px;--vw-b:44px;touch-action:none;line-height:1.25}
+ --vw-glass:rgba(18,17,16,.62);--vw-glass-hi:rgba(30,28,26,.74);--vw-line:rgba(255,255,255,.16);--vw-line-hi:rgba(255,255,255,.34);--vw-accent:#cdb07a;--vw-inset:18px;--vw-b:44px;--vw-sb:env(safe-area-inset-bottom,0px);--vw-st:env(safe-area-inset-top,0px);--vw-sx:max(env(safe-area-inset-left,0px),env(safe-area-inset-right,0px));touch-action:none;line-height:1.25}
 .vw-root[hidden]{display:none!important}
 .vw-glass{background:var(--vw-glass);-webkit-backdrop-filter:blur(16px) saturate(135%);backdrop-filter:blur(18px) saturate(140%);border:1px solid var(--vw-line);border-radius:14px;text-shadow:0 1px 1px rgba(0,0,0,.25);box-shadow:0 10px 34px rgba(0,0,0,.22)}
 .vw-cap{font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;opacity:.66}
@@ -154,7 +154,7 @@ const CSS = `
 .vw-unit:empty{display:none}
 .vw-hint{position:absolute;inset-block-end:calc(var(--vw-inset) + 6px);left:50%;transform:translateX(-50%);padding:8px 16px;border-radius:999px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;opacity:0;transition:opacity .8s}
 .vw-hint.vw-on{opacity:.9}
-.vw-pad{position:absolute;inset-block-end:var(--vw-inset);inset-inline-start:var(--vw-inset);pointer-events:none}
+.vw-pad{position:absolute;bottom:calc(var(--vw-inset) + var(--vw-sb));left:calc(var(--vw-inset) + var(--vw-sx));pointer-events:none}
 .vw-padgrid{display:grid;grid-template-columns:repeat(3,var(--vw-b));grid-template-rows:repeat(3,var(--vw-b));gap:5px;direction:ltr}
 .vw-padhub{grid-column:2;grid-row:2;align-self:center;justify-self:center;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.28);box-shadow:0 0 0 1px rgba(0,0,0,.15)}
 .vw-btn{pointer-events:auto;appearance:none;-webkit-appearance:none;margin:0;padding:0;font:inherit;color:inherit;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;cursor:pointer;touch-action:none;outline:none;
@@ -169,8 +169,7 @@ const CSS = `
 .vw-row{display:flex;align-items:flex-end;gap:8px;pointer-events:none}
 .vw-look{display:flex;flex-direction:column;gap:5px;pointer-events:none;direction:ltr}
 .vw-look .vw-btn svg{width:18px;height:18px}
-.vw-mapwrap{position:absolute;inset-block-end:var(--vw-inset);inset-inline-end:var(--vw-inset);display:flex;flex-direction:column;align-items:flex-end;gap:8px;pointer-events:none}
-[dir=rtl] .vw-mapwrap,.vw-root[dir=rtl] .vw-mapwrap{align-items:flex-start}
+.vw-mapwrap{position:absolute;bottom:calc(var(--vw-inset) + var(--vw-sb));right:calc(var(--vw-inset) + var(--vw-sx));display:flex;flex-direction:column;align-items:flex-end;gap:8px;pointer-events:none;direction:ltr}
 .vw-maptoggle{width:auto;padding:0 14px 0 12px;gap:8px;display:inline-flex;align-items:center;font-size:10px;letter-spacing:.18em;text-transform:uppercase}
 .vw-maptoggle[aria-pressed=true]{border-color:var(--vw-accent);color:var(--vw-accent)}
 .vw-map{pointer-events:auto;padding:10px;background:rgba(14,13,12,.78);display:none;position:relative}
@@ -196,6 +195,45 @@ const CSS = `
 @media (pointer:coarse){.vw-root{--vw-b:48px}}
 @media (pointer:coarse) and (max-width:560px){.vw-root{--vw-b:42px}.vw-padgrid{gap:4px}}
 @media (max-width:560px){.vw-root{--vw-inset:12px}.vw-maptoggle span{display:none}.vw-maptoggle{width:var(--vw-b);padding:0;justify-content:center}.vw-label{max-width:56vw}.vw-lift{width:84px;padding:10px 0;gap:9px}.vw-lift-ind{width:58px;height:40px}.vw-lift-num{font-size:22px}.vw-lift-btns{gap:6px}.vw-lbtn{width:38px;height:38px;font-size:13px}.vw-lift-ud{width:66px;padding-top:8px}.vw-lift-ud .vw-btn{width:30px;height:30px}.vw-hint{inset-block-end:calc(var(--vw-inset) + 3 * var(--vw-b) + 26px);white-space:normal;text-align:center;width:max-content;max-width:78vw;line-height:1.5}}
+.vw-eye{width:32px;height:32px;border-radius:50%;opacity:.8}
+.vw-eye svg{width:15px;height:15px}
+.vw-hide .vw-label,.vw-hide .vw-hint,.vw-hide .vw-pad,.vw-hide .vw-lift,.vw-hide .vw-map,.vw-hide .vw-maptoggle,.vw-hide .vw-look{opacity:0!important;visibility:hidden!important;pointer-events:none!important;transition:opacity .25s,visibility 0s .25s}
+.vw-hide .vw-btn:not(.vw-eye),.vw-hide .vw-map canvas{pointer-events:none!important}
+.vw-hide .vw-eye{opacity:.3!important;background:rgba(18,17,16,.3)}
+/* compact (phones): light controls tucked into the corners, nothing over the centre of the view */
+.vw-compact{--vw-inset:10px;--vw-b:34px}
+.vw-compact .vw-padgrid{gap:4px}
+.vw-compact .vw-btn{border-radius:10px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:none}
+.vw-compact .vw-pad .vw-btn,.vw-compact .vw-row .vw-btn{opacity:.55;transition:opacity .6s,background .18s,border-color .18s}
+.vw-compact.vw-idle .vw-pad .vw-btn,.vw-compact.vw-idle .vw-row .vw-btn{opacity:.25}
+.vw-compact .vw-pad .vw-btn.vw-down,.vw-compact .vw-row .vw-btn.vw-down{opacity:1;transition:opacity .05s}
+.vw-compact .vw-pad .vw-btn svg{width:16px;height:16px}
+.vw-compact .vw-padhub{width:4px;height:4px;opacity:.6}
+.vw-compact .vw-row{gap:6px}
+.vw-compact .vw-look{gap:4px}
+.vw-compact .vw-look .vw-btn{width:30px;height:30px}
+.vw-compact .vw-look .vw-btn svg{width:14px;height:14px}
+.vw-compact .vw-maptoggle{width:34px;height:34px;padding:0;justify-content:center}
+.vw-compact .vw-maptoggle span{display:none}
+.vw-compact .vw-maptoggle svg{width:15px;height:15px}
+.vw-compact .vw-eye{width:26px;height:26px}
+.vw-compact .vw-eye svg{width:13px;height:13px}
+.vw-compact .vw-map{padding:6px}
+.vw-compact .vw-label{inset-block-start:calc(var(--vw-top,var(--vw-inset)) + var(--vw-st));inset-inline-start:calc(var(--vw-inset) + var(--vw-sx));padding:4px 11px 5px;border-radius:999px;display:flex;align-items:baseline;gap:.45em;max-width:calc(100% - 2 * var(--vw-inset) - 2 * var(--vw-sx));box-sizing:border-box;white-space:nowrap;overflow:hidden;background:rgba(18,17,16,.5);box-shadow:none;opacity:0;transition:opacity .6s}
+.vw-compact .vw-label.vw-show{opacity:.92}
+.vw-compact .vw-label>*{margin:0;font-size:11px;letter-spacing:.03em;text-transform:none;font-weight:400;opacity:1;flex:0 1 auto;overflow:hidden;text-overflow:ellipsis}
+.vw-compact .vw-label>.vw-cap{opacity:.72}
+.vw-compact .vw-label>*+*:not(:empty)::before{content:'·';margin-inline-end:.45em;opacity:.55;color:#f5f1ea}
+.vw-compact .vw-hint{inset-block-end:auto;inset-block-start:calc(var(--vw-top,var(--vw-inset)) + var(--vw-st) + 32px);padding:5px 12px;font-size:9.5px;letter-spacing:.1em;white-space:normal;text-align:center;width:max-content;max-width:86%;line-height:1.4;background:rgba(18,17,16,.5);box-shadow:none}
+.vw-compact .vw-lift{inset-block-start:calc(var(--vw-top,var(--vw-inset)) + var(--vw-st) + 32px);inset-inline-end:calc(var(--vw-inset) + var(--vw-sx));width:auto;flex-direction:row;padding:5px 8px;gap:6px;border-radius:12px;direction:ltr;background:rgba(18,17,16,.5);box-shadow:none}
+.vw-compact .vw-lift>.vw-cap{display:none}
+.vw-compact .vw-lift-ind{width:40px;height:30px;gap:3px;border-radius:8px}
+.vw-compact .vw-lift-num{font-size:17px;min-width:14px}
+.vw-compact .vw-lift-dir{width:9px;height:11px}.vw-compact .vw-lift-dir svg{width:9px;height:11px}
+.vw-compact .vw-lift-btns{flex-direction:row-reverse;gap:5px}
+.vw-compact .vw-lbtn{width:30px;height:30px;font-size:12px;border-radius:50%}
+.vw-compact .vw-lift-ud{border-top:0;border-left:1px solid var(--vw-line);padding:0 0 0 6px;width:auto;gap:4px}
+.vw-compact .vw-lift-ud .vw-btn{width:26px;height:26px;border-radius:8px}
 @media (prefers-reduced-motion:reduce){.vw-root *{transition:none!important;animation:none!important}}
 `;
 const ICON = {
@@ -210,9 +248,12 @@ const ICON = {
   aright: '<svg viewBox="0 0 24 24"><path d="M4.5 12H19M13 6l6 6-6 6"/></svg>',
   lookup: '<svg viewBox="0 0 24 24"><path d="M5 4.5h14"/><path d="M12 20V9M7 14l5-5 5 5"/></svg>',
   lookdown: '<svg viewBox="0 0 24 24"><path d="M5 19.5h14"/><path d="M12 4v11M7 10l5 5 5-5"/></svg>',
+  eye: '<svg viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></svg>',
+  eyeoff: '<svg viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><path d="M4 4l16 16"/></svg>',
   tri: '<svg viewBox="0 0 12 14"><path d="M6 1l5 6H1z"/><path d="M6 13l5-6H1z" opacity="0"/></svg>'
 };
 
+let hintSeen = false;   // the hint shows once per session
 function injectCSS() {
   if (typeof document === 'undefined' || document.getElementById('vw-style')) return;
   const s = document.createElement('style');
@@ -299,19 +340,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
         if (L < 1e-4) continue;
         const ux = (w.b[0] - w.a[0]) / L, uz = (w.b[1] - w.a[1]) / L;
         const P = (d) => [w.a[0] + ux * d, w.a[1] + uz * d];
-        // basement walls across the car ramp are cut away (the ramp corridor runs through them)
-        const cutRamp = fid === 'basement' && Math.abs(uz) < 0.01 && w.a[1] > RAMP.zBottom && w.a[1] < LOT.zFront;
-        const solid = (d0, d1) => {
-          if (d1 - d0 < 1e-3) return;
-          if (cutRamp) {
-            const xa = w.a[0] + ux * d0, xb = w.a[0] + ux * d1;
-            const lo = Math.min(xa, xb), hi = Math.max(xa, xb);
-            const parts = [[lo, Math.min(hi, RAMP_X[0] - 0.05)], [Math.max(lo, RAMP_X[1] + 0.05), hi]];
-            for (const [p0, p1] of parts) if (p1 - p0 > 1e-3) addSeg([p0, w.a[1]], [p1, w.a[1]], w.t, y0, y1);
-            return;
-          }
-          addSeg(P(d0), P(d1), w.t, y0, y1);
-        };
+        const solid = (d0, d1) => { if (d1 - d0 > 1e-3) addSeg(P(d0), P(d1), w.t, y0, y1); };
         const ops = (w.openings || []).slice().sort((a, b) => a.from - b.from);
         let cur = 0;
         for (const o of ops) {
@@ -802,6 +831,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     h.root = root;
     // label
     const label = el('div', 'vw-label vw-glass');
+    h.label = label;
     h.floor = el('div', 'vw-cap'); h.room = el('div', 'vw-room'); h.unit = el('div', 'vw-unit');
     h.room.dir = 'auto';
     label.append(h.floor, h.room, h.unit);
@@ -841,7 +871,10 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     h.mapBtn.addEventListener('click', () => { unlockAudio(); setMapOpen(!mapOpen); });
     h.canvas.addEventListener('pointerdown', onMapPointer);
     const row = el('div', 'vw-row');
-    row.append(h.mapBtn, look);
+    h.eye = el('button', 'vw-btn vw-eye', ICON.eye);
+    h.eye.type = 'button';
+    h.eye.addEventListener('click', (e) => { e.stopPropagation(); setControlsVisible(uiHidden); });
+    row.append(h.eye, h.mapBtn, look);
     mapWrap.append(h.mapPanel, row);
     // lift panel
     const lp = el('div', 'vw-lift vw-glass');
@@ -890,6 +923,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     hud.pad.ldown.setAttribute('aria-label', tr('lookDown'));
     for (const k in hud.pad) hud.pad[k].title = hud.pad[k].getAttribute('aria-label');
     hud.mapBtn.setAttribute('aria-label', tr('plan'));
+    hud.eye.setAttribute('aria-label', tr(uiHidden ? 'showUi' : 'hideUi'));
     hud.liftHead.textContent = tr('lift');
     hud.lift.setAttribute('aria-label', tr('lift'));
     hud.liftUp.setAttribute('aria-label', tr('up'));
@@ -902,13 +936,44 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     const i = ORDER.indexOf(base) + dir;
     if (i >= 0 && i < ORDER.length) ride(ORDER[i]);
   }
-  let lastLabelKey = '';
+  let lastLabelKey = '', labelUntil = 0;
+  // ── compact (phone) mode, idle fade, hide-all ──
+  let compactForce = null, compact = false, uiHidden = false, lastPoke = 0, mapOpenedAt = 0;
+  function isCompactAuto() {
+    if (typeof window === 'undefined') return false;
+    const w = (overlay && overlay.clientWidth) || window.innerWidth, h = (overlay && overlay.clientHeight) || window.innerHeight;
+    return coarse && Math.min(w, h) < 600;
+  }
+  function applyCompact() {
+    compact = compactForce != null ? compactForce : isCompactAuto();
+    if (hud.root) hud.root.classList.toggle('vw-compact', compact);
+    mapKey = '';
+  }
+  function setCompact(v) { compactForce = v == null ? null : !!v; applyCompact(); }
+  function setControlsVisible(v) {
+    uiHidden = !v;
+    if (!hud.root) return;
+    hud.root.classList.toggle('vw-hide', uiHidden);
+    hud.eye.innerHTML = uiHidden ? ICON.eyeoff : ICON.eye;
+    hud.eye.setAttribute('aria-label', tr(uiHidden ? 'showUi' : 'hideUi'));
+    hud.eye.setAttribute('aria-pressed', String(uiHidden));
+    if (!uiHidden) { poke(); labelUntil = clock + 3; }
+  }
+  function poke() { lastPoke = clock; }
+  function stepHudFade() {
+    if (!hud.root) return;
+    if (hudIn.fwd || hudIn.back || hudIn.left || hudIn.right || hudIn.lup || hudIn.ldown) lastPoke = clock;
+    hud.root.classList.toggle('vw-idle', compact && clock - lastPoke > 2.5);
+    hud.label.classList.toggle('vw-show', !compact || clock < labelUntil);
+    if (compact && mapOpen && clock - mapOpenedAt > 8) setMapOpen(false);   // the plan never lingers over the view
+  }
   function updateLabel(st) {
     if (!hud.root) return;
     const l = lang();
     const key = [l, st.floorId, st.roomId, st.unitId, st.inLift].join('|');
     if (key === lastLabelKey) return;
     lastLabelKey = key;
+    labelUntil = clock + 3;
     const f = FLOOR_BY_ID[st.floorId];
     hud.floor.textContent = (f.label[l] || f.label.en) + ' · ' + f.level.label;
     let name = '';
@@ -922,6 +987,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     if (!hud.root) return;
     const show = playerInCab() && (!job || job.carry || !job.moving);
     hud.lift.classList.toggle('vw-open', !!show);
+    if (show && compact && hintTimer > 0) hideHint();
     const y = job && job.moving ? cabY : LIFT_Y[cabLevel || floorId];
     const nf = nearestFloorId(y);
     const txt = String(FLOOR_BY_ID[nf].level.label).replace('-', '−');
@@ -935,7 +1001,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   // ── mini-map ──
   let mapOpen = false, mapStatic = null, mapKey = '', mapXf = null, mapDirtyPose = '';
   function setMapOpen(v) {
-    mapOpen = !!v;
+    mapOpen = !!v; mapOpenedAt = clock;
     if (!hud.root) return;
     hud.mapPanel.classList.toggle('vw-open', mapOpen);
     hud.mapBtn.setAttribute('aria-pressed', String(mapOpen));
@@ -953,7 +1019,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   function buildMapStatic(fid, unitId) {
     const bb = mapBounds(fid);
     const W = bb.x1 - bb.x0, H = bb.z1 - bb.z0;
-    const maxW = 220, maxH = 230;
+    const maxW = compact ? 150 : 220, maxH = compact ? 160 : 230;
     const s = Math.min(maxW / W, maxH / H);
     const cw = Math.round(W * s), ch = Math.round(H * s) + 18;
     const dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -1218,8 +1284,8 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     if (isControl(e.target)) return;
     if (e.cancelable) e.preventDefault();       // no double-tap zoom, no scroll, no synthetic mouse events
     unlockAudio();
-    if (e.touches.length === 1) { const t = e.touches[0]; tt.on = true; tt.sx = t.clientX; tt.sy = t.clientY; tt.t0 = performance.now(); tt.max = 0; }
-    else { tt.on = false; lastTap.t = -1e9; }
+    if (e.touches.length === 1) { const t = e.touches[0]; tt.on = true; tt.sx = t.clientX; tt.sy = t.clientY; tt.t0 = performance.now(); tt.max = 0; tt.two = 0; }
+    else { tt.on = false; lastTap.t = -1e9; tt.two = e.touches.length === 2 ? performance.now() : 0; }
   }
   function onTouchMoveRoot(e) {
     if (isControl(e.target)) return;
@@ -1227,6 +1293,10 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     if (tt.on && e.touches.length === 1) { const t = e.touches[0]; tt.max = Math.max(tt.max, Math.hypot(t.clientX - tt.sx, t.clientY - tt.sy)); }
   }
   function onTouchEndRoot(e) {
+    if (tt.two && e.touches.length === 0) {       // two-finger tap: bring hidden controls back
+      if (performance.now() - tt.two < 450 && uiHidden) setControlsVisible(true);
+      tt.two = 0; return;
+    }
     if (!tt.on || isControl(e.target)) return;
     tt.on = false;
     const t = e.changedTouches && e.changedTouches[0];
@@ -1435,6 +1505,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     const st = emitState(false);
     updateLiftPanel();
     drawMap(st);
+    stepHudFade();
     if (hintTimer > 0) { hintTimer -= dt; if (hintTimer <= 0) hideHint(); }
   }
 
@@ -1516,6 +1587,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
       dom.style.touchAction = 'none'; dom.style.cursor = 'grab'; dom.style.userSelect = 'none';
       inputRoot.style.touchAction = 'none'; inputRoot.style.webkitUserSelect = 'none';
       const R = inputRoot;
+      on(R, 'pointerdown', poke, { passive: true, capture: true });
       on(R, 'pointerdown', onPointerDown, { passive: true });
       on(R, 'pointermove', onPointerMove, { passive: true });
       on(R, 'pointerup', onPointerUp, { passive: true });
@@ -1534,6 +1606,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     on(window, 'keydown', onKeyDown, false);
     on(window, 'keyup', onKeyUp, false);
     on(window, 'blur', onBlur, false);
+    on(window, 'resize', applyCompact, { passive: true });
     if (camera) { saved.order = camera.rotation.order; }
     if (!liftInit) { liftInit = true; setCab(cabY, cabLevel); applyLiftDoors(true); }
     if (!placed) {
@@ -1547,8 +1620,13 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     if (hud.root) {
       refreshHudText();
       hud.root.hidden = false;
-      hud.hint.classList.add('vw-on');
-      hintTimer = 6;
+      applyCompact(); poke(); labelUntil = clock + 3;
+      let seen = hintSeen;
+      try { seen = seen || sessionStorage.getItem('vw-hint') === '1'; } catch (e) { /* storage may be blocked */ }
+      if (!seen) {
+        hud.hint.classList.add('vw-on'); hintTimer = 4; hintSeen = true;
+        try { sessionStorage.setItem('vw-hint', '1'); } catch (e) { /* */ }
+      }
     }
     applyCamera();
     emitState('always');
@@ -1588,9 +1666,10 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     enterAt,
     setLang(l) { langOverride = l; refreshHudText(); },
     setMapOpen,
+    setCompact, setControlsVisible,
     getState() {
       const st = lastState || locate();
-      return { floorId: st.floorId, roomId: st.roomId, unitId: st.unitId, inLift: st.inLift, x: pos.x, z: pos.z, feetY, eyeY, yaw, pitch, cabY, cabLevel, liftDoor, riding: !!(job && job.moving), autoWalking: !!auto, falling: !!fall, outside: !inFoot(pos.x, pos.z) };
+      return { floorId: st.floorId, roomId: st.roomId, unitId: st.unitId, inLift: st.inLift, x: pos.x, z: pos.z, feetY, eyeY, yaw, pitch, cabY, cabLevel, liftDoor, riding: !!(job && job.moving), autoWalking: !!auto, falling: !!fall, outside: !inFoot(pos.x, pos.z), compact, controlsHidden: uiHidden };
     },
     dispose
   };

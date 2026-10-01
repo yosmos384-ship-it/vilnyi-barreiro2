@@ -7,7 +7,7 @@
 //   createViewer(container, { quality, floorLabel(floorId) => string, lang }) => {
 //     ready: Promise<{ modules }>, setMode(mode, opts) => Promise<boolean>, getMode(),
 //     selectUnit(unitId, styleId) => Promise, setTimeOfDay(name), setLang(lang),
-//     hotspots(unitId) => [...], lookFrom(hotspot), balconyView(unitId), goToLift(floorId),
+//     hotspots(unitId) => [...], lookFrom(hotspot), balconyView(unitId), goToLift(floorId), goToLobby(), goToParking(),
 //     walkUnit(unitId, roomId?), takeLift(from, to), resize(), has(moduleName), on(event, cb) => off, dispose(),
 //     setPhotoreal(on) => Promise<boolean>, isPhotoreal(), setPhotorealLabels({...}), setHeading(bearing),
 //     attribution() => string
@@ -19,7 +19,7 @@
 // Phase 2: postfx.js renders the raster views (exterior/interior/aerial presets), pathtrace.js is imported lazily
 // on the first setPhotoreal(true), google3d.js only when PROJECT.googleMapsKey is set, interiors.prewarm runs at idle.
 
-import { UNITS, BALCONIES, LEVELS, PROJECT, roomsOfUnit, unitById } from './data.js';
+import { UNITS, BALCONIES, LEVELS, PROJECT, PARKING, RAMP, roomsOfUnit, unitById } from './data.js';
 
 const EXTERIOR_TARGET = [7, 4.2, 7.2];
 const EXTERIOR_CAMERA = [-1.5, 4.2, 25.2];
@@ -517,7 +517,7 @@ export function createViewer(container, options = {}) {
           else if (opts.position && opts.lookAt) walker.teleport(opts.position, opts.lookAt);
           else if (prev !== 'walk') {
             // default: step into the lobby from the front door
-            walker.teleport(new THREE.Vector3(9.4, 1.62, 13.6), new THREE.Vector3(5, 1.5, 9.6));
+            walker.teleport(new THREE.Vector3(...LOBBY_VIEW.position), new THREE.Vector3(...LOBBY_VIEW.lookAt));
           }
         } else {
           // static look without a walker module
@@ -677,6 +677,34 @@ export function createViewer(container, options = {}) {
     return setMode('walk', { liftFloor: floorId || 'ground' });
   }
 
+  // Entry points for the 3D bar. Lobby: just inside the street door, looking down the hall to the lift.
+  const LOBBY_VIEW = { position: [9.4, 1.62, 13.6], lookAt: [5, 1.5, 9.6] };
+  async function goToLobby() {
+    try { await ready; } catch (e) { return false; }
+    if (!walker) return false;
+    return setMode('walk', { position: new THREE.Vector3(...LOBBY_VIEW.position), lookAt: new THREE.Vector3(...LOBBY_VIEW.lookAt) });
+  }
+
+  // Car park: stand in the aisle at the foot of the ramp and look across the row of bays (positions from data.js PARKING / RAMP).
+  function parkingView() {
+    const y = LEVELS.basement.y;
+    const row = PARKING.filter(p => !p.rotated);                       // the bays along the west wall
+    const aisleX0 = Math.max(...row.map(p => p.x1));
+    const near = row.filter(p => p.z1 > RAMP.zBottom - 6);              // the bays closest to the ramp foot
+    const cz = near.reduce((a, p) => a + (p.z0 + p.z1) / 2, 0) / Math.max(1, near.length);
+    const x = Math.min(RAMP.x0 - 1.2, aisleX0 + (RAMP.x0 - aisleX0) * 0.62);
+    const z = RAMP.zBottom + 1.6;
+    return {
+      position: new THREE.Vector3(x, y + 1.62, z),
+      lookAt: new THREE.Vector3((Math.min(...row.map(p => p.x0)) + aisleX0) / 2, y + 0.95, cz)
+    };
+  }
+  async function goToParking() {
+    try { await ready; } catch (e) { return false; }
+    if (!walker) return false;
+    return setMode('walk', parkingView());
+  }
+
   // Start in the lift at `from` and ride to `to` (walker.ride animates doors, cab and camera).
   async function takeLift(from = 'basement', to = 'ground') {
     try { await ready; } catch (e) { return false; }
@@ -751,6 +779,8 @@ export function createViewer(container, options = {}) {
     balconyView,
     walkUnit,
     goToLift,
+    goToLobby,
+    goToParking,
     takeLift,
     resize,
     setPaused: b => { paused = !!b; schedule(); },   // freeze the loop (tests, screenshots); the last frame stays

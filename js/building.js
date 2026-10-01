@@ -1,6 +1,6 @@
 // VILNYI · Barreiro 2 — BUILDING: exterior shell, interiors shell, core (stairs + lift), basement, roof and lot.
 // Everything is generated procedurally from js/data.js. Static geometry is merged per material per floor.
-import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+import { mergeGeometries, toCreasedNormals } from 'three/addons/utils/BufferGeometryUtils.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import {
   LEVELS, SLAB, STREET_Y, CORNICE_Y, MANSARD_PITCH, LOT, FOOTPRINT, CORE, FLOORS,
@@ -207,6 +207,10 @@ function createTextures(THREE, renderer) {
   { const c = makeCanvas(512, 512), g = c.getContext('2d'); noiseFill(g, 512, 512, '#2c2f33', 0.04, 8000, 1, 2, R);
     for (let i = 1; i < 5; i++) { g.fillStyle = '#16181b'; g.fillRect(0, i * 102.4 - 2, 512, 3); g.fillStyle = '#3a3e43'; g.fillRect(0, i * 102.4 + 1, 512, 1); }
     T.garage = tex(c, 3.0, 2.35); }
+  // hazard stripes (yellow/black, 45°; tile 0.4 m)
+  { const c = makeCanvas(128, 128), g = c.getContext('2d'); g.fillStyle = '#e6b520'; g.fillRect(0, 0, 128, 128); g.fillStyle = '#17181a';
+    for (let i = -2; i < 4; i++) { g.beginPath(); g.moveTo(i * 64, 128); g.lineTo(i * 64 + 32, 128); g.lineTo(i * 64 + 160, 0); g.lineTo(i * 64 + 128, 0); g.closePath(); g.fill(); }
+    T.hazard = tex(c, 0.4, 0.4); }
   return T;
 }
 
@@ -267,6 +271,20 @@ function createMaterials(THREE, T) {
     carPaint: new THREE.MeshPhysicalMaterial({ name: 'carPaint', color: 0xffffff, vertexColors: true, metalness: 0.55, roughness: 0.32, clearcoat: 1, clearcoatRoughness: 0.08 }),
     tailLight: S({ name: 'tailLight', color: 0x7a1010, emissive: 0x5a0808, emissiveIntensity: 0.6, roughness: 0.3 }),
     headLight: S({ name: 'headLight', color: 0xf2f2ee, emissive: 0x404040, roughness: 0.2, metalness: 0.4 }),
+    bronze: S({ name: 'bronze', color: 0x4a3a2a, metalness: 0.85, roughness: 0.36 }),
+    slatW: S({ name: 'slatW', color: 0xffffff, map: T.oak, roughness: 0.55 }),
+    kerb: S({ name: 'kerb', color: 0xc9c6bf, map: T.concrete, roughness: 0.8 }),
+    pipeRed: S({ name: 'pipeRed', color: 0xb3261e, roughness: 0.42, metalness: 0.1 }),
+    galv: S({ name: 'galv', color: 0xb9bcbf, metalness: 0.85, roughness: 0.5 }),
+    yellow: S({ name: 'yellow', color: 0xe2b21c, roughness: 0.6 }),
+    hazard: S({ name: 'hazard', color: 0xffffff, map: T.hazard, roughness: 0.6 }),
+    ledGreen: S({ name: 'ledGreen', color: 0x9dffb0, emissive: 0x2cff6a, emissiveIntensity: 3, roughness: 0.4 }),
+    ledRedOff: S({ name: 'ledRedOff', color: 0x5a1210, roughness: 0.35 }),
+    evWhite: S({ name: 'evWhite', color: 0xf1f1ef, roughness: 0.32 }),
+    leather: S({ name: 'leather', color: 0x9a6b45, roughness: 0.6 }),
+    alloy: S({ name: 'alloy', color: 0xc9cdd1, metalness: 1, roughness: 0.28 }),
+    carTrim: S({ name: 'carTrim', color: 0x15161a, roughness: 0.62 }),
+    carPlate: S({ name: 'carPlate', color: 0xf3f3ee, roughness: 0.5 }),
     white: S({ name: 'white', color: 0xf2f2f0, roughness: 0.6 }),
     rubber: S({ name: 'rubber', color: 0x2f3134, roughness: 0.9 })
   };
@@ -309,6 +327,9 @@ const PBR = {
   leaf: { name: 'foliage:leaf' }, olive: { name: 'foliage:olive' }, oliveLight: { name: 'foliage:olive-light' }, grass: { name: 'foliage:grass' }, grassDry: { name: 'foliage:grass-dry' }, ivy: { name: 'foliage:ivy' },
   ledWarm: { name: 'led-strip-emissive' }, ledPanel: { name: 'led-strip-emissive:panel' }, logo: { name: 'led-strip-emissive:logo' }, downlight: { name: 'downlight-emissive' },
   mirror: { name: 'mirror' }, pv: { name: 'pv-panel' }, white: { name: 'paint-white' }, black: { name: 'plastic-black' },
+  bronze: { name: 'aluminium-frame:bronze' }, slatW: { name: 'lobby-wall-walnut-slats', key: 'lobby-wall-walnut-slats', color: 0xffffff, rot: true, bright: 2.6 }, kerb: { name: 'kerb-stone', key: 'kerb-stone' },
+  pipeRed: { name: 'paint-red' }, galv: { name: 'steel-galvanised' }, yellow: { name: 'paint-yellow' }, hazard: { name: 'paint-hazard' }, ledGreen: { name: 'led-strip-emissive:green' }, ledRedOff: { name: 'plastic-red' },
+  evWhite: { name: 'plastic-white' }, leather: { name: 'leather' }, alloy: { name: 'car-rim' }, carTrim: { name: 'car-trim' }, carPlate: { name: 'car-plate' },
   tyre: { name: 'car-tyre' }, carGlass: { name: 'car-glass' }, carPaint: { name: 'car-paint' }, tailLight: { name: 'car-taillight' }, headLight: { name: 'car-headlight' }, rubber: { name: 'rubber' }
 };
 
@@ -608,7 +629,7 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
         y1 = mans ? CORNICE_Y : (w.kind === 'party' && fid === 'second' ? ROOF.y + 0.15 : y + 3.0);
         if (w.kind === 'party' && fid === 'second') inY1 = ceil;
       }
-      const openings = [...w.openings].filter(o => !(fid === 'basement' && o.type === 'garage') && !(fid === 'second' && o.type === 'slit')).sort((p, q) => p.from - q.from);
+      const openings = [...w.openings].filter(o => !(fid === 'second' && o.type === 'slit')).sort((p, q) => p.from - q.from);
       const pieces = [];
       let s = 0;
       for (const o of openings) { if (o.from > s) pieces.push([s, o.from]); s = Math.max(s, o.to); }
@@ -628,6 +649,9 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
         } else B.boxAlong(gid, fid === 'basement' ? 'bWall' : 'wall', w.a, w.b, s0, s1, y0, y1, -w.t / 2, w.t / 2);
       }
       for (const o of openings) {
+        if (fid === 'basement' && o.type === 'garage') { // the ramp passes through: solid only below the ramp surface
+          B.boxAlong(gid, 'bWall', w.a, w.b, o.from, o.to, y0, rampY(14.7) - 0.02, -w.t / 2, w.t / 2); continue;
+        }
         const inTower = isExt && w.a[1] === 14.7 && w.b[1] === 14.7 && F.P(o.from, 0)[0] < TOWER.x1 + 0.01 && fid !== 'second';
         if (inTower) continue; // slit handled by the tower
         let [ob, ot] = OPEN_H[o.type] || [0, 2.1];
@@ -813,38 +837,118 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     }
   }
 
-  function buildMainDoor(w, F, o, y) {
-    // along axis runs east→west on the street wall: s0 = east end. Walnut leaf east, glazed sidelight west (as rendered).
-    const gid = 'ground', h = w.t / 2, s0 = o.from, s1 = o.to, top = y + 2.4, nG = -h + 0.1;
-    frameRect(gid, w, F, s0, s1, y, top, nG, 0.12, 0.07, false);
-    const leafW = 0.98, split = s0 + 0.07 + leafW;
-    B.boxAlong(gid, 'frame', w.a, w.b, split, split + 0.06, y, top, nG - 0.06, nG + 0.06);
-    glassPane(gid, w, split + 0.06, s1 - 0.07, y + 0.1, top - 0.07, nG);
-    B.boxAlong(gid, 'frame', w.a, w.b, split, s1, y, y + 0.1, nG - 0.05, nG + 0.05);
-    const d = makeDoor({ id: 'main-entrance', floorId: 'ground', kind: 'main', F, o: { from: s0 + 0.07, to: split, type: 'main' }, y, side: 1, max: Math.PI * 0.5, leafMat: 'walnut', thick: 0.07, handleMat: 'steel', height: 2.33 });
-    const hinge = F.P(s0 + 0.07, nG); d.pivot.position.set(hinge[0], y, hinge[1]);
-    d.setOpen(0);
-    B.boxAlong(gid, 'steel', w.a, w.b, s0, s1, y - 0.01, y + 0.005, -h - 0.03, h);
+  // merged boxes → one geometry; list of [cx, cy, cz, sx, sy, sz]
+  function boxesGeo(list) {
+    const gs = list.map(([cx, cy, cz, sx, sy, sz]) => { const g = NI(new THREE.BoxGeometry(sx, sy, sz)); g.translate(cx, cy, cz); return g; });
+    return mergeGeometries(gs, false);
+  }
+  // text plate (canvas) — o: { bg, fg, font, pw, glow, metal, flat, rz }
+  function label(gid, text, x, y, z, ry, w, h, o = {}) {
+    const pw = o.pw || 512, ph = Math.max(32, Math.round(pw * h / w));
+    const t = textCanvasTexture(THREE, text, { w: pw, h: ph, bg: o.bg === undefined ? '#2a2c2f' : o.bg, fg: o.fg || '#f2efe8', font: o.font || `600 ${Math.round(ph * 0.56)}px Helvetica, Arial, sans-serif`, border: o.border || null });
+    const mat = new THREE.MeshStandardMaterial({ map: t, roughness: 0.5, metalness: o.metal || 0, transparent: o.bg === null });
+    if (o.glow) { mat.emissive = new THREE.Color(0xffffff); mat.emissiveMap = t; mat.emissiveIntensity = o.glow; }
+    mat.name = o.glow ? 'led-strip-emissive:sign' : 'signage';
+    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat); m.position.set(x, y, z);
+    if (o.flat) m.rotation.set(-Math.PI / 2, 0, o.rz || 0); else m.rotation.y = ry;
+    m.name = 'sign-' + text.replace(/[^\w.-]+/g, '-'); G[gid].add(m); return m;
   }
 
-  let garagePanel = null;
+  // Street entrance: full-height glazed door + sidelight in a slim bronze frame (leaf east, sidelight west).
+  function buildMainDoor(w, F, o, y) {
+    const gid = 'ground', h = w.t / 2, s0 = o.from, s1 = o.to, top = y + 2.42, nG = -h + 0.12, fb = 0.05, fd = 0.07;
+    B.boxAlong(gid, 'bronze', w.a, w.b, s0, s0 + fb, y, top, nG - fd, nG + fd);
+    B.boxAlong(gid, 'bronze', w.a, w.b, s1 - fb, s1, y, top, nG - fd, nG + fd);
+    B.boxAlong(gid, 'bronze', w.a, w.b, s0, s1, top - fb, top, nG - fd, nG + fd);
+    const leafW = 1.0, split = s0 + fb + leafW;
+    B.boxAlong(gid, 'bronze', w.a, w.b, split, split + fb, y, top - fb, nG - fd, nG + fd);
+    glassPane(gid, w, split + fb, s1 - fb, y + 0.03, top - fb, nG);
+    B.boxAlong(gid, 'bronze', w.a, w.b, split + fb, s1 - fb, y, y + 0.03, nG - 0.03, nG + 0.03);
+    // stone threshold + stainless strip
+    B.boxAlong(gid, 'stoneFine', w.a, w.b, s0 - 0.04, s1 + 0.04, y - 0.03, y + 0.003, -h - 0.07, h + 0.02);
+    B.boxAlong(gid, 'steel', w.a, w.b, s0 + fb, split, y + 0.003, y + 0.009, nG - 0.03, nG + 0.03);
+    // leaf
+    const W = leafW - 0.012, H = top - fb - y - 0.014, st = 0.075, br = 0.2;
+    const pivot = new THREE.Object3D(); pivot.name = 'door-main-entrance';
+    const hp = F.P(s0 + fb + 0.006, nG); pivot.position.set(hp[0], y + 0.01, hp[1]);
+    const base = F.ry; pivot.rotation.y = base;
+    const fr = new THREE.Mesh(boxesGeo([[st / 2, H / 2, 0, st, H, 0.05], [W - st / 2, H / 2, 0, st, H, 0.05], [W / 2, H - st / 2, 0, W - 2 * st, st, 0.05], [W / 2, br / 2, 0, W - 2 * st, br, 0.05]]), M.bronze);
+    fr.name = 'door-frame-main-entrance'; fr.castShadow = true;
+    const gl = new THREE.Mesh(new THREE.BoxGeometry(W - 2 * st + 0.01, H - st - br + 0.01, 0.012), M.glass); gl.position.set(W / 2, br + (H - st - br) / 2, 0); gl.name = 'door-leaf-main-entrance';
+    const hx = W - st - 0.07, hy = 1.12, hl = 1.4;
+    const hg = [];
+    for (const sg of [-1, 1]) { const c = NI(new THREE.CylinderGeometry(0.015, 0.015, hl, 10)); c.translate(hx, hy, sg * 0.07); hg.push(c); for (const yy of [-0.5, 0.5]) { const b = NI(new THREE.BoxGeometry(0.014, 0.014, 0.05)); b.translate(hx, hy + yy, sg * 0.045); hg.push(b); } }
+    const hd = new THREE.Mesh(mergeGeometries(hg.map(g => { for (const k of Object.keys(g.attributes)) if (k !== 'position' && k !== 'normal' && k !== 'uv') g.deleteAttribute(k); return g; }), false), M.steel); hd.name = 'door-handle-main-entrance';
+    for (const m of [fr, gl, hd]) { if (curOpening) m.userData.opening = { ...curOpening }; pivot.add(m); }
+    if (curOpening) pivot.userData.opening = { ...curOpening };
+    G[gid].add(pivot);
+    const c = F.P((s0 + s1) / 2, 0); let cur = -1;
+    const d = { id: 'main-entrance', floorId: 'ground', kind: 'main', center: V3(c[0], y + 1.05, c[1]), pivot, leaf: gl, opening: curOpening ? { ...curOpening } : null,
+      setOpen(t) { t = Math.max(0, Math.min(1, +t || 0)); if (t === cur) return; cur = t; pivot.rotation.y = base - Math.PI * 0.5 * t; } };
+    doors.push(d); d.setOpen(0);
+  }
+
+  // Car-park entrance: sectional door in a framed portal; the sections really run up the tracks and back under the ceiling.
   function buildGarage(w, F, o, ob, ot) {
-    const gid = 'ground', h = w.t / 2, s0 = o.from, s1 = o.to;
-    frameRect(gid, w, F, s0, s1, ob, ot, -h + 0.08, 0.1, 0.06, false);
+    const gid = 'ground', h = w.t / 2, s0 = o.from, s1 = o.to, jw = 0.1, lh = 0.14;
+    B.boxAlong(gid, 'darkSteel', w.a, w.b, s0, s0 + jw, ob, ot, -h - 0.05, h + 0.03);
+    B.boxAlong(gid, 'darkSteel', w.a, w.b, s1 - jw, s1, ob, ot, -h - 0.05, h + 0.03);
+    B.boxAlong(gid, 'darkSteel', w.a, w.b, s0, s1, ot - lh, ot, -h - 0.05, h + 0.03);
+    const W = s1 - s0 - 2 * jw + 0.06, H = ot - lh - ob + 0.03, N = 5, hs = H / N, R = 0.32, Hv = H - hs / 2, nD = h + 0.07;
     const grp = new THREE.Group(); grp.name = 'garage-door';
-    const W = s1 - s0 - 0.1, H = ot - ob - 0.06;
-    const panel = new THREE.Mesh(new THREE.BoxGeometry(W, H, 0.05), M.garage); panel.castShadow = true; panel.receiveShadow = true;
-    // proper UVs for the panel texture (horizontal grooves)
-    const uv = panel.geometry.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * W, uv.getY(i) * H);
-    panel.position.set(0, H / 2, 0); grp.add(panel); panel.name = 'garage-door-panel';
-    if (curOpening) { panel.userData.opening = { ...curOpening }; grp.userData.opening = { ...curOpening }; }
-    for (let i = 1; i < 5; i++) { const gr = new THREE.Mesh(shared.box, M.black); gr.scale.set(W, 0.012, 0.004); gr.position.set(0, H * i / 5, -0.026); grp.add(gr); }
-    const handle = new THREE.Mesh(handleGeo, M.steel); handle.rotation.x = Math.PI / 2; handle.scale.set(1.5, 0.08, 1.5); handle.position.set(0, 0.95, -0.04); grp.add(handle);
-    const c = F.P((s0 + s1) / 2, -h + 0.1); grp.position.set(c[0], ob + 0.01, c[1]); grp.rotation.y = F.ry;
-    G[gid].add(grp); garagePanel = { grp, H, y0: ob + 0.01 };
-    const d = { id: 'garage', floorId: 'ground', kind: 'garage', center: V3(c[0], ob + 1.1, c[1]), pivot: grp, opening: curOpening ? { ...curOpening } : null,
-      setOpen(t) { t = Math.max(0, Math.min(1, +t || 0)); grp.position.y = garagePanel.y0 + t * (H - 0.25); } };
+    const c = F.P((s0 + s1) / 2, nD); grp.position.set(c[0], ob, c[1]); grp.rotation.y = F.ry;
+    const sg = new THREE.BoxGeometry(W, hs - 0.008, 0.045);
+    { const uv = sg.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * W, uv.getY(i) * hs); }
+    const secs = [];
+    for (let i = 0; i < N; i++) {
+      const m = new THREE.Mesh(sg, M.garage); m.name = 'garage-door-panel'; m.castShadow = true; m.receiveShadow = true;
+      if (curOpening) m.userData.opening = { ...curOpening };
+      if (i === 3) { // glazed vision slots
+        const sl = []; for (let k = 0; k < 5; k++) sl.push([(k - 2) * (W / 5.4), 0, -0.023, W / 7.5, hs * 0.34, 0.006]);
+        const v = new THREE.Mesh(boxesGeo(sl), M.carGlass); v.name = 'garage-door-slots'; if (curOpening) v.userData.opening = { ...curOpening }; m.add(v);
+      }
+      if (i === 0) { const seal = new THREE.Mesh(shared.box, M.rubber); seal.scale.set(W, 0.03, 0.05); seal.position.set(0, -hs / 2 + 0.012, 0); m.add(seal); }
+      grp.add(m); secs.push(m);
+    }
+    if (curOpening) grp.userData.opening = { ...curOpening };
+    G[gid].add(grp);
+    const place = (t) => {
+      const travel = t * (H + 0.25);
+      for (let i = 0; i < N; i++) {
+        const s = (i + 0.5) * hs + travel; let yy, zz, a;
+        if (s <= Hv) { yy = s; zz = 0; a = 0; }
+        else if (s <= Hv + R * Math.PI / 2) { a = (s - Hv) / R; yy = Hv + R * Math.sin(a); zz = R * (1 - Math.cos(a)); }
+        else { a = Math.PI / 2; yy = Hv + R; zz = R + (s - Hv - R * Math.PI / 2); }
+        secs[i].position.set(0, yy, zz); secs[i].rotation.x = a;
+      }
+    };
+    place(0);
+    // tracks + operator (inside)
+    const yT = ob + Hv + R + 0.05;
+    for (const s of [s0 + jw - 0.02, s1 - jw + 0.02]) {
+      B.boxAlong(gid, 'galv', w.a, w.b, s - 0.02, s + 0.02, ob, yT, nD + 0.03, nD + 0.07);
+      B.boxAlong(gid, 'galv', w.a, w.b, s - 0.02, s + 0.02, yT, yT + 0.04, nD + 0.03, nD + H + 0.5);
+    }
+    B.boxAlong(gid, 'galv', w.a, w.b, (s0 + s1) / 2 - 0.02, (s0 + s1) / 2 + 0.02, yT + 0.1, yT + 0.14, nD, nD + H + 0.8);
+    B.boxAlong(gid, 'evWhite', w.a, w.b, (s0 + s1) / 2 - 0.12, (s0 + s1) / 2 + 0.12, yT + 0.02, yT + 0.2, nD + H + 0.5, nD + H + 0.9);
+    const cc = F.P((s0 + s1) / 2, 0);
+    const d = { id: 'garage', floorId: 'ground', kind: 'garage', center: V3(cc[0], ob + 1.1, cc[1]), pivot: grp, leaf: secs[0], opening: curOpening ? { ...curOpening } : null,
+      setOpen(t) { place(Math.max(0, Math.min(1, +t || 0))); } };
     doors.push(d);
+    // outside: height-limit sign, P sign, signal light, wall lights (street face z = 14.85)
+    const xa = F.P(s0, 0)[0], xb = F.P(s1, 0)[0], xw = Math.min(xa, xb), xe = Math.max(xa, xb), xm = (xw + xe) / 2, zf = 14.853;
+    label(gid, 'ALTURA MÁX. 2,10 m', xm, ot + 0.2, zf + 0.012, 0, 1.1, 0.2, { bg: '#e6b520', fg: '#17181a', pw: 512 });
+    B.boxAB(gid, 'darkSteel', xm - 0.57, ot + 0.08, zf, xm + 0.57, ot + 0.32, zf + 0.01);
+    label(gid, 'P', xw - 0.42, 1.95, zf + 0.012, 0, 0.3, 0.3, { bg: '#1d4f9c', fg: '#ffffff', pw: 128, font: '700 96px Helvetica, Arial, sans-serif' });
+    B.boxAB(gid, 'darkSteel', xw - 0.36, 0.92, zf, xw - 0.22, 1.3, zf + 0.09);
+    B.cyl(gid, 'ledRedOff', [xw - 0.29, 1.21, zf + 0.085], [xw - 0.29, 1.21, zf + 0.1], 0.042, 14);
+    B.cyl(gid, 'ledGreen', [xw - 0.29, 1.02, zf + 0.085], [xw - 0.29, 1.02, zf + 0.1], 0.042, 14);
+    B.boxAB(gid, 'darkSteel', xw - 0.37, 1.3, zf, xw - 0.21, 1.33, zf + 0.14);
+    for (const x of [xw - 0.29, xe + 0.225]) { // up/down wall lights
+      B.boxAB(gid, 'darkSteel', x - 0.045, 1.62, zf, x + 0.045, 1.86, zf + 0.09);
+      B.boxAB(gid, 'ledWarm', x - 0.03, 1.86, zf + 0.02, x + 0.03, 1.865, zf + 0.07);
+      B.boxAB(gid, 'ledWarm', x - 0.03, 1.615, zf + 0.02, x + 0.03, 1.62, zf + 0.07);
+    }
   }
 
   // ───────── slabs, floors, ceilings ─────────
@@ -1398,38 +1502,76 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     // climbing ivy on the tower
     ivyStrip(g, 0.6, z1Tower(), yS, 6.2, 3, 1);
     ivyStrip(g, 2.25, z1Tower(), yS, 7.2, 5, 1);
-    // ramp surface with anti-slip grooves
+    // ramp surface with anti-slip grooves (15 %), ending where it meets the basement floor
+    const zR0 = Math.max(RAMP.zBottom, 16.9 - ((RAMP.yTop - 0.5 * 0.04) - RAMP.yBottom) / RAMP.slope);
     const nz = 26, ramp = [];
-    for (let i = 0; i <= nz; i++) { const z = RAMP.zBottom + (zK - RAMP.zBottom) * i / nz; ramp.push([z, rampY(z)]); }
-    const prof = [...ramp, [zK, -3.2], [RAMP.zBottom, -3.2]];
+    for (let i = 0; i <= nz; i++) { const z = zR0 + (zK - zR0) * i / nz; ramp.push([z, rampY(z)]); }
+    const prof = [...ramp, [zK, -3.2], [zR0, -3.2]];
     B.prismX(g, 'concrete', prof, RAMP_X[0], RAMP_X[1]);
-    for (let z = RAMP.zBottom + 0.3; z < zK - 0.2; z += 0.5) { const y = rampY(z); B.box(g, 'darkSteel', (RAMP_X[0] + RAMP_X[1]) / 2, y + 0.005, z, RAMP_X[1] - RAMP_X[0] - 0.3, 0.012, 0.05, 0, Math.atan(RAMP.slope)); }
-    // ramp side walls: west retaining wall full length, east wall outside the building
-    const wallTop = (z) => Math.max(rampY(z) + 1.0, z < 14.7 ? -0.3 : Math.min(yS + 1.0, rampY(z) + 1.0));
-    const wp = []; for (let i = 0; i <= nz; i++) { const z = RAMP.zBottom + (zK - RAMP.zBottom) * i / nz; wp.push([z, z < 14.7 ? 0 : wallTop(z)]); }
-    B.prismX(g, 'render', [[RAMP.zBottom, -2.7], ...wp, [zK, -2.7]], 10.3, RAMP_X[0]);
+    for (let z = zR0 + 0.4; z < 16.75; z += 0.3) { const y = rampY(z); B.box(g, 'darkSteel', (RAMP_X[0] + RAMP_X[1]) / 2, y + 0.003, z, RAMP_X[1] - RAMP_X[0] - 0.5, 0.012, 0.1, 0, -Math.atan(RAMP.slope)); }
+    // kerbs both sides (interrupted at the door line)
+    const kerbProf = (za, zb) => { const n = Math.max(2, Math.ceil((zb - za) / 0.6)); const lo = [], hi = []; for (let i = 0; i <= n; i++) { const z = za + (zb - za) * i / n; lo.push([z, rampY(z) - 0.02]); hi.push([z, rampY(z) + 0.1]); } return [...lo, ...hi.reverse()]; };
+    const kW = [RAMP_X[0], RAMP_X[0] + 0.14], kE = [RAMP_X[1] - 0.14, RAMP_X[1]];
+    for (const [za, zb, xs] of [[6.2, 14.45, kW], [15.0, zK - 0.35, kW], [zR0 + 0.3, 14.45, kE], [15.0, zK - 0.35, kE]]) B.prismX(g, 'kerb', kerbProf(za, zb), xs[0], xs[1]);
+    // drainage channels: foot of the ramp and behind the pavement
+    for (const zc of [zR0 + 0.12, 17.02]) {
+      const y = zc < 10 ? RAMP.yBottom : rampY(zc);
+      B.boxAB(g, 'darkSteel', RAMP_X[0] + 0.16, y + 0.001, zc - 0.09, RAMP_X[1] - 0.16, y + 0.005, zc + 0.09);
+      for (let x = RAMP_X[0] + 0.2; x < RAMP_X[1] - 0.22; x += 0.09) B.boxAB(g, 'galv', x, y + 0.005, zc - 0.085, x + 0.045, y + 0.011, zc + 0.085);
+    }
+    // ramp side walls: west retaining wall (stops short of the foot so cars can turn into the aisle), outside it steps down with the ramp
+    const wallTop = (z) => Math.min(yS + 1.0, rampY(z) + 1.0);
+    const wp = [[6.2, 0], [14.7, 0]]; for (let i = 0; i <= 8; i++) { const z = 14.7 + (zK - 14.7) * i / 8; wp.push([z, wallTop(z)]); }
+    B.prismX(g, 'render', [[6.2, -2.7], ...wp, [zK, -2.7]], 10.3, RAMP_X[0]);
+    B.boxAB(g, 'hazard', 10.28, -2.7, 6.08, RAMP_X[0] + 0.02, -1.6, 6.2);
+    // low-level wall lights along the ramp
+    for (const z of [7.6, 10.0, 12.4, 15.5, 16.6]) {
+      const y = rampY(z) + (z > 14.7 ? 0.42 : 1.25);
+      for (const [x, sg] of [[RAMP_X[0], 1], [RAMP_X[1], -1]]) {
+        if (z > 14.7 && sg < 0) { B.boxAB(g, 'ledWarm', x - 0.006, y, z - 0.1, x, y + 0.04, z + 0.1); continue; }
+        B.boxAB(g, 'darkSteel', Math.min(x, x + sg * 0.05), y, z - 0.11, Math.max(x, x + sg * 0.05), y + 0.07, z + 0.11);
+        B.boxAB(g, 'ledWarm', Math.min(x + sg * 0.005, x + sg * 0.045), y - 0.005, z - 0.09, Math.max(x + sg * 0.005, x + sg * 0.045), y, z + 0.09);
+      }
+    }
     // east boundary wall with grey coping (right side in the renders), outside the footprint
-    B.boxAB(g, 'render', 13.88, yS - 0.4, 14.7, 14.2, yS + 1.55, zK);
-    B.boxAB(g, 'capGrey', 13.84, yS + 1.05, 14.7, 13.9, yS + 1.55, zK - 0.3);
-    B.boxAB(g, 'stoneFine', 13.86, yS + 1.55, 14.7, 14.22, yS + 1.6, zK);
-    // low front walls & gate piers along the kerb
-    B.boxAB(g, 'render', RAMP_X[1], yS - 0.2, zK - 0.25, 14.2, yS + 0.85, zK);
+    B.boxAB(g, 'render', RAMP_X[1], yS - 0.6, 14.85, 14.2, yS + 1.55, zK);
+    B.boxAB(g, 'capGrey', RAMP_X[1] - 0.012, yS + 1.05, 14.85, RAMP_X[1], yS + 1.55, zK - 0.3);
+    B.boxAB(g, 'stoneFine', RAMP_X[1] - 0.02, yS + 1.55, 14.85, 14.22, yS + 1.6, zK);
     // street pavement edge strip inside the lot (kerb line)
     B.boxAB(g, 'stoneFine', LOT.x0, yS - 0.15, zK - 0.06, RAMP_X[0] - 0.2, yS + 0.02, zK);
-    // house number plate + letterboxes on the tower base
-    const numTex = textCanvasTexture(THREE, 'VILNYI · Nº 6', { w: 512, h: 128, bg: '#2a2c2f', fg: '#e8d9b8', font: '300 54px Georgia, "Times New Roman", serif' });
-    const plate = new THREE.Mesh(new THREE.PlaneGeometry(0.8, 0.2), new THREE.MeshStandardMaterial({ map: numTex, metalness: 0.4, roughness: 0.4 }));
-    plate.position.set(6.0, 1.75, 14.856); plate.name = 'house-number'; G.site.add(plate);
-    // letterbox slot + parcel box beside the entrance (individual mailboxes are in the lobby)
-    B.boxAB(g, 'darkSteel', 5.55, 0.9, 14.85, 6.45, 1.3, 14.9);
-    B.boxAB(g, 'steel', 5.62, 1.12, 14.9, 6.38, 1.14, 14.905);
-    // entrance canopy: the first-floor balcony slab covers the entrance; add a slim steel canopy edge + downlight
+    // ── street entrance: stone landing, mat well, cube planters, canopy with LED, intercom, illuminated number ──
+    B.rboxAB(g, 'stoneFine', 2.96, -0.42, 14.86, 6.3, -0.004, 15.5, 0.01);
+    B.boxAB(g, 'steel', 3.83, -0.004, 14.93, 5.07, 0.002, 15.47);
+    B.boxAB(g, 'rubber', 3.85, -0.004, 14.95, 5.05, 0.007, 15.45);
+    for (let z = 14.99; z < 15.44; z += 0.05) B.boxAB(g, 'darkSteel', 3.86, 0.007, z, 5.04, 0.01, z + 0.012);
+    for (const [x0, sd] of [[3.02, 301], [5.8, 302]]) {
+      B.rboxAB(g, 'planterDark', x0, -0.004, 14.9, x0 + 0.42, 0.52, 15.32, 0.012);
+      B.boxAB(g, 'soil', x0 + 0.03, 0.47, 14.93, x0 + 0.39, 0.5, 15.29);
+      bush(g, x0 + 0.21, 0.44, 15.11, 0.3, 'leaf', sd);
+    }
+    const eg = 'ground';
+    B.boxAB(eg, 'bronze', 3.4, 2.5, 14.85, 5.46, 2.56, 15.95);
+    B.boxAB(eg, 'bronze', 3.4, 2.44, 15.91, 5.46, 2.5, 15.95);
+    B.boxAB(eg, 'bronze', 3.4, 2.44, 14.85, 3.44, 2.5, 15.91); B.boxAB(eg, 'bronze', 5.42, 2.44, 14.85, 5.46, 2.5, 15.91);
+    B.boxAB(eg, 'oak', 3.44, 2.492, 14.86, 5.42, 2.5, 15.91);
+    B.boxAB(eg, 'ledWarm', 3.5, 2.484, 15.84, 5.36, 2.492, 15.87);
+    for (const x of [4.0, 4.86]) downlight(eg, x, 2.492, 15.3, 0.04);
+    // video intercom
+    B.boxAB(eg, 'steel', 5.33, 1.18, 14.85, 5.5, 1.66, 14.872);
+    B.cyl(eg, 'black', [5.415, 1.61, 14.872], [5.415, 1.61, 14.881], 0.021, 14);
+    B.cyl(eg, 'carGlass', [5.415, 1.61, 14.881], [5.415, 1.61, 14.884], 0.013, 12);
+    B.boxAB(eg, 'carGlass', 5.352, 1.42, 14.872, 5.478, 1.53, 14.876);
+    for (let i = 0; i < 3; i++) B.boxAB(eg, 'darkSteel', 5.375, 1.555 + i * 0.012, 14.872, 5.455, 1.56 + i * 0.012, 14.874);
+    for (let r = 0; r < 4; r++) for (let c = 0; c < 2; c++) B.boxAB(eg, 'brass', 5.365 + c * 0.06, 1.215 + r * 0.045, 14.872, 5.405 + c * 0.06, 1.24 + r * 0.045, 14.878);
+    // illuminated house number
+    B.boxAB(eg, 'ledWarm', 5.735, 1.565, 14.851, 6.665, 2.135, 14.858);
+    B.boxAB(eg, 'bronze', 5.75, 1.58, 14.85, 6.65, 2.12, 14.88);
+    label(eg, '6', 5.97, 1.85, 14.883, 0, 0.36, 0.44, { bg: null, fg: '#fff0d6', glow: 2.2, pw: 256, font: '300 250px Georgia, "Times New Roman", serif' }).name = 'house-number';
+    label(eg, 'VILNYI', 6.36, 1.93, 14.883, 0, 0.44, 0.12, { bg: null, fg: '#fff0d6', glow: 1.6, pw: 512, font: '400 100px Georgia, "Times New Roman", serif' });
+    label(eg, 'Rua Eduardo Couto', 6.36, 1.76, 14.883, 0, 0.44, 0.06, { bg: null, fg: '#e8d9b8', glow: 1.0, pw: 512, font: '400 44px Helvetica, Arial, sans-serif' });
     // timber slat feature on the façade (lobby window screen)
     for (let x = 7.38; x < 8.78; x += 0.085) B.boxAB('ground', 'oak', x, 0.35, 14.86, x + 0.045, 2.55, 14.93);
     B.boxAB('ground', 'frame', 7.3, 0.3, 14.85, 8.86, 0.35, 14.95); B.boxAB('ground', 'frame', 7.3, 2.55, 14.85, 8.86, 2.6, 14.95);
-    // video intercom
-    B.boxAB('ground', 'darkSteel', 5.3, 1.3, 14.85, 5.44, 1.55, 14.88);
-    B.boxAB('ground', 'steel', 5.33, 1.43, 14.88, 5.41, 1.51, 14.885);
     // ── rear garden ──
     const yG = -0.12;
     B.prismX(g, 'lawn', [[-7.9, yG - 0.02], [-7.9, yG], [-2.5, yG], [-2.5, yG - 0.02]], 0, 6.1);
@@ -1465,106 +1607,283 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
   const z1Tower = () => 14.85 + TOWER.proj;
 
   // ───────── basement car park ─────────
-  function carGeometry(color, seed) {
-    const R = rng(seed);
-    const L = 4.25 + R() * 0.4, Wd = 1.78, parts = [];
-    const k = L / 4.4;
-    const body = [[-2.2, 0.28], [2.2, 0.28], [2.24, 0.62], [2.05, 0.8], [0.95, 0.9], [0.35, 1.36], [-1.05, 1.4], [-1.85, 0.98], [-2.22, 0.88]].map(([z, y]) => new THREE.Vector2(z * k, y));
-    const gl = [[0.9, 0.9], [0.36, 1.33], [-1.02, 1.37], [-1.78, 0.97]].map(([z, y]) => new THREE.Vector2(z * k * 1.01, y + 0.005));
-    const mk = (pts, w, mat) => { const g = new THREE.ExtrudeGeometry(new THREE.Shape(pts), { depth: w, bevelEnabled: true, bevelSize: 0.04, bevelThickness: 0.04, bevelSegments: 2, curveSegments: 1 }); g.translate(0, 0, -w / 2); g.rotateY(-Math.PI / 2); return { g: NI(g), mat }; };
-    // extrude shape (x=z-length, y) along z(width); after rotateY(-90°): shape x → world z, extrusion → world x
-    parts.push(mk(body, Wd - 0.08, 'carPaint'));
-    parts.push(mk(gl, Wd - 0.02, 'carGlass'));
-    const col = new THREE.Color(color);
-    const cp = parts[0].g; const cols = new Float32Array(cp.attributes.position.count * 3); for (let i = 0; i < cols.length; i += 3) { cols[i] = col.r; cols[i + 1] = col.g; cols[i + 2] = col.b; } cp.setAttribute('color', new THREE.BufferAttribute(cols, 3));
-    for (const zz of [1.4 * k, -1.35 * k]) for (const xx of [-0.78, 0.78]) { const w = NI(new THREE.CylinderGeometry(0.33, 0.33, 0.22, 14)); w.rotateZ(Math.PI / 2); w.translate(xx, 0.33, zz); parts.push({ g: w, mat: 'tyre' }); const h = NI(new THREE.CylinderGeometry(0.2, 0.2, 0.23, 10)); h.rotateZ(Math.PI / 2); h.translate(xx, 0.33, zz); parts.push({ g: h, mat: 'steel' }); }
-    for (const xx of [-0.62, 0.62]) { const t = NI(new THREE.BoxGeometry(0.34, 0.08, 0.04)); t.translate(xx, 0.78, -2.2 * k - 0.04); parts.push({ g: t, mat: 'tailLight' }); const hl = NI(new THREE.BoxGeometry(0.32, 0.08, 0.04)); hl.translate(xx, 0.68, 2.22 * k + 0.02); parts.push({ g: hl, mat: 'headLight' }); }
-    return parts;
+  // Cars: lofted side profile with wheel arches, tumblehome greenhouse, glazing, lights, mirrors, alloy wheels (~3k tris each, merged per material).
+  const CAR_SPECS = {
+    hatch: { L: 4.05, W: 1.76, H: 1.47, gc: 0.16, r: 0.31, fo: 0.82, wb: 2.55, hood: 0.9, belt: 0.97, cowl: 1.05, roofF: 1.8, roofR: 3.5, rearB: 3.93, deck: 1.02 },
+    sedan: { L: 4.7, W: 1.82, H: 1.43, gc: 0.15, r: 0.33, fo: 0.9, wb: 2.8, hood: 0.88, belt: 0.95, cowl: 1.3, roofF: 2.05, roofR: 3.3, rearB: 4.0, deck: 0.99, trunk: true },
+    suv: { L: 4.5, W: 1.88, H: 1.68, gc: 0.21, r: 0.37, fo: 0.9, wb: 2.7, hood: 1.06, belt: 1.13, cowl: 1.2, roofF: 1.9, roofR: 3.95, rearB: 4.36, deck: 1.2, rails: true },
+    ev: { L: 4.65, W: 1.85, H: 1.44, gc: 0.15, r: 0.345, fo: 0.85, wb: 2.9, hood: 0.84, belt: 0.94, cowl: 1.12, roofF: 1.98, roofR: 3.05, rearB: 4.42, deck: 1.0, ev: true }
+  };
+  function carParts(sp, color) {
+    const { L, W, H, gc, r } = sp, hl = L / 2, zOf = (d) => hl - d, cl = (v) => Math.max(0, Math.min(1, v));
+    const zf = zOf(sp.fo), zr = zf - sp.wb, ra = r + 0.035, bs = 0.045, tw = 0.21;
+    const zc = zOf(sp.cowl), zrf = zOf(sp.roofF), zrr = zOf(sp.roofR), zrb = zOf(sp.rearB);
+    const parts = []; const add = (g, mat) => { g = NI(g); g.userData.keepUV = true; if (!g.attributes.uv) g.setAttribute('uv', new THREE.BufferAttribute(new Float32Array(g.attributes.position.count * 2), 2)); parts.push({ g, mat }); return g; };
+    const fx = (y, z, f0) => (f0 - 0.2 * cl((y - sp.belt) / (H - sp.belt))) * (1 - 0.1 * Math.pow(Math.abs(z) / hl, 3)) * (1 - 0.05 * Math.pow(cl((gc + 0.3 - y) / 0.3), 2));
+    const warp = (g, f0 = 1) => { const p = g.attributes.position; for (let i = 0; i < p.count; i++) p.setX(i, p.getX(i) * fx(p.getY(i), p.getZ(i), f0)); return g; };
+    const ext = (pts, width) => { const d = width - 2 * bs; const g = new THREE.ExtrudeGeometry(new THREE.Shape(pts.map(([z, y]) => new THREE.Vector2(z, y))), { depth: d, bevelEnabled: true, bevelSize: bs, bevelThickness: bs, bevelOffset: -bs, bevelSegments: 3, curveSegments: 1 }); g.translate(0, 0, -d / 2); g.rotateY(-Math.PI / 2); return g; };
+    const paint = (g, f0) => { warp(g, f0); let c = g; try { c = toCreasedNormals(g, 0.7); } catch (e) { c = NI(g); c.computeVertexNormals(); } const col = new THREE.Color(color), n = c.attributes.position.count, a = new Float32Array(n * 3); for (let i = 0; i < n; i++) { a[3 * i] = col.r; a[3 * i + 1] = col.g; a[3 * i + 2] = col.b; } c.setAttribute('color', new THREE.BufferAttribute(a, 3)); return add(c, 'carPaint'); };
+    const arch = (z0) => { const a0 = Math.asin((gc - r) / ra), out = [], n = 8; for (let i = 0; i <= n; i++) { const a = Math.PI - a0 - (Math.PI - 2 * a0) * i / n; out.push([z0 + ra * Math.cos(a), r + ra * Math.sin(a)]); } return out; };
+    // lower body
+    const body = [[hl - 0.1, gc], [hl - 0.02, gc + 0.07], [hl, gc + 0.18], [hl, sp.hood - 0.24], [hl - 0.025, sp.hood - 0.12], [hl - 0.09, sp.hood - 0.04], [hl - 0.26, sp.hood], [hl - 0.26 + ((hl + zc) / 2 - hl + 0.26) * 0.5, sp.hood + (sp.belt - sp.hood) * 0.36], [(hl + zc) / 2, sp.hood + (sp.belt - sp.hood) * 0.62], [zc + 0.05, sp.belt], [zrb, sp.deck]];
+    if (sp.trunk) body.push([-hl + 0.16, sp.deck - 0.015]);
+    body.push([-hl + 0.05, sp.deck - 0.07], [-hl + 0.01, sp.deck - 0.2], [-hl, gc + 0.36], [-hl + 0.03, gc + 0.1], [-hl + 0.1, gc], ...arch(zr), ...arch(zf));
+    paint(ext(body, W), 1);
+    // greenhouse (tumblehome)
+    const roofArc = []; for (let i = 0; i <= 6; i++) { const u = i / 6; roofArc.push([zrf + (zrr - zrf) * u, H - 0.035 - 0.01 * u + 0.04 * Math.sin(Math.PI * u)]); }
+    const gh = [[zc + 0.05, sp.belt - 0.03], [zc + 0.05 + (zrf - zc - 0.05) * 0.9, sp.belt - 0.03 + (H - 0.035 - sp.belt + 0.03) * 0.93], ...roofArc, [zrr + (zrb + 0.02 - zrr) * 0.1, H - 0.045 + (sp.deck - 0.03 - H + 0.045) * 0.07], [zrb + 0.02, sp.deck - 0.03]];
+    paint(ext(gh, W), 0.965);
+    // wheel wells / underbody
+    add(new THREE.BoxGeometry(W - 0.5, sp.belt - 0.2 - gc, L - 0.5).translate(0, (sp.belt - 0.2 + gc) / 2 + 0.01, 0), 'carTrim');
+    // side glazing + B pillar
+    const k = (H - 0.11 - sp.belt - 0.06) / (H - 0.045 - sp.deck);
+    const sw = [[zc - 0.1, sp.belt + 0.05], [zrf - 0.1, H - 0.1], [zrr + 0.14, H - 0.11], [zrr + (zrb - zrr) * k + 0.16, sp.belt + 0.06]];
+    const zb = zrf * 0.42 + zrr * 0.58;
+    for (const sg of [-1, 1]) {
+      const g = NI(new THREE.ShapeGeometry(new THREE.Shape(sw.map(([z, y]) => new THREE.Vector2(z, y)))));
+      const p = g.attributes.position; for (let i = 0; i < p.count; i++) { const z = p.getX(i), y = p.getY(i); p.setXYZ(i, sg * (W / 2 + 0.004), y, z); }
+      if (sg > 0) { for (let i = 0; i < p.count; i += 3) { const t = [p.getX(i + 1), p.getY(i + 1), p.getZ(i + 1)]; p.setXYZ(i + 1, p.getX(i + 2), p.getY(i + 2), p.getZ(i + 2)); p.setXYZ(i + 2, ...t); } }
+      warp(g, 0.965); g.computeVertexNormals();
+      { const nn = g.attributes.normal; if (nn.getX(0) * sg < 0) { for (let i = 0; i < p.count; i += 3) { const t = [p.getX(i + 1), p.getY(i + 1), p.getZ(i + 1)]; p.setXYZ(i + 1, p.getX(i + 2), p.getY(i + 2), p.getZ(i + 2)); p.setXYZ(i + 2, ...t); } g.computeVertexNormals(); } }
+      add(g, 'carGlass');
+      add(warp(NI(new THREE.BoxGeometry(0.006, H - 0.2 - sp.belt, 0.075)).translate(sg * (W / 2 + 0.006), (H - 0.1 + sp.belt + 0.04) / 2, zb), 0.965), 'carTrim');
+      // door shut lines, handles, mirror, sill
+      for (const z of [zc - 0.12, zb - 0.02, zrr + (sp.trunk ? 0.45 : 0.3)]) add(warp(NI(new THREE.BoxGeometry(0.004, sp.belt - gc - 0.2, 0.012)).translate(sg * (W / 2 + 0.001), (sp.belt + gc) / 2 + 0.05, z)), 'carTrim');
+      for (const z of [zb + 0.2, zrr + (sp.trunk ? 0.6 : 0.45)]) add(warp(NI(new THREE.BoxGeometry(0.02, 0.025, 0.14)).translate(sg * (W / 2 + 0.006), sp.belt - 0.1, z)), 'alloy');
+      add(new THREE.BoxGeometry(0.16, 0.09, 0.08).translate(sg * (W / 2 * 0.95 + 0.07), sp.belt + 0.09, zc - 0.14), 'carTrim');
+      add(warp(NI(new THREE.BoxGeometry(0.014, sp.rails ? 0.16 : 0.07, sp.wb - 2 * ra - 0.16)).translate(sg * (W / 2 + 0.004), gc + (sp.rails ? 0.1 : 0.05), (zf + zr) / 2)), 'carTrim');
+      if (sp.rails) add(new THREE.BoxGeometry(0.04, 0.035, (zrf - zrr) * 0.82).translate(sg * W * 0.335, H + 0.012, (zrf + zrr) / 2), 'carTrim');
+      // lights
+      if (!sp.ev) { add(new THREE.BoxGeometry(0.4, 0.1, 0.06).translate(sg * (W / 2 - 0.4), sp.hood - 0.15, hl - 0.022), 'headLight'); add(new THREE.BoxGeometry(0.34, 0.11, 0.05).translate(sg * (W / 2 - 0.38), sp.deck - 0.19, -hl + 0.02), 'tailLight'); }
+      // wheels
+      for (const z of [zf, zr]) {
+        const x = sg * (W / 2 - tw / 2 - 0.025);
+        const ty = NI(new THREE.LatheGeometry([[r * 0.6, -tw / 2], [r * 0.92, -tw / 2], [r, -tw / 2 + 0.035], [r, tw / 2 - 0.035], [r * 0.92, tw / 2], [r * 0.6, tw / 2]].map(([a, b]) => new THREE.Vector2(a, b)), 18)); ty.rotateZ(Math.PI / 2); ty.translate(x, r, z); add(ty, 'tyre');
+        add(new THREE.CylinderGeometry(r * 0.63, r * 0.63, tw * 0.86, 16).rotateZ(Math.PI / 2).translate(x, r, z), 'alloy');
+        add(new THREE.CylinderGeometry(r * 0.56, r * 0.56, tw * 0.9, 16).rotateZ(Math.PI / 2).translate(x, r, z), 'carTrim');
+        add(new THREE.CylinderGeometry(r * 0.16, r * 0.16, tw * 0.98, 10).rotateZ(Math.PI / 2).translate(x, r, z), 'alloy');
+        for (let s = 0; s < 5; s++) add(new THREE.BoxGeometry(0.02, r * 0.58, 0.05).translate(0, r * 0.3, 0).rotateX(s * Math.PI * 2 / 5 + 0.3).translate(x + sg * (tw * 0.45 + 0.008), r, z), 'alloy');
+      }
+    }
+    // windscreen + rear screen
+    const screen = (A, Bp, s0, s1, inset, sgn = 1) => {
+      const dz = Bp[0] - A[0], dy = Bp[1] - A[1], len = Math.hypot(dz, dy), nz = sgn * dy / len, ny = -sgn * dz / len, off = 0.012;
+      const P = (s) => [A[0] + dz * s + nz * off, A[1] + dy * s + ny * off];
+      const a = P(s0), b = P(s1), ha = W / 2 * fx(a[1], a[0], 0.965) - inset, hb = W / 2 * fx(b[1], b[0], 0.965) - inset;
+      const v = [-ha, a[1], a[0], ha, a[1], a[0], hb, b[1], b[0], -ha, a[1], a[0], hb, b[1], b[0], -hb, b[1], b[0]];
+      const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(v, 3)); g.computeVertexNormals();
+      const n = g.attributes.normal; if (n.getY(0) * ny + n.getZ(0) * nz < 0) { const p = g.attributes.position; for (let i = 0; i < 6; i += 3) { const t = [p.getX(i + 1), p.getY(i + 1), p.getZ(i + 1)]; p.setXYZ(i + 1, p.getX(i + 2), p.getY(i + 2), p.getZ(i + 2)); p.setXYZ(i + 2, ...t); } g.computeVertexNormals(); }
+      add(g, 'carGlass');
+    };
+    screen(gh[0], gh[1], 0.1, 0.97, 0.1);
+    screen(gh[gh.length - 1], gh[gh.length - 2], 0.12, 0.96, 0.11, -1);
+    // front / rear details
+    if (sp.ev) {
+      add(new THREE.BoxGeometry(W * 0.8, 0.035, 0.08).translate(0, sp.hood - 0.1, hl - 0.02), 'headLight');
+      add(new THREE.BoxGeometry(W * 0.82, 0.04, 0.08).translate(0, sp.deck - 0.15, -hl + 0.02), 'tailLight');
+      add(new THREE.BoxGeometry(W * 0.5, 0.08, 0.06).translate(0, gc + 0.16, hl - 0.012), 'carTrim');
+    } else add(new THREE.BoxGeometry(W * 0.56, 0.22, 0.06).translate(0, gc + 0.3, hl - 0.012), 'carTrim');
+    add(new THREE.BoxGeometry(0.46, 0.11, 0.012).translate(0, gc + (sp.ev ? 0.34 : 0.3), hl + 0.022), 'carPlate');
+    add(new THREE.BoxGeometry(0.46, 0.11, 0.012).translate(0, sp.deck - 0.36, -hl - 0.004), 'carPlate');
+    add(new THREE.BoxGeometry(W * 0.7, 0.1, 0.05).translate(0, gc + 0.08, -hl + 0.02), 'carTrim');
+    return { parts, zf, zr, port: [-(W / 2 + 0.012), sp.belt - 0.14, zr - 0.5] };
   }
+
   function buildBasement() {
     const y = LEVEL_Y.basement, gid = 'basement', ceil = y + 2.4;
-    // bay lines + numbers
-    const numMats = [];
+    if (!M.pathPaint) { M.pathPaint = new THREE.MeshStandardMaterial({ color: 0x4d8467, roughness: 0.7 }); M.pathPaint.name = 'paint-green'; }
+    const line = (a0, b0, a1, b1, m = 'white', h = 0.005) => B.boxAB(gid, m, Math.min(a0, a1), y + 0.001, Math.min(b0, b1), Math.max(a0, a1), y + h, Math.max(b0, b1));
+    const plan = { P1: ['sedan', 0x2b2e33, 1], P2: ['ev', 0xe4e3de, -1], P3: ['suv', 0x5d6a73, 1], P4: ['hatch', 0x6e2424, -1], P5: ['hatch', 0x8a9399, 1], P6: ['sedan', 0x1f2f47, 1], P7: ['suv', 0xb5ac98, 1], P8: ['hatch', 0x33483a, -1] };
+    const chargers = new Set(['P1', 'P2', 'P3', 'P7']);
+    const zWall = 14.7 - 0.175;
     for (const p of PARKING) {
-      const { x0, x1, z0, z1 } = p;
-      const line = (a0, b0, a1, b1) => B.boxAB(gid, 'white', a0, y + 0.001, b0, a1, y + 0.006, b1);
-      if (!p.rotated) { line(x0, z0 - 0.05, x1, z0 + 0.05); line(x0, z1 - 0.05, x1, z1 + 0.05); }
+      const { x0, x1, z0, z1 } = p, rot = !!p.rotated, mx = (x0 + x1) / 2, mz = (z0 + z1) / 2;
+      // bay lines (sides + corner ticks at the open end) and floor number
+      if (!rot) { line(x0, z0 - 0.05, x1, z0 + 0.05); line(x0, z1 - 0.05, x1, z1 + 0.05); }
       else { line(x0 - 0.05, z0, x0 + 0.05, z1); line(x1 - 0.05, z0, x1 + 0.05, z1); }
-      const t = textCanvasTexture(THREE, p.id, { w: 256, h: 128, bg: null, fg: '#f4f4f0', font: '700 92px Helvetica, Arial, sans-serif' });
-      const mat = new THREE.MeshStandardMaterial({ map: t, transparent: true, roughness: 0.6 }); numMats.push(mat);
-      const pl = new THREE.Mesh(new THREE.PlaneGeometry(0.9, 0.45), mat); pl.name = `bay-${p.id}`;
-      pl.rotation.x = -Math.PI / 2;
-      if (!p.rotated) { pl.position.set(x1 - 0.55, y + 0.008, (z0 + z1) / 2); pl.rotation.z = Math.PI / 2; }
-      else { pl.position.set((x0 + x1) / 2, y + 0.008, p.id === 'P5' ? z0 + 0.5 : z0 + 0.55); if (p.id !== 'P5') pl.rotation.z = Math.PI; }
-      G[gid].add(pl);
-      // wheel stop
-      if (!p.rotated) B.boxAB(gid, 'rubber', x0 + 0.55, y, (z0 + z1) / 2 - 0.8, x0 + 0.7, y + 0.1, (z0 + z1) / 2 + 0.8);
+      const fo = { flat: true, bg: null, fg: '#f4f4f0', pw: 256, font: '700 92px Helvetica, Arial, sans-serif' };
+      if (!rot) label(gid, p.id, x1 + 0.42, y + 0.008, mz, 0, 0.9, 0.45, { ...fo, rz: Math.PI / 2 }).name = `bay-${p.id}`;
+      else if (p.id === 'P5') label(gid, p.id, x1 + 0.5, y + 0.008, mz, 0, 0.9, 0.45, { ...fo, rz: Math.PI / 2 }).name = `bay-${p.id}`;
+      else label(gid, p.id, mx, y + 0.008, z0 - 0.4, 0, 0.9, 0.45, { ...fo, rz: Math.PI }).name = `bay-${p.id}`;
+      // wheel stop + wall plate with the apartment
+      const headZ = p.id === 'P5' ? 8.9 : zWall;
+      if (!rot) { B.rboxAB(gid, 'rubber', x0 + 0.75, y, mz - 0.85, x0 + 0.9, y + 0.1, mz + 0.85, 0.02); for (const dz of [-0.5, 0.5]) B.boxAB(gid, 'yellow', x0 + 0.748, y + 0.02, mz + dz - 0.12, x0 + 0.902, y + 0.102, mz + dz + 0.12); }
+      else { B.rboxAB(gid, 'rubber', mx - 0.85, y, z1 - 0.7, mx + 0.85, y + 0.1, z1 - 0.55, 0.02); for (const dx of [-0.5, 0.5]) B.boxAB(gid, 'yellow', mx + dx - 0.12, y + 0.02, z1 - 0.702, mx + dx + 0.12, y + 0.102, z1 - 0.548); }
+      const po = { bg: '#22262b', fg: '#f4f1ea', pw: 512, border: '#c9a35a', font: '600 78px Helvetica, Arial, sans-serif' };
+      if (!rot) label(gid, `${p.id} · ${p.unit}`, 0.182, y + 1.85, mz, Math.PI / 2, 0.62, 0.2, po);
+      else label(gid, `${p.id} · ${p.unit}`, p.id === 'P5' ? 5.0 : mx, y + 1.85, headZ - 0.007, Math.PI, 0.62, 0.2, po);
+      // EV wall box
+      let wb = null;
+      if (chargers.has(p.id)) {
+        if (!rot) { wb = [0.24, y + 1.2, mz + 0.8]; B.rboxAB(gid, 'evWhite', 0.176, y + 0.98, mz + 0.66, 0.3, y + 1.42, mz + 0.94, 0.02); B.boxAB(gid, 'black', 0.3, y + 1.14, mz + 0.72, 0.304, y + 1.36, mz + 0.88); B.boxAB(gid, 'ledGreen', 0.304, y + 1.33, mz + 0.74, 0.306, y + 1.34, mz + 0.86); const tr = NI(new THREE.TorusGeometry(0.11, 0.012, 6, 16)); tr.rotateY(Math.PI / 2); tr.translate(0.2, y + 0.82, mz + 0.8); B.push(gid, 'black', tr); }
+        else { wb = [mx + 0.8, y + 1.2, headZ - 0.06]; B.rboxAB(gid, 'evWhite', mx + 0.66, y + 0.98, headZ - 0.124, mx + 0.94, y + 1.42, headZ, 0.02); B.boxAB(gid, 'black', mx + 0.72, y + 1.14, headZ - 0.128, mx + 0.88, y + 1.36, headZ - 0.124); B.boxAB(gid, 'ledGreen', mx + 0.74, y + 1.33, headZ - 0.13, mx + 0.86, y + 1.34, headZ - 0.128); const tr = NI(new THREE.TorusGeometry(0.11, 0.012, 6, 16)); tr.translate(mx + 0.8, y + 0.82, headZ - 0.025); B.push(gid, 'black', tr); }
+      }
+      // car
+      const [type, col, dir] = plan[p.id] || ['hatch', 0x888888, 1];
+      const sp = CAR_SPECS[type], car = carParts(sp, col), m = new THREE.Matrix4();
+      const ax = dir > 0 ? car.zf : -car.zr; // distance from the car centre to the axle that meets the wheel stop
+      if (!rot) { m.makeRotationY(dir > 0 ? -Math.PI / 2 : Math.PI / 2); m.setPosition(x0 + 0.9 + sp.r + ax, y, mz); }
+      else { m.makeRotationY(dir > 0 ? 0 : Math.PI); m.setPosition(mx, y, z1 - 0.7 - sp.r - ax); }
+      for (const { g, mat } of car.parts) { g.applyMatrix4(m); B.push(gid, mat, g); }
+      if (sp.ev && wb) { // plugged in: cable from the wall box to the charge port
+        const port = V3(...car.port).applyMatrix4(m);
+        const curve = new THREE.CatmullRomCurve3([V3(wb[0] + 0.06, wb[1] - 0.2, wb[2]), V3(wb[0] + 0.14, y + 0.5, wb[2] - 0.05), V3((wb[0] + port.x) / 2 + 0.05, y + 0.04, (wb[2] + port.z) / 2 + 0.25), V3(port.x, y + 0.45, port.z + 0.18), V3(port.x, port.y, port.z + 0.03)]);
+        const tube = NI(new THREE.TubeGeometry(curve, 28, 0.012, 6, false)); tube.userData.keepUV = true; B.push(gid, 'black', tube);
+        B.boxAB(gid, 'evWhite', port.x - 0.035, port.y - 0.035, port.z - 0.01, port.x + 0.035, port.y + 0.035, port.z + 0.06);
+        B.boxAB(gid, 'ledGreen', port.x - 0.012, port.y + 0.036, port.z, port.x + 0.012, port.y + 0.04, port.z + 0.03);
+      }
     }
-    // cars (varied tasteful colours)
-    const colors = [0x1d1f22, 0xe9e9e6, 0x5b6770, 0x7a1d1d, 0x23364f, 0xb9b4a8, 0x2f4a3a, 0x8d8f91];
-    PARKING.forEach((p, i) => {
-      const parts = carGeometry(colors[i % colors.length], 900 + i);
-      const cx = (p.x0 + p.x1) / 2, cz = (p.z0 + p.z1) / 2;
-      const m = new THREE.Matrix4();
-      if (!p.rotated) m.makeRotationY(Math.PI / 2 * (i % 2 ? 1 : -1)); else m.makeRotationY(p.id === 'P5' ? 0 : Math.PI);
-      m.setPosition(cx + (p.rotated ? 0 : -0.15 * (i % 2 ? 1 : -1)), y, cz);
-      for (const { g, mat } of parts) { g.applyMatrix4(m); g.userData.keepUV = true; if (!g.attributes.uv) g.setAttribute('uv', new THREE.BufferAttribute(new Float32Array(g.attributes.position.count * 2), 2)); B.push(gid, mat, g); }
-    });
-    // columns
-    for (const [x, z] of [[5.6, -5.5], [5.6, -0.8], [5.6, 3.9], [5.6, 8.9], [8.2, 1.9]]) {
+    // columns with yellow/black guards
+    const cols = [[5.6, -5.5], [5.6, -0.8], [5.6, 3.9], [5.6, 8.9], [8.2, 1.9]];
+    for (const [x, z] of cols) {
       B.boxAB(gid, 'concrete', x - 0.15, y, z - 0.15, x + 0.15, ceil, z + 0.15);
-      B.boxAB(gid, 'darkSteel', x - 0.155, y, z - 0.155, x + 0.155, y + 0.25, z + 0.155); // hazard band base (dark)
+      B.boxAB(gid, 'hazard', x - 0.165, y, z - 0.165, x + 0.165, y + 1.0, z + 0.165);
     }
-    // ceiling: LED linear lights along aisle and bays
-    for (let z = -6.5; z < 13; z += 3.0) B.boxAB('basement', 'ledPanel', 6.8, ceil - 0.03, z, 8.2, ceil - 0.005, z + 0.12);
-    for (const p of PARKING.filter(p => !p.rotated)) B.boxAB('basement', 'ledPanel', 2.3, ceil - 0.03, (p.z0 + p.z1) / 2 - 0.06, 3.5, ceil - 0.005, (p.z0 + p.z1) / 2 + 0.06);
-    for (const p of PARKING.filter(p => p.rotated)) B.boxAB('basement', 'ledPanel', (p.x0 + p.x1) / 2 - 0.06, ceil - 0.03, (p.z0 + p.z1) / 2 - 0.6, (p.x0 + p.x1) / 2 + 0.06, ceil - 0.005, (p.z0 + p.z1) / 2 + 0.6);
-    // ceiling slab underside under the garden (outside the footprint)
-    // walkway marking to the lift lobby
-    for (let x = 2.9; x < 5.5; x += 0.5) B.boxAB(gid, 'white', x, y + 0.001, 6.55, x + 0.3, y + 0.006, 6.95);
-    // technical-room door sign
-    B.boxAB(gid, 'frame', 3.75, y + 2.15, 9.12, 4.65, y + 2.3, 9.13);
-    // wall dado stripe (anthracite band) on west and rear walls
+    // CO sensors
+    for (const [x, z] of [cols[1], cols[3], cols[4]]) { B.rboxAB(gid, 'evWhite', x + 0.15, y + 1.55, z - 0.06, x + 0.19, y + 1.71, z + 0.06, 0.008); B.boxAB(gid, 'ledGreen', x + 0.19, y + 1.68, z - 0.01, x + 0.192, y + 1.69, z + 0.01); B.boxAB(gid, 'black', x + 0.19, y + 1.58, z - 0.035, x + 0.192, y + 1.64, z + 0.035); }
+    // ceiling: linear LED fittings along the aisle and over the bays
+    for (let z = -6.5; z < 13; z += 3.0) { B.boxAB(gid, 'evWhite', 6.78, ceil - 0.05, z - 0.03, 8.22, ceil, z + 0.15); B.boxAB(gid, 'ledPanel', 6.8, ceil - 0.056, z, 8.2, ceil - 0.05, z + 0.12); }
+    for (const p of PARKING.filter(p => !p.rotated)) { const mz = (p.z0 + p.z1) / 2; B.boxAB(gid, 'evWhite', 2.28, ceil - 0.05, mz - 0.09, 3.52, ceil, mz + 0.09); B.boxAB(gid, 'ledPanel', 2.3, ceil - 0.056, mz - 0.06, 3.5, ceil - 0.05, mz + 0.06); }
+    for (const p of PARKING.filter(p => p.rotated)) { const mx = (p.x0 + p.x1) / 2, mz = (p.z0 + p.z1) / 2; B.boxAB(gid, 'evWhite', mx - 0.09, ceil - 0.05, mz - 0.62, mx + 0.09, ceil, mz + 0.62); B.boxAB(gid, 'ledPanel', mx - 0.06, ceil - 0.056, mz - 0.6, mx + 0.06, ceil - 0.05, mz + 0.6); }
+    // exposed services: sprinkler main + branches with heads, cable tray on hangers
+    const yp = ceil - 0.16;
+    B.cyl(gid, 'pipeRed', [6.45, yp, -7.3], [6.45, yp, 14.2], 0.036, 10);
+    for (let z = -6.9; z < 14.2; z += 2.6) { B.cyl(gid, 'galv', [6.45, yp, z], [6.45, ceil, z], 0.005, 5); B.boxAB(gid, 'galv', 6.4, yp - 0.045, z - 0.012, 6.5, yp + 0.045, z + 0.012); }
+    for (const z of [-6.1, -3.75, -1.4, 0.95, 3.3]) {
+      B.cyl(gid, 'pipeRed', [6.45, yp, z], [1.2, yp, z], 0.018, 8);
+      for (const x of [1.6, 3.9]) { B.cyl(gid, 'galv', [x, yp - 0.06, z], [x, yp, z], 0.012, 8); B.cyl(gid, 'galv', [x, yp - 0.07, z], [x, yp - 0.062, z], 0.03, 10); }
+    }
+    for (const z of [-4.0, 0.0, 5.0, 11.8]) { const xe = z > 9 ? 9.6 : 8.4; B.cyl(gid, 'pipeRed', [6.45, yp, z], [xe, yp, z], 0.018, 8); B.cyl(gid, 'galv', [xe - 0.3, yp - 0.06, z], [xe - 0.3, yp, z], 0.012, 8); B.cyl(gid, 'galv', [xe - 0.3, yp - 0.07, z], [xe - 0.3, yp - 0.062, z], 0.03, 10); }
+    const yt = ceil - 0.34, tx0 = 8.75, tx1 = 9.05, tz0 = -2.4, tz1 = 9.2;
+    B.boxAB(gid, 'galv', tx0, yt, tz0, tx1, yt + 0.012, tz1); B.boxAB(gid, 'galv', tx0, yt, tz0, tx0 + 0.012, yt + 0.06, tz1); B.boxAB(gid, 'galv', tx1 - 0.012, yt, tz0, tx1, yt + 0.06, tz1);
+    for (let z = tz0 + 0.3; z < tz1; z += 1.8) { for (const x of [tx0 - 0.01, tx1 + 0.01]) B.cyl(gid, 'galv', [x, yt - 0.02, z], [x, ceil, z], 0.005, 5); B.boxAB(gid, 'galv', tx0 - 0.03, yt - 0.03, z - 0.015, tx1 + 0.03, yt, z + 0.015); }
+    for (const [dx, rr] of [[0.06, 0.014], [0.11, 0.012], [0.16, 0.016], [0.22, 0.01]]) B.cyl(gid, 'black', [tx0 + dx, yt + 0.012 + rr, tz0 + 0.05], [tx0 + dx, yt + 0.012 + rr, tz1 - 0.05], rr, 6);
+    // painted pedestrian route from the aisle to the lift lobby
+    line(2.9, 4.1, 6.3, 4.66, 'pathPaint', 0.004); line(2.0, 4.1, 2.9, 7.0, 'pathPaint', 0.004);
+    line(2.9, 4.08, 6.3, 4.12); line(2.9, 4.64, 6.3, 4.68); line(1.98, 4.08, 2.9, 4.12); line(1.98, 4.1, 2.02, 7.0); line(2.88, 4.66, 2.92, 7.0);
+    for (let x = 5.9; x < 6.9; x += 0.34) line(x + 0.44, 4.1, x + 0.6, 4.66);                // zebra on to the aisle
+    for (let z = 4.9; z < 6.8; z += 0.9) for (const sx of [-1, 1]) line(2.45 + sx * 0.11, z, 2.45 + sx * 0.11 + 0.1, z + 0.28); // footprints
+    // lift lobby: glazed screen with glass door, exit sign
+    const zl = 7.1;
+    B.boxAB(gid, 'darkSteel', 1.55, y, zl - 0.03, 1.7, ceil, zl + 0.03); B.boxAB(gid, 'darkSteel', 2.62, y, zl - 0.03, 2.78, ceil, zl + 0.03);
+    B.boxAB(gid, 'darkSteel', 1.7, y + 2.14, zl - 0.03, 2.62, y + 2.2, zl + 0.03); B.boxAB(gid, 'glass', 1.7, y + 2.2, zl - 0.006, 2.62, ceil - 0.02, zl + 0.006);
+    for (const z of [8.02, 8.92]) B.boxAB(gid, 'darkSteel', 2.72, y, z - 0.03, 2.78, ceil, z + 0.03);
+    B.boxAB(gid, 'darkSteel', 2.72, y, zl, 2.78, y + 0.1, 8.95); B.boxAB(gid, 'darkSteel', 2.72, ceil - 0.06, zl, 2.78, ceil, 8.95);
+    B.boxAB(gid, 'glass', 2.744, y + 0.1, zl + 0.03, 2.756, ceil - 0.06, 7.99); B.boxAB(gid, 'glass', 2.744, y + 0.1, 8.05, 2.756, ceil - 0.06, 8.89);
+    {
+      const W = 0.9, H = 2.12, st = 0.05, pivot = new THREE.Object3D(); pivot.name = 'door-basement-lobby'; pivot.position.set(1.71, y + 0.01, zl);
+      const fr = new THREE.Mesh(boxesGeo([[st / 2, H / 2, 0, st, H, 0.04], [W - st / 2, H / 2, 0, st, H, 0.04], [W / 2, H - st / 2, 0, W - 2 * st, st, 0.04], [W / 2, 0.06, 0, W - 2 * st, 0.12, 0.04], [W - 0.12, 1.05, 0, 0.03, 0.4, 0.1]]), M.darkSteel); fr.castShadow = true; fr.name = 'door-frame-basement-lobby';
+      const gl = new THREE.Mesh(new THREE.BoxGeometry(W - 2 * st + 0.01, H - st - 0.12 + 0.01, 0.01), M.glass); gl.position.set(W / 2, 0.12 + (H - st - 0.12) / 2, 0); gl.name = 'door-leaf-basement-lobby';
+      pivot.add(fr, gl); G[gid].add(pivot); let cur = -1;
+      const d = { id: 'basement-lobby', floorId: 'basement', kind: 'door', center: V3(2.16, y + 1.05, zl), pivot, leaf: gl, opening: null,
+        setOpen(t) { t = Math.max(0, Math.min(1, +t || 0)); if (t === cur) return; cur = t; pivot.rotation.y = -t * Math.PI * 80 / 180; } };
+      doors.push(d); d.setOpen(1);
+    }
+    label(gid, 'ELEVADOR · SAÍDA', 2.16, y + 2.29, zl - 0.04, Math.PI, 0.9, 0.13, { bg: '#1c7a45', fg: '#ffffff', glow: 1.6, pw: 512 });
+    // fire hose cabinet + extinguisher by the lobby
+    B.rboxAB(gid, 'pipeRed', 0.38, y + 0.75, 6.87, 1.02, y + 1.5, 7.05, 0.012); B.boxAB(gid, 'glass', 0.45, y + 0.83, 6.862, 0.95, y + 1.42, 6.87);
+    { const reel = NI(new THREE.TorusGeometry(0.2, 0.05, 6, 18)); reel.translate(0.7, y + 1.12, 6.9); B.push(gid, 'evWhite', reel); }
+    label(gid, 'INCÊNDIO', 0.7, y + 1.62, 7.045, Math.PI, 0.6, 0.12, { bg: '#b3261e', fg: '#ffffff', pw: 256 });
+    B.cyl(gid, 'pipeRed', [1.3, y + 0.8, 6.95], [1.3, y + 1.28, 6.95], 0.07, 14); B.cyl(gid, 'black', [1.3, y + 1.28, 6.95], [1.3, y + 1.37, 6.95], 0.024, 8); B.boxAB(gid, 'black', 1.24, y + 1.33, 6.94, 1.36, y + 1.36, 6.96);
+    B.boxAB(gid, 'galv', 1.22, y + 1.0, 7.0, 1.38, y + 1.04, 7.05);
+    // bike rack with two bikes (west wall pocket in front of the lobby)
+    for (const z of [4.75, 5.45, 6.15]) { B.cyl(gid, 'galv', [0.5, y, z], [0.5, y + 0.8, z], 0.022, 8); B.cyl(gid, 'galv', [1.2, y, z], [1.2, y + 0.8, z], 0.022, 8); B.cyl(gid, 'galv', [0.5, y + 0.8, z], [1.2, y + 0.8, z], 0.022, 8); }
+    const bike = (cx, z, mat) => {
+      const wy = y + 0.34, f = cx - 0.52, r = cx + 0.52;
+      for (const x of [f, r]) { const t = NI(new THREE.TorusGeometry(0.325, 0.016, 5, 18)); t.translate(x, wy, z); B.push(gid, 'tyre', t); B.cyl(gid, 'alloy', [x, wy, z - 0.03], [x, wy, z + 0.03], 0.03, 8); }
+      const bb = [cx - 0.05, wy - 0.04, z], seat = [cx + 0.14, wy + 0.5, z], head = [cx - 0.42, wy + 0.52, z];
+      B.cyl(gid, mat, bb, seat, 0.016, 6); B.cyl(gid, mat, seat, head, 0.016, 6); B.cyl(gid, mat, bb, [head[0] + 0.02, head[1] - 0.1, z], 0.018, 6);
+      B.cyl(gid, mat, bb, [r, wy, z], 0.012, 6); B.cyl(gid, mat, seat, [r, wy, z], 0.011, 6); B.cyl(gid, 'alloy', head, [f, wy, z], 0.013, 6);
+      B.cyl(gid, 'alloy', [seat[0], seat[1], z], [seat[0] + 0.04, seat[1] + 0.14, z], 0.011, 6); B.boxAB(gid, 'black', seat[0] - 0.08, seat[1] + 0.13, z - 0.06, seat[0] + 0.16, seat[1] + 0.17, z + 0.06);
+      B.cyl(gid, 'alloy', [head[0] - 0.02, head[1] + 0.12, z - 0.24], [head[0] - 0.02, head[1] + 0.12, z + 0.24], 0.011, 6); B.cyl(gid, 'alloy', head, [head[0] - 0.02, head[1] + 0.12, z], 0.012, 6);
+    };
+    bike(1.02, 4.9, 'pipeRed'); bike(1.0, 5.6, 'darkSteel');
+    // convex mirror at the foot of the ramp
+    { const zc = 2.075, cap = NI(new THREE.SphereGeometry(0.55, 18, 6, 0, Math.PI * 2, 0, 0.58)); cap.rotateX(Math.PI / 2); cap.translate(12.2, y + 1.85, zc + 0.16 - 0.55 * Math.cos(0.58)); B.push(gid, 'mirror', cap);
+      const rim = NI(new THREE.TorusGeometry(0.305, 0.02, 6, 24)); rim.translate(12.2, y + 1.85, zc + 0.16); B.push(gid, 'pipeRed', rim); B.cyl(gid, 'galv', [12.2, y + 1.85, zc], [12.2, y + 1.85, zc + 0.15], 0.02, 8); }
+    // signage
+    label(gid, 'ÁREA TÉCNICA', 4.2, y + 2.26, 8.893, Math.PI, 0.7, 0.11, { pw: 512 });
+    label(gid, 'PISO -1', 10.293, y + 1.75, 10.4, -Math.PI / 2, 1.0, 0.3, { bg: '#22262b', fg: '#e8d9b8', pw: 512 });
+    label(gid, 'SAÍDA', 10.293, y + 1.75, 7.2, -Math.PI / 2, 0.7, 0.22, { bg: '#1c7a45', fg: '#ffffff', glow: 1.4, pw: 256 });
+    // wall dado band (anthracite) on the west and rear walls
     B.boxAB(gid, 'darkSteel', 0.176, y + 0.05, -7.72, 0.19, y + 1.1, 7.05);
     B.boxAB(gid, 'darkSteel', 0.18, y + 0.05, -7.73, 8.1, y + 1.1, -7.72);
   }
 
+
   // ───────── lobby ─────────
   function buildLobby() {
     const g = 'ground', y = 0;
-    // timber slat feature wall on x=2.85 face (z 11.2 → 14.45)
-    B.boxAB(g, 'walnut', 2.86, y, 11.2, 2.9, 2.7, 14.5);
-    for (let z = 11.25; z < 14.45; z += 0.09) B.boxAB(g, 'oak', 2.9, y + 0.05, z, 2.96, 2.65, z + 0.05);
-    // warm LED coves: top and bottom of the slat wall (wall-washer glow), ceiling shadow gap around the lobby
-    B.boxAB(g, 'ledWarm', 2.91, 2.66, 11.2, 2.93, 2.68, 14.5);
-    B.boxAB(g, 'ledWarm', 2.91, 0.02, 11.2, 2.93, 0.04, 14.5);
-    B.boxAB(g, 'ledWarm', 9.36, 2.66, 9.35, 9.38, 2.68, 14.4);
+    // timber slat feature wall on the west wall (z 11.2 → 14.5): sealed backing, plinth and valance — no light behind the slats
+    B.boxAB(g, 'darkSteel', 2.852, y, 11.2, 2.9, 2.7, 14.5);
+    for (let z = 11.24; z < 14.46; z += 0.09) B.boxAB(g, 'slatW', 2.9, y + 0.1, z, 2.955, 2.6, z + 0.05);
+    B.boxAB(g, 'bronze', 2.9, y, 11.2, 2.97, y + 0.1, 14.5);
+    B.boxAB(g, 'bronze', 2.9, 2.6, 11.2, 3.06, 2.7, 14.5);
+    B.boxAB(g, 'ledWarm', 2.985, 2.593, 11.26, 3.03, 2.6, 14.44);   // wall-washer under the valance, in front of the slats
+    // backlit logo: bronze panel floating in front of the slats with a halo
+    B.boxAB(g, 'logo', 2.957, 1.4, 12.02, 2.966, 1.9, 13.68);
+    B.boxAB(g, 'bronze', 2.966, 1.43, 12.05, 2.98, 1.87, 13.65);
+    const lt = textCanvasTexture(THREE, 'VILNYI', { w: 1024, h: 256, bg: '#2b2118', fg: '#ffe2b0', font: '300 150px Georgia, "Times New Roman", serif' });
+    const logo = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 0.375), new THREE.MeshStandardMaterial({ map: lt, emissive: 0xffffff, emissiveMap: lt, emissiveIntensity: 1.3, roughness: 0.5, metalness: 0.3 }));
+    logo.material.name = 'led-strip-emissive:sign'; logo.position.set(2.9815, 1.65, 12.85); logo.rotation.y = Math.PI / 2; logo.name = 'lobby-logo'; G[g].add(logo);
     // warm key light under the ring pendant (one of ≤2 building point lights)
-    try {
-      const pl = new THREE.PointLight(0xffd2a0, 10, 9, 2); pl.name = 'lobby-light'; pl.position.set(6.2, 1.95, 12.0); pl.castShadow = false; G[g].add(pl);
-    } catch (e) { /* ignore */ }
-    // backlit logo panel
-    const lt = textCanvasTexture(THREE, 'VILNYI', { w: 1024, h: 256, bg: '#1b1714', fg: '#ffe2b0', font: '300 150px Georgia, "Times New Roman", serif' });
-    const logo = new THREE.Mesh(new THREE.PlaneGeometry(1.5, 0.375), new THREE.MeshStandardMaterial({ map: lt, emissive: 0xffffff, emissiveMap: lt, emissiveIntensity: 1.2, roughness: 0.5 }));
-    logo.position.set(2.975, 1.65, 12.85); logo.rotation.y = Math.PI / 2; logo.name = 'lobby-logo'; G[g].add(logo);
-    B.boxAB(g, 'darkSteel', 2.955, 1.44, 12.07, 2.97, 1.86, 13.63);
-    B.boxAB(g, 'logo', 2.96, 1.42, 12.04, 2.965, 1.88, 12.07); B.boxAB(g, 'logo', 2.96, 1.42, 13.63, 2.965, 1.88, 13.66);
+    try { const pl = new THREE.PointLight(0xffd2a0, 10, 9, 2); pl.name = 'lobby-light'; pl.position.set(6.2, 1.95, 12.0); pl.castShadow = false; G[g].add(pl); } catch (e) { /* ignore */ }
     // pendant: large brass ring
     const ring = NI(new THREE.TorusGeometry(0.55, 0.02, 8, 48)); ring.rotateX(Math.PI / 2); ring.translate(6.2, 2.05, 12.0); B.push(g, 'brass', ring);
     const ringL = NI(new THREE.TorusGeometry(0.55, 0.012, 6, 48)); ringL.rotateX(Math.PI / 2); ringL.translate(6.2, 2.03, 12.0); B.push(g, 'logo', ringL);
     for (const a of [0, 2.09, 4.19]) B.cyl(g, 'darkSteel', [6.2 + Math.cos(a) * 0.55, 2.05, 12.0 + Math.sin(a) * 0.55], [6.2, 2.7, 12.0], 0.003, 4);
-    // bench (walnut on steel) against the east wall
-    B.boxAB(g, 'walnut', 8.95, 0.42, 11.6, 9.4, 0.47, 13.6);
-    for (const z of [11.75, 13.45]) B.boxAB(g, 'darkSteel', 9.0, 0, z - 0.03, 9.35, 0.42, z + 0.03);
-    // mailboxes (8) on the east wall by the landing
-    B.boxAB(g, 'darkSteel', 9.33, 0.95, 9.55, 9.4, 1.65, 10.95);
-    for (let r = 0; r < 2; r++) for (let c = 0; c < 4; c++) B.boxAB(g, 'brass', 9.325, 1.02 + r * 0.32, 9.6 + c * 0.34, 9.33, 1.3 + r * 0.32, 9.9 + c * 0.34);
-    // plant pot + olive bush
-    B.cyl(g, 'planterDark', [8.95, 0, 14.15], [8.95, 0.6, 14.15], 0.26, 20, 0.3);
-    bush(g, 8.95, 0.55, 14.15, 0.42, 'olive', 404);
-    // doormat recess
-    B.boxAB(g, 'darkSteel', 3.75, 0.0, 13.6, 5.15, 0.004, 14.5);
-    // skirting shadow gap lines along lobby walls
+    // brass inlay framing the centre of the stone floor
+    for (const [x0, z0, x1, z1] of [[4.0, 10.2, 8.4, 10.212], [4.0, 13.788, 8.4, 13.8], [4.0, 10.2, 4.012, 13.8], [8.388, 10.2, 8.4, 13.8]]) B.boxAB(g, 'brass', x0, y, z0, x1, y + 0.0015, z1);
+    // east wall (x = 9.4): numbered brass mailboxes, large mirror over a concierge console
+    const xe = 9.4;
+    B.boxAB(g, 'bronze', xe - 0.075, 0.96, 9.66, xe, 1.68, 11.14);
+    const units = ['0.A', '0.B', '1.A', '1.B', '1.C', '2.A', '2.B', '2.C'];
+    for (let r = 0; r < 2; r++) for (let c = 0; c < 4; c++) B.rboxAB(g, 'brass', xe - 0.09, 1.0 + (1 - r) * 0.33, 9.7 + c * 0.355, xe - 0.074, 1.31 + (1 - r) * 0.33, 10.035 + c * 0.355, 0.004);
+    { const cv = makeCanvas(1024, 472), c2 = cv.getContext('2d'); c2.clearRect(0, 0, 1024, 472);
+      units.forEach((u, i) => { const cx = (i % 4) * 256 + 128, cy = Math.floor(i / 4) * 236 + 118; c2.fillStyle = '#2b2219'; c2.font = '600 58px Georgia, "Times New Roman", serif'; c2.textAlign = 'center'; c2.textBaseline = 'middle'; c2.fillText(u, cx, cy - 40); c2.fillRect(cx - 78, cy + 28, 156, 12); c2.beginPath(); c2.arc(cx + 92, cy - 44, 9, 0, 7); c2.fill(); });
+      const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4;
+      const mm = new THREE.MeshStandardMaterial({ map: t, transparent: true, roughness: 0.5 }); mm.name = 'signage';
+      const pm = new THREE.Mesh(new THREE.PlaneGeometry(1.42, 0.655), mm); pm.position.set(xe - 0.0915, 1.3275, 10.4); pm.rotation.y = -Math.PI / 2; pm.name = 'mailbox-labels'; G[g].add(pm); }
+    label(g, 'CORREIO', xe - 0.002, 1.78, 10.4, -Math.PI / 2, 0.5, 0.07, { bg: null, fg: '#6b5a44', pw: 512, font: '500 60px Helvetica, Arial, sans-serif' });
+    B.boxAB(g, 'bronze', xe - 0.03, 0.98, 11.56, xe, 2.48, 13.64);
+    B.boxAB(g, 'mirror', xe - 0.034, 1.01, 11.59, xe - 0.03, 2.45, 13.61);
+    // console: floating walnut body, stone top, bronze legs, lamp and tray
+    B.rboxAB(g, 'walnut', xe - 0.42, 0.58, 11.8, xe, 0.84, 13.4, 0.008);
+    B.rboxAB(g, 'stoneFine', xe - 0.44, 0.84, 11.78, xe, 0.875, 13.42, 0.006);
+    for (const z of [11.86, 13.3]) { B.boxAB(g, 'bronze', xe - 0.4, 0, z, xe - 0.37, 0.58, z + 0.03); B.boxAB(g, 'bronze', xe - 0.06, 0, z, xe - 0.03, 0.58, z + 0.03); }
+    for (const z of [12.2, 12.6, 13.0]) B.boxAB(g, 'brass', xe - 0.424, 0.7, z - 0.06, xe - 0.42, 0.712, z + 0.06);
+    B.cyl(g, 'brass', [xe - 0.2, 0.875, 13.15], [xe - 0.2, 0.885, 13.15], 0.07, 16); B.cyl(g, 'brass', [xe - 0.2, 0.885, 13.15], [xe - 0.2, 1.2, 13.15], 0.01, 8);
+    B.cyl(g, 'ledWarm', [xe - 0.2, 1.18, 13.15], [xe - 0.2, 1.4, 13.15], 0.11, 16, 0.08);
+    B.boxAB(g, 'bronze', xe - 0.34, 0.875, 12.0, xe - 0.1, 0.89, 12.34); B.boxAB(g, 'white', xe - 0.31, 0.89, 12.04, xe - 0.14, 0.9, 12.28);
+    B.cyl(g, 'planterDark', [xe - 0.2, 0.875, 12.62], [xe - 0.2, 1.03, 12.62], 0.06, 12, 0.075); bush(g, xe - 0.2, 1.0, 12.62, 0.13, 'olive', 406);
+    // upholstered bench on the north wall
+    B.rboxAB(g, 'walnut', 7.62, 0.2, 9.32, 9.2, 0.4, 9.78, 0.01);
+    B.rboxAB(g, 'leather', 7.64, 0.4, 9.33, 9.18, 0.48, 9.77, 0.02);
+    for (const x of [7.72, 9.07]) B.boxAB(g, 'bronze', x, 0, 9.36, x + 0.03, 0.2, 9.74);
+    // planter in the south-east corner
+    B.cyl(g, 'planterDark', [8.95, 0, 14.12], [8.95, 0.62, 14.12], 0.25, 20, 0.3);
+    bush(g, 8.95, 0.56, 14.12, 0.42, 'olive', 404); grassClump(g, 8.95, 0.6, 14.12, 0.9, 405, 'grass');
+    // mat well inside the door
+    B.boxAB(g, 'steel', 3.73, 0.0, 13.58, 5.17, 0.003, 14.52); B.boxAB(g, 'rubber', 3.75, 0.0, 13.6, 5.15, 0.006, 14.5);
+    // stair door: bronze portal, glazed leaf (held open) + fixed glazed guard beside the flight, wayfinding
+    const zs0 = 9.5, zs1 = 11.1, xs = 2.75, zm = 10.46;
+    B.boxAB(g, 'bronze', xs - 0.105, 0, zs0, xs + 0.105, 2.3, zs0 + 0.035); B.boxAB(g, 'bronze', xs - 0.105, 0, zs1 - 0.035, xs + 0.105, 2.3, zs1); B.boxAB(g, 'bronze', xs - 0.105, 2.265, zs0, xs + 0.105, 2.3, zs1);
+    B.boxAB(g, 'bronze', xs - 0.03, 0, zm, xs + 0.03, 2.265, zm + 0.04); B.boxAB(g, 'bronze', xs - 0.03, 0, zm + 0.04, xs + 0.03, 0.1, zs1 - 0.035);
+    B.boxAB(g, 'glass', xs - 0.006, 0.1, zm + 0.04, xs + 0.006, 2.265, zs1 - 0.035);
+    {
+      const W = zm - zs0 - 0.045, H = 2.24, st = 0.05;
+      const pivot = new THREE.Object3D(); pivot.name = 'door-ground-stairs'; pivot.position.set(xs + 0.03, 0.005, zs0 + 0.04); const base = -Math.PI / 2; pivot.rotation.y = base; // leaf along +z when closed
+      const fr = new THREE.Mesh(boxesGeo([[st / 2, H / 2, 0, st, H, 0.04], [W - st / 2, H / 2, 0, st, H, 0.04], [W / 2, H - st / 2, 0, W - 2 * st, st, 0.04], [W / 2, 0.075, 0, W - 2 * st, 0.15, 0.04], [W - 0.1, 1.1, 0, 0.025, 0.5, 0.1]]), M.bronze); fr.castShadow = true; fr.name = 'door-frame-ground-stairs';
+      const gl = new THREE.Mesh(new THREE.BoxGeometry(W - 2 * st + 0.01, H - st - 0.15 + 0.01, 0.01), M.glass); gl.position.set(W / 2, 0.15 + (H - st - 0.15) / 2, 0); gl.name = 'door-leaf-ground-stairs';
+      pivot.add(fr, gl); G[g].add(pivot); let cur = -1;
+      const d = { id: 'ground-stairs', floorId: 'ground', kind: 'door', center: V3(xs, 1.05, (zs0 + zm) / 2), pivot, leaf: gl, opening: null,
+        setOpen(t) { t = Math.max(0, Math.min(1, +t || 0)); if (t === cur) return; cur = t; pivot.rotation.y = base + t * Math.PI / 2; } };
+      doors.push(d); d.setOpen(1);
+    }
+    label(g, 'ESCADAS  ·  GARAGEM -1', 2.853, 2.5, 10.3, Math.PI / 2, 1.3, 0.14, { bg: '#4a3a2a', fg: '#ffe7c2', glow: 0.9, pw: 1024 });
+    label(g, 'ELEVADOR  ·  GARAGEM -1', 1.662, 2.46, 8.0, Math.PI / 2, 0.86, 0.09, { bg: '#4a3a2a', fg: '#ffe7c2', glow: 0.9, pw: 1024 });
+    // ceiling cove along the east wall
+    B.boxAB(g, 'ledWarm', xe - 0.04, 2.66, 9.35, xe - 0.02, 2.68, 14.4);
   }
 
   // ───────── skirting ─────────

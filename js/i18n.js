@@ -67,7 +67,7 @@ const en = {
   'bal.deck': 'Deck', 'bal.balcony': 'Balcony',
 
   'res.eyebrow': 'Reservation', 'res.title': 'Reserve your apartment',
-  'res.lede': 'Four short steps. A €5,000 reservation takes the apartment off the market while we prepare the promissory contract.',
+  'res.lede': 'Four short steps. A {fee} reservation takes the apartment off the market while we prepare the promissory contract.',
   'res.step1': 'Apartment', 'res.step2': 'Your details', 'res.step3': 'Payment plan', 'res.step4': 'Confirmation',
   'res.choose': 'Apartment', 'res.finish': 'Finish', 'res.summary': 'Summary', 'res.base': 'Apartment', 'res.upgrade': 'Finish upgrade', 'res.total': 'Total indicative price',
   'res.next': 'Continue', 'res.back': 'Back', 'res.confirm': 'Confirm reservation', 'res.saving': 'Saving…',
@@ -173,7 +173,7 @@ const pt = {
   'unit.prev': 'Anterior', 'unit.next': 'Seguinte', 'unit.plan': 'Planta', 'unit.drawing': 'Desenho do arquiteto', 'unit.notfound': 'Este apartamento não existe.',
   'aspect.N': 'Norte · lado do jardim, para o rio', 'aspect.S': 'Sul · lado da rua, sol pleno', 'aspect.E': 'Nascente · luz da manhã', 'aspect.W': 'Poente',
   'outdoor.garden': 'jardim', 'outdoor.balcony': 'varanda', 'bal.deck': 'Deck', 'bal.balcony': 'Varanda',
-  'res.eyebrow': 'Reserva', 'res.title': 'Reserve o seu apartamento', 'res.lede': 'Quatro passos rápidos. Uma reserva de 5.000 € retira o apartamento do mercado enquanto preparamos o contrato-promessa.',
+  'res.eyebrow': 'Reserva', 'res.title': 'Reserve o seu apartamento', 'res.lede': 'Quatro passos rápidos. Uma reserva de {fee} retira o apartamento do mercado enquanto preparamos o contrato-promessa.',
   'res.step1': 'Apartamento', 'res.step2': 'Os seus dados', 'res.step3': 'Plano de pagamento', 'res.step4': 'Confirmação',
   'res.choose': 'Apartamento', 'res.finish': 'Acabamento', 'res.summary': 'Resumo', 'res.base': 'Apartamento', 'res.upgrade': 'Acabamento', 'res.total': 'Preço indicativo total',
   'res.next': 'Continuar', 'res.back': 'Voltar', 'res.confirm': 'Confirmar reserva', 'res.saving': 'A guardar…', 'res.unavailable': 'Este apartamento não está disponível. Escolha outro.',
@@ -262,7 +262,7 @@ const he = {
   'unit.prev': 'הקודמת', 'unit.next': 'הבאה', 'unit.plan': 'תוכנית', 'unit.drawing': 'שרטוט האדריכל', 'unit.notfound': 'הדירה הזו לא קיימת.',
   'aspect.N': 'צפון · לצד הגינה, לכיוון הנהר', 'aspect.S': 'דרום · לצד הרחוב, שמש מלאה', 'aspect.E': 'מזרח · אור בוקר', 'aspect.W': 'מערב',
   'outdoor.garden': 'גינה', 'outdoor.balcony': 'מרפסת', 'bal.deck': 'דק', 'bal.balcony': 'מרפסת',
-  'res.eyebrow': 'הזמנה', 'res.title': 'הזמינו את הדירה שלכם', 'res.lede': 'ארבעה צעדים קצרים. דמי הזמנה של 5,000 € מוציאים את הדירה מהשוק בזמן שאנחנו מכינים את חוזה ההתחייבות.',
+  'res.eyebrow': 'הזמנה', 'res.title': 'הזמינו את הדירה שלכם', 'res.lede': 'ארבעה צעדים קצרים. דמי הזמנה של {fee} מוציאים את הדירה מהשוק בזמן שאנחנו מכינים את חוזה ההתחייבות.',
   'res.step1': 'דירה', 'res.step2': 'הפרטים שלכם', 'res.step3': 'תוכנית תשלומים', 'res.step4': 'אישור',
   'res.choose': 'דירה', 'res.finish': 'גימור', 'res.summary': 'סיכום', 'res.base': 'דירה', 'res.upgrade': 'תוספת גימור', 'res.total': 'מחיר משוער כולל',
   'res.next': 'המשך', 'res.back': 'חזרה', 'res.confirm': 'אישור ההזמנה', 'res.saving': 'שומר…', 'res.unavailable': 'הדירה אינה פנויה. בחרו דירה אחרת.',
@@ -351,7 +351,7 @@ const ru = {
   'unit.prev': 'Предыдущая', 'unit.next': 'Следующая', 'unit.plan': 'Планировка', 'unit.drawing': 'Чертёж архитектора', 'unit.notfound': 'Такой квартиры нет.',
   'aspect.N': 'Север · сторона сада, к реке', 'aspect.S': 'Юг · сторона улицы, много солнца', 'aspect.E': 'Восток · утренний свет', 'aspect.W': 'Запад',
   'outdoor.garden': 'сад', 'outdoor.balcony': 'балкон', 'bal.deck': 'Терраса', 'bal.balcony': 'Балкон',
-  'res.eyebrow': 'Бронирование', 'res.title': 'Забронируйте квартиру', 'res.lede': 'Четыре коротких шага. Бронь 5 000 € снимает квартиру с продажи, пока мы готовим предварительный договор.',
+  'res.eyebrow': 'Бронирование', 'res.title': 'Забронируйте квартиру', 'res.lede': 'Четыре коротких шага. Бронь {fee} снимает квартиру с продажи, пока мы готовим предварительный договор.',
   'res.step1': 'Квартира', 'res.step2': 'Ваши данные', 'res.step3': 'План платежей', 'res.step4': 'Подтверждение',
   'res.choose': 'Квартира', 'res.finish': 'Отделка', 'res.summary': 'Итог', 'res.base': 'Квартира', 'res.upgrade': 'Доплата за отделку', 'res.total': 'Итоговая ориентировочная цена',
   'res.next': 'Далее', 'res.back': 'Назад', 'res.confirm': 'Подтвердить бронь', 'res.saving': 'Сохраняем…', 'res.unavailable': 'Эта квартира недоступна. Выберите другую.',
@@ -555,6 +555,79 @@ Object.assign(RU_DATA, {
   'Full-height flush doors in dark oak, concealed hinges': 'Двери в потолок из тёмного дуба, скрытые петли',
   'Slim-profile thermal-break aluminium, solar-control glazing': 'Тонкий алюминиевый профиль с терморазрывом, солнцезащитное остекление'
 });
+
+// ---- Phase 4: price per m², colour themes, floor card, sales contact (G-International), 3D bar ----
+const P4 = {
+  en: {
+    'nav.theme': 'Colour theme', 'nav.lang': 'Language',
+    'theme.stone': 'Stone', 'theme.sand': 'Sand', 'theme.sage': 'Sage', 'theme.atlantic': 'Atlantic', 'theme.night': 'Night',
+    'hero.from': 'From', 'price.perM2': 'Price per m²', 'price.perM2Note': 'Indicative · {p} per m² of interior area',
+    'table.perM2': 'Per m²',
+    'sel.lede': 'Tap a floor on the façade. Its plan opens over the building, with every apartment coloured by its current availability.',
+    'plan.hover': 'Tap an apartment for details', 'plan.floors': 'Floors', 'plan.close': 'Close plan',
+    'contact.sales': 'Sales', 'contact.developer': 'Developer', 'contact.whatsapp': 'WhatsApp', 'contact.website': 'Website',
+    'contact.title': 'Talk to the sales team', 'contact.note': 'Call or write on WhatsApp for prices, plans and viewings.',
+    'contact.phone': 'Phone', 'contact.email': 'Email', 'contact.sendWa': 'Send on WhatsApp',
+    'done.offline': 'Your reservation request is ready. To register it, send the details below to the sales team at G-International on WhatsApp, or copy them and call. We confirm within one business day.',
+    'done.failed': 'We could not save your request online. Send the details below to the sales team on WhatsApp, or copy them and call.',
+    'done.sendTo': 'Send to',
+    'int.offline': 'Thank you. To make sure it reaches us, please also send your details to the sales team:',
+    'f.consent': 'I agree that VILNYI, Unipessoal Lda and its sales partner G-International store and use these details to process my request and contact me about it, under the EU General Data Protection Regulation. I can ask for them to be corrected or deleted at any time.',
+    'v.lobby': 'Lobby', 'v.parking': 'Car park', 'v.showBar': 'Show controls'
+  },
+  pt: {
+    'nav.theme': 'Tema de cor', 'nav.lang': 'Idioma',
+    'theme.stone': 'Pedra', 'theme.sand': 'Areia', 'theme.sage': 'Sálvia', 'theme.atlantic': 'Atlântico', 'theme.night': 'Noite',
+    'hero.from': 'Desde', 'price.perM2': 'Preço por m²', 'price.perM2Note': 'Indicativo · {p} por m² de área útil',
+    'table.perM2': 'Por m²',
+    'sel.lede': 'Toque num piso da fachada. A planta abre sobre o edifício, com cada apartamento colorido pela disponibilidade atual.',
+    'plan.hover': 'Toque num apartamento para ver os detalhes', 'plan.floors': 'Pisos', 'plan.close': 'Fechar planta',
+    'contact.sales': 'Vendas', 'contact.developer': 'Promotor', 'contact.whatsapp': 'WhatsApp', 'contact.website': 'Website',
+    'contact.title': 'Fale com a equipa de vendas', 'contact.note': 'Ligue ou escreva pelo WhatsApp para preços, plantas e visitas.',
+    'contact.phone': 'Telefone', 'contact.email': 'Email', 'contact.sendWa': 'Enviar por WhatsApp',
+    'done.offline': 'O seu pedido de reserva está pronto. Para o registar, envie os dados abaixo à equipa de vendas da G-International pelo WhatsApp, ou copie-os e ligue. Confirmamos no prazo de um dia útil.',
+    'done.failed': 'Não foi possível guardar o pedido online. Envie os dados abaixo à equipa de vendas pelo WhatsApp, ou copie-os e ligue.',
+    'done.sendTo': 'Enviar para',
+    'int.offline': 'Obrigado. Para garantir que nos chega, envie também os seus dados à equipa de vendas:',
+    'f.consent': 'Aceito que a VILNYI, Unipessoal Lda e o seu parceiro de vendas G-International guardem e utilizem estes dados para tratar o meu pedido e contactar-me a esse respeito, ao abrigo do Regulamento Geral sobre a Proteção de Dados. Posso pedir a sua correção ou eliminação a qualquer momento.',
+    'v.lobby': 'Átrio', 'v.parking': 'Garagem', 'v.showBar': 'Mostrar controlos'
+  },
+  he: {
+    'nav.theme': 'ערכת צבעים', 'nav.lang': 'שפה',
+    'theme.stone': 'אבן', 'theme.sand': 'חול', 'theme.sage': 'מרווה', 'theme.atlantic': 'אטלנטי', 'theme.night': 'לילה',
+    'hero.from': 'החל מ־', 'price.perM2': 'מחיר למ״ר', 'price.perM2Note': 'מחיר משוער · {p} למ״ר שטח פנים',
+    'table.perM2': 'למ״ר',
+    'sel.lede': 'הקישו על קומה בחזית. התוכנית שלה נפתחת מעל הבניין, וכל דירה צבועה לפי הזמינות הנוכחית שלה.',
+    'plan.hover': 'הקישו על דירה לפרטים', 'plan.floors': 'קומות', 'plan.close': 'סגירת התוכנית',
+    'contact.sales': 'מכירות', 'contact.developer': 'היזם', 'contact.whatsapp': 'וואטסאפ', 'contact.website': 'אתר',
+    'contact.title': 'דברו עם צוות המכירות', 'contact.note': 'התקשרו או כתבו בוואטסאפ לקבלת מחירים, תוכניות ותיאום פגישה.',
+    'contact.phone': 'טלפון', 'contact.email': 'אימייל', 'contact.sendWa': 'שליחה בוואטסאפ',
+    'done.offline': 'בקשת ההזמנה מוכנה. כדי לרשום אותה, שלחו את הפרטים שלמטה לצוות המכירות של G-International בוואטסאפ, או העתיקו אותם והתקשרו. נאשר תוך יום עסקים אחד.',
+    'done.failed': 'לא הצלחנו לשמור את הבקשה באתר. שלחו את הפרטים שלמטה לצוות המכירות בוואטסאפ, או העתיקו אותם והתקשרו.',
+    'done.sendTo': 'שליחה אל',
+    'int.offline': 'תודה. כדי לוודא שהפרטים יגיעו אלינו, שלחו אותם גם לצוות המכירות:',
+    'f.consent': 'אני מסכים/ה ש־VILNYI, Unipessoal Lda ושותפת המכירות שלה G-International ישמרו את הפרטים וישתמשו בהם כדי לטפל בבקשה שלי וליצור איתי קשר בעניינה, בהתאם לתקנות הגנת המידע של האיחוד האירופי (GDPR). אפשר לבקש לתקן או למחוק אותם בכל עת.',
+    'v.lobby': 'לובי', 'v.parking': 'חניון', 'v.showBar': 'הצגת הפקדים'
+  },
+  ru: {
+    'nav.theme': 'Цветовая тема', 'nav.lang': 'Язык',
+    'theme.stone': 'Камень', 'theme.sand': 'Песок', 'theme.sage': 'Шалфей', 'theme.atlantic': 'Атлантика', 'theme.night': 'Ночь',
+    'hero.from': 'От', 'price.perM2': 'Цена за м²', 'price.perM2Note': 'Ориентировочно · {p} за м² жилой площади',
+    'table.perM2': 'За м²',
+    'sel.lede': 'Нажмите на этаж на фасаде. План откроется поверх здания, а каждая квартира окрашена по текущей доступности.',
+    'plan.hover': 'Нажмите на квартиру, чтобы узнать подробности', 'plan.floors': 'Этажи', 'plan.close': 'Закрыть план',
+    'contact.sales': 'Продажи', 'contact.developer': 'Застройщик', 'contact.whatsapp': 'WhatsApp', 'contact.website': 'Сайт',
+    'contact.title': 'Свяжитесь с отделом продаж', 'contact.note': 'Позвоните или напишите в WhatsApp: цены, планировки, показы.',
+    'contact.phone': 'Телефон', 'contact.email': 'Email', 'contact.sendWa': 'Отправить в WhatsApp',
+    'done.offline': 'Заявка на бронь готова. Чтобы зарегистрировать её, отправьте данные ниже в отдел продаж G-International через WhatsApp или скопируйте их и позвоните. Подтвердим в течение одного рабочего дня.',
+    'done.failed': 'Не удалось сохранить заявку на сайте. Отправьте данные ниже в отдел продаж через WhatsApp или скопируйте их и позвоните.',
+    'done.sendTo': 'Отправить',
+    'int.offline': 'Спасибо. Чтобы заявка точно дошла, отправьте свои данные и в отдел продаж:',
+    'f.consent': 'Я согласен(на), что VILNYI, Unipessoal Lda и её партнёр по продажам G-International хранят и используют эти данные для обработки моей заявки и связи со мной в соответствии с Общим регламентом ЕС по защите данных (GDPR). Я могу в любой момент попросить исправить или удалить их.',
+    'v.lobby': 'Лобби', 'v.parking': 'Паркинг', 'v.showBar': 'Показать панель'
+  }
+};
+Object.assign(en, P4.en); Object.assign(pt, P4.pt); Object.assign(he, P4.he); Object.assign(ru, P4.ru);
 
 export const DICTS = { en, pt, he, ru };
 

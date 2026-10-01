@@ -23,16 +23,20 @@ export const PROJECT = {
   stage: 'Preliminary study · September 2026',
   // Indicative programme — edit when licensing dates are known
   timeline: [
-    { key: 'pip',     date: 'Q4 2026', label: { en: 'Planning information request (PIP)', pt: 'Pedido de informação prévia (PIP)', he: 'בקשת מידע תכנוני (PIP)' } },
-    { key: 'licence', date: 'Q2 2027', label: { en: 'Building licence', pt: 'Licença de construção', he: 'היתר בנייה' } },
-    { key: 'start',   date: 'Q3 2027', label: { en: 'Construction starts', pt: 'Início da obra', he: 'תחילת בנייה' } },
-    { key: 'topout',  date: 'Q2 2028', label: { en: 'Structure complete', pt: 'Estrutura concluída', he: 'סיום שלד' } },
-    { key: 'keys',    date: 'Q4 2028', label: { en: 'Keys handed over', pt: 'Entrega de chaves', he: 'מסירת מפתחות' } }
+    { key: 'pip',     date: 'Q4 2027', label: { en: 'Planning information request (PIP)', pt: 'Pedido de informação prévia (PIP)', he: 'בקשת מידע תכנוני (PIP)' } },
+    { key: 'licence', date: 'Q2 2028', label: { en: 'Building licence', pt: 'Licença de construção', he: 'היתר בנייה' } },
+    { key: 'start',   date: 'Q3 2028', label: { en: 'Construction starts', pt: 'Início da obra', he: 'תחילת בנייה' } },
+    { key: 'topout',  date: 'Q2 2029', label: { en: 'Structure complete', pt: 'Estrutura concluída', he: 'סיום שלד' } },
+    { key: 'keys',    date: 'Q4 2029', label: { en: 'Keys handed over', pt: 'Entrega de chaves', he: 'מסירת מפתחות' } }
   ],
   contact: {
-    email: 'yosmos384@gmail.com',
-    phone: '',              // fill in: +351 …
-    whatsapp: ''            // fill in: 351XXXXXXXXX (digits only)
+    company: 'G-International',
+    email: '',                       // G-International's sales email — not published on their website; fill in
+    phone: '+972 50 599 9983',
+    whatsapp: '972505999983',
+    website: 'https://g-international.co.il/en/',
+    facebook: 'https://www.facebook.com/g.international.il',
+    instagram: 'https://www.instagram.com/g_international__/'
   }
 };
 
@@ -162,7 +166,7 @@ function basementWalls() {
     W([10.9, 1.9], [13.88, 1.9], 0.35, 'ext'),
     W([13.88, 1.9], [13.88, 14.7], 0.35, 'ext'),
     W([0, 14.7], [0, -7.9], 0.35, 'ext'),
-    W([2.75, 14.7], [13.88, 14.7], 0.35, 'ext', [O(0.45, 3.45, 'garage')]), // measured from a
+    W([2.75, 14.7], [13.88, 14.7], 0.35, 'ext', [O(7.65, 10.65, 'garage')]), // measured from a → x 10.4–13.4, under the ramp
     W([0, 14.7], [2.75, 14.7], 0.35, 'ext'),
     W([1.55, 7.15], [1.55, 8.85], 0.20, 'core', [O(0.40, 1.30, 'elevator')]),
     W([0, 7.15], [1.55, 7.15], 0.20, 'core'),
@@ -267,16 +271,18 @@ export const FLOORS = [
   { id: 'second', label: { en: 'Second floor · mansard', pt: '2.º andar · mansarda', he: 'קומה 2 · מנסרדה' }, level: LEVELS.second, walls: upperWalls('second'), rooms: upperRooms('2'), plan: 'assets/plan-2.jpg' }
 ];
 
+export const PRICE_PER_M2 = 6500; // EUR per m² of interior area — unit prices below = area × this, rounded to €100
+
 // Sales schedule — areas from the preliminary study. Prices are indicative.
 export const UNITS = [
-  { id: '0.A', floor: 'ground', type: 'T1', beds: 1, baths: 2, area: 42.28, outdoor: 34.5, outdoorKind: 'garden', aspect: ['N'], price: 195000, parking: 'P1', status: 'available', startRoom: '0.A-hall', viewRoom: '0.A-living' },
-  { id: '0.B', floor: 'ground', type: 'T2', beds: 2, baths: 1, area: 60.86, outdoor: 41.0, outdoorKind: 'garden', aspect: ['N', 'E'], price: 269000, parking: 'P2', status: 'available', startRoom: '0.B-hall', viewRoom: '0.B-living' },
-  { id: '1.A', floor: 'first', type: 'T1', beds: 1, baths: 2, area: 42.28, outdoor: 3.81, outdoorKind: 'balcony', aspect: ['N'], price: 189000, parking: 'P3', status: 'available', startRoom: '1.A-hall', viewRoom: '1.A-living' },
-  { id: '1.B', floor: 'first', type: 'T1', beds: 1, baths: 1, area: 43.76, outdoor: 4.65, outdoorKind: 'balcony', aspect: ['N', 'E'], price: 194000, parking: 'P4', status: 'available', startRoom: '1.B-hall', viewRoom: '1.B-living' },
-  { id: '1.C', floor: 'first', type: 'T2', beds: 2, baths: 1, area: 57.22, outdoor: 13.6, outdoorKind: 'balcony', aspect: ['S', 'E'], price: 249000, parking: 'P5', status: 'available', startRoom: '1.C-hall', viewRoom: '1.C-living' },
-  { id: '2.A', floor: 'second', type: 'T1', beds: 1, baths: 2, area: 41.53, outdoor: 3.6, outdoorKind: 'balcony', aspect: ['N'], price: 199000, parking: 'P6', status: 'available', startRoom: '2.A-hall', viewRoom: '2.A-living' },
-  { id: '2.B', floor: 'second', type: 'T1', beds: 1, baths: 1, area: 43.20, outdoor: 4.3, outdoorKind: 'balcony', aspect: ['N', 'E'], price: 204000, parking: 'P7', status: 'available', startRoom: '2.B-hall', viewRoom: '2.B-living' },
-  { id: '2.C', floor: 'second', type: 'T2', beds: 2, baths: 1, area: 54.50, outdoor: 7.1, outdoorKind: 'balcony', aspect: ['S', 'E'], price: 259000, parking: 'P8', status: 'available', startRoom: '2.C-hall', viewRoom: '2.C-living' }
+  { id: '0.A', floor: 'ground', type: 'T1', beds: 1, baths: 2, area: 42.28, outdoor: 34.5, outdoorKind: 'garden', aspect: ['N'], price: 274800, parking: 'P1', status: 'available', startRoom: '0.A-hall', viewRoom: '0.A-living' },
+  { id: '0.B', floor: 'ground', type: 'T2', beds: 2, baths: 1, area: 60.86, outdoor: 41.0, outdoorKind: 'garden', aspect: ['N', 'E'], price: 395600, parking: 'P2', status: 'available', startRoom: '0.B-hall', viewRoom: '0.B-living' },
+  { id: '1.A', floor: 'first', type: 'T1', beds: 1, baths: 2, area: 42.28, outdoor: 3.81, outdoorKind: 'balcony', aspect: ['N'], price: 274800, parking: 'P3', status: 'available', startRoom: '1.A-hall', viewRoom: '1.A-living' },
+  { id: '1.B', floor: 'first', type: 'T1', beds: 1, baths: 1, area: 43.76, outdoor: 4.65, outdoorKind: 'balcony', aspect: ['N', 'E'], price: 284400, parking: 'P4', status: 'available', startRoom: '1.B-hall', viewRoom: '1.B-living' },
+  { id: '1.C', floor: 'first', type: 'T2', beds: 2, baths: 1, area: 57.22, outdoor: 13.6, outdoorKind: 'balcony', aspect: ['S', 'E'], price: 371900, parking: 'P5', status: 'available', startRoom: '1.C-hall', viewRoom: '1.C-living' },
+  { id: '2.A', floor: 'second', type: 'T1', beds: 1, baths: 2, area: 41.53, outdoor: 3.6, outdoorKind: 'balcony', aspect: ['N'], price: 269900, parking: 'P6', status: 'available', startRoom: '2.A-hall', viewRoom: '2.A-living' },
+  { id: '2.B', floor: 'second', type: 'T1', beds: 1, baths: 1, area: 43.20, outdoor: 4.3, outdoorKind: 'balcony', aspect: ['N', 'E'], price: 280800, parking: 'P7', status: 'available', startRoom: '2.B-hall', viewRoom: '2.B-living' },
+  { id: '2.C', floor: 'second', type: 'T2', beds: 2, baths: 1, area: 54.50, outdoor: 7.1, outdoorKind: 'balcony', aspect: ['S', 'E'], price: 354200, parking: 'P8', status: 'available', startRoom: '2.C-hall', viewRoom: '2.C-living' }
 ];
 
 // Three interior finishes offered for every apartment.

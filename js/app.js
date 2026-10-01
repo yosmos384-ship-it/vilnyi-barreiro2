@@ -1,6 +1,6 @@
 // VILNYI · Barreiro 2 — sales app (APP agent).
 import {
-  PROJECT, BANK, PAYMENT_PLAN, LEVELS, FLOORS, UNITS, STYLES, LANDMARKS, PARKING, BALCONIES,
+  PROJECT, BANK, PAYMENT_PLAN, LEVELS, FLOORS, UNITS, STYLES, LANDMARKS, PARKING, BALCONIES, PRICE_PER_M2,
   unitById, floorById
 } from './data.js';
 import { t, L, setLang, getLang, langInfo, fmtMoney, fmtNum, LANGS, DICTS } from './i18n.js';
@@ -37,6 +37,10 @@ const isAvail = id => statusOf(id) === 'available';
 const priceOf = (id, styleId) => (unitById(id)?.price || 0) + (styleById(styleId).extra || 0);
 const PRICE_MIN = Math.min(...UNITS.map(u => u.price));
 const PRICE_MAX = Math.max(...UNITS.map(u => u.price));
+// Price per m² of interior area: the project rate from data.js (falls back to the unit's own ratio).
+const ppmOf = u => PRICE_PER_M2 || Math.round(u.price / u.area);
+const ppmFmt = (n = PRICE_PER_M2) => `<bdi class="ppm">${fmtMoney(n)} / ${esc(t('misc.m2'))}</bdi>`;
+const reducedMotion = () => !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
 // ---------------------------------------------------------------- utilities
 function toast(msg, ms = 2600) {
@@ -101,6 +105,55 @@ const ICONS = {
 const icon = (k, cls = '') => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true"><path d="${ICONS[k] || ICONS.city}"/></svg>`;
 
 // ---------------------------------------------------------------- i18n & theme
+// Flags are small inline SVGs (20 × 14, rounded by CSS): emoji flags do not render on Windows.
+const FLAGS = {
+  en: '<rect width="20" height="14" fill="#1f3a7a"/><path d="M0 0l20 14M20 0L0 14" stroke="#fff" stroke-width="2.8"/><path d="M0 0l20 14M20 0L0 14" stroke="#c8202f" stroke-width="1.1"/><path d="M10 0v14M0 7h20" stroke="#fff" stroke-width="4.6"/><path d="M10 0v14M0 7h20" stroke="#c8202f" stroke-width="2.6"/>',
+  pt: '<rect width="20" height="14" fill="#d8232a"/><rect width="8" height="14" fill="#1b6b3a"/><circle cx="8" cy="7" r="3.1" fill="#f5c400"/><path d="M6.5 5.2h3v2.4a1.5 1.5 0 0 1-3 0z" fill="#fff" stroke="#d8232a" stroke-width=".7"/>',
+  he: '<rect width="20" height="14" fill="#fff"/><rect y="1.6" width="20" height="2" fill="#1d4fb5"/><rect y="10.4" width="20" height="2" fill="#1d4fb5"/><path d="M10 4.5l2.2 3.8H7.8zM10 9.5 7.8 5.7h4.4z" fill="none" stroke="#1d4fb5" stroke-width=".7" stroke-linejoin="round"/>',
+  ru: '<rect width="20" height="14" fill="#fff"/><rect y="4.67" width="20" height="4.67" fill="#1c4aa6"/><rect y="9.33" width="20" height="4.67" fill="#d52b1e"/>'
+};
+const flagSvg = id => `<svg class="flag" viewBox="0 0 20 14" width="20" height="14" aria-hidden="true" focusable="false">${FLAGS[id] || ''}</svg>`;
+
+function renderLangUI() {
+  const cur = getLang();
+  $('#langFlag').innerHTML = flagSvg(cur);
+  $('#langCode').textContent = langInfo().short;
+  $('#langMenu').innerHTML = LANGS.map(l => `<button type="button" class="lang-opt" role="menuitemradio" aria-checked="${l.id === cur}" data-lang="${l.id}" tabindex="-1">${flagSvg(l.id)}<bdi lang="${l.id}">${esc(l.name)}</bdi><svg class="tick" viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8.5l3.2 3.2L13 5"/></svg></button>`).join('');
+}
+function langMenu(open, focus = true) {
+  const btn = $('#langBtn'), menu = $('#langMenu');
+  if (open === !menu.hidden) return;
+  menu.hidden = !open;
+  btn.setAttribute('aria-expanded', open);
+  if (open && focus) (menu.querySelector('[aria-checked="true"]') || menu.firstElementChild)?.focus();
+}
+function bindLang() {
+  const btn = $('#langBtn'), menu = $('#langMenu');
+  btn.addEventListener('click', () => langMenu(menu.hidden));
+  btn.addEventListener('keydown', e => {
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); langMenu(true); }
+  });
+  menu.addEventListener('click', e => {
+    const o = e.target.closest('[data-lang]');
+    if (!o) return;
+    langMenu(false);
+    applyLang(o.dataset.lang);
+    btn.focus({ preventScroll: true });
+  });
+  menu.addEventListener('keydown', e => {
+    const items = $$('[data-lang]', menu);
+    const i = items.indexOf(document.activeElement);
+    const move = n => { e.preventDefault(); items[(n + items.length) % items.length]?.focus(); };
+    if (e.key === 'ArrowDown') move(i + 1);
+    else if (e.key === 'ArrowUp') move(i - 1);
+    else if (e.key === 'Home') move(0);
+    else if (e.key === 'End') move(items.length - 1);
+    else if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); langMenu(false); btn.focus({ preventScroll: true }); }
+    else if (e.key === 'Tab') langMenu(false);
+  });
+  document.addEventListener('pointerdown', e => { if (!menu.hidden && !e.target.closest('#lang')) langMenu(false); });
+}
+
 function applyLang(l, rerender = true) {
   setLang(l);
   const info = langInfo();
@@ -108,10 +161,11 @@ function applyLang(l, rerender = true) {
   root.lang = info.id;
   root.dir = info.dir;
   store.set('vb2.lang', info.id);
-  $('#langSel').value = info.id;
+  renderLangUI();
   for (const el of $$('[data-i18n]')) el.textContent = t(el.dataset.i18n);
   for (const el of $$('[data-i18n-aria]')) el.setAttribute('aria-label', t(el.dataset.i18nAria));
   document.title = t('meta.title');
+  renderPalette();
   viewerApi?.setLang?.(info.id);
   viewerApi?.setPhotorealLabels?.(ptLabels());
   try { siteMap?.setLang?.(info.id); } catch (e) { /* ignore */ }
@@ -119,19 +173,60 @@ function applyLang(l, rerender = true) {
   if (rerender) renderAll();
 }
 
-function effectiveTheme() {
-  const a = document.documentElement.getAttribute('data-theme');
-  if (a) return a;
-  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+// Five colour themes. Each one is a set of CSS tokens in site.css keyed by :root[data-palette]; "night" is the dark theme
+// (data-theme="dark"). With nothing chosen the page follows prefers-color-scheme (Stone in light, Night in dark).
+const PALETTES = [
+  { id: 'stone', a: '#f4f1eb', b: '#8a5a1c' },
+  { id: 'sand', a: '#efe3cd', b: '#9a4520' },
+  { id: 'sage', a: '#e6ebdf', b: '#2f6144' },
+  { id: 'atlantic', a: '#e4eaef', b: '#1d587c' },
+  { id: 'night', a: '#151412', b: '#c8964f' }
+];
+function currentPalette() {
+  const root = document.documentElement;
+  const p = root.getAttribute('data-palette');
+  if (PALETTES.some(x => x.id === p)) return p;
+  const th = root.getAttribute('data-theme');
+  if (th === 'dark') return 'night';
+  if (th === 'light') return 'stone';
+  return window.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'night' : 'stone';
+}
+function setPalette(id, save = true) {
+  if (!PALETTES.some(x => x.id === id)) return;
+  const root = document.documentElement;
+  root.setAttribute('data-palette', id);
+  root.setAttribute('data-theme', id === 'night' ? 'dark' : 'light');   // also re-themes the location map (it watches data-theme)
+  if (save) store.set('vb2.palette', id);
+  renderPalette();
+}
+function renderPalette() {
+  const cur = currentPalette();
+  for (const host of $$('#palTop, #palMenu')) {
+    host.innerHTML = PALETTES.map(p => `<button type="button" class="pal-b" role="radio" aria-checked="${p.id === cur}" tabindex="${p.id === cur ? 0 : -1}" data-palette="${p.id}" style="--sw-a:${p.a};--sw-b:${p.b}" title="${esc(t('theme.' + p.id))}" aria-label="${esc(t('theme.' + p.id))}"></button>`).join('');
+  }
 }
 function initTheme() {
-  const saved = store.get('vb2.theme');
-  if (saved === 'dark' || saved === 'light') document.documentElement.setAttribute('data-theme', saved);
-  $('#themeBtn').addEventListener('click', () => {
-    const next = effectiveTheme() === 'dark' ? 'light' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    store.set('vb2.theme', next);
-  });
+  let saved = store.get('vb2.palette');
+  if (!saved) { const old = store.get('vb2.theme'); saved = old === 'dark' ? 'night' : old === 'light' ? 'stone' : null; }
+  if (saved && PALETTES.some(x => x.id === saved)) setPalette(saved, false);
+  for (const host of $$('#palTop, #palMenu')) {
+    host.addEventListener('click', e => {
+      const b = e.target.closest('[data-palette]');
+      if (!b) return;
+      setPalette(b.dataset.palette);
+      host.querySelector('[aria-checked="true"]')?.focus({ preventScroll: true });
+    });
+    host.addEventListener('keydown', e => {
+      const dir = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
+      if (!dir) return;
+      e.preventDefault();
+      const step = document.documentElement.dir === 'rtl' && /Left|Right/.test(e.key) ? -dir : dir;
+      const i = PALETTES.findIndex(x => x.id === currentPalette());
+      setPalette(PALETTES[(i + step + PALETTES.length) % PALETTES.length].id);
+      host.querySelector('[aria-checked="true"]')?.focus({ preventScroll: true });
+    });
+  }
+  try { window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => renderPalette()); } catch (e) { /* old browsers */ }
 }
 
 // ---------------------------------------------------------------- home: static parts
@@ -143,9 +238,12 @@ function renderFacts() {
     [types, t('hero.fact.types')],
     [Math.round(area), t('hero.fact.area')],
     [`${PARKING.length} / ${UNITS.length}`, t('hero.fact.parking')],
-    [PROJECT.timeline.find(x => x.key === 'keys')?.date || 'Q4 2028', t('hero.fact.keys')]
+    [PROJECT.timeline.find(x => x.key === 'keys')?.date || PROJECT.timeline[PROJECT.timeline.length - 1]?.date || '', t('hero.fact.keys')]
   ];
   $('#facts').innerHTML = items.map(([b, s]) => `<li><b>${esc(b)}</b><span>${esc(s)}</span></li>`).join('');
+  const avail = UNITS.filter(u => isAvail(u.id));
+  const from = Math.min(...(avail.length ? avail : UNITS).map(u => u.price));
+  $('#heroPrice').innerHTML = `<span>${esc(t('hero.from'))} <b><bdi>${fmtMoney(from)}</bdi></b></span>${ppmFmt()}`;
 }
 
 // Façade floor bands, calibrated to assets/facade-day.jpg (1368 × 1167 px).
@@ -156,17 +254,37 @@ const FACADE_BANDS = {
 };
 const FACADE_TAG = { second: [24, 26], first: [22, 49], ground: [20, 72] }; // % positions (left, top)
 
+const bandPts = f => FACADE_BANDS[f].split(' ').map(p => p.split(',').map(Number));
+function bandBox(f) {
+  const pts = bandPts(f), xs = pts.map(p => p[0]), ys = pts.map(p => p[1]);
+  const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
+  return { x0, x1, y0, y1, cx: (x0 + x1) / 2, cy: (y0 + y1) / 2 };
+}
+
 function renderFacade() {
   const svg = $('#facadeSvg');
-  svg.innerHTML = RES_FLOORS.map(f => `<polygon class="fl-band${state.openFloor === f ? ' is-on' : ''}" data-floor="${f}" points="${FACADE_BANDS[f]}" tabindex="0" role="button" aria-label="${esc(floorName(f))}"/>`).join('');
+  const open = state.openFloor;
+  // each floor has a clipped, undimmed copy of the photo: the selected floor "lights up" while the rest of the image dims
+  svg.innerHTML = `<defs>${RES_FLOORS.map(f => `<clipPath id="flClip-${f}"><polygon points="${FACADE_BANDS[f]}"/></clipPath>`).join('')}</defs>`
+    + RES_FLOORS.map(f => `<image class="fl-lit${open === f ? ' is-on' : ''}" data-lit="${f}" href="assets/facade-day.jpg" width="1368" height="1167" preserveAspectRatio="none" clip-path="url(#flClip-${f})"/>`).join('')
+    + RES_FLOORS.map(f => `<polygon class="fl-band${open === f ? ' is-on' : ''}" data-floor="${f}" points="${FACADE_BANDS[f]}" tabindex="0" role="button" aria-label="${esc(floorName(f))}"/>`).join('');
   let tags = $('#facadeTags');
-  if (!tags) { tags = document.createElement('div'); tags.id = 'facadeTags'; tags.className = 'facade-tags'; $('#facade').appendChild(tags); }
+  if (!tags) { tags = document.createElement('div'); tags.id = 'facadeTags'; tags.className = 'facade-tags'; $('#facade').insertBefore(tags, $('#facadeTip')); }
   tags.innerHTML = RES_FLOORS.map(f => {
     const us = floorUnits(f);
     const avail = us.filter(u => isAvail(u.id)).length;
     const [x, y] = FACADE_TAG[f];
-    return `<button type="button" class="ftag${state.openFloor === f ? ' is-on' : ''}" data-floor="${f}" style="left:${x}%;top:${y}%"><span class="mono">${levelMark(f)}</span><b>${esc(floorName(f).split(' · ')[0])}</b><em>${avail}/${us.length}</em></button>`;
+    return `<button type="button" class="ftag${open === f ? ' is-on' : ''}" data-floor="${f}" style="left:${x}%;top:${y}%"><span class="mono">${levelMark(f)}</span><b>${esc(floorName(f).split(' · ')[0])}</b><em>${avail}/${us.length}</em></button>`;
   }).join('');
+}
+// Selection state without re-rendering (keeps CSS transitions running).
+function syncFloorState() {
+  const f = state.openFloor;
+  $$('#facadeSvg .fl-band, #facadeSvg .fl-lit, #facadeTags .ftag, #floorList .floor-row').forEach(el => {
+    const on = (el.dataset.floor || el.dataset.lit) === f;
+    el.classList.toggle('is-on', on);
+    if (el.classList.contains('floor-row')) el.setAttribute('aria-expanded', on);
+  });
 }
 
 function renderFloorList() {
@@ -203,7 +321,7 @@ function renderFilters() {
     <div class="fgroup"><span>${esc(t('filter.type'))}</span><div class="chips">${chip('type', 'all', t('filter.all'))}${chip('type', 'T1', 'T1')}${chip('type', 'T2', 'T2')}</div></div>
     <div class="fgroup"><span>${esc(t('filter.floor'))}</span><div class="chips">${chip('floor', 'all', t('filter.all'))}${RES_FLOORS.map(fl => chip('floor', fl, LEVELS[fl].label)).join('')}</div></div>
     <div class="fgroup"><span>${esc(t('filter.price'))}</span><div class="frange">
-      <input type="range" id="fMax" min="${PRICE_MIN}" max="${PRICE_MAX}" step="5000" value="${max}" aria-label="${esc(t('filter.price'))}">
+      <input type="range" id="fMax" min="${PRICE_MIN}" max="${PRICE_MAX}" step="100" value="${max}" aria-label="${esc(t('filter.price'))}">
       <output id="fMaxOut">${esc(t('filter.upto', { p: fmtMoney(max) }))}</output></div></div>
     <div class="fgroup"><span>&nbsp;</span><div class="chips"><button type="button" class="chip" id="fAvail" aria-pressed="${f.availOnly}">${esc(t('filter.availableOnly'))}</button></div></div>
     <span class="fcount" id="fCount">${esc(t('filter.count', { n }))}</span>`;
@@ -220,7 +338,8 @@ function renderTable() {
       <td class="t-area">${areaFmt(u.area)}</td>
       <td class="t-out">${esc(out)}</td>
       <td class="t-aspect">${u.aspect.join(' · ')}</td>
-      <td class="t-price">${fmtMoney(u.price)}</td>
+      <td class="t-price"><bdi>${fmtMoney(u.price)}</bdi><small>${ppmFmt(ppmOf(u))}</small></td>
+      <td class="t-ppm">${ppmFmt(ppmOf(u))}</td>
       <td class="t-status"><span class="pill st-${st}">${esc(t('status.' + st))}</span></td>
       <td class="t-go"><a href="#unit-${unitToken(u.id)}" aria-label="${esc(t('unit.apartment', { id: u.id }))}">→</a></td>
     </tr>`;
@@ -228,53 +347,185 @@ function renderTable() {
   const none = UNITS.filter(matches).length === 0;
   $('#availTable').innerHTML = `<thead><tr>
     <th>${esc(t('table.unit'))}</th><th class="t-floor">${esc(t('table.floor'))}</th><th>${esc(t('table.type'))}</th><th>${esc(t('table.area'))}</th>
-    <th class="t-out">${esc(t('table.outdoor'))}</th><th class="t-aspect">${esc(t('table.aspect'))}</th><th>${esc(t('table.price'))}</th><th>${esc(t('table.status'))}</th><th class="t-go"></th>
+    <th class="t-out">${esc(t('table.outdoor'))}</th><th class="t-aspect">${esc(t('table.aspect'))}</th><th>${esc(t('table.price'))}</th><th class="t-ppm">${esc(t('table.perM2'))}</th><th>${esc(t('table.status'))}</th><th class="t-go"></th>
     </tr></thead><tbody>${rows}</tbody>`;
   $('#availNote').innerHTML = none
     ? `<span class="empty">${esc(t('filter.none'))} <button type="button" class="btn btn-line btn-sm" id="fReset">${esc(t('filter.reset'))}</button></span>`
-    : esc(t('hero.note'));
+    : `${esc(t('price.perM2Note', { p: `${fmtMoney(PRICE_PER_M2)}` }))} · ${esc(t('hero.note'))}`;
   const fc = $('#fCount'); if (fc) fc.textContent = t('filter.count', { n: UNITS.filter(matches).length });
 }
 
 function unitTip(u) {
   const st = statusOf(u.id);
   const out = u.outdoor ? `${fmtNum(u.outdoor, 1)} ${t('misc.m2')} ${t('outdoor.' + u.outdoorKind)}` : '';
-  return `<b><bdi>${u.id}</bdi> · <bdi>${u.type}</bdi></b>${areaFmt(u.area)}${out ? ` · ${esc(out)}` : ''}<br>${fmtMoney(u.price)} <span class="pill st-${st}">${esc(t('status.' + st))}</span>`;
+  return `<b><bdi>${u.id}</bdi> · <bdi>${u.type}</bdi></b>${areaFmt(u.area)}${out ? ` · ${esc(out)}` : ''}<br><bdi>${fmtMoney(u.price)}</bdi> · ${ppmFmt(ppmOf(u))} <span class="pill st-${st}">${esc(t('status.' + st))}</span>`;
 }
 
-function renderPlanPanel() {
-  const panel = $('#planPanel');
+// The floor card: a glass card over the façade image (a bottom sheet on phones) with the floor's plan and its apartments.
+const sheetMode = () => !!window.matchMedia?.('(max-width: 719px)').matches;
+const floorUI = { seq: 0 };
+
+function renderFloorCard() {
+  const card = $('#floorCard');
   const f = state.openFloor;
-  if (!f) { panel.hidden = true; panel.innerHTML = ''; return; }
-  panel.hidden = false;
+  if (!f || !card) return;
   const floor = floorById(f);
-  const svg = drawFloorplan(f, { label: L, status: statusOf, dim: id => !matches(unitById(id)), title: floorName(f) });
   const us = floorUnits(f);
-  panel.innerHTML = `
-    <div class="pp-head">
-      <h3 class="pp-title">${esc(floorName(f))}<span class="mono">${levelMark(f)}</span></h3>
-      <div class="pp-tools">
-        <div class="seg" role="tablist">
-          <button type="button" class="seg-b${state.planView === 'plan' ? ' is-on' : ''}" data-pv="plan">${esc(t('plan.view.plan'))}</button>
-          <button type="button" class="seg-b${state.planView === 'drawing' ? ' is-on' : ''}" data-pv="drawing">${esc(t('plan.view.drawing'))}</button>
-        </div>
-        <button type="button" class="icon-btn" data-act="closePlan" aria-label="${esc(t('plan.close'))}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  const plan = state.planView === 'plan'
+    ? drawFloorplan(f, { label: L, status: statusOf, dim: id => !matches(unitById(id)), title: floorName(f) })
+    : `<div class="pp-drawing"><img src="${floor.plan}" alt="${esc(t('plan.drawing.alt', { floor: floorName(f) }))}" loading="lazy"></div>`;
+  const chips = us.map(u => {
+    const st = statusOf(u.id);
+    return `<a class="flc-chip${matches(u) ? '' : ' is-dim'}" href="#unit-${unitToken(u.id)}" data-unit="${u.id}" aria-label="${esc(t('unit.apartment', { id: u.id }))} · ${u.type} · ${esc(areaFmt(u.area))} · ${esc(fmtMoney(u.price))} · ${esc(t('status.' + st))}">
+      <span class="c-top"><b class="c-id">${u.id}</b><span class="c-type">${u.type}</span><span class="c-go" aria-hidden="true">→</span></span>
+      <span class="c-area">${areaFmt(u.area)}</span>
+      <span class="c-price"><bdi>${fmtMoney(u.price)}</bdi></span>
+      <span class="pill st-${st}">${esc(t('status.' + st))}</span>
+    </a>`;
+  }).join('');
+  card.innerHTML = `
+    <div class="flc-grab" aria-hidden="true"></div>
+    <header class="flc-head">
+      <div class="flc-ttl"><span class="flc-lvl"><bdi class="mono">${levelMark(f)}</bdi>${floorName(f).includes(' · ') ? ` · ${esc(floorName(f).split(' · ').slice(1).join(' · '))}` : ''}</span><h3 id="flcTitle">${esc(floorName(f).split(' · ')[0])}</h3></div>
+      <div class="flc-rail" role="group" aria-label="${esc(t('plan.floors'))}">${[...RES_FLOORS].reverse().map(x => `<button type="button" data-floor="${x}" aria-pressed="${x === f}" aria-label="${esc(floorName(x))}" title="${esc(floorName(x))}">${LEVELS[x].label}</button>`).join('')}</div>
+      <button type="button" class="icon-btn flc-close" data-act="closePlan" aria-label="${esc(t('plan.close'))}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    </header>
+    <div class="flc-plan" id="ppPlan">${plan}<div class="fp-tip" id="fpTip" hidden></div></div>
+    ${us.length ? `<div class="flc-chips">${chips}</div>` : ''}
+    <footer class="flc-foot">
+      <div class="seg" role="group">
+        <button type="button" class="seg-b${state.planView === 'plan' ? ' is-on' : ''}" data-pv="plan">${esc(t('plan.view.plan'))}</button>
+        <button type="button" class="seg-b${state.planView === 'drawing' ? ' is-on' : ''}" data-pv="drawing">${esc(t('plan.view.drawing'))}</button>
       </div>
-    </div>
-    <div class="pp-body">
-      <div class="pp-plan" id="ppPlan">${state.planView === 'plan' ? svg : `<div class="pp-drawing"><img src="${floor.plan}" alt="${esc(t('plan.drawing.alt', { floor: floorName(f) }))}" loading="lazy"></div>`}<div class="fp-tip" id="fpTip" hidden></div></div>
-      <div class="pp-units">
-        <p class="pp-hint">${esc(t('plan.hover'))}</p>
-        ${us.map(u => {
-          const st = statusOf(u.id);
-          return `<a class="pp-unit${matches(u) ? '' : ' is-dim'}" href="#unit-${unitToken(u.id)}" data-unit="${u.id}">
-            <span class="pp-id">${u.id}</span>
-            <span class="pp-info"><b>${u.type}</b> · ${areaFmt(u.area)}<br>${u.outdoor ? `${fmtNum(u.outdoor, 1)} ${t('misc.m2')} ${esc(t('outdoor.' + u.outdoorKind))} · ` : ''}${u.aspect.join(' · ')}</span>
-            <span class="pp-price">${fmtMoney(u.price)}<br><span class="pill st-${st}">${esc(t('status.' + st))}</span></span>
-          </a>`;
-        }).join('')}
-      </div>
-    </div>`;
+      <span title="${esc(t('price.perM2'))}"><span class="sr">${esc(t('price.perM2'))} </span><b>${ppmFmt()}</b></span>
+    </footer>`;
+}
+
+// Zoom / pan the façade photo so the selected floor sits in the part of the image the card leaves free.
+function focusScene(f) {
+  const view = $('#facadeView'), scene = $('#facadeScene');
+  if (!view || !scene) return;
+  if (!f || !FACADE_BANDS[f]) { scene.style.transform = ''; return; }
+  const W = view.clientWidth, H = view.clientHeight;
+  if (!W || !H) return;
+  const sw = W, sh = W * 1167 / 1368, k = W / 1368;
+  const bb = bandBox(f), bx = bb.cx * k, by = bb.cy * k;
+  const sheet = sheetMode();
+  const s = sheet ? Math.max(1.2, (H / sh) * 1.04) : 1.1;
+  const fx = sheet ? W * 0.5 : W * 0.76, fy = H * (sheet ? 0.52 : 0.5);
+  // origin 0 0: p → p·s + T; the band centre lands on the focus point, clamped so the photo always covers the view
+  const fit = (T, size, viewSize) => { const lo = viewSize - size * s, hi = 0; return lo > hi ? (lo + hi) / 2 : Math.min(hi, Math.max(lo, T)); };
+  const Tx = fit(fx - bx * s, sw, W), Ty = fit(fy - by * s, sh, H);
+  scene.style.transformOrigin = '0 0';
+  scene.style.transform = `translate(${Tx.toFixed(1)}px, ${Ty.toFixed(1)}px) scale(${s.toFixed(3)})`;
+}
+
+// Where the card unfolds from: the band's box, as a clip-path inset of the card.
+function bandInset(f, card) {
+  const band = $(`#facadeSvg .fl-band[data-floor="${f}"]`);
+  const c = card.getBoundingClientRect();
+  if (!band || !c.width) return `inset(46% 30% 46% 30% round 12px)`;
+  const b = band.getBoundingClientRect();
+  let top = Math.max(0, b.top - c.top), bottom = Math.max(0, c.bottom - b.bottom);
+  let left = Math.max(0, b.left - c.left), right = Math.max(0, c.right - b.right);
+  if (top + bottom > c.height - 24) { const mid = Math.min(c.height - 12, Math.max(12, (b.top + b.bottom) / 2 - c.top)); top = mid - 12; bottom = c.height - mid - 12; }
+  if (left + right > c.width - 24) { left = b.left > c.left + c.width / 2 ? c.width - 28 : 0; right = left ? 0 : c.width - 28; }
+  return `inset(${top.toFixed(0)}px ${right.toFixed(0)}px ${bottom.toFixed(0)}px ${left.toFixed(0)}px round 10px)`;
+}
+
+// The band "lifts off": a tinted copy of its outline flies to the card and dissolves into it.
+function bandGhost(f, card, ms) {
+  const band = $(`#facadeSvg .fl-band[data-floor="${f}"]`);
+  if (!band || !document.body.animate) return;
+  const b = band.getBoundingClientRect(), c = card.getBoundingClientRect();
+  if (b.width < 8 || b.height < 8 || !c.width) return;
+  const bb = bandBox(f);
+  const rel = bandPts(f).map(([x, y]) => [(x - bb.x0) / (bb.x1 - bb.x0) * 100, (y - bb.y0) / (bb.y1 - bb.y0) * 100]);
+  const out = rel.map(([x, y]) => { const dx = x - 50, dy = y - 50, m = 50 / Math.max(Math.abs(dx), Math.abs(dy), 0.001); return [50 + dx * m, 50 + dy * m]; });
+  const poly = a => `polygon(${a.map(([x, y]) => `${x.toFixed(1)}% ${y.toFixed(1)}%`).join(', ')})`;
+  const g = document.createElement('div');
+  g.className = 'flc-ghost';
+  g.style.cssText = `left:${b.left}px;top:${b.top}px;width:${b.width}px;height:${b.height}px;transform-origin:0 0`;
+  document.body.appendChild(g);
+  const a = g.animate([
+    { transform: 'none', clipPath: poly(rel), opacity: 0.8 },
+    { opacity: 0.45, offset: 0.6 },
+    { transform: `translate(${(c.left - b.left).toFixed(1)}px, ${(c.top - b.top).toFixed(1)}px) scale(${(c.width / b.width).toFixed(3)}, ${(c.height / b.height).toFixed(3)})`, clipPath: poly(out), opacity: 0 }
+  ], { duration: ms, easing: 'cubic-bezier(.3, .7, .2, 1)' });
+  const done = () => g.remove();
+  a.finished.then(done, done);
+}
+
+function animateCardIn(f, card) {
+  if (reducedMotion() || !card.animate) return;
+  const ms = 450, ease = 'cubic-bezier(.2, .75, .2, 1)';
+  card.getAnimations?.().forEach(a => a.cancel());
+  bandGhost(f, card, ms);
+  if (sheetMode()) card.animate([{ transform: 'translateY(104%)' }, { transform: 'none' }], { duration: ms, easing: ease });
+  else card.animate([{ clipPath: bandInset(f, card), opacity: 0.35 }, { opacity: 1, offset: 0.5 }, { clipPath: 'inset(0px 0px 0px 0px round 14px)', opacity: 1 }], { duration: ms, easing: ease });
+}
+
+function openFloor(f, { animate = true } = {}) {
+  const next = RES_FLOORS.includes(f) || f === 'basement' ? f : null;
+  if (!next) { closeFloor(animate); return; }
+  const facade = $('#facade'), card = $('#floorCard');
+  const prev = state.openFloor;
+  const seq = ++floorUI.seq;
+  if (!$('#sel3d').hidden) setSelView('facade');
+  state.openFloor = next;
+  renderFloorCard();
+  card.hidden = false;
+  card.style.transform = '';
+  const wasOpen = facade.classList.contains('is-open');
+  facade.classList.add('is-open');
+  const sheet = sheetMode();
+  document.body.classList.toggle('no-scroll', sheet || !$('#imm').hidden || !$('#modal').hidden);
+  syncFloorState();
+  if (animate && prev !== next) animateCardIn(next, card);
+  focusScene(next);
+  if (sheet && !wasOpen && animate && !reducedMotion()) facade.animate?.([{ opacity: 0 }, { opacity: 1 }], { duration: 220, easing: 'ease-out' });
+  if (!sheet) {
+    // tablet / desktop: the card lives on the façade, so bring the façade into view only if most of it is off screen
+    const r = $('#facadeSlot').getBoundingClientRect();
+    const visible = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+    if (visible < r.height * 0.6) $('#facadeSlot').scrollIntoView({ behavior: animate && !reducedMotion() ? 'smooth' : 'auto', block: 'center' });
+  }
+  if (seq === floorUI.seq) (prev && wasOpen ? card.querySelector('.flc-rail [aria-pressed="true"]') : card.querySelector('.flc-close'))?.focus({ preventScroll: true });
+}
+
+function closeFloor(animate = true) {
+  const f = state.openFloor;
+  const facade = $('#facade'), card = $('#floorCard');
+  if (!f && card.hidden) return;
+  const seq = ++floorUI.seq;
+  const sheet = sheetMode();
+  const hadFocus = card.contains(document.activeElement);
+  state.openFloor = null;
+  const finish = () => {
+    if (seq !== floorUI.seq) return;
+    card.hidden = true; card.innerHTML = ''; card.style.transform = '';
+    facade.classList.remove('is-open');
+    focusScene(null);
+    if ($('#imm').hidden && $('#modal').hidden) document.body.classList.remove('no-scroll');
+    if (hadFocus && f) $(`#facadeSvg .fl-band[data-floor="${f}"]`)?.focus?.({ preventScroll: true });
+  };
+  syncFloorState();
+  if (!sheet) { facade.classList.remove('is-open'); focusScene(null); }   // the photo brightens while the card folds away
+  if (!animate || reducedMotion() || !card.animate || card.hidden) { finish(); return; }
+  card.getAnimations?.().forEach(a => a.cancel());
+  const from = getComputedStyle(card).transform;
+  const a = sheet
+    ? card.animate([{ transform: from === 'none' ? 'translateY(0)' : from }, { transform: 'translateY(104%)' }], { duration: 260, easing: 'cubic-bezier(.4, 0, .8, .4)', fill: 'forwards' })
+    : card.animate([{ clipPath: 'inset(0px 0px 0px 0px round 14px)', opacity: 1 }, { clipPath: f ? bandInset(f, card) : 'inset(46% 30% 46% 30% round 12px)', opacity: 0 }], { duration: 300, easing: 'cubic-bezier(.4, 0, .6, 1)', fill: 'forwards' });
+  const end = () => { try { a.cancel(); } catch (e) { /* done */ } finish(); };
+  a.finished.then(end, () => finish());
+}
+
+// Close from the UI (X, tap outside, Escape, drag down): the address goes back to the section, without scrolling.
+function dismissFloor() {
+  if (!state.openFloor) return;
+  closeFloor(true);
+  if (state.route.startsWith('floor-')) { try { history.replaceState(null, '', '#apartments'); } catch (e) { /* sandboxed */ } state.route = 'apartments'; }
 }
 
 function renderSpecs() {
@@ -343,12 +594,44 @@ function focusLandmark(id) {
   }
 }
 
+// ---------------------------------------------------------------- contact (sales: G-International · developer: VILNYI)
+const CICON = {
+  wa: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6a9.4 9.4 0 0 0-8.1 14.2L2.6 21.4l4.7-1.2A9.4 9.4 0 1 0 12 2.6Zm0 1.7a7.7 7.7 0 1 1-3.9 14.3l-.3-.2-2.8.7.8-2.7-.2-.3A7.7 7.7 0 0 1 12 4.3ZM9 7.6c-.2 0-.5.1-.7.4-.3.3-1 .9-1 2.2s1 2.5 1.1 2.7c.1.2 1.9 2.9 4.5 3.9 2.2.9 2.6.7 3.1.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3l-1.9-.9c-.2-.1-.4-.1-.6.1l-.8 1c-.2.2-.3.2-.6.1-.3-.1-1.1-.4-2.1-1.3-.8-.7-1.3-1.6-1.5-1.8-.1-.3 0-.4.1-.5l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.3 0-.5l-.9-2c-.2-.4-.4-.4-.5-.4H9Z"/></svg>',
+  web: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.6 2.4 2.6 14.600 0 17M12 3.5c-2.6 2.4-2.6 14.600 0 17"/></svg>',
+  fb: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M13.2 20.4v-7h2.3l.4-2.6h-2.700V9.300c0-.8.4-1.300 1.300-1.300h1.500V5.700c-.5-.1-1.200-.2-2-.2-2 0-3.200 1.200-3.200 3.400v1.900H8.600v2.600h2.200v7"/></svg>',
+  ig: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="4.500"/><circle cx="12" cy="12" r="3.600"/><path d="M16.700 7.300h.01"/></svg>',
+  mail: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.500" y="5.500" width="17" height="13" rx="2"/><path d="M4 7l8 6 8-6"/></svg>'
+};
+const waUrl = (text = '') => {
+  const n = String(PROJECT.contact.whatsapp || '').replace(/\D/g, '');
+  return n ? `https://wa.me/${n}${text ? `?text=${encodeURIComponent(text)}` : ''}` : '';
+};
+const hostOf = url => { try { return new URL(url).hostname.replace(/^www\./, ''); } catch (e) { return url; } };
+let contactSeq = 0;
+// One contact block for the footer, the unit page, the reservation confirmation and the interest form.
+// The email row only appears once PROJECT.contact.email is filled in; `text` pre-fills the WhatsApp message.
+function contactHtml({ text = '', note = false, waLabel = null } = {}) {
+  const c = PROJECT.contact, id = `ct${++contactSeq}`;
+  const wa = waUrl(text);
+  return `<div class="contact">
+    <p class="contact-co"><span class="k">${esc(t('contact.sales'))}</span><b>${esc(c.company || PROJECT.brand)}</b></p>
+    ${note ? `<p class="contact-note">${esc(t('contact.note'))}</p>` : ''}
+    ${c.phone ? `<div class="copyline"><span class="val tel" id="${id}p">${esc(c.phone)}</span><button type="button" class="copybtn" data-copy="${esc(c.phone)}" data-copy-target="#${id}p" aria-label="${esc(t('foot.copy'))} · ${esc(t('contact.phone'))}">${esc(t('foot.copy'))}</button></div>` : ''}
+    ${c.email ? `<div class="copyline"><span class="val" id="${id}e" dir="ltr">${esc(c.email)}</span><button type="button" class="copybtn" data-copy="${esc(c.email)}" data-copy-target="#${id}e" aria-label="${esc(t('foot.copy'))} · ${esc(t('contact.email'))}">${esc(t('foot.copy'))}</button></div>` : ''}
+    <div class="contact-links">
+      ${wa ? `<a class="btn btn-wa" href="${esc(wa)}" target="_blank" rel="noopener">${CICON.wa}<span>${esc(waLabel || t('contact.whatsapp'))}</span></a>` : ''}
+      ${c.website ? `<a class="clink" href="${esc(c.website)}" target="_blank" rel="noopener">${CICON.web}<span dir="ltr">${esc(hostOf(c.website))}</span></a>` : ''}
+      ${c.facebook ? `<a class="clink is-icon" href="${esc(c.facebook)}" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook">${CICON.fb}</a>` : ''}
+      ${c.instagram ? `<a class="clink is-icon" href="${esc(c.instagram)}" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram">${CICON.ig}</a>` : ''}
+    </div>
+  </div>`;
+}
+
 function renderFooter() {
-  $('#footDev').innerHTML = `${esc(PROJECT.developer)}<br>${esc(PROJECT.postcode)}, Portugal`;
-  const c = PROJECT.contact;
-  let html = `<div class="copyline"><span class="val" id="footEmail">${esc(c.email)}</span><button type="button" class="copybtn" data-copy="${esc(c.email)}" data-copy-target="#footEmail">${esc(t('foot.copy'))}</button></div>`;
-  if (c.phone) html += `<div class="copyline"><span class="val" id="footPhone">${esc(c.phone)}</span><button type="button" class="copybtn" data-copy="${esc(c.phone)}" data-copy-target="#footPhone">${esc(t('foot.copy'))}</button></div>`;
-  $('#footContact').innerHTML = html;
+  $('#footDev').innerHTML = `<span class="k">${esc(t('contact.developer'))}</span><b>${esc(PROJECT.developer)}</b><bdi dir="ltr">${esc(PROJECT.postcode)}, Portugal</bdi>`;
+  const cr = $('#footCredits');
+  if (cr) cr.innerHTML = ['foot.creditRenders', 'foot.creditAssets', 'foot.creditMap'].map(k => esc(t(k))).join(' ');
+  $('#footContact').innerHTML = contactHtml();
   $('#adminLink').hidden = !state.isOwner;
 }
 
@@ -358,7 +641,7 @@ function renderHome() {
   renderFloorList();
   renderFilters();
   renderTable();
-  renderPlanPanel();
+  renderFloorCard();
   renderSpecs();
   renderLocation();
 }
@@ -370,13 +653,7 @@ function renderAll() {
   updateImmLabels();
 }
 
-// ---------------------------------------------------------------- floor selection
-function openFloor(f, scroll = true) {
-  state.openFloor = RES_FLOORS.includes(f) || f === 'basement' ? f : null;
-  renderFacade(); renderFloorList(); renderPlanPanel();
-  if (scroll && state.openFloor) requestAnimationFrame(() => $('#planPanel').scrollIntoView({ behavior: 'smooth', block: 'start' }));
-}
-
+// ---------------------------------------------------------------- floor selection (events)
 function bindHome() {
   const facade = $('#facade');
   const tip = $('#facadeTip');
@@ -385,11 +662,11 @@ function bindHome() {
     $$('.floor-row').forEach(b => b.classList.toggle('is-hover', b.dataset.floor === f));
   };
   facade.addEventListener('pointermove', e => {
-    const band = e.target.closest?.('[data-floor]');
+    const band = e.target.closest?.('#floorCard') ? null : e.target.closest?.('[data-floor]');
     if (!band) { tip.hidden = true; hoverFloor(null); return; }
     const f = band.dataset.floor;
     hoverFloor(f);
-    if (e.pointerType !== 'mouse') return;
+    if (e.pointerType !== 'mouse' || f === state.openFloor) { tip.hidden = true; return; }
     const us = floorUnits(f);
     tip.textContent = `${floorName(f)} · ${us.filter(u => isAvail(u.id)).length}/${us.length} ${t('status.available').toLowerCase()}`;
     const r = facade.getBoundingClientRect();
@@ -398,32 +675,42 @@ function bindHome() {
     tip.style.top = `${Math.max(e.clientY - r.top - 36, 6)}px`;
   });
   facade.addEventListener('pointerleave', () => { tip.hidden = true; hoverFloor(null); });
+  // tap a floor: its plan opens over the image; tap another floor: the card re-opens from that band; tap outside: it folds back
   facade.addEventListener('click', e => {
+    if (e.target.closest('#floorCard')) return;
     const band = e.target.closest?.('[data-floor]');
-    if (band) go(`floor-${band.dataset.floor}`);
+    if (band) { if (band.dataset.floor !== state.openFloor) go(`floor-${band.dataset.floor}`); return; }
+    dismissFloor();
   });
   facade.addEventListener('keydown', e => {
-    if ((e.key === 'Enter' || e.key === ' ') && e.target.dataset?.floor) { e.preventDefault(); go(`floor-${e.target.dataset.floor}`); }
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.dataset?.floor && !e.target.closest('#floorCard') && e.target.tagName !== 'BUTTON') { e.preventDefault(); go(`floor-${e.target.dataset.floor}`); }
   });
   $('#floorList').addEventListener('click', e => {
     const b = e.target.closest('[data-floor]');
     if (!b) return;
-    if (state.openFloor === b.dataset.floor) { state.openFloor = null; openFloor(null, false); history.replaceState(null, '', '#apartments'); }
+    if (state.openFloor === b.dataset.floor) dismissFloor();
     else go(`floor-${b.dataset.floor}`);
   });
   $('#floorList').addEventListener('pointerover', e => hoverFloor(e.target.closest('[data-floor]')?.dataset.floor || null));
+  window.addEventListener('resize', () => {
+    if (!state.openFloor) return;
+    focusScene(state.openFloor);
+    document.body.classList.toggle('no-scroll', sheetMode() || !$('#imm').hidden || !$('#modal').hidden);
+  });
 
   // façade / 3D toggle
   $('#selFacadeTab').addEventListener('click', () => setSelView('facade'));
   $('#sel3dTab').addEventListener('click', () => setSelView('3d'));
   $('#sel3dLoad').addEventListener('click', () => mountSel3d());
 
-  // plan panel
-  const panel = $('#planPanel');
+  // floor card
+  const panel = $('#floorCard');
   panel.addEventListener('click', e => {
     const pv = e.target.closest('[data-pv]');
-    if (pv) { state.planView = pv.dataset.pv; renderPlanPanel(); return; }
-    if (e.target.closest('[data-act="closePlan"]')) { openFloor(null, false); history.replaceState(null, '', '#apartments'); return; }
+    if (pv) { state.planView = pv.dataset.pv; renderFloorCard(); panel.querySelector(`[data-pv="${state.planView}"]`)?.focus({ preventScroll: true }); return; }
+    if (e.target.closest('[data-act="closePlan"]')) { dismissFloor(); return; }
+    const fl = e.target.closest('.flc-rail [data-floor]');
+    if (fl) { if (fl.dataset.floor !== state.openFloor) go(`floor-${fl.dataset.floor}`); return; }
     const u = e.target.closest('svg [data-unit]');
     if (u) go(`unit-${unitToken(u.dataset.unit)}`);
   });
@@ -431,11 +718,35 @@ function bindHome() {
     const u = e.target.closest?.('svg [data-unit]');
     if (u && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); go(`unit-${unitToken(u.dataset.unit)}`); }
   });
+  // phones: the sheet can be dragged down by its handle / header to close it
+  let drag = null;
+  panel.addEventListener('pointerdown', e => {
+    if (!sheetMode() || !e.target.closest('.flc-grab, .flc-head') || e.target.closest('button, a')) return;
+    drag = { y: e.clientY, t: performance.now(), dy: 0, id: e.pointerId };
+    try { panel.setPointerCapture(e.pointerId); } catch (err) { /* synthetic pointer */ }
+  });
+  panel.addEventListener('pointermove', e => {
+    if (!drag || e.pointerId !== drag.id) return;
+    drag.dy = Math.max(0, e.clientY - drag.y);
+    panel.style.transform = drag.dy ? `translateY(${drag.dy}px)` : '';
+  });
+  const dragEnd = e => {
+    if (!drag || (e.pointerId != null && e.pointerId !== drag.id)) return;
+    const v = drag.dy / Math.max(1, performance.now() - drag.t);
+    const shut = drag.dy > 110 || (drag.dy > 28 && v > 0.5);
+    const dy = drag.dy;
+    drag = null;
+    if (shut) { dismissFloor(); return; }
+    panel.style.transform = '';
+    if (dy && !reducedMotion()) panel.animate?.([{ transform: `translateY(${dy}px)` }, { transform: 'none' }], { duration: 200, easing: 'cubic-bezier(.2, .7, .2, 1)' });
+  };
+  panel.addEventListener('pointerup', dragEnd);
+  panel.addEventListener('pointercancel', dragEnd);
   let hoverId = null;
   const setUnitHover = (id, ev) => {
     if (id !== hoverId) {
       hoverId = id;
-      $$('#planPanel [data-unit]').forEach(el => el.classList.toggle('is-hover', el.dataset.unit === id));
+      $$('#floorCard [data-unit]').forEach(el => el.classList.toggle('is-hover', el.dataset.unit === id));
     }
     const tipEl = $('#fpTip');
     if (!tipEl) return;
@@ -463,7 +774,7 @@ function bindHome() {
     const v = +e.target.value;
     state.filters.max = v >= PRICE_MAX ? null : v;
     $('#fMaxOut').textContent = t('filter.upto', { p: fmtMoney(v) });
-    renderTable(); renderPlanPanel();
+    renderTable(); renderFloorCard();
   });
   $('#availNote').addEventListener('click', e => {
     if (e.target.closest('#fReset')) { state.filters = { type: 'all', floor: 'all', max: null, availOnly: false }; refreshFiltered(); }
@@ -476,7 +787,7 @@ function bindHome() {
 
 function refreshFiltered() {
   const focusId = document.activeElement?.id;
-  renderFilters(); renderTable(); renderPlanPanel();
+  renderFilters(); renderTable(); renderFloorCard();
   if (focusId) document.getElementById(focusId)?.focus();
 }
 
@@ -484,7 +795,8 @@ function setSelView(v) {
   const is3d = v === '3d';
   $('#selFacadeTab').classList.toggle('is-on', !is3d); $('#selFacadeTab').setAttribute('aria-selected', !is3d);
   $('#sel3dTab').classList.toggle('is-on', is3d); $('#sel3dTab').setAttribute('aria-selected', is3d);
-  $('#facade').hidden = is3d;
+  $('#facadeSlot').hidden = is3d;
+  if (is3d && state.openFloor) dismissFloor();
   $('#sel3d').hidden = !is3d;
   if (is3d) mountSel3d();
   else if (!is3d && host && host.parentElement === $('#sel3d')) host.remove();
@@ -567,6 +879,7 @@ async function openImmersive(mode = 'exterior', opts = {}) {
   const imm = $('#imm');
   returnMount = host?.parentElement && host.parentElement !== $('#immStage') ? host.parentElement : returnMount;
   imm.hidden = false;
+  showImmBar();
   document.body.classList.add('no-scroll');
   updateImmLabels();
   const v = await getViewer();
@@ -586,7 +899,8 @@ function closeImmersive(restore = true) {
   const imm = $('#imm');
   if (imm.hidden) return;
   imm.hidden = true;
-  document.body.classList.remove('no-scroll');
+  showImmBar();
+  if (!(state.openFloor && sheetMode())) document.body.classList.remove('no-scroll');
   $('#immPlace').hidden = true;
   if (viewerApi?.isPhotoreal?.() && !(restore && returnMount && returnMount.id === 'tour')) togglePhotoreal(false);
   if (host) {
@@ -623,6 +937,7 @@ function updatePhotorealUI() {
     b.title = aerial ? t('v.pt.aerial') : '';
     const lab = b.querySelector('[data-i18n]') || b;
     if (lab !== b || b.dataset.tour) lab.textContent = t(on ? 'v.photorealOn' : 'v.photoreal');
+    if (b.id === 'prBtn') b.setAttribute('aria-label', t(on ? 'v.photorealOn' : 'v.photoreal'));
   }
 }
 async function togglePhotoreal(force) {
@@ -638,9 +953,32 @@ async function togglePhotoreal(force) {
   return ok;
 }
 
+// Phones: the 3D bar is one compact row over the view. It slides away 3 s after the visitor starts walking
+// and comes back with a tap on the top edge (#immPeek).
+const immUI = { timer: 0 };
+const immCompact = () => !!window.matchMedia?.('(max-width: 700px), (max-height: 500px)').matches;
+function showImmBar() {
+  clearTimeout(immUI.timer); immUI.timer = 0;
+  $('#imm').classList.remove('bar-hidden');
+}
+function hideImmBarSoon() {
+  const imm = $('#imm');
+  if (immUI.timer || imm.hidden || imm.classList.contains('bar-hidden') || !immCompact() || !imm.classList.contains('is-walk')) return;
+  immUI.timer = setTimeout(() => {
+    immUI.timer = 0;
+    if (imm.hidden || !immCompact() || !imm.classList.contains('is-walk')) return;
+    if ($('#immBar').contains(document.activeElement)) document.activeElement.blur();
+    imm.classList.add('bar-hidden');
+  }, 3000);
+}
+
 function updateImmModes(mode) {
+  $('#imm').classList.toggle('is-walk', mode === 'walk');
+  if (mode !== 'walk') showImmBar();
+  $$('#immGo [data-go]').forEach(b => { b.disabled = !!viewerApi && !viewerApi.has('walk'); });
   $$('#immModes [data-mode]').forEach(b => {
     b.classList.toggle('is-on', b.dataset.mode === mode);
+    b.setAttribute('aria-pressed', b.dataset.mode === mode);
     if (viewerApi) {
       const need = b.dataset.mode === 'aerial' ? 'aerial' : b.dataset.mode === 'walk' ? 'walk' : null;
       b.disabled = need ? !viewerApi.has(need) && viewerApi.modules && Object.values(viewerApi.modules()).some(Boolean) && !viewerApi.has(need) : false;
@@ -686,15 +1024,32 @@ function bindImmersive() {
   });
   $('#todSel').addEventListener('change', e => viewerApi?.setTimeOfDay(e.target.value));
   $('#prBtn').addEventListener('click', () => togglePhotoreal());
+  // entry points: the lobby (street door) and the basement car park (foot of the ramp)
+  $('#immGo').addEventListener('click', async e => {
+    const b = e.target.closest('[data-go]');
+    if (!b || !viewerApi) return;
+    let ok = false;
+    try { ok = b.dataset.go === 'parking' ? await viewerApi.goToParking() : await viewerApi.goToLobby(); } catch (err) { ok = false; }
+    if (!ok) toast(t('v.unavailable'));
+  });
+  // compact bar: hide while walking, show again from the top edge or on any use of the bar
+  $('#immStage').addEventListener('pointerdown', () => hideImmBarSoon(), { capture: true, passive: true });
+  $('#immBar').addEventListener('pointerdown', () => showImmBar(), { passive: true });
+  $('#immBar').addEventListener('focusin', () => showImmBar());
+  $('#immPeek').addEventListener('click', () => { showImmBar(); $('#immClose').focus({ preventScroll: true }); });
   document.addEventListener('keydown', e => {
-    if (e.key !== 'Escape') return;
-    if (!$('#modal').hidden) closeModal();
-    else if (!$('#imm').hidden) closeImmersive();
+    if (e.key === 'Escape') {
+      if (!$('#modal').hidden) closeModal();
+      else if (!$('#imm').hidden) closeImmersive();
+      else if (state.openFloor) dismissFloor();
+      return;
+    }
+    if (!$('#imm').hidden && /^(Arrow|[wasdWASD]$)/.test(e.key) && !e.target.closest?.('#immBar')) hideImmBarSoon();
   });
 }
 
 // ---------------------------------------------------------------- routing
-const HOME_SECTIONS = ['', 'top', 'apartments', 'location', 'building'];
+const HOME_SECTIONS = ['', 'top', 'apartments', 'gallery-renders', 'location', 'building'];
 function isHomeRoute(r) { return HOME_SECTIONS.includes(r) || r.startsWith('floor-') || r === 'interest' || r === '3d' || r === 'aerial'; }
 
 function go(token) {
@@ -726,18 +1081,24 @@ function route() {
     detachHostFromPage();
     showHome(true);
     if (r.startsWith('floor-')) {
-      openFloor(r.slice(6), true);
+      // arriving from another page or by a direct link: show the selector first; a tap on the façade never scrolls
+      if (wasPage || !route.booted) document.getElementById('apartments')?.scrollIntoView({ behavior: 'auto', block: 'start' });
+      openFloor(r.slice(6), { animate: !!route.booted && !wasPage });
     } else if (r === 'interest') {
       openInterest();
     } else if (r === '3d' || r === 'aerial') {
       openImmersive(r === 'aerial' ? 'aerial' : 'exterior');
     } else {
+      if (state.openFloor && r !== 'apartments') closeFloor(false);
       const target = r ? document.getElementById(r) : null;
       if (target) requestAnimationFrame(() => target.scrollIntoView({ behavior: wasPage ? 'auto' : 'smooth', block: 'start' }));
       else if (wasPage || !r) window.scrollTo({ top: 0, behavior: 'auto' });
     }
+    route.booted = true;
     return;
   }
+  route.booted = true;
+  if (state.openFloor) closeFloor(false);
   renderPage(r, prev !== r);
 }
 
@@ -1066,6 +1427,7 @@ function renderUnit(page, id) {
         <div class="price-card">
           <span class="h-small">${esc(t('unit.price'))}</span>
           <div class="price-big" id="uTotal">${fmtMoney(priceOf(u.id, styleId))}</div>
+          <p class="price-ppm">${esc(t('price.perM2'))} <b>${ppmFmt(ppmOf(u))}</b></p>
           <div class="price-rows">
             <div><span>${esc(t('res.base'))} ${u.id}</span><span>${fmtMoney(u.price)}</span></div>
             <div><span id="uStyleName">${esc(L(style.name))}</span><span id="uStyleExtra">${style.extra ? '+ ' + fmtMoney(style.extra) : esc(t('unit.included'))}</span></div>
@@ -1077,6 +1439,7 @@ function renderUnit(page, id) {
           </div>
           <p class="fineprint">${esc(t('hero.note'))}</p>
         </div>
+        <div class="contact-card">${contactHtml({ note: true, text: `Barreiro 2 · ${t('unit.apartment', { id: u.id })} (${u.type}, ${fmtNum(u.area, 2)} m²)` })}</div>
         <div>
           <h3 class="h-small" style="margin-bottom:10px">${esc(t('unit.specs'))}</h3>
           <div class="kv">
@@ -1211,7 +1574,7 @@ function renderReserve(page, preset) {
   }
   const steps = ['res.step1', 'res.step2', 'res.step3', 'res.step4'];
   page.innerHTML = `<div class="wrap res">
-    <div class="sec-head" style="margin-bottom:0"><p class="eyebrow">${esc(t('res.eyebrow'))}</p><h2>${esc(t('res.title'))}</h2><p class="lede">${esc(t('res.lede'))}</p></div>
+    <div class="sec-head" style="margin-bottom:0"><p class="eyebrow">${esc(t('res.eyebrow'))}</p><h2>${esc(t('res.title'))}</h2><p class="lede">${esc(t('res.lede', { fee: fmtMoney(PAYMENT_PLAN.reservationFee) }))}</p></div>
     <ol class="stepper">${steps.map((k, i) => `<li class="${i + 1 === R.step ? 'is-on' : i + 1 < R.step ? 'is-done' : ''}"${i + 1 === R.step ? ' aria-current="step"' : ''}><span>${esc(t(k))}</span></li>`).join('')}</ol>
     <div class="res-card" id="resCard"></div>
   </div>`;
@@ -1231,6 +1594,7 @@ function summaryHtml(R) {
     <h4><bdi>${u.id}</bdi> · <bdi>${u.type}</bdi> · <bdi>${fmtNum(u.area, 2)}</bdi> ${esc(t('misc.m2'))}</h4>
     <p class="fineprint">${esc(floorName(u.floor))} · ${esc(t('unit.parkingBay', { bay: u.parking }))}</p>
     <div class="row"><span>${esc(t('res.base'))}</span><span>${fmtMoney(u.price)}</span></div>
+    <div class="row"><span>${esc(t('price.perM2'))}</span><span>${ppmFmt(ppmOf(u))}</span></div>
     <div class="row"><span>${esc(t('res.finish'))} · ${esc(L(s.name))}</span><span>${s.extra ? '+ ' + fmtMoney(s.extra) : esc(t('unit.included'))}</span></div>
     <div class="row total"><span>${esc(t('res.total'))}</span><span>${fmtMoney(priceOf(u.id, s.id))}</span></div>
     <div class="row"><span>${esc(t('pay.deposit'))}</span><span>${fmtMoney(PAYMENT_PLAN.reservationFee)}</span></div>
@@ -1434,19 +1798,18 @@ function resStep4(card) {
   const res = R.saved || { ok: false, offline: true, doc: reservationDoc() };
   const doc = res.doc;
   const first = (doc.name || '').split(' ')[0];
-  const email = PROJECT.contact.email;
   const text = reservationText(doc);
   card.innerHTML = `<div class="done">
     <div class="tick"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
     <h3>${esc(t('done.title', { name: first }))}</h3>
     <p>${esc(res.ok ? t('done.saved', { unit: doc.unitId }) : res.failed ? t('done.failed') : t('done.offline'))}</p>
     <div class="refbox" style="justify-items:center"><span class="h-small">${esc(t('done.ref'))}</span><span class="ref">${esc(doc.ref)}</span></div>
-    ${res.ok ? '' : `<div class="copyline" style="justify-content:center"><span class="fineprint">${esc(t('done.sendTo'))}</span><span class="val" id="doneEmail">${esc(email)}</span><button type="button" class="copybtn" data-copy="${esc(email)}" data-copy-target="#doneEmail">${esc(t('foot.copy'))}</button></div>`}
     <textarea class="copyarea" id="doneText" readonly aria-label="${esc(t('res.summary'))}">${esc(text)}</textarea>
     <div class="done-actions">
       <button type="button" class="btn btn-solid" id="doneCopy">${esc(t('done.copy'))}</button>
       <a class="btn btn-line" href="#apartments">${esc(t('done.again'))}</a>
     </div>
+    ${contactHtml({ text, waLabel: t('contact.sendWa') })}
     <p class="fineprint">${esc(BANK.iban ? '' : t('pay.bankPending'))}</p>
   </div>`;
   $('#doneCopy', card).onclick = e => copyText(text, $('#doneText', card), e.currentTarget);
@@ -1462,8 +1825,8 @@ function openModal(html) {
 }
 function closeModal() {
   $('#modal').hidden = true;
-  if ($('#imm').hidden) document.body.classList.remove('no-scroll');
-  if (state.route === 'interest') history.replaceState(null, '', '#top');
+  if ($('#imm').hidden && !(state.openFloor && sheetMode())) document.body.classList.remove('no-scroll');
+  if (state.route === 'interest') { try { history.replaceState(null, '', '#top'); } catch (e) { /* sandboxed */ } }
 }
 
 function openInterest(unitId = '') {
@@ -1477,6 +1840,7 @@ function openInterest(unitId = '') {
     <div class="field"><label for="iUnit">${esc(t('int.unit'))}</label><select id="iUnit" name="unit"><option value="">${esc(t('int.any'))}</option>${UNITS.map(u => `<option value="${u.id}"${u.id === unitId ? ' selected' : ''}>${u.id} · ${u.type} · ${fmtMoney(u.price)}</option>`).join('')}</select></div>
     <label class="consent"><input type="checkbox" id="iConsent"><span>${esc(t('f.consent'))}</span></label><span class="err" id="iConsentErr" hidden></span>
     <button type="submit" class="btn btn-bronze">${esc(t('int.send'))}</button>
+    ${contactHtml({ text: `Barreiro 2 · ${t('int.title')}${unitId ? ` · ${unitId}` : ''}` })}
   </form>`);
   const form = $('#intForm');
   $('[data-close]', form).onclick = closeModal;
@@ -1496,13 +1860,12 @@ function openInterest(unitId = '') {
     if (state.db && state.canWrite !== false) {
       try { await withTimeout(appendOwn('leads', doc), 12000); ok = true; } catch (err) { if (err?.code === 'invalid_argument') state.canWrite = false; }
     }
-    const email = PROJECT.contact.email;
     const text = `Barreiro 2 · ${t('int.title')}\n${doc.name}\n${doc.email}\n${doc.phone}\n${doc.unitId || t('int.any')}`;
     $('#modalCard').innerHTML = `<div style="display:grid;gap:14px"><h3 id="modalTitle">${esc(t('int.title'))}</h3>
       <p>${esc(ok ? t('int.thanks') : t('int.offline'))}</p>
-      ${ok ? '' : `<div class="copyline"><span class="val" id="intEmail">${esc(email)}</span><button type="button" class="copybtn" data-copy="${esc(email)}" data-copy-target="#intEmail">${esc(t('foot.copy'))}</button></div>
-      <textarea class="copyarea" id="intText" readonly style="min-height:120px">${esc(text)}</textarea>
+      ${ok ? '' : `<textarea class="copyarea" id="intText" readonly style="min-height:120px">${esc(text)}</textarea>
       <button type="button" class="btn btn-solid" id="intCopy">${esc(t('done.copy'))}</button>`}
+      ${contactHtml({ text: ok ? '' : text, waLabel: ok ? null : t('contact.sendWa') })}
       <button type="button" class="btn btn-line" data-close>${esc(t('int.close'))}</button></div>`;
     $('#modalCard [data-close]').onclick = closeModal;
     const ic = $('#intCopy'); if (ic) ic.onclick = ev => copyText(text, $('#intText'), ev.currentTarget);
@@ -1584,7 +1947,7 @@ async function initCapabilities() {
           if (['available', 'reserved', 'sold'].includes(s) && unitById(d.id)) o[d.id] = s;
         }
         state.overrides = o;
-        renderFloorList(); renderFacade(); renderTable(); renderPlanPanel();
+        renderFloorList(); renderFacade(); renderTable(); renderFloorCard(); renderFacts();
         state.onStatusChange?.();
         if (state.route.startsWith('unit-')) { detachHostFromPage(); }
       }, err => console.warn('[app] units', err));
@@ -1602,7 +1965,7 @@ async function initLandmarks() {
 
 // ---------------------------------------------------------------- boot
 function bindGlobal() {
-  $('#langSel').addEventListener('change', e => applyLang(e.target.value));
+  bindLang();
   $('#menuBtn').addEventListener('click', () => {
     const open = !$('#nav').classList.contains('is-open');
     $('#nav').classList.toggle('is-open', open);
