@@ -1,15 +1,21 @@
 [    0.0s] job preview-1.C-lisboa: scope=unit unit=1.C pkg=lisboa quality=preview shots=2
 [    0.7s] import building: 401 objects in 0.6s
-[    1.0s] import context: 123 objects in 0.4s
+[    1.0s] import context: 123 objects in 0.3s
 [    1.4s] import unit-1.C-lisboa: 94 objects in 0.4s
 [    1.7s] box UVs on 554 meshes
-[    2.8s] materials: built=205 textured=65 by_key={'aluminium-frame': 1, 'appliance-glass-black': 3, 'appliance-steel': 1, 'art-canvas': 4, 'asphalt': 1, 'bark': 2, 'bath-floor': 1, 'bath-wall': 1, 'book': 7, 'brass': 10, 'brick-facade': 1, 'bulb-emissive': 2, 'candle-wax': 1, 'car-glass': 1, 'car-light': 2, 'car-paint': 10, 'ceiling': 2, 'ceiling-white': 1, 'ceramic-plate': 3, 'concrete': 3, 'curtain-fabric': 1, 'cutlery-steel': 1, 'deck-teak': 3, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 3, 'epoxy-floor': 1, 'fabric-boucle': 2, 'fabric-linen': 12, 'fabric-sofa': 2, 'floor-main': 3, 'foliage': 17, 'fruit': 5, 'garage-door': 1, 'glass-drinking': 1, 'glass-railing': 2, 'glass-window': 3, 'gravel': 2, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 1, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 3, 'led-strip-emissive': 7, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 4, 'mirror': 2, 'paint-marking': 8, 'paving-calcada': 2, 'plant-leaf': 2, 'planter-concrete': 1, 'plaster-white': 2, 'pot-terracotta': 1, 'pv-panel': 1, 'render-cream': 1, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 2, 'rug': 1, 'sanitary-ceramic': 3, 'shower-glass': 1, 'shower-wall': 1, 'skirting': 1, 'soil': 4, 'steel-dark': 11, 'stone-coping': 2, 'timber-slats': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 1, 'zinc-standing-seam': 2}
+[    2.9s] materials: built=205 textured=65 by_key={'aluminium-frame': 1, 'appliance-glass-black': 3, 'appliance-steel': 1, 'art-canvas': 4, 'asphalt': 1, 'bark': 2, 'bath-floor': 1, 'bath-wall': 1, 'book': 7, 'brass': 10, 'brick-facade': 1, 'bulb-emissive': 2, 'candle-wax': 1, 'car-glass': 1, 'car-light': 2, 'car-paint': 10, 'ceiling': 2, 'ceiling-white': 1, 'ceramic-plate': 3, 'concrete': 3, 'curtain-fabric': 1, 'cutlery-steel': 1, 'deck-teak': 3, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 3, 'epoxy-floor': 1, 'fabric-boucle': 2, 'fabric-linen': 12, 'fabric-sofa': 2, 'floor-main': 3, 'foliage': 17, 'fruit': 5, 'garage-door': 1, 'glass-drinking': 1, 'glass-railing': 2, 'glass-window': 3, 'gravel': 2, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 1, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 3, 'led-strip-emissive': 7, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 4, 'mirror': 2, 'paint-marking': 8, 'paving-calcada': 2, 'plant-leaf': 2, 'planter-concrete': 1, 'plaster-white': 2, 'pot-terracotta': 1, 'pv-panel': 1, 'render-cream': 1, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 2, 'rug': 1, 'sanitary-ceramic': 3, 'shower-glass': 1, 'shower-wall': 1, 'skirting': 1, 'soil': 4, 'steel-dark': 11, 'stone-coping': 2, 'timber-slats': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 1, 'zinc-standing-seam': 2}
 [    2.9s] lights: imported=4 emissive->lights=100 portals=32 boost=4.0 total_lights=136 polys=264860
-[    3.5s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
-[    3.7s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
-[    3.7s] scene ready in 3.7s  (world kloofendal_43d_clear_puresky)
-[    7.1s] [expo] Lavg=0.009395 p99=0.2673 ev=4.41 ev_hi=3.23 -> 3.23
-[  594.7s] SHOT 1.C-lisboa-h3 pano 2048x1024 spp<=48 ev=3.23 in 591.0s -> renders/preview/1.C/lisboa/1.C-lisboa-h3.jpg
-[  597.1s] [expo] Lavg=0.005527 p99=0.1944 ev=5.18 ev_hi=3.68 -> 3.68
-[  785.8s] SHOT 1.C-living still 960x540 spp<=64 ev=3.68 in 191.1s -> renders/preview/1.C/lisboa/1.C-living.jpg
-[  785.8s] DONE 2 images in 785.8s
+[    3.6s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[    3.9s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[    3.9s] scene ready in 3.9s  (world kloofendal_43d_clear_puresky)
+[   30.9s] PROFILE base: 27.1s  (512px, 32 spp)
+[   54.0s] PROFILE bounces_lo: 23.0s  (512px, 32 spp)
+[   81.9s] PROFILE guiding: 27.9s  (512px, 32 spp)
+[   93.8s] PROFILE fast_gi: 11.9s  (512px, 32 spp)
+[  116.8s] PROFILE no_portals: 22.9s  (512px, 32 spp)
+[  140.1s] PROFILE no_denoise: 23.3s  (512px, 32 spp)
+[  145.2s] [expo] Lavg=0.009559 p95=0.2705 ev=4.39 ev_hi=3.21 -> 3.21 sky=None
+[  527.3s] SHOT 1.C-lisboa-h3 pano 2048x1024 spp<=32 ev=3.21 in 387.2s -> renders/preview/1.C/lisboa/1.C-lisboa-h3.jpg
+[  531.9s] [expo] Lavg=0.00555 p95=0.1951 ev=5.17 ev_hi=3.68 -> 3.68 sky=None
+[  707.7s] SHOT 1.C-living still 960x540 spp<=64 ev=3.68 in 180.4s -> renders/preview/1.C/lisboa/1.C-living.jpg
+[  707.7s] DONE 2 images in 707.7s

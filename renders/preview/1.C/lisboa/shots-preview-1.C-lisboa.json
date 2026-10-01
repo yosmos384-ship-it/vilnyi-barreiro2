@@ -11,7 +11,9 @@
   ],
   "out": "renders/preview/1.C/lisboa",
   "name": "preview-1.C-lisboa",
-  "opts": {}
+  "opts": {
+   "profile": true
+  }
  },
  "shots": [
   {
@@ -21,8 +23,8 @@
    "thumb": "renders/preview/1.C/lisboa/thumbs/1.C-lisboa-h3.jpg",
    "W": 2048,
    "H": 1024,
-   "spp": 48,
-   "ev": 3.2252094262399815,
+   "spp": 32,
+   "ev": 3.208088999940499,
    "tod": "day",
    "position": [
     10.26,
@@ -43,7 +45,7 @@
    "kind": null,
    "yawOffset": -2.83015,
    "index": 3,
-   "seconds": 591.0
+   "seconds": 387.2
   },
   {
    "id": "1.C-living",
@@ -53,7 +55,7 @@
    "W": 960,
    "H": 540,
    "spp": 64,
-   "ev": 3.684609897299456,
+   "ev": 3.6798904478659242,
    "tod": "day",
    "position": [
     10.143,
@@ -74,9 +76,9 @@
    "kind": "living",
    "lens": 24.0,
    "shift_y": 0.0,
-   "seconds": 191.1
+   "seconds": 180.4
   }
  ],
- "seconds": 785.8,
+ "seconds": 707.7,
  "blender": "4.2.3 LTS"
 }
