@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-10-01T08:18:28Z",
+ "generated": "2026-10-01T08:37:01Z",
  "conventions": {
   "position": "three.js world metres (Y-up), eye point of the panorama",
   "yawOffset": "radians; three.js camera yaw (rotation.y, YXZ order; 0 looks along -Z, +pi/2 looks along -X) of the panorama CENTRE column (u = 0.5). u grows to the right (clockwise seen from above). Seam at u = 0/1 faces away.",
