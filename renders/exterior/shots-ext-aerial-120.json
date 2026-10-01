@@ -1,0 +1,43 @@
+{
+ "job": {
+  "scope": "exterior",
+  "quality": "standard",
+  "shots": [
+   "aerial-120"
+  ],
+  "out": "renders/exterior",
+  "name": "ext-aerial-120",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "aerial-120",
+   "type": "still",
+   "file": "renders/exterior/aerial-120.jpg",
+   "thumb": "renders/exterior/thumbs/aerial-120.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 192,
+   "ev": -1.9229859807805665,
+   "tod": "golden",
+   "position": [
+    49.75,
+    120,
+    91.55
+   ],
+   "lookAt": [
+    7,
+    3,
+    7
+   ],
+   "roomId": null,
+   "name": "Aerial, 120 m above the site, looking NNW over Lavradio towards the Tagus",
+   "kind": null,
+   "lens": 35.0,
+   "shift_y": 0.0,
+   "seconds": 758.5
+  }
+ ],
+ "seconds": 764.0,
+ "blender": "4.2.3 LTS"
+}
