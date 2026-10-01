@@ -375,7 +375,7 @@ def render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod):
     wb = LI.wb_gains(wbs) if wbs > 0 else None
     if wb:
         log(f'[wb] gains {tuple(round(x, 3) for x in wb)}')
-    LI.compositor(dict(vignette=0.0 if pano else opts.get('vignette', 0.10), glare=opts.get('glare', not (is_unit or job['scope'] == 'common')), glare_mix=opts.get('glare_mix', -0.95), glare_threshold=opts.get('glare_threshold', 10.0), wb=wb, ev=ev), pano=pano)
+    LI.compositor(dict(vignette=0.0 if pano else opts.get('vignette', 0.0), glare=opts.get('glare', not (is_unit or job['scope'] == 'common')), glare_mix=opts.get('glare_mix', -0.95), glare_threshold=opts.get('glare_threshold', 10.0), wb=wb, ev=ev), pano=pano)
     sc.view_settings.exposure = 0.0   # applied in the compositor (before glare)
     r.image_settings.file_format = 'JPEG'
     r.image_settings.quality = 82 if pano else 85

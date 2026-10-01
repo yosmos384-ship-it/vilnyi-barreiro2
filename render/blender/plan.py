@@ -38,12 +38,12 @@ def main():
     q = a.quality or 'standard'
     if st in ('exterior', 'all'):
         for c in cams.get('exterior', []):
-            if want != ['all'] and c['id'] not in want:
+            if want not in (['all'], ['stills']) and c['id'] not in want:
                 continue
             jobs.append(dict(scope='exterior', quality=q, shots=[c['id']], out='renders/exterior', name=f'ext-{c["id"]}', opts=opts))
     if st in ('common', 'all'):
         for c in cams.get('common', []):     # one job per shot (lamp-lit common areas are slow)
-            if want != ['all'] and c['id'] not in want:
+            if want not in (['all'], ['stills']) and c['id'] not in want:
                 continue
             jobs.append(dict(scope='common', quality=q, shots=[c['id']], out='renders/common', name=f'common-{c["id"]}', opts=opts))
     if st in ('units', 'all'):
