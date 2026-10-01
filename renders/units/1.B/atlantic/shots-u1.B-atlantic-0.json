@@ -1,0 +1,178 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.B",
+  "pkg": "atlantic",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "1.B-atlantic-h0",
+   "1.B-atlantic-h1",
+   "1.B-atlantic-h2",
+   "1.B-atlantic-h3",
+   "1.B-atlantic-h4"
+  ],
+  "out": "renders/units/1.B/atlantic",
+  "name": "u1.B-atlantic-0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "1.B-atlantic-h0",
+   "type": "pano",
+   "file": "renders/units/1.B/atlantic/1.B-atlantic-h0.jpg",
+   "thumb": "renders/units/1.B/atlantic/thumbs/1.B-atlantic-h0.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 1.4574140483234732,
+   "tod": "day",
+   "position": [
+    9,
+    4.6,
+    4.6
+   ],
+   "lookAt": [
+    7.296,
+    4.25,
+    0.474
+   ],
+   "roomId": "1.B-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": null,
+   "yawOffset": 0.39165,
+   "index": 0,
+   "seconds": 1965.5
+  },
+  {
+   "id": "1.B-atlantic-h1",
+   "type": "pano",
+   "file": "renders/units/1.B/atlantic/1.B-atlantic-h1.jpg",
+   "thumb": "renders/units/1.B/atlantic/thumbs/1.B-atlantic-h1.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 0.18056229361341708,
+   "tod": "day",
+   "position": [
+    6.908,
+    4.6,
+    0.842
+   ],
+   "lookAt": [
+    8.25,
+    4,
+    2.9
+   ],
+   "roomId": "1.B-living",
+   "name": {
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": -2.56375,
+   "index": 1,
+   "seconds": 1984.1
+  },
+  {
+   "id": "1.B-atlantic-h2",
+   "type": "pano",
+   "file": "renders/units/1.B/atlantic/1.B-atlantic-h2.jpg",
+   "thumb": "renders/units/1.B/atlantic/thumbs/1.B-atlantic-h2.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 2.27034776392007,
+   "tod": "day",
+   "position": [
+    12.81,
+    4.6,
+    4.15
+   ],
+   "lookAt": [
+    11.672,
+    3.95,
+    2.39
+   ],
+   "roomId": "1.B-bed",
+   "name": {
+    "en": "Bedroom",
+    "pt": "Quarto",
+    "he": "חדר שינה"
+   },
+   "kind": null,
+   "yawOffset": 0.57398,
+   "index": 2,
+   "seconds": 1947.6
+  },
+  {
+   "id": "1.B-atlantic-h3",
+   "type": "pano",
+   "file": "renders/units/1.B/atlantic/1.B-atlantic-h3.jpg",
+   "thumb": "renders/units/1.B/atlantic/thumbs/1.B-atlantic-h3.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 1.7355119840928133,
+   "tod": "day",
+   "position": [
+    10.608,
+    4.6,
+    4.725
+   ],
+   "lookAt": [
+    12.331,
+    4,
+    3.663
+   ],
+   "roomId": "1.B-bed",
+   "name": {
+    "en": "Bedroom · view 2",
+    "pt": "Quarto · vista 2",
+    "he": "חדר שינה · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": -1.01843,
+   "index": 3,
+   "seconds": 1941.7
+  },
+  {
+   "id": "1.B-atlantic-h4",
+   "type": "pano",
+   "file": "renders/units/1.B/atlantic/1.B-atlantic-h4.jpg",
+   "thumb": "renders/units/1.B/atlantic/thumbs/1.B-atlantic-h4.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.1348107915013843,
+   "tod": "day",
+   "position": [
+    6.795,
+    4.6,
+    6.01
+   ],
+   "lookAt": [
+    6.428,
+    4.3,
+    6.732
+   ],
+   "roomId": "1.B-hall",
+   "name": {
+    "en": "Entrance hall",
+    "pt": "Hall",
+    "he": "מבואה"
+   },
+   "kind": null,
+   "yawOffset": 2.67132,
+   "index": 4,
+   "seconds": 1936.7
+  }
+ ],
+ "seconds": 9792.1,
+ "blender": "4.2.3 LTS"
+}
