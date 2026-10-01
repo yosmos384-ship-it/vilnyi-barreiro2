@@ -186,7 +186,44 @@ def polyhaven_hdri(hid, res='4k'):
     return None
 
 
+ACG_MAPS = {'diff': '_Color', 'nor': '_NormalGL', 'rough': '_Roughness', 'disp': '_Displacement', 'ao': '_AmbientOcclusion', 'metal': '_Metalness'}
+
+
+def ambientcg_set(aid, res='2K'):
+    """ambientCG CC0 set by id (zip download) -> {'maps': {...}}"""
+    import zipfile, io
+    d = os.path.join(CACHE, 'acg', aid)
+    idx = os.path.join(d, 'index.json')
+    if os.path.exists(idx):
+        try:
+            maps = json.load(open(idx))
+            if all(os.path.exists(p) for p in maps.values()):
+                return {'maps': maps, 'id': aid, 'src': 'cache'}
+        except Exception:
+            pass
+    try:
+        data = _get(f'https://ambientcg.com/get?file={aid}_{res}-JPG.zip', binary=True)
+        z = zipfile.ZipFile(io.BytesIO(data))
+        os.makedirs(d, exist_ok=True)
+        maps = {}
+        for n in z.namelist():
+            for slot, suf in ACG_MAPS.items():
+                if n.endswith(suf + '.jpg') or n.endswith(suf + '.png'):
+                    p = os.path.join(d, slot + os.path.splitext(n)[1])
+                    with open(p, 'wb') as f:
+                        f.write(z.read(n))
+                    maps[slot] = p
+        if maps:
+            json.dump(maps, open(idx, 'w'))
+            return {'maps': maps, 'id': aid, 'src': 'ambientcg'}
+    except Exception as e:
+        print('[assets] ambientcg failed', aid, e)
+    return None
+
+
 def texture_set(key, pkg, tid, res='2k'):
+    if tid and tid.startswith('acg:'):
+        return ambientcg_set(tid[4:])
     s = manifest_set(key, pkg)
     if s:
         return s
@@ -204,7 +241,8 @@ def prefetch(res='2k', hdri_res='4k'):
     import vb_library as L
     ok, bad = [], []
     for tid in L.all_texture_ids():
-        (ok if polyhaven_set(tid, res) else bad).append(tid)
+        f = ambientcg_set(tid[4:]) if tid.startswith('acg:') else polyhaven_set(tid, res)
+        (ok if f else bad).append(tid)
     for name, s in L.SKIES.items():
         (ok if polyhaven_hdri(s['hdri'], hdri_res) else bad).append(s['hdri'])
     print(f'[assets] prefetch ok={len(ok)} failed={bad}')

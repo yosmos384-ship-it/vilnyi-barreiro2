@@ -106,10 +106,14 @@ def setup_world(tod, opts, log):
     img = bpy.data.images.load(path, check_existing=True)
     res, px = analyse_hdri(img)
     log(f'[world] {sk["hdri"]} {res["w"]}x{res["h"]} sun={res.get("sun")} sun_E={res.get("sun_E", 0):.3f} sky_E={res["sky_E"]:.3f}')
-    clean = bpy.data.images.new('vbSky', res['w'], res['h'], alpha=True, float_buffer=True)
-    clean.pixels.foreach_set(px.ravel())
-    clean.colorspace_settings.name = 'Linear Rec.709' if 'Linear Rec.709' in [c.name for c in clean.colorspace_settings.bl_rna.properties['name'].enum_items] else 'Linear'
-    clean.pack()
+    # write the sun-free sky to disk and load it back (generated float images are not reliably seen by Cycles in -b)
+    tmp = bpy.data.images.new('vbSkyTmp', res['w'], res['h'], alpha=True, float_buffer=True)
+    tmp.pixels.foreach_set(px.ravel())
+    sky_path = os.path.join(opts.get('tmpdir', '/tmp'), f'vbsky-{tod}.exr')
+    tmp.filepath_raw = sky_path; tmp.file_format = 'OPEN_EXR'
+    tmp.save()
+    bpy.data.images.remove(tmp)
+    clean = bpy.data.images.load(sky_path)
     # normalisation: sky horizontal irradiance -> target lux/683
     scale = (sk['sky_lux'] * LUMEN_W) / max(res['sky_E'], 1e-9)
     rot_z = 0.0
@@ -122,8 +126,8 @@ def setup_world(tod, opts, log):
         rot_z = math.radians(target_b - b0)   # Mapping rotates the LOOKUP vector: world sun = Rz(-rot) * hdri sun
         sun_dir = bearing_vec(target_b, alt)
         sunE_target = sk['sun_lux'] * LUMEN_W if sk.get('sun_lux') else res['sun_E'] * scale
-        # keep sky/sun ratio of the photo but pin the sun to the target illuminance
-        scale = 0.5 * scale + 0.5 * (sunE_target / max(res['sun_E'], 1e-9))
+        # keep the sky/sun ratio of the photograph (physically consistent), pin the sun to the target illuminance
+        scale = sunE_target / max(res['sun_E'], 1e-9)
         sun_E = res['sun_E'] * scale
         info.update(sun_bearing=target_b, sun_alt=alt, sun_E=sun_E, sun_rgb=res['sun_rgb'])
         log(f'[world] sun at bearing {target_b:.1f} alt {alt:.1f}  E={sun_E:.1f} W/m2(phot) = {sun_E / LUMEN_W:.0f} lux  sky x{scale:.4g}')
@@ -131,12 +135,12 @@ def setup_world(tod, opts, log):
     tc = nt.nodes.new('ShaderNodeTexCoord'); mp = nt.nodes.new('ShaderNodeMapping')
     mp.inputs['Rotation'].default_value = (0, 0, rot_z)
     env = nt.nodes.new('ShaderNodeTexEnvironment'); env.image = clean; env.interpolation = 'Cubic'
-    bg = nt.nodes.new('ShaderNodeBackground'); bg.inputs['Strength'].default_value = scale
+    bg = nt.nodes.new('ShaderNodeBackground'); bg.inputs['Strength'].default_value = scale * opts.get('sky_gain', 1.0)
     nt.links.new(tc.outputs['Generated'], mp.inputs['Vector']); nt.links.new(mp.outputs['Vector'], env.inputs['Vector'])
     nt.links.new(env.outputs['Color'], bg.inputs['Color'])
     # camera sees a slightly brighter sky (photographic), lighting uses the calibrated one
     lp = nt.nodes.new('ShaderNodeLightPath')
-    bg2 = nt.nodes.new('ShaderNodeBackground'); bg2.inputs['Strength'].default_value = scale * opts.get('sky_visible_gain', 1.0)
+    bg2 = nt.nodes.new('ShaderNodeBackground'); bg2.inputs['Strength'].default_value = scale * opts.get('sky_gain', 1.0) * opts.get('sky_visible_gain', 1.0)
     nt.links.new(env.outputs['Color'], bg2.inputs['Color'])
     mx = nt.nodes.new('ShaderNodeMixShader')
     nt.links.new(lp.outputs['Is Camera Ray'], mx.inputs[0]); nt.links.new(bg.outputs[0], mx.inputs[1]); nt.links.new(bg2.outputs[0], mx.inputs[2])
@@ -198,7 +202,7 @@ def setup_render(opts):
     sc.render.film_transparent = False
     sc.render.threads_mode = 'AUTO'
     try:
-        sc.cycles.use_auto_tile = True; sc.cycles.tile_size = 1024
+        sc.cycles.use_auto_tile = True; sc.cycles.tile_size = 4096
     except Exception:
         pass
     # colour management
@@ -276,10 +280,10 @@ def measure_exposure(tmpdir, key, opts, log, w=None, h=None):
         return 0.0
     lavg = float(np.exp(np.mean(np.log(sel + 1e-5))))
     ev = math.log2(key / max(lavg, 1e-6))
-    # protect highlights: the 99th percentile should not exceed ~16x key
-    p99 = float(np.percentile(lum, 99.0))
-    ev_hi = math.log2(key * opts.get('hi_ratio', 24.0) / max(p99, 1e-6))
-    evf = min(ev, ev_hi + 1.0)
+    # protect highlights: the 90th percentile (sunlit white render, sky) should stay below ~2.5 scene-linear
+    p99 = float(np.percentile(lum, 90.0))
+    ev_hi = math.log2(opts.get('hi_white', 2.5) / max(p99, 1e-6))
+    evf = min(ev, ev_hi)
     evf = max(-12.0, min(12.0, evf))
     log(f'[expo] Lavg={lavg:.4g} p99={p99:.4g} ev={ev:.2f} ev_hi={ev_hi:.2f} -> {evf:.2f}')
     return evf

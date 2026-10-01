@@ -141,13 +141,28 @@ def make_light(name, kind, loc, energy, color, size=0.05, direction=None, spot=1
     return ob
 
 
-def emissive_to_lights(opts, region=None):
+def _cluster(isl, radius):
+    """Merge islands whose centroids are closer than radius (keeps light counts sane)."""
+    out = []
+    for c, n, dims, area in isl:
+        for o in out:
+            if (o[0] - c).length < radius:
+                o[3] += area; o[4] += 1
+                break
+        else:
+            out.append([c, n, dims, area, 1])
+    return [(o[0], o[1], o[2], o[3]) for o in out]
+
+
+def emissive_to_lights(opts, region=None, sources=None):
     """For every material with light='spot|point|strip' create real lights at each emissive island.
     region: optional (min Vector, max Vector) in Blender coords to limit lights (e.g. the unit's floor)."""
     boost = opts.get('lamp_boost', 3.0)
     existing = [o for o in bpy.data.objects if o.type == 'LIGHT']
     made = 0
     for ob in [o for o in bpy.data.objects if o.type == 'MESH']:
+        if sources is not None and ob.get('vb_src') not in sources:
+            continue
         idx = {}
         for i, s in enumerate(ob.material_slots):
             m = s.material
@@ -159,7 +174,10 @@ def emissive_to_lights(opts, region=None):
         if not idx:
             continue
         for mi, r in idx.items():
-            for c, n, dims, area in _islands(ob, {mi}):
+            isl = _islands(ob, {mi})
+            if r['light'] in ('spot', 'point'):
+                isl = _cluster(isl, 0.25)
+            for c, n, dims, area in isl:
                 if region and not (region[0].x <= c.x <= region[1].x and region[0].y <= c.y <= region[1].y and region[0].z <= c.z <= region[1].z):
                     continue
                 if any((l.location - c).length < 0.35 for l in existing):

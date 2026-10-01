@@ -425,6 +425,11 @@ def build(mat, key, variant, pkg, opts):
         mx = nb.node('ShaderNodeMixShader')
         nb.link(vis, mx.inputs[0]); nb.link(dif.outputs[0], mx.inputs[1]); nb.link(em.outputs[0], mx.inputs[2])
         nb.link(mx.outputs[0], outn.inputs['Surface'])
+        # not a light source for NEE: the real lamps created in vb_scene do the lighting (huge speed-up)
+        try:
+            mat.cycles.emission_sampling = 'NONE'
+        except Exception:
+            pass
         return r
     if shader == 'water':
         b = nb.node('ShaderNodeBsdfPrincipled')
@@ -676,7 +681,12 @@ def generic_upgrade(mat, info, key):
             mx = nb.node('ShaderNodeMixShader')
             nb.link(fr.outputs[0], mx.inputs[0]); nb.link(tr.outputs[0], mx.inputs[1]); nb.link(gl.outputs[0], mx.inputs[2])
             nb.link(mx.outputs[0], out.inputs['Surface'])
-        # glTF emissive kept as is (street lamps, signage)
+        # glTF emissive kept for the camera (lit windows, signage) but never sampled as a light
+        try:
+            if info['emis_str'] > 0 and max(info['emis'][:3]) > 0:
+                mat.cycles.emission_sampling = 'NONE'
+        except Exception:
+            pass
     except Exception as e:
         print('[mat] generic upgrade failed', mat.name, e)
     return None

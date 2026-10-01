@@ -30,10 +30,19 @@ T0 = time.time()
 LOG = []
 
 
+LOGFILE = [None]
+
+
 def log(*a):
     s = f'[{time.time() - T0:7.1f}s] ' + ' '.join(str(x) for x in a)
     print(s, flush=True)
     LOG.append(s)
+    if LOGFILE[0]:
+        try:
+            with open(LOGFILE[0], 'a') as f:
+                f.write(s + '\n')
+        except Exception:
+            pass
 
 
 QUALITY = {
@@ -138,6 +147,9 @@ def main():
     q = dict(QUALITY[quality])
     q.update(job.get('q', {}) or {})
     name = job.get('name', 'job')
+    os.makedirs(os.path.join(ROOT, 'render', 'logs'), exist_ok=True)
+    LOGFILE[0] = os.path.join(ROOT, 'render', 'logs', f'{name}.txt')
+    open(LOGFILE[0], 'w').close()
     out_dir = os.path.join(ROOT, job['out'])
     os.makedirs(os.path.join(out_dir, 'thumbs'), exist_ok=True)
     tmp = os.path.join(os.environ.get('RUNNER_TEMP', '/tmp'), 'vb-' + name)
@@ -215,12 +227,20 @@ def render_group(job, q, quality, scn, tod, shots, tmp, out_dir):
         mn, mx = S.scene_bounds(unit_objs)
         region = (mn - Vector((0.3, 0.3, 0.2)), mx + Vector((0.3, 0.3, 0.3)))
         inside = (mn + mx) / 2
-    n_em = S.emissive_to_lights(lopts, region=region if is_unit else None)
+    # real lights from emissive meshes: interiors always; exteriors only at dusk and only for our building
+    if is_unit:
+        n_em = S.emissive_to_lights(lopts, region=region, sources=None)
+    elif tod == 'dusk':
+        n_em = S.emissive_to_lights(lopts, region=None, sources={'building'} | {k for k in objs_by if k.startswith('unit-')})
+    else:
+        n_em = 0
     n_portal = S.window_portals(region, inside) if is_unit and opts.get('portals', True) else 0
-    log(f'lights: imported={n_imp} emissive->lights={n_em} portals={n_portal} boost={lopts["lamp_boost"]}')
+    ntri = sum(len(o.data.polygons) for o in bpy.data.objects if o.type == 'MESH')
+    nl = sum(1 for o in bpy.data.objects if o.type == 'LIGHT')
+    log(f'lights: imported={n_imp} emissive->lights={n_em} portals={n_portal} boost={lopts["lamp_boost"]} total_lights={nl} polys={ntri}')
 
     winfo = LI.setup_world(tod, dict(hdri_res=opts.get('hdri_res', '4k'), sky_override=opts.get('sky', {}).get(tod) if opts.get('sky') else None,
-                                     sky_visible_gain=opts.get('sky_visible_gain', 1.0)), log)
+                                     sky_visible_gain=opts.get('sky_visible_gain', 1.0), sky_gain=opts.get('sky_gain', 1.4), tmpdir=tmp), log)
     LI.setup_render(dict(samples=q['still_spp'], adaptive_threshold=q['still_thr'], clamp_indirect=10.0,
                          look=opts.get('look', 'AgX - Medium High Contrast' if not is_unit else 'AgX - Base Contrast')))
     log(f'scene ready in {time.time() - t_load:.1f}s  (world {winfo.get("hdri")})')
@@ -256,7 +276,7 @@ def render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod):
     if tod == 'dusk':
         key = opts.get('key_dusk', 0.13)
     sc.view_settings.exposure = 0.0
-    ev = LI.measure_exposure(tmp, key, dict(expo_samples=q.get('expo_samples', 16), hi_ratio=opts.get('hi_ratio', 24.0)), log)
+    ev = LI.measure_exposure(tmp, key, dict(expo_samples=q.get('expo_samples', 16), hi_white=opts.get('hi_white', 2.5)), log)
     ev += float(opts.get('ev_bias', 0.0)) + float((opts.get('ev_shot') or {}).get(s['id'], 0.0))
     sc.view_settings.exposure = ev
     LI.compositor(dict(vignette=0.0 if pano else opts.get('vignette', 0.10), glare=True, glare_mix=opts.get('glare_mix', -0.93)), pano=pano)
@@ -295,8 +315,7 @@ def finish(job, results, name, out_dir):
     logdir = os.path.join(ROOT, 'render', 'logs')
     os.makedirs(logdir, exist_ok=True)
     log(f'DONE {len(results)} images in {time.time() - T0:.1f}s')
-    with open(os.path.join(logdir, f'{name}.txt'), 'w') as f:
-        f.write('\n'.join(LOG[-400:]) + '\n')
+
 
 
 if __name__ == '__main__':
