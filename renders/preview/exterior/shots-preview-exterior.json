@@ -3,41 +3,17 @@
   "scope": "exterior",
   "quality": "preview",
   "shots": [
-   "street-dusk",
+   "0.A-living",
+   "0.A-noir-h5",
    "rear-garden"
   ],
   "out": "renders/preview/exterior",
   "name": "preview-exterior",
-  "opts": {}
+  "opts": {
+   "profile": false
+  }
  },
  "shots": [
-  {
-   "id": "street-dusk",
-   "type": "still",
-   "file": "renders/preview/exterior/street-dusk.jpg",
-   "thumb": "renders/preview/exterior/thumbs/street-dusk.jpg",
-   "W": 960,
-   "H": 540,
-   "spp": 64,
-   "ev": 0.15503951812399894,
-   "tod": "dusk",
-   "position": [
-    7,
-    0.37,
-    26.2
-   ],
-   "lookAt": [
-    7,
-    4.4,
-    14.7
-   ],
-   "roomId": null,
-   "name": "Frontal street view at dusk (like assets/street-dusk.jpg)",
-   "kind": null,
-   "lens": 18.0,
-   "shift_y": 0.1752,
-   "seconds": 342.9
-  },
   {
    "id": "rear-garden",
    "type": "still",
@@ -46,7 +22,7 @@
    "W": 960,
    "H": 540,
    "spp": 64,
-   "ev": 1.0820229202457483,
+   "ev": 1.0611563051101858,
    "tod": "golden",
    "position": [
     7.6,
@@ -63,9 +39,9 @@
    "kind": null,
    "lens": 18.0,
    "shift_y": 0.1764,
-   "seconds": 106.0
+   "seconds": 114.9
   }
  ],
- "seconds": 465.1,
+ "seconds": 131.8,
  "blender": "4.2.3 LTS"
 }
