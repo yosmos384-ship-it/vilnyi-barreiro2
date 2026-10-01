@@ -336,7 +336,12 @@ def render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod):
     if tod == 'dusk':
         key = opts.get('key_dusk', 0.13)
     sc.view_settings.exposure = 0.0
-    ev = LI.measure_exposure(tmp, key, dict(expo_samples=q.get('expo_samples', 16), hi_white=opts.get('hi_white', 2.5)), log)
+    w = sc.world.node_tree.nodes.get('vbSkyCam') if sc.world else None
+    if w is not None:
+        w.inputs['Strength'].default_value = w.get('base', w.inputs['Strength'].default_value)
+    ev, sky_lum = LI.measure_exposure(tmp, key, dict(expo_samples=q.get('expo_samples', 16), hi_white=opts.get('hi_white', 2.5)), log)
+    if not is_unit and job['scope'] != 'common':
+        LI.set_sky_visible(ev, sky_lum, opts.get('sky_target', 0.55 if tod != 'dusk' else 0.45), log)
     ev += float(opts.get('ev_bias', 0.0)) + float((opts.get('ev_shot') or {}).get(s['id'], 0.0))
     sc.view_settings.exposure = ev
     LI.compositor(dict(vignette=0.0 if pano else opts.get('vignette', 0.10), glare=True, glare_mix=opts.get('glare_mix', -0.93)), pano=pano)

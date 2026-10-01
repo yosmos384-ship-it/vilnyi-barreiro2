@@ -69,6 +69,11 @@ def box_uv(ob):
     uv = np.stack([u, v], axis=1).astype(np.float32).ravel()
     lay = me.uv_layers.get(M.UV) or me.uv_layers.new(name=M.UV)
     lay.data.foreach_set('uv', uv)
+    # keep the glTF UVs (window atlases, cut-outs) as the default/render UV map
+    first = next((l for l in me.uv_layers if l.name != M.UV), None)
+    if first is not None:
+        first.active_render = True
+        me.uv_layers.active = first
 
 
 def prepare_meshes(objs):

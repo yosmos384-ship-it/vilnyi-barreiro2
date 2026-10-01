@@ -40,7 +40,7 @@ BASE = {
     'timber-soffit':     dict(tex='teak_veneer', size=1.0, rot=90, hsv=(0.5, 0.9, 0.95), rough=(0.45, 0.7), bump=0.1),
     'timber-slats':      dict(tex='teak_veneer', size=1.0, rot=90, hsv=(0.5, 1.0, 1.0), rough=(0.45, 0.7), bump=0.15, bevel=0.003),
     'garage-door':       dict(color='#25272a', rough=0.35, metal=0.3, proc='stripes', stripe=0.5, var=0.02),
-    'paving-calcada':    dict(tex='cobblestone_floor_04', size=2.0, hsv=(0.5, 0.25, 1.35), rough=(0.6, 0.9), bump=0.6, var=0.06),
+    'paving-calcada':    dict(tex='cobblestone_floor_04', size=2.0, tint='#bdb8ae', detail=1.0, rough=(0.6, 0.9), bump=0.6, var=0.06),
     'asphalt':           dict(tex='asphalt_02', size=3.0, hsv=(0.5, 0.7, 0.95), rough=(0.75, 0.95), bump=0.4, var=0.08),
     'kerb-stone':        dict(tex='concrete_floor_02', size=2.0, tint='#cfcac2', rough=(0.6, 0.9), bump=0.25, bevel=0.01),
     'gravel':            dict(tex='gravel', size=2.0, hsv=(0.5, 0.6, 1.1), rough=(0.7, 0.95), bump=0.6),

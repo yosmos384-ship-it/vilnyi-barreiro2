@@ -140,8 +140,11 @@ def setup_world(tod, opts, log):
     nt.links.new(env.outputs['Color'], bg.inputs['Color'])
     # camera sees a slightly brighter sky (photographic), lighting uses the calibrated one
     lp = nt.nodes.new('ShaderNodeLightPath')
-    bg2 = nt.nodes.new('ShaderNodeBackground'); bg2.inputs['Strength'].default_value = scale * opts.get('sky_gain', 1.0) * opts.get('sky_visible_gain', 1.0)
-    nt.links.new(env.outputs['Color'], bg2.inputs['Color'])
+    bg2 = nt.nodes.new('ShaderNodeBackground'); bg2.name = 'vbSkyCam'
+    bg2.inputs['Strength'].default_value = scale * opts.get('sky_gain', 1.0) * opts.get('sky_visible_gain', 1.0)
+    bg2['base'] = scale * opts.get('sky_gain', 1.0)
+    hs = nt.nodes.new('ShaderNodeHueSaturation'); hs.inputs['Saturation'].default_value = opts.get('sky_saturation', 1.2)
+    nt.links.new(env.outputs['Color'], hs.inputs['Color']); nt.links.new(hs.outputs['Color'], bg2.inputs['Color'])
     mx = nt.nodes.new('ShaderNodeMixShader')
     nt.links.new(lp.outputs['Is Camera Ray'], mx.inputs[0]); nt.links.new(bg.outputs[0], mx.inputs[1]); nt.links.new(bg2.outputs[0], mx.inputs[2])
     nt.links.new(mx.outputs[0], out.inputs[0])
@@ -267,12 +270,23 @@ def measure_exposure(tmpdir, key, opts, log, w=None, h=None):
     p = os.path.join(tmpdir, 'expo.exr')
     r.filepath = p
     bpy.ops.render.render(write_still=True)
+    # second pass with the sky visible (persistent data -> cheap) to measure the camera-visible sky
+    r.film_transparent = False
+    p2 = os.path.join(tmpdir, 'expo-sky.exr')
+    r.filepath = p2
+    bpy.ops.render.render(write_still=True)
     (r.resolution_x, r.resolution_y, r.resolution_percentage, sc.cycles.samples, sc.cycles.use_denoising,
      r.image_settings.file_format, r.image_settings.color_depth, sc.use_nodes, sc.cycles.use_adaptive_sampling, r.film_transparent) = saved
     img = bpy.data.images.load(p)
     px = np.empty(img.size[0] * img.size[1] * 4, dtype=np.float32); img.pixels.foreach_get(px)
     bpy.data.images.remove(img)
     px = px.reshape(-1, 4)
+    img2 = bpy.data.images.load(p2)
+    px2 = np.empty(img2.size[0] * img2.size[1] * 4, dtype=np.float32); img2.pixels.foreach_get(px2)
+    bpy.data.images.remove(img2)
+    px2 = px2.reshape(-1, 4)
+    skyp = px2[px[:, 3] < 0.5]
+    sky_lum = float(np.median(0.2126 * skyp[:, 0] + 0.7152 * skyp[:, 1] + 0.0722 * skyp[:, 2])) if len(skyp) > 20 else None
     geo = px[:, 3] > 0.5
     if geo.sum() > 0.05 * len(px):
         px = px[geo]
@@ -282,7 +296,7 @@ def measure_exposure(tmpdir, key, opts, log, w=None, h=None):
     lo, hi = np.percentile(lum, [2, 97])
     sel = lum[(lum >= lo) & (lum <= hi)]
     if sel.size == 0:
-        return 0.0
+        return 0.0, sky_lum
     lavg = float(np.exp(np.mean(np.log(sel + 1e-5))))
     ev = math.log2(key / max(lavg, 1e-6))
     # protect highlights: the 90th percentile (sunlit white render, sky) should stay below ~2.5 scene-linear
@@ -290,5 +304,20 @@ def measure_exposure(tmpdir, key, opts, log, w=None, h=None):
     ev_hi = math.log2(opts.get('hi_white', 2.5) / max(p99, 1e-6))
     evf = min(ev, ev_hi)
     evf = max(-12.0, min(12.0, evf))
-    log(f'[expo] Lavg={lavg:.4g} p99={p99:.4g} ev={ev:.2f} ev_hi={ev_hi:.2f} -> {evf:.2f}')
-    return evf
+    log(f'[expo] Lavg={lavg:.4g} p95={p99:.4g} ev={ev:.2f} ev_hi={ev_hi:.2f} -> {evf:.2f} sky={sky_lum}')
+    return evf, sky_lum
+
+
+def set_sky_visible(ev, sky_lum, target, log):
+    """Graduated-filter: scale the camera-visible sky so it lands at `target` (scene-linear after exposure)."""
+    w = bpy.context.scene.world
+    nd = w.node_tree.nodes.get('vbSkyCam') if w and w.node_tree else None
+    if nd is None or not sky_lum:
+        return
+    # sky_lum was measured with the current camera-sky strength
+    cur = nd.inputs['Strength'].default_value
+    base = nd.get('base', cur)
+    g = target / max(sky_lum * (2 ** ev), 1e-6)
+    newv = max(base * 0.12, min(base * 1.0, cur * g))
+    nd.inputs['Strength'].default_value = newv
+    log(f'[sky] visible sky x{newv / base:.2f} (measured {sky_lum:.3g}, ev {ev:.2f})')
