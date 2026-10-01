@@ -135,7 +135,7 @@ PACKAGES = {
     },
     # Premium · Lisboa Heritage — walnut herringbone, lime plaster, Estremoz marble + azulejo, navy lacquer + brass + Calacatta
     'lisboa': {
-        'floor-main':       dict(tex='herringbone_parquet', size=3.4, tint='#8a6446', detail=1.0, rough=(0.35, 0.55), bump=0.08, var=0.05, coat=0.1),
+        'floor-main':       dict(tex='herringbone_parquet', size=3.4, tint='#8a6446', detail=1.0, rough=(0.5, 0.72), bump=0.08, var=0.05),
         'wall-paint':       dict(tex='white_plaster_02', size=1.5, tint='#ece4d6', detail=0.25, rough=(0.85, 0.95), bump=0.05, var=0.02),
         'wall-feature':     dict(proc='azulejo', keep_map=True, color='#f3efe6', rough=0.12, coat=0.6, tiles=dict(w=0.14, h=0.14, grout=0.0025, grout_color='#d9d3c6', offset=0.0, jitter=0.03)),
         'ceiling':          dict(color='#f7f1e6', rough=0.92),
