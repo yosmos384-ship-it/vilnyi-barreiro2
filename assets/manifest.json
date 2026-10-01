@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-10-01T03:59:29Z",
+ "generated": "2026-10-01T04:02:04Z",
  "license": "All assets CC0 1.0 (Poly Haven, ambientCG). Credits below.",
  "notes": {
   "normal": "OpenGL convention (+Y up), linear",
@@ -2237,20 +2237,20 @@
    "note": "midday, partly cloudy, sun ~48deg"
   },
   "golden": {
-   "id": "kloppenheim_06_puresky",
-   "name": "Kloppenheim 06 (Pure Sky)",
-   "web": "assets/hdri/golden_kloppenheim_06_puresky_1k.hdr",
+   "id": "table_mountain_2_puresky",
+   "name": "Table Mountain 2 (Pure Sky)",
+   "web": "assets/hdri/golden_table_mountain_2_puresky_1k.hdr",
    "intensityHint": 1.0,
-   "url": "https://polyhaven.com/a/kloppenheim_06_puresky",
-   "note": "low warm sun, scattered clouds"
+   "url": "https://polyhaven.com/a/table_mountain_2_puresky",
+   "note": "low warm sun with sunlit clouds (late afternoon / golden hour)"
   },
   "dusk": {
    "id": "qwantani_dusk_2_puresky",
    "name": "Qwantani Dusk 2 (Pure Sky)",
    "web": "assets/hdri/dusk_qwantani_dusk_2_puresky_1k.hdr",
-   "intensityHint": 1.0,
+   "intensityHint": 0.4,
    "url": "https://polyhaven.com/a/qwantani_dusk_2_puresky",
-   "note": "blue hour after sunset"
+   "note": "blue hour after sunset; no direct sun - scale ~0.4 for evening mood, add street/interior lights"
   },
   "studio": {
    "id": "studio_small_09",
@@ -3650,13 +3650,6 @@
    "license": "CC0 1.0"
   },
   {
-   "name": "Kloppenheim 06 (Pure Sky)",
-   "author": "Greg Zaal, Jarod Guest",
-   "url": "https://polyhaven.com/a/kloppenheim_06_puresky",
-   "source": "polyhaven",
-   "license": "CC0 1.0"
-  },
-  {
    "name": "Lambis Shell",
    "author": "Kuutti Siitonen",
    "url": "https://polyhaven.com/a/lambis_shell",
@@ -3814,6 +3807,13 @@
    "name": "Studio Small 09",
    "author": "Sergej Majboroda",
    "url": "https://polyhaven.com/a/studio_small_09",
+   "source": "polyhaven",
+   "license": "CC0 1.0"
+  },
+  {
+   "name": "Table Mountain 2 (Pure Sky)",
+   "author": "Greg Zaal, Jarod Guest",
+   "url": "https://polyhaven.com/a/table_mountain_2_puresky",
    "source": "polyhaven",
    "license": "CC0 1.0"
   },

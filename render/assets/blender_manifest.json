@@ -2333,10 +2333,10 @@
    "intensityHint": 1.0
   },
   "golden": {
-   "id": "kloppenheim_06_puresky",
-   "hdr2k": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/2k/kloppenheim_06_puresky_2k.hdr",
-   "hdr4k": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/kloppenheim_06_puresky_4k.hdr",
-   "exr4k": "https://dl.polyhaven.org/file/ph-assets/HDRIs/exr/4k/kloppenheim_06_puresky_4k.exr",
+   "id": "table_mountain_2_puresky",
+   "hdr2k": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/2k/table_mountain_2_puresky_2k.hdr",
+   "hdr4k": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/table_mountain_2_puresky_4k.hdr",
+   "exr4k": "https://dl.polyhaven.org/file/ph-assets/HDRIs/exr/4k/table_mountain_2_puresky_4k.exr",
    "intensityHint": 1.0
   },
   "dusk": {
@@ -2344,7 +2344,7 @@
    "hdr2k": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/2k/qwantani_dusk_2_puresky_2k.hdr",
    "hdr4k": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/qwantani_dusk_2_puresky_4k.hdr",
    "exr4k": "https://dl.polyhaven.org/file/ph-assets/HDRIs/exr/4k/qwantani_dusk_2_puresky_4k.exr",
-   "intensityHint": 1.0
+   "intensityHint": 0.4
   },
   "studio": {
    "id": "studio_small_09",
