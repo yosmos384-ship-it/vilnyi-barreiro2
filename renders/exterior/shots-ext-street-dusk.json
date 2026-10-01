@@ -1,0 +1,43 @@
+{
+ "job": {
+  "scope": "exterior",
+  "quality": "standard",
+  "shots": [
+   "street-dusk"
+  ],
+  "out": "renders/exterior",
+  "name": "ext-street-dusk",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "street-dusk",
+   "type": "still",
+   "file": "renders/exterior/street-dusk.jpg",
+   "thumb": "renders/exterior/thumbs/street-dusk.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 192,
+   "ev": 0.06749883561458231,
+   "tod": "dusk",
+   "position": [
+    7,
+    0.37,
+    26.2
+   ],
+   "lookAt": [
+    7,
+    4.4,
+    14.7
+   ],
+   "roomId": null,
+   "name": "Frontal street view at dusk (like assets/street-dusk.jpg)",
+   "kind": null,
+   "lens": 18.0,
+   "shift_y": 0.1752,
+   "seconds": 4468.9
+  }
+ ],
+ "seconds": 4474.0,
+ "blender": "4.2.3 LTS"
+}
