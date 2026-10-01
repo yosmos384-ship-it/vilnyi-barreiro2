@@ -268,3 +268,121 @@ def far_ground(radius=6000.0, z=-6.0):
     ob.data.materials.append(m)
     ob['vb_src'] = 'far'
     return ob
+
+
+# ------------------------------------------------------------------ foliage: leaf instances on low-poly crowns
+def _leaf_object():
+    ob = bpy.data.objects.get('vbLeaf')
+    if ob:
+        return ob
+    me = bpy.data.meshes.new('vbLeaf')
+    # olive-like lanceolate leaf, 11 x 3.5 cm, slight fold, in the XY plane
+    L, W = 0.11, 0.035
+    verts = [(0, 0, 0), (L * 0.3, W / 2, 0.004), (L * 0.65, W * 0.42, 0.006), (L, 0, 0.0), (L * 0.65, -W * 0.42, 0.006), (L * 0.3, -W / 2, 0.004), (L * 0.5, 0, -0.003)]
+    faces = [(0, 1, 6), (1, 2, 6), (2, 3, 6), (3, 4, 6), (4, 5, 6), (5, 0, 6)]
+    me.from_pydata(verts, [], faces)
+    me.update()
+    m = bpy.data.materials.get('foliage:leaf') or bpy.data.materials.new('foliage:leaf')
+    m.use_nodes = True
+    me.materials.append(m)
+    ob = bpy.data.objects.new('vbLeaf', me)
+    ob.hide_render = True
+    bpy.context.scene.collection.objects.link(ob)
+    return ob
+
+
+def _leaf_gn(leaf, density):
+    ng = bpy.data.node_groups.new('vbLeaves', 'GeometryNodeTree')
+    ng.interface.new_socket('Geometry', in_out='INPUT', socket_type='NodeSocketGeometry')
+    ng.interface.new_socket('Geometry', in_out='OUTPUT', socket_type='NodeSocketGeometry')
+    N = ng.nodes; Lk = ng.links
+    gi = N.new('NodeGroupInput'); go = N.new('NodeGroupOutput')
+    dist = N.new('GeometryNodeDistributePointsOnFaces'); dist.distribute_method = 'RANDOM'
+    dist.inputs['Density'].default_value = density
+    Lk.new(gi.outputs[0], dist.inputs['Mesh'])
+    # push points out along the normal (0..14 cm) for a fluffy volume
+    rnd = N.new('FunctionNodeRandomValue'); rnd.data_type = 'FLOAT'
+    rnd.inputs['Min'].default_value = -0.02; rnd.inputs['Max'].default_value = 0.14
+    sc = N.new('ShaderNodeVectorMath'); sc.operation = 'SCALE'
+    Lk.new(dist.outputs['Normal'], sc.inputs[0]); Lk.new(rnd.outputs['Value'], sc.inputs['Scale'])
+    sp = N.new('GeometryNodeSetPosition'); Lk.new(dist.outputs['Points'], sp.inputs['Geometry']); Lk.new(sc.outputs['Vector'], sp.inputs['Offset'])
+    oi = N.new('GeometryNodeObjectInfo'); oi.inputs['Object'].default_value = leaf
+    rr = N.new('FunctionNodeRandomValue'); rr.data_type = 'FLOAT_VECTOR'
+    rr.inputs['Min'].default_value = (0, 0, 0); rr.inputs['Max'].default_value = (6.2832, 6.2832, 6.2832)
+    rs = N.new('FunctionNodeRandomValue'); rs.data_type = 'FLOAT'
+    rs.inputs['Min'].default_value = 0.65; rs.inputs['Max'].default_value = 1.35
+    inst = N.new('GeometryNodeInstanceOnPoints')
+    Lk.new(sp.outputs['Geometry'], inst.inputs['Points']); Lk.new(oi.outputs['Geometry'], inst.inputs['Instance'])
+    Lk.new(rr.outputs['Value'], inst.inputs['Rotation']); Lk.new(rs.outputs['Value'], inst.inputs['Scale'])
+    j = N.new('GeometryNodeJoinGeometry')
+    Lk.new(inst.outputs['Instances'], j.inputs[0]); Lk.new(gi.outputs[0], j.inputs[0])
+    Lk.new(j.outputs[0], go.inputs[0])
+    return ng
+
+
+def leafify(centre, radius=70.0, density=700.0, min_dim=0.3, max_area=6000.0, log=print):
+    """Low-poly tree crowns / ivy (key 'foliage') -> dark inner mass + thousands of instanced leaves (Cycles instancing)."""
+    leaf = _leaf_object()
+    inner = bpy.data.materials.get('foliage-inner') or bpy.data.materials.new('foliage-inner')
+    inner.use_nodes = True
+    made, area_tot = 0, 0.0
+    for ob in [o for o in bpy.data.objects if o.type == 'MESH' and not o.name.startswith('vb')]:
+        idx = {i for i, s in enumerate(ob.material_slots) if s.material and s.material.get('vb_key') == 'foliage'}
+        if not idx:
+            continue
+        me = ob.data
+        bm = bmesh.new(); bm.from_mesh(me); bm.faces.ensure_lookup_table()
+        mw = ob.matrix_world
+        seen = set(); crown_faces = []
+        for f0 in bm.faces:
+            if f0.index in seen or f0.material_index not in idx:
+                continue
+            stack = [f0]; isl = []; seen.add(f0.index)
+            while stack:
+                f = stack.pop(); isl.append(f)
+                for e in f.edges:
+                    for g in e.link_faces:
+                        if g.index not in seen and g.material_index in idx:
+                            seen.add(g.index); stack.append(g)
+            pts = [mw @ v.co for f in isl for v in f.verts]
+            mn = Vector((min(p.x for p in pts), min(p.y for p in pts), min(p.z for p in pts)))
+            mx = Vector((max(p.x for p in pts), max(p.y for p in pts), max(p.z for p in pts)))
+            c = (mn + mx) / 2
+            d = mx - mn
+            if min(d.x, d.y, d.z) < min_dim or (Vector((c.x, c.y)) - Vector((centre[0], centre[1]))).length > radius:
+                continue
+            crown_faces += isl
+        if not crown_faces:
+            bm.free(); continue
+        area = sum(f.calc_area() for f in crown_faces) * (mw.to_scale()[0] ** 2)
+        if area_tot + area > max_area:
+            bm.free(); continue
+        area_tot += area
+        # new object holding the crowns (leaf GN), original crown faces -> dark inner material
+        bm2 = bmesh.new()
+        vmap = {}
+        for f in crown_faces:
+            vs = []
+            for v in f.verts:
+                if v.index not in vmap:
+                    vmap[v.index] = bm2.verts.new(mw @ v.co)
+                vs.append(vmap[v.index])
+            try:
+                bm2.faces.new(vs)
+            except ValueError:
+                pass
+        if inner.name not in [s.material.name for s in ob.material_slots if s.material]:
+            ob.data.materials.append(inner)
+        ii = [s.material for s in ob.material_slots].index(inner)
+        for f in crown_faces:
+            f.material_index = ii
+        bm.to_mesh(me); bm.free()
+        me2 = bpy.data.meshes.new(ob.name + '-crowns'); bm2.to_mesh(me2); bm2.free()
+        ob2 = bpy.data.objects.new('vbCrowns-' + ob.name, me2)
+        bpy.context.scene.collection.objects.link(ob2)
+        ob2.data.materials.append(inner)
+        ob2.hide_render = False
+        mod = ob2.modifiers.new('leaves', 'NODES'); mod.node_group = _leaf_gn(leaf, density)
+        made += 1
+    log(f'[foliage] leafified {made} objects, crown area {area_tot:.0f} m2 -> ~{int(area_tot * density)} leaves')
+    return made

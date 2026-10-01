@@ -33,7 +33,7 @@ def main():
         u, p = (units[0] if a.units else '1.C'), (pkgs[0] if a.packages else 'lisboa')
         jobs.append(dict(scope='unit', unit=u, pkg=p, quality=q, tod=a.tod, shots=[f'{u}-living', f'{u}-{p}-h3'] if want == ['all'] else want,
                          out=f'renders/preview/{u}/{p}', name=f'preview-{u}-{p}', opts=dict(opts, **({'profile': True} if 'profile' not in opts else {}))))
-        jobs.append(dict(scope='exterior', quality=q, shots=['street-dusk', 'street-golden-34'] if want == ['all'] else want,
+        jobs.append(dict(scope='exterior', quality=q, shots=['street-dusk', 'rear-garden'] if want == ['all'] else want,
                          out='renders/preview/exterior', name='preview-exterior', opts=opts))
     q = a.quality or 'standard'
     if st in ('exterior', 'all'):

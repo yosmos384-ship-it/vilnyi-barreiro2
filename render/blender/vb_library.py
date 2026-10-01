@@ -89,6 +89,7 @@ BASE = {
     'bulb-emissive':     dict(shader='emit', emit=(8.0, 2700), light='point', lumens=450),
     'downlight-emissive': dict(shader='emit', emit=(12.0, 3000), light='spot', lumens=600),
     'led-strip-emissive': dict(shader='emit', emit=(5.0, 2700), light='strip', lumens_per_m=900),
+    'foliage-inner':     dict(color='#1c2a14', rough=0.85, var=0.2),
     'far-ground':        dict(tex='aerial_grass_rock', size=40.0, tint='#8d8a74', detail=0.8, rough=0.95, var=0.15),
     # exporter extras (index.json): cars, PV, basement
     'car-paint':         dict(keep_color=True, rough=0.25, coat=1.0, coat_rough=0.03, metal=0.3, var=0.0),

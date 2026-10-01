@@ -231,6 +231,12 @@ def render_group(job, q, quality, scn, tod, shots, tmp, out_dir):
     mopts = dict(tex_res=opts.get('tex_res', '2k'), bevel=opts.get('bevel', False), emit_scale=opts.get('emit_scale', 1.0))
     mopts['debug_mats'] = []
     st = M.apply_all(pkg_for, mopts)
+    if opts.get('leaves', True):
+        try:
+            S.leafify((7.0, -7.0), radius=opts.get('leaf_radius', 60.0 if not is_unit else 30.0), density=opts.get('leaf_density', 700.0), log=log)
+            M.apply_all(pkg_for, mopts, only_new=True)   # materials for the leaf mesh / inner crowns
+        except Exception as e:
+            log('leafify failed', repr(e)); log(traceback.format_exc())
     if job['scope'] == 'exterior' and opts.get('debug', True):
         for line in mopts['debug_mats']:
             if line.startswith('env-') or 'vcol=None' not in line:

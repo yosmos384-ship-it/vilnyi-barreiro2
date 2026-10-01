@@ -559,6 +559,12 @@ def build(mat, key, variant, pkg, opts):
 
     # large-scale variation (breaks up CG uniformity)
     var = r.get('var', 0.03)
+    if shader == 'foliage':
+        # per-leaf / per-instance tone variation (yellowing, sun-bleached, dark)
+        oi = nb.node('ShaderNodeObjectInfo')
+        f0 = nb.maprange(oi.outputs['Random'], 0, 1, 0.7, 1.2)
+        c0 = nb.node('ShaderNodeCombineColor'); nb.link(f0, c0.inputs[0]); nb.link(f0, c0.inputs[1]); nb.link(nb.math('MULTIPLY', f0, 0.9), c0.inputs[2])
+        color = nb.mix('MULTIPLY', color, c0.outputs[0], 1.0)
     if var > 0:
         nz = nb.node('ShaderNodeTexNoise'); nz.inputs['Scale'].default_value = 0.45; nz.inputs['Detail'].default_value = 3.0
         nz.inputs['Roughness'].default_value = 0.55
@@ -736,7 +742,7 @@ def generic_upgrade(mat, info, key):
     return None
 
 
-def apply_all(pkg_for_object, opts):
+def apply_all(pkg_for_object, opts, only_new=False):
     """Rebuild every material used in the scene. pkg_for_object(obj) -> package id for that object's materials."""
     done = {}
     for ob in bpy.data.objects:
@@ -759,12 +765,15 @@ def apply_all(pkg_for_object, opts):
                 if done[k] is not m:
                     slot.material = done[k]
                 continue
+            if only_new and m.get('vb_done'):
+                continue
             # a material shared between packages must be duplicated
             owner = m.get('vb_pkg')
             if owner is not None and owner != (pkg or ''):
                 m2 = m.copy(); m2.name = m.name.split('.')[0] + '~' + (pkg or 'x')
                 slot.material = m2; m = m2
             m['vb_pkg'] = pkg or ''
+            m['vb_done'] = 1
             try:
                 build(m, key, variant, pkg, opts)
             except Exception as e:
