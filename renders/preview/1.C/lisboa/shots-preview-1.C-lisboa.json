@@ -24,7 +24,7 @@
    "W": 2048,
    "H": 1024,
    "spp": 32,
-   "ev": 3.2832264306087673,
+   "ev": 3.297423717133639,
    "tod": "day",
    "position": [
     10.26,
@@ -45,7 +45,7 @@
    "kind": null,
    "yawOffset": -2.83015,
    "index": 3,
-   "seconds": 396.9
+   "seconds": 419.3
   },
   {
    "id": "1.C-living",
@@ -55,7 +55,7 @@
    "W": 960,
    "H": 540,
    "spp": 64,
-   "ev": 3.915859727372014,
+   "ev": 3.9714490848239046,
    "tod": "day",
    "position": [
     10.143,
@@ -76,9 +76,9 @@
    "kind": "living",
    "lens": 24.0,
    "shift_y": 0.0,
-   "seconds": 176.7
+   "seconds": 183.8
   }
  ],
- "seconds": 714.3,
+ "seconds": 755.5,
  "blender": "4.2.3 LTS"
 }
