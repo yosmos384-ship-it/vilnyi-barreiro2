@@ -24,7 +24,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 0.5355386443471727,
+   "ev": 0.5140606027221303,
    "tod": "day",
    "position": [
     5.5,
@@ -45,7 +45,7 @@
    "kind": null,
    "yawOffset": 0.5691,
    "index": 5,
-   "seconds": 1682.4
+   "seconds": 1746.0
   },
   {
    "id": "2.C-atlantic-h6",
@@ -55,7 +55,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 0.8599447536379885,
+   "ev": 0.8442520677077203,
    "tod": "day",
    "position": [
     8.16,
@@ -76,7 +76,7 @@
    "kind": null,
    "yawOffset": 2.62423,
    "index": 6,
-   "seconds": 1997.0
+   "seconds": 2085.1
   },
   {
    "id": "2.C-atlantic-h7",
@@ -107,7 +107,7 @@
    "kind": null,
    "yawOffset": 2.97158,
    "index": 7,
-   "seconds": 958.8
+   "seconds": 977.9
   },
   {
    "id": "2.C-atlantic-h8",
@@ -117,7 +117,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": -3.011705847744496,
+   "ev": -3.012051570731365,
    "tod": "day",
    "position": [
     11.75,
@@ -138,9 +138,9 @@
    "kind": null,
    "yawOffset": 2.97158,
    "index": 8,
-   "seconds": 954.8
+   "seconds": 972.2
   }
  ],
- "seconds": 5609.8,
+ "seconds": 5799.0,
  "blender": "4.2.3 LTS"
 }
