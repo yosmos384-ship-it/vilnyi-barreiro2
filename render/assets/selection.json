@@ -1151,18 +1151,18 @@
    ]
   },
   "golden": {
-   "id": "kloppenheim_06_puresky",
+   "id": "table_mountain_2_puresky",
    "intensityHint": 1.0,
-   "note": "low warm sun, scattered clouds",
+   "note": "low warm sun with sunlit clouds (late afternoon / golden hour)",
    "alt": [
-    "table_mountain_2_puresky",
+    "kloppenheim_06_puresky",
     "lonely_road_afternoon_puresky"
    ]
   },
   "dusk": {
    "id": "qwantani_dusk_2_puresky",
-   "intensityHint": 1.0,
-   "note": "blue hour after sunset",
+   "intensityHint": 0.4,
+   "note": "blue hour after sunset; no direct sun - scale ~0.4 for evening mood, add street/interior lights",
    "alt": [
     "evening_road_01_puresky"
    ]
