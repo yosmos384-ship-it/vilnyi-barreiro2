@@ -128,7 +128,7 @@ jobs:
           git add --sparse -A renders render/logs || git add -A renders render/logs || true
           git commit -q -m "render: ${{ matrix.name }} [skip ci]" || { echo "nothing to commit"; exit 0; }
           for i in $(seq 1 15); do
-            git pull --rebase -q -X theirs && git push -q && { echo "pushed (try $i)"; exit 0; }
+            git pull --rebase --autostash -q -X theirs && git push -q && { echo "pushed (try $i)"; exit 0; }
             sleep $((RANDOM % 20 + 5))
           done
           echo "push failed"; exit 1
@@ -145,4 +145,4 @@ jobs:
           python3 render/blender/manifest.py
           git config user.name "vilnyi-render-bot"; git config user.email "yosmos384@gmail.com"
           git add renders/manifest.json && git commit -q -m "render: manifest [skip ci]" || exit 0
-          for i in $(seq 1 10); do git pull --rebase -q && git push -q && exit 0; sleep $((RANDOM % 15 + 5)); done
+          for i in $(seq 1 10); do git pull --rebase --autostash -q && git push -q && exit 0; sleep $((RANDOM % 15 + 5)); done
