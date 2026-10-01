@@ -1,42 +1,138 @@
 [    0.0s] job preview-exterior: scope=exterior unit=None pkg=None quality=preview shots=2
-[    0.6s] import building: 401 objects in 0.6s
+[    0.7s] import building: 401 objects in 0.6s
 [    1.0s] import context: 123 objects in 0.3s
-[    1.3s] import unit-0.A-atlantic: 87 objects in 0.3s
+[    1.2s] import unit-0.A-atlantic: 87 objects in 0.3s
 [    1.6s] import unit-0.B-atlantic: 94 objects in 0.4s
-[    2.0s] import unit-1.A-atlantic: 85 objects in 0.3s
-[    2.4s] import unit-1.B-atlantic: 86 objects in 0.4s
-[    2.8s] import unit-1.C-atlantic: 94 objects in 0.5s
-[    3.3s] import unit-2.A-atlantic: 80 objects in 0.4s
-[    3.7s] import unit-2.B-atlantic: 79 objects in 0.5s
-[    4.3s] import unit-2.C-atlantic: 87 objects in 0.6s
-[    5.0s] box UVs on 1131 meshes
+[    1.9s] import unit-1.A-atlantic: 85 objects in 0.3s
+[    2.3s] import unit-1.B-atlantic: 86 objects in 0.3s
+[    2.7s] import unit-1.C-atlantic: 94 objects in 0.5s
+[    3.2s] import unit-2.A-atlantic: 80 objects in 0.4s
+[    3.6s] import unit-2.B-atlantic: 79 objects in 0.4s
+[    4.1s] import unit-2.C-atlantic: 87 objects in 0.5s
+[    4.9s] box UVs on 1131 meshes
+[    7.7s]   mat carPaint: key=car-paint col=(1.0, 1.0, 1.0) vcol=Col img=None uv=None
+[    7.7s]   mat env-asphalt: key=asphalt col=(0.093, 0.095, 0.102) vcol=None img=None uv=None
+[    7.7s]   mat env-calcada: key=paving-calcada col=(0.71, 0.687, 0.637) vcol=None img=None uv=None
+[    7.7s]   mat env-dirt: key=soil col=(0.317, 0.232, 0.111) vcol=None img=None uv=None
+[    7.7s]   mat env-facade: key=render-cream col=(1.0, 1.0, 1.0) vcol=Col img=Image_2.001 uv=None
+[    7.7s]   mat env-fence: key=steel-dark col=(1.0, 1.0, 1.0) vcol=None img=Image_1.001 uv=None
+[    7.7s]   mat env-ground: key=soil col=(0.421, 0.41, 0.295) vcol=None img=None uv=None
+[    7.7s]   mat env-metal: key=steel-dark col=(1.0, 1.0, 1.0) vcol=Col img=None uv=None
+[    7.7s]   mat env-plain: key=render-white col=(1.0, 1.0, 1.0) vcol=Col img=None uv=None
+[    7.7s]   mat env-roof: key=roof-tile-terracotta col=(0.844, 0.841, 0.837) vcol=Col img=None uv=None
+[    7.7s]   mat env-stone: key=kerb-stone col=(0.4, 0.361, 0.298) vcol=None img=None uv=None
+[    7.7s]   mat env-yard: key=concrete col=(0.457, 0.389, 0.256) vcol=Col img=None uv=None
+[    7.7s]   mat env-car: key=car-paint col=(0.0, 0.0, 0.0) vcol=Col img=None uv=None
+[    7.7s]   mat env-car.008: key=car-paint col=(0.0, 0.084, 0.084) vcol=Col img=None uv=None
+[    7.7s]   mat env-car.002: key=car-paint col=(0.084, 0.084, 0.084) vcol=Col img=None uv=None
+[    7.7s]   mat env-car.003: key=car-paint col=(0.165, 0.0, 0.0) vcol=Col img=None uv=None
+[    7.7s]   mat env-car.006: key=car-paint col=(0.165, 0.165, 0.165) vcol=Col img=None uv=None
+[    7.7s]   mat env-car.004: key=car-paint col=(0.332, 0.332, 0.418) vcol=Col img=None uv=None
+[    7.7s]   mat env-car.001: key=car-paint col=(0.503, 0.503, 0.503) vcol=Col img=None uv=None
+[    7.7s]   mat env-car.007: key=car-paint col=(0.831, 0.753, 0.665) vcol=Col img=None uv=None
+[    7.7s]   mat env-car.005: key=car-paint col=(0.831, 0.831, 0.831) vcol=Col img=None uv=None
+[    7.7s]   mat env-window: key=glass-window col=(0.021, 0.031, 0.042) vcol=None img=None uv=None
+[    7.7s]   mat env-lamp: key=steel-dark col=(0.807, 0.791, 0.745) vcol=None img=None uv=None
+[    7.7s]   mat env-tree.006: key=foliage col=(0.831, 0.831, 0.753) vcol=Col img=None uv=None
+[    7.7s]   mat env-tree.004: key=foliage col=(0.831, 0.913, 0.753) vcol=Col img=None uv=None
+[    7.7s]   mat env-tree.008: key=foliage col=(0.913, 0.831, 0.753) vcol=Col img=None uv=None
+[    7.7s]   mat env-tree.003: key=foliage col=(0.913, 0.831, 0.831) vcol=Col img=None uv=None
+[    7.7s]   mat env-tree.011: key=foliage col=(0.913, 0.913, 0.753) vcol=Col img=None uv=None
+[    7.7s]   mat env-tree.001: key=foliage col=(0.913, 0.913, 0.831) vcol=Col img=None uv=None
+[    7.7s]   mat env-tree.010: key=foliage col=(0.913, 1.0, 0.831) vcol=Col img=None uv=None
+[    7.7s]   mat env-tree.009: key=foliage col=(1.0, 0.913, 0.831) vcol=Col img=None uv=None
+[    7.7s]   mat env-tree.005: key=foliage col=(1.0, 0.913, 0.913) vcol=Col img=None uv=None
+[    7.7s]   mat env-tree.007: key=foliage col=(1.0, 1.0, 0.831) vcol=Col img=None uv=None
+[    7.7s]   mat env-tree: key=foliage col=(1.0, 1.0, 0.913) vcol=Col img=None uv=None
+[    7.7s]   mat env-tree.002: key=foliage col=(1.0, 1.0, 1.0) vcol=Col img=None uv=None
+[    7.7s]   mat env-iron: key=steel-dark col=(0.888, 0.888, 0.855) vcol=None img=Image_0.001 uv=None
+[    7.7s]   obj env-near-asphalt.001 [] ['env-asphalt']
+[    7.7s]   obj env-near-calcada.001 [] ['env-calcada']
+[    7.7s]   obj env-near-facade.001 ['Color/CORNER/BYTE_COLOR'] ['env-facade']
+[    7.7s]   obj env-near-ground.001 [] ['env-ground']
+[    7.7s]   obj env-near-metal.001 ['Color/CORNER/BYTE_COLOR'] ['env-metal']
+[    7.7s]   obj env-near-osm_facade.001 ['Color/CORNER/BYTE_COLOR'] ['env-facade']
+[    7.7s]   obj env-near-osm_plain.001 ['Color/CORNER/BYTE_COLOR'] ['env-plain']
+[    7.7s]   obj env-near-osm_roof.001 ['Color/CORNER/BYTE_COLOR'] ['env-roof']
+[    7.7s]   obj env-near-plain.001 ['Color/CORNER/BYTE_COLOR'] ['env-plain']
+[    7.7s]   obj env-near-roof.001 ['Color/CORNER/BYTE_COLOR'] ['env-roof']
+[    7.7s]   obj env-near-stone.001 [] ['env-stone']
+[    7.7s]   obj env-near-yard.001 ['Color/CORNER/BYTE_COLOR'] ['env-yard']
 [    7.7s] materials: built=714 textured=250 by_key={'aluminium-frame': 1, 'appliance-glass-black': 17, 'appliance-steel': 8, 'art-canvas': 31, 'asphalt': 1, 'bark': 5, 'bath-floor': 8, 'bath-wall': 8, 'book': 34, 'brass': 10, 'brick-facade': 1, 'bulb-emissive': 16, 'candle-wax': 8, 'car-glass': 1, 'car-light': 2, 'car-paint': 10, 'ceiling': 9, 'ceiling-white': 1, 'ceramic-plate': 24, 'concrete': 3, 'curtain-fabric': 5, 'cutlery-steel': 8, 'deck-teak': 15, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 10, 'epoxy-floor': 1, 'fabric-boucle': 12, 'fabric-linen': 96, 'fabric-sofa': 11, 'floor-main': 17, 'foliage': 24, 'fruit': 46, 'garage-door': 1, 'glass-drinking': 8, 'glass-railing': 2, 'glass-window': 3, 'gravel': 2, 'handrail-steel': 1, 'joinery-wardrobe': 8, 'kerb-stone': 1, 'kitchen-front': 8, 'kitchen-splashback': 8, 'kitchen-worktop': 8, 'lamp-shade': 8, 'lawn': 3, 'led-strip-emissive': 14, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 32, 'mirror': 9, 'paint-marking': 8, 'paving-calcada': 2, 'plant-leaf': 14, 'planter-concrete': 1, 'plaster-white': 2, 'pot-terracotta': 5, 'pv-panel': 1, 'render-cream': 1, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 2, 'rug': 8, 'sanitary-ceramic': 24, 'shower-glass': 8, 'shower-wall': 7, 'skirting': 1, 'soil': 11, 'steel-dark': 11, 'stone-coping': 2, 'timber-slats': 1, 'wall-paint': 8, 'window-sheer': 5, 'wine': 8, 'wood-furniture': 8, 'zinc-standing-seam': 2}
 [    7.7s] lights: imported=18 emissive->lights=0 portals=0 boost=3.0 total_lights=18 polys=630088
 [    8.3s] [world] syferfontein_18d_clear_puresky 4096x2048 sun=True sun_E=13.182 sky_E=0.635
 [    8.5s] [world] sun at bearing 222.0 alt 18.4  E=65.9 W/m2(phot) = 45000 lux  sky x4.998
 [    8.6s] scene ready in 8.5s  (world syferfontein_18d_clear_puresky)
-[   12.5s] [expo] Lavg=0.05725 p95=2.109 ev=1.65 ev_hi=0.25 -> 0.25 sky=4.366321086883545
-[   12.5s] [sky] visible sky x0.11 (measured 4.37, ev 0.25)
-[   12.5s] [wb] gains (0.999, 1.0, 1.019)
-[   63.6s] SHOT street-golden-34 still 960x540 spp<=64 ev=0.25 in 55.0s -> renders/preview/exterior/street-golden-34.jpg
-[   64.4s] import building: 401 objects in 0.6s
-[   64.8s] import context: 123 objects in 0.3s
-[   65.1s] import unit-0.A-atlantic: 87 objects in 0.3s
-[   65.4s] import unit-0.B-atlantic: 94 objects in 0.4s
-[   65.8s] import unit-1.A-atlantic: 85 objects in 0.4s
-[   66.2s] import unit-1.B-atlantic: 86 objects in 0.4s
-[   66.7s] import unit-1.C-atlantic: 94 objects in 0.5s
-[   67.2s] import unit-2.A-atlantic: 80 objects in 0.4s
-[   67.6s] import unit-2.B-atlantic: 79 objects in 0.4s
-[   68.2s] import unit-2.C-atlantic: 87 objects in 0.6s
-[   68.9s] box UVs on 1131 meshes
-[   71.8s] materials: built=714 textured=250 by_key={'aluminium-frame': 1, 'appliance-glass-black': 17, 'appliance-steel': 8, 'art-canvas': 31, 'asphalt': 1, 'bark': 5, 'bath-floor': 8, 'bath-wall': 8, 'book': 34, 'brass': 10, 'brick-facade': 1, 'bulb-emissive': 16, 'candle-wax': 8, 'car-glass': 1, 'car-light': 2, 'car-paint': 10, 'ceiling': 9, 'ceiling-white': 1, 'ceramic-plate': 24, 'concrete': 3, 'curtain-fabric': 5, 'cutlery-steel': 8, 'deck-teak': 15, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 10, 'epoxy-floor': 1, 'fabric-boucle': 12, 'fabric-linen': 96, 'fabric-sofa': 11, 'floor-main': 17, 'foliage': 24, 'fruit': 46, 'garage-door': 1, 'glass-drinking': 8, 'glass-railing': 2, 'glass-window': 3, 'gravel': 2, 'handrail-steel': 1, 'joinery-wardrobe': 8, 'kerb-stone': 1, 'kitchen-front': 8, 'kitchen-splashback': 8, 'kitchen-worktop': 8, 'lamp-shade': 8, 'lawn': 3, 'led-strip-emissive': 14, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 32, 'mirror': 9, 'paint-marking': 8, 'paving-calcada': 2, 'plant-leaf': 14, 'planter-concrete': 1, 'plaster-white': 2, 'pot-terracotta': 5, 'pv-panel': 1, 'render-cream': 1, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 2, 'rug': 8, 'sanitary-ceramic': 24, 'shower-glass': 8, 'shower-wall': 7, 'skirting': 1, 'soil': 11, 'steel-dark': 11, 'stone-coping': 2, 'timber-slats': 1, 'wall-paint': 8, 'window-sheer': 5, 'wine': 8, 'wood-furniture': 8, 'zinc-standing-seam': 2}
-[   71.9s] lights: imported=18 emissive->lights=1706 portals=0 boost=6.0 total_lights=1724 polys=630088
-[   72.5s] [world] syferfontein_6d_clear_puresky 4096x2048 sun=True sun_E=7.828 sky_E=1.038
-[   72.7s] [world] sun at bearing 246.0 alt 5.8  E=20.5 W/m2(phot) = 14000 lux  sky x2.619
-[   72.7s] scene ready in 9.1s  (world syferfontein_6d_clear_puresky)
-[   82.8s] [expo] Lavg=0.02575 p95=0.3707 ev=2.34 ev_hi=2.75 -> 2.34 sky=1.3794267177581787
-[   82.8s] [sky] visible sky x0.06 (measured 1.38, ev 2.34)
-[   82.8s] [wb] gains (0.995, 1.0, 0.996)
-[  376.2s] SHOT street-dusk still 960x540 spp<=64 ev=2.34 in 303.5s -> renders/preview/exterior/street-dusk.jpg
-[  376.2s] DONE 2 images in 376.2s
+[   12.3s] [expo] Lavg=0.05721 p95=2.087 ev=1.65 ev_hi=0.26 -> 0.26 sky=4.368824005126953
+[   12.3s] [sky] visible sky x0.11 (measured 4.37, ev 0.26)
+[   12.3s] [wb] gains (1.0, 1.0, 1.019)
+[   66.3s] SHOT street-golden-34 still 960x540 spp<=64 ev=0.26 in 57.8s -> renders/preview/exterior/street-golden-34.jpg
+[   67.1s] import building: 401 objects in 0.6s
+[   67.5s] import context: 123 objects in 0.3s
+[   67.8s] import unit-0.A-atlantic: 87 objects in 0.3s
+[   68.1s] import unit-0.B-atlantic: 94 objects in 0.4s
+[   68.5s] import unit-1.A-atlantic: 85 objects in 0.3s
+[   68.9s] import unit-1.B-atlantic: 86 objects in 0.4s
+[   69.4s] import unit-1.C-atlantic: 94 objects in 0.5s
+[   69.8s] import unit-2.A-atlantic: 80 objects in 0.4s
+[   70.2s] import unit-2.B-atlantic: 79 objects in 0.4s
+[   70.8s] import unit-2.C-atlantic: 87 objects in 0.6s
+[   71.6s] box UVs on 1131 meshes
+[   74.5s]   mat carPaint: key=car-paint col=(1.0, 1.0, 1.0) vcol=Col img=None uv=None
+[   74.5s]   mat env-asphalt: key=asphalt col=(0.093, 0.095, 0.102) vcol=None img=None uv=None
+[   74.5s]   mat env-calcada: key=paving-calcada col=(0.71, 0.687, 0.637) vcol=None img=None uv=None
+[   74.5s]   mat env-dirt: key=soil col=(0.317, 0.232, 0.111) vcol=None img=None uv=None
+[   74.5s]   mat env-facade: key=render-cream col=(1.0, 1.0, 1.0) vcol=Col img=Image_2.001 uv=None
+[   74.5s]   mat env-fence: key=steel-dark col=(1.0, 1.0, 1.0) vcol=None img=Image_1.001 uv=None
+[   74.5s]   mat env-ground: key=soil col=(0.421, 0.41, 0.295) vcol=None img=None uv=None
+[   74.5s]   mat env-metal: key=steel-dark col=(1.0, 1.0, 1.0) vcol=Col img=None uv=None
+[   74.5s]   mat env-plain: key=render-white col=(1.0, 1.0, 1.0) vcol=Col img=None uv=None
+[   74.5s]   mat env-roof: key=roof-tile-terracotta col=(0.844, 0.841, 0.837) vcol=Col img=None uv=None
+[   74.5s]   mat env-stone: key=kerb-stone col=(0.4, 0.361, 0.298) vcol=None img=None uv=None
+[   74.5s]   mat env-yard: key=concrete col=(0.457, 0.389, 0.256) vcol=Col img=None uv=None
+[   74.5s]   mat env-car: key=car-paint col=(0.0, 0.0, 0.0) vcol=Col img=None uv=None
+[   74.5s]   mat env-car.008: key=car-paint col=(0.0, 0.084, 0.084) vcol=Col img=None uv=None
+[   74.5s]   mat env-car.002: key=car-paint col=(0.084, 0.084, 0.084) vcol=Col img=None uv=None
+[   74.5s]   mat env-car.003: key=car-paint col=(0.165, 0.0, 0.0) vcol=Col img=None uv=None
+[   74.5s]   mat env-car.006: key=car-paint col=(0.165, 0.165, 0.165) vcol=Col img=None uv=None
+[   74.5s]   mat env-car.004: key=car-paint col=(0.332, 0.332, 0.418) vcol=Col img=None uv=None
+[   74.5s]   mat env-car.001: key=car-paint col=(0.503, 0.503, 0.503) vcol=Col img=None uv=None
+[   74.5s]   mat env-car.007: key=car-paint col=(0.831, 0.753, 0.665) vcol=Col img=None uv=None
+[   74.5s]   mat env-car.005: key=car-paint col=(0.831, 0.831, 0.831) vcol=Col img=None uv=None
+[   74.5s]   mat env-window: key=glass-window col=(0.021, 0.031, 0.042) vcol=None img=None uv=None
+[   74.5s]   mat env-lamp: key=steel-dark col=(0.807, 0.791, 0.745) vcol=None img=None uv=None
+[   74.5s]   mat env-tree.006: key=foliage col=(0.831, 0.831, 0.753) vcol=Col img=None uv=None
+[   74.5s]   mat env-tree.004: key=foliage col=(0.831, 0.913, 0.753) vcol=Col img=None uv=None
+[   74.5s]   mat env-tree.008: key=foliage col=(0.913, 0.831, 0.753) vcol=Col img=None uv=None
+[   74.5s]   mat env-tree.003: key=foliage col=(0.913, 0.831, 0.831) vcol=Col img=None uv=None
+[   74.5s]   mat env-tree.011: key=foliage col=(0.913, 0.913, 0.753) vcol=Col img=None uv=None
+[   74.5s]   mat env-tree.001: key=foliage col=(0.913, 0.913, 0.831) vcol=Col img=None uv=None
+[   74.5s]   mat env-tree.010: key=foliage col=(0.913, 1.0, 0.831) vcol=Col img=None uv=None
+[   74.5s]   mat env-tree.009: key=foliage col=(1.0, 0.913, 0.831) vcol=Col img=None uv=None
+[   74.5s]   mat env-tree.005: key=foliage col=(1.0, 0.913, 0.913) vcol=Col img=None uv=None
+[   74.5s]   mat env-tree.007: key=foliage col=(1.0, 1.0, 0.831) vcol=Col img=None uv=None
+[   74.5s]   mat env-tree: key=foliage col=(1.0, 1.0, 0.913) vcol=Col img=None uv=None
+[   74.5s]   mat env-tree.002: key=foliage col=(1.0, 1.0, 1.0) vcol=Col img=None uv=None
+[   74.5s]   mat env-iron: key=steel-dark col=(0.888, 0.888, 0.855) vcol=None img=Image_0.001 uv=None
+[   74.5s]   obj env-near-asphalt.001 [] ['env-asphalt']
+[   74.5s]   obj env-near-calcada.001 [] ['env-calcada']
+[   74.5s]   obj env-near-facade.001 ['Color/CORNER/BYTE_COLOR'] ['env-facade']
+[   74.5s]   obj env-near-ground.001 [] ['env-ground']
+[   74.5s]   obj env-near-metal.001 ['Color/CORNER/BYTE_COLOR'] ['env-metal']
+[   74.5s]   obj env-near-osm_facade.001 ['Color/CORNER/BYTE_COLOR'] ['env-facade']
+[   74.5s]   obj env-near-osm_plain.001 ['Color/CORNER/BYTE_COLOR'] ['env-plain']
+[   74.5s]   obj env-near-osm_roof.001 ['Color/CORNER/BYTE_COLOR'] ['env-roof']
+[   74.5s]   obj env-near-plain.001 ['Color/CORNER/BYTE_COLOR'] ['env-plain']
+[   74.5s]   obj env-near-roof.001 ['Color/CORNER/BYTE_COLOR'] ['env-roof']
+[   74.5s]   obj env-near-stone.001 [] ['env-stone']
+[   74.5s]   obj env-near-yard.001 ['Color/CORNER/BYTE_COLOR'] ['env-yard']
+[   74.5s] materials: built=714 textured=250 by_key={'aluminium-frame': 1, 'appliance-glass-black': 17, 'appliance-steel': 8, 'art-canvas': 31, 'asphalt': 1, 'bark': 5, 'bath-floor': 8, 'bath-wall': 8, 'book': 34, 'brass': 10, 'brick-facade': 1, 'bulb-emissive': 16, 'candle-wax': 8, 'car-glass': 1, 'car-light': 2, 'car-paint': 10, 'ceiling': 9, 'ceiling-white': 1, 'ceramic-plate': 24, 'concrete': 3, 'curtain-fabric': 5, 'cutlery-steel': 8, 'deck-teak': 15, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 10, 'epoxy-floor': 1, 'fabric-boucle': 12, 'fabric-linen': 96, 'fabric-sofa': 11, 'floor-main': 17, 'foliage': 24, 'fruit': 46, 'garage-door': 1, 'glass-drinking': 8, 'glass-railing': 2, 'glass-window': 3, 'gravel': 2, 'handrail-steel': 1, 'joinery-wardrobe': 8, 'kerb-stone': 1, 'kitchen-front': 8, 'kitchen-splashback': 8, 'kitchen-worktop': 8, 'lamp-shade': 8, 'lawn': 3, 'led-strip-emissive': 14, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 32, 'mirror': 9, 'paint-marking': 8, 'paving-calcada': 2, 'plant-leaf': 14, 'planter-concrete': 1, 'plaster-white': 2, 'pot-terracotta': 5, 'pv-panel': 1, 'render-cream': 1, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 2, 'rug': 8, 'sanitary-ceramic': 24, 'shower-glass': 8, 'shower-wall': 7, 'skirting': 1, 'soil': 11, 'steel-dark': 11, 'stone-coping': 2, 'timber-slats': 1, 'wall-paint': 8, 'window-sheer': 5, 'wine': 8, 'wood-furniture': 8, 'zinc-standing-seam': 2}
+[   74.7s] lights: imported=18 emissive->lights=1706 portals=0 boost=6.0 total_lights=1724 polys=630088
+[   75.2s] [world] syferfontein_6d_clear_puresky 4096x2048 sun=True sun_E=7.828 sky_E=1.038
+[   75.5s] [world] sun at bearing 246.0 alt 5.8  E=20.5 W/m2(phot) = 14000 lux  sky x2.619
+[   75.5s] scene ready in 9.2s  (world syferfontein_6d_clear_puresky)
+[   86.2s] [expo] Lavg=0.02557 p95=0.3665 ev=2.35 ev_hi=2.77 -> 2.35 sky=1.3789598941802979
+[   86.2s] [sky] visible sky x0.06 (measured 1.38, ev 2.35)
+[   86.2s] [wb] gains (0.995, 1.0, 0.995)
+[  403.0s] SHOT street-dusk still 960x540 spp<=64 ev=2.35 in 327.5s -> renders/preview/exterior/street-dusk.jpg
+[  403.0s] DONE 2 images in 403.0s
