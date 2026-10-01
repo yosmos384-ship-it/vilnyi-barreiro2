@@ -25,6 +25,8 @@ import vb_library as L
 import vb_materials as M
 import vb_scene as S
 import vb_lighting as LI
+import vb_meter as VM
+import numpy as np
 
 T0 = time.time()
 LOG = []
@@ -52,16 +54,38 @@ QUALITY = {
     'standard': dict(still=(2400, 1350), still_spp=96, still_thr=0.02, pano=(3072, 1536), pano_spp=64, pano_thr=0.035, expo_samples=24),
     'high':     dict(still=(2400, 1350), still_spp=256, still_thr=0.01, pano=(4096, 2048), pano_spp=128, pano_thr=0.02, expo_samples=32),
 }
-# camera tweaks after looking at the previews (three.js coords deltas)
-CAM_OVERRIDES = {
-    'street-golden-34': {'dpos': [-1.0, 0.0, -2.6]},   # step off the far pavement (a parked car filled the foreground)
-}
 EXT_SPP = {'preview': 64, 'standard': 192, 'high': 256}
+
+
+OVR = {}
 
 
 def load_cameras():
     with open(os.path.join(SCENES, 'cameras.json')) as f:
-        return json.load(f)
+        cams = json.load(f)
+    try:
+        with open(os.path.join(HERE, 'cameras_override.json')) as f:
+            OVR.update(json.load(f))
+    except Exception as e:
+        print('no camera overrides', e)
+    have = {c['id'] for c in cams.get('exterior', [])}
+    cams.setdefault('exterior', []).extend(c for c in OVR.get('extra_exterior', []) if c['id'] not in have)
+    have = {c['id'] for c in cams.get('common', [])}
+    cams.setdefault('common', []).extend(c for c in OVR.get('extra_common', []) if c['id'] not in have)
+    return cams
+
+
+def apply_override(s):
+    ov = (OVR.get('shots') or {}).get(s['id'])
+    if not ov:
+        return s
+    for k, v in ov.items():
+        if k in ('dpos', 'dlook'):
+            key = 'position' if k == 'dpos' else 'lookAt'
+            s[key] = [a + b for a, b in zip(s[key], v)]
+        else:
+            s[k] = v
+    return s
 
 
 def shots_for(job, cams):
@@ -104,7 +128,7 @@ def place_camera(shot, q, quality):
     p = S.t2b(shot['position']); t = S.t2b(shot['lookAt'])
     d = (t - p)
     cam.location = p
-    cam_d.clip_start = 0.05; cam_d.clip_end = 5000
+    cam_d.clip_start = float(shot.get('clip_start', 0.05)); cam_d.clip_end = 5000
     cam_d.shift_x = cam_d.shift_y = 0.0
     if shot['type'] == 'pano':
         cam_d.type = 'PANO'
@@ -171,15 +195,6 @@ def main():
         scn = list(s.get('scenes', ['building', 'context']))
         if job['scope'] == 'exterior' and (job.get('opts') or {}).get('with_units', True):
             scn = [x for x in scn if not x.startswith('unit-')] + [f'unit-{u}-*' for u in cams['unitsData'].keys()]
-        # per-shot camera overrides (three.js metres)
-        ov = CAM_OVERRIDES.get(s['id'])
-        if ov:
-            for k, v in ov.items():
-                if k in ('dpos', 'dlook'):
-                    key = 'position' if k == 'dpos' else 'lookAt'
-                    s[key] = [a + b for a, b in zip(s[key], v)]
-                else:
-                    s[k] = v
         scn = tuple(sorted(scn))
         groups.setdefault((scn, s['tod']), []).append(s)
     results = []
@@ -277,7 +292,7 @@ def render_group(job, q, quality, scn, tod, shots, tmp, out_dir):
     winfo = LI.setup_world(tod, dict(hdri_res=opts.get('hdri_res', '4k'), sky_override=opts.get('sky', {}).get(tod) if opts.get('sky') else None,
                                      sky_visible_gain=opts.get('sky_visible_gain', 1.0), sky_gain=opts.get('sky_gain', 1.4), tmpdir=tmp), log)
     LI.setup_render(dict(samples=q['still_spp'], adaptive_threshold=q['still_thr'], clamp_indirect=10.0,
-                         look=opts.get('look', 'AgX - Medium High Contrast')))
+                         look=opts.get('look', 'AgX - Base Contrast' if (is_unit and job.get('pkg') != 'noir') or job['scope'] == 'common' else 'AgX - Medium High Contrast')))
     log(f'scene ready in {time.time() - t_load:.1f}s  (world {winfo.get("hdri")})')
 
     res = []
@@ -339,7 +354,31 @@ def profile(s, q, quality, tmp, opts):
 
 def render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod):
     sc = bpy.context.scene
+    hidden = []
+    try:
+        return _render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, hidden)
+    finally:
+        VM.unhide(hidden)
+
+
+def _render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, hidden):
+    sc = bpy.context.scene
+    ov = (OVR.get('shots') or {}).get(s['id'], {})
+    if is_unit and s['type'] == 'still' and OVR.get('hero_auto', True) and ov.get('auto', True) and s.get('kind') in ('living', 'bedroom', 'bathroom'):
+        fl, room = VM.room_info(s.get('roomId'))
+        if room is not None:
+            hidden += VM.hide_door_leaves(room)
+            bpy.context.view_layer.update()
+            fr = VM.frame_hero(s, log)
+            if fr:
+                s.update(fr)
+    s = apply_override(s)
+    for pat in (s.get('hide') or []):
+        for ob in bpy.data.objects:
+            if pat in ob.name and not ob.hide_render:
+                ob.hide_render = True; ob.hide_viewport = True; hidden.append(ob)
     cinfo = place_camera(s, q, quality)
+    bpy.context.view_layer.update()
     pano = s['type'] == 'pano'
     W, H = cinfo['W'], cinfo['H']
     r = sc.render
@@ -350,28 +389,63 @@ def render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod):
         spp, thr = (q['still_spp'], q['still_thr']) if is_unit or job['scope'] == 'common' else (EXT_SPP.get(quality, 192), q['still_thr'])
     sc.cycles.samples = int(opts.get('spp', spp)); sc.cycles.adaptive_threshold = thr
     sc.cycles.adaptive_min_samples = max(16, min(64, sc.cycles.samples // 6))
-    # exposure
-    key = opts.get('key', 0.20 if (is_unit or job['scope'] == 'common') else 0.18)
-    if tod == 'dusk':
-        key = opts.get('key_dusk', 0.16)
+    # ---- exposure: one tiny linear pass + ray-cast classification (sky / exterior / interior pixels)
     sc.view_settings.exposure = 0.0
-    w = sc.world.node_tree.nodes.get('vbSkyCam') if sc.world else None
-    if w is not None:
-        w.inputs['Strength'].default_value = w.get('base', w.inputs['Strength'].default_value)
-    interior = (is_unit or job['scope'] == 'common') and s.get('kind') != 'garden' and not str(s.get('roomId', '')).split('-')[-1] in ('garden',) \
-        and not any(str(s.get('roomId', '')).startswith(b) for b in ('1.rear', '1.front', '2.rear', '2.front'))
-    # interiors are exposed for the room (like an architectural photographer); windows may bloom
-    # highlight rule: dark finishes (Noir) must not be metered to mid-grey -> the brightest ~12% (ceiling, sanitaryware,
-    # sheers) is kept below ~3 scene-linear, windows beyond that may bloom
-    eo = dict(expo_samples=max(32, q.get('expo_samples', 16)) if interior else q.get('expo_samples', 16), hi_white=opts.get('hi_white', 0.9 if interior else 2.5),
-              hi_pct=88.0 if interior else 95.0, diag=opts.get('diag', False),
-              meter_hi_pct=75 if interior else 97)
-    ev, sky_lum = LI.measure_exposure(tmp, key, eo, log)
-    if True:   # interiors too: balcony/garden panoramas and views through windows
+    wsky = sc.world.node_tree.nodes.get('vbSkyCam') if sc.world else None
+    if wsky is not None:
+        wsky.inputs['Strength'].default_value = wsky.get('base', wsky.inputs['Strength'].default_value)
+    LI.set_window_nd(1.0)
+    cam = sc.camera
+    camz = cam.matrix_world.translation
+    indoor_cam = (is_unit or job['scope'] == 'common') and VM.in_building(camz, camz.z) and (camz.z < -1.0 or camz.z > -0.5)
+    px, mw_, mh_ = LI.measure_pass(tmp, samples=max(32, q.get('expo_samples', 16)) if indoor_cam else q.get('expo_samples', 16))
+    lum = 0.2126 * px[..., 0] + 0.7152 * px[..., 1] + 0.0722 * px[..., 2]
+    cls = VM.classify(cam, mw_, mh_, pano)
+    n_in, n_out, n_sky = int((cls == 2).sum()), int((cls == 1).sum()), int((cls == 0).sum())
+    interior = indoor_cam and n_in > 0.25 * cls.size
+    pkg = job.get('pkg') or ''
+    sky_lum = float(np.median(lum[cls == 0])) if n_sky > 20 else None
+    if interior:
+        # bright, airy real-estate exposure for the ROOM; Noir stays moody but readable
+        key = opts.get('key', {'noir': 0.17}.get(pkg, 0.30))
+        li = lum[cls == 2]
+        lavg = LI.logavg(li, 3, 97) or 1e-3
+        ev = math.log2(key / lavg)
+        p97 = float(np.percentile(li, 97))
+        ev_hi = math.log2(opts.get('hi_white', 2.6) / max(p97, 1e-6))
+        ev = max(-12.0, min(12.0, min(ev, ev_hi)))
+        sel = px[cls == 2][:, :3]
+        # the view through the windows: camera-only ND on the glass so the outside stays readable
+        lo_ = lum[cls != 2]
+        nd = 1.0
+        if lo_.size > 0.01 * cls.size:
+            p75 = float(np.percentile(lo_, 75))
+            nd = max(0.05, min(1.0, opts.get('window_target', 1.1) / max(p75 * (2 ** ev), 1e-6)))
+        LI.set_window_nd(nd)
+        log(f'[expo] interior: in/out/sky={n_in}/{n_out}/{n_sky} Lavg={lavg:.4g} p97={p97:.4g} ev_hi={ev_hi:.2f} -> ev={ev:.2f} windowND={nd:.2f}')
+    else:
+        key = opts.get('key', 0.18)
+        if tod == 'dusk':
+            key = opts.get('key_dusk', 0.16)
+        geo = cls > 0
+        lg = lum[geo] if geo.sum() > 0.05 * cls.size else lum.ravel()
+        lavg = LI.logavg(lg, 2, 97) or 1e-3
+        ev = math.log2(key / lavg)
+        p95 = float(np.percentile(lg, 95))
+        ev_hi = math.log2(opts.get('hi_white_ext', 2.5) / max(p95, 1e-6))
+        ev = max(-12.0, min(12.0, min(ev, ev_hi)))
+        sel = px[geo][:, :3] if geo.sum() > 20 else px.reshape(-1, 4)[:, :3]
+        log(f'[expo] exterior: geo/sky={int(geo.sum())}/{n_sky} Lavg={lavg:.4g} p95={p95:.4g} ev_hi={ev_hi:.2f} -> ev={ev:.2f} sky={sky_lum}')
         LI.set_sky_visible(ev, sky_lum, opts.get('sky_target', 0.55 if tod != 'dusk' else 0.45), log)
+    sl = 0.2126 * sel[:, 0] + 0.7152 * sel[:, 1] + 0.0722 * sel[:, 2]
+    if sel.shape[0] > 40:
+        mid = sel[(sl > np.percentile(sl, 20)) & (sl < np.percentile(sl, 95))]
+        LI.WB[0] = tuple(float(x) for x in mid.mean(axis=0)) if len(mid) > 20 else None
+    else:
+        LI.WB[0] = None
     ev += float(opts.get('ev_bias', 0.0)) + float((opts.get('ev_shot') or {}).get(s['id'], 0.0))
     sc.view_settings.exposure = ev
-    wbs = opts.get('wb_strength', 0.55 if (is_unit or job['scope'] == 'common') else 0.25)
+    wbs = opts.get('wb_strength', 0.6 if interior else 0.25)
     wb = LI.wb_gains(wbs) if wbs > 0 else None
     if wb:
         log(f'[wb] gains {tuple(round(x, 3) for x in wb)}')

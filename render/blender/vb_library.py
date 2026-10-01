@@ -30,11 +30,11 @@ BASE = {
     'render-pink':       dict(tex='white_plaster_02', size=1.2, tint='#e3a08c', detail=0.7, rough=(0.8, 0.95), bump=0.15, var=0.07),
     'render-cream':      dict(tex='white_plaster_02', size=1.2, tint='#e6d9bf', detail=0.7, rough=(0.8, 0.95), bump=0.15, var=0.08),
     'brick-facade':      dict(tex='red_brick', size=1.4, hsv=(0.5, 0.95, 0.85), rough=(0.75, 0.95), bump=0.5, var=0.06),
-    'zinc-standing-seam': dict(color='#34373a', rough=0.5, metal=0.3, proc='seam', seam=0.43, var=0.05, spec=0.5),
+    'zinc-standing-seam': dict(color='#34373a', rough=0.5, metal=0.3, var=0.07, spec=0.5, backface='#e9e5dd'),
     'stone-coping':      dict(tex='concrete_floor_02', size=2.0, tint='#e6e2da', hsv=(0.5, 0.2, 1.15), rough=(0.6, 0.85), bump=0.1),
     'concrete':          dict(tex='concrete_wall_008', size=2.7, hsv=(0.5, 0.5, 1.0), rough=(0.7, 0.95), bump=0.2, var=0.05),
     'glass-window':      dict(shader='glass_thin', color='#eef3f2', ior=1.52),
-    'glass-railing':     dict(shader='glass_thin', color='#dcebe6', ior=1.52, edge_green=True),
+    'glass-railing':     dict(shader='glass_thin', color='#e4efeb', ior=1.52, refl=0.45, body=0.05),
     'aluminium-frame':   dict(color='#2b2d30', rough=0.38, metal=0.0, coat=0.0, spec=0.5, var=0.0),
     'steel-dark':        dict(color='#2a2b2d', rough=0.45, metal=0.6),
     'timber-soffit':     dict(tex='teak_veneer', size=1.0, rot=90, hsv=(0.5, 0.9, 0.95), rough=(0.45, 0.7), bump=0.1),
@@ -88,7 +88,14 @@ BASE = {
     'lamp-shade':        dict(shader='lampshade', color='#efe6d6', keep_color=True),
     'bulb-emissive':     dict(shader='emit', emit=(8.0, 2700), light='point', lumens=450),
     'downlight-emissive': dict(shader='emit', emit=(12.0, 3000), light='spot', lumens=600),
-    'led-strip-emissive': dict(shader='emit', emit=(5.0, 2700), light='strip', lumens_per_m=900),
+    'led-strip-emissive': dict(shader='emit', emit=(5.0, 2700), light='strip', lumens_per_m=380),
+    # phase-3 exporter names
+    'paint-white':       dict(color='#efede8', rough=0.5, var=0.01),
+    'plastic-black':     dict(color='#141414', rough=0.45, var=0.0),
+    'signage':           dict(keep_color=True, keep_map=True, rough=0.4, metal=0.6),
+    'car-headlight':     dict(color='#d9dde0', rough=0.08, coat=1.0, var=0.0),
+    'car-taillight':     dict(color='#7a1010', rough=0.1, coat=1.0, var=0.0),
+    'car-tyre':          dict(color='#151515', rough=0.85, var=0.03),
     'foliage-inner':     dict(color='#1c2a14', rough=0.85, var=0.2),
     'far-ground':        dict(tex='aerial_grass_rock', size=40.0, tint='#8d8a74', detail=0.8, rough=0.95, var=0.15),
     # exporter extras (index.json): cars, PV, basement
@@ -188,6 +195,23 @@ PACKAGES = {
     },
 }
 
+# 'key:variant' overrides (merged over the key's recipe)
+VARIANTS = {
+    'zinc-standing-seam:trim': dict(var=0.02),
+    'glass-railing:frosted':   dict(shader='principled', color='#dfe8e4', rough=0.35, spec=0.5, trans_weight=0.85),
+    'glass-railing:edge':      dict(shader='principled', color='#7fb5a2', rough=0.1),
+    'concrete:epoxy':          dict(tex=None, color='#8d8f8f', rough=0.3, coat=0.4, var=0.06, bump=0),
+    'concrete:screed':         dict(tint='#a9a69f'),
+    'ceiling-white:basement':  dict(color='#d9d7d1'),
+    'plaster-white:basement':  dict(tint='#d8d5ce'),
+    'planter-concrete:dark':   dict(tint='#4a4a48'),
+    'led-strip-emissive:logo': dict(light=None, emit=(6.0, 3000)),
+    'led-strip-emissive:panel': dict(lumens_per_m=500, emit=(6.0, 4000)),
+    'bulb-emissive:flame':     dict(lumens=14, emit=(30.0, 1900)),
+    'bulb-emissive:streetlamp': dict(lumens=6000, emit=(40.0, 2400)),
+    'gravel:pebble':           dict(size=1.2),
+}
+
 # common keys which also vary by package (lobby etc. stay the same)
 PACKAGE_FURNITURE_METAL = {'atlantic': '#c9c8c4', 'lisboa': '#c49a52', 'noir': '#7b5b3a'}
 
@@ -212,8 +236,16 @@ def all_texture_ids():
     return sorted(ids)
 
 
-def recipe(key, pkg):
-    """Resolve a material key for a package -> recipe dict (or None)."""
+def recipe(key, pkg, variant=''):
+    """Resolve a material key (+ optional ':variant') for a package -> recipe dict (or None)."""
+    r = _recipe(key, pkg)
+    v = VARIANTS.get(f'{key}:{variant}') if variant else None
+    if r is not None and v:
+        r.update(v)
+    return r
+
+
+def _recipe(key, pkg):
     if pkg and pkg in PACKAGES and key in PACKAGES[pkg]:
         return dict(PACKAGES[pkg][key])
     if key in BASE:

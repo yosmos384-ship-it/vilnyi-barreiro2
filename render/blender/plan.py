@@ -22,6 +22,12 @@ def main():
     ap.add_argument('--tod', default='day')
     a = ap.parse_args()
     cams = json.load(open(os.path.join(ROOT, 'render', 'scenes', 'cameras.json')))
+    try:
+        ovr = json.load(open(os.path.join(ROOT, 'render', 'blender', 'cameras_override.json')))
+        cams.setdefault('exterior', []).extend(ovr.get('extra_exterior', []))
+        cams.setdefault('common', []).extend(ovr.get('extra_common', []))
+    except Exception:
+        pass
     pkgs = [p for p in (a.packages or ','.join(cams.get('packages', ['atlantic', 'lisboa', 'noir']))).split(',') if p]
     units = [u for u in (a.units or ','.join(cams['unitsData'].keys())).split(',') if u]
     opts = json.loads(a.opts) if a.opts.strip() else {}
@@ -31,10 +37,11 @@ def main():
     if st == 'preview':
         q = a.quality or 'preview'
         u, p = (units[0] if a.units else '1.C'), (pkgs[0] if a.packages else 'lisboa')
-        jobs.append(dict(scope='unit', unit=u, pkg=p, quality=q, tod=a.tod, shots=[f'{u}-living', f'{u}-{p}-h3'] if want == ['all'] else want,
-                         out=f'renders/preview/{u}/{p}', name=f'preview-{u}-{p}', opts=dict(opts, **({'profile': True} if 'profile' not in opts else {}))))
-        jobs.append(dict(scope='exterior', quality=q, shots=['street-dusk', 'rear-garden'] if want == ['all'] else want,
+        jobs.append(dict(scope='unit', unit=u, pkg=p, quality=q, tod=a.tod, shots=[f'{u}-living', f'{u}-bedroom', f'{u}-bathroom', f'{u}-{p}-h3'] if want == ['all'] else want,
+                         out=f'renders/preview/{u}/{p}', name=f'preview-{u}-{p}', opts=opts))
+        jobs.append(dict(scope='exterior', quality=q, shots=['aerial-dusk-34', 'rear-garden-golden'] if want == ['all'] else want,
                          out='renders/preview/exterior', name='preview-exterior', opts=opts))
+        jobs.append(dict(scope='common', quality=q, shots=['lobby'] if want == ['all'] else want, out='renders/preview/common', name='preview-common', opts=opts))
     q = a.quality or 'standard'
     if st in ('exterior', 'all'):
         for c in cams.get('exterior', []):

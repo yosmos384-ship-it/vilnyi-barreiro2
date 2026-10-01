@@ -1,0 +1,15 @@
+{
+  "_doc": "Camera overrides for render_job.py (three.js metres, Y-up). hero_auto: apartment hero stills (living/bedroom/bathroom) are re-framed by ray-casting the furnished room (clear foreground, long view, window in frame; door leaves of that room hidden). 'shots' entries override any field of a shot after that (position, lookAt, lens_mm, clip_start, auto:false to keep the exported/explicit camera, hide:[object-name substrings]). 'extra_exterior' / 'extra_common' add shots.",
+  "hero_auto": true,
+  "shots": {
+    "street-golden-34": {"dpos": [-1.0, 0.0, -2.6]},
+    "basement": {"position": [9.6, -1.25, 7.6], "lookAt": [3.0, -1.9, -3.5], "lens_mm": 18}
+  },
+  "extra_exterior": [
+    {"id": "rear-garden-golden", "name": "Rear gardens and garden facade, golden hour", "position": [8.6, 1.75, -7.2], "lookAt": [6.2, 3.9, 0.0],
+     "lens_mm": 17, "sensor_width_mm": 36, "aspect": "16:9", "time_of_day": "golden", "scenes": ["building", "context"]},
+    {"id": "aerial-dusk-34", "name": "3/4 aerial at dusk", "position": [36.0, 24.0, 44.0], "lookAt": [6.5, 3.5, 8.0],
+     "lens_mm": 35, "sensor_width_mm": 36, "aspect": "16:9", "time_of_day": "dusk", "scenes": ["building", "context"]}
+  ],
+  "extra_common": []
+}

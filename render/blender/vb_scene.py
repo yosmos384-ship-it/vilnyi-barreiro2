@@ -174,7 +174,7 @@ def emissive_to_lights(opts, region=None, sources=None):
             m = s.material
             if m is None or m.get('vb_shader') != 'emit':
                 continue
-            r = L.recipe(m.get('vb_key', ''), None) or {}
+            r = L.recipe(m.get('vb_key', ''), None, m.get('vb_variant', '')) or {}
             if r.get('light'):
                 idx[i] = r
         if not idx:

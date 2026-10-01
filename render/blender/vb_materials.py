@@ -408,7 +408,7 @@ def vcol_node(nb, name):
 # ------------------------------------------------------------------ main builder
 def build(mat, key, variant, pkg, opts):
     """Rebuild `mat` in place according to the recipe for key/pkg. Returns recipe used (or None)."""
-    r = L.recipe(key, pkg)
+    r = L.recipe(key, pkg, variant.split(':')[0] if variant else '')
     info = gltf_info(mat)
     if mat.get('vb_vcol'):
         # the real attribute name on the meshes (the importer's node may say 'Col' while the attribute is 'Color')
@@ -427,18 +427,31 @@ def build(mat, key, variant, pkg, opts):
     outn = nb.node('ShaderNodeOutputMaterial'); outn.location = (600, 0)
     shader = r.get('shader', 'principled')
     mat['vb_key'] = key
+    mat['vb_variant'] = variant.split(':')[0] if variant else ''
     mat['vb_shader'] = shader
     STATS['materials'] += 1
 
     # ----- simple special shaders
     if shader == 'glass_thin':
-        tr = nb.node('ShaderNodeBsdfTransparent'); tr.inputs[0].default_value = hex_lin(r.get('color', '#f0f4f3'))
+        col = hex_lin(r.get('color', '#f0f4f3'))
+        # window 'ND film' for camera rays only (set per shot by the exposure metering; 1 = clear glass)
+        nd = nb.node('ShaderNodeValue'); nd.name = 'vbND'; nd.outputs[0].default_value = 1.0
+        lp = nb.node('ShaderNodeLightPath')
+        f = nb.math('ADD', nb.math('MULTIPLY', lp.outputs['Is Camera Ray'], nb.math('SUBTRACT', nd.outputs[0], 1.0)), 1.0)
+        fc = nb.node('ShaderNodeCombineColor'); [nb.link(f, fc.inputs[i]) for i in range(3)]
+        tcol = nb.mix('MULTIPLY', col, fc.outputs[0], 1.0)
+        tr = nb.node('ShaderNodeBsdfTransparent'); nb.link(tcol, tr.inputs[0])
         gl = nb.node('ShaderNodeBsdfGlossy', distribution='GGX'); gl.inputs['Roughness'].default_value = 0.0
         fr = nb.node('ShaderNodeFresnel'); fr.inputs['IOR'].default_value = r.get('ior', 1.52)
+        fac = nb.math('MULTIPLY', fr.outputs[0], r.get('refl', 1.0))
         mx = nb.node('ShaderNodeMixShader')
-        nb.link(fr.outputs[0], mx.inputs[0]); nb.link(tr.outputs[0], mx.inputs[1]); nb.link(gl.outputs[0], mx.inputs[2])
-        nb.link(mx.outputs[0], outn.inputs['Surface'])
-        mat.blend_method = 'HASHED' if hasattr(mat, 'blend_method') else None
+        nb.link(fac, mx.inputs[0]); nb.link(tr.outputs[0], mx.inputs[1]); nb.link(gl.outputs[0], mx.inputs[2])
+        surf = mx.outputs[0]
+        if r.get('body'):
+            df = nb.node('ShaderNodeBsdfDiffuse'); df.inputs['Color'].default_value = hex_lin('#d5e6df')
+            m2 = nb.node('ShaderNodeMixShader'); m2.inputs[0].default_value = r['body']
+            nb.link(surf, m2.inputs[1]); nb.link(df.outputs[0], m2.inputs[2]); surf = m2.outputs[0]
+        nb.link(surf, outn.inputs['Surface'])
         return r
     if shader == 'glass_solid':
         g = nb.node('ShaderNodeBsdfGlass', distribution='MULTI_GGX')
@@ -676,6 +689,13 @@ def build(mat, key, variant, pkg, opts):
         nb.link(nrm, b.inputs['Normal'])
 
     surf = b.outputs[0]
+    if r.get('trans_weight'):
+        set_in(b, ['Transmission Weight', 'Transmission'], float(r['trans_weight']))
+    if r.get('backface'):
+        bf = nb.node('ShaderNodeBsdfDiffuse'); bf.inputs['Color'].default_value = hex_lin(r['backface'])
+        mxb = nb.node('ShaderNodeMixShader')
+        nb.link(geo.outputs['Backfacing'], mxb.inputs[0]); nb.link(surf, mxb.inputs[1]); nb.link(bf.outputs[0], mxb.inputs[2])
+        surf = mxb.outputs[0]
     # translucency (foliage, curtains, lampshades, grass)
     if shader in ('foliage', 'lampshade', 'sheer') or r.get('trans'):
         tl = nb.node('ShaderNodeBsdfTranslucent'); nb.link(color, tl.inputs['Color'])

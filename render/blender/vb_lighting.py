@@ -390,3 +390,50 @@ def set_sky_visible(ev, sky_lum, target, log):
     newv = max(base * 0.05, min(base * 1.0, cur * g))
     nd.inputs['Strength'].default_value = newv
     log(f'[sky] visible sky x{newv / base:.2f} (measured {sky_lum:.3g}, ev {ev:.2f})')
+
+
+def measure_pass(tmpdir, samples=24, size=200):
+    """Tiny scene-linear preview of the current camera -> (H, W, 4) float array (row 0 = bottom)."""
+    sc = bpy.context.scene
+    r = sc.render
+    saved = (r.resolution_x, r.resolution_y, r.resolution_percentage, sc.cycles.samples, sc.cycles.use_denoising,
+             r.image_settings.file_format, r.image_settings.color_depth, sc.use_nodes, sc.cycles.use_adaptive_sampling)
+    W, H = r.resolution_x, r.resolution_y
+    s = float(size) / max(W, H)
+    w, h = max(16, int(W * s)), max(8, int(H * s))
+    r.resolution_x, r.resolution_y, r.resolution_percentage = w, h, 100
+    sc.cycles.samples = samples; sc.cycles.use_denoising = False; sc.use_nodes = False
+    sc.cycles.use_adaptive_sampling = False
+    r.image_settings.file_format = 'OPEN_EXR'; r.image_settings.color_depth = '32'
+    p = os.path.join(tmpdir, 'meter.exr')
+    r.filepath = p
+    bpy.ops.render.render(write_still=True)
+    (r.resolution_x, r.resolution_y, r.resolution_percentage, sc.cycles.samples, sc.cycles.use_denoising,
+     r.image_settings.file_format, r.image_settings.color_depth, sc.use_nodes, sc.cycles.use_adaptive_sampling) = saved
+    img = bpy.data.images.load(p)
+    px = np.empty(img.size[0] * img.size[1] * 4, dtype=np.float32); img.pixels.foreach_get(px)
+    w, h = img.size[0], img.size[1]
+    bpy.data.images.remove(img)
+    return np.maximum(np.nan_to_num(px.reshape(h, w, 4)), 0.0), w, h
+
+
+def logavg(lum, lo_pct=3, hi_pct=97):
+    if lum.size < 8:
+        return None
+    lo, hi = np.percentile(lum, [lo_pct, hi_pct])
+    sel = lum[(lum >= lo) & (lum <= hi)]
+    if sel.size == 0:
+        return None
+    floor = max(1e-6, float(np.median(sel)) * 0.02)
+    return float(np.exp(np.mean(np.log(np.maximum(sel, floor)))))
+
+
+def set_window_nd(nd):
+    """Camera-ray 'ND film' on window glass (see vb_materials glass_thin)."""
+    n = 0
+    for m in bpy.data.materials:
+        if m.use_nodes and m.get('vb_key') in ('glass-window',):
+            nd_node = m.node_tree.nodes.get('vbND')
+            if nd_node is not None:
+                nd_node.outputs[0].default_value = nd; n += 1
+    return n
