@@ -1,0 +1,60 @@
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:11:48.97 | Remaining:09:52.89 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 52/96
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:12:10.88 | Remaining:09:22.02 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 54/96
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:12:32.93 | Remaining:08:51.89 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 56/96
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:12:55.01 | Remaining:08:22.34 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 58/96
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:13:17.03 | Remaining:07:53.25 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 60/96
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:13:39.10 | Remaining:07:24.64 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 62/96
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:14:01.23 | Remaining:06:56.47 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 64/96
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:14:22.13 | Remaining:06:28.11 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 66/96
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:14:42.90 | Remaining:06:00.13 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 68/96
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:15:03.67 | Remaining:05:32.57 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 70/96
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:15:24.50 | Remaining:05:05.40 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 72/96
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:15:45.29 | Remaining:04:38.57 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 74/96
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:16:06.03 | Remaining:04:12.04 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 76/96
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:16:26.77 | Remaining:03:45.80 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 78/96
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:16:47.52 | Remaining:03:19.84 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 80/96
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:17:07.15 | Remaining:02:53.95 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 82/96
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:17:26.81 | Remaining:02:28.36 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 84/96
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:17:46.45 | Remaining:02:03.04 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 86/96
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:18:06.04 | Remaining:01:37.97 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 88/96
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:18:25.69 | Remaining:01:13.16 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 90/96
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:18:45.37 | Remaining:00:48.56 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 92/96
+Fra:1 Mem:2103.81M (Peak 2103.81M) | Time:19:05.01 | Remaining:00:24.18 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 94/96
+Fra:1 Mem:2202.69M (Peak 2351.01M) | Time:19:57.14 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Sample 96/96
+Fra:1 Mem:2202.69M (Peak 2351.01M) | Time:19:57.14 | Mem:2039.06M, Peak:2039.06M | Scene, ViewLayer | Finished
+Fra:1 Mem:2202.70M (Peak 2351.01M) | Time:19:57.14 | Compositing
+Fra:1 Mem:2202.70M (Peak 2351.01M) | Time:19:57.14 | Compositing | Initializing execution
+Fra:1 Mem:2202.71M (Peak 2351.01M) | Time:19:57.14 | Compositing | Operation 2-27
+Fra:1 Mem:2252.21M (Peak 2351.01M) | Time:19:57.17 | Compositing | Operation 3-27
+Fra:1 Mem:2252.21M (Peak 2351.01M) | Time:19:57.17 | Compositing | Operation 4-27
+Fra:1 Mem:2215.13M (Peak 2351.01M) | Time:19:57.17 | Compositing | Operation 5-27
+Fra:1 Mem:2215.13M (Peak 2351.01M) | Time:19:57.18 | Compositing | Operation 6-27
+Fra:1 Mem:2215.13M (Peak 2351.01M) | Time:19:57.18 | Compositing | Operation 7-27
+Fra:1 Mem:2252.21M (Peak 2351.01M) | Time:19:57.19 | Compositing | Operation 8-27
+Fra:1 Mem:2252.21M (Peak 2351.01M) | Time:19:57.19 | Compositing | Operation 9-27
+Fra:1 Mem:2252.21M (Peak 2351.01M) | Time:19:57.24 | Compositing | Operation 10-27
+Fra:1 Mem:2252.21M (Peak 2351.01M) | Time:19:57.28 | Compositing | Operation 11-27
+Fra:1 Mem:2252.21M (Peak 2351.01M) | Time:19:57.28 | Compositing | Operation 12-27
+Fra:1 Mem:2252.21M (Peak 2351.01M) | Time:19:57.28 | Compositing | Operation 13-27
+Fra:1 Mem:2252.21M (Peak 2351.01M) | Time:19:57.28 | Compositing | Operation 14-27
+Fra:1 Mem:2252.21M (Peak 2351.01M) | Time:19:57.28 | Compositing | Operation 15-27
+Fra:1 Mem:2215.13M (Peak 2351.01M) | Time:19:57.28 | Compositing | Operation 16-27
+Fra:1 Mem:2215.13M (Peak 2351.01M) | Time:19:57.28 | Compositing | Operation 17-27
+Fra:1 Mem:2264.57M (Peak 2351.01M) | Time:19:57.29 | Compositing | Operation 18-27
+Fra:1 Mem:2264.57M (Peak 2351.01M) | Time:19:57.30 | Compositing | Operation 19-27
+Fra:1 Mem:2264.57M (Peak 2351.01M) | Time:19:57.30 | Compositing | Operation 20-27
+Fra:1 Mem:2264.57M (Peak 2351.01M) | Time:19:57.32 | Compositing | Operation 21-27
+Fra:1 Mem:2264.57M (Peak 2351.01M) | Time:19:57.32 | Compositing | Operation 22-27
+Fra:1 Mem:2301.64M (Peak 2351.01M) | Time:19:57.33 | Compositing | Operation 23-27
+Fra:1 Mem:2301.64M (Peak 2351.08M) | Time:19:57.34 | Compositing | Operation 24-27
+Fra:1 Mem:2301.64M (Peak 2351.08M) | Time:19:57.34 | Compositing | Operation 25-27
+Fra:1 Mem:2301.64M (Peak 2351.08M) | Time:19:57.34 | Compositing | Operation 26-27
+Fra:1 Mem:2252.21M (Peak 2351.08M) | Time:19:57.34 | Compositing | Operation 27-27
+Fra:1 Mem:2252.21M (Peak 2351.08M) | Time:19:57.35 | Compositing | Operation 28-27
+Saved: '/home/runner/work/vilnyi-barreiro2/vilnyi-barreiro2/renders/units/1.C/noir/1.C-bathroom.jpg'
+Time: 19:57.74 (Saving: 00:00.38)
+
+[ 4405.6s] SHOT 1.C-bathroom still 2400x1350 spp<=96 ev=6.07 in 1218.6s -> renders/units/1.C/noir/1.C-bathroom.jpg
+[ 4405.6s] DONE 3 images in 4405.6s
+
+Blender quit
