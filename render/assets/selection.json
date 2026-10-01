@@ -4,7 +4,11 @@
    "default": {
     "source": "ambientcg",
     "id": "Plaster001",
-    "note": "white mineral render (stucco)"
+    "note": "white mineral render (stucco)",
+    "sizeMeters": [
+     2,
+     2
+    ]
    }
   },
   "render-pink": {
@@ -12,7 +16,11 @@
     "source": "ambientcg",
     "id": "Plaster003",
     "tint": "#e6a58f",
-    "note": "neighbour pink render: multiply albedo by tint"
+    "note": "neighbour pink render: multiply albedo by tint",
+    "sizeMeters": [
+     2,
+     2
+    ]
    }
   },
   "render-cream": {
@@ -20,7 +28,11 @@
     "source": "ambientcg",
     "id": "Plaster003",
     "tint": "#efe0c4",
-    "note": "context cream render: multiply albedo by tint"
+    "note": "context cream render: multiply albedo by tint",
+    "sizeMeters": [
+     2,
+     2
+    ]
    }
   },
   "brick-facade": {
@@ -37,13 +49,17 @@
   "zinc-standing-seam": {
    "default": {
     "source": "ambientcg",
-    "id": "CorrugatedSteel009",
-    "note": "anthracite ribbed metal; ribs run along U - rotate so ribs run down the slope",
+    "id": "Metal032",
+    "slot": "metal032-anthracite",
+    "bake": {
+     "multiply": "#80858c"
+    },
+    "metal": true,
+    "note": "anthracite zinc sheet (flat pans); model the seams as geometry every ~0.45 m",
     "alt": [
-     "Metal030",
-     "Metal032"
-    ],
-    "metal": true
+     "CorrugatedSteel009",
+     "Metal036"
+    ]
    }
   },
   "stone-coping": {
@@ -79,6 +95,10 @@
     "metal": true,
     "alt": [
      "Metal046A"
+    ],
+    "sizeMeters": [
+     1,
+     1
     ]
    }
   },
@@ -89,6 +109,10 @@
     "metal": true,
     "alt": [
      "Metal027"
+    ],
+    "sizeMeters": [
+     1,
+     1
     ]
    }
   },
@@ -115,17 +139,30 @@
     "source": "ambientcg",
     "id": "Metal030",
     "note": "dark grey painted steel",
-    "metal": true
+    "metal": true,
+    "sizeMeters": [
+     2,
+     2
+    ]
    }
   },
   "paving-calcada": {
    "default": {
     "source": "ambientcg",
-    "id": "PavingStones046",
-    "note": "light limestone setts (calcada); tint slightly whiter if needed",
+    "id": "PavingStones150",
+    "slot": "pavingstones150-white",
+    "bake": {
+     "saturation": 0.25,
+     "brightness": 1.45
+    },
+    "note": "calcada portuguesa: ~4 cm limestone cubes in fan arcs, whitened (baked)",
+    "sizeMeters": [
+     0.9,
+     0.9
+    ],
     "alt": [
-     "PavingStones150",
-     "PavingStones151"
+     "PavingStones151",
+     "PavingStones046"
     ]
    }
   },
@@ -136,6 +173,10 @@
     "alt": [
      "asphalt_02",
      "Asphalt023S"
+    ],
+    "sizeMeters": [
+     2.5,
+     2.5
     ]
    }
   },
@@ -145,6 +186,10 @@
     "id": "Granite005A",
     "alt": [
      "Travertine009"
+    ],
+    "sizeMeters": [
+     0.8,
+     0.8
     ]
    }
   },
@@ -181,16 +226,22 @@
     "id": "Concrete016",
     "alt": [
      "Concrete034"
+    ],
+    "sizeMeters": [
+     1.5,
+     1.5
     ]
    }
   },
   "roof-tile-terracotta": {
    "default": {
-    "source": "ambientcg",
-    "id": "RoofingTiles012A",
+    "source": "polyhaven",
+    "id": "clay_roof_tiles_02",
+    "note": "Portuguese canal clay tiles",
     "alt": [
-     "RoofingTiles011A",
-     "clay_roof_tiles_02"
+     "roof_tiles",
+     "clay_roof_tiles_03",
+     "RoofingTiles012A"
     ]
    }
   },
@@ -222,11 +273,15 @@
   "lobby-floor-stone": {
    "default": {
     "source": "ambientcg",
-    "id": "Tiles078",
-    "note": "large-format beige marble tiles",
+    "id": "Marble024",
+    "sizeMeters": [
+     1.2,
+     1.2
+    ],
+    "note": "large-format warm grey stone; add 1.2 m joints if desired",
     "alt": [
-     "Travertine009",
-     "Marble024"
+     "Tiles078",
+     "Travertine009"
     ]
    }
   },
@@ -236,13 +291,21 @@
     "id": "Wood051",
     "alt": [
      "walnut_veneer_02"
+    ],
+    "sizeMeters": [
+     0.8,
+     0.8
     ]
    }
   },
   "landing-floor-stone": {
    "default": {
     "source": "ambientcg",
-    "id": "Tiles078"
+    "id": "Marble024",
+    "sizeMeters": [
+     1.2,
+     1.2
+    ]
    }
   },
   "stair-stone": {
@@ -251,6 +314,10 @@
     "id": "Marble014",
     "alt": [
      "Travertine009"
+    ],
+    "sizeMeters": [
+     1.2,
+     1.2
     ]
    }
   },
@@ -258,7 +325,11 @@
    "default": {
     "source": "ambientcg",
     "id": "Metal009",
-    "metal": true
+    "metal": true,
+    "sizeMeters": [
+     1,
+     1
+    ]
    }
   },
   "lift-steel": {
@@ -268,13 +339,21 @@
     "metal": true,
     "alt": [
      "Metal009"
+    ],
+    "sizeMeters": [
+     1,
+     1
     ]
    }
   },
   "lift-walnut": {
    "default": {
     "source": "ambientcg",
-    "id": "Wood051"
+    "id": "Wood051",
+    "sizeMeters": [
+     0.8,
+     0.8
+    ]
    }
   },
   "mirror": {
@@ -286,25 +365,41 @@
     "id": "PaintedPlaster017",
     "alt": [
      "Plaster002"
+    ],
+    "sizeMeters": [
+     2,
+     2
     ]
    }
   },
   "ceiling-white": {
    "default": {
     "source": "ambientcg",
-    "id": "PaintedPlaster017"
+    "id": "PaintedPlaster017",
+    "sizeMeters": [
+     2,
+     2
+    ]
    }
   },
   "skirting": {
    "default": {
     "source": "ambientcg",
-    "id": "Plastic010",
-    "note": "white satin lacquer"
+    "id": "Plastic013A",
+    "note": "white satin lacquer: roughness ~0.35",
+    "sizeMeters": [
+     1,
+     1
+    ]
    },
    "atlantic": "default",
    "lisboa": {
     "source": "ambientcg",
-    "id": "Wood051"
+    "id": "Wood051",
+    "sizeMeters": [
+     0.8,
+     0.8
+    ]
    },
    "noir": {
     "source": "polyhaven",
@@ -318,30 +413,38 @@
     "alt": [
      "walnut_veneer_02",
      "american_walnut_veneer"
+    ],
+    "sizeMeters": [
+     0.8,
+     0.8
     ]
    }
   },
   "brass": {
    "default": {
     "source": "ambientcg",
-    "id": "Metal034",
+    "id": "Metal048A",
     "metal": true,
-    "note": "polished brass; raise roughness ~0.3 for brushed"
+    "note": "brass"
    }
   },
   "floor-main": {
    "atlantic": {
-    "source": "ambientcg",
-    "id": "WoodFloor062",
-    "note": "light natural oak planks",
+    "source": "polyhaven",
+    "id": "oak_wood_planks",
+    "note": "light natural oak wide planks",
     "alt": [
-     "WoodFloor047",
-     "wooden_floor_01"
+     "laminate_floor_03",
+     "WoodFloor047"
     ]
    },
    "lisboa": {
     "source": "ambientcg",
     "id": "WoodFloor014",
+    "sizeMeters": [
+     1.8,
+     1.8
+    ],
     "note": "walnut herringbone",
     "alt": [
      "WoodFloor016",
@@ -349,12 +452,17 @@
     ]
    },
    "noir": {
-    "source": "ambientcg",
-    "id": "WoodFloor005",
-    "note": "smoked oak long planks",
+    "source": "polyhaven",
+    "id": "wood_floor",
+    "slot": "wood_floor-smoked",
+    "bake": {
+     "multiply": "#7a6a5c",
+     "saturation": 0.85
+    },
+    "note": "smoked oak wide planks (oak darkened, baked)",
     "alt": [
      "WoodFloor011",
-     "WoodFloor048"
+     "dark_wooden_planks"
     ]
    }
   },
@@ -362,19 +470,31 @@
    "atlantic": {
     "source": "ambientcg",
     "id": "PaintedPlaster017",
-    "tint": "#f3efe8"
+    "tint": "#f3efe8",
+    "sizeMeters": [
+     2,
+     2
+    ]
    },
    "lisboa": {
     "source": "ambientcg",
     "id": "Plaster002",
     "tint": "#efe6d8",
-    "note": "lime plaster"
+    "note": "lime plaster",
+    "sizeMeters": [
+     2,
+     2
+    ]
    },
    "noir": {
     "source": "ambientcg",
     "id": "PaintedPlaster017",
     "tint": "#8f8a84",
-    "note": "warm grey paint"
+    "note": "warm grey paint",
+    "sizeMeters": [
+     2,
+     2
+    ]
    }
   },
   "wall-feature": {
@@ -386,7 +506,11 @@
    "lisboa": {
     "source": "ambientcg",
     "id": "Wood051",
-    "note": "walnut panelling"
+    "note": "walnut panelling",
+    "sizeMeters": [
+     0.8,
+     0.8
+    ]
    },
    "noir": {
     "source": "ambientcg",
@@ -394,25 +518,41 @@
     "note": "charcoal microcement",
     "alt": [
      "Concrete017"
+    ],
+    "sizeMeters": [
+     2,
+     2
     ]
    }
   },
   "ceiling": {
    "default": {
     "source": "ambientcg",
-    "id": "PaintedPlaster017"
+    "id": "PaintedPlaster017",
+    "sizeMeters": [
+     2,
+     2
+    ]
    }
   },
   "door-interior": {
    "atlantic": {
     "source": "ambientcg",
-    "id": "Plastic010",
-    "note": "white lacquer"
+    "id": "Plastic013A",
+    "note": "white satin lacquer: roughness ~0.35",
+    "sizeMeters": [
+     1,
+     1
+    ]
    },
    "lisboa": {
     "source": "ambientcg",
     "id": "Wood051",
-    "note": "walnut veneer"
+    "note": "walnut veneer",
+    "sizeMeters": [
+     0.8,
+     0.8
+    ]
    },
    "noir": {
     "source": "polyhaven",
@@ -428,31 +568,50 @@
     "source": "ambientcg",
     "id": "Metal009",
     "metal": true,
-    "note": "satin steel"
+    "note": "satin steel",
+    "sizeMeters": [
+     1,
+     1
+    ]
    },
    "lisboa": {
     "source": "ambientcg",
-    "id": "Metal034",
+    "id": "Metal048A",
     "metal": true,
     "note": "brass"
    },
    "noir": {
     "source": "ambientcg",
-    "id": "Metal008",
+    "id": "Metal048A",
+    "slot": "metal048a-bronze",
+    "bake": {
+     "multiply": "#b08a63"
+    },
     "metal": true,
-    "note": "bronze"
+    "note": "bronze (baked)",
+    "alt": [
+     "Metal036"
+    ]
    }
   },
   "bath-floor": {
    "atlantic": {
     "source": "ambientcg",
     "id": "Tiles002",
-    "note": "stone-look porcelain, large format"
+    "sizeMeters": [
+     2.4,
+     2.4
+    ],
+    "note": "stone-look porcelain 60x60"
    },
    "lisboa": {
     "source": "ambientcg",
     "id": "Tiles078",
-    "note": "Estremoz-like marble tiles"
+    "sizeMeters": [
+     2.0,
+     2.0
+    ],
+    "note": "Estremoz-rosa-like marble"
    },
    "noir": {
     "source": "ambientcg",
@@ -467,20 +626,31 @@
    "atlantic": {
     "source": "ambientcg",
     "id": "Tiles040",
-    "note": "stone-look porcelain 60x120"
+    "sizeMeters": [
+     4.8,
+     4.8
+    ],
+    "note": "stone-look porcelain 60x60"
    },
    "lisboa": {
     "source": "ambientcg",
-    "id": "Marble001",
-    "note": "honed Estremoz-like white marble",
+    "id": "Marble021",
+    "sizeMeters": [
+     1.4,
+     1.4
+    ],
+    "note": "honed Estremoz-like white marble with pink veins",
     "alt": [
-     "Marble014",
-     "Marble012"
+     "Marble001"
     ]
    },
    "noir": {
     "source": "ambientcg",
     "id": "Marble016",
+    "sizeMeters": [
+     1.4,
+     1.4
+    ],
     "note": "Nero Marquina",
     "alt": [
      "Marble023"
@@ -490,16 +660,28 @@
   "shower-wall": {
    "atlantic": {
     "source": "ambientcg",
-    "id": "Tiles040"
+    "id": "Tiles040",
+    "sizeMeters": [
+     4.8,
+     4.8
+    ]
    },
    "lisboa": {
     "source": "ambientcg",
     "id": "Tiles101",
-    "note": "azulejo accent wall (blue/white)"
+    "sizeMeters": [
+     1.2,
+     1.2
+    ],
+    "note": "azulejo accent wall (blue/white, 15 cm tiles)"
    },
    "noir": {
     "source": "ambientcg",
     "id": "Concrete030",
+    "sizeMeters": [
+     2,
+     2
+    ],
     "note": "microcement"
    }
   },
@@ -509,12 +691,20 @@
   "sanitary-ceramic": {
    "default": {
     "source": "ambientcg",
-    "id": "Porcelain001"
+    "id": "Porcelain001",
+    "sizeMeters": [
+     1,
+     1
+    ]
    },
    "noir": {
     "source": "ambientcg",
     "id": "Marble002",
-    "note": "stone basin"
+    "note": "stone basin",
+    "sizeMeters": [
+     1.5,
+     1.5
+    ]
    }
   },
   "tap-metal": {
@@ -522,34 +712,53 @@
     "source": "ambientcg",
     "id": "Metal049A",
     "metal": true,
-    "note": "chrome"
+    "note": "chrome",
+    "sizeMeters": [
+     1,
+     1
+    ]
    },
    "lisboa": {
     "source": "ambientcg",
-    "id": "Metal034",
+    "id": "Metal048A",
     "metal": true,
-    "note": "brushed brass: roughness*1.5"
+    "note": "brushed brass: roughness ~0.3"
    },
    "noir": {
     "source": "ambientcg",
-    "id": "Metal008",
+    "id": "Metal048A",
+    "slot": "metal048a-bronze",
+    "bake": {
+     "multiply": "#b08a63"
+    },
     "metal": true,
-    "note": "bronze/gunmetal"
+    "note": "bronze (baked)",
+    "alt": [
+     "Metal036"
+    ]
    }
   },
   "kitchen-front": {
    "atlantic": {
     "source": "ambientcg",
-    "id": "Plastic010",
-    "note": "white matt lacquer"
+    "id": "Plastic013A",
+    "note": "white satin lacquer: roughness ~0.35",
+    "sizeMeters": [
+     1,
+     1
+    ]
    },
    "lisboa": {
     "source": "ambientcg",
-    "id": "Plastic010",
-    "tint": "#2f4a6b",
-    "note": "navy lacquer: multiply albedo by tint",
-    "alt": [
-     "Plastic008"
+    "id": "Plastic013A",
+    "slot": "plastic013a-navy",
+    "bake": {
+     "multiply": "#34506f"
+    },
+    "note": "lacquer #34506f (baked)",
+    "sizeMeters": [
+     1,
+     1
     ]
    },
    "noir": {
@@ -562,20 +771,32 @@
    "atlantic": {
     "source": "ambientcg",
     "id": "Marble025",
+    "sizeMeters": [
+     1.5,
+     1.5
+    ],
     "note": "white quartz"
    },
    "lisboa": {
     "source": "ambientcg",
-    "id": "Marble012",
-    "note": "Calacatta-like quartz",
+    "id": "Marble019",
+    "sizeMeters": [
+     1.5,
+     1.5
+    ],
+    "note": "Calacatta-like",
     "alt": [
      "Marble005",
-     "Marble003"
+     "Marble012"
     ]
    },
    "noir": {
     "source": "ambientcg",
     "id": "Marble002",
+    "sizeMeters": [
+     1.5,
+     1.5
+    ],
     "note": "dark sintered stone",
     "alt": [
      "Marble013"
@@ -585,42 +806,79 @@
   "kitchen-splashback": {
    "atlantic": {
     "source": "ambientcg",
-    "id": "Marble025"
+    "id": "Tiles010",
+    "note": "white marble subway tiles",
+    "sizeMeters": [
+     0.9,
+     0.9
+    ]
    },
    "lisboa": {
     "source": "ambientcg",
     "id": "Tiles101",
+    "sizeMeters": [
+     1.2,
+     1.2
+    ],
     "note": "azulejo"
    },
    "noir": {
     "source": "ambientcg",
-    "id": "Marble002"
+    "id": "Marble002",
+    "sizeMeters": [
+     1.5,
+     1.5
+    ]
    }
   },
   "appliance-steel": {
    "default": {
     "source": "ambientcg",
     "id": "Metal009",
-    "metal": true
+    "metal": true,
+    "sizeMeters": [
+     1,
+     1
+    ]
    }
   },
   "appliance-glass-black": {
    "default": {
     "source": "ambientcg",
     "id": "Porcelain003",
-    "note": "black glass / ceramic hob"
+    "note": "black glass / ceramic hob",
+    "sizeMeters": [
+     1,
+     1
+    ]
    }
   },
   "joinery-wardrobe": {
    "atlantic": {
     "source": "ambientcg",
-    "id": "Plastic010",
-    "tint": "#e9e2d6"
+    "id": "Plastic013A",
+    "slot": "plastic013a-linen",
+    "bake": {
+     "multiply": "#ece6dc"
+    },
+    "note": "lacquer #ece6dc (baked)",
+    "sizeMeters": [
+     1,
+     1
+    ]
    },
    "lisboa": {
     "source": "ambientcg",
-    "id": "Plastic010",
-    "tint": "#2f4a6b"
+    "id": "Plastic013A",
+    "slot": "plastic013a-navy",
+    "bake": {
+     "multiply": "#34506f"
+    },
+    "note": "lacquer #34506f (baked)",
+    "sizeMeters": [
+     1,
+     1
+    ]
    },
    "noir": {
     "source": "polyhaven",
@@ -630,13 +888,21 @@
   "window-sheer": {
    "default": {
     "source": "ambientcg",
-    "id": "Fabric032"
+    "id": "Fabric032",
+    "sizeMeters": [
+     0.3,
+     0.3
+    ]
    }
   },
   "curtain-fabric": {
    "atlantic": {
     "source": "ambientcg",
-    "id": "Fabric036"
+    "id": "Fabric036",
+    "sizeMeters": [
+     0.5,
+     0.5
+    ]
    },
    "lisboa": {
     "source": "polyhaven",
@@ -644,7 +910,11 @@
    },
    "noir": {
     "source": "ambientcg",
-    "id": "Fabric031"
+    "id": "Fabric031",
+    "sizeMeters": [
+     0.5,
+     0.5
+    ]
    }
   },
   "fabric-sofa": {
@@ -661,7 +931,11 @@
    "noir": {
     "source": "ambientcg",
     "id": "Fabric031",
-    "note": "charcoal weave"
+    "note": "charcoal weave",
+    "sizeMeters": [
+     0.5,
+     0.5
+    ]
    }
   },
   "fabric-linen": {
@@ -670,6 +944,10 @@
     "id": "Fabric032",
     "alt": [
      "rough_linen"
+    ],
+    "sizeMeters": [
+     0.3,
+     0.3
     ]
    }
   },
@@ -686,12 +964,20 @@
     "note": "cognac",
     "alt": [
      "brown_leather"
+    ],
+    "sizeMeters": [
+     0.6,
+     0.6
     ]
    },
    "noir": {
     "source": "ambientcg",
     "id": "Leather026",
-    "note": "black"
+    "note": "black",
+    "sizeMeters": [
+     0.6,
+     0.6
+    ]
    }
   },
   "wood-furniture": {
@@ -713,34 +999,50 @@
    "default": {
     "source": "ambientcg",
     "id": "Metal027",
-    "metal": true
+    "metal": true,
+    "sizeMeters": [
+     1,
+     1
+    ]
    },
    "atlantic": "default",
    "lisboa": {
     "source": "ambientcg",
-    "id": "Metal034",
+    "id": "Metal048A",
     "metal": true
    },
    "noir": {
     "source": "ambientcg",
-    "id": "Metal008",
+    "id": "Metal048A",
+    "slot": "metal048a-bronze",
+    "bake": {
+     "multiply": "#b08a63"
+    },
     "metal": true
    }
   },
   "marble-table": {
    "default": {
     "source": "ambientcg",
-    "id": "Marble012"
+    "id": "Marble019"
    },
    "noir": {
     "source": "ambientcg",
-    "id": "Marble016"
+    "id": "Marble016",
+    "sizeMeters": [
+     1.4,
+     1.4
+    ]
    }
   },
   "ceramic-plate": {
    "default": {
     "source": "ambientcg",
-    "id": "Porcelain001"
+    "id": "Porcelain001",
+    "sizeMeters": [
+     1,
+     1
+    ]
    }
   },
   "glass-drinking": {
@@ -750,7 +1052,11 @@
    "default": {
     "source": "ambientcg",
     "id": "Metal049A",
-    "metal": true
+    "metal": true,
+    "sizeMeters": [
+     1,
+     1
+    ]
    }
   },
   "candle-wax": {
@@ -762,7 +1068,11 @@
   "pot-terracotta": {
    "default": {
     "source": "ambientcg",
-    "id": "Clay003"
+    "id": "Clay003",
+    "sizeMeters": [
+     0.5,
+     0.5
+    ]
    }
   },
   "rug": {
@@ -772,7 +1082,11 @@
    },
    "noir": {
     "source": "ambientcg",
-    "id": "Fabric045"
+    "id": "Fabric045",
+    "sizeMeters": [
+     0.6,
+     0.6
+    ]
    }
   },
   "book": {
@@ -784,13 +1098,21 @@
   "art-canvas": {
    "default": {
     "source": "ambientcg",
-    "id": "Fabric032"
+    "id": "Fabric032",
+    "sizeMeters": [
+     0.3,
+     0.3
+    ]
    }
   },
   "lamp-shade": {
    "default": {
     "source": "ambientcg",
-    "id": "Fabric032"
+    "id": "Fabric032",
+    "sizeMeters": [
+     0.3,
+     0.3
+    ]
    }
   },
   "bulb-emissive": {
@@ -935,7 +1257,8 @@
   },
   {
    "id": "decorative_book_set_01",
-   "category": "books"
+   "category": "books",
+   "blenderOnly": true
   },
   {
    "id": "book_encyclopedia_set_01",

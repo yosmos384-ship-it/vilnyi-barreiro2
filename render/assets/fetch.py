@@ -239,8 +239,24 @@ def ph_urls(files, res):
     return out
 
 
-def save_web(src, dst, size=1024, q=85, mode='RGB'):
+def apply_bake(im, bake):
+    """Colour adjustments baked into the web albedo (also recorded in blender_manifest 'bake' for Cycles):
+    saturation (0..1 mix to grey), brightness (gain, sRGB), multiply (#hex, sRGB multiply)."""
+    from PIL import ImageEnhance, ImageChops
+    im = im.convert('RGB')
+    if 'saturation' in bake:
+        im = ImageEnhance.Color(im).enhance(bake['saturation'])
+    if 'brightness' in bake:
+        im = ImageEnhance.Brightness(im).enhance(bake['brightness'])
+    if 'multiply' in bake:
+        im = ImageChops.multiply(im, Image.new('RGB', im.size, bake['multiply']))
+    return im
+
+
+def save_web(src, dst, size=1024, q=85, mode='RGB', bake=None):
     im = Image.open(src)
+    if bake:
+        im = apply_bake(im, bake)
     if im.mode in ('I;16', 'I;16B', 'I', 'F'):
         import numpy as np
         a = np.asarray(im, dtype='float32')
@@ -358,7 +374,7 @@ def tex_set(spec, slot):
             q = 90 if m == 'normal' else 85
             mode = 'RGB' if m in ('albedo', 'normal') else 'L'
             fn = f'{m}.jpg'
-            total += save_web(local[m], os.path.join(outdir, fn), 1024, q, mode)
+            total += save_web(local[m], os.path.join(outdir, fn), 1024, q, mode, spec.get('bake') if m == 'albedo' else None)
             maps[m] = f'{rel}/{fn}'
     if 'albedo' not in maps or 'normal' not in maps:
         raise RuntimeError(f'incomplete set {aid}: {sorted(local)}')
@@ -367,6 +383,9 @@ def tex_set(spec, slot):
         if k in spec:
             entry[k] = spec[k]
     bl['sizeMeters'] = size_m
+    if spec.get('bake'):
+        entry['baked'] = spec['bake']
+        bl['bake'] = spec['bake']
     return entry, bl, total, (name, author, page, src)
 
 
@@ -495,8 +514,8 @@ def mode_build(req):
                 manifest['textures'][key][pkg] = {'ref': f'{rk}/{rp}'}
                 blend['textures'][key][pkg] = {'ref': f'{rk}/{rp}'}
                 continue
-            slot_id = f'{spec["source"]}:{spec["id"]}'
             slot = spec.get('slot') or spec['id'].lower()
+            slot_id = slot
             keep_slots.add(slot)
             if only and key not in only and old and key in old['textures'] and pkg in old['textures'][key]:
                 manifest['textures'][key][pkg] = old['textures'][key][pkg]
