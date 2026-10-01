@@ -1,0 +1,85 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "0.A",
+  "pkg": "noir",
+  "quality": "preview",
+  "tod": "day",
+  "shots": [
+   "0.A-living",
+   "0.A-noir-h5",
+   "rear-garden"
+  ],
+  "out": "renders/preview/0.A/noir",
+  "name": "preview-0.A-noir",
+  "opts": {
+   "profile": false
+  }
+ },
+ "shots": [
+  {
+   "id": "0.A-noir-h5",
+   "type": "pano",
+   "file": "renders/preview/0.A/noir/0.A-noir-h5.jpg",
+   "thumb": "renders/preview/0.A/noir/thumbs/0.A-noir-h5.jpg",
+   "W": 2048,
+   "H": 1024,
+   "spp": 32,
+   "ev": 7.801196538988452,
+   "tod": "day",
+   "position": [
+    4.525,
+    1.6,
+    6.01
+   ],
+   "lookAt": [
+    2.796,
+    1.3,
+    6.732
+   ],
+   "roomId": "0.A-wc",
+   "name": {
+    "en": "Guest bathroom",
+    "pt": "I.S. serviço",
+    "he": "חדר רחצה אורחים"
+   },
+   "kind": null,
+   "yawOffset": 1.96637,
+   "index": 5,
+   "seconds": 347.3
+  },
+  {
+   "id": "0.A-living",
+   "type": "still",
+   "file": "renders/preview/0.A/noir/0.A-living.jpg",
+   "thumb": "renders/preview/0.A/noir/thumbs/0.A-living.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": 2.2707995523013706,
+   "tod": "day",
+   "position": [
+    3.668,
+    1.45,
+    4.132
+   ],
+   "lookAt": [
+    5.13,
+    1.45,
+    1.635
+   ],
+   "roomId": "0.A-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 169.6
+  }
+ ],
+ "seconds": 523.7,
+ "blender": "4.2.3 LTS"
+}
