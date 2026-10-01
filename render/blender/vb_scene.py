@@ -257,3 +257,14 @@ def scene_bounds(objs):
             mn = Vector((min(mn.x, w.x), min(mn.y, w.y), min(mn.z, w.z)))
             mx = Vector((max(mx.x, w.x), max(mx.y, w.y), max(mx.z, w.z)))
     return mn, mx
+
+
+def far_ground(radius=6000.0, z=-6.0):
+    """Large ground disc beyond the clipped OSM context (aerial views); gets the 'far-ground' recipe."""
+    bpy.ops.mesh.primitive_circle_add(vertices=96, radius=radius, fill_type='NGON', location=(7.0, -7.0, z))
+    ob = bpy.context.active_object
+    ob.name = 'vbFarGround'
+    m = bpy.data.materials.new('far-ground'); m.use_nodes = True
+    ob.data.materials.append(m)
+    ob['vb_src'] = 'far'
+    return ob

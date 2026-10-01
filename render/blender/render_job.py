@@ -217,7 +217,9 @@ def render_group(job, q, quality, scn, tod, shots, tmp, out_dir):
         objs_by[tag] = S.import_glb(f, tag)
         log(f'import {tag}: {len(objs_by[tag])} objects in {time.time() - t1:.1f}s')
     all_objs = [o for v in objs_by.values() for o in v]
-    # unit renders: drop far context (outside 120 m) to keep BVH small; keep everything for exteriors
+    if any(s['id'].startswith('aerial') for s in shots) or opts.get('far_ground'):
+        all_objs.append(S.far_ground())
+        log('far ground disc added (beyond the 180 m OSM clip)')
     n_uv = S.prepare_meshes(all_objs)
     log(f'box UVs on {n_uv} meshes')
 
