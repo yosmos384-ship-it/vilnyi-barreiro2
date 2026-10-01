@@ -3,15 +3,14 @@
   "scope": "exterior",
   "quality": "preview",
   "shots": [
-   "0.A-noir-h5",
-   "0.A-living",
-   "street-dusk"
+   "1.C-atlantic-h2",
+   "1.C-living",
+   "1.C-bedroom"
   ],
   "out": "renders/preview/exterior",
   "name": "preview-exterior",
   "opts": {
-   "profile": false,
-   "diag": true
+   "profile": false
   }
  },
  "shots": [
