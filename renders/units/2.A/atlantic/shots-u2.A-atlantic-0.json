@@ -6,11 +6,9 @@
   "quality": "standard",
   "tod": "day",
   "shots": [
-   "2.A-atlantic-h0",
-   "2.A-atlantic-h1",
-   "2.A-atlantic-h2",
-   "2.A-atlantic-h3",
-   "2.A-atlantic-h4"
+   "2.A-living",
+   "2.A-bedroom",
+   "2.A-bathroom"
   ],
   "out": "renders/units/2.A/atlantic",
   "name": "u2.A-atlantic-0",
@@ -18,86 +16,24 @@
  },
  "shots": [
   {
-   "id": "2.A-atlantic-h0",
-   "type": "pano",
-   "file": "renders/units/2.A/atlantic/2.A-atlantic-h0.jpg",
-   "thumb": "renders/units/2.A/atlantic/thumbs/2.A-atlantic-h0.jpg",
-   "W": 3072,
-   "H": 1536,
-   "spp": 64,
-   "ev": 2.2350979018058754,
+   "id": "2.A-living",
+   "type": "still",
+   "file": "renders/units/2.A/atlantic/2.A-living.jpg",
+   "thumb": "renders/units/2.A/atlantic/thumbs/2.A-living.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": -1.6714589107899167,
    "tod": "day",
    "position": [
-    1.3,
-    7.6,
-    4.6
+    3.668,
+    7.45,
+    4.132
    ],
    "lookAt": [
-    1.028,
-    6.95,
-    2.75
-   ],
-   "roomId": "2.A-suite",
-   "name": {
-    "en": "Master suite",
-    "pt": "Suite",
-    "he": "סוויטת הורים"
-   },
-   "kind": null,
-   "yawOffset": 0.14598,
-   "index": 0,
-   "seconds": 2248.5
-  },
-  {
-   "id": "2.A-atlantic-h1",
-   "type": "pano",
-   "file": "renders/units/2.A/atlantic/2.A-atlantic-h1.jpg",
-   "thumb": "renders/units/2.A/atlantic/thumbs/2.A-atlantic-h1.jpg",
-   "W": 3072,
-   "H": 1536,
-   "spp": 64,
-   "ev": 1.4364433837640822,
-   "tod": "day",
-   "position": [
-    2.208,
-    7.6,
-    0.842
-   ],
-   "lookAt": [
-    1.397,
-    7,
-    3.672
-   ],
-   "roomId": "2.A-suite",
-   "name": {
-    "en": "Master suite · view 2",
-    "pt": "Suite · vista 2",
-    "he": "סוויטת הורים · מבט 2"
-   },
-   "kind": null,
-   "yawOffset": 2.8625,
-   "index": 1,
-   "seconds": 1988.8
-  },
-  {
-   "id": "2.A-atlantic-h2",
-   "type": "pano",
-   "file": "renders/units/2.A/atlantic/2.A-atlantic-h2.jpg",
-   "thumb": "renders/units/2.A/atlantic/thumbs/2.A-atlantic-h2.jpg",
-   "W": 3072,
-   "H": 1536,
-   "spp": 64,
-   "ev": 1.1289900760337177,
-   "tod": "day",
-   "position": [
-    3.66,
-    7.6,
-    4.6
-   ],
-   "lookAt": [
-    5.06,
-    7.25,
-    0.474
+    5.13,
+    7.45,
+    1.635
    ],
    "roomId": "2.A-living",
    "name": {
@@ -105,61 +41,61 @@
     "pt": "Sala / cozinha",
     "he": "סלון ומטבח"
    },
-   "kind": null,
-   "yawOffset": -0.32712,
-   "index": 2,
-   "seconds": 2239.4
+   "kind": "living",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1847.8
   },
   {
-   "id": "2.A-atlantic-h3",
-   "type": "pano",
-   "file": "renders/units/2.A/atlantic/2.A-atlantic-h3.jpg",
-   "thumb": "renders/units/2.A/atlantic/thumbs/2.A-atlantic-h3.jpg",
-   "W": 3072,
-   "H": 1536,
-   "spp": 64,
-   "ev": 0.4133783650136381,
+   "id": "2.A-bedroom",
+   "type": "still",
+   "file": "renders/units/2.A/atlantic/2.A-bedroom.jpg",
+   "thumb": "renders/units/2.A/atlantic/thumbs/2.A-bedroom.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 1.8778467344676826,
    "tod": "day",
    "position": [
-    4.751,
-    7.6,
-    2.306
+    0.794,
+    7.4,
+    4.097
    ],
    "lookAt": [
-    4.07,
-    7,
-    3.672
+    2.056,
+    7.4,
+    1.663
    ],
-   "roomId": "2.A-living",
+   "roomId": "2.A-suite",
    "name": {
-    "en": "Living & kitchen · view 2",
-    "pt": "Sala / cozinha · vista 2",
-    "he": "סלון ומטבח · מבט 2"
+    "en": "Master suite",
+    "pt": "Suite",
+    "he": "סוויטת הורים"
    },
-   "kind": null,
-   "yawOffset": 2.67912,
-   "index": 3,
-   "seconds": 2053.8
+   "kind": "bedroom",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 2230.8
   },
   {
-   "id": "2.A-atlantic-h4",
-   "type": "pano",
-   "file": "renders/units/2.A/atlantic/2.A-atlantic-h4.jpg",
-   "thumb": "renders/units/2.A/atlantic/thumbs/2.A-atlantic-h4.jpg",
-   "W": 3072,
-   "H": 1536,
-   "spp": 64,
-   "ev": 1.5858245403454254,
+   "id": "2.A-bathroom",
+   "type": "still",
+   "file": "renders/units/2.A/atlantic/2.A-bathroom.jpg",
+   "thumb": "renders/units/2.A/atlantic/thumbs/2.A-bathroom.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 1.9692798819974253,
    "tod": "day",
    "position": [
-    1.375,
-    7.6,
-    6.01
+    1.749,
+    7.45,
+    5.772
    ],
    "lookAt": [
-    0.548,
-    7.3,
-    6.732
+    0.662,
+    7.45,
+    6.641
    ],
    "roomId": "2.A-ensuite",
    "name": {
@@ -167,12 +103,12 @@
     "pt": "I.S. suite",
     "he": "חדר רחצה צמוד"
    },
-   "kind": null,
-   "yawOffset": 2.28851,
-   "index": 4,
-   "seconds": 2206.2
+   "kind": "bathroom",
+   "lens": 18.0,
+   "shift_y": 0.0,
+   "seconds": 2107.2
   }
  ],
- "seconds": 10754.3,
+ "seconds": 6203.4,
  "blender": "4.2.3 LTS"
 }
