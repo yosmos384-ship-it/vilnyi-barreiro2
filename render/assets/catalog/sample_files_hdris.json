@@ -1,0 +1,25 @@
+{
+ "tonemapped": "https://dl.polyhaven.org/file/ph-assets/HDRIs/extra/Tonemapped%20JPG/kloofendal_48d_partly_cloudy_puresky.jpg",
+ "hdri": {
+  "8k": {
+   "hdr": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/8k/kloofendal_48d_partly_cloudy_puresky_8k.hdr",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/HDRIs/exr/8k/kloofendal_48d_partly_cloudy_puresky_8k.exr"
+  },
+  "16k": {
+   "hdr": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/16k%2B/kloofendal_48d_partly_cloudy_puresky_16k.hdr",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/HDRIs/exr/16k%2B/kloofendal_48d_partly_cloudy_puresky_16k.exr"
+  },
+  "4k": {
+   "hdr": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/4k/kloofendal_48d_partly_cloudy_puresky_4k.hdr",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/HDRIs/exr/4k/kloofendal_48d_partly_cloudy_puresky_4k.exr"
+  },
+  "2k": {
+   "hdr": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/2k/kloofendal_48d_partly_cloudy_puresky_2k.hdr",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/HDRIs/exr/2k/kloofendal_48d_partly_cloudy_puresky_2k.exr"
+  },
+  "1k": {
+   "hdr": "https://dl.polyhaven.org/file/ph-assets/HDRIs/hdr/1k/kloofendal_48d_partly_cloudy_puresky_1k.hdr",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/HDRIs/exr/1k/kloofendal_48d_partly_cloudy_puresky_1k.exr"
+  }
+ }
+}

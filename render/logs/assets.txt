@@ -1,0 +1,17 @@
+mode=catalog cache=/home/runner/.cache/vilnyi-assets time=2026-10-01 03:25:42
+polyhaven textures: 863
+polyhaven hdris: 997
+polyhaven models: 521
+  sample keys: ['attributes', 'authors', 'categories', 'category', 'category_id', 'date_published', 'description', 'dimensions', 'download_count', 'files_hash', 'img_version', 'max_resolution', 'name', 'polycount', 'sponsors', 'tags', 'texel_density', 'thumbnail_url', 'type']
+  ambientCG Material offset 0: 250 (total 2013)
+  ambientCG Material offset 250: 250 (total 2013)
+  ambientCG Material offset 500: 250 (total 2013)
+  ambientCG Material offset 750: 250 (total 2013)
+  ambientCG Material offset 1000: 250 (total 2013)
+  ambientCG Material offset 1250: 250 (total 2013)
+  ambientCG Material offset 1500: 250 (total 2013)
+  ambientCG Material offset 1750: 250 (total 2013)
+  ambientCG Material offset 2000: 13 (total 2013)
+  ambientCG sample keys: ['assetId', 'basedOnThis', 'category', 'createdUsing', 'creationMethod', 'creationMethodDescription', 'creationMethodName', 'customDisplayName', 'dataType', 'dataTypeDescription', 'dataTypeName', 'description', 'dimensionX', 'dimensionY', 'dimensionZ', 'displayCategory', 'displayName', 'downloadCount', 'downloadCountMonth', 'downloadCountWeek', 'downloadFolders', 'earlyReleaseDate', 'hasUsd', 'maps', 'nextAssetId', 'nextVariationAssetId', 'popularityScore', 'previewImage', 'previewLinks', 'previewType', 'previousAssetId', 'previousVariationAssetId', 'releaseDate', 'shortLink', 'tags', 'variations']
+ambientCG materials: 2013
+== FAILURES (0)

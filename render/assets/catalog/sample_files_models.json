@@ -1,0 +1,148 @@
+{
+ "Diffuse": {
+  "4k": {
+   "jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/ArmChair_01/Armchair_01_diff_4k.jpg",
+   "png": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/ArmChair_01/Armchair_01_diff_4k.png",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/ArmChair_01/Armchair_01_diff_4k.exr"
+  },
+  "2k": {
+   "jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/ArmChair_01/Armchair_01_diff_2k.jpg",
+   "png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/ArmChair_01/Armchair_01_diff_2k.png",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/ArmChair_01/Armchair_01_diff_2k.exr"
+  },
+  "1k": {
+   "jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/ArmChair_01/Armchair_01_diff_1k.jpg",
+   "png": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/ArmChair_01/Armchair_01_diff_1k.png",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/ArmChair_01/Armchair_01_diff_1k.exr"
+  }
+ },
+ "nor_dx": {
+  "4k": {
+   "jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/ArmChair_01/Armchair_01_nor_dx_4k.jpg",
+   "png": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/ArmChair_01/Armchair_01_nor_dx_4k.png",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/ArmChair_01/Armchair_01_nor_dx_4k.exr"
+  },
+  "2k": {
+   "jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/ArmChair_01/Armchair_01_nor_dx_2k.jpg",
+   "png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/ArmChair_01/Armchair_01_nor_dx_2k.png",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/ArmChair_01/Armchair_01_nor_dx_2k.exr"
+  },
+  "1k": {
+   "jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/ArmChair_01/Armchair_01_nor_dx_1k.jpg",
+   "png": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/ArmChair_01/Armchair_01_nor_dx_1k.png",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/ArmChair_01/Armchair_01_nor_dx_1k.exr"
+  }
+ },
+ "nor_gl": {
+  "4k": {
+   "jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/ArmChair_01/Armchair_01_nor_gl_4k.jpg",
+   "png": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/ArmChair_01/Armchair_01_nor_gl_4k.png",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/ArmChair_01/Armchair_01_nor_gl_4k.exr"
+  },
+  "2k": {
+   "jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/ArmChair_01/Armchair_01_nor_gl_2k.jpg",
+   "png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/ArmChair_01/Armchair_01_nor_gl_2k.png",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/ArmChair_01/Armchair_01_nor_gl_2k.exr"
+  },
+  "1k": {
+   "jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/ArmChair_01/Armchair_01_nor_gl_1k.jpg",
+   "png": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/ArmChair_01/Armchair_01_nor_gl_1k.png",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/ArmChair_01/Armchair_01_nor_gl_1k.exr"
+  }
+ },
+ "blend": {
+  "4k": {
+   "blend": "https://dl.polyhaven.org/file/ph-assets/Models/blend/4k/ArmChair_01/ArmChair_01_4k.blend"
+  },
+  "2k": {
+   "blend": "https://dl.polyhaven.org/file/ph-assets/Models/blend/2k/ArmChair_01/ArmChair_01_2k.blend"
+  },
+  "1k": {
+   "blend": "https://dl.polyhaven.org/file/ph-assets/Models/blend/1k/ArmChair_01/ArmChair_01_1k.blend"
+  }
+ },
+ "gltf": {
+  "4k": {
+   "gltf": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/4k/ArmChair_01/ArmChair_01_4k.gltf"
+  },
+  "2k": {
+   "gltf": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/2k/ArmChair_01/ArmChair_01_2k.gltf"
+  },
+  "1k": {
+   "gltf": "https://dl.polyhaven.org/file/ph-assets/Models/gltf/1k/ArmChair_01/ArmChair_01_1k.gltf"
+  }
+ },
+ "usd": {
+  "4k": {
+   "usd": "https://dl.polyhaven.org/file/ph-assets/Models/usd/4k/ArmChair_01/ArmChair_01_4k.usdc"
+  },
+  "2k": {
+   "usd": "https://dl.polyhaven.org/file/ph-assets/Models/usd/2k/ArmChair_01/ArmChair_01_2k.usdc"
+  },
+  "1k": {
+   "usd": "https://dl.polyhaven.org/file/ph-assets/Models/usd/1k/ArmChair_01/ArmChair_01_1k.usdc"
+  }
+ },
+ "Metal": {
+  "4k": {
+   "jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/ArmChair_01/Armchair_01_metallic_4k.jpg",
+   "png": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/ArmChair_01/Armchair_01_metallic_4k.png",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/ArmChair_01/Armchair_01_metallic_4k.exr"
+  },
+  "2k": {
+   "jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/ArmChair_01/Armchair_01_metallic_2k.jpg",
+   "png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/ArmChair_01/Armchair_01_metallic_2k.png",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/ArmChair_01/Armchair_01_metallic_2k.exr"
+  },
+  "1k": {
+   "jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/ArmChair_01/Armchair_01_metallic_1k.jpg",
+   "png": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/ArmChair_01/Armchair_01_metallic_1k.png",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/ArmChair_01/Armchair_01_metallic_1k.exr"
+  }
+ },
+ "arm": {
+  "4k": {
+   "jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/ArmChair_01/Armchair_01_arm_4k.jpg",
+   "png": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/ArmChair_01/Armchair_01_arm_4k.png",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/ArmChair_01/Armchair_01_arm_4k.exr"
+  },
+  "2k": {
+   "jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/ArmChair_01/Armchair_01_arm_2k.jpg",
+   "png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/ArmChair_01/Armchair_01_arm_2k.png",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/ArmChair_01/Armchair_01_arm_2k.exr"
+  },
+  "1k": {
+   "jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/ArmChair_01/Armchair_01_arm_1k.jpg",
+   "png": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/ArmChair_01/Armchair_01_arm_1k.png",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/ArmChair_01/Armchair_01_arm_1k.exr"
+  }
+ },
+ "fbx": {
+  "4k": {
+   "fbx": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/4k/ArmChair_01/ArmChair_01_4k.fbx"
+  },
+  "2k": {
+   "fbx": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/2k/ArmChair_01/ArmChair_01_2k.fbx"
+  },
+  "1k": {
+   "fbx": "https://dl.polyhaven.org/file/ph-assets/Models/fbx/1k/ArmChair_01/ArmChair_01_1k.fbx"
+  }
+ },
+ "Rough": {
+  "4k": {
+   "jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/4k/ArmChair_01/Armchair_01_roughness_4k.jpg",
+   "png": "https://dl.polyhaven.org/file/ph-assets/Models/png/4k/ArmChair_01/Armchair_01_roughness_4k.png",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/4k/ArmChair_01/Armchair_01_roughness_4k.exr"
+  },
+  "2k": {
+   "jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/ArmChair_01/Armchair_01_roughness_2k.jpg",
+   "png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/ArmChair_01/Armchair_01_roughness_2k.png",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/ArmChair_01/Armchair_01_roughness_2k.exr"
+  },
+  "1k": {
+   "jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/1k/ArmChair_01/Armchair_01_roughness_1k.jpg",
+   "png": "https://dl.polyhaven.org/file/ph-assets/Models/png/1k/ArmChair_01/Armchair_01_roughness_1k.png",
+   "exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/1k/ArmChair_01/Armchair_01_roughness_1k.exr"
+  }
+ }
+}
