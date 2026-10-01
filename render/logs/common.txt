@@ -1,29 +1,112 @@
 [    0.0s] job common: scope=common unit=None pkg=None quality=standard shots=4
 [    0.7s] import building: 401 objects in 0.6s
-[    1.0s] import context: 123 objects in 0.4s
+[    1.0s] import context: 123 objects in 0.3s
 [    1.3s] box UVs on 463 meshes
-[    1.8s] materials: built=125 textured=32 by_key={'aluminium-frame': 1, 'asphalt': 1, 'bark': 1, 'brass': 10, 'brick-facade': 1, 'car-glass': 1, 'car-light': 2, 'car-paint': 10, 'ceiling': 1, 'ceiling-white': 1, 'concrete': 3, 'deck-teak': 1, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'epoxy-floor': 1, 'floor-main': 1, 'foliage': 16, 'garage-door': 1, 'glass-railing': 2, 'glass-window': 3, 'gravel': 2, 'handrail-steel': 1, 'kerb-stone': 1, 'lawn': 3, 'led-strip-emissive': 6, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'mirror': 1, 'paint-marking': 8, 'paving-calcada': 2, 'planter-concrete': 1, 'plaster-white': 2, 'pv-panel': 1, 'render-cream': 1, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 2, 'skirting': 1, 'soil': 3, 'steel-dark': 11, 'stone-coping': 2, 'timber-slats': 1, 'zinc-standing-seam': 2}
-[    1.8s] lights: imported=2 emissive->lights=0 portals=0 boost=3.0 total_lights=2 polys=183568
-[    2.4s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
-[    2.6s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
-[    2.6s] scene ready in 2.6s  (world kloofendal_43d_clear_puresky)
-[    9.3s] [expo] Lavg=0.001085 p95=0.07941 ev=7.53 ev_hi=4.98 -> 4.98 sky=None
-[    9.3s] [wb] gains (0.742, 1.0, 1.474)
-[  835.7s] SHOT lobby still 2400x1350 spp<=96 ev=4.98 in 833.0s -> renders/common/lobby.jpg
-[  836.4s] import building: 401 objects in 0.6s
-[  836.5s] box UVs on 388 meshes
-[  836.9s] materials: built=89 textured=23 by_key={'aluminium-frame': 1, 'bark': 1, 'brass': 10, 'brick-facade': 1, 'car-glass': 1, 'car-light': 2, 'car-paint': 1, 'ceiling': 1, 'ceiling-white': 1, 'concrete': 2, 'deck-teak': 1, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'epoxy-floor': 1, 'floor-main': 1, 'foliage': 4, 'garage-door': 1, 'glass-railing': 2, 'glass-window': 2, 'gravel': 2, 'handrail-steel': 1, 'lawn': 3, 'led-strip-emissive': 6, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'mirror': 1, 'paint-marking': 8, 'paving-calcada': 1, 'planter-concrete': 1, 'plaster-white': 2, 'pv-panel': 1, 'render-white': 1, 'rubber': 2, 'skirting': 1, 'soil': 1, 'steel-dark': 6, 'stone-coping': 2, 'timber-slats': 1, 'zinc-standing-seam': 2}
-[  836.9s] lights: imported=2 emissive->lights=0 portals=0 boost=3.0 total_lights=2 polys=108386
-[  837.5s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
-[  837.7s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
-[  837.8s] scene ready in 2.1s  (world kloofendal_43d_clear_puresky)
-[  842.6s] [expo] Lavg=1e-05 p95=0 ev=14.29 ev_hi=21.25 -> 12.00 sky=None
-[  842.6s] [wb] gains (1.0, 1.0, 1.0)
-[ 1328.3s] SHOT landing-first still 2400x1350 spp<=96 ev=12.00 in 490.5s -> renders/common/landing-first.jpg
-[ 1331.1s] [expo] Lavg=0.001731 p95=0.7596 ev=6.85 ev_hi=1.72 -> 1.72 sky=None
-[ 1331.1s] [wb] gains (0.646, 1.0, 1.6)
-[ 2000.1s] SHOT lift-interior still 2400x1350 spp<=96 ev=1.72 in 671.8s -> renders/common/lift-interior.jpg
-[ 2003.8s] [expo] Lavg=1e-05 p95=0 ev=14.29 ev_hi=21.25 -> 12.00 sky=None
-[ 2003.8s] [wb] gains (1.0, 1.0, 1.0)
-[ 2371.0s] SHOT basement still 2400x1350 spp<=96 ev=12.00 in 370.9s -> renders/common/basement.jpg
-[ 2371.0s] DONE 4 images in 2371.0s
+[    1.8s] [foliage] env-trees-0@ebebe1: foliage faces=650 crown faces=130 src=context
+[    2.0s] [foliage]   -> vbCrowns-env-trees-0@ebebe1: crown polys=130 instances=72579 inner faces on source=130
+[    2.0s] [foliage] env-trees-0@ebf5e1: foliage faces=390 crown faces=130 src=context
+[    2.2s] [foliage]   -> vbCrowns-env-trees-0@ebf5e1: crown polys=130 instances=154522 inner faces on source=130
+[    2.2s] [foliage] env-trees-0@f5ebe1: foliage faces=390 crown faces=150 src=context
+[    2.5s] [foliage]   -> vbCrowns-env-trees-0@f5ebe1: crown polys=150 instances=129477 inner faces on source=150
+[    2.5s] [foliage] env-trees-0@f5ebeb: foliage faces=390 crown faces=130 src=context
+[    2.9s] [foliage]   -> vbCrowns-env-trees-0@f5ebeb: crown polys=130 instances=192032 inner faces on source=130
+[    2.9s] [foliage] env-trees-0@f5f5e1: foliage faces=130 crown faces=0 src=context
+[    2.9s] [foliage] env-trees-0@f5f5eb: foliage faces=2340 crown faces=780 src=context
+[    4.0s] [foliage]   -> vbCrowns-env-trees-0@f5f5eb: crown polys=780 instances=734002 inner faces on source=780
+[    4.0s] [foliage] env-trees-0@f5ffeb: foliage faces=520 crown faces=130 src=context
+[    5.0s] [foliage]   -> vbCrowns-env-trees-0@f5ffeb: crown polys=130 instances=128357 inner faces on source=130
+[    5.0s] [foliage] env-trees-0@fff5eb: foliage faces=780 crown faces=260 src=context
+[    6.3s] [foliage]   -> vbCrowns-env-trees-0@fff5eb: crown polys=260 instances=279020 inner faces on source=260
+[    6.3s] [foliage] env-trees-0@fff5f5: foliage faces=429 crown faces=130 src=context
+[    7.6s] [foliage]   -> vbCrowns-env-trees-0@fff5f5: crown polys=130 instances=79223 inner faces on source=130
+[    7.6s] [foliage] env-trees-0@ffffeb: foliage faces=260 crown faces=260 src=context
+[    9.1s] [foliage]   -> vbCrowns-env-trees-0@ffffeb: crown polys=260 instances=290511 inner faces on source=260
+[    9.1s] [foliage] env-trees-0@fffff5: foliage faces=4436 crown faces=1690 src=context
+[   12.2s] [foliage]   -> vbCrowns-env-trees-0@fffff5: crown polys=1690 instances=1845915 inner faces on source=1690
+[   12.3s] [foliage] env-trees-0@ffffff: foliage faces=4587 crown faces=1950 src=context
+[   16.7s] [foliage]   -> vbCrowns-env-trees-0@ffffff: crown polys=1950 instances=1931353 inner faces on source=1950
+[   16.7s] [foliage] env-trees-1@ebebe1: foliage faces=22 crown faces=22 src=context
+[   21.0s] [foliage]   -> vbCrowns-env-trees-1@ebebe1: crown polys=22 instances=45729 inner faces on source=22
+[   21.0s] [foliage] env-trees-1@f5f5eb: foliage faces=176 crown faces=66 src=context
+[   25.3s] [foliage]   -> vbCrowns-env-trees-1@f5f5eb: crown polys=66 instances=184803 inner faces on source=66
+[   25.3s] [foliage] env-trees-1@fffff5: foliage faces=154 crown faces=22 src=context
+[   29.6s] [foliage]   -> vbCrowns-env-trees-1@fffff5: crown polys=22 instances=43110 inner faces on source=22
+[   29.6s] [foliage] env-trees-1@ffffff: foliage faces=110 crown faces=66 src=context
+[   34.0s] [foliage]   -> vbCrowns-env-trees-1@ffffff: crown polys=66 instances=135193 inner faces on source=66
+[   34.0s] [foliage] env-trees-2@ebebe1: foliage faces=270 crown faces=180 src=context
+[   38.9s] [foliage]   -> vbCrowns-env-trees-2@ebebe1: crown polys=180 instances=440597 inner faces on source=180
+[   38.9s] [foliage] env-trees-2@ebf5e1: foliage faces=180 crown faces=0 src=context
+[   38.9s] [foliage] env-trees-2@f5ebeb: foliage faces=90 crown faces=90 src=context
+[   43.7s] [foliage]   -> vbCrowns-env-trees-2@f5ebeb: crown polys=90 instances=234777 inner faces on source=90
+[   43.7s] [foliage] env-trees-2@f5f5eb: foliage faces=360 crown faces=270 src=context
+[   49.2s] [foliage]   -> vbCrowns-env-trees-2@f5f5eb: crown polys=270 instances=595786 inner faces on source=270
+[   49.2s] [foliage] env-trees-2@f5ffeb: foliage faces=270 crown faces=0 src=context
+[   49.2s] [foliage] env-trees-2@fff5f5: foliage faces=90 crown faces=90 src=context
+[   54.6s] [foliage]   -> vbCrowns-env-trees-2@fff5f5: crown polys=90 instances=205517 inner faces on source=90
+[   54.6s] [foliage] env-trees-2@ffffeb: foliage faces=180 crown faces=180 src=context
+[   60.4s] [foliage]   -> vbCrowns-env-trees-2@ffffeb: crown polys=180 instances=337455 inner faces on source=180
+[   60.4s] [foliage] env-trees-2@fffff5: foliage faces=540 crown faces=180 src=context
+[   66.3s] [foliage]   -> vbCrowns-env-trees-2@fffff5: crown polys=180 instances=224830 inner faces on source=180
+[   66.3s] [foliage] env-trees-2@ffffff: foliage faces=630 crown faces=360 src=context
+[   72.8s] [foliage]   -> vbCrowns-env-trees-2@ffffff: crown polys=360 instances=730675 inner faces on source=360
+[   72.8s] [foliage] first-ivy: foliage faces=320 crown faces=0 src=building
+[   72.8s] [foliage] first-leaf: foliage faces=1200 crown faces=880 src=building
+[   79.2s] [foliage]   -> vbCrowns-first-leaf: crown polys=880 instances=3988 inner faces on source=880
+[   79.2s] [foliage] ground-olive: foliage faces=320 crown faces=320 src=building
+[   85.5s] [foliage]   -> vbCrowns-ground-olive: crown polys=320 instances=3467 inner faces on source=320
+[   85.6s] [foliage] site-ivy: foliage faces=19860 crown faces=960 src=building
+[   91.9s] [foliage]   -> vbCrowns-site-ivy: crown polys=960 instances=2983 inner faces on source=960
+[   91.9s] [foliage] site-leaf: foliage faces=7120 crown faces=5360 src=building
+[   98.3s] [foliage]   -> vbCrowns-site-leaf: crown polys=5360 instances=44600 inner faces on source=5360
+[   98.3s] [foliage] site-olive: foliage faces=11920 crown faces=8800 src=building
+[  104.8s] [foliage]   -> vbCrowns-site-olive: crown polys=8800 instances=46394 inner faces on source=8800
+[  104.8s] [foliage] site-oliveLight: foliage faces=3120 crown faces=3120 src=building
+[  111.2s] [foliage]   -> vbCrowns-site-oliveLight: crown polys=3120 instances=20412 inner faces on source=3120
+[  111.2s] [foliage] leafified 28 objects, crown area 7029 m2 -> ~9137214 leaves
+[  111.2s] materials: built=127 textured=32 by_key={'aluminium-frame': 1, 'asphalt': 1, 'bark': 1, 'brass': 10, 'brick-facade': 1, 'car-glass': 1, 'car-light': 2, 'car-paint': 10, 'ceiling': 1, 'ceiling-white': 1, 'concrete': 3, 'deck-teak': 1, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'epoxy-floor': 1, 'floor-main': 1, 'foliage': 17, 'foliage-inner': 1, 'garage-door': 1, 'glass-railing': 2, 'glass-window': 3, 'gravel': 2, 'handrail-steel': 1, 'kerb-stone': 1, 'lawn': 3, 'led-strip-emissive': 6, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'mirror': 1, 'paint-marking': 8, 'paving-calcada': 2, 'planter-concrete': 1, 'plaster-white': 2, 'pv-panel': 1, 'render-cream': 1, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 2, 'skirting': 1, 'soil': 3, 'steel-dark': 11, 'stone-coping': 2, 'timber-slats': 1, 'zinc-standing-seam': 2}
+[  111.3s] lights: imported=2 emissive->lights=600 portals=0 boost=3.0 total_lights=602 polys=210133
+[  111.9s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[  112.2s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[  112.2s] scene ready in 112.2s  (world kloofendal_43d_clear_puresky)
+[  234.4s] [expo] transparent-pass mean 0.7436  opaque-pass mean 0.7436  geo=1.00
+[  234.4s] [expo] Lavg=0.2735 p95=1.165 ev=-0.45 ev_hi=-0.37 -> -0.45 sky=None
+[  234.4s] [sky] visible sky x0.05 (measured 21.1, ev -0.45)
+[  234.4s] [wb] gains (0.625, 1.0, 1.6)
+[ 4143.1s] SHOT lobby still 2400x1350 spp<=96 ev=-0.45 in 4030.9s -> renders/common/lobby.jpg
+[ 4165.5s] import building: 401 objects in 0.7s
+[ 4165.7s] box UVs on 388 meshes
+[ 4166.1s] [foliage] first-ivy: foliage faces=320 crown faces=0 src=building
+[ 4166.1s] [foliage] first-leaf: foliage faces=1200 crown faces=880 src=building
+[ 4166.2s] [foliage]   -> vbCrowns-first-leaf: crown polys=880 instances=3988 inner faces on source=880
+[ 4166.2s] [foliage] ground-olive: foliage faces=320 crown faces=320 src=building
+[ 4166.2s] [foliage]   -> vbCrowns-ground-olive: crown polys=320 instances=3467 inner faces on source=320
+[ 4166.4s] [foliage] site-ivy: foliage faces=19860 crown faces=960 src=building
+[ 4166.4s] [foliage]   -> vbCrowns-site-ivy: crown polys=960 instances=2983 inner faces on source=960
+[ 4166.4s] [foliage] site-leaf: foliage faces=7120 crown faces=5360 src=building
+[ 4166.5s] [foliage]   -> vbCrowns-site-leaf: crown polys=5360 instances=44600 inner faces on source=5360
+[ 4166.6s] [foliage] site-olive: foliage faces=11920 crown faces=8800 src=building
+[ 4166.7s] [foliage]   -> vbCrowns-site-olive: crown polys=8800 instances=46394 inner faces on source=8800
+[ 4166.7s] [foliage] site-oliveLight: foliage faces=3120 crown faces=3120 src=building
+[ 4166.9s] [foliage]   -> vbCrowns-site-oliveLight: crown polys=3120 instances=20412 inner faces on source=3120
+[ 4166.9s] [foliage] leafified 6 objects, crown area 94 m2 -> ~121815 leaves
+[ 4166.9s] materials: built=91 textured=23 by_key={'aluminium-frame': 1, 'bark': 1, 'brass': 10, 'brick-facade': 1, 'car-glass': 1, 'car-light': 2, 'car-paint': 1, 'ceiling': 1, 'ceiling-white': 1, 'concrete': 2, 'deck-teak': 1, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'epoxy-floor': 1, 'floor-main': 1, 'foliage': 5, 'foliage-inner': 1, 'garage-door': 1, 'glass-railing': 2, 'glass-window': 2, 'gravel': 2, 'handrail-steel': 1, 'lawn': 3, 'led-strip-emissive': 6, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'mirror': 1, 'paint-marking': 8, 'paving-calcada': 1, 'planter-concrete': 1, 'plaster-white': 2, 'pv-panel': 1, 'render-white': 1, 'rubber': 2, 'skirting': 1, 'soil': 1, 'steel-dark': 6, 'stone-coping': 2, 'timber-slats': 1, 'zinc-standing-seam': 2}
+[ 4166.9s] lights: imported=2 emissive->lights=600 portals=0 boost=3.0 total_lights=602 polys=127832
+[ 4167.5s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[ 4167.9s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[ 4167.9s] scene ready in 24.8s  (world kloofendal_43d_clear_puresky)
+[ 4185.8s] [expo] transparent-pass mean 0.06093  opaque-pass mean 0.06093  geo=1.00
+[ 4185.8s] [expo] Lavg=0.006192 p95=0.1415 ev=5.01 ev_hi=2.67 -> 2.67 sky=None
+[ 4185.8s] [sky] visible sky x0.05 (measured 21.1, ev 2.67)
+[ 4185.8s] [wb] gains (0.625, 1.0, 1.6)
+[ 7698.2s] SHOT landing-first still 2400x1350 spp<=96 ev=2.67 in 3530.3s -> renders/common/landing-first.jpg
+[ 7712.0s] [expo] transparent-pass mean 0.1721  opaque-pass mean 0.1721  geo=1.00
+[ 7712.0s] [expo] Lavg=0.00453 p95=0.2015 ev=5.46 ev_hi=2.16 -> 2.16 sky=None
+[ 7712.0s] [sky] visible sky x0.05 (measured 21.1, ev 2.16)
+[ 7712.0s] [wb] gains (0.635, 1.0, 1.6)
+[10417.2s] SHOT lift-interior still 2400x1350 spp<=96 ev=2.16 in 2719.0s -> renders/common/lift-interior.jpg
+[10433.3s] [expo] transparent-pass mean 0.03854  opaque-pass mean 0.03854  geo=1.00
+[10433.3s] [expo] Lavg=0.000931 p95=0.09386 ev=7.75 ev_hi=3.26 -> 3.26 sky=None
+[10433.3s] [sky] visible sky x0.05 (measured 21.1, ev 3.26)
+[10433.3s] [wb] gains (0.625, 1.0, 1.6)
+[13515.2s] SHOT basement still 2400x1350 spp<=96 ev=3.26 in 3098.0s -> renders/common/basement.jpg
+[13515.2s] DONE 4 images in 13515.2s
