@@ -6,11 +6,9 @@
   "quality": "standard",
   "tod": "day",
   "shots": [
-   "2.B-lisboa-h0",
-   "2.B-lisboa-h1",
-   "2.B-lisboa-h2",
-   "2.B-lisboa-h3",
-   "2.B-lisboa-h4"
+   "2.B-living",
+   "2.B-bedroom",
+   "2.B-bathroom"
   ],
   "out": "renders/units/2.B/lisboa",
   "name": "u2.B-lisboa-0",
@@ -18,24 +16,24 @@
  },
  "shots": [
   {
-   "id": "2.B-lisboa-h0",
-   "type": "pano",
-   "file": "renders/units/2.B/lisboa/2.B-lisboa-h0.jpg",
-   "thumb": "renders/units/2.B/lisboa/thumbs/2.B-lisboa-h0.jpg",
-   "W": 3072,
-   "H": 1536,
-   "spp": 64,
-   "ev": 1.5357175762920872,
+   "id": "2.B-living",
+   "type": "still",
+   "file": "renders/units/2.B/lisboa/2.B-living.jpg",
+   "thumb": "renders/units/2.B/lisboa/thumbs/2.B-living.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 1.0085333023547596,
    "tod": "day",
    "position": [
-    9,
-    7.6,
-    4.6
+    9.374,
+    7.45,
+    4.803
    ],
    "lookAt": [
-    7.296,
-    7.25,
-    0.474
+    6.847,
+    7.45,
+    1.099
    ],
    "roomId": "2.B-living",
    "name": {
@@ -43,61 +41,30 @@
     "pt": "Sala / cozinha",
     "he": "סלון ומטבח"
    },
-   "kind": null,
-   "yawOffset": 0.39165,
-   "index": 0,
-   "seconds": 1524.6
+   "kind": "living",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1269.6
   },
   {
-   "id": "2.B-lisboa-h1",
-   "type": "pano",
-   "file": "renders/units/2.B/lisboa/2.B-lisboa-h1.jpg",
-   "thumb": "renders/units/2.B/lisboa/thumbs/2.B-lisboa-h1.jpg",
-   "W": 3072,
-   "H": 1536,
-   "spp": 64,
-   "ev": 0.5437798610927144,
+   "id": "2.B-bedroom",
+   "type": "still",
+   "file": "renders/units/2.B/lisboa/2.B-bedroom.jpg",
+   "thumb": "renders/units/2.B/lisboa/thumbs/2.B-bedroom.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 0.03259305622384196,
    "tod": "day",
    "position": [
-    6.908,
-    7.6,
-    0.842
+    10.199,
+    7.4,
+    4.972
    ],
    "lookAt": [
-    8.25,
-    7,
-    2.9
-   ],
-   "roomId": "2.B-living",
-   "name": {
-    "en": "Living & kitchen · view 2",
-    "pt": "Sala / cozinha · vista 2",
-    "he": "סלון ומטבח · מבט 2"
-   },
-   "kind": null,
-   "yawOffset": -2.56375,
-   "index": 1,
-   "seconds": 1299.4
-  },
-  {
-   "id": "2.B-lisboa-h2",
-   "type": "pano",
-   "file": "renders/units/2.B/lisboa/2.B-lisboa-h2.jpg",
-   "thumb": "renders/units/2.B/lisboa/thumbs/2.B-lisboa-h2.jpg",
-   "W": 3072,
-   "H": 1536,
-   "spp": 64,
-   "ev": 2.6431488659832825,
-   "tod": "day",
-   "position": [
-    12.81,
-    7.6,
-    4.15
-   ],
-   "lookAt": [
-    11.672,
-    6.95,
-    2.39
+    13.175,
+    7.4,
+    1.739
    ],
    "roomId": "2.B-bed",
    "name": {
@@ -105,74 +72,43 @@
     "pt": "Quarto",
     "he": "חדר שינה"
    },
-   "kind": null,
-   "yawOffset": 0.57398,
-   "index": 2,
-   "seconds": 1497.9
+   "kind": "bedroom",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1333.0
   },
   {
-   "id": "2.B-lisboa-h3",
-   "type": "pano",
-   "file": "renders/units/2.B/lisboa/2.B-lisboa-h3.jpg",
-   "thumb": "renders/units/2.B/lisboa/thumbs/2.B-lisboa-h3.jpg",
-   "W": 3072,
-   "H": 1536,
-   "spp": 64,
-   "ev": 1.308906623839079,
+   "id": "2.B-bathroom",
+   "type": "still",
+   "file": "renders/units/2.B/lisboa/2.B-bathroom.jpg",
+   "thumb": "renders/units/2.B/lisboa/thumbs/2.B-bathroom.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 2.7117712731227233,
    "tod": "day",
    "position": [
-    10.608,
-    7.6,
-    4.725
+    7.993,
+    7.45,
+    5.832
    ],
    "lookAt": [
-    12.331,
-    7,
-    3.663
+    9.085,
+    7.45,
+    6.594
    ],
-   "roomId": "2.B-bed",
+   "roomId": "2.B-wc",
    "name": {
-    "en": "Bedroom · view 2",
-    "pt": "Quarto · vista 2",
-    "he": "חדר שינה · מבט 2"
+    "en": "Bathroom",
+    "pt": "I.S.",
+    "he": "חדר רחצה"
    },
-   "kind": null,
-   "yawOffset": -1.01843,
-   "index": 3,
-   "seconds": 1542.8
-  },
-  {
-   "id": "2.B-lisboa-h4",
-   "type": "pano",
-   "file": "renders/units/2.B/lisboa/2.B-lisboa-h4.jpg",
-   "thumb": "renders/units/2.B/lisboa/thumbs/2.B-lisboa-h4.jpg",
-   "W": 3072,
-   "H": 1536,
-   "spp": 64,
-   "ev": 3.3722419566613993,
-   "tod": "day",
-   "position": [
-    6.795,
-    7.6,
-    6.01
-   ],
-   "lookAt": [
-    6.428,
-    7.3,
-    6.732
-   ],
-   "roomId": "2.B-hall",
-   "name": {
-    "en": "Entrance hall",
-    "pt": "Hall",
-    "he": "מבואה"
-   },
-   "kind": null,
-   "yawOffset": 2.67132,
-   "index": 4,
-   "seconds": 1539.8
+   "kind": "bathroom",
+   "lens": 18.0,
+   "shift_y": 0.0,
+   "seconds": 1455.9
   }
  ],
- "seconds": 7421.1,
+ "seconds": 4075.1,
  "blender": "4.2.3 LTS"
 }
