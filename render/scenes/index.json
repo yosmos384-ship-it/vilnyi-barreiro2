@@ -9,9 +9,9 @@
  "files": [
   {
    "file": "building.glb",
-   "bytes": 11591076,
-   "meshes": 419,
-   "tris": 111054,
+   "bytes": 15572388,
+   "meshes": 478,
+   "tris": 147474,
    "bbox": [
     [
      -0.43,
@@ -24,50 +24,54 @@
      17.59
     ]
    ],
-   "materials": 89,
-   "namedByOwner": 54,
-   "guessed": 35,
+   "materials": 125,
+   "namedByOwner": 67,
+   "guessed": 58,
    "semantics": {
-    "steel-dark": 11,
     "ceiling-white": 2,
     "paving-calcada": 1,
     "gravel": 2,
-    "render-white": 11,
+    "render-white": 12,
     "stone-coping": 1,
     "downlight-emissive": 1,
     "soil": 1,
-    "foliage": 6,
+    "foliage": 8,
     "bark": 1,
-    "concrete": 4,
+    "concrete": 9,
+    "steel-dark": 23,
+    "kerb-stone": 1,
+    "led-strip-emissive": 12,
     "handrail-steel": 1,
+    "rubber": 1,
+    "planter-concrete": 1,
     "lawn": 1,
     "deck-teak": 1,
     "lift-steel": 12,
+    "glass-window": 1,
     "plaster-white": 2,
     "door-interior": 1,
     "lobby-floor-stone": 1,
     "glass-railing": 3,
-    "rubber": 1,
+    "render-pink": 2,
     "bulb-emissive": 1,
-    "led-strip-emissive": 3,
-    "aluminium-frame": 1,
+    "ceramic-plate": 9,
+    "mirror": 1,
     "garage-door": 1,
+    "aluminium-frame": 2,
     "door-walnut": 1,
     "brass": 1,
-    "ceramic-plate": 8,
-    "glass-window": 1,
     "timber-soffit": 1,
-    "planter-concrete": 1,
+    "lobby-wall-walnut-slats": 1,
+    "leather": 1,
     "skirting": 1,
     "zinc-standing-seam": 2,
     "brick-facade": 1,
-    "roof-tile-terracotta": 1,
-    "mirror": 1
+    "roof-tile-terracotta": 1
    },
    "skipped": {},
    "noUVMeshes": 0,
    "instancedExpanded": 0,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "context.glb",
@@ -113,7 +117,7 @@
    },
    "noUVMeshes": 1,
    "instancedExpanded": 5,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-0.A-atlantic.glb",
@@ -185,7 +189,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 29,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-0.A-lisboa.glb",
@@ -257,7 +261,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 26,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-0.A-noir.glb",
@@ -329,7 +333,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 26,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-0.B-atlantic.glb",
@@ -401,7 +405,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 41,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-0.B-lisboa.glb",
@@ -473,7 +477,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 38,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-0.B-noir.glb",
@@ -545,7 +549,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 37,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-1.A-atlantic.glb",
@@ -616,7 +620,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 30,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-1.A-lisboa.glb",
@@ -687,7 +691,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 27,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-1.A-noir.glb",
@@ -758,7 +762,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 27,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-1.B-atlantic.glb",
@@ -830,7 +834,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 30,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-1.B-lisboa.glb",
@@ -902,7 +906,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 27,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-1.B-noir.glb",
@@ -974,7 +978,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 27,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-1.C-atlantic.glb",
@@ -1048,7 +1052,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 47,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-1.C-lisboa.glb",
@@ -1122,7 +1126,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 44,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-1.C-noir.glb",
@@ -1195,7 +1199,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 43,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-2.A-atlantic.glb",
@@ -1263,7 +1267,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 29,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-2.A-lisboa.glb",
@@ -1331,7 +1335,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 26,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-2.A-noir.glb",
@@ -1399,7 +1403,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 25,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-2.B-atlantic.glb",
@@ -1466,7 +1470,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 27,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-2.B-lisboa.glb",
@@ -1533,7 +1537,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 24,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-2.B-noir.glb",
@@ -1600,7 +1604,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 24,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-2.C-atlantic.glb",
@@ -1670,7 +1674,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 42,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-2.C-lisboa.glb",
@@ -1740,7 +1744,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 39,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   },
   {
    "file": "unit-2.C-noir.glb",
@@ -1809,7 +1813,7 @@
    },
    "noUVMeshes": 0,
    "instancedExpanded": 38,
-   "generated": "2026-10-01T20:57:02Z"
+   "generated": "2026-10-01T22:30:22Z"
   }
  ]
 }

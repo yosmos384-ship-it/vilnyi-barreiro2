@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-10-01T20:56:36Z",
+ "generated": "2026-10-01T22:29:53Z",
  "space": "three-y-up",
  "units": "metres",
  "axes": "three.js world: +x = along Rua Eduardo Couto (bearing 61.4°), +y = up, +z = towards the street (0 = rear façade, 14.7 = street façade). y = 0 is ground-floor finished level (+12.70 m a.s.l.).",
