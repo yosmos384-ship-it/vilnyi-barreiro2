@@ -1,0 +1,21 @@
+[    0.0s] job preview-exterior: scope=exterior unit=None pkg=None quality=preview shots=2
+[    0.6s] import building: 401 objects in 0.6s
+[    1.0s] import context: 123 objects in 0.3s
+[    1.2s] box UVs on 463 meshes
+[    1.6s] materials: built=125 textured=32 by_key={'aluminium-frame': 1, 'asphalt': 1, 'bark': 1, 'brass': 10, 'brick-facade': 1, 'car-glass': 1, 'car-light': 2, 'car-paint': 10, 'ceiling': 1, 'ceiling-white': 1, 'concrete': 3, 'deck-teak': 1, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'epoxy-floor': 1, 'floor-main': 1, 'foliage': 16, 'garage-door': 1, 'glass-railing': 2, 'glass-window': 3, 'gravel': 2, 'handrail-steel': 1, 'kerb-stone': 1, 'lawn': 3, 'led-strip-emissive': 6, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'mirror': 1, 'paint-marking': 8, 'paving-calcada': 2, 'planter-concrete': 1, 'plaster-white': 2, 'pv-panel': 1, 'render-cream': 1, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 2, 'skirting': 1, 'soil': 3, 'steel-dark': 11, 'stone-coping': 2, 'timber-slats': 1, 'zinc-standing-seam': 2}
+[    1.7s] lights: imported=2 emissive->lights=2580 portals=0 boost=3.0
+[    2.3s] [world] syferfontein_18d_clear_puresky 4096x2048 sun=True sun_E=13.182 sky_E=0.635
+[    2.4s] [world] sun at bearing 234.0 alt 18.4  E=169.7 W/m2(phot) = 115937 lux  sky x12.88
+[    2.4s] scene ready in 2.4s  (world syferfontein_18d_clear_puresky)
+[    9.1s] [expo] Lavg=0.0006393 p99=7.007 ev=8.14 ev_hi=-0.70 -> 0.30
+[  315.0s] SHOT street-golden-34 still 960x540 spp<=64 ev=0.30 in 312.6s -> renders/preview/exterior/street-golden-34.jpg
+[  315.8s] import building: 401 objects in 0.6s
+[  316.1s] import context: 123 objects in 0.3s
+[  316.3s] box UVs on 463 meshes
+[  316.5s] materials: built=250 textured=64 by_key={'aluminium-frame': 2, 'asphalt': 2, 'bark': 2, 'brass': 20, 'brick-facade': 2, 'car-glass': 2, 'car-light': 4, 'car-paint': 20, 'ceiling': 2, 'ceiling-white': 2, 'concrete': 6, 'deck-teak': 2, 'door-interior': 2, 'door-walnut': 2, 'downlight-emissive': 4, 'epoxy-floor': 2, 'floor-main': 2, 'foliage': 32, 'garage-door': 2, 'glass-railing': 4, 'glass-window': 6, 'gravel': 4, 'handrail-steel': 2, 'kerb-stone': 2, 'lawn': 6, 'led-strip-emissive': 12, 'lift-steel': 16, 'lobby-floor-stone': 2, 'lobby-wall-walnut-slats': 2, 'mirror': 2, 'paint-marking': 16, 'paving-calcada': 4, 'planter-concrete': 2, 'plaster-white': 4, 'pv-panel': 2, 'render-cream': 2, 'render-white': 4, 'roof-tile-terracotta': 2, 'rubber': 4, 'skirting': 2, 'soil': 6, 'steel-dark': 22, 'stone-coping': 4, 'timber-slats': 2, 'zinc-standing-seam': 4}
+[  316.6s] lights: imported=2 emissive->lights=2580 portals=0 boost=6.0
+[  317.2s] [world] qwantani_dusk_2_puresky 4096x2048 sun=False sun_E=0.000 sky_E=3.545
+[  317.2s] scene ready in 2.2s  (world qwantani_dusk_2_puresky)
+[  322.0s] [expo] Lavg=9.924e-05 p99=1.083 ev=10.36 ev_hi=1.53 -> 2.53
+[  613.8s] SHOT street-dusk still 960x540 spp<=64 ev=2.53 in 296.6s -> renders/preview/exterior/street-dusk.jpg
+[  613.8s] DONE 2 images in 613.8s

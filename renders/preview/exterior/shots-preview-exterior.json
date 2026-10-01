@@ -1,0 +1,71 @@
+{
+ "job": {
+  "scope": "exterior",
+  "quality": "preview",
+  "shots": [
+   "street-dusk",
+   "street-golden-34"
+  ],
+  "out": "renders/preview/exterior",
+  "name": "preview-exterior",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "street-golden-34",
+   "type": "still",
+   "file": "renders/preview/exterior/street-golden-34.jpg",
+   "thumb": "renders/preview/exterior/thumbs/street-golden-34.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": 0.3022441803475804,
+   "tod": "golden",
+   "position": [
+    23.5,
+    0.72,
+    26.2
+   ],
+   "lookAt": [
+    6.5,
+    4,
+    13
+   ],
+   "roomId": null,
+   "name": "3/4 view from the street, golden hour",
+   "kind": null,
+   "lens": 24.0,
+   "shift_y": 0.1016,
+   "seconds": 312.6
+  },
+  {
+   "id": "street-dusk",
+   "type": "still",
+   "file": "renders/preview/exterior/street-dusk.jpg",
+   "thumb": "renders/preview/exterior/thumbs/street-dusk.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": 2.5268807606477193,
+   "tod": "dusk",
+   "position": [
+    7,
+    0.37,
+    26.2
+   ],
+   "lookAt": [
+    7,
+    4.4,
+    14.7
+   ],
+   "roomId": null,
+   "name": "Frontal street view at dusk (like assets/street-dusk.jpg)",
+   "kind": null,
+   "lens": 18.0,
+   "shift_y": 0.1752,
+   "seconds": 296.6
+  }
+ ],
+ "seconds": 613.8,
+ "blender": "4.2.3 LTS"
+}
