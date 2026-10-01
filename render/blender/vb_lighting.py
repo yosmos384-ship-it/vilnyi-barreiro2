@@ -324,6 +324,8 @@ def measure_exposure(tmpdir, key, opts, log, w=None, h=None):
     skyp = px2[px[:, 3] < 0.5]
     sky_lum = float(np.median(0.2126 * skyp[:, 0] + 0.7152 * skyp[:, 1] + 0.0722 * skyp[:, 2])) if len(skyp) > 20 else None
     geo = px[:, 3] > 0.5
+    log(f'[expo] transparent-pass mean {float(px[:, :3].mean()):.4g}  opaque-pass mean {float(px2[:, :3].mean()):.4g}  geo={geo.mean():.2f}')
+    px = px2            # luminance from the normal (opaque film) pass, alpha mask from the transparent one
     if geo.sum() > 0.05 * len(px):
         px = px[geo]
         # un-premultiply is not needed for opaque pixels
