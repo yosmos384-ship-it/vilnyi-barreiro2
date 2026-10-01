@@ -1,0 +1,82 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.B",
+  "pkg": "atlantic",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "2.B-atlantic-h5",
+   "2.B-atlantic-h6"
+  ],
+  "out": "renders/units/2.B/atlantic",
+  "name": "u2.B-atlantic-1",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "2.B-atlantic-h5",
+   "type": "pano",
+   "file": "renders/units/2.B/atlantic/2.B-atlantic-h5.jpg",
+   "thumb": "renders/units/2.B/atlantic/thumbs/2.B-atlantic-h5.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 1.4109360223089118,
+   "tod": "day",
+   "position": [
+    8.35,
+    7.6,
+    6.01
+   ],
+   "lookAt": [
+    9.284,
+    7.3,
+    6.732
+   ],
+   "roomId": "2.B-wc",
+   "name": {
+    "en": "Bathroom",
+    "pt": "I.S.",
+    "he": "חדר רחצה"
+   },
+   "kind": null,
+   "yawOffset": -2.22887,
+   "index": 5,
+   "seconds": 1917.9
+  },
+  {
+   "id": "2.B-atlantic-h6",
+   "type": "pano",
+   "file": "renders/units/2.B/atlantic/2.B-atlantic-h6.jpg",
+   "thumb": "renders/units/2.B/atlantic/thumbs/2.B-atlantic-h6.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": -2.812666820662935,
+   "tod": "day",
+   "position": [
+    7.95,
+    7.6,
+    -0.35
+   ],
+   "lookAt": [
+    9.95,
+    7.4,
+    -12
+   ],
+   "roomId": "2.rear.B",
+   "name": {
+    "en": "Balcony",
+    "pt": "Varanda",
+    "he": "מרפסת"
+   },
+   "kind": null,
+   "yawOffset": -0.17002,
+   "index": 6,
+   "seconds": 798.2
+  }
+ ],
+ "seconds": 2734.1,
+ "blender": "4.2.3 LTS"
+}
