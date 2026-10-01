@@ -310,7 +310,7 @@ def _leaf_gn(leaf, density):
     rr = N.new('FunctionNodeRandomValue'); rr.data_type = 'FLOAT_VECTOR'
     rr.inputs['Min'].default_value = (0, 0, 0); rr.inputs['Max'].default_value = (6.2832, 6.2832, 6.2832)
     rs = N.new('FunctionNodeRandomValue'); rs.data_type = 'FLOAT'
-    rs.inputs['Min'].default_value = 0.65; rs.inputs['Max'].default_value = 1.35
+    rs.inputs['Min'].default_value = 0.45; rs.inputs['Max'].default_value = 0.95
     inst = N.new('GeometryNodeInstanceOnPoints')
     Lk.new(sp.outputs['Geometry'], inst.inputs['Points']); Lk.new(oi.outputs['Geometry'], inst.inputs['Instance'])
     Lk.new(rr.outputs['Value'], inst.inputs['Rotation']); Lk.new(rs.outputs['Value'], inst.inputs['Scale'])
@@ -320,7 +320,7 @@ def _leaf_gn(leaf, density):
     return ng
 
 
-def leafify(centre, radius=70.0, density=700.0, min_dim=0.3, max_area=6000.0, log=print):
+def leafify(centre, radius=70.0, density=700.0, min_dim=0.3, max_area=9000.0, log=print):
     """Low-poly tree crowns / ivy (key 'foliage') -> dark inner mass + thousands of instanced leaves (Cycles instancing)."""
     leaf = _leaf_object()
     inner = bpy.data.materials.get('foliage-inner') or bpy.data.materials.new('foliage-inner')

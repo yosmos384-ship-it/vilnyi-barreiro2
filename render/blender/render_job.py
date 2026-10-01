@@ -233,7 +233,7 @@ def render_group(job, q, quality, scn, tod, shots, tmp, out_dir):
     st = M.apply_all(pkg_for, mopts)
     if opts.get('leaves', True):
         try:
-            S.leafify((7.0, -7.0), radius=opts.get('leaf_radius', 60.0 if not is_unit else 30.0), density=opts.get('leaf_density', 700.0), log=log)
+            S.leafify((7.0, -7.0), radius=opts.get('leaf_radius', 110.0 if not is_unit else 40.0), density=opts.get('leaf_density', 1300.0), log=log)
             M.apply_all(pkg_for, mopts, only_new=True)   # materials for the leaf mesh / inner crowns
         except Exception as e:
             log('leafify failed', repr(e)); log(traceback.format_exc())
