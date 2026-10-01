@@ -1,0 +1,997 @@
+aarfontein_dawn_2	outdoor,nature,natural light,low contrast,medium contrast,partly cloudy,sunrise-sunset	grass,hilltop,arid landscape,blue hour,mountain,view,horizon glow	
+aarfontein_dirt_road	outdoor,nature,natural light,high contrast,clear,morning-afternoon	sun,arid,gravel,dirt road,scrubland,tracks,erosion,backplates	
+aarfontein_dusk	outdoor,nature,natural light,low contrast,skies,overcast,sunrise-sunset	rocky,arid,hilltop,scrubland	
+aarfontein_pan	outdoor,nature,natural light,medium contrast,clear,sunrise-sunset	arid,dry lakebed,cracked mud,bare ground,salt pan	
+aarfontein_sunrise	outdoor,nature,natural light,high contrast,partly cloudy,sunrise-sunset	grass,hilltop,sun,arid landscape,mountain,view	
+abandoned_bakery	natural light,artificial light,urban,indoor,high contrast	abandoned,empty,industrial,windows,bare,rubble,brick,concrete,backplates	
+abandoned_church	outdoor,nature,morning-afternoon,partly cloudy,low contrast,natural light	tree,autumn,church,abandoned,leaves	
+abandoned_construction	indoor,urban,natural light,medium contrast,overcast	brick,pillar,warehouse,rubble,abandoned,debris,desolate,empty,ruin,gloomy	
+abandoned_factory_canteen_01	indoor,urban,low contrast,natural light	hall,abandoned,fluorescent,industrial,backplates,backplates	
+abandoned_factory_canteen_02	indoor,urban,natural light,medium contrast	hall,abandoned,industrial,boxes,backplates	
+abandoned_games_room_01	indoor,urban,midday,low contrast,natural light	abandoned,room,window,tile,rubble	
+abandoned_games_room_02	indoor,urban,midday,low contrast,natural light	abandoned,room,window,tile,arcade,rubble	
+abandoned_garage	indoor,medium contrast,urban,natural light,midday,overcast	abandoned,graffiti,grunge,workshop,tire,debris,trash	
+abandoned_greenhouse	low contrast,natural light,indoor,urban,overcast,midday	warehouse,concrete,greenhouse,abandoned,industrial,graffiti	
+abandoned_hall_01	indoor,urban,low contrast,natural light	hall,window,abandoned,empty,bare	
+abandoned_hopper_terminal_01	outdoor,nature,morning-afternoon,partly cloudy,medium contrast,natural light	tree,sun,winter,road,tracks,rail,industrial,backplates	
+abandoned_hopper_terminal_02	outdoor,nature,morning-afternoon,clear,high contrast,natural light	sun,rail,tracks,tree,winter,birch,backplates	
+abandoned_hopper_terminal_03	outdoor,nature,morning-afternoon,partly cloudy,medium contrast,natural light	industrial,sun,tree,winter,field,backplates	
+abandoned_hopper_terminal_04	outdoor,nature,midday,clear,high contrast,natural light	field,industrial,sun,tree,summer,backplates	
+abandoned_parking	outdoor,skies,urban,midday,partly cloudy,high contrast,natural light	parking,asphalt,road,tree,bush,derelict,abandoned,industrial,backplates	
+abandoned_pathway	outdoor,skies,nature,morning-afternoon,clear,high contrast,natural light	sun,tree,road,path,field,backplates	
+abandoned_slipway	outdoor,urban,midday,overcast,low contrast,natural light	ocean,bay,lake,industrial,abandoned	
+abandoned_tank_farm_01	outdoor,urban,nature,morning-afternoon,partly cloudy,high contrast,natural light	sun,tree,parking,abandoned,backplates	
+abandoned_tank_farm_02	outdoor,urban,nature,morning-afternoon,partly cloudy,high contrast,natural light	sun,tree,abandoned,road,backplates	
+abandoned_tank_farm_03	outdoor,skies,urban,midday,partly cloudy,high contrast,natural light	sun,parking,abandoned,asphalt,backplates	
+abandoned_tank_farm_04	outdoor,skies,nature,morning-afternoon,partly cloudy,high contrast,natural light	sun,grass,field,hill,backplates	
+abandoned_tank_farm_05	outdoor,nature,partly cloudy,natural light,skies,medium contrast,sunrise-sunset	sun,sand,dirt,building,mounds,winter,backplates	
+abandoned_tiled_room	indoor,urban,natural light,medium contrast,sunrise-sunset	abandoned,industrial,rubble,ruin,trash,weathered,broken,neglected,decay,debris,grunge,window	
+abandoned_waterworks	outdoor,nature,morning-afternoon,overcast,low contrast,natural light	tree,concrete,overgrown,abandoned,backplates	
+abandoned_workshop	indoor,urban,medium contrast,natural light	abandoned,warehouse,rubble,brick,pillar,bare,empty,backplates	
+abandoned_workshop_02	indoor,nature,midday,low contrast,natural light,urban	abandoned,warehouse,concrete,bare,empty,overgrown,backplates	
+acoustical_shell	indoor,outdoor,natural light,urban,morning-afternoon,partly cloudy,medium contrast	stage,promenade,tree,garden,bay	
+adams_place_bridge	indoor,urban,high contrast,artificial light	building,architecture,europe,bridge,tunnel,path	
+aerodynamics_workshop	indoor,urban,morning-afternoon,medium contrast,natural light,artificial light	machine,industrial,workshop,wind tunnel,window	
+afrikaans_church_exterior	outdoor,natural light,urban,low contrast,partly cloudy,morning-afternoon	church,dutch architecture,asphalt,historical,white building,paved walkway	
+afrikaans_church_interior	indoor,high contrast,natural light,urban,morning-afternoon	windows,pew,altar,red carpet,stage,wooden ceiling,pulpit,high ceiling	
+aft_lounge	indoor,urban,sunrise-sunset,clear,high contrast,natural light,artificial light	lounge,chair,ship,stage,carpet,window,ocean,sun,lamp,table	
+ahornsteig	outdoor,nature,midday,overcast,low contrast,natural light	tree,bench,leaves,autumn,path,road,berlin,cobblestone,forest	
+air_museum_playground	outdoor,nature,morning-afternoon,partly cloudy,natural light,high contrast	tree,swing,playground,grass,plane,hangar,backplates,sun	
+aircraft_workshop_01	indoor,urban,morning-afternoon,medium contrast,natural light,artificial light	workshop,industrial,warehouse,scaffold	
+aloe_farm_shade_house	outdoor,nature,natural light,medium contrast,partly cloudy,morning-afternoon	sun,shade,net,greenhouse,farm,plants,agriculture,nursery	
+alps_field	natural light,outdoor,nature,high contrast,partly cloudy,morning-afternoon	sun,grass,field,mountain,forest,alps,valley	
+altanka	outdoor,urban,sunrise-sunset,partly cloudy,medium contrast,natural light	tree,park,path,europe,bench,brick	
+alte_veste_station	outdoor,urban,natural light,low contrast,overcast,midday	tracks,station,path,sidewalk,railing,suburb,europe	
+amphitheatre_zanzibar_fort	natural light,outdoor,urban,low contrast,morning-afternoon,partly cloudy	fort,seat,stage,cobblestone,concrete	
+anniversary_lounge	indoor,urban,medium contrast,natural light,artificial light	window,room,couch,lamp,carpet,table	
+approaching_storm	outdoor,skies,nature,morning-afternoon,partly cloudy,low contrast,natural light	tree,sun,grass,path,park	
+arboretum	outdoor,nature,sunrise-sunset,partly cloudy,medium contrast,natural light	lake,water,path,dam,bridge,tree,dirt,road	
+aristea_wreck	outdoor,skies,nature,midday,partly cloudy,medium contrast,natural light	sun,rock,ocean,shipwreck	
+aristea_wreck_puresky	outdoor,skies,nature,midday,partly cloudy,medium contrast,natural light,pure skies	pure skies	
+art_studio	indoor,urban,medium contrast,natural light,artificial light	painting,art,workshop,window,atelier	
+artist_workshop	indoor,urban,midday,low contrast,natural light	painting,canvas,window,art,atelier	
+auto_service	indoor,urban,medium contrast,artificial light	workshop,warehouse,industrial,concrete,backplates	
+autoshop_01	indoor,urban,low contrast,artificial light	garage,warehouse,industrial,car,workshop	
+autumn_crossing	outdoor,nature,overcast,low contrast,natural light	tree,bench,road,bush,leaves,autumn,path	
+autumn_field	outdoor,natural light,nature,skies,high contrast,clear,morning-afternoon	sun,grass,field,green,farm,long grass,backplates	
+autumn_field_puresky	outdoor,natural light,nature,skies,high contrast,clear,morning-afternoon,pure skies	pure skies	
+autumn_forest_01	outdoor,nature,morning-afternoon,low contrast,natural light	tree,forest,leaves,autumn,rock	
+autumn_forest_02	outdoor,nature,midday,overcast,low contrast,natural light	tree,autumn,leaves,forest,mud	
+autumn_forest_03	outdoor,nature,morning-afternoon,overcast,low contrast,natural light	autumn,forest,leaves,mud,tree,river,tower,lookout,stream	
+autumn_forest_04	natural light,outdoor,nature,high contrast,clear,sunrise-sunset	tree,sun,autumn,forest	
+autumn_ground	outdoor,nature,morning-afternoon,partly cloudy,medium contrast,natural light	leaves,autumn,tree,log,bush,shrub,earth,ground,trail,path,forest	
+autumn_hill_view	outdoor,natural light,nature,skies,partly cloudy,morning-afternoon,high contrast	sun,hilltop,autumn,field,vista,mountain,valley,view	
+autumn_hilly_field	outdoor,natural light,nature,skies,high contrast,clear,morning-afternoon	sun,grass,field,rolling hills,autumn,countryside	
+autumn_hockey	outdoor,nature,overcast,midday,low contrast,natural light	tree,leaves,autumn,park,hockey	
+autumn_meadow	outdoor,nature,morning-afternoon,clear,high contrast,natural light	tree,sun,grass,autumn,field,power line,forest,backplates	
+autumn_park	outdoor,skies,nature,morning-afternoon,clear,high contrast,natural light	tree,sun,grass,field,backplates	
+autumn_road	outdoor,nature,morning-afternoon,overcast,low contrast,natural light	tree,road,asphalt,highway,autumn,backplates	
+aviation_museum	outdoor,nature,sunrise-sunset,clear,medium contrast,natural light,urban	grass,plane,path,sun,park,museum,backplates	
+aviation_museum_hill	natural light,outdoor,skies,nature,clear,morning-afternoon,high contrast	sun,grass,bench,platform,plane,backplates	
+balcony	outdoor,nature,urban,partly cloudy,morning-afternoon,medium contrast,natural light	house,tree,car,solar,balcony	
+ballawley_park	outdoor,natural light,nature,partly cloudy,high contrast,morning-afternoon	sun,tree,path,park,grass,trunk	
+ballroom	indoor,urban,medium contrast,artificial light,natural light	tile,victorian,window,piano,chandelier	
+bambanani_sunset	outdoor,natural light,nature,skies,partly cloudy,medium contrast,sunrise-sunset	sun,field,power line,grass,tower	
+bamboo_tunnel	outdoor,medium contrast,natural light,nature,midday	tunnel,dry,dense,partially shaded,pathway,arched canopy	
+bank_vault	indoor,urban,artificial light,medium contrast	cage,bars,concrete,fluorescent,bare,empty,industrial	
+barnaslingan_01	outdoor,natural light,nature,partly cloudy,high contrast,midday	sun,wood chips,timber,dirt road,log pile,stacked logs,logging,forestry,conifer,backplates	
+barnaslingan_02	outdoor,natural light,nature,partly cloudy,low contrast,midday	logging,log pile,forestry,conifer,timber,tractor,dirt road,power lines,backplates	
+basement_boxing_ring	indoor,urban,artificial light,medium contrast	sport,boxing,ring,basement,fluorescent	
+bathroom	indoor,urban,medium contrast,artificial light	bath,basin,tiles,sink	
+beach_cloudy_bridge	outdoor,natural light,nature,urban,low contrast,overcast,midday	beach,sand,river,ocean,bridge,underpass,concrete,water	
+beach_parking	outdoor,skies,urban,sunrise-sunset,overcast,low contrast,natural light	road,parking,fog,backplates	
+belfast_farmhouse	natural light,outdoor,nature,high contrast,partly cloudy,morning-afternoon	tree,sun,grass,hill	
+belfast_open_field	natural light,outdoor,nature,low contrast,overcast,morning-afternoon	tree,grass,field,hill	
+belfast_sunset	natural light,outdoor,nature,low contrast,partly cloudy,sunrise-sunset,skies	grass,hill,hilltop,field,view,dry,dry grass	
+belfast_sunset_puresky	natural light,outdoor,nature,low contrast,partly cloudy,sunrise-sunset,skies,pure skies	pure skies	
+bell_park_dawn	outdoor,skies,nature,sunrise-sunset,partly cloudy,low contrast,natural light	dam,lake,grass,hill	
+bell_park_pier	outdoor,skies,nature,sunrise-sunset,partly cloudy,medium contrast,natural light	water,dam,lake,pier,boat,hill,mountain	
+bell_tower	indoor,natural light,urban,medium contrast,morning-afternoon	church,tower,wooden beams,stained glass,architecture,arched windows,empty,wooden floor,ladder	
+belvedere	outdoor,urban,morning-afternoon,partly cloudy,high contrast,natural light	tree,path,road,pillar,statue,sun,city,view,building,architecture,rome,europe,backplates	
+bergen	outdoor,nature,morning-afternoon,clear,high contrast,natural light	tree,winter,grass,rock,snow,sun	
+bethnal_green_entrance	outdoor,urban,morning-afternoon,overcast,low contrast,natural light	tree,europe,street,brick,fence,london	
+between_bridges	outdoor,urban,sunrise-sunset,partly cloudy,medium contrast,natural light	field,bridge,underpass,pillar,sun	
+billiard_hall	indoor,urban,natural light,artificial light,medium contrast,morning-afternoon	brick,pool,snooker,ball game,carpet,window,lamp,billiards,table	
+binnenalster	outdoor,urban,morning-afternoon,overcast,low contrast,natural light	lake,park,tree,bench	
+birbeck_street_underpass	indoor,urban,morning-afternoon,medium contrast,natural light,artificial light	road,asphalt,tunnel,underpass,brick,graffiti	
+birchwood	outdoor,nature,sunrise-sunset,clear,low contrast,natural light	tree,snow,winter,river,frozen	
+bismarckturm	outdoor,nature,sunrise-sunset,partly cloudy,low contrast,natural light	tree,grass,path,view,park	
+bismarckturm_hillside	outdoor,low contrast,nature,natural light,partly cloudy,sunrise-sunset	grass,path,asphalt,park,tree	
+blau_river	outdoor,nature,morning-afternoon,partly cloudy,low contrast,natural light	winter,tree,river,hill,field,moss	
+blaubeuren_church_square	outdoor,urban,night,overcast,medium contrast,artificial light	snow,winter,town,europe,christmas,road,path	
+blaubeuren_hillside	outdoor,nature,morning-afternoon,clear,high contrast,natural light	tree,sun,grass,dry	
+blaubeuren_night	outdoor,urban,night,partly cloudy,high contrast,artificial light	tree,grass,path,park,bench	
+blaubeuren_outskirts	outdoor,nature,morning-afternoon,overcast,low contrast,natural light	tree,rock,path,autumn,park	
+blender_institute	indoor,urban,low contrast,artificial light	blender,timber,computer,chair,lamp,people	
+blinds	indoor,urban,morning-afternoon,medium contrast,natural light	kitchen,window,counter,table	
+blocky_photo_studio	urban,indoor,studio,artificial light,natural light,low contrast	studio,stair,ramp,stand,modern,concrete	
+bloem_field_sunrise	outdoor,natural light,nature,skies,clear,medium contrast,sunrise-sunset	grass,field,sun	
+bloem_hill_01	outdoor,natural light,nature,skies,low contrast,overcast,midday	city,radio,tower,view,hilltop,bush	
+bloem_hill_02	outdoor,natural light,nature,skies,low contrast,overcast,midday	city,radio,tower,view,hilltop,bush	
+bloem_hill_03	outdoor,natural light,nature,skies,low contrast,overcast,midday	city,radio,tower,view,hilltop,bush	
+bloem_olive_house	outdoor,urban,natural light,high contrast,midday,clear	brick,house,architecture,parking,bush,tree,building,backplates	
+bloem_train_track_clear	outdoor,natural light,nature,clear,high contrast,morning-afternoon	train,tracks,grass,tree,sun,path,park	
+bloem_train_track_cloudy	nature,outdoor,natural light,partly cloudy,low contrast,morning-afternoon,urban	grass,field,sun,tree,train,tracks,bridge	
+blouberg_sunrise_1	outdoor,skies,nature,sunrise-sunset,partly cloudy,low contrast,natural light,collection: smugglers_cove	beach,ocean,cape town,building,backplates	
+blouberg_sunrise_2	outdoor,skies,nature,sunrise-sunset,partly cloudy,low contrast,natural light	beach,ocean,cape town,building,backplates	
+blue_grotto	outdoor,nature,morning-afternoon,clear,low contrast,natural light	tree,waterfall,river,rock,cave,forest	
+blue_lagoon	outdoor,skies,urban,morning-afternoon,partly cloudy,high contrast,natural light	sun,ocean,post,pier,backplates	
+blue_lagoon_night	outdoor,urban,night,partly cloudy,high contrast,artificial light	lamp,stars,ocean,city,promenade,backplates	
+blue_photo_studio	studio,indoor,artificial light,natural light,urban,medium contrast,midday	couch,wooden floor,lamp,window,seat,dark,backplates	
+boiler_room	indoor,urban,low contrast,natural light,artificial light	machine,industrial,pipes,factory	
+boma	indoor,urban,natural light,medium contrast,morning-afternoon	bench,restaurant,arch,brick,rafters,cafe,seat,flag	
+borghese_gardens	outdoor,nature,morning-afternoon,partly cloudy,high contrast,natural light	sun,tree,rome,europe,park	
+braustuble_alley	outdoor,urban,natural light,low contrast,overcast,midday	europe,architecture,christmas,street,cobblestone,germany,alley,historic village,old town,half-timbered,wooden shutters	
+brick_factory_01	outdoor,nature,morning-afternoon,clear,high contrast,natural light	tree,dirt,road,abandoned,sun,backplates	
+brick_factory_02	clear,high contrast,morning-afternoon,natural light,nature,outdoor	dirt,road,tree,sun,brick,pallet,backplates	
+brown_photostudio_01	indoor,urban,natural light,artificial light,medium contrast,studio,low contrast	studio,lamp,photo,chair,window,wood,fluorescent,couch,victorian,backplates	
+brown_photostudio_02	urban,studio,indoor,artificial light,natural light,medium contrast	bed,studio,fluorescent,window,couch,chair,photo,table,kitchen,fridge,backplates	
+brown_photostudio_03	indoor,studio,natural light,urban,low contrast,morning-afternoon	couch,studio,window,fireplace,plant,modern,backplates	
+brown_photostudio_04	studio,natural light,indoor,urban,midday,low contrast	studio,couch,bed,window,table,kitchen,plant,curtain,backplates	
+brown_photostudio_05	indoor,natural light,urban,morning-afternoon,low contrast,studio	wood,couch,decor,studio,windows,door,curtain,backplates	
+brown_photostudio_06	indoor,studio,urban,natural light,medium contrast	studio,couch,curtain,wood,mirror,backplates	
+brown_photostudio_07	natural light,studio,indoor,medium contrast,urban	studio,bed,fabric,wood,wooden floor,white,windows,chair	
+bryanston_park_sunrise	outdoor,natural light,nature,partly cloudy,low contrast,sunrise-sunset	grass,field,tree,park,early morning,pink	
+buikslotermeerplein	outdoor,urban,partly cloudy,natural light,low contrast,morning-afternoon	grass,park,skate,graffiti,field,building,architecture,city,europe,amsterdam	
+burnt_warehouse	natural light,indoor,urban,medium contrast	abandoned,warehouse,industrial,concrete,burnt,trash,brick,rubble,ruin,backplates	
+bush_restaurant	indoor,urban,medium contrast,natural light	table,chair,restaurant,window,door	
+cabin	indoor,urban,high contrast,artificial light	bed,tv,hotel,cabin,boat,ship,cruise	
+cambridge	outdoor,urban,midday,overcast,low contrast,natural light	architecture,europe,london,university,grass,path,cobblestone	
+camdeboo_road	outdoor,nature,natural light,high contrast,clear,sunrise-sunset	sun,road,hillside,golden hour,mountainous,valley,shrub,asphalt,backplates	
+canary_wharf	outdoor,urban,morning-afternoon,partly cloudy,low contrast,natural light	europe,london,architecture,city,building,railing,concrete,street	
+cannon	outdoor,skies,nature,midday,overcast,low contrast,natural light	rock,hill,view,cannon,ocean,mountain	
+cape_hill	outdoor,skies,nature,sunrise-sunset,partly cloudy,high contrast,natural light	rock,shrub,view,ocean,hill,hilltop,sun,backplates	
+carpentry_shop_01	indoor,urban,high contrast,artificial light	workshop,lamp,tablesaw,wood	
+carpentry_shop_02	indoor,urban,high contrast,artificial light	lamp,fluorescent,workshop,machine,tools,wood,carpentry,workbench	
+castel_st_angelo_roof	outdoor,low contrast,natural light,urban,overcast,morning-afternoon	europe,statue,roof,city,rome,rain,wet	
+castle_zavelstein_cellar	natural light,indoor,urban,high contrast	cellar,basement,arch,tunnel,brick,castle	
+cave_wall	outdoor,indoor,nature,morning-afternoon,medium contrast,natural light	rock,tree,wall,river,vine,ledge,cave	
+cayley_interior	indoor,urban,sunrise-sunset,artificial light,natural light,high contrast	lamp,table,window,glass,balcony,view,log	
+cayley_lookout	outdoor,skies,nature,morning-afternoon,partly cloudy,medium contrast,natural light	balcony,dam,lake,mountain	
+cedar_bridge	outdoor,skies,urban,partly cloudy,morning-afternoon,low contrast,natural light	road,storm,path,rail,overpass,bridge	
+cedar_bridge_2	natural light,outdoor,urban,high contrast,partly cloudy,midday,skies	overpass,bridge,road,sidewalk,rail	
+cedar_bridge_sunset_1	outdoor,natural light,skies,partly cloudy,sunrise-sunset,medium contrast,urban	road,overpass,bridge,railing,sun,dramatic clouds	
+cedar_bridge_sunset_2	outdoor,natural light,urban,partly cloudy,sunrise-sunset,skies,low contrast	road,overpass,bridge,railing,dusk	
+champagne_castle_1	outdoor,skies,nature,sunrise-sunset,partly cloudy,low contrast,natural light	grass,mountain,path,hill	
+chapel_day	indoor,urban,artificial light,natural light,low contrast,midday	chair,bench,cross,altar,barrel,seat,church,pew,stained glass,religion	
+chapmans_drive	outdoor,nature,morning-afternoon,clear,high contrast,natural light	road,sun,cliff,backplates	
+charolettenbrunn_park	outdoor,natural light,nature,partly cloudy,high contrast,midday	grass,field,sun,tree,park,path,sculpture,bench,lawn	
+childrens_hospital	indoor,urban,high contrast,artificial light	bed,ward,medical,hospital,room	
+chinese_garden	outdoor,nature,morning-afternoon,clear,high contrast,natural light	sun,tree,pond,garden,asia,architecture,china,cobblestone	
+christmas_photo_studio_01	indoor,urban,night,high contrast,artificial light,studio	couch,sofa,wood,book,blanket,tree,christmas,step,ladder,studio,backplates	
+christmas_photo_studio_02	indoor,studio,urban,medium contrast,artificial light	blanket,cloth,christmas,ladder,wood,studio,backplates	
+christmas_photo_studio_03	indoor,studio,urban,artificial light,medium contrast,night	couch,christmas,photo,shoot,backplates	
+christmas_photo_studio_04	indoor,studio,urban,night,low contrast,artificial light	couch,christmas,photo,shoot,curtain,presents,fluorescent,backplates	
+christmas_photo_studio_05	indoor,studio,morning-afternoon,natural light,artificial light,low contrast,urban	table,couch,christmas,fireplace,victorian,apartment,backplates	
+christmas_photo_studio_06	medium contrast,urban,indoor,artificial light,studio	couch,christmas,photo,shoot,clock,painting,chair	
+christmas_photo_studio_07	artificial light,studio,urban,indoor,medium contrast,high contrast	kitchen,chair,umbrella,wood,wooden floor,table,window,plant,christmas,backplates	
+church_meeting_room	indoor,low contrast,natural light,urban,morning-afternoon	table,pew,chair,portraits,wooden ceiling,stained glass,carpet	
+church_museum	indoor,natural light,urban,medium contrast,morning-afternoon	wooden ceiling,vaulted ceiling,stained glass,carpet,table,chair,bench,display,high ceiling,decorative windows	
+church_stairway	indoor,natural light,high contrast,urban,morning-afternoon,artificial light	wooden staircase,stained glass,wooden ceiling,historic architecture,balusters,balcony,arched windows	
+cinema_hall	indoor,urban,medium contrast,artificial light	movie,cinema,chair,seat,projector,theater	
+cinema_lobby	indoor,urban,medium contrast,artificial light	couch,seat,bench,fluorescent	
+circus_arena	indoor,urban,medium contrast,artificial light	seat,theater,arena,show	
+circus_maximus_1	outdoor,skies,nature,morning-afternoon,partly cloudy,low contrast,natural light	tree,stone,gravel,pebble,field,rome,backplates	
+circus_maximus_2	outdoor,skies,nature,midday,clear,high contrast,natural light	tree,sun,europe,field,rome,pebble,backplates	
+citrus_orchard	outdoor,natural light,nature,skies,partly cloudy,sunrise-sunset,low contrast	farm,field,rows,grass	
+citrus_orchard_puresky	outdoor,natural light,nature,skies,partly cloudy,sunrise-sunset,low contrast,pure skies	pure skies	
+citrus_orchard_road	outdoor,natural light,nature,partly cloudy,sunrise-sunset,skies,low contrast	grass,rows,farm,field,dirt road,path	
+citrus_orchard_road_puresky	outdoor,natural light,nature,partly cloudy,sunrise-sunset,skies,low contrast,pure skies	pure skies	
+clarens_midday	natural light,nature,outdoor,low contrast,midday,partly cloudy,skies	mountain,hilltop,grass,shrub,valley,lookout	
+clarens_night_01	natural light,nature,outdoor,partly cloudy,high contrast,skies,night	mountain,hilltop,grass,shrub,valley,lookout,stars,milky way,moon	
+clarens_night_02	natural light,outdoor,nature,partly cloudy,high contrast,skies,night	mountain,hilltop,grass,shrub,valley,lookout,stars,milky way,moon	
+cliffside	outdoor,nature,midday,clear,high contrast,natural light	grass,tree,forest,path,hike,sun	
+climbing_gym	indoor,urban,artificial light,medium contrast	fitness,gym,exercise,mat,climbing,training,warehouse,high ceiling,wall	
+cloud_layers	outdoor,skies,nature,midday,partly cloudy,natural light,high contrast	sun,grass,path	
+cloudy_cliffside_road	outdoor,nature,urban,midday,overcast,low contrast,natural light	hill,road,autumn,europe,view,ocean,parking,fence,railing,backplates	
+cloudy_netted_nursery	medium contrast,natural light,nature,outdoor,partly cloudy,midday	nursery,flower,path,net,plants,agriculture	
+cloudy_vondelpark	outdoor,nature,midday,overcast,low contrast,natural light	tree,leaves,path,road,grass,autumn,amsterdam,river,pond	
+cobblestone_parish_road	outdoor,urban,natural light,low contrast,overcast,morning-afternoon	europe,architecture,medieval,building,street,cobblestone,town,alley,old town	
+cobblestone_street_night	outdoor,night,urban,artificial light,high contrast,clear	city,street,cobblestone,dark,lamp,germany,europe,alley,narrow,road,car,pavement	
+colorful_studio	indoor,urban,high contrast,artificial light	couch,bar,bottle,incandescent,set,lounge,backplates	
+colosseum	outdoor,urban,morning-afternoon,clear,high contrast,natural light	rome,sun,ruin,architecture,europe,stone,cobblestone,fence,backplates	
+combination_room	indoor,urban,medium contrast,natural light,artificial light	couch,victorian,curtain,lamp,painting,window	
+comfy_cafe	indoor,urban,low contrast,artificial light	shop,coffee,cafe,couch,table,store,backplates	
+concrete_tunnel	indoor,urban,high contrast,artificial light	tunnel,brick,concrete,lamp,bench	
+concrete_tunnel_02	indoor,urban,midday,medium contrast,natural light	asphalt,concrete,tunnel,road,underpass	
+construction_yard	outdoor,urban,morning-afternoon,partly cloudy,high contrast,natural light	sun,concrete,building,city,apartments,foundation,construction,development,backplates	
+country_club	indoor,urban,natural light,high contrast,morning-afternoon	victorian,room,window,ballroom,wood floor,backplates	
+countrytrax_midday	outdoor,natural light,nature,clear,high contrast,midday	sun,tree,field,dry grass,yellow,noon,grass	
+courtyard	outdoor,urban,morning-afternoon,clear,medium contrast,natural light	house,dog,kennel,garage,brick	
+courtyard_night	outdoor,urban,night,clear,high contrast,artificial light	brick,house,moon,lamp	
+cowboy_town_hall	indoor,urban,natural light,artificial light,medium contrast,morning-afternoon	saloon,western decor,wild west,bench,lamp,table,corrugated metal ceiling	
+cowboy_town_saloon	indoor,urban,artificial light,natural light,medium contrast,morning-afternoon	saloon,western decor,wild west,restaurant,table,chair,bar,dining	
+creepy_bathroom	indoor,urban,artificial light,night,low contrast	dark,spooky,broken,abandoned,pipes,debris,grunge,window	
+crossfit_gym	indoor,urban,artificial light,medium contrast	rubber floor,workout equipment,gym,metal roof,fluorescent,fitness,exercise,weights,training	
+crosswalk	outdoor,urban,morning-afternoon,clear,high contrast,natural light	road,sun,pedetrian,asphalt,backplates	
+crystal_falls	outdoor,nature,clear,midday,high contrast,natural light	tree,rock,waterfall,river,pond,sun,forest	
+cyclorama_hard_light	studio,indoor,high contrast,urban,artificial light	studio,lamp,umbrella,white,infinity,clean	
+dalkey_view	low contrast,partly cloudy,overcast,outdoor,natural light,nature,morning-afternoon	ocean,water,coastal,view,bench,asphalt,hilltop	
+dam_bridge	overcast,natural light,outdoor,urban,low contrast	bridge,railing,dam,pillar,concrete,column,industrial,steel	
+dam_road	outdoor,nature,partly cloudy,sunrise-sunset,medium contrast,natural light	dirt,grass,hill,road,sunset	
+dam_wall	natural light,outdoor,nature,partly cloudy,high contrast,midday	sun,concrete,river,water,bush,bridge,dam,wall	
+dancing_hall	urban,medium contrast,indoor,artificial light	lamp,hall,architecture,empty,curtain,stage,backplates	
+dark_autumn_forest	natural light,outdoor,nature,medium contrast,sunrise-sunset	tree,forest,path,autumn,dirt	
+de_balie	indoor,urban,medium contrast,artificial light	stair,banister,people,bcon,door,meeting,pink	
+debris_basement_corridor	indoor,urban,artificial light,high contrast	basement,storage area,construction,debris,utility room,underground,maintenance	
+decor_shop	indoor,urban,morning-afternoon,medium contrast,artificial light	tile,couch,decor,chandelier,store,shop,backplates	
+delta_2	outdoor,skies,nature,midday,partly cloudy,high contrast,natural light	grass,tree,bench,park,fence,hill,lake,dam,sun	
+derelict_airfield_01	outdoor,natural light,nature,partly cloudy,high contrast,morning-afternoon	sun,grass,road,asphalt,runway,street,abandoned	
+derelict_airfield_02	outdoor,natural light,nature,urban,partly cloudy,morning-afternoon,high contrast	sun,tree,warehouse,abandoned,hangar,concrete,overgrown	
+derelict_highway_midday	midday,natural light,outdoor,nature,clear,high contrast	abandoned,highway,road,crack,asphalt	
+derelict_highway_noon	outdoor,nature,midday,clear,high contrast,natural light	abandoned,highway,road,crack,asphalt,backplates	
+derelict_overpass	outdoor,skies,urban,morning-afternoon,partly cloudy,high contrast,natural light	asphalt,sun,highway,bridge,overpass,road,backplates,backplates	
+derelict_underpass	outdoor,urban,midday,clear,low contrast,natural light	bridge,road,rubber,abandoned,highway,backplates	
+dikhololo_night	outdoor,nature,night,clear,low contrast,natural light	bush,grass,road,safari,tree,veld,milky way,stars,astronomy	
+dikhololo_sunset	outdoor,nature,sunrise-sunset,partly cloudy,low contrast,natural light	tree,bush,safari,veld,grass,road,backplates	
+dirt_bike_track_01	outdoor,skies,nature,morning-afternoon,partly cloudy,high contrast,natural light	track,road,offroad,dirt,race,course,tire,backplates	
+distribution_board	natural light,urban,medium contrast,indoor,morning-afternoon	abandoned,industrial,factory,rust,rubble,electrical,machine,brick	
+docklands_01	low contrast,partly cloudy,urban,natural light,outdoor,morning-afternoon	city,building,street,road,cobblestone,asphalt,river,boat,car,water	
+docklands_02	high contrast,clear,urban,outdoor,natural light,morning-afternoon	city,building,street,road,cobblestone,asphalt,river,boat,car,water,sun	
+donkin_reserve	outdoor,urban,artificial light,high contrast,overcast,night	lamp,city,mosaic,monument,obelisk,pyramid	
+drachenfels_cellar	indoor,nature,urban,medium contrast,natural light	tunnel,brick,dirt,cave,castle,arch,shelter,doorway	
+drackenstein_quarry	outdoor,skies,partly cloudy,nature,natural light,low contrast,sunrise-sunset	hill,hilltop,grass,field,sun	
+drackenstein_quarry_puresky	outdoor,skies,partly cloudy,nature,natural light,low contrast,sunrise-sunset,pure skies	pure skies	
+drakensberg_solitary_mountain	natural light,outdoor,nature,skies,clear,morning-afternoon,high contrast	sun,grass,field,hill,mountain,hilltop,valley,vista,view,dry	
+drakensberg_solitary_mountain_puresky	natural light,outdoor,nature,skies,clear,morning-afternoon,high contrast,pure skies	pure skies	
+dreifaltigkeitsberg	outdoor,skies,nature,natural light,midday,clear	field,tree,grass,sun	
+dresden_moat	outdoor,nature,overcast,low contrast,natural light	tree,pond,lake,grass,river,moat,building,autumn,leaves	
+dresden_square	outdoor,urban,morning-afternoon,partly cloudy,low contrast,natural light	architecture,building,statue,cobblestone,europe	
+dresden_station_night	indoor,urban,night,medium contrast,artificial light	train,station,bench,hall,tracks,fluorescent	
+driving_school	outdoor,skies,urban,morning-afternoon,partly cloudy,high contrast,natural light	parking,road,asphalt,tire,backplates	
+dry_cracked_lake	natural light,outdoor,nature,high contrast,skies,partly cloudy,morning-afternoon	sun,tree,dirt,field,mud,dry	
+dry_field	outdoor,skies,nature,partly cloudy,morning-afternoon,high contrast,natural light	dry grass,yellow,winter,sun	
+dry_hay_field	outdoor,nature,partly cloudy,natural light,midday,low contrast	grass,field,hay,path,rural,tree	
+dry_meadow	high contrast,outdoor,partly cloudy,natural light,nature,morning-afternoon	dry grass,yellow,long grass,tree,sun,nest,park	
+dry_orchard_meadow	outdoor,natural light,nature,partly cloudy,high contrast,morning-afternoon	sun,grass,tree,meadow,rural	
+dusseldorf_bridge	outdoor,urban,sunrise-sunset,partly cloudy,low contrast,natural light	bridge,path,building,city,river,tower	
+ehingen_hillside	natural light,outdoor,nature,high contrast,skies,sunrise-sunset,partly cloudy	sun,tree,grass,path,hill	
+ehingen_hillside_02	natural light,outdoor,nature,high contrast,partly cloudy,morning-afternoon,skies	sun,grass,field,tree,dry,dry grass,view,hill	
+eilenriede_labyrinth	outdoor,nature,overcast,low contrast,natural light	tree,forest,maze,pattern,bench,path	
+eilenriede_park	outdoor,nature,sunrise-sunset,partly cloudy,low contrast,natural light	park,field,tree,grass,bench,autumn	
+emmarentia	outdoor,nature,morning-afternoon,partly cloudy,high contrast,natural light	sun,tree,dam,dirt,park	
+empty_play_room	indoor,urban,natural light,artificial light,medium contrast,morning-afternoon	carpet,table tennis,curtain,fluorescent,brick,wood	
+empty_warehouse_01	indoor,urban,morning-afternoon,medium contrast,artificial light	warehouse,derelict,fluorescent,concrete,industrial,backplates	
+empty_workshop	medium contrast,indoor,urban,midday,natural light	bare,empty,clean,spacious,brick,concrete,wood	
+en_suite	indoor,urban,artificial light,high contrast	bathroom,sink,basin,shower,toilet	
+entrance_hall	indoor,urban,midday,medium contrast,natural light,artificial light	victorian,window,tile	
+epping_forest_01	outdoor,nature,midday,partly cloudy,medium contrast,natural light	tree,canopy,park,lake,dam,dirt	
+epping_forest_02	outdoor,nature,midday,partly cloudy,medium contrast,natural light	tree,park,path,bush	
+etzwihl	outdoor,sunrise-sunset,skies,natural light,nature,partly cloudy,low contrast	field,road,asphalt,countryside	
+evening_field	outdoor,natural light,nature,skies,partly cloudy,low contrast,sunrise-sunset	grass,path,birch,field,farm,rural,countryside	
+evening_meadow	outdoor,nature,morning-afternoon,partly cloudy,natural light,medium contrast	grass,field,tree,meadow	
+evening_museum_courtyard	outdoor,natural light,urban,low contrast,partly cloudy,morning-afternoon,artificial light	evening,street light,bar,restaurant,concrete,facade,modern architecture,courtyard,twilight,industrial architecture	
+evening_road_01	outdoor,skies,nature,sunrise-sunset,partly cloudy,medium contrast,natural light	road,asphalt,field,grass,backplates	
+evening_road_01_puresky	outdoor,skies,nature,sunrise-sunset,partly cloudy,medium contrast,natural light,pure skies	pure skies	
+events_hall_interior	indoor,medium contrast,urban,natural light,midday	warehouse,concrete floor,high ceiling,rustic walls,metal roof,white chairs	
+factory_yard	outdoor,urban,morning-afternoon,partly cloudy,low contrast,natural light	construction,brick,suburb,backplates	
+farm_field	natural light,outdoor,nature,partly cloudy,low contrast,midday,skies	farm,field,rows	
+farm_field_puresky	natural light,outdoor,nature,partly cloudy,low contrast,midday,skies,pure skies	pure skies	
+farm_road	outdoor,natural light,nature,skies,low contrast,overcast,midday	dirt road,field,rural,countryside	
+farm_sunset	outdoor,natural light,nature,clear,sunrise-sunset,skies,low contrast	veld,tree,winter,dry,grass,field,countryside,agriculture	
+farmland_overcast	outdoor,low contrast,natural light,nature,skies,overcast,morning-afternoon	field,farm,crop,path,agriculture	
+felsenlabyrinth	outdoor,nature,morning-afternoon,clear,low contrast,natural light	rock,tree,forest	
+ferndale_studio_01	studio,indoor,artificial light,urban,high contrast	photo,lamp,infinity,dark ceiling,umbrella,white	
+ferndale_studio_02	studio,indoor,artificial light,urban,high contrast	photo,lamp,infinity,dark ceiling,umbrella,rectangle,spotlight,blue,teal,red	
+ferndale_studio_03	studio,indoor,artificial light,urban,medium contrast	photo,lamp,infinity,dark ceiling,umbrella,rectangle,spotlight,white,warm	
+ferndale_studio_04	studio,indoor,artificial light,urban,medium contrast	photo,lamp,infinity,dark ceiling,umbrella,rectangle,spotlight,yellow,green,teal	
+ferndale_studio_05	studio,indoor,artificial light,urban,high contrast	photo,lamp,infinity,dark ceiling,umbrella,rectangle,pink,purple	
+ferndale_studio_06	studio,indoor,artificial light,urban,high contrast	photo,lamp,infinity,dark ceiling,umbrella,rectangle,red,blue	
+ferndale_studio_07	studio,indoor,artificial light,urban,medium contrast	photo,lamp,infinity,dark ceiling,umbrella,spotlight,tube,rectangle,white,warm	
+ferndale_studio_08	studio,indoor,artificial light,urban,medium contrast	photo,lamp,infinity,dark ceiling,umbrella,rectangle,spotlight,warm	
+ferndale_studio_09	studio,indoor,artificial light,urban,high contrast	photo,lamp,infinity,dark ceiling,umbrella,reflector,warm,white	
+ferndale_studio_10	studio,indoor,artificial light,urban,high contrast	photo,lamp,infinity,dark ceiling,umbrella,reflector,weathered,blue,teal	
+ferndale_studio_11	studio,indoor,artificial light,urban,medium contrast	photo,lamp,infinity,dark ceiling,rectangle,tube,white,warm	
+ferndale_studio_12	studio,indoor,artificial light,urban,medium contrast	photo,lamp,infinity,dark ceiling,rectangle,tube,blue,colors,white	
+fireplace	indoor,urban,night,high contrast,artificial light	fire,couch,room,lounge	
+fish_eagle_hill	outdoor,nature,partly cloudy,sunrise-sunset,medium contrast,natural light	tree,dam,lookout,mountain,rock,lake,sunset	
+fish_hoek_beach	outdoor,skies,nature,sunrise-sunset,overcast,low contrast,natural light	beach,hill,ocean,water,backplates	
+flamingo_pan	outdoor,natural light,nature,skies,partly cloudy,low contrast,sunrise-sunset	sun,tree,hilltop,dam,lake,grass,dirt,view	
+floral_tent	indoor,nature,urban,midday,medium contrast,natural light	bush,plant,sun,tiles,tent,canopy	
+flower_hillside	outdoor,nature,morning-afternoon,partly cloudy,low contrast,natural light	tree,flower,hill,river,park	
+flower_road	outdoor,skies,nature,morning-afternoon,clear,high contrast,natural light	sun,road,flower,path,dirt,gravel,mountain,field,farm,backplates	
+forest_cave	outdoor,nature,morning-afternoon,low contrast,natural light	tree,forest,autumn,leaves,rock,cave	
+forest_grove	outdoor,natural light,nature,low contrast,sunrise-sunset,clear	tree,forest,winter,dry,leaves,clearing,grove,woods	
+forest_slope	outdoor,nature,morning-afternoon,low contrast,natural light	tree,forest,summer,rock,hill	
+forgotten_miniland	natural light,outdoor,nature,partly cloudy,high contrast,sunrise-sunset	sun,grass,concrete,hut,bush,garden,tree,playground	
+fort_schanskop_morning	outdoor,natural light,partly cloudy,overcast,low contrast,midday,urban	tree,hill,tower,view,path	
+fouriesburg_mountain_cloudy	natural light,outdoor,nature,low contrast,morning-afternoon,overcast,skies	hilltop,hill,view,rock,valley,mountain	
+fouriesburg_mountain_lookout	outdoor,nature,natural light,partly cloudy,sunrise-sunset,high contrast,skies	sun,brick,wall,rock,mountain,view,valley,hilltop	
+fouriesburg_mountain_lookout_2	outdoor,natural light,nature,clear,skies,low contrast,sunrise-sunset	brick,wall,rock,mountain,view,valley,hilltop	
+fouriesburg_mountain_midday	natural light,outdoor,nature,partly cloudy,midday,high contrast,skies	hilltop,hill,view,rock,valley,mountain	
+freight_station	outdoor,skies,urban,sunrise-sunset,partly cloudy,medium contrast,natural light	sun,industrial,crane,backplates	
+frozen_lake	natural light,outdoor,nature,low contrast,clear,morning-afternoon	tree,lake,railing,grass,concrete,winter,path	
+furry_clouds	outdoor,skies,nature,urban,morning-afternoon,partly cloudy,high contrast,natural light	path,promenade,sun,field,building,ocean,railing,backplates	
+furstenstein	outdoor,natural light,urban,high contrast,morning-afternoon,partly cloudy	europe,hedge,garden,grass,cobblestone,old town,mansion,sun	
+future_parking	outdoor,urban,morning-afternoon,partly cloudy,high contrast,natural light	lot,building,dirt,construction,rubble,brick,backplates	
+gamrig	outdoor,nature,morning-afternoon,partly cloudy,high contrast,natural light	tree,sun,hill,mountain,rock,forest	
+garage	indoor,urban,high contrast,natural light,artificial light	garage,fluorescent,concrete,parking,shelves,orange,mess,tools,junk	
+garden_nook	outdoor,natural light,nature,partly cloudy,high contrast,morning-afternoon	tree,sun,plant,garden,tire,house,dappled	
+gear_store	indoor,artificial light,urban,medium contrast	shelves,fluorescent,boxes,store	
+geislingen_an_der_steige	natural light,outdoor,nature,high contrast,clear,morning-afternoon	tree,sun,grass,field	
+georgentor	indoor,urban,medium contrast,natural light	brick,architecture,tunnel,passage	
+german_town_street	outdoor,natural light,urban,high contrast,morning-afternoon,partly cloudy	road,street,city,asphalt,sidewalk,tree,sun,industrial,warehouse,europe	
+glass_passage	indoor,nature,urban,low contrast,natural light,artificial light	tunnel,plant,tree,lamp,enclosure	
+glasshouse_interior	indoor,urban,natural light,nature,low contrast,morning-afternoon,partly cloudy	large windows,bed,kitchen,dining table,fireplace,vintage carpet,cozy,panoramic,vista	
+glencairn_expressway	outdoor,natural light,nature,overcast,midday,low contrast	road,asphalt,straight,bush	
+goegap	outdoor,nature,midday,clear,high contrast,natural light,collection: namaqualand	sand,dirt,rock,desert,desolate,sun	
+goegap_road	natural light,outdoor,nature,skies,partly cloudy,high contrast,sunrise-sunset,collection: namaqualand	sun,grass,field,road,asphalt,mountain,flower,straight,desert,desolate,backplates,arid	
+golden_bay	outdoor,night,urban,artificial light,high contrast,clear	lamp,pier,river,bridge,city,street,street light,restaurant,europe,germany,modern,waterfront,water,evening	
+golden_gate_hills	outdoor,natural light,nature,skies,partly cloudy,high contrast,midday,morning-afternoon	sun,grass,hilltop,mountain,view,rock	
+golf_course_sunrise	natural light,outdoor,nature,clear,low contrast,sunrise-sunset	lake,dam,grass,tree,power line,mist	
+gothic_manor_01	natural light,outdoor,nature,clear,sunrise-sunset,low contrast	tree,grass,bridge,abandoned,lake,willow,mansion,europe,backplates	
+gothic_manor_02	natural light,outdoor,nature,clear,high contrast,morning-afternoon	tree,sun,grass,dry,dry grass,overgrown,mansion,europe,backplates	
+graaff_reinet_groote_kerk	indoor,urban,artificial light,medium contrast	church,religion,stained glass,altar,pew,arched windows,wooden ceiling	
+graffiti_shelter	indoor,urban,midday,overcast,medium contrast,natural light	tree,shelter,bench,road,path,graffiti,hut,autumn	
+grasslands_sunset	outdoor,natural light,nature,skies,partly cloudy,low contrast,sunrise-sunset	grass,field,sun	
+graveyard_pathways	outdoor,natural light,nature,partly cloudy,high contrast,midday	sun,grass,tree,field,path,grave	
+gray_pier	outdoor,nature,midday,overcast,low contrast,natural light	pier,lake,winter,tree,grass	
+green_point_park	outdoor,skies,nature,morning-afternoon,partly cloudy,high contrast,natural light	sun,grass,buildings,mountain,field,backplates	
+green_sanctuary	outdoor,nature,morning-afternoon,low contrast,natural light	tree,shade,dappled,canopy,leaves	
+greenwich_park	outdoor,nature,morning-afternoon,partly cloudy,high contrast,natural light	tree,sun,grass,path,park,london	
+greenwich_park_02	outdoor,nature,morning-afternoon,low contrast,natural light	tree,path,park,grass,canopy	
+greenwich_park_03	outdoor,nature,morning-afternoon,overcast,low contrast,natural light	tree,grass,field,park,bench	
+gum_trees	outdoor,natural light,nature,clear,low contrast,morning-afternoon	autumn,trees,forest,leaves,log,earth	
+gym_01	indoor,urban,medium contrast,artificial light	fluorescent,gym,weights,fitness,exercise	
+gym_entrance	indoor,urban,medium contrast,artificial light	shop,couch,gym,red,fluorescent	
+hall_of_finfish	indoor,urban,low contrast,artificial light	fish,shark,museum	
+hall_of_mammals	indoor,urban,medium contrast,artificial light	museum,bone,lion,tiger,whale,skeleton	
+hamburg_canal	outdoor,urban,sunrise-sunset,clear,medium contrast,natural light	bridge,canal,city,building	
+hamburg_hbf	indoor,urban,morning-afternoon,medium contrast,natural light	hall,windows,sun,train,station	
+hangar_interior	indoor,urban,natural light,medium contrast,midday	hangar,plane,airport,concrete,aviation,warehouse	
+hanger_exterior_cloudy	outdoor,natural light,overcast,midday,urban,low contrast	road,asphalt,plane,hangar,curve	
+hansaplatz	outdoor,urban,night,clear,high contrast,artificial light	tree,shop,building,city,police,district	
+harties	outdoor,skies,nature,midday,partly cloudy,high contrast,natural light	sun,view,hilltop,smoke,path,table	
+harties_cliff_view	outdoor,natural light,nature,clear,high contrast,midday	sun,view,hilltop,rock,bush,dam,lake,radio,tower	
+harvest	outdoor,natural light,nature,skies,clear,high contrast,morning-afternoon	field,dry grass,farm,rural,countryside,mud,backplates	
+hausdorf_clear_sky	outdoor,natural light,nature,skies,clear,morning-afternoon,high contrast	field,sun,grass,forest,dry	
+hausdorf_meadow	outdoor,natural light,nature,overcast,low contrast,morning-afternoon	grass,field,autumn,bare trees,farm,rural,countryside	
+hay_bales	outdoor,natural light,nature,skies,partly cloudy,high contrast,midday	field,farm,sun,hay,tree,crop,dry grass,agriculture,harvest,rural	
+hayloft	indoor,urban,natural light,medium contrast,midday	barn,farm,hay,timber,rafters,pallet,rural,rustic	
+herkulessaulen	outdoor,nature,midday,partly cloudy,medium contrast,natural light	rock,formation,forest,canyon	
+highway_bridge_sunset	outdoor,urban,natural light,low contrast,clear,sunrise-sunset	highway overpass,bridge railing,freeway,highway,asphalt,car,suburb,blue hour	
+hikers_cave	indoor,nature,midday,medium contrast,natural light	forest,cave,rock	
+hilltop_construction	outdoor,skies,nature,midday,clear,high contrast,natural light	sun,grass,truck,view,vista,valley,hill	
+hilly_terrain_01	outdoor,nature,partly cloudy,sunrise-sunset,medium contrast,natural light,skies	grass,hill,field,view,hilltop	
+hilly_terrain_01_puresky	outdoor,nature,partly cloudy,sunrise-sunset,medium contrast,natural light,skies,pure skies	pure skies	
+historic_cloister_passage	indoor,urban,natural light,medium contrast,midday	arched windows,sandstone,wooden door,gothic,medieval,monastery,castle,arch	
+hochsal_field	outdoor,natural light,nature,skies,high contrast,clear,morning-afternoon	sun,grass,field,tree,road,asphalt	
+hochsal_forest	overcast,low contrast,midday,natural light,nature,outdoor	tree,forest,autumn,leaves,mud,trail	
+homecoming_center_rooftop	outdoor,urban,natural light,high contrast,clear,midday	sun,rooftop,city,skyline,cape town,artificial grass,skyscraper,mountain	
+horn-koppe_snow	outdoor,natural light,nature,skies,high contrast,clear,morning-afternoon	snow,sun,winter,field,forest	
+horn-koppe_spring	outdoor,natural light,nature,skies,partly cloudy,midday,high contrast	grass,sun,field,summer	
+hospital_room	indoor,urban,medium contrast,artificial light	bed,table,hospital,lamp,medical,operation	
+hospital_room_2	indoor,urban,artificial light,medium contrast	medical,healthcare,hospital,ward,bed,clean,clinical,recovery	
+hotel_rooftop_balcony	outdoor,natural light,urban,low contrast,midday,overcast	roof,city,skyline,balcony,hotel,view,ocean	
+hotel_room	indoor,urban,high contrast,natural light,artificial light	bed,tv,table,chair,mirror,window,curtain,lamp,hotel	
+illovo_beach_balcony	outdoor,urban,natural light,morning-afternoon,high contrast,clear	sun,balcony,view,ocean,railing,wave,table,beach	
+immenstadter_horn	outdoor,nature,midday,partly cloudy,medium contrast,natural light	sun,tree,grass,hilltop,hill,fence	
+indoor_pool	indoor,urban,low contrast,artificial light	pool,water,lamp,chair	
+industrial_pipe_and_valve_01	indoor,urban,high contrast,artificial light	workshop,lamp,industrial,warehouse	
+industrial_pipe_and_valve_02	artificial light,high contrast,indoor,urban	industrial,lamp,warehouse,workshop	
+industrial_sunset	outdoor,skies,nature,sunrise-sunset,partly cloudy,low contrast,natural light	factory,fume,field	
+industrial_sunset_02	outdoor,skies,nature,natural light,partly cloudy,medium contrast,sunrise-sunset	sun,grass,field,farm,factory	
+industrial_sunset_02_puresky	outdoor,skies,nature,natural light,partly cloudy,medium contrast,sunrise-sunset,pure skies	pure skies	
+industrial_sunset_puresky	outdoor,skies,nature,sunrise-sunset,partly cloudy,low contrast,natural light,pure skies	pure skies	
+industrial_wooden_attic	indoor,urban,natural light,midday,high contrast	wooden floor,rafters,machine,rustic,beam ceiling,loft,old factory,barn,whitewashed walls	
+industrial_workshop_foundry	indoor,medium contrast,artificial light,natural light,urban	industrial,warehouse,workshop,machine,tools	
+interior_construction	indoor,low contrast,urban,midday,natural light	bare,construction,brick,wood,chipboard,empty,backplates	
+irish_institute	medium contrast,outdoor,urban,natural light,morning-afternoon,partly cloudy	sun,concrete,building,stairs,sculpture,flag	
+je_gray_02	outdoor,nature,morning-afternoon,natural light,high contrast	forest,grass,pine,sun	
+je_gray_park	outdoor,nature,morning-afternoon,partly cloudy,natural light,high contrast,skies	grass,field,sun	
+kart_club	indoor,urban,natural light,high contrast,midday	track,race,tire,warehouse,graffiti,pillar,window,concrete,gocart,backplates	
+kiara_1_dawn	outdoor,skies,nature,sunrise-sunset,partly cloudy,medium contrast,natural light	mountain,valley,rock,backplates	
+kiara_2_sunrise	outdoor,skies,nature,sunrise-sunset,partly cloudy,high contrast,natural light	sun,mountain,hill,backplates	
+kiara_3_morning	outdoor,skies,nature,morning-afternoon,partly cloudy,high contrast,natural light	sun,mountain,valley,rock,backplates	
+kiara_4_mid-morning	outdoor,skies,nature,midday,clear,high contrast,natural light	sun,mountain,valley,rock,backplates	
+kiara_5_noon	outdoor,skies,nature,midday,clear,high contrast,natural light	sun,mountain,valley,rock,backplates	
+kiara_6_afternoon	outdoor,skies,morning-afternoon,nature,clear,high contrast,natural light	sun,mountain,valley,rock,backplates	
+kiara_7_late-afternoon	outdoor,skies,nature,sunrise-sunset,clear,high contrast,natural light	sun,mountain,valley,rock,backplates	
+kiara_8_sunset	outdoor,skies,nature,sunrise-sunset,clear,high contrast,natural light	sun,mountain,valley,rock,backplates	
+kiara_9_dusk	outdoor,skies,nature,sunrise-sunset,clear,low contrast,natural light	sun,mountain,valley,rock,backplates	
+kiara_interior	indoor,urban,sunrise-sunset,medium contrast,natural light,artificial light	tile,table,fridge,window,door,glass,kitchen,lounge	
+killesberg_park	outdoor,nature,urban,morning-afternoon,overcast,low contrast,natural light	bush,garden,flower,park,botanical,stairs,concrete,bench	
+klippad_dawn_1	outdoor,natural light,nature,skies,partly cloudy,low contrast,sunrise-sunset,collection: namaqualand	hilltop,rocky,desolate,desert,mountain,valley,arid	
+klippad_dawn_2	outdoor,natural light,nature,skies,partly cloudy,low contrast,sunrise-sunset,collection: namaqualand	arid,hilltop,rocky,desolate,desert,mountain,valley	
+klippad_sunrise_1	outdoor,natural light,nature,skies,partly cloudy,low contrast,sunrise-sunset,collection: namaqualand	arid,hilltop,rocky,desolate,desert,mountain,valley	
+klippad_sunrise_2	outdoor,natural light,nature,skies,partly cloudy,sunrise-sunset,medium contrast,collection: namaqualand	sun,arid,hilltop,rocky,desolate,desert,mountain,valley	
+kloetzle_blei	outdoor,skies,nature,morning-afternoon,overcast,low contrast,natural light	tree,view,town,park,rock,hill	
+kloofendal_28d_misty	outdoor,skies,natural light,nature,partly cloudy,medium contrast,morning-afternoon,collection: verdant_trail	sun,grass,rock,hilltop,mist,fog	
+kloofendal_28d_misty_puresky	outdoor,skies,natural light,nature,partly cloudy,medium contrast,morning-afternoon,pure skies	pure skies	
+kloofendal_38d_partly_cloudy	outdoor,nature,partly cloudy,natural light,midday,high contrast,skies,collection: verdant_trail	sun,grass,rock,view	
+kloofendal_38d_partly_cloudy_puresky	outdoor,nature,partly cloudy,natural light,midday,high contrast,skies,pure skies	pure skies	
+kloofendal_43d_clear	outdoor,natural light,nature,partly cloudy,clear,skies,high contrast,midday,collection: verdant_trail	sun,grass,rock,hilltop,view	
+kloofendal_43d_clear_puresky	outdoor,natural light,nature,partly cloudy,clear,skies,high contrast,midday,pure skies	pure skies	
+kloofendal_48d_partly_cloudy	outdoor,skies,nature,midday,partly cloudy,high contrast,natural light,collection: verdant_trail	sun,grass,rock,view	
+kloofendal_48d_partly_cloudy_puresky	outdoor,skies,nature,midday,partly cloudy,high contrast,natural light,pure skies	pure skies	
+kloofendal_misty_morning	outdoor,skies,natural light,nature,overcast,low contrast,morning-afternoon,collection: verdant_trail	grass,rock,hilltop,mist,fog	
+kloofendal_misty_morning_puresky	outdoor,skies,natural light,nature,overcast,low contrast,morning-afternoon,pure skies	pure skies	
+kloofendal_overcast	outdoor,skies,nature,natural light,overcast,low contrast,morning-afternoon,collection: verdant_trail	grass,rock,view,hilltop	
+kloofendal_overcast_puresky	outdoor,skies,nature,natural light,overcast,low contrast,morning-afternoon,pure skies	pure skies	
+kloppenheim_01	outdoor,skies,nature,sunrise-sunset,overcast,low contrast,natural light	field,mist,cloud,grass	
+kloppenheim_01_puresky	outdoor,skies,nature,sunrise-sunset,overcast,low contrast,natural light,pure skies	pure skies	
+kloppenheim_02	outdoor,skies,nature,night,clear,high contrast,natural light	dark,stars,moon,galaxy	
+kloppenheim_02_puresky	outdoor,skies,nature,night,clear,high contrast,natural light,pure skies	pure skies	
+kloppenheim_03	outdoor,skies,nature,midday,partly cloudy,medium contrast,natural light	sun,cloud,field,grass	
+kloppenheim_03_puresky	outdoor,skies,nature,midday,partly cloudy,medium contrast,natural light,pure skies	pure skies	
+kloppenheim_04	outdoor,skies,nature,night,overcast,low contrast,artificial light	field,grass,mist,fog	
+kloppenheim_05	outdoor,skies,nature,midday,partly cloudy,high contrast,natural light	cloud,field,grass,sun	
+kloppenheim_05_puresky	outdoor,skies,nature,midday,partly cloudy,high contrast,natural light,pure skies	pure skies	
+kloppenheim_06	outdoor,skies,nature,sunrise-sunset,partly cloudy,low contrast,natural light	sun,rays,hill,rock,view	
+kloppenheim_06_puresky	outdoor,skies,nature,sunrise-sunset,partly cloudy,low contrast,natural light,pure skies	pure skies	
+kloppenheim_07	outdoor,skies,nature,night,overcast,low contrast,natural light,artificial light	dark,moon,field,grass	
+kloppenheim_07_puresky	outdoor,skies,nature,night,overcast,low contrast,natural light,artificial light,pure skies	pure skies	
+konigsallee	outdoor,urban,sunrise-sunset,partly cloudy,low contrast,natural light	bridge,river,building,road,street,symmetrical,europe	
+konzerthaus	outdoor,urban,overcast,low contrast,natural light	architecture,red carpet,statue,square,symmetry	
+ladybrand_heritage_house	outdoor,urban,artificial light,high contrast,clear,night	manor,lamp,hotel,symmetrical,stone facade,estate,hedge,lawn,garden	
+lago_disola	natural light,outdoor,nature,high contrast,partly cloudy,midday	sun,tree,forest,ice,snow,frozen,lake,river,winter,alps,mountain	
+lake_pier	outdoor,urban,natural light,medium contrast,low contrast,sunrise-sunset,skies,partly cloudy	pier,lake,water,ocean,concrete,harbour,harbor,dock	
+lakes	outdoor,skies,nature,sunrise-sunset,partly cloudy,high contrast,natural light	water,lake,dam,road,sun	
+lakeside	outdoor,nature,morning-afternoon,clear,high contrast,natural light	sun,tree,lake,shore,water,rock	
+lakeside_dawn	outdoor,natural light,nature,sunrise-sunset,clear,low contrast	tree,lake,shore,water,rock	
+lakeside_night	outdoor,natural light,night,low contrast,nature,clear	tree,lake,shore,water,rock,stars,milky way,astronomy	
+lakeside_sunrise	outdoor,natural light,nature,sunrise-sunset,clear,high contrast	tree,lake,shore,water,rock,sun	
+lapa	indoor,urban,medium contrast,natural light,artificial light	thatch,couch,garden,plant,gazebo	
+large_corridor	indoor,urban,morning-afternoon,medium contrast,natural light	entrance,hall,arch,empty,victorian,backplates	
+laufenurg_church	outdoor,urban,night,artificial light,high contrast,partly cloudy	city,church,town,europe,bench,view,architecture,pavement	
+lauter_waterfall	outdoor,nature,low contrast,natural light	forest,river,dirt,root	
+leadenhall_market	indoor,urban,morning-afternoon,medium contrast,natural light,artificial light	hall,mall,europe,architecture,london,cobblestone,street,road	
+learner_park	outdoor,skies,urban,sunrise-sunset,partly cloudy,low contrast,natural light	parking,road,roof	
+lebombo	indoor,urban,morning-afternoon,low contrast,natural light,artificial light	house,lamp,window,wood floor,empty	
+leibstadt	outdoor,nature,sunrise-sunset,natural light,partly cloudy,low contrast	road,autumn,asphalt,highway,curve	
+lenong_1	outdoor,skies,nature,morning-afternoon,overcast,low contrast,natural light	mountain,hill,pilanesberg	
+lenong_2	outdoor,skies,nature,clear,sunrise-sunset,high contrast,natural light	grass,mountain,tree,bush,rock,sun,sunrise	
+lenong_3	outdoor,skies,nature,midday,overcast,low contrast,natural light	tree,sun,hill,mountain,pilanesberg,rock,bush	
+lilienstein	outdoor,skies,nature,sunrise-sunset,partly cloudy,medium contrast,natural light	sun,grass,field,forest,meadow	
+limehouse	outdoor,urban,morning-afternoon,overcast,low contrast,natural light	architecture,building,boat,dock,city	
+limpopo_golf_course	natural light,outdoor,nature,partly cloudy,high contrast,morning-afternoon,skies	tree,sun,grass,dam,pond,golf	
+little_paris_eiffel_tower	outdoor,nature,natural light,high contrast,sunrise-sunset	bridge,cobblestone,bicycle,fountain,restaurant,padlock,cafe	
+little_paris_under_tower	outdoor,natural light,nature,clear,high contrast,sunrise-sunset,urban	sun,bridge,pond,lake,water,padlock,tower,iron,symmetrical,willow,steel,romantic,bench,bicycle	
+lonely_road_afternoon	outdoor,natural light,nature,skies,clear,sunrise-sunset,high contrast	dirt road,gravel,farm,field,countryside,rural	
+lonely_road_afternoon_puresky	outdoor,natural light,nature,skies,clear,sunrise-sunset,high contrast,pure skies	pure skies	
+lookout	indoor,urban,nature,medium contrast,natural light	thatch,hide,pilanesberg,window	
+lot_01	outdoor,skies,nature,sunrise-sunset,partly cloudy,low contrast,natural light	tree,road,sun,hill	
+lot_02	outdoor,urban,sunrise-sunset,partly cloudy,low contrast,natural light	tree,building,road,hill	
+ludwikowice_farmland	outdoor,natural light,nature,skies,partly cloudy,medium contrast,morning-afternoon	sun,field,hill,autumn,winter,dry grass,rural,countryside	
+lush_dirt_path	outdoor,nature,medium contrast,natural light,midday,partly cloudy	dense,forest,bush,dirt road,path	
+lythwood_field	outdoor,nature,morning-afternoon,overcast,low contrast,natural light	tree,grass,field,backplates	
+lythwood_lounge	indoor,urban,midday,overcast,medium contrast,natural light,artificial light	couch,warm,lounge,lamp,room	
+lythwood_room	indoor,urban,midday,overcast,low contrast,natural light,artificial light	couch,bed,lamp,window,mantel,carpet,backplates	
+lythwood_terrace	outdoor,nature,midday,overcast,low contrast,natural light	tree,brick,terrace,grass,field,table,backplates	
+machine_shop_01	indoor,urban,medium contrast,natural light	workshop,hall,warehouse,industrial,machine,metal	
+machine_shop_02	indoor,urban,medium contrast,natural light	workshop,hall,warehouse,industrial,machine,metal	
+machine_shop_03	indoor,urban,morning-afternoon,medium contrast,natural light	hall,industrial,machine,warehouse,workshop	
+magalies_field_sunset	outdoor,natural light,nature,skies,clear,sunrise-sunset,low contrast	grass,field,dry,bare trees	
+malagas_ferry_road	outdoor,nature,natural light,high contrast,partly cloudy,morning-afternoon,skies	sun,dirt road,hillside,forest,gravel,chevron	
+mall_parking_lot	outdoor,urban,morning-afternoon,partly cloudy,high contrast,natural light	asphalt,sun,parking	
+marry_hall	studio,indoor,urban,natural light,morning-afternoon,artificial light,low contrast	curtain,couch,studio,text,window,chair,backplates	
+meadow	outdoor,natural light,nature,partly cloudy,low contrast,midday	grass,tree,clearing,green,peaceful,backplates	
+meadow_2	outdoor,natural light,nature,partly cloudy,clear,high contrast,morning-afternoon	grass,tree,sun,clearing,path,park,backplates	
+mealie_road	outdoor,skies,nature,sunrise-sunset,clear,high contrast,natural light	road,sun,corn,field,backplates	
+medieval_cafe	outdoor,urban,natural light,low contrast,nature,partly cloudy,morning-afternoon	chair,table,bench,grass,brick,stairs,lawn,restaurant,courtyard,terrace	
+metro_noord	indoor,urban,artificial light,night,medium contrast	train,metro,station,modern,bench,glass,architecture,empty,platform,europe,amsterdam	
+metro_vijzelgracht	indoor,urban,artificial light,low contrast,night	underground,metro,train,station,platform,metal,concrete,subway,architecture,modern,europe,amsterdam	
+minedump_flats	outdoor,natural light,nature,skies,partly cloudy,medium contrast,sunrise-sunset	sun,quarry,dirt,tree,pond,sand	
+mirrored_hall	indoor,urban,medium contrast,natural light,midday	hall,mirror,window,victorian,high ceiling,abandoned	
+missile_launch_facility_01	indoor,urban,medium contrast,natural light	tunnel,rubble,concrete,forest,arch,sand,abandoned	
+missile_launch_facility_02	outdoor,nature,morning-afternoon,overcast,low contrast,natural light	tree,grass,forest,field	
+missile_launch_facility_03	outdoor,nature,midday,overcast,low contrast,natural light	tree,leaves,autumn,forest,rubble	
+misty_dawn	outdoor,nature,sunrise-sunset,clear,low contrast,natural light	tree,field,mist,fog,river,power line,path,park	
+misty_farm_road	natural light,outdoor,nature,overcast,low contrast,morning-afternoon,skies	farm,field,path,road,dirt road,gravel,mist,fog	
+misty_pines	outdoor,nature,overcast,morning-afternoon,low contrast,natural light	tree,forest,bush,pine,mist	
+modern_bathroom	indoor,midday,low contrast,natural light	contemporary,clean,white,bath,shower,toilet,basin,sink,bathroom,spacious,tiles,sloped ceiling,heater	
+modern_buildings	outdoor,urban,sunrise-sunset,partly cloudy,medium contrast,natural light	river,building,city,urban,concrete,modern,glass,water	
+modern_buildings_2	outdoor,natural light,urban,high contrast,morning-afternoon,partly cloudy	river,building,city,urban,concrete,modern,glass,water	
+modern_buildings_night	outdoor,urban,night,partly cloudy,high contrast,artificial light	building,europe,river,architecture,lamp	
+modern_evening_street	outdoor,urban,natural light,low contrast,partly cloudy,morning-afternoon	building,city,street,street light,europe,architecture,facade,evening,dusk,sidewalk,office	
+monbachtal_riverbank	outdoor,nature,natural light,medium contrast,midday	rock,tree,forest,river,water,waterfall,stream	
+monks_forest	outdoor,nature,morning-afternoon,medium contrast,natural light	tree,forest,path	
+monkstown_castle	low contrast,indoor,outdoor,natural light,urban,morning-afternoon,partly cloudy	tunnel,shade,castle,wall,stone,medieval,arch,doorway,historical	
+monochrome_studio_01	studio,indoor,artificial light,urban,high contrast	white,photo,lamp,umbrella,infinity,dark ceiling	
+monochrome_studio_02	studio,indoor,artificial light,urban,medium contrast	lamp,white,photo,dark ceiling,infinity,umbrella,rectangle,softbox	
+monochrome_studio_03	studio,indoor,artificial light,urban,low contrast	lamp,white,photo,dark ceiling,infinity,softbox,rectangle,diffuser,soft	
+monochrome_studio_04	studio,indoor,artificial light,urban,medium contrast	lamp,white,photo,dark ceiling,infinity,rectangle,softbox,diffuser	
+monte_scherbelino	outdoor,nature,morning-afternoon,partly cloudy,low contrast,natural light	tree,hill,rock,cross,view,step,grass	
+montorfano	outdoor,natural light,nature,partly cloudy,morning-afternoon,low contrast	mountain,hill,valley,rock,lake,view,hilltop	
+moon_lab	indoor,urban,artificial light,high contrast,studio,collection: moon	lamp,lunar,sand,simulation,science,museum,laboratory	
+moonless_golf	outdoor,skies,nature,night,clear,medium contrast,natural light,artificial light	grass,golf,stars,milky way,field	
+moonlit_golf	outdoor,skies,nature,night,clear,high contrast,natural light	moon,field,stars,grass,tree	
+mosaic_tunnel	indoor,urban,medium contrast,artificial light	path,tunnel,tiles,concrete,pipe,art,fluorescent,lamp,backplates	
+mossy_forest	outdoor,nature,morning-afternoon,low contrast,natural light	path,rock,river,forest,tree,moss	
+moulton_falls_train_tunnel_east	outdoor,nature,midday,clear,high contrast,natural light	tree,sun,rail,track,rock,forest	
+moulton_station_train_tunnel_west	outdoor,nature,morning-afternoon,clear,low contrast	tree,rail,track,rock,forest,tunnel	
+mpumalanga_veld	outdoor,skies,nature,sunrise-sunset,clear,high contrast,natural light	grass,view,sun,wind	
+mpumalanga_veld_puresky	outdoor,skies,nature,sunrise-sunset,clear,high contrast,natural light,pure skies	pure skies	
+mud_road	outdoor,skies,nature,midday,overcast,low contrast,natural light	road,path,field,farm	
+mud_road_puresky	outdoor,skies,nature,midday,overcast,low contrast,natural light,pure skies	pure skies	
+muddy_autumn_forest	outdoor,nature,midday,overcast,low contrast,natural light	tree,forest,autumn,leaves,mud	
+museum_of_ethnography	indoor,urban,medium contrast,artificial light	museum,antique,display	
+museum_of_history	outdoor,urban,morning-afternoon,partly cloudy,high contrast,natural light	tank,sun,city,building,architecture,europe	
+museumplein	outdoor,skies,nature,urban,morning-afternoon,partly cloudy,medium contrast,natural light	grass,building,tree,autumn,amsterdam,museum,park,path,field	
+music_hall_01	indoor,urban,medium contrast,artificial light	theater,organ,chair,victorian,hall	
+music_hall_02	indoor,urban,medium contrast,artificial light,natural light	hall,empty,victorian,window,couch	
+mutianyu	indoor,urban,morning-afternoon,clear,low contrast,natural light	arch,brick,window,mountain,great wall	
+nagoya_wall_path	outdoor,nature,morning-afternoon,low contrast,natural light	tree,path,park,railing	
+narrow_moonlit_road	outdoor,natural light,nature,clear,night,high contrast	moon,road,asphalt,tree,backplates,stars	
+nature_reserve_forest	natural light,outdoor,nature,low contrast,sunrise-sunset	tree,forest,bush,shrub	
+near_the_river_01	outdoor,natural light,nature,morning-afternoon,partly cloudy,high contrast	path,river,dam,tree,grass,field,water,lake	
+near_the_river_02	outdoor,natural light,nature,partly cloudy,medium contrast,sunrise-sunset	path,tree,field,long grass,dry,backplates	
+neon_photostudio	urban,indoor,medium contrast,artificial light,natural light,studio	fluorescent,window,wood,lamp,studio,chair,plant,backplates	
+netball_court	outdoor,natural light,clear,urban,sunrise-sunset,low contrast	sport,court,arena,lines,fence,open air,ball game,tennis	
+neuer_zollhof	outdoor,urban,night,partly cloudy,high contrast,artificial light	lamp,architecture,europe,building,street,city,square	
+neurathen_rock_castle	outdoor,nature,sunrise-sunset,partly cloudy,high contrast,natural light	sun,tree,cliff,valley,forest,vista,rock,rail	
+newman_cafeteria	indoor,urban,artificial light,medium contrast	lockers,fluorescent,brick,table,school,university,hallway	
+newman_lobby	indoor,urban,artificial light,medium contrast	school,university,brick,concrete ceiling,doorway,table,hallway	
+newman_locker_room	indoor,urban,artificial light,medium contrast	lockers,fluorescent,brick,school,university,concrete ceiling,hallway	
+niederwihl_forest	low contrast,outdoor,natural light,nature,midday,overcast	forest,tree,log,moss,woods,clearing	
+night_bridge	outdoor,urban,night,overcast,medium contrast,artificial light	snow,winter,tree,building,apartments,bridge,path	
+ninomaru_teien	outdoor,nature,sunrise-sunset,partly cloudy,low contrast,natural light	tree,garden,stair,path,japan,asia,gravel	
+nkuhlu	outdoor,nature,midday,clear,high contrast,natural light	tree,bench,wall,river,table,sun	
+noga	outdoor,skies,nature,sunrise-sunset,clear,high contrast,natural light	sun,bush,veld,pilanesberg,hill	
+noon_grass	outdoor,skies,nature,midday,clear,high contrast,natural light	tree,sun,grass	
+northcliff	outdoor,nature,sunrise-sunset,clear,low contrast,natural light,urban	path,water tower,view,grass	
+nowhere_road	outdoor,nature,natural light,high contrast,partly cloudy,midday	sun,road,asphalt,desert,desolate,straight,arid,rural highway,empty road,two-lane,scrubland,backplates	
+nqweba_bridge	outdoor,nature,natural light,low contrast,overcast,sunrise-sunset	dam,bridge,lake,reservoir,shrub,concrete	
+nqweba_dawn	outdoor,nature,natural light,low contrast,overcast,morning-afternoon	road,asphalt,dam,lake,railing,straight,curve,barrier,backplates	
+oberer_kuhberg	outdoor,skies,nature,morning-afternoon,partly cloudy,high contrast,natural light	sun,grass,field,fort,tower	
+old_apartments_walkway	indoor,urban,midday,clear,low contrast,natural light	tree,railing,abandoned,balcony	
+old_bus_depot	indoor,urban,midday,medium contrast,natural light	warehouse,industrial,concrete,abandoned,backplates	
+old_depot	indoor,urban,morning-afternoon,clear,low contrast,natural light	warehouse,abandoned,industrial	
+old_hall	indoor,urban,morning-afternoon,medium contrast,natural light	victorian,abandoned,empty,hall,europe,building,arch,backplates	
+old_outdoor_theater	outdoor,skies,urban,midday,partly cloudy,high contrast,natural light	sun,arena,europe	
+old_quarry_gerlingen	outdoor,natural light,nature,overcast,low contrast,midday	forest,autumn,tree,grass,field	
+old_room	indoor,urban,morning-afternoon,low contrast,natural light	window,arch,fireplace,backplates	
+old_tree_in_city_park	outdoor,nature,morning-afternoon,low contrast,natural light	tree,park,leaves,autumn	
+orbita	outdoor,nature,natural light,sunrise-sunset,low contrast,clear	road,barrier,narrow,curved,hill,mountain,backplates	
+orlando_stadium	natural light,outdoor,urban,midday,clear,high contrast	stadium,field,grass,football,soccer	
+ostrich_road	outdoor,skies,nature,morning-afternoon,partly cloudy,low contrast,natural light	road,shrub,hill,bush,backplates	
+ouchy_pier	outdoor,natural light,nature,partly cloudy,overcast,skies,low contrast,morning-afternoon	pier,rock,boat,lake,dam,sign,water	
+outdoor_chapel	indoor,urban,nature,natural light,medium contrast,morning-afternoon	bench,altar,wedding,stone wall,arch,transparent roof,airy,flower decorations,concrete floor	
+outdoor_umbrellas	outdoor,urban,sunrise-sunset,partly cloudy,low contrast,natural light	city,town,europe,square,street,brick	
+outdoor_workshop	natural light,outdoor,morning-afternoon,partly cloudy,high contrast,nature	sun,dirt,farm,machine,workshop,tractor	
+overcast_industrial_courtyard	outdoor,low contrast,natural light,urban,morning-afternoon,partly cloudy	bare,concrete,industrial,dull,warehouse,tower	
+overcast_soil	outdoor,skies,natural light,nature,low contrast,overcast,morning-afternoon	soil,dirt,farm,field,rural,earth	
+overcast_soil_2	outdoor,skies,natural light,nature,low contrast,overcast,morning-afternoon	soil,dirt,farm,field,rural,earth,backplates	
+overcast_soil_puresky	outdoor,skies,natural light,nature,low contrast,overcast,morning-afternoon,pure skies	pure skies	
+ox_bridge_morning	outdoor,natural light,nature,clear,high contrast,midday,morning-afternoon	rural,bridge,river,veld,steel	
+palermo_park	outdoor,nature,urban,morning-afternoon,low contrast,natural light	tree,park,path,autumn	
+palermo_sidewalk	outdoor,urban,morning-afternoon,clear,low contrast,natural light	street,europe,alley,plant,stair,couch,cobblestone	
+palermo_square	outdoor,urban,sunrise-sunset,partly cloudy,low contrast,natural light	city,town,europe,square,street,cobblestone	
+parched_canal	outdoor,nature,morning-afternoon,partly cloudy,high contrast,natural light	tree,sun,grass,canal,concrete,bridge,planks,dry,backplates	
+park_bench	outdoor,nature,sunrise-sunset,clear,high contrast,natural light	tree,sun,path,grass,dam,pond,bench,park	
+park_music_stage	outdoor,natural light,nature,urban,partly cloudy,high contrast,morning-afternoon	stairs,stage,amphitheater,wooden ceiling,theatre,botanical,concert	
+park_parking	outdoor,nature,midday,natural light,clear,high contrast	sun,tree,road,asphalt,parking,park,forest	
+parking_garage	indoor,urban,natural light,high contrast	lamp,car,parking,road,garage,underground,backplates	
+partial_eclipse	outdoor,nature,clear,midday,high contrast,natural light	sun,partial eclipse,tree,dead,burnt grass,winter	
+passendorf_snow	outdoor,natural light,nature,high contrast,skies,clear,morning-afternoon	snow,sun,winter,forest,field	
+pathway_morning	outdoor,natural light,nature,low contrast,clear,sunrise-sunset	dry grass,bush,pathway,bare trees,safari,veld,thicket	
+paul_lobe_haus	outdoor,indoor,urban,midday,overcast,medium contrast,natural light	architecture,berlin,germany,autumn,glass,skylight	
+pav_studio_01	studio,urban,artificial light,indoor,high contrast	white,photo,infinity,rectangle	
+pav_studio_02	studio,urban,artificial light,indoor,medium contrast,natural light	red,photo,infinity,rectangle,umbrella,softbox,window	
+pav_studio_03	studio,urban,artificial light,indoor,low contrast,natural light	white,photo,infinity,umbrella,window,rectangle,softbox	
+pedestrian_overpass	outdoor,urban,sunrise-sunset,partly cloudy,high contrast,natural light	sun,highway,bridge,walkway,railing,suspension,overpass,backplates	
+penguin_museum	indoor,urban,artificial light,natural light,medium contrast,morning-afternoon	museum,carpet,display,fish,penguin,vaulted ceiling,wooden beams,exhibition cases,wall-mounted specimens	
+peppermint_powerplant	indoor,urban,morning-afternoon,medium contrast,natural light	abandoned,industrial,factory,workshop	
+peppermint_powerplant_2	urban,natural light,sunrise-sunset,indoor,medium contrast	abandoned,industrial,window,workshop,tiles,machine,factory	
+pergola_walkway	outdoor,urban,natural light,low contrast,midday,clear	alley,sidewalk,facade,tree,concrete,industrial	
+petit_port	outdoor,urban,natural light,low contrast,morning-afternoon,overcast	harbour,harbor,crane,concrete,dock,river,jetty	
+phalzer_forest_01	outdoor,nature,morning-afternoon,low contrast,natural light	tree,forest,rock,formation,pine	
+phone_shop	indoor,urban,medium contrast,artificial light	lamp,shop,store,display,counter	
+photo_studio_01	indoor,studio,urban,medium contrast,artificial light	lamp,photo,fluorescent,bed,white,infinity,chair,backplates	
+photo_studio_broadway_hall	indoor,low contrast,natural light,overcast,urban,studio,morning-afternoon	wood,wall,chair,flash,umbrella,studio,photo,backplates	
+photo_studio_loft_hall	indoor,medium contrast,urban,studio,morning-afternoon,natural light	couch,wood,sunny,apartment,backplates	
+photo_studio_london_hall	indoor,natural light,urban,low contrast,midday,studio	table,couch,victorian,apartment,backplates	
+piazza_bologni	outdoor,urban,morning-afternoon,partly cloudy,low contrast,natural light	europe,square,bench,architecture,cafe	
+piazza_martin_lutero	outdoor,nature,urban,morning-afternoon,clear,high contrast,natural light	tree,sun,road,europe,fountain,rome,park,walkway,street,backplates	
+piazza_san_marco	outdoor,urban,sunrise-sunset,partly cloudy,low contrast,natural light	europe,square,architecture,building,tower,church,venice,backplates	
+pillars	indoor,urban,morning-afternoon,low contrast,natural light	column,architecture,monument	
+pine_attic	indoor,artificial light,natural light,urban,medium contrast	wood,carpet,pallet,skylight,wooden ceiling,cozy,warm,backplates	
+pine_picnic	outdoor,natural light,nature,low contrast,midday,overcast	grass,tree,pine,braai,gazebo	
+pink_sunrise	outdoor,nature,sunrise-sunset,partly cloudy,medium contrast,natural light	road,hill,bush,view,ocean,backplates	
+pisztyk	natural light,nature,outdoor,skies,sunrise-sunset,partly cloudy,high contrast	sun,field,snow,grass,tree,winter	
+pizzo_pernice	natural light,outdoor,nature,high contrast,skies,clear,midday	sun,view,mountain,hilltop,alps,dry grass,flag,path	
+pizzo_pernice_puresky	natural light,outdoor,nature,high contrast,skies,clear,midday,pure skies	pure skies	
+plac_wolnosci	outdoor,natural light,urban,low contrast,morning-afternoon,overcast	square,architecture,europe,building,city,museum,pavement	
+plains_sunset	natural light,nature,outdoor,skies,clear,low contrast,sunrise-sunset	dry grass,yellow,safari,veld,field,plain,grassland	
+poly_haven_studio	low contrast,indoor,urban,artificial light,natural light,midday	chair,office,table,heater,cat,wooden ceiling,computer,window,lamp,curtain,tiles,desk,room,bright	
+pond	outdoor,nature,midday,medium contrast,natural light	tree,pond,stone,garden,leaf	
+pond_bridge_night	outdoor,nature,urban,partly cloudy,night,low contrast,natural light,artificial light	tree,forest,pond,statue,bridge,street light,path	
+pool	outdoor,urban,morning-afternoon,partly cloudy,low contrast,natural light	tree,water,pool,garden	
+poolbeg	outdoor,natural light,nature,skies,partly cloudy,high contrast,midday	sun,industrial,grass,ocean,chimney,smoke stack,backplates	
+portland_landing_pad	outdoor,urban,midday,partly cloudy,medium contrast,natural light	sun,building,helipad,construction,crane,city,backplates	
+potsdamer_platz	outdoor,urban,morning-afternoon,overcast,low contrast,natural light	europe,architecture,road,building,bench,street,city,skyscraper,pavement,intersection,metropolis,berlin,germany	
+preller_drive	outdoor,urban,nature,partly cloudy,night,high contrast,artificial light	tree,long grass,house,street light,power line,stars	
+pretoria_gardens	high contrast,midday,natural light,outdoor,nature,partly cloudy	sun,grass,field,tree,park	
+pretville_cinema	indoor,artificial light,medium contrast,urban	chair,seat,stage,cinema,theater,movie,red,piano,chandelier,projector	
+pretville_street	natural light,outdoor,urban,high contrast,partly cloudy,morning-afternoon	sun,street,road,asphalt,car,film set,flag,50s	
+promenade_de_vidy	outdoor,natural light,nature,overcast,low contrast,morning-afternoon	beach,leaves,autumn,log,fence,calm,lake,trees	
+provence_studio	studio,indoor,urban,artificial light,low contrast	couch,stair,door,studio,umbrella,chair,curtain,bicycle	
+pump_house	indoor,urban,morning-afternoon,high contrast,natural light	brick,pump,dirt,pipe,shed,window	
+pump_station	outdoor,urban,morning-afternoon,clear,high contrast,natural light	abandoned,farm,shed,water tank,rust,grass,backplates	
+pylons	outdoor,urban,morning-afternoon,low contrast,natural light	snow,winter,abandoned,pillar,column,concrete	
+quadrangle_cloudy	outdoor,natural light,urban,low contrast,overcast,partly cloudy,midday	hedge,courtyard,grass,pavement,path,university,autumn,lawn	
+quadrangle_sunny	outdoor,high contrast,urban,natural light,midday,partly cloudy	hedge,courtyard,grass,pavement,path,university,autumn,lawn,sun	
+quarry_01	outdoor,skies,nature,sunrise-sunset,clear,high contrast,natural light	sun,sand,tracks	
+quarry_01_puresky	outdoor,skies,nature,sunrise-sunset,clear,high contrast,natural light,pure skies	pure skies	
+quarry_02	outdoor,skies,nature,midday,partly cloudy,high contrast,natural light	sun,hill,sand,tracks,dirt road,backplates	
+quarry_03	outdoor,skies,nature,morning-afternoon,partly cloudy,high contrast,natural light	sun,hill,sand,backplates	
+quarry_04	outdoor,skies,sunrise-sunset,low contrast,partly cloudy,natural light,nature	sand	
+quarry_04_puresky	outdoor,skies,sunrise-sunset,low contrast,partly cloudy,natural light,nature,pure skies	pure skies	
+quarry_cloudy	outdoor,natural light,nature,skies,partly cloudy,low contrast,morning-afternoon,midday	rocky,lake,dam,quarry,storm,weather,gloomy,dark	
+quattro_canti	outdoor,urban,sunrise-sunset,partly cloudy,low contrast,natural light	europe,architecture,square,road,street,statue	
+qwantani	outdoor,skies,nature,morning-afternoon,clear,high contrast,natural light	sun,mountain,view,dam,lake,hilltop,grass	
+qwantani_afternoon	outdoor,natural light,nature,skies,clear,high contrast,morning-afternoon	sun,mountain,view,dam,lake,hilltop,grass	
+qwantani_afternoon_puresky	outdoor,natural light,nature,skies,clear,high contrast,morning-afternoon,pure skies	pure skies	
+qwantani_dawn	outdoor,natural light,nature,skies,clear,low contrast,sunrise-sunset	mountain,view,dam,lake,hilltop,grass	
+qwantani_dawn_puresky	outdoor,natural light,nature,skies,clear,low contrast,sunrise-sunset,pure skies	pure skies	
+qwantani_dusk_1	outdoor,natural light,nature,low contrast,partly cloudy,clear,skies,sunrise-sunset	mountain,view,dam,lake,hilltop,grass	
+qwantani_dusk_1_puresky	outdoor,natural light,nature,low contrast,partly cloudy,clear,skies,sunrise-sunset,pure skies	pure skies	
+qwantani_dusk_2	outdoor,natural light,nature,skies,clear,low contrast,sunrise-sunset,partly cloudy	mountain,view,dam,lake,hilltop,grass	
+qwantani_dusk_2_puresky	outdoor,natural light,nature,skies,clear,low contrast,sunrise-sunset,partly cloudy,pure skies	pure skies	
+qwantani_late_afternoon	outdoor,natural light,nature,skies,high contrast,morning-afternoon,clear	sun,mountain,view,dam,hilltop,lake,grass	
+qwantani_late_afternoon_puresky	outdoor,natural light,nature,skies,high contrast,morning-afternoon,clear,pure skies	pure skies	
+qwantani_mid_morning	outdoor,natural light,nature,skies,high contrast,morning-afternoon,clear	sun,mountain,view,dam,hilltop,grass,lake	
+qwantani_mid_morning_puresky	outdoor,natural light,nature,skies,high contrast,morning-afternoon,clear,pure skies	pure skies	
+qwantani_moon_noon	outdoor,natural light,nature,skies,high contrast,clear,night	mountain,view,dam,lake,hilltop,grass,stars	
+qwantani_moon_noon_puresky	outdoor,natural light,nature,skies,high contrast,clear,night,pure skies	pure skies	
+qwantani_moonrise	outdoor,natural light,nature,skies,high contrast,clear,night	mountain,view,dam,hilltop,lake,grass,stars,milky way,astronomy	
+qwantani_moonrise_puresky	outdoor,natural light,nature,skies,high contrast,clear,night,pure skies	pure skies	
+qwantani_morning	outdoor,natural light,nature,skies,clear,high contrast,morning-afternoon	sun,mountain,view,hilltop,dam,lake,grass	
+qwantani_morning_puresky	outdoor,natural light,nature,skies,clear,high contrast,morning-afternoon,pure skies	pure skies	
+qwantani_night	outdoor,natural light,nature,skies,clear,low contrast,night	mountain,view,dam,lake,hilltop,grass,stars,milky way,light pollution,astronomy	
+qwantani_night_puresky	outdoor,natural light,nature,skies,clear,low contrast,night,pure skies	pure skies	
+qwantani_noon	outdoor,natural light,nature,skies,high contrast,midday,clear	sun,grass,hilltop,view,mountain,dam,lake	
+qwantani_noon_puresky	outdoor,natural light,nature,skies,high contrast,midday,clear,pure skies	pure skies	
+qwantani_patio	outdoor,nature,urban,natural light,medium contrast,morning-afternoon	tile,brick,table,chair,braai,awning,veranda,garden,patio,porch,terrace	
+qwantani_puresky	outdoor,skies,nature,morning-afternoon,clear,high contrast,natural light,pure skies	pure skies	
+qwantani_sunrise	outdoor,natural light,nature,skies,clear,low contrast,sunrise-sunset	mountain,view,dam,lake,hilltop,grass	
+qwantani_sunrise_puresky	outdoor,natural light,nature,skies,clear,low contrast,sunrise-sunset,pure skies	pure skies	
+qwantani_sunset	outdoor,natural light,nature,skies,medium contrast,sunrise-sunset,partly cloudy	mountain,view,dam,lake,hilltop,grass,sun	
+qwantani_sunset_puresky	outdoor,natural light,nature,skies,medium contrast,sunrise-sunset,partly cloudy,pure skies	pure skies	
+radkow_lake	outdoor,natural light,nature,clear,high contrast,morning-afternoon,midday	sun,lake,pavement,shore,dam,riverside	
+railway_bridge_02	outdoor,nature,sunrise-sunset,clear,high contrast,natural light	sun,grass,field,tree,backplates	
+railway_bridges	outdoor,skies,nature,sunrise-sunset,clear,high contrast,natural light	train,rail,sun,grass,bridge,steel,backplates	
+rainforest_trail	natural light,outdoor,nature,low contrast,midday	tree,forest,planks,path,bush,rock,walkway	
+rathaus	outdoor,urban,night,overcast,medium contrast,natural light	building,architecture,europe,square,lamp	
+reading_room	indoor,urban,morning-afternoon,medium contrast,natural light	chair,couch,window,door,tile	
+red_church	outdoor,natural light,urban,clear,morning-afternoon,high contrast	cobblestone,parking,autumn,bare trees,paved,sun	
+red_hill_cloudy	outdoor,natural light,nature,overcast,low contrast,midday	road,hill,ocean,town,asphalt	
+red_hill_curve	outdoor,nature,morning-afternoon,partly cloudy,high contrast,natural light	sun,road,hill,rock,ocean,town,backplates	
+red_hill_straight	outdoor,nature,morning-afternoon,partly cloudy,high contrast,natural light	sun,road,hill,rock,ocean,town,backplates	
+red_wall	outdoor,urban,morning-afternoon,clear,medium contrast,natural light	europe,autumn,building,architecture,brick,vines,leaves,street,backplates	
+reichstag_1	outdoor,skies,nature,urban,midday,overcast,low contrast,natural light	grass,field,architecture,europe	
+reinforced_concrete_01	outdoor,indoor,urban,sunrise-sunset,clear,medium contrast,natural light	tree,sun,grass,concrete,rubble,ruin,warehouse,industrial,slab,abandoned,backplates	
+reinforced_concrete_02	outdoor,urban,sunrise-sunset,clear,medium contrast,natural light	abandoned,concrete,grass,industrial,rubble,ruin,slab,sun,tree,warehouse,backplates	
+relax_inn_seaview_suite	indoor,urban,natural light,artificial light,medium contrast,midday,morning-afternoon	hotel,bed,bedroom,window,clock,table,balcony,sliding glass door,wicker ottoman,chaise	
+residential_garden	outdoor,urban,midday,overcast,low contrast,natural light	building,grass,apartment,backplates	
+resting_place	outdoor,natural light,nature,partly cloudy,skies,high contrast,morning-afternoon	sun,grass,field,tree,dam,lake,park,hut,cabin	
+resting_place_2	outdoor,natural light,nature,clear,high contrast,morning-afternoon	sun,grass,field,tree,dam,lake,park,hut,cabin,backplates	
+rhodes_memorial	outdoor,urban,morning-afternoon,partly cloudy,high contrast,natural light	sun,view,architecture,statue,backplates	
+river_alcove	outdoor,natural light,nature,clear,high contrast,midday	sun,grass,bare trees,natural arch,wooden structure	
+river_rocks	outdoor,nature,morning-afternoon,partly cloudy,high contrast,natural light	tree,sun,rock,river	
+river_walk_1	outdoor,nature,sunrise-sunset,medium contrast,natural light	forest,tree,path,bush,leaves,canopy	
+river_walk_2	outdoor,nature,sunrise-sunset,low contrast,natural light	tree,path,forest,canopy	
+rocky_ridge	outdoor,skies,nature,sunrise-sunset,partly cloudy,medium contrast,natural light	sun,view,hilltop,suburb,rock,grass	
+rocky_ridge_puresky	outdoor,skies,nature,sunrise-sunset,partly cloudy,medium contrast,natural light,pure skies	pure skies	
+rogland_clear_night	outdoor,natural light,nature,skies,clear,low contrast,night,collection: namaqualand	stars,milky way,galaxy,astronomy,dark,rocky,arid,desert	
+rogland_moonlit_night	outdoor,natural light,nature,skies,partly cloudy,high contrast,night,collection: namaqualand	rocky,arid,desert,astronomy,galaxy,stars,moon	
+rogland_overcast	outdoor,natural light,nature,skies,overcast,low contrast,morning-afternoon,collection: namaqualand	rocky,arid,desert,cloud	
+rogland_sunset	outdoor,natural light,nature,skies,clear,high contrast,sunrise-sunset,collection: namaqualand	rocky,arid,desert,sun	
+rolling_hills	natural light,outdoor,nature,high contrast,clear,sunrise-sunset,skies	sun,grass,dry grass,hilltop,mountain,hill,path	
+roof_garden	outdoor,nature,urban,morning-afternoon,partly cloudy,low contrast,natural light	tree,path,garden,london,europe,architecture	
+roofless_ruins	outdoor,urban,morning-afternoon,clear,low contrast,natural light	abandoned,ruin,rubble,backplates	
+rooftop_day	outdoor,urban,morning-afternoon,partly cloudy,high contrast,natural light	parking,roof,car,backplates	
+rooftop_night	outdoor,skies,urban,sunrise-sunset,partly cloudy,high contrast,artificial light,night	parking,moon,twilight,roof,concrete	
+rooitou_park	outdoor,skies,nature,sunrise-sunset,clear,high contrast,natural light	sun,grass,field,park	
+rosendal_mountain_midmorning	outdoor,natural light,nature,clear,skies,high contrast,midday	sun,dry grass,hill,bare,dry,yellow	
+rosendal_park_sunset	outdoor,natural light,nature,clear,skies,low contrast,sunrise-sunset	field,dry grass,park	
+rosendal_park_sunset_puresky	outdoor,natural light,nature,clear,skies,low contrast,sunrise-sunset,pure skies	pure skies	
+rosendal_plains_1	outdoor,natural light,nature,partly cloudy,skies,high contrast,midday	sun,grass,view,landscape,autumn	
+rosendal_plains_2	outdoor,natural light,nature,partly cloudy,skies,high contrast,midday	sun,grass,view,landscape,rock,farm	
+rostock_arches	indoor,artificial light,night,urban,low contrast	europe,architecture,germany,street,restaurant,city,square,building,town,arch	
+rostock_laage_airport	indoor,low contrast,natural light,artificial light,urban	airport,hall,warehouse,high ceiling,tiles,europe,building,aviation,museum,modern	
+rotes_rathaus	natural light,sunrise-sunset,outdoor,urban,low contrast,clear	europe,building,architecture,street,square,brick,tree,city	
+round_platform	outdoor,skies,urban,morning-afternoon,overcast,low contrast,natural light	brick,street,square,backplates	
+royal_esplanade	indoor,urban,high contrast,artificial light	mall,cruise,screen,balcony,stair,tile	
+ruckenkreuz	outdoor,skies,nature,midday,overcast,low contrast,natural light	tree,monument,cross,park,grass	
+rural_asphalt_road	outdoor,natural light,nature,skies,partly cloudy,high contrast,midday	sun,grass,field,tree,asphalt,road	
+rural_crossroads	outdoor,natural light,nature,clear,high contrast,morning-afternoon	sun,grass,tree,dirt road,green,backplates	
+rural_evening_road	outdoor,natural light,nature,skies,partly cloudy,low contrast,sunrise-sunset	farm,grass,dirt road,wheat,field,countryside,rural	
+rural_graffiti_tower	outdoor,nature,morning-afternoon,overcast,low contrast,natural light	tree,winter,bare,concrete,brick,tower,view	
+rural_landscape	outdoor,skies,nature,sunrise-sunset,partly cloudy,low contrast,natural light	dirt,road,track,lake,backplates	
+rural_winter_roadside	outdoor,skies,nature,sunrise-sunset,partly cloudy,low contrast,natural light	road,grass,field,snow,winter	
+rustig_koppie	outdoor,skies,nature,partly cloudy,morning-afternoon,high contrast,natural light	hill,rock,sun,dry grass,bush	
+rustig_koppie_puresky	outdoor,skies,nature,partly cloudy,morning-afternoon,high contrast,natural light,pure skies	pure skies	
+sabie_tent	outdoor,nature,sunrise-sunset,clear,medium contrast,natural light	porch,veranda,balcony,river,view,tree,tent	
+safari_sunset	outdoor,natural light,nature,sunrise-sunset,clear,low contrast,skies	veld,bush,safari,dense,dry grass	
+san_giuseppe_bridge	outdoor,urban,morning-afternoon,clear,high contrast,natural light	sun,europe,building,architecture,street,bridge,river,canal,church,venice,backplates	
+sandsloot	artificial light,night,outdoor,nature,high contrast,partly cloudy,skies	sand,beach,dam,tree	
+satara_night	outdoor,skies,nature,clear,night,high contrast,artificial light	stars,tree,lamp,milky way,galaxy,hut	
+satara_night_no_lamps	outdoor,skies,nature,clear,night,low contrast,natural light	stars,tree,milky way,galaxy	
+schachen_forest	low contrast,overcast,morning-afternoon,natural light,nature,outdoor	autumn,winter,leaves,tree,forest,earth	
+schadowplatz	outdoor,urban,midday,overcast,low contrast,natural light	architecture,building,street	
+school_hall	indoor,natural light,artificial light,urban,medium contrast,morning-afternoon	school,stage,hall,wood,wooden floor,curtain	
+school_quad	indoor,urban,natural light,artificial light,medium contrast,morning-afternoon	concrete,pavers,covered,hall,square,campus,school,symmetrical	
+sculpture_exhibition	indoor,urban,medium contrast,artificial light	horse,art,exhibition,museum	
+scythian_tombs	natural light,outdoor,nature,partly cloudy,low contrast,skies,sunrise-sunset	field,grass,backplates	
+scythian_tombs_2	natural light,outdoor,nature,partly cloudy,sunrise-sunset,medium contrast,skies	grass,field,sun,backplates	
+scythian_tombs_puresky	natural light,outdoor,nature,partly cloudy,low contrast,skies,sunrise-sunset,pure skies	pure skies	
+secluded_beach	outdoor,nature,morning-afternoon,partly cloudy,high contrast,natural light,collection: smugglers_cove	tree,rock,beach,ocean,backplates	
+sepulchral_chapel_basement	indoor,urban,medium contrast,natural light,artificial light	tiles,architecture,dome,circular	
+sepulchral_chapel_rotunda	indoor,urban,medium contrast,natural light	tiles,architecture,roman,hall,dome,pantheon,circular	
+shady_patch	outdoor,nature,midday,low contrast,natural light	tree,grass,forest	
+shanghai_bund	outdoor,urban,night,partly cloudy,high contrast,artificial light	skyscraper,skyline,china,neon,promenade,building,architecture,street,city,square,balcony,shanghai	
+shanghai_riverside	outdoor,urban,medium contrast,sunrise-sunset,clear,natural light,skies	city,china,shanghai,concrete,promenade,sun	
+short_tunnel	indoor,urban,midday,overcast,medium contrast,natural light	tunnel,road,street,concrete,underpass,backplates	
+shudu_lake	outdoor,nature,overcast,natural light,low contrast,midday	lake,platform,wood floor,hill,mountain,park,backplates	
+signal_hill_dawn	outdoor,skies,urban,sunrise-sunset,clear,low contrast,natural light	road,view,city,cape town,backplates	
+signal_hill_sunrise	outdoor,nature,urban,sunrise-sunset,partly cloudy,high contrast,natural light	cape town,road,mountain,sun,barrier,car,backplates	
+simons_town_harbour	outdoor,urban,morning-afternoon,partly cloudy,high contrast,natural light	ocean,sun,marina,harbour,dock,hill,statue,backplates	
+simons_town_road	outdoor,natural light,nature,clear,high contrast,morning-afternoon	road,asphalt,street,ocean,curve,coastal,cape town,sun	
+simons_town_rocks	outdoor,skies,nature,morning-afternoon,partly cloudy,high contrast,natural light	ocean,rock,hill,backplates	
+sisulu	outdoor,nature,sunrise-sunset,clear,high contrast,natural light	tree,sun,grass,hill,bench,park	
+skate_park	outdoor,urban,morning-afternoon,overcast,low contrast,natural light	ramp,pipe,building,europe	
+skidpan	natural light,outdoor,partly cloudy,low contrast,morning-afternoon,urban,skies	asphalt,road,street,race,barrier,track	
+skukuza_golf	outdoor,nature,midday,low contrast,natural light	tree,leaves,fence,dam,lake	
+skylit_garage	indoor,urban,medium contrast,natural light	road,parking,pillar,backplates	
+small_cathedral	indoor,urban,low contrast,natural light	church,chapel,carpet,painting,religion,backplates	
+small_cathedral_02	outdoor,urban,sunrise-sunset,partly cloudy,medium contrast,natural light,indoor	sun,europe,architecture,arch,church,tree,cobblestone,brick,backplates	
+small_cave	indoor,nature,morning-afternoon,medium contrast,natural light	cave,forest,rock	
+small_empty_house	indoor,urban,morning-afternoon,medium contrast,natural light	house,tile,lamp,door	
+small_empty_room_1	indoor,urban,natural light,medium contrast,midday	room,empty,office,door,window,curtain,wooden floor	
+small_empty_room_2	indoor,urban,artificial light,medium contrast,night	room,empty,office,door,curtain,wooden floor,led panel,wallpaper	
+small_empty_room_3	indoor,urban,artificial light,medium contrast,morning-afternoon	room,empty,office,door,curtain,wooden floor,led panel	
+small_empty_room_4	indoor,urban,natural light,medium contrast,midday	room,empty,office,door,window,curtain,wooden floor,wallpaper	
+small_hangar_01	indoor,urban,morning-afternoon,low contrast,natural light	hangar,plane,industrial,warehouse	
+small_hangar_02	indoor,urban,morning-afternoon,medium contrast,natural light	hangar,plane,industrial,europe	
+small_harbor_01	outdoor,skies,nature,sunrise-sunset,partly cloudy,low contrast,natural light	lake,water,dam,dock,harbour,harbor,jetty,boat	
+small_harbor_02	outdoor,skies,nature,sunrise-sunset,partly cloudy,low contrast,natural light	boat,dam,dock,harbor,harbour,jetty,lake,water	
+small_harbour_morning	outdoor,natural light,nature,morning-afternoon,clear,high contrast	sun,lake,water,dam,dock,harbour,harbor,jetty,boat	
+small_harbour_sunset	outdoor,skies,natural light,sunrise-sunset,nature,clear,medium contrast	sun,lake,water,dam,dock,harbour,harbor,jetty,boat	
+small_rural_road	outdoor,skies,nature,midday,partly cloudy,low contrast,natural light	field,road,path,asphalt,gravel,dirt	
+small_rural_road_02	outdoor,nature,sunrise-sunset,clear,low contrast,natural light	road,tree,farm,straight,backplates	
+small_workshop	artificial light,natural light,indoor,urban,low contrast,medium contrast,morning-afternoon	workshop,machine,fluorescent,lamp,table,tablesaw,concrete,tools,mess	
+smelting_tower_01	outdoor,high contrast,natural light,nature,partly cloudy,midday	bush,hilltop,stone tower,historical,ruin,rocky,sun,backplates	
+smelting_tower_02	outdoor,natural light,nature,partly cloudy,low contrast,midday	gravel,road,bush,scrubs,stone tower,ruin	
+smelting_tower_interior	natural light,indoor,urban,high contrast	stone tower,rock,arched doorway,historical,abandoned,ruin,rubble,weathered	
+snow_field	natural light,outdoor,skies,overcast,low contrast,nature,morning-afternoon	snow,winter,field	
+snow_field_2	natural light,outdoor,nature,overcast,low contrast,morning-afternoon,skies	field,snow,winter,footprint	
+snow_field_2_puresky	natural light,outdoor,nature,overcast,low contrast,morning-afternoon,skies,pure skies	pure skies	
+snow_field_puresky	natural light,outdoor,skies,overcast,low contrast,nature,morning-afternoon,pure skies	pure skies	
+snowy_cemetery	outdoor,urban,morning-afternoon,high contrast,clear,natural light	snow,cemetary,grave,tree,park,city	
+snowy_field	outdoor,skies,nature,morning-afternoon,partly cloudy,high contrast,natural light	tree,sun,snow,field,tracks	
+snowy_forest	outdoor,low contrast,overcast,natural light,nature,morning-afternoon	snow,winter,moss,forest,tree,woods	
+snowy_forest_path_01	outdoor,nature,morning-afternoon,clear,low contrast,natural light	tree,forest,snow,winter,path	
+snowy_forest_path_02	outdoor,nature,morning-afternoon,clear,low contrast,natural light	tree,forest,snow,winter,path	
+snowy_hillside	outdoor,nature,morning-afternoon,partly cloudy,high contrast,natural light	tree,sun,snow,forest,bench,hill,field	
+snowy_hillside_02	outdoor,nature,midday,low contrast,natural light,overcast	snow,mud,winter,path,forest,hilltop	
+snowy_park_01	outdoor,nature,midday,overcast,low contrast,natural light	snow,tree,winter	
+soliltude	natural light,outdoor,nature,urban,low contrast,overcast,morning-afternoon	grass,field,europe,architecture,building	
+solitude_interior	indoor,medium contrast,urban,natural light,morning-afternoon	architecture,europe,building,column,pillar,arch,victorian,backplates	
+solitude_night	outdoor,urban,night,partly cloudy,high contrast,artificial light,natural light	field,moon,grass,architecture	
+spaichingen_hill	outdoor,nature,natural light,sunrise-sunset,morning-afternoon,partly cloudy,high contrast	sun,grass,field,tree,hilltop	
+spiaggia_di_mondello	outdoor,skies,nature,morning-afternoon,clear,high contrast,natural light,collection: smugglers_cove	tree,sun,beach,sand	
+spooky_bamboo_morning	outdoor,natural light,nature,sunrise-sunset,low contrast	tunnel,dry,dense,pathway,arched canopy	
+spree_bank	outdoor,natural light,urban,clear,low contrast,sunrise-sunset	walkway,railing,bench,tree,europe,architecture,building,canal,water,asphalt,promenade,river	
+spruit_dawn	outdoor,skies,nature,sunrise-sunset,clear,low contrast,natural light	tree,river,grass,path,field,park,mist,power line	
+spruit_sunrise	outdoor,skies,nature,sunrise-sunset,clear,high contrast,natural light	tree,sun,grass,path,field,park,mist,power line	
+squash_court	indoor,artificial light,urban,medium contrast	sport,court,lines,ball game,arena,wooden floor,rafters	
+st_fagans_interior	indoor,urban,low contrast,artificial light	bench,couch,lobby,modern,museum,stairs,wooden floor	
+st_peters_square_night	outdoor,artificial light,urban,high contrast,partly cloudy,night	europe,architecture,italy,cobblestone,street,pillar,lamp,square,city,rome	
+stadium_01	outdoor,urban,sunrise-sunset,clear,low contrast,natural light	stadium,field,grass,football,soccer	
+stadium_exterior	outdoor,low contrast,natural light,urban,overcast,partly cloudy,morning-afternoon	stadium,concrete,pavement,parking,square,architecture,ventilation shafts	
+steinbach_field	natural light,nature,sunrise-sunset,clear,outdoor,low contrast	grass,field,tree,forest,countryside,rural	
+sterkspruit_falls	outdoor,nature,sunrise-sunset,partly cloudy,low contrast,natural light	balcony,waterfall,mountain,hill	
+stierberg_sunrise	outdoor,natural light,nature,clear,high contrast,sunrise-sunset	sun,snow,field,hill,forest,tracks,winter	
+stone_alley	outdoor,urban,midday,partly cloudy,medium contrast,natural light	alley,europe,italy,cobblestone,rock,narrow	
+stone_alley_02	outdoor,urban,morning-afternoon,medium contrast,natural light	alley,cobblestone,europe,narrow,brick	
+stone_alley_03	outdoor,urban,morning-afternoon,medium contrast,natural light	alley,cobblestone,narrow,europe	
+stone_pines	outdoor,nature,midday,partly cloudy,low contrast,natural light	tree,sun,grass,path,building,europe,park,rome,backplates	
+storeroom	indoor,urban,high contrast,artificial light	mess,junk,fluorescent	
+story_studio_01	studio,indoor,artificial light,urban,natural light,medium contrast	umbrella,softbox,infinity,window,lamp,white,photo	
+story_studio_02	studio,indoor,artificial light,urban,medium contrast	umbrella,softbox,infinity,lamp,white,photo	
+story_studio_03	studio,indoor,artificial light,urban,medium contrast	umbrella,softbox,infinity,lamp,white,photo	
+story_studio_04	studio,indoor,artificial light,urban,medium contrast	umbrella,softbox,infinity,lamp,white,photo	
+story_studio_05	studio,indoor,artificial light,urban,high contrast	umbrella,softbox,infinity,lamp,white,overhead,photo	
+straw_rolls_field_01	outdoor,skies,nature,sunrise-sunset,partly cloudy,low contrast,natural light	road,asphalt,field,farm,backplates	
+stream	outdoor,nature,morning-afternoon,clear,high contrast,natural light	sun,stream,river,tree,pond,grass,root	
+street_lamp	outdoor,urban,night,partly cloudy,high contrast,artificial light	lamp,suburb,road,tree	
+studio_country_hall	indoor,medium contrast,urban,studio,morning-afternoon,natural light	studio,wood,rustic,kitchen,chair,ladder,carpet,backplates	
+studio_garden	outdoor,nature,midday,clear,natural light,high contrast,urban	tree,warehouse,garden,grass,bench,path,chair,arch,backplates	
+studio_kominka_01	studio,indoor,artificial light,urban,high contrast	infinity,lamp,white,rectangle,overhead,umbrella,reflector,photo	
+studio_kominka_02	studio,indoor,artificial light,urban,medium contrast	infinity,lamp,white,umbrella,overhead,rectangle,photo	
+studio_kominka_03	studio,indoor,artificial light,urban,low contrast	infinity,lamp,white,umbrella,reflector,photo	
+studio_kominka_04	studio,indoor,artificial light,urban,medium contrast	infinity,lamp,white,umbrella,photo	
+studio_kontrast_01	studio,urban,artificial light,indoor,medium contrast	infinity,lamp,white,umbrella,warm,photo	
+studio_kontrast_02	studio,urban,artificial light,indoor,low contrast	infinity,lamp,white,umbrella,rectangle,softbox,photo	
+studio_kontrast_03	studio,urban,artificial light,indoor,medium contrast	infinity,lamp,white,rectangle,softbox,photo	
+studio_kontrast_04	studio,urban,artificial light,indoor,low contrast	infinity,lamp,white,rectangle,softbox,photo	
+studio_small_01	indoor,urban,studio,high contrast,artificial light	lamp,studio,photo	
+studio_small_02	indoor,urban,studio,high contrast,artificial light	lamp,studio,photo	
+studio_small_03	indoor,urban,studio,high contrast,artificial light	lamp,studio,photo,umbrella	
+studio_small_04	indoor,studio,urban,high contrast,artificial light	lamp,studio,photo	
+studio_small_05	indoor,urban,studio,high contrast,artificial light	lamp,studio,photo,reflector,dish	
+studio_small_06	indoor,urban,studio,high contrast,artificial light	lamp,studio,photo	
+studio_small_07	indoor,studio,urban,high contrast,artificial light	lamp,photo,studio,single	
+studio_small_08	low contrast,indoor,urban,artificial light,studio	umbrella,softbox,infinity,lamp,studio,photo	
+studio_small_09	medium contrast,indoor,urban,artificial light,studio	umbrella,softbox,infinity,lamp,studio,photo	
+studio_wizja_01	studio,artificial light,urban,indoor,medium contrast	photo,infinity,white,lamp,umbrella,rectangle,softbox	
+studio_wizja_02	studio,artificial light,urban,indoor,medium contrast	photo,infinity,white,lamp,umbrella,rectangle,softbox	
+studio_wizja_03	studio,artificial light,urban,indoor,medium contrast	photo,infinity,white,lamp,rectangle	
+stuttgart_hillside	outdoor,nature,natural light,low contrast,overcast,midday	grass,hill,view,autumn,tree	
+stuttgart_suburbs	outdoor,urban,natural light,partly cloudy,sunrise-sunset,low contrast	car,road,street,asphalt,pink,house,suburb,grass	
+suburban_field_01	outdoor,nature,midday,overcast,low contrast,natural light	tree,grass,field	
+suburban_field_02	outdoor,nature,morning-afternoon,partly cloudy,high contrast,natural light	tree,grass,field,sun	
+suburban_football_field	outdoor,natural light,nature,low contrast,overcast,midday	grass,field,football,sports,soccer,playground,europe,autumn	
+suburban_garden	outdoor,natural light,nature,high contrast,clear,midday,urban	grass,sun,garden,bush,lapa,gazebo,pool,suburb	
+suburban_parking_area	outdoor,urban,sunrise-sunset,clear,low contrast,natural light	road,parking,house,bush,hedge,suburb,curve,europe	
+suburban_soccer_park	outdoor,natural light,nature,overcast,low contrast,morning-afternoon	grass,field,park,suburb,football,soccer,lawn	
+subway_entrance	indoor,urban,midday,medium contrast,artificial light	tile,fluorescent,stair,map,tunnel,station,escalator	
+summer_stage_01	outdoor,urban,sunrise-sunset,clear,low contrast,natural light	stage,abandoned,theater,graffiti	
+summer_stage_02	outdoor,urban,nature,morning-afternoon,clear,low contrast,natural light	abandoned,graffiti,stage,theater,tree,stair	
+sundowner_deck	indoor,outdoor,natural light,medium contrast,morning-afternoon	patio,restaurant,table,chair,cafe,sea view,ocean,wooden deck,covered terrace	
+sundowner_overlook	outdoor,natural light,nature,clear,high contrast,morning-afternoon	sun,grass,hilltop,ocean,terrace,coastal,sea view,cafe	
+sunflowers	outdoor,skies,nature,midday,partly cloudy,high contrast,natural light	sun,field,road,flower,asphalt,backplates	
+sunflowers_puresky	outdoor,skies,nature,midday,partly cloudy,high contrast,natural light,pure skies	pure skies	
+sunny_country_road	outdoor,natural light,nature,partly cloudy,high contrast,midday	grass,sun,field,road,tree,hillside,asphalt,backplates	
+sunny_rose_garden	high contrast,natural light,nature,outdoor,skies,partly cloudy,midday	grass,flower,path,palm tree,rose bushes,scattered clouds,rural	
+sunny_vondelpark	outdoor,nature,partly cloudy,sunrise-sunset,high contrast,natural light	tree,grass,sun,leaves,autumn,path,sunrise	
+sunset_fairway	outdoor,skies,nature,sunrise-sunset,clear,medium contrast,natural light	golf,grass,tree,pond,path,tee,mountain	
+sunset_forest	outdoor,nature,sunrise-sunset,partly cloudy,low contrast,natural light	tree,forest,path,summer	
+sunset_in_the_chalk_quarry	outdoor,skies,nature,sunrise-sunset,partly cloudy,medium contrast,natural light	sun,hill,sand	
+sunset_jhbcentral	outdoor,sunrise-sunset,urban,low contrast,partly cloudy	city,roof,skyline,building,architecture,industrial,pink,twilight	
+sunset_meadow_path	outdoor,nature,natural light,low contrast,partly cloudy,sunrise-sunset,skies	grass,field,path,dirt road,countryside,rural	
+surgery	indoor,urban,medium contrast,artificial light	bed,table,hospital,lamp,medical,operation	
+syferfontein_0d_clear	outdoor,skies,nature,sunrise-sunset,clear,low contrast,natural light	hill,view,backplates	
+syferfontein_0d_clear_puresky	outdoor,skies,nature,sunrise-sunset,clear,low contrast,natural light,pure skies	pure skies	
+syferfontein_18d_clear	outdoor,skies,nature,morning-afternoon,clear,high contrast,natural light	sun,smoke,hill,view,backplates	
+syferfontein_18d_clear_puresky	outdoor,skies,nature,morning-afternoon,clear,high contrast,natural light,pure skies	pure skies	
+syferfontein_1d_clear	outdoor,skies,nature,sunrise-sunset,clear,high contrast,natural light	hill,view,backplates	
+syferfontein_1d_clear_puresky	outdoor,skies,nature,sunrise-sunset,clear,high contrast,natural light,pure skies	pure skies	
+syferfontein_6d_clear	outdoor,skies,nature,sunrise-sunset,clear,low contrast,natural light	hill,view,backplates	
+syferfontein_6d_clear_puresky	outdoor,skies,nature,sunrise-sunset,clear,low contrast,natural light,pure skies	pure skies	
+symmetrical_garden	outdoor,skies,nature,midday,partly cloudy,high contrast,natural light	tree,sun,grass,garden,bush,symmetrical,fountain	
+symmetrical_garden_02	natural light,nature,outdoor,high contrast,partly cloudy,midday	grass,garden,sun,plants,hedge,park	
+table_mountain_1	outdoor,skies,nature,sunrise-sunset,partly cloudy,high contrast,natural light	sun,mountain,view,city,rock,backplates	
+table_mountain_1_puresky	outdoor,skies,nature,sunrise-sunset,partly cloudy,high contrast,natural light,pure skies	pure skies	
+table_mountain_2	outdoor,skies,nature,sunrise-sunset,partly cloudy,high contrast,natural light	sun,mountain,view,city,rock,backplates	
+table_mountain_2_puresky	outdoor,skies,nature,sunrise-sunset,partly cloudy,high contrast,natural light,pure skies	pure skies	
+tears_of_steel_bridge	outdoor,urban,sunrise-sunset,partly cloudy,high contrast,natural light	sun,tree,canal,europe,amsterdam,brick,street,autumn	
+teatro_massimo	outdoor,urban,sunrise-sunset,partly cloudy,low contrast,natural light	europe,square,architecture	
+teufelsberg_ground_1	outdoor,urban,morning-afternoon,partly cloudy,low contrast,natural light	abandoned,industrial,graffiti,art,grass,tree,path,trash	
+teufelsberg_ground_2	outdoor,urban,morning-afternoon,partly cloudy,medium contrast,natural light	graffiti,abandoned,art,industrial,trash,pallet	
+teufelsberg_inner	indoor,urban,midday,overcast,medium contrast,natural light	abandoned,graffiti,art,industrial	
+teufelsberg_lookout	indoor,urban,morning-afternoon,partly cloudy,medium contrast,natural light	graffiti,abandoned,art,pallet,industrial,forest,view	
+teufelsberg_roof	outdoor,urban,morning-afternoon,partly cloudy,low contrast,natural light	abandoned,graffiti,industrial,view,pallet,wet,concrete,rain,tower	
+teutonic_castle_moat	outdoor,natural light,urban,high contrast,midday,clear	sun,castle,defence,dirt,wall,brick,door,fortress,architecture	
+thatch_chapel	artificial light,indoor,urban,high contrast,morning-afternoon	room,thatch,windows,door,basket,table,chapel	
+the_lost_city	outdoor,nature,sunrise-sunset,partly cloudy,high contrast,natural light	sun,rock,formation,path	
+the_sky_is_on_fire	outdoor,skies,urban,sunrise-sunset,partly cloudy,medium contrast,natural light	twilight,rail,promenade,path,ocean,wave,backplates	
+theater_01	indoor,urban,medium contrast,artificial light	theater,theatre,seat,orchestra,stage,curtain	
+theater_02	indoor,urban,medium contrast,artificial light	theater,theatre,seat,orchestra,stage,curtain	
+tiber_1	outdoor,nature,urban,midday,clear,low contrast,natural light	tree,autumn,architecture,river,europe,rome,bridge,underpass,graffiti,backplates	
+tiber_2	outdoor,urban,morning-afternoon,partly cloudy,medium contrast,natural light	tree,river,rome,europe,canopy,cobblestone,road,backplates	
+tiber_island	outdoor,skies,urban,morning-afternoon,partly cloudy,high contrast,natural light	tree,sun,river,architecture,europe,bridge,rome,backplates	
+ticknock_01	outdoor,natural light,nature,low contrast,sunrise-sunset,clear	radio,tower,industrial,gravel,telecommunication,fence	
+ticknock_02	outdoor,natural light,nature,high contrast,clear,sunrise-sunset	sun,grass,tower,radio,hilltop,rocks,moorland,rugged terrain	
+ticknock_03	outdoor,natural light,nature,partly cloudy,low contrast,morning-afternoon	radio,tower,telecommunication,rural,hillside	
+ticknock_04	outdoor,natural light,nature,partly cloudy,low contrast,morning-afternoon	rural,hiking trail,dirt path,ferns,autumn	
+tief_etz	outdoor,natural light,nature,clear,low contrast,morning-afternoon	road,asphalt,street,curve,bush,barrier	
+tiergarten	outdoor,nature,midday,overcast,low contrast,natural light	tree,grass,autumn,leaves,field,park	
+toposcope_sunset	outdoor,nature,natural light,low contrast,clear,sunrise-sunset,skies	hilltop,vista,valley,view,mountain,desolate,lookout,arid	
+tree_lined_driveway	outdoor,natural light,nature,partly cloudy,high contrast,midday	road,asphalt,rural,countryside,cracked,summer	
+treetop_balcony	low contrast,sunrise-sunset,outdoor,natural light,nature,partly cloudy	forest,view,balcony,terrace,railing,wooden deck	
+trekker_monument	natural light,indoor,urban,medium contrast,overcast,midday	concrete,monument,symmetrical,circular,skylight	
+tucker_wreck	outdoor,nature,midday,overcast,low contrast,natural light	ocean,rock,ship,wreck,iron,seaweed,rust,backplates	
+turning_area	outdoor,nature,morning-afternoon,partly cloudy,high contrast,natural light	dirt road,path,tree,sun,park	
+tv_studio	indoor,urban,high contrast,artificial light	camera,studio,set,news,show	
+twilight_sunset	low contrast,outdoor,natural light,sunrise-sunset,urban,partly cloudy	brick,evening,road,garage,hedge,house,apartments,driveway	
+ulmer_muenster	outdoor,urban,morning-afternoon,clear,high contrast,natural light	sun,europe,architecture,church,square,building	
+umhlanga_sunrise	outdoor,skies,nature,sunrise-sunset,partly cloudy,natural light,low contrast,collection: smugglers_cove	sun,beach,ocean,wave,sand,backplates	
+under_bridge	outdoor,urban,sunrise-sunset,partly cloudy,high contrast,natural light	sun,bridge,underpass,pillar,column,city,skyline	
+unfinished_office	natural light,indoor,urban,morning-afternoon,low contrast	room,empty,construction,office,door,white	
+unfinished_office_night	artificial light,urban,night,indoor,medium contrast	room,empty,construction,office,door,white	
+university_workshop	indoor,urban,natural light,medium contrast,midday	machine,workshop,tools,carpentry,workbench,spacious,industrial,concrete floor,high ceiling	
+urban_alley_01	outdoor,urban,morning-afternoon,clear,medium contrast,natural light	alley,city,narrow,europe,asphalt	
+urban_courtyard	outdoor,urban,morning-afternoon,partly cloudy,high contrast,natural light	building,path,bank,statue,backplates	
+urban_courtyard_02	outdoor,urban,morning-afternoon,overcast,low contrast,natural light	city,street,building,asphalt,fence,apartments,backplates	
+urban_street_01	outdoor,urban,morning-afternoon,overcast,low contrast,natural light	europe,london,tree,road,asphalt,car,street,building,city	
+urban_street_02	outdoor,urban,morning-afternoon,overcast,low contrast,natural light	street,alley,city,asphalt,building,europe,london,road,fence	
+urban_street_03	outdoor,urban,morning-afternoon,overcast,low contrast,natural light	road,london,europe,street,apartment,asphalt	
+urban_street_04	outdoor,urban,morning-afternoon,high contrast,natural light,partly cloudy	road,street,london,europe,asphalt	
+ushaka_dolphin_stadium	outdoor,urban,natural light,low contrast,overcast,midday	sea world,amphitheater,marine show,empty stands,dolphin pool,concrete seating,canopy roof	
+ushaka_sea_world_aquarium	indoor,urban,artificial light,medium contrast	aquarium,water,window,tank,wooden floor,wooden ceiling,wooden beams,pirate,ship,museum,shipwreck	
+valley_of_desolation	outdoor,nature,natural light,high contrast,clear,morning-afternoon,skies	sun,view,hilltop,rock formation,desert canyon,mesa,rocky outcrop,cliff edge,scrubland	
+vatican_road	outdoor,urban,sunrise-sunset,clear,medium contrast,natural light	road,building,architecture,europe,rome,church,car,street,city,backplates	
+veld_fire	outdoor,skies,nature,midday,clear,high contrast,natural light	path,grass,fire,radio,tower,burnt,sun	
+venetian_crossroads	outdoor,urban,midday,clear,high contrast,natural light	sun,europe,building,architecture,street,town,brick,intersection,backplates	
+venice_dawn_1	outdoor,skies,nature,urban,sunrise-sunset,partly cloudy,low contrast,natural light	europe,venice,architecture,road,river,street,backplates	
+venice_dawn_2	outdoor,urban,sunrise-sunset,clear,low contrast,natural light	europe,venice,architecture,building,river,boat,lamp,square,street,backplates	
+venice_sunrise	outdoor,urban,sunrise-sunset,clear,medium contrast,natural light	sun,europe,venice,architecture,building,river,boat,lamp,square,street,backplates	
+venice_sunset	outdoor,skies,nature,urban,sunrise-sunset,clear,medium contrast,natural light	sun,europe,architecture,building,street,town,ocean,river,cobblestone	
+veranda	indoor,outdoor,urban,morning-afternoon,medium contrast,natural light	table,tile,brick,patio,veranda,porch	
+versveldpas	outdoor,skies,nature,midday,clear,high contrast,natural light	road,sun,view,vista,mountain,valley,cliff,backplates	
+vestibule	indoor,natural light,medium contrast,urban	wooden floor,victorian,high ceiling,arch,architecture,europe,building,pillar,backplates	
+viale_giuseppe_garibaldi	outdoor,urban,night,clear,high contrast,artificial light	tree,europe,lamp,stone,gravel,statue,fence,path,park,backplates	
+victoria_curve_01	outdoor,natural light,nature,partly cloudy,medium contrast,morning-afternoon	street,road,asphalt,curve,bench,tree,ocean,coastal,hill,sun	
+victoria_curve_02	outdoor,natural light,nature,partly cloudy,medium contrast,morning-afternoon	street,road,asphalt,curve,barrier,ocean,coastal,parking,hill	
+victoria_sunset	outdoor,natural light,nature,partly cloudy,medium contrast,sunrise-sunset	sun,road,asphalt,street,straight,ocean,mountain,stairs,barrier,coastal,cape town	
+vignaioli	outdoor,urban,midday,overcast,low contrast,natural light	europe,building,view,ocean,art,roof,balcony,marina,town,hill,square,backplates	
+vignaioli_night	outdoor,urban,night,partly cloudy,high contrast,artificial light	europe,building,architecture,lamp,city,street,town,square,rain,backplates	
+vintage_measuring_lab	indoor,urban,medium contrast,natural light,artificial light	machine,industrial,workshop,laboratory	
+voortrekker_interior	indoor,urban,natural light,medium contrast,low contrast,morning-afternoon	arch,architecture,tile,window,door,museum,sculpture	
+vulture_hide	indoor,urban,medium contrast,natural light	hide,bench,brick,window	
+warm_bar	indoor,urban,artificial light,night,medium contrast	pub,bar,stool,bench,counter,fridge,bottle,rafters,cozy,drinks,tiles,wood	
+warm_reception_dinner	indoor,artificial light,urban,medium contrast,morning-afternoon	lamp,windows,table,chair,chandelier,fireplace,barn door,concrete floor,rustic,wedding,banquet,exposed brick	
+warm_restaurant	indoor,medium contrast,natural light,urban,morning-afternoon	window,table,restaurant,chair,tiles,bench,animal skin,rafters,dining,cozy,fireplace,seat	
+warm_restaurant_night	indoor,urban,artificial light,night,medium contrast	restaurant,seat,chair,bench,animal skin,dining,rafters,window,table,tiles,cozy,fireplace	
+wasteland_clouds	outdoor,skies,nature,sunrise-sunset,partly cloudy,medium contrast,natural light	sun,grass,field	
+wasteland_clouds_puresky	outdoor,skies,nature,sunrise-sunset,partly cloudy,medium contrast,natural light,pure skies	pure skies	
+waterbuck_trail	outdoor,skies,nature,midday,overcast,low contrast,natural light	rock,tree,mountain,hill,valley	
+waterkloof_farm	outdoor,nature,natural light,high contrast,partly cloudy,skies,morning-afternoon	sun,field,dirt road,farm,rural,dry,countryside	
+whale_skeleton	indoor,urban,medium contrast,artificial light	museum,bone,whale,skeleton	
+whipple_creek_gazebo	outdoor,nature,midday,clear,high contrast,natural light	tree,sun,thatch,leaves,camp	
+whipple_creek_regional_park_01	outdoor,nature,midday,overcast,low contrast,natural light	tree,park,path,forest	
+whipple_creek_regional_park_04	outdoor,nature,midday,overcast,medium contrast,natural light	tree,path,park,forest	
+white_chapel	indoor,urban,natural light,medium contrast,midday	church,wedding,thatch,vaulted ceiling,religion,chapel,round window,symmetrical	
+white_cliff_top	outdoor,skies,nature,morning-afternoon,partly cloudy,high contrast,natural light	rock,ocean,sun,view,cliff,backplates	
+white_home_studio	studio,indoor,artificial light,urban,high contrast,medium contrast	lamp,white,photo,softbox,umbrella,rectangle,infinity	
+white_studio_01	studio,indoor,artificial light,urban,medium contrast	lamp,white,photo,infinity,umbrella,high ceiling	
+white_studio_02	studio,indoor,artificial light,urban,low contrast	lamp,white,photo,infinity,umbrella,high ceiling,grid,dark ceiling	
+white_studio_03	studio,indoor,artificial light,urban,medium contrast	lamp,white,photo,infinity,umbrella,high ceiling,grid,dark ceiling	
+white_studio_04	studio,indoor,artificial light,urban,low contrast	lamp,white,photo,infinity,dark ceiling,umbrella,soft,high ceiling	
+white_studio_05	studio,indoor,artificial light,urban,low contrast	lamp,white,photo,infinity,high ceiling,soft,umbrella	
+white_studio_06	studio,indoor,urban,low contrast,natural light	white,photo,infinity,high ceiling,soft,skylight	
+wide_street_01	outdoor,urban,midday,clear,high contrast,natural light	sun,road,street,asphalt,city,backplates	
+wide_street_02	outdoor,urban,morning-afternoon,clear,high contrast,natural light	asphalt,city,road,street,sun,backplates	
+wildflower_field	outdoor,natural light,nature,clear,sunrise-sunset,skies,low contrast	field,flower,path,tree,grass,farm,rural	
+winter_evening	outdoor,urban,night,overcast,medium contrast,artificial light	building,architecture,europe,pillar,snow,winter,lamp	
+winter_lake_01	outdoor,skies,nature,sunrise-sunset,partly cloudy,low contrast,natural light	field,lake,snow,winter,frozen	
+winter_orchard	natural light,outdoor,nature,partly cloudy,sunrise-sunset,low contrast	tree,grass,farm	
+winter_river	outdoor,skies,nature,morning-afternoon,partly cloudy,high contrast,natural light	sun,snow,field,bridge,tree,ice,frozen	
+winter_sky	outdoor,skies,nature,morning-afternoon,clear,high contrast,natural light	sun,tree,dam,lake,grass,path,reeds	
+witsand_woolshop	indoor,urban,natural light,artificial light,medium contrast,morning-afternoon	shop,table,wool,wood,yarn,spinning wheel,crochet,fabric,colorful	
+wobbly_bridge	outdoor,nature,clear,morning-afternoon,medium contrast,natural light	tree,bridge,river,rope,long grass,path	
+wooden_lounge	indoor,urban,high contrast,artificial light	couch,wood,lamp,table	
+wooden_motel	outdoor,urban,morning-afternoon,clear,high contrast,natural light	tree,sun,building,cabin,path,backplates	
+wooden_studio_01	studio,indoor,artificial light,urban,medium contrast	lamp,photo,rectangle,wooden ceiling,wood,black floor	
+wooden_studio_02	studio,indoor,artificial light,urban,medium contrast	lamp,photo,rectangle,wooden ceiling,wood,black floor,softbox	
+wooden_studio_03	studio,indoor,artificial light,urban,medium contrast	umbrella,lamp,photo,rectangle,wooden ceiling,wood,black floor,softbox	
+wooden_studio_04	studio,artificial light,indoor,urban,low contrast	umbrella,lamp,photo,rectangle,wooden ceiling,wood,black floor,softbox	
+wooden_studio_05	studio,indoor,artificial light,urban,low contrast	lamp,photo,rectangle,wooden ceiling,wood,black floor,softbox,soft	
+wooden_studio_06	studio,indoor,artificial light,urban,medium contrast	lamp,photo,rectangle,wooden ceiling,wood,black floor,softbox	
+wooden_studio_07	studio,indoor,artificial light,urban,medium contrast,high contrast	red,lamp,photo,rectangle,wooden ceiling,wood,black floor	
+wooden_studio_08	studio,indoor,artificial light,urban,medium contrast,high contrast	lamp,photo,rectangle,wooden ceiling,wood,black floor	
+wooden_studio_09	studio,indoor,artificial light,urban,high contrast	black floor,led panel,rectangle,lamp,blue,red,teal,wooden ceiling,photo	
+wooden_studio_10	studio,indoor,artificial light,urban,high contrast	black floor,wooden ceiling,led panel,rectangle,blue,pink,orange,softbox,photo	
+wooden_studio_11	studio,indoor,artificial light,urban,high contrast	wooden ceiling,rectangle,diffuser,black floor,lamp,blue,orange,softbox,photo	
+wooden_studio_12	studio,indoor,artificial light,urban,medium contrast	wooden ceiling,diffuser,black floor,lamp,pink,yellow,photo	
+wooden_studio_13	studio,indoor,artificial light,urban,high contrast	wooden ceiling,umbrella,diffuser,pink,green,black floor,lamp,photo	
+wooden_studio_14	studio,indoor,artificial light,urban,high contrast	wooden ceiling,black floor,lamp,red,green,blue,led panel,photo	
+wooden_studio_15	studio,indoor,artificial light,urban,high contrast,medium contrast	black floor,lamp,softbox,soft,white,photo	
+wooden_studio_16	studio,indoor,artificial light,urban,medium contrast	black floor,lamp,softbox,soft,white,photo	
+wooden_studio_17	studio,indoor,artificial light,urban,medium contrast,low contrast	black floor,lamp,softbox,soft,white,photo	
+wooden_studio_18	studio,indoor,artificial light,urban,low contrast	wooden ceiling,black floor,lamp,white,umbrella,photo	
+wooden_studio_19	studio,indoor,artificial light,urban,low contrast	black floor,lamp,softbox,soft,white,rectangle,photo	
+woods	outdoor,nature,morning-afternoon,medium contrast,natural light	tree,dirt,forest,river,autumn	
+workshop	indoor,high contrast,artificial light,urban	fluorescent,lamp,table,workshop,machine,tools,concrete,mess	
+wrestling_gym	indoor,urban,natural light,low contrast,midday,morning-afternoon	gym,exercise,mat,windows,empty,hall,fitness,backplates	
+xanderklinge	outdoor,nature,midday,overcast,low contrast,natural light	tree,rock,river,log,forest,waterfall,stream	
+xiequ_yuan	outdoor,midday,clear,high contrast,natural light	tree,china,pond,asia,building,fish,sun,architecture	
+yaris_interior_garage	indoor,urban,midday,medium contrast,natural light,artificial light	car,driver,seat,garage	
+yellow_field	outdoor,skies,nature,morning-afternoon,partly cloudy,high contrast,natural light	tree,grass,field,path,sun	
+yoga_room	indoor,urban,artificial light,medium contrast	mirror,gym,wooden floor,window,high ceiling,backplates	
+zavelstein	outdoor,urban,midday,overcast,low contrast,natural light	tree,brick,castle,medieval,europe,bench,dirt,ruin	
+zawiszy_czarnego	outdoor,natural light,partly cloudy,morning-afternoon,low contrast,urban	street,city,facade,street light,asphalt,cobblestone,sidewalk,trees,hedge,windows,apartments	
+zhengyang_gate	outdoor,urban,morning-afternoon,clear,high contrast,natural light	sun,china,building,architecture,square	
+zwartkops_curve_afternoon	outdoor,urban,natural light,high contrast,clear,midday	sun,road,track,asphalt,race,curve,barrier,circuit,sand,grass,backplates	
+zwartkops_curve_morning	outdoor,natural light,clear,high contrast,morning-afternoon,urban	sun,road,track,asphalt,race,curve,barrier,circuit,sand,grass,backplates	
+zwartkops_curve_sunset	outdoor,urban,natural light,sunrise-sunset,clear,high contrast	sun,road,track,asphalt,race,curve,barrier,circuit,sand,grass,backplates	
+zwartkops_pit	outdoor,indoor,natural light,medium contrast,urban,midday	race,track,pit,parking,concrete,covered,barrier,pillar,backplates	
+zwartkops_start_afternoon	outdoor,natural light,urban,high contrast,clear,midday	sun,road,track,asphalt,race,straight,grid,barrier,circuit,backplates	
+zwartkops_start_morning	outdoor,urban,clear,high contrast,natural light,sunrise-sunset	sun,road,track,asphalt,race,straight,grid,barrier,circuit,backplates	
+zwartkops_start_sunset	outdoor,urban,clear,high contrast,natural light,sunrise-sunset	sun,road,track,asphalt,race,straight,grid,barrier,circuit,backplates	
+zwartkops_straight_afternoon	outdoor,urban,skies,natural light,clear,high contrast,midday	sun,road,track,asphalt,race,straight,barrier,circuit,backplates	
+zwartkops_straight_morning	outdoor,urban,skies,natural light,clear,morning-afternoon,high contrast	sun,road,track,asphalt,race,straight,barrier,circuit,backplates	
+zwartkops_straight_sunset	outdoor,urban,skies,natural light,clear,sunrise-sunset,low contrast	sun,road,track,asphalt,race,straight,barrier,circuit,backplates	
+zwinger_night	outdoor,urban,night,overcast,high contrast,artificial light	lamp,europe,architecture,building,square	
