@@ -19,12 +19,12 @@
    "W": 960,
    "H": 540,
    "spp": 64,
-   "ev": -1.1928943658938636,
+   "ev": 0.25319942869672835,
    "tod": "golden",
    "position": [
-    23.5,
+    22.5,
     0.72,
-    26.2
+    23.599999999999998
    ],
    "lookAt": [
     6.5,
@@ -35,8 +35,8 @@
    "name": "3/4 view from the street, golden hour",
    "kind": null,
    "lens": 24.0,
-   "shift_y": 0.1016,
-   "seconds": 40.3
+   "shift_y": 0.1139,
+   "seconds": 57.3
   },
   {
    "id": "street-dusk",
@@ -46,7 +46,7 @@
    "W": 960,
    "H": 540,
    "spp": 64,
-   "ev": 2.3698430652993787,
+   "ev": 2.256920582723358,
    "tod": "dusk",
    "position": [
     7,
@@ -63,9 +63,9 @@
    "kind": null,
    "lens": 18.0,
    "shift_y": 0.1752,
-   "seconds": 91.1
+   "seconds": 326.3
   }
  ],
- "seconds": 135.0,
+ "seconds": 400.6,
  "blender": "4.2.3 LTS"
 }

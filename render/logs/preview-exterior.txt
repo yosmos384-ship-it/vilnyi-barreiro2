@@ -1,21 +1,38 @@
 [    0.0s] job preview-exterior: scope=exterior unit=None pkg=None quality=preview shots=2
-[    0.5s] import building: 401 objects in 0.5s
-[    0.7s] import context: 123 objects in 0.3s
-[    0.9s] box UVs on 463 meshes
-[    1.2s] materials: built=125 textured=32 by_key={'aluminium-frame': 1, 'asphalt': 1, 'bark': 1, 'brass': 10, 'brick-facade': 1, 'car-glass': 1, 'car-light': 2, 'car-paint': 10, 'ceiling': 1, 'ceiling-white': 1, 'concrete': 3, 'deck-teak': 1, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'epoxy-floor': 1, 'floor-main': 1, 'foliage': 16, 'garage-door': 1, 'glass-railing': 2, 'glass-window': 3, 'gravel': 2, 'handrail-steel': 1, 'kerb-stone': 1, 'lawn': 3, 'led-strip-emissive': 6, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'mirror': 1, 'paint-marking': 8, 'paving-calcada': 2, 'planter-concrete': 1, 'plaster-white': 2, 'pv-panel': 1, 'render-cream': 1, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 2, 'skirting': 1, 'soil': 3, 'steel-dark': 11, 'stone-coping': 2, 'timber-slats': 1, 'zinc-standing-seam': 2}
-[    1.2s] lights: imported=2 emissive->lights=0 portals=0 boost=3.0 total_lights=2 polys=183568
-[    1.7s] [world] syferfontein_18d_clear_puresky 4096x2048 sun=True sun_E=13.182 sky_E=0.635
-[    1.9s] [world] sun at bearing 234.0 alt 18.4  E=65.9 W/m2(phot) = 45000 lux  sky x4.998
-[    1.9s] scene ready in 1.9s  (world syferfontein_18d_clear_puresky)
-[    3.3s] [expo] Lavg=0.1169 p99=5.715 ev=0.62 ev_hi=-1.19 -> -1.19
-[   42.1s] SHOT street-golden-34 still 960x540 spp<=64 ev=-1.19 in 40.3s -> renders/preview/exterior/street-golden-34.jpg
-[   42.7s] import building: 401 objects in 0.5s
-[   42.9s] import context: 123 objects in 0.3s
-[   43.1s] box UVs on 463 meshes
-[   43.3s] materials: built=250 textured=64 by_key={'aluminium-frame': 2, 'asphalt': 2, 'bark': 2, 'brass': 20, 'brick-facade': 2, 'car-glass': 2, 'car-light': 4, 'car-paint': 20, 'ceiling': 2, 'ceiling-white': 2, 'concrete': 6, 'deck-teak': 2, 'door-interior': 2, 'door-walnut': 2, 'downlight-emissive': 4, 'epoxy-floor': 2, 'floor-main': 2, 'foliage': 32, 'garage-door': 2, 'glass-railing': 4, 'glass-window': 6, 'gravel': 4, 'handrail-steel': 2, 'kerb-stone': 2, 'lawn': 6, 'led-strip-emissive': 12, 'lift-steel': 16, 'lobby-floor-stone': 2, 'lobby-wall-walnut-slats': 2, 'mirror': 2, 'paint-marking': 16, 'paving-calcada': 4, 'planter-concrete': 2, 'plaster-white': 4, 'pv-panel': 2, 'render-cream': 2, 'render-white': 4, 'roof-tile-terracotta': 2, 'rubber': 4, 'skirting': 2, 'soil': 6, 'steel-dark': 22, 'stone-coping': 4, 'timber-slats': 2, 'zinc-standing-seam': 4}
-[   43.3s] lights: imported=2 emissive->lights=600 portals=0 boost=6.0 total_lights=602 polys=183568
-[   43.7s] [world] qwantani_dusk_2_puresky 4096x2048 sun=False sun_E=0.000 sky_E=3.545
-[   43.9s] scene ready in 1.8s  (world qwantani_dusk_2_puresky)
-[   45.6s] [expo] Lavg=0.0165 p99=0.4837 ev=2.98 ev_hi=2.37 -> 2.37
-[  135.0s] SHOT street-dusk still 960x540 spp<=64 ev=2.37 in 91.1s -> renders/preview/exterior/street-dusk.jpg
-[  135.0s] DONE 2 images in 135.0s
+[    0.7s] import building: 401 objects in 0.6s
+[    1.0s] import context: 123 objects in 0.3s
+[    1.2s] import unit-0.A-atlantic: 87 objects in 0.3s
+[    1.6s] import unit-0.B-atlantic: 94 objects in 0.3s
+[    1.9s] import unit-1.A-atlantic: 85 objects in 0.3s
+[    2.2s] import unit-1.B-atlantic: 86 objects in 0.3s
+[    2.6s] import unit-1.C-atlantic: 94 objects in 0.4s
+[    3.0s] import unit-2.A-atlantic: 80 objects in 0.4s
+[    3.4s] import unit-2.B-atlantic: 79 objects in 0.4s
+[    3.9s] import unit-2.C-atlantic: 87 objects in 0.5s
+[    4.7s] box UVs on 1131 meshes
+[    7.4s] materials: built=714 textured=250 by_key={'aluminium-frame': 1, 'appliance-glass-black': 17, 'appliance-steel': 8, 'art-canvas': 31, 'asphalt': 1, 'bark': 5, 'bath-floor': 8, 'bath-wall': 8, 'book': 34, 'brass': 10, 'brick-facade': 1, 'bulb-emissive': 16, 'candle-wax': 8, 'car-glass': 1, 'car-light': 2, 'car-paint': 10, 'ceiling': 9, 'ceiling-white': 1, 'ceramic-plate': 24, 'concrete': 3, 'curtain-fabric': 5, 'cutlery-steel': 8, 'deck-teak': 15, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 10, 'epoxy-floor': 1, 'fabric-boucle': 12, 'fabric-linen': 96, 'fabric-sofa': 11, 'floor-main': 17, 'foliage': 24, 'fruit': 46, 'garage-door': 1, 'glass-drinking': 8, 'glass-railing': 2, 'glass-window': 3, 'gravel': 2, 'handrail-steel': 1, 'joinery-wardrobe': 8, 'kerb-stone': 1, 'kitchen-front': 8, 'kitchen-splashback': 8, 'kitchen-worktop': 8, 'lamp-shade': 8, 'lawn': 3, 'led-strip-emissive': 14, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 32, 'mirror': 9, 'paint-marking': 8, 'paving-calcada': 2, 'plant-leaf': 14, 'planter-concrete': 1, 'plaster-white': 2, 'pot-terracotta': 5, 'pv-panel': 1, 'render-cream': 1, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 2, 'rug': 8, 'sanitary-ceramic': 24, 'shower-glass': 8, 'shower-wall': 7, 'skirting': 1, 'soil': 11, 'steel-dark': 11, 'stone-coping': 2, 'timber-slats': 1, 'wall-paint': 8, 'window-sheer': 5, 'wine': 8, 'wood-furniture': 8, 'zinc-standing-seam': 2}
+[    7.5s] lights: imported=18 emissive->lights=0 portals=0 boost=3.0 total_lights=18 polys=630088
+[    8.0s] [world] syferfontein_18d_clear_puresky 4096x2048 sun=True sun_E=13.182 sky_E=0.635
+[    8.2s] [world] sun at bearing 222.0 alt 18.4  E=65.9 W/m2(phot) = 45000 lux  sky x4.998
+[    8.2s] scene ready in 8.2s  (world syferfontein_18d_clear_puresky)
+[   10.7s] [expo] Lavg=0.05998 p99=2.098 ev=1.59 ev_hi=0.25 -> 0.25
+[   65.5s] SHOT street-golden-34 still 960x540 spp<=64 ev=0.25 in 57.3s -> renders/preview/exterior/street-golden-34.jpg
+[   66.3s] import building: 401 objects in 0.6s
+[   66.7s] import context: 123 objects in 0.3s
+[   66.9s] import unit-0.A-atlantic: 87 objects in 0.3s
+[   67.3s] import unit-0.B-atlantic: 94 objects in 0.3s
+[   67.6s] import unit-1.A-atlantic: 85 objects in 0.3s
+[   67.9s] import unit-1.B-atlantic: 86 objects in 0.3s
+[   68.4s] import unit-1.C-atlantic: 94 objects in 0.5s
+[   68.8s] import unit-2.A-atlantic: 80 objects in 0.4s
+[   69.2s] import unit-2.B-atlantic: 79 objects in 0.4s
+[   69.7s] import unit-2.C-atlantic: 87 objects in 0.5s
+[   70.4s] box UVs on 1131 meshes
+[   73.3s] materials: built=714 textured=250 by_key={'aluminium-frame': 1, 'appliance-glass-black': 17, 'appliance-steel': 8, 'art-canvas': 31, 'asphalt': 1, 'bark': 5, 'bath-floor': 8, 'bath-wall': 8, 'book': 34, 'brass': 10, 'brick-facade': 1, 'bulb-emissive': 16, 'candle-wax': 8, 'car-glass': 1, 'car-light': 2, 'car-paint': 10, 'ceiling': 9, 'ceiling-white': 1, 'ceramic-plate': 24, 'concrete': 3, 'curtain-fabric': 5, 'cutlery-steel': 8, 'deck-teak': 15, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 10, 'epoxy-floor': 1, 'fabric-boucle': 12, 'fabric-linen': 96, 'fabric-sofa': 11, 'floor-main': 17, 'foliage': 24, 'fruit': 46, 'garage-door': 1, 'glass-drinking': 8, 'glass-railing': 2, 'glass-window': 3, 'gravel': 2, 'handrail-steel': 1, 'joinery-wardrobe': 8, 'kerb-stone': 1, 'kitchen-front': 8, 'kitchen-splashback': 8, 'kitchen-worktop': 8, 'lamp-shade': 8, 'lawn': 3, 'led-strip-emissive': 14, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 32, 'mirror': 9, 'paint-marking': 8, 'paving-calcada': 2, 'plant-leaf': 14, 'planter-concrete': 1, 'plaster-white': 2, 'pot-terracotta': 5, 'pv-panel': 1, 'render-cream': 1, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 2, 'rug': 8, 'sanitary-ceramic': 24, 'shower-glass': 8, 'shower-wall': 7, 'skirting': 1, 'soil': 11, 'steel-dark': 11, 'stone-coping': 2, 'timber-slats': 1, 'wall-paint': 8, 'window-sheer': 5, 'wine': 8, 'wood-furniture': 8, 'zinc-standing-seam': 2}
+[   73.5s] lights: imported=18 emissive->lights=1706 portals=0 boost=6.0 total_lights=1724 polys=630088
+[   74.0s] [world] syferfontein_6d_clear_puresky 4096x2048 sun=True sun_E=7.828 sky_E=1.038
+[   74.2s] [world] sun at bearing 246.0 alt 5.8  E=20.5 W/m2(phot) = 14000 lux  sky x2.619
+[   74.2s] scene ready in 8.7s  (world syferfontein_6d_clear_puresky)
+[   80.5s] [expo] Lavg=0.0272 p99=0.4257 ev=2.26 ev_hi=2.55 -> 2.26
+[  400.6s] SHOT street-dusk still 960x540 spp<=64 ev=2.26 in 326.3s -> renders/preview/exterior/street-dusk.jpg
+[  400.6s] DONE 2 images in 400.6s
