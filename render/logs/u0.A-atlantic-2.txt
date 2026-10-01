@@ -1,0 +1,18 @@
+[    0.0s] job u0.A-atlantic-2: scope=unit unit=0.A pkg=atlantic quality=standard shots=4
+[    0.7s] import building: 401 objects in 0.6s
+[    1.0s] import context: 123 objects in 0.3s
+[    1.3s] import unit-0.A-atlantic: 87 objects in 0.3s
+[    1.6s] box UVs on 547 meshes
+[    2.6s] materials: built=199 textured=60 by_key={'aluminium-frame': 1, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 3, 'asphalt': 1, 'bark': 2, 'bath-floor': 1, 'bath-wall': 1, 'book': 3, 'brass': 10, 'brick-facade': 1, 'bulb-emissive': 2, 'candle-wax': 1, 'car-glass': 1, 'car-light': 2, 'car-paint': 10, 'ceiling': 2, 'ceiling-white': 1, 'ceramic-plate': 3, 'concrete': 3, 'curtain-fabric': 1, 'cutlery-steel': 1, 'deck-teak': 2, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 3, 'epoxy-floor': 1, 'fabric-boucle': 1, 'fabric-linen': 12, 'fabric-sofa': 2, 'floor-main': 3, 'foliage': 17, 'fruit': 6, 'garage-door': 1, 'glass-drinking': 1, 'glass-railing': 2, 'glass-window': 3, 'gravel': 2, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 1, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 3, 'led-strip-emissive': 7, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 4, 'mirror': 2, 'paint-marking': 8, 'paving-calcada': 2, 'plant-leaf': 3, 'planter-concrete': 1, 'plaster-white': 2, 'pot-terracotta': 1, 'pv-panel': 1, 'render-cream': 1, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 2, 'rug': 1, 'sanitary-ceramic': 3, 'shower-glass': 1, 'shower-wall': 1, 'skirting': 1, 'soil': 4, 'steel-dark': 11, 'stone-coping': 2, 'timber-slats': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 1, 'zinc-standing-seam': 2}
+[    2.6s] lights: imported=4 emissive->lights=202 portals=14 boost=2.5 total_lights=220 polys=238252
+[    3.2s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[    3.5s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[    3.5s] scene ready in 3.5s  (world kloofendal_43d_clear_puresky)
+[   14.1s] [expo] Lavg=0.08547 p95=4.282 ev=1.23 ev_hi=-0.78 -> -0.78 sky=None
+[   14.1s] [wb] gains (0.828, 1.0, 1.287)
+[ 2402.8s] SHOT 0.A-living still 2400x1350 spp<=96 ev=-0.78 in 2399.4s -> renders/units/0.A/atlantic/0.A-living.jpg
+[ 2411.2s] [expo] Lavg=0.008715 p95=0.2057 ev=4.52 ev_hi=3.60 -> 3.60 sky=None
+[ 2411.2s] [wb] gains (0.634, 1.0, 1.6)
+[ 4752.5s] SHOT 0.A-bedroom still 2400x1350 spp<=96 ev=3.60 in 2349.6s -> renders/units/0.A/atlantic/0.A-bedroom.jpg
+[ 4759.6s] [expo] Lavg=0.005508 p95=0.1976 ev=5.18 ev_hi=3.66 -> 3.66 sky=None
+[ 4759.6s] [wb] gains (0.625, 1.0, 1.6)
