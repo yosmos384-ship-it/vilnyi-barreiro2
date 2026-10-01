@@ -157,6 +157,20 @@ def link_panos(panos, D, floor_id):
                 panos[j]['links'].append(i)
 
 
+def jpeg_size(p):
+    with open(p, 'rb') as f:
+        d = f.read(200000)
+    i = 2
+    while i < len(d) - 9:
+        if d[i] != 0xFF:
+            i += 1; continue
+        m = d[i + 1]
+        if m in (0xC0, 0xC1, 0xC2):
+            return int.from_bytes(d[i + 7:i + 9], 'big'), int.from_bytes(d[i + 5:i + 7], 'big')
+        i += 2 + int.from_bytes(d[i + 2:i + 4], 'big')
+    return None, None
+
+
 def main():
     D = load_data()
     floor_of = {u['id']: u['floor'] for u in (D or {}).get('UNITS', [])}
@@ -174,6 +188,31 @@ def main():
             j = d['job']
             k = (j['scope'], j.get('unit'), j.get('pkg'), s['id'])
             shots[k] = s
+    # recover renders whose shots-*.json was overwritten by a later shard (synthesised from cameras.json + the JPEG)
+    try:
+        cams = json.load(open(os.path.join(ROOT, 'render', 'scenes', 'cameras.json')))
+        for unit, ud in cams.get('unitsData', {}).items():
+            for pkg, pd in ud.get('packages', {}).items():
+                for i, h in enumerate(pd.get('hotspots', [])):
+                    k = ('unit', unit, pkg, h['id'])
+                    rel = f'renders/units/{unit}/{pkg}/{h["id"]}.jpg'
+                    if k in shots or not os.path.exists(os.path.join(ROOT, rel)):
+                        continue
+                    W, H = jpeg_size(os.path.join(ROOT, rel))
+                    dx, dz = h['lookAt'][0] - h['position'][0], h['lookAt'][2] - h['position'][2]
+                    shots[k] = dict(id=h['id'], type='pano', file=rel, thumb=f'renders/units/{unit}/{pkg}/thumbs/{h["id"]}.jpg',
+                                    W=W, H=H, position=h['position'], lookAt=h['lookAt'], roomId=h.get('roomId'), name=h.get('name'),
+                                    yawOffset=round(math.atan2(-dx, -dz), 5), index=i)
+                for c in ud.get('hero', []):
+                    k = ('unit', unit, pkg, c['id'])
+                    rel = f'renders/units/{unit}/{pkg}/{c["id"]}.jpg'
+                    if k in shots or not os.path.exists(os.path.join(ROOT, rel)):
+                        continue
+                    W, H = jpeg_size(os.path.join(ROOT, rel))
+                    shots[k] = dict(id=c['id'], type='still', file=rel, thumb=f'renders/units/{unit}/{pkg}/thumbs/{c["id"]}.jpg', W=W, H=H,
+                                    position=c['position'], lookAt=c['lookAt'], roomId=c.get('roomId'), name=c.get('roomName'), kind=c.get('kind'), lens=c.get('lens_mm'))
+    except Exception as e:
+        print('recovery failed', e)
     man = {'version': 1, 'generated': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
            'conventions': {
                'position': 'three.js world metres (Y-up), eye point of the panorama',

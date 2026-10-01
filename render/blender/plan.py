@@ -64,10 +64,11 @@ def main():
                     chunks.append(stills)   # stills in their own shard (~1.5 h)
                 for k, ch in enumerate(chunks):
                     shots = list(ch)
+                    kname = 's' if (stills and ch is chunks[-1]) else str(k)   # unique shard names (shots-<name>.json)
                     if not shots:
                         continue
                     jobs.append(dict(scope='unit', unit=u, pkg=p, quality=q, tod=a.tod, shots=shots, out=f'renders/units/{u}/{p}',
-                                     name=f'u{u}-{p}-{k}', opts=opts))
+                                     name=f'u{u}-{p}-{kname}', opts=opts))
     mat = {'include': [{'name': j['name'], 'job': json.dumps(j, separators=(',', ':'))} for j in jobs]}
     print(f'count={len(jobs)}')
     print('matrix=' + json.dumps(mat, separators=(',', ':')))
