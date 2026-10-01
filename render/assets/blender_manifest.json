@@ -15,8 +15,8 @@
     },
     "page": "https://ambientcg.com/view?id=Plaster001",
     "sizeMeters": [
-     1.0,
-     1.0
+     2,
+     2
     ]
    }
   },
@@ -34,8 +34,8 @@
     },
     "page": "https://ambientcg.com/view?id=Plaster003",
     "sizeMeters": [
-     1.0,
-     1.0
+     2,
+     2
     ]
    }
   },
@@ -53,8 +53,8 @@
     },
     "page": "https://ambientcg.com/view?id=Plaster003",
     "sizeMeters": [
-     1.0,
-     1.0
+     2,
+     2
     ]
    }
   },
@@ -80,22 +80,24 @@
   "zinc-standing-seam": {
    "default": {
     "source": "ambientcg",
-    "id": "CorrugatedSteel009",
-    "zip2k": "https://ambientcg.com/get?file=CorrugatedSteel009_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=CorrugatedSteel009_4K-JPG.zip",
+    "id": "Metal032",
+    "zip2k": "https://ambientcg.com/get?file=Metal032_2K-JPG.zip",
+    "zip4k": "https://ambientcg.com/get?file=Metal032_4K-JPG.zip",
     "files": {
-     "ao": "CorrugatedSteel009_2K-JPG_AmbientOcclusion.jpg",
-     "albedo": "CorrugatedSteel009_2K-JPG_Color.jpg",
-     "disp": "CorrugatedSteel009_2K-JPG_Displacement.jpg",
-     "metal": "CorrugatedSteel009_2K-JPG_Metalness.jpg",
-     "normal": "CorrugatedSteel009_2K-JPG_NormalGL.jpg",
-     "roughness": "CorrugatedSteel009_2K-JPG_Roughness.jpg"
+     "albedo": "Metal032_2K-JPG_Color.jpg",
+     "disp": "Metal032_2K-JPG_Displacement.jpg",
+     "metal": "Metal032_2K-JPG_Metalness.jpg",
+     "normal": "Metal032_2K-JPG_NormalGL.jpg",
+     "roughness": "Metal032_2K-JPG_Roughness.jpg"
     },
-    "page": "https://ambientcg.com/view?id=CorrugatedSteel009",
+    "page": "https://ambientcg.com/view?id=Metal032",
     "sizeMeters": [
      1.0,
      1.0
-    ]
+    ],
+    "bake": {
+     "multiply": "#80858c"
+    }
    }
   },
   "stone-coping": {
@@ -179,8 +181,8 @@
     },
     "page": "https://ambientcg.com/view?id=Metal027",
     "sizeMeters": [
-     1.0,
-     1.0
+     1,
+     1
     ]
    }
   },
@@ -199,8 +201,8 @@
     },
     "page": "https://ambientcg.com/view?id=Metal046A",
     "sizeMeters": [
-     1.0,
-     1.0
+     1,
+     1
     ]
    }
   },
@@ -273,29 +275,33 @@
     },
     "page": "https://ambientcg.com/view?id=Metal030",
     "sizeMeters": [
-     1.0,
-     1.0
+     2,
+     2
     ]
    }
   },
   "paving-calcada": {
    "default": {
     "source": "ambientcg",
-    "id": "PavingStones046",
-    "zip2k": "https://ambientcg.com/get?file=PavingStones046_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=PavingStones046_4K-JPG.zip",
+    "id": "PavingStones150",
+    "zip2k": "https://ambientcg.com/get?file=PavingStones150_2K-JPG.zip",
+    "zip4k": "https://ambientcg.com/get?file=PavingStones150_4K-JPG.zip",
     "files": {
-     "ao": "PavingStones046_2K-JPG_AmbientOcclusion.jpg",
-     "albedo": "PavingStones046_2K-JPG_Color.jpg",
-     "disp": "PavingStones046_2K-JPG_Displacement.jpg",
-     "normal": "PavingStones046_2K-JPG_NormalGL.jpg",
-     "roughness": "PavingStones046_2K-JPG_Roughness.jpg"
+     "ao": "PavingStones150_2K-JPG_AmbientOcclusion.jpg",
+     "albedo": "PavingStones150_2K-JPG_Color.jpg",
+     "disp": "PavingStones150_2K-JPG_Displacement.jpg",
+     "normal": "PavingStones150_2K-JPG_NormalGL.jpg",
+     "roughness": "PavingStones150_2K-JPG_Roughness.jpg"
     },
-    "page": "https://ambientcg.com/view?id=PavingStones046",
+    "page": "https://ambientcg.com/view?id=PavingStones150",
     "sizeMeters": [
-     1.0,
-     1.0
-    ]
+     0.9,
+     0.9
+    ],
+    "bake": {
+     "saturation": 0.25,
+     "brightness": 1.45
+    }
    }
   },
   "asphalt": {
@@ -312,8 +318,8 @@
     },
     "page": "https://ambientcg.com/view?id=Asphalt015",
     "sizeMeters": [
-     1.0,
-     1.0
+     2.5,
+     2.5
     ]
    }
   },
@@ -331,8 +337,8 @@
     },
     "page": "https://ambientcg.com/view?id=Granite005A",
     "sizeMeters": [
-     1.0,
-     1.0
+     0.8,
+     0.8
     ]
    }
   },
@@ -410,29 +416,35 @@
     },
     "page": "https://ambientcg.com/view?id=Concrete016",
     "sizeMeters": [
-     1.0,
-     1.0
+     1.5,
+     1.5
     ]
    }
   },
   "roof-tile-terracotta": {
    "default": {
-    "source": "ambientcg",
-    "id": "RoofingTiles012A",
-    "zip2k": "https://ambientcg.com/get?file=RoofingTiles012A_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=RoofingTiles012A_4K-JPG.zip",
-    "files": {
-     "ao": "RoofingTiles012A_2K-JPG_AmbientOcclusion.jpg",
-     "albedo": "RoofingTiles012A_2K-JPG_Color.jpg",
-     "disp": "RoofingTiles012A_2K-JPG_Displacement.jpg",
-     "normal": "RoofingTiles012A_2K-JPG_NormalGL.jpg",
-     "opacity": "RoofingTiles012A_2K-JPG_Opacity.jpg",
-     "roughness": "RoofingTiles012A_2K-JPG_Roughness.jpg"
+    "source": "polyhaven",
+    "id": "clay_roof_tiles_02",
+    "maps2k": {
+     "albedo": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/clay_roof_tiles_02/clay_roof_tiles_02_diff_2k.jpg",
+     "normal": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/clay_roof_tiles_02/clay_roof_tiles_02_nor_gl_2k.jpg",
+     "roughness": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/clay_roof_tiles_02/clay_roof_tiles_02_rough_2k.jpg",
+     "ao": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/clay_roof_tiles_02/clay_roof_tiles_02_ao_2k.jpg",
+     "disp": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/clay_roof_tiles_02/clay_roof_tiles_02_disp_2k.jpg",
+     "_arm": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/clay_roof_tiles_02/clay_roof_tiles_02_arm_2k.jpg"
     },
-    "page": "https://ambientcg.com/view?id=RoofingTiles012A",
+    "maps4k": {
+     "albedo": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/clay_roof_tiles_02/clay_roof_tiles_02_diff_4k.jpg",
+     "normal": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/clay_roof_tiles_02/clay_roof_tiles_02_nor_gl_4k.jpg",
+     "roughness": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/clay_roof_tiles_02/clay_roof_tiles_02_rough_4k.jpg",
+     "ao": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/clay_roof_tiles_02/clay_roof_tiles_02_ao_4k.jpg",
+     "disp": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/clay_roof_tiles_02/clay_roof_tiles_02_disp_4k.jpg",
+     "_arm": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/clay_roof_tiles_02/clay_roof_tiles_02_arm_4k.jpg"
+    },
+    "page": "https://polyhaven.com/a/clay_roof_tiles_02",
     "sizeMeters": [
-     2.9,
-     2.9
+     2.5,
+     2.5
     ]
    }
   },
@@ -512,19 +524,19 @@
   "lobby-floor-stone": {
    "default": {
     "source": "ambientcg",
-    "id": "Tiles078",
-    "zip2k": "https://ambientcg.com/get?file=Tiles078_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=Tiles078_4K-JPG.zip",
+    "id": "Marble024",
+    "zip2k": "https://ambientcg.com/get?file=Marble024_2K-JPG.zip",
+    "zip4k": "https://ambientcg.com/get?file=Marble024_4K-JPG.zip",
     "files": {
-     "albedo": "Tiles078_2K-JPG_Color.jpg",
-     "disp": "Tiles078_2K-JPG_Displacement.jpg",
-     "normal": "Tiles078_2K-JPG_NormalGL.jpg",
-     "roughness": "Tiles078_2K-JPG_Roughness.jpg"
+     "albedo": "Marble024_2K-JPG_Color.jpg",
+     "disp": "Marble024_2K-JPG_Displacement.jpg",
+     "normal": "Marble024_2K-JPG_NormalGL.jpg",
+     "roughness": "Marble024_2K-JPG_Roughness.jpg"
     },
-    "page": "https://ambientcg.com/view?id=Tiles078",
+    "page": "https://ambientcg.com/view?id=Marble024",
     "sizeMeters": [
-     1.0,
-     1.0
+     1.2,
+     1.2
     ]
    }
   },
@@ -550,19 +562,19 @@
   "landing-floor-stone": {
    "default": {
     "source": "ambientcg",
-    "id": "Tiles078",
-    "zip2k": "https://ambientcg.com/get?file=Tiles078_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=Tiles078_4K-JPG.zip",
+    "id": "Marble024",
+    "zip2k": "https://ambientcg.com/get?file=Marble024_2K-JPG.zip",
+    "zip4k": "https://ambientcg.com/get?file=Marble024_4K-JPG.zip",
     "files": {
-     "albedo": "Tiles078_2K-JPG_Color.jpg",
-     "disp": "Tiles078_2K-JPG_Displacement.jpg",
-     "normal": "Tiles078_2K-JPG_NormalGL.jpg",
-     "roughness": "Tiles078_2K-JPG_Roughness.jpg"
+     "albedo": "Marble024_2K-JPG_Color.jpg",
+     "disp": "Marble024_2K-JPG_Displacement.jpg",
+     "normal": "Marble024_2K-JPG_NormalGL.jpg",
+     "roughness": "Marble024_2K-JPG_Roughness.jpg"
     },
-    "page": "https://ambientcg.com/view?id=Tiles078",
+    "page": "https://ambientcg.com/view?id=Marble024",
     "sizeMeters": [
-     1.0,
-     1.0
+     1.2,
+     1.2
     ]
    }
   },
@@ -580,8 +592,8 @@
     },
     "page": "https://ambientcg.com/view?id=Marble014",
     "sizeMeters": [
-     1.0,
-     1.0
+     1.2,
+     1.2
     ]
    }
   },
@@ -600,8 +612,8 @@
     },
     "page": "https://ambientcg.com/view?id=Metal009",
     "sizeMeters": [
-     1.0,
-     1.0
+     1,
+     1
     ]
    }
   },
@@ -620,8 +632,8 @@
     },
     "page": "https://ambientcg.com/view?id=Metal011",
     "sizeMeters": [
-     1.0,
-     1.0
+     1,
+     1
     ]
    }
   },
@@ -668,8 +680,8 @@
     },
     "page": "https://ambientcg.com/view?id=PaintedPlaster017",
     "sizeMeters": [
-     1.0,
-     1.0
+     2,
+     2
     ]
    }
   },
@@ -687,27 +699,27 @@
     },
     "page": "https://ambientcg.com/view?id=PaintedPlaster017",
     "sizeMeters": [
-     1.0,
-     1.0
+     2,
+     2
     ]
    }
   },
   "skirting": {
    "default": {
     "source": "ambientcg",
-    "id": "Plastic010",
-    "zip2k": "https://ambientcg.com/get?file=Plastic010_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=Plastic010_4K-JPG.zip",
+    "id": "Plastic013A",
+    "zip2k": "https://ambientcg.com/get?file=Plastic013A_2K-JPG.zip",
+    "zip4k": "https://ambientcg.com/get?file=Plastic013A_4K-JPG.zip",
     "files": {
-     "albedo": "Plastic010_2K-JPG_Color.jpg",
-     "disp": "Plastic010_2K-JPG_Displacement.jpg",
-     "normal": "Plastic010_2K-JPG_NormalGL.jpg",
-     "roughness": "Plastic010_2K-JPG_Roughness.jpg"
+     "albedo": "Plastic013A_2K-JPG_Color.jpg",
+     "disp": "Plastic013A_2K-JPG_Displacement.jpg",
+     "normal": "Plastic013A_2K-JPG_NormalGL.jpg",
+     "roughness": "Plastic013A_2K-JPG_Roughness.jpg"
     },
-    "page": "https://ambientcg.com/view?id=Plastic010",
+    "page": "https://ambientcg.com/view?id=Plastic013A",
     "sizeMeters": [
-     1.0,
-     1.0
+     1,
+     1
     ]
    },
    "atlantic": {
@@ -778,17 +790,17 @@
   "brass": {
    "default": {
     "source": "ambientcg",
-    "id": "Metal034",
-    "zip2k": "https://ambientcg.com/get?file=Metal034_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=Metal034_4K-JPG.zip",
+    "id": "Metal048A",
+    "zip2k": "https://ambientcg.com/get?file=Metal048A_2K-JPG.zip",
+    "zip4k": "https://ambientcg.com/get?file=Metal048A_4K-JPG.zip",
     "files": {
-     "albedo": "Metal034_2K-JPG_Color.jpg",
-     "disp": "Metal034_2K-JPG_Displacement.jpg",
-     "metal": "Metal034_2K-JPG_Metalness.jpg",
-     "normal": "Metal034_2K-JPG_NormalGL.jpg",
-     "roughness": "Metal034_2K-JPG_Roughness.jpg"
+     "albedo": "Metal048A_2K-JPG_Color.jpg",
+     "disp": "Metal048A_2K-JPG_Displacement.jpg",
+     "metal": "Metal048A_2K-JPG_Metalness.jpg",
+     "normal": "Metal048A_2K-JPG_NormalGL.jpg",
+     "roughness": "Metal048A_2K-JPG_Roughness.jpg"
     },
-    "page": "https://ambientcg.com/view?id=Metal034",
+    "page": "https://ambientcg.com/view?id=Metal048A",
     "sizeMeters": [
      1.0,
      1.0
@@ -797,20 +809,28 @@
   },
   "floor-main": {
    "atlantic": {
-    "source": "ambientcg",
-    "id": "WoodFloor062",
-    "zip2k": "https://ambientcg.com/get?file=WoodFloor062_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=WoodFloor062_4K-JPG.zip",
-    "files": {
-     "albedo": "WoodFloor062_2K-JPG_Color.jpg",
-     "disp": "WoodFloor062_2K-JPG_Displacement.jpg",
-     "normal": "WoodFloor062_2K-JPG_NormalGL.jpg",
-     "roughness": "WoodFloor062_2K-JPG_Roughness.jpg"
+    "source": "polyhaven",
+    "id": "oak_wood_planks",
+    "maps2k": {
+     "albedo": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_wood_planks/oak_wood_planks_diff_2k.jpg",
+     "normal": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_wood_planks/oak_wood_planks_nor_gl_2k.jpg",
+     "roughness": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_wood_planks/oak_wood_planks_rough_2k.jpg",
+     "ao": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_wood_planks/oak_wood_planks_ao_2k.jpg",
+     "disp": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_wood_planks/oak_wood_planks_disp_2k.jpg",
+     "_arm": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/oak_wood_planks/oak_wood_planks_arm_2k.jpg"
     },
-    "page": "https://ambientcg.com/view?id=WoodFloor062",
+    "maps4k": {
+     "albedo": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/oak_wood_planks/oak_wood_planks_diff_4k.jpg",
+     "normal": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/oak_wood_planks/oak_wood_planks_nor_gl_4k.jpg",
+     "roughness": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/oak_wood_planks/oak_wood_planks_rough_4k.jpg",
+     "ao": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/oak_wood_planks/oak_wood_planks_ao_4k.jpg",
+     "disp": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/oak_wood_planks/oak_wood_planks_disp_4k.jpg",
+     "_arm": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/oak_wood_planks/oak_wood_planks_arm_4k.jpg"
+    },
+    "page": "https://polyhaven.com/a/oak_wood_planks",
     "sizeMeters": [
-     1.0,
-     1.0
+     1.2,
+     1.2
     ]
    },
    "lisboa": {
@@ -827,26 +847,38 @@
     },
     "page": "https://ambientcg.com/view?id=WoodFloor014",
     "sizeMeters": [
-     1.0,
-     1.0
+     1.8,
+     1.8
     ]
    },
    "noir": {
-    "source": "ambientcg",
-    "id": "WoodFloor005",
-    "zip2k": "https://ambientcg.com/get?file=WoodFloor005_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=WoodFloor005_4K-JPG.zip",
-    "files": {
-     "albedo": "WoodFloor005_2K-JPG_Color.jpg",
-     "disp": "WoodFloor005_2K-JPG_Displacement.jpg",
-     "normal": "WoodFloor005_2K-JPG_NormalGL.jpg",
-     "roughness": "WoodFloor005_2K-JPG_Roughness.jpg"
+    "source": "polyhaven",
+    "id": "wood_floor",
+    "maps2k": {
+     "albedo": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/wood_floor/wood_floor_diff_2k.jpg",
+     "normal": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/wood_floor/wood_floor_nor_gl_2k.jpg",
+     "roughness": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/wood_floor/wood_floor_rough_2k.jpg",
+     "ao": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/wood_floor/wood_floor_ao_2k.jpg",
+     "disp": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/wood_floor/wood_floor_disp_2k.jpg",
+     "_arm": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/wood_floor/wood_floor_arm_2k.jpg"
     },
-    "page": "https://ambientcg.com/view?id=WoodFloor005",
+    "maps4k": {
+     "albedo": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/wood_floor/wood_floor_diff_4k.jpg",
+     "normal": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/wood_floor/wood_floor_nor_gl_4k.jpg",
+     "roughness": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/wood_floor/wood_floor_rough_4k.jpg",
+     "ao": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/wood_floor/wood_floor_ao_4k.jpg",
+     "disp": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/wood_floor/wood_floor_disp_4k.jpg",
+     "_arm": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/wood_floor/wood_floor_arm_4k.jpg"
+    },
+    "page": "https://polyhaven.com/a/wood_floor",
     "sizeMeters": [
-     1.0,
-     1.0
-    ]
+     1.7,
+     1.7
+    ],
+    "bake": {
+     "multiply": "#7a6a5c",
+     "saturation": 0.85
+    }
    }
   },
   "wall-paint": {
@@ -863,8 +895,8 @@
     },
     "page": "https://ambientcg.com/view?id=PaintedPlaster017",
     "sizeMeters": [
-     1.0,
-     1.0
+     2,
+     2
     ]
    },
    "lisboa": {
@@ -880,8 +912,8 @@
     },
     "page": "https://ambientcg.com/view?id=Plaster002",
     "sizeMeters": [
-     1.0,
-     1.0
+     2,
+     2
     ]
    },
    "noir": {
@@ -897,8 +929,8 @@
     },
     "page": "https://ambientcg.com/view?id=PaintedPlaster017",
     "sizeMeters": [
-     1.0,
-     1.0
+     2,
+     2
     ]
    }
   },
@@ -959,8 +991,8 @@
     },
     "page": "https://ambientcg.com/view?id=Concrete030",
     "sizeMeters": [
-     1.0,
-     1.0
+     2,
+     2
     ]
    }
   },
@@ -978,27 +1010,27 @@
     },
     "page": "https://ambientcg.com/view?id=PaintedPlaster017",
     "sizeMeters": [
-     1.0,
-     1.0
+     2,
+     2
     ]
    }
   },
   "door-interior": {
    "atlantic": {
     "source": "ambientcg",
-    "id": "Plastic010",
-    "zip2k": "https://ambientcg.com/get?file=Plastic010_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=Plastic010_4K-JPG.zip",
+    "id": "Plastic013A",
+    "zip2k": "https://ambientcg.com/get?file=Plastic013A_2K-JPG.zip",
+    "zip4k": "https://ambientcg.com/get?file=Plastic013A_4K-JPG.zip",
     "files": {
-     "albedo": "Plastic010_2K-JPG_Color.jpg",
-     "disp": "Plastic010_2K-JPG_Displacement.jpg",
-     "normal": "Plastic010_2K-JPG_NormalGL.jpg",
-     "roughness": "Plastic010_2K-JPG_Roughness.jpg"
+     "albedo": "Plastic013A_2K-JPG_Color.jpg",
+     "disp": "Plastic013A_2K-JPG_Displacement.jpg",
+     "normal": "Plastic013A_2K-JPG_NormalGL.jpg",
+     "roughness": "Plastic013A_2K-JPG_Roughness.jpg"
     },
-    "page": "https://ambientcg.com/view?id=Plastic010",
+    "page": "https://ambientcg.com/view?id=Plastic013A",
     "sizeMeters": [
-     1.0,
-     1.0
+     1,
+     1
     ]
    },
    "lisboa": {
@@ -1059,23 +1091,23 @@
     },
     "page": "https://ambientcg.com/view?id=Metal009",
     "sizeMeters": [
-     1.0,
-     1.0
+     1,
+     1
     ]
    },
    "lisboa": {
     "source": "ambientcg",
-    "id": "Metal034",
-    "zip2k": "https://ambientcg.com/get?file=Metal034_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=Metal034_4K-JPG.zip",
+    "id": "Metal048A",
+    "zip2k": "https://ambientcg.com/get?file=Metal048A_2K-JPG.zip",
+    "zip4k": "https://ambientcg.com/get?file=Metal048A_4K-JPG.zip",
     "files": {
-     "albedo": "Metal034_2K-JPG_Color.jpg",
-     "disp": "Metal034_2K-JPG_Displacement.jpg",
-     "metal": "Metal034_2K-JPG_Metalness.jpg",
-     "normal": "Metal034_2K-JPG_NormalGL.jpg",
-     "roughness": "Metal034_2K-JPG_Roughness.jpg"
+     "albedo": "Metal048A_2K-JPG_Color.jpg",
+     "disp": "Metal048A_2K-JPG_Displacement.jpg",
+     "metal": "Metal048A_2K-JPG_Metalness.jpg",
+     "normal": "Metal048A_2K-JPG_NormalGL.jpg",
+     "roughness": "Metal048A_2K-JPG_Roughness.jpg"
     },
-    "page": "https://ambientcg.com/view?id=Metal034",
+    "page": "https://ambientcg.com/view?id=Metal048A",
     "sizeMeters": [
      1.0,
      1.0
@@ -1083,21 +1115,24 @@
    },
    "noir": {
     "source": "ambientcg",
-    "id": "Metal008",
-    "zip2k": "https://ambientcg.com/get?file=Metal008_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=Metal008_4K-JPG.zip",
+    "id": "Metal048A",
+    "zip2k": "https://ambientcg.com/get?file=Metal048A_2K-JPG.zip",
+    "zip4k": "https://ambientcg.com/get?file=Metal048A_4K-JPG.zip",
     "files": {
-     "albedo": "Metal008_2K-JPG_Color.jpg",
-     "disp": "Metal008_2K-JPG_Displacement.jpg",
-     "metal": "Metal008_2K-JPG_Metalness.jpg",
-     "normal": "Metal008_2K-JPG_NormalGL.jpg",
-     "roughness": "Metal008_2K-JPG_Roughness.jpg"
+     "albedo": "Metal048A_2K-JPG_Color.jpg",
+     "disp": "Metal048A_2K-JPG_Displacement.jpg",
+     "metal": "Metal048A_2K-JPG_Metalness.jpg",
+     "normal": "Metal048A_2K-JPG_NormalGL.jpg",
+     "roughness": "Metal048A_2K-JPG_Roughness.jpg"
     },
-    "page": "https://ambientcg.com/view?id=Metal008",
+    "page": "https://ambientcg.com/view?id=Metal048A",
     "sizeMeters": [
      1.0,
      1.0
-    ]
+    ],
+    "bake": {
+     "multiply": "#b08a63"
+    }
    }
   },
   "bath-floor": {
@@ -1114,8 +1149,8 @@
     },
     "page": "https://ambientcg.com/view?id=Tiles002",
     "sizeMeters": [
-     1.0,
-     1.0
+     2.4,
+     2.4
     ]
    },
    "lisboa": {
@@ -1131,8 +1166,8 @@
     },
     "page": "https://ambientcg.com/view?id=Tiles078",
     "sizeMeters": [
-     1.0,
-     1.0
+     2.0,
+     2.0
     ]
    },
    "noir": {
@@ -1167,25 +1202,25 @@
     },
     "page": "https://ambientcg.com/view?id=Tiles040",
     "sizeMeters": [
-     1.0,
-     1.0
+     4.8,
+     4.8
     ]
    },
    "lisboa": {
     "source": "ambientcg",
-    "id": "Marble001",
-    "zip2k": "https://ambientcg.com/get?file=Marble001_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=Marble001_4K-JPG.zip",
+    "id": "Marble021",
+    "zip2k": "https://ambientcg.com/get?file=Marble021_2K-JPG.zip",
+    "zip4k": "https://ambientcg.com/get?file=Marble021_4K-JPG.zip",
     "files": {
-     "albedo": "Marble001_2K-JPG_Color.jpg",
-     "disp": "Marble001_2K-JPG_Displacement.jpg",
-     "normal": "Marble001_2K-JPG_NormalGL.jpg",
-     "roughness": "Marble001_2K-JPG_Roughness.jpg"
+     "albedo": "Marble021_2K-JPG_Color.jpg",
+     "disp": "Marble021_2K-JPG_Displacement.jpg",
+     "normal": "Marble021_2K-JPG_NormalGL.jpg",
+     "roughness": "Marble021_2K-JPG_Roughness.jpg"
     },
-    "page": "https://ambientcg.com/view?id=Marble001",
+    "page": "https://ambientcg.com/view?id=Marble021",
     "sizeMeters": [
-     1.0,
-     1.0
+     1.4,
+     1.4
     ]
    },
    "noir": {
@@ -1201,8 +1236,8 @@
     },
     "page": "https://ambientcg.com/view?id=Marble016",
     "sizeMeters": [
-     1.0,
-     1.0
+     1.4,
+     1.4
     ]
    }
   },
@@ -1220,8 +1255,8 @@
     },
     "page": "https://ambientcg.com/view?id=Tiles040",
     "sizeMeters": [
-     1.0,
-     1.0
+     4.8,
+     4.8
     ]
    },
    "lisboa": {
@@ -1238,8 +1273,8 @@
     },
     "page": "https://ambientcg.com/view?id=Tiles101",
     "sizeMeters": [
-     1.0,
-     1.0
+     1.2,
+     1.2
     ]
    },
    "noir": {
@@ -1256,8 +1291,8 @@
     },
     "page": "https://ambientcg.com/view?id=Concrete030",
     "sizeMeters": [
-     1.0,
-     1.0
+     2,
+     2
     ]
    }
   },
@@ -1288,8 +1323,8 @@
     },
     "page": "https://ambientcg.com/view?id=Porcelain001",
     "sizeMeters": [
-     1.0,
-     1.0
+     1,
+     1
     ]
    },
    "noir": {
@@ -1305,8 +1340,8 @@
     },
     "page": "https://ambientcg.com/view?id=Marble002",
     "sizeMeters": [
-     1.0,
-     1.0
+     1.5,
+     1.5
     ]
    }
   },
@@ -1325,23 +1360,23 @@
     },
     "page": "https://ambientcg.com/view?id=Metal049A",
     "sizeMeters": [
-     1.0,
-     1.0
+     1,
+     1
     ]
    },
    "lisboa": {
     "source": "ambientcg",
-    "id": "Metal034",
-    "zip2k": "https://ambientcg.com/get?file=Metal034_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=Metal034_4K-JPG.zip",
+    "id": "Metal048A",
+    "zip2k": "https://ambientcg.com/get?file=Metal048A_2K-JPG.zip",
+    "zip4k": "https://ambientcg.com/get?file=Metal048A_4K-JPG.zip",
     "files": {
-     "albedo": "Metal034_2K-JPG_Color.jpg",
-     "disp": "Metal034_2K-JPG_Displacement.jpg",
-     "metal": "Metal034_2K-JPG_Metalness.jpg",
-     "normal": "Metal034_2K-JPG_NormalGL.jpg",
-     "roughness": "Metal034_2K-JPG_Roughness.jpg"
+     "albedo": "Metal048A_2K-JPG_Color.jpg",
+     "disp": "Metal048A_2K-JPG_Displacement.jpg",
+     "metal": "Metal048A_2K-JPG_Metalness.jpg",
+     "normal": "Metal048A_2K-JPG_NormalGL.jpg",
+     "roughness": "Metal048A_2K-JPG_Roughness.jpg"
     },
-    "page": "https://ambientcg.com/view?id=Metal034",
+    "page": "https://ambientcg.com/view?id=Metal048A",
     "sizeMeters": [
      1.0,
      1.0
@@ -1349,57 +1384,63 @@
    },
    "noir": {
     "source": "ambientcg",
-    "id": "Metal008",
-    "zip2k": "https://ambientcg.com/get?file=Metal008_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=Metal008_4K-JPG.zip",
+    "id": "Metal048A",
+    "zip2k": "https://ambientcg.com/get?file=Metal048A_2K-JPG.zip",
+    "zip4k": "https://ambientcg.com/get?file=Metal048A_4K-JPG.zip",
     "files": {
-     "albedo": "Metal008_2K-JPG_Color.jpg",
-     "disp": "Metal008_2K-JPG_Displacement.jpg",
-     "metal": "Metal008_2K-JPG_Metalness.jpg",
-     "normal": "Metal008_2K-JPG_NormalGL.jpg",
-     "roughness": "Metal008_2K-JPG_Roughness.jpg"
+     "albedo": "Metal048A_2K-JPG_Color.jpg",
+     "disp": "Metal048A_2K-JPG_Displacement.jpg",
+     "metal": "Metal048A_2K-JPG_Metalness.jpg",
+     "normal": "Metal048A_2K-JPG_NormalGL.jpg",
+     "roughness": "Metal048A_2K-JPG_Roughness.jpg"
     },
-    "page": "https://ambientcg.com/view?id=Metal008",
+    "page": "https://ambientcg.com/view?id=Metal048A",
     "sizeMeters": [
      1.0,
      1.0
-    ]
+    ],
+    "bake": {
+     "multiply": "#b08a63"
+    }
    }
   },
   "kitchen-front": {
    "atlantic": {
     "source": "ambientcg",
-    "id": "Plastic010",
-    "zip2k": "https://ambientcg.com/get?file=Plastic010_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=Plastic010_4K-JPG.zip",
+    "id": "Plastic013A",
+    "zip2k": "https://ambientcg.com/get?file=Plastic013A_2K-JPG.zip",
+    "zip4k": "https://ambientcg.com/get?file=Plastic013A_4K-JPG.zip",
     "files": {
-     "albedo": "Plastic010_2K-JPG_Color.jpg",
-     "disp": "Plastic010_2K-JPG_Displacement.jpg",
-     "normal": "Plastic010_2K-JPG_NormalGL.jpg",
-     "roughness": "Plastic010_2K-JPG_Roughness.jpg"
+     "albedo": "Plastic013A_2K-JPG_Color.jpg",
+     "disp": "Plastic013A_2K-JPG_Displacement.jpg",
+     "normal": "Plastic013A_2K-JPG_NormalGL.jpg",
+     "roughness": "Plastic013A_2K-JPG_Roughness.jpg"
     },
-    "page": "https://ambientcg.com/view?id=Plastic010",
+    "page": "https://ambientcg.com/view?id=Plastic013A",
     "sizeMeters": [
-     1.0,
-     1.0
+     1,
+     1
     ]
    },
    "lisboa": {
     "source": "ambientcg",
-    "id": "Plastic010",
-    "zip2k": "https://ambientcg.com/get?file=Plastic010_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=Plastic010_4K-JPG.zip",
+    "id": "Plastic013A",
+    "zip2k": "https://ambientcg.com/get?file=Plastic013A_2K-JPG.zip",
+    "zip4k": "https://ambientcg.com/get?file=Plastic013A_4K-JPG.zip",
     "files": {
-     "albedo": "Plastic010_2K-JPG_Color.jpg",
-     "disp": "Plastic010_2K-JPG_Displacement.jpg",
-     "normal": "Plastic010_2K-JPG_NormalGL.jpg",
-     "roughness": "Plastic010_2K-JPG_Roughness.jpg"
+     "albedo": "Plastic013A_2K-JPG_Color.jpg",
+     "disp": "Plastic013A_2K-JPG_Displacement.jpg",
+     "normal": "Plastic013A_2K-JPG_NormalGL.jpg",
+     "roughness": "Plastic013A_2K-JPG_Roughness.jpg"
     },
-    "page": "https://ambientcg.com/view?id=Plastic010",
+    "page": "https://ambientcg.com/view?id=Plastic013A",
     "sizeMeters": [
-     1.0,
-     1.0
-    ]
+     1,
+     1
+    ],
+    "bake": {
+     "multiply": "#34506f"
+    }
    },
    "noir": {
     "source": "polyhaven",
@@ -1441,25 +1482,25 @@
     },
     "page": "https://ambientcg.com/view?id=Marble025",
     "sizeMeters": [
-     1.0,
-     1.0
+     1.5,
+     1.5
     ]
    },
    "lisboa": {
     "source": "ambientcg",
-    "id": "Marble012",
-    "zip2k": "https://ambientcg.com/get?file=Marble012_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=Marble012_4K-JPG.zip",
+    "id": "Marble019",
+    "zip2k": "https://ambientcg.com/get?file=Marble019_2K-JPG.zip",
+    "zip4k": "https://ambientcg.com/get?file=Marble019_4K-JPG.zip",
     "files": {
-     "albedo": "Marble012_2K-JPG_Color.jpg",
-     "disp": "Marble012_2K-JPG_Displacement.jpg",
-     "normal": "Marble012_2K-JPG_NormalGL.jpg",
-     "roughness": "Marble012_2K-JPG_Roughness.jpg"
+     "albedo": "Marble019_2K-JPG_Color.jpg",
+     "disp": "Marble019_2K-JPG_Displacement.jpg",
+     "normal": "Marble019_2K-JPG_NormalGL.jpg",
+     "roughness": "Marble019_2K-JPG_Roughness.jpg"
     },
-    "page": "https://ambientcg.com/view?id=Marble012",
+    "page": "https://ambientcg.com/view?id=Marble019",
     "sizeMeters": [
-     1.0,
-     1.0
+     1.5,
+     1.5
     ]
    },
    "noir": {
@@ -1475,27 +1516,28 @@
     },
     "page": "https://ambientcg.com/view?id=Marble002",
     "sizeMeters": [
-     1.0,
-     1.0
+     1.5,
+     1.5
     ]
    }
   },
   "kitchen-splashback": {
    "atlantic": {
     "source": "ambientcg",
-    "id": "Marble025",
-    "zip2k": "https://ambientcg.com/get?file=Marble025_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=Marble025_4K-JPG.zip",
+    "id": "Tiles010",
+    "zip2k": "https://ambientcg.com/get?file=Tiles010_2K-JPG.zip",
+    "zip4k": "https://ambientcg.com/get?file=Tiles010_4K-JPG.zip",
     "files": {
-     "albedo": "Marble025_2K-JPG_Color.jpg",
-     "disp": "Marble025_2K-JPG_Displacement.jpg",
-     "normal": "Marble025_2K-JPG_NormalGL.jpg",
-     "roughness": "Marble025_2K-JPG_Roughness.jpg"
+     "ao": "Tiles010_2K-JPG_AmbientOcclusion.jpg",
+     "albedo": "Tiles010_2K-JPG_Color.jpg",
+     "disp": "Tiles010_2K-JPG_Displacement.jpg",
+     "normal": "Tiles010_2K-JPG_NormalGL.jpg",
+     "roughness": "Tiles010_2K-JPG_Roughness.jpg"
     },
-    "page": "https://ambientcg.com/view?id=Marble025",
+    "page": "https://ambientcg.com/view?id=Tiles010",
     "sizeMeters": [
-     1.0,
-     1.0
+     0.9,
+     0.9
     ]
    },
    "lisboa": {
@@ -1512,8 +1554,8 @@
     },
     "page": "https://ambientcg.com/view?id=Tiles101",
     "sizeMeters": [
-     1.0,
-     1.0
+     1.2,
+     1.2
     ]
    },
    "noir": {
@@ -1529,8 +1571,8 @@
     },
     "page": "https://ambientcg.com/view?id=Marble002",
     "sizeMeters": [
-     1.0,
-     1.0
+     1.5,
+     1.5
     ]
    }
   },
@@ -1549,8 +1591,8 @@
     },
     "page": "https://ambientcg.com/view?id=Metal009",
     "sizeMeters": [
-     1.0,
-     1.0
+     1,
+     1
     ]
    }
   },
@@ -1568,45 +1610,51 @@
     },
     "page": "https://ambientcg.com/view?id=Porcelain003",
     "sizeMeters": [
-     1.0,
-     1.0
+     1,
+     1
     ]
    }
   },
   "joinery-wardrobe": {
    "atlantic": {
     "source": "ambientcg",
-    "id": "Plastic010",
-    "zip2k": "https://ambientcg.com/get?file=Plastic010_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=Plastic010_4K-JPG.zip",
+    "id": "Plastic013A",
+    "zip2k": "https://ambientcg.com/get?file=Plastic013A_2K-JPG.zip",
+    "zip4k": "https://ambientcg.com/get?file=Plastic013A_4K-JPG.zip",
     "files": {
-     "albedo": "Plastic010_2K-JPG_Color.jpg",
-     "disp": "Plastic010_2K-JPG_Displacement.jpg",
-     "normal": "Plastic010_2K-JPG_NormalGL.jpg",
-     "roughness": "Plastic010_2K-JPG_Roughness.jpg"
+     "albedo": "Plastic013A_2K-JPG_Color.jpg",
+     "disp": "Plastic013A_2K-JPG_Displacement.jpg",
+     "normal": "Plastic013A_2K-JPG_NormalGL.jpg",
+     "roughness": "Plastic013A_2K-JPG_Roughness.jpg"
     },
-    "page": "https://ambientcg.com/view?id=Plastic010",
+    "page": "https://ambientcg.com/view?id=Plastic013A",
     "sizeMeters": [
-     1.0,
-     1.0
-    ]
+     1,
+     1
+    ],
+    "bake": {
+     "multiply": "#ece6dc"
+    }
    },
    "lisboa": {
     "source": "ambientcg",
-    "id": "Plastic010",
-    "zip2k": "https://ambientcg.com/get?file=Plastic010_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=Plastic010_4K-JPG.zip",
+    "id": "Plastic013A",
+    "zip2k": "https://ambientcg.com/get?file=Plastic013A_2K-JPG.zip",
+    "zip4k": "https://ambientcg.com/get?file=Plastic013A_4K-JPG.zip",
     "files": {
-     "albedo": "Plastic010_2K-JPG_Color.jpg",
-     "disp": "Plastic010_2K-JPG_Displacement.jpg",
-     "normal": "Plastic010_2K-JPG_NormalGL.jpg",
-     "roughness": "Plastic010_2K-JPG_Roughness.jpg"
+     "albedo": "Plastic013A_2K-JPG_Color.jpg",
+     "disp": "Plastic013A_2K-JPG_Displacement.jpg",
+     "normal": "Plastic013A_2K-JPG_NormalGL.jpg",
+     "roughness": "Plastic013A_2K-JPG_Roughness.jpg"
     },
-    "page": "https://ambientcg.com/view?id=Plastic010",
+    "page": "https://ambientcg.com/view?id=Plastic013A",
     "sizeMeters": [
-     1.0,
-     1.0
-    ]
+     1,
+     1
+    ],
+    "bake": {
+     "multiply": "#34506f"
+    }
    },
    "noir": {
     "source": "polyhaven",
@@ -1648,8 +1696,8 @@
     },
     "page": "https://ambientcg.com/view?id=Fabric032",
     "sizeMeters": [
-     1.0,
-     1.0
+     0.3,
+     0.3
     ]
    }
   },
@@ -1668,8 +1716,8 @@
     },
     "page": "https://ambientcg.com/view?id=Fabric036",
     "sizeMeters": [
-     1.0,
-     1.0
+     0.5,
+     0.5
     ]
    },
    "lisboa": {
@@ -1712,8 +1760,8 @@
     },
     "page": "https://ambientcg.com/view?id=Fabric031",
     "sizeMeters": [
-     1.0,
-     1.0
+     0.5,
+     0.5
     ]
    }
   },
@@ -1770,8 +1818,8 @@
     },
     "page": "https://ambientcg.com/view?id=Fabric031",
     "sizeMeters": [
-     1.0,
-     1.0
+     0.5,
+     0.5
     ]
    }
   },
@@ -1789,8 +1837,8 @@
     },
     "page": "https://ambientcg.com/view?id=Fabric032",
     "sizeMeters": [
-     1.0,
-     1.0
+     0.3,
+     0.3
     ]
    }
   },
@@ -1837,8 +1885,8 @@
     },
     "page": "https://ambientcg.com/view?id=Leather023",
     "sizeMeters": [
-     1.0,
-     1.0
+     0.6,
+     0.6
     ]
    },
    "noir": {
@@ -1854,8 +1902,8 @@
     },
     "page": "https://ambientcg.com/view?id=Leather026",
     "sizeMeters": [
-     1.0,
-     1.0
+     0.6,
+     0.6
     ]
    }
   },
@@ -1946,8 +1994,8 @@
     },
     "page": "https://ambientcg.com/view?id=Metal027",
     "sizeMeters": [
-     1.0,
-     1.0
+     1,
+     1
     ]
    },
    "atlantic": {
@@ -1955,17 +2003,17 @@
    },
    "lisboa": {
     "source": "ambientcg",
-    "id": "Metal034",
-    "zip2k": "https://ambientcg.com/get?file=Metal034_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=Metal034_4K-JPG.zip",
+    "id": "Metal048A",
+    "zip2k": "https://ambientcg.com/get?file=Metal048A_2K-JPG.zip",
+    "zip4k": "https://ambientcg.com/get?file=Metal048A_4K-JPG.zip",
     "files": {
-     "albedo": "Metal034_2K-JPG_Color.jpg",
-     "disp": "Metal034_2K-JPG_Displacement.jpg",
-     "metal": "Metal034_2K-JPG_Metalness.jpg",
-     "normal": "Metal034_2K-JPG_NormalGL.jpg",
-     "roughness": "Metal034_2K-JPG_Roughness.jpg"
+     "albedo": "Metal048A_2K-JPG_Color.jpg",
+     "disp": "Metal048A_2K-JPG_Displacement.jpg",
+     "metal": "Metal048A_2K-JPG_Metalness.jpg",
+     "normal": "Metal048A_2K-JPG_NormalGL.jpg",
+     "roughness": "Metal048A_2K-JPG_Roughness.jpg"
     },
-    "page": "https://ambientcg.com/view?id=Metal034",
+    "page": "https://ambientcg.com/view?id=Metal048A",
     "sizeMeters": [
      1.0,
      1.0
@@ -1973,39 +2021,42 @@
    },
    "noir": {
     "source": "ambientcg",
-    "id": "Metal008",
-    "zip2k": "https://ambientcg.com/get?file=Metal008_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=Metal008_4K-JPG.zip",
+    "id": "Metal048A",
+    "zip2k": "https://ambientcg.com/get?file=Metal048A_2K-JPG.zip",
+    "zip4k": "https://ambientcg.com/get?file=Metal048A_4K-JPG.zip",
     "files": {
-     "albedo": "Metal008_2K-JPG_Color.jpg",
-     "disp": "Metal008_2K-JPG_Displacement.jpg",
-     "metal": "Metal008_2K-JPG_Metalness.jpg",
-     "normal": "Metal008_2K-JPG_NormalGL.jpg",
-     "roughness": "Metal008_2K-JPG_Roughness.jpg"
+     "albedo": "Metal048A_2K-JPG_Color.jpg",
+     "disp": "Metal048A_2K-JPG_Displacement.jpg",
+     "metal": "Metal048A_2K-JPG_Metalness.jpg",
+     "normal": "Metal048A_2K-JPG_NormalGL.jpg",
+     "roughness": "Metal048A_2K-JPG_Roughness.jpg"
     },
-    "page": "https://ambientcg.com/view?id=Metal008",
+    "page": "https://ambientcg.com/view?id=Metal048A",
     "sizeMeters": [
      1.0,
      1.0
-    ]
+    ],
+    "bake": {
+     "multiply": "#b08a63"
+    }
    }
   },
   "marble-table": {
    "default": {
     "source": "ambientcg",
-    "id": "Marble012",
-    "zip2k": "https://ambientcg.com/get?file=Marble012_2K-JPG.zip",
-    "zip4k": "https://ambientcg.com/get?file=Marble012_4K-JPG.zip",
+    "id": "Marble019",
+    "zip2k": "https://ambientcg.com/get?file=Marble019_2K-JPG.zip",
+    "zip4k": "https://ambientcg.com/get?file=Marble019_4K-JPG.zip",
     "files": {
-     "albedo": "Marble012_2K-JPG_Color.jpg",
-     "disp": "Marble012_2K-JPG_Displacement.jpg",
-     "normal": "Marble012_2K-JPG_NormalGL.jpg",
-     "roughness": "Marble012_2K-JPG_Roughness.jpg"
+     "albedo": "Marble019_2K-JPG_Color.jpg",
+     "disp": "Marble019_2K-JPG_Displacement.jpg",
+     "normal": "Marble019_2K-JPG_NormalGL.jpg",
+     "roughness": "Marble019_2K-JPG_Roughness.jpg"
     },
-    "page": "https://ambientcg.com/view?id=Marble012",
+    "page": "https://ambientcg.com/view?id=Marble019",
     "sizeMeters": [
-     1.0,
-     1.0
+     1.5,
+     1.5
     ]
    },
    "noir": {
@@ -2021,8 +2072,8 @@
     },
     "page": "https://ambientcg.com/view?id=Marble016",
     "sizeMeters": [
-     1.0,
-     1.0
+     1.4,
+     1.4
     ]
    }
   },
@@ -2040,8 +2091,8 @@
     },
     "page": "https://ambientcg.com/view?id=Porcelain001",
     "sizeMeters": [
-     1.0,
-     1.0
+     1,
+     1
     ]
    }
   },
@@ -2073,8 +2124,8 @@
     },
     "page": "https://ambientcg.com/view?id=Metal049A",
     "sizeMeters": [
-     1.0,
-     1.0
+     1,
+     1
     ]
    }
   },
@@ -2115,8 +2166,8 @@
     },
     "page": "https://ambientcg.com/view?id=Clay003",
     "sizeMeters": [
-     1.0,
-     1.0
+     0.5,
+     0.5
     ]
    }
   },
@@ -2153,12 +2204,38 @@
     },
     "page": "https://ambientcg.com/view?id=Fabric045",
     "sizeMeters": [
-     1.0,
-     1.0
+     0.6,
+     0.6
     ]
    }
   },
-  "book": {},
+  "book": {
+   "default": {
+    "source": "polyhaven",
+    "id": "book_pattern",
+    "maps2k": {
+     "normal": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/book_pattern/book_pattern_nor_gl_2k.jpg",
+     "roughness": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/book_pattern/book_pattern_rough_2k.jpg",
+     "ao": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/book_pattern/book_pattern_ao_2k.jpg",
+     "disp": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/book_pattern/book_pattern_disp_2k.jpg",
+     "albedo": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/book_pattern/book_pattern_col1_2k.jpg",
+     "_arm": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/2k/book_pattern/book_pattern_arm_2k.jpg"
+    },
+    "maps4k": {
+     "normal": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/book_pattern/book_pattern_nor_gl_4k.jpg",
+     "roughness": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/book_pattern/book_pattern_rough_4k.jpg",
+     "ao": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/book_pattern/book_pattern_ao_4k.jpg",
+     "disp": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/book_pattern/book_pattern_disp_4k.jpg",
+     "albedo": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/book_pattern/book_pattern_col1_4k.jpg",
+     "_arm": "https://dl.polyhaven.org/file/ph-assets/Textures/jpg/4k/book_pattern/book_pattern_arm_4k.jpg"
+    },
+    "page": "https://polyhaven.com/a/book_pattern",
+    "sizeMeters": [
+     0.3,
+     0.3
+    ]
+   }
+  },
   "art-canvas": {
    "default": {
     "source": "ambientcg",
@@ -2173,8 +2250,8 @@
     },
     "page": "https://ambientcg.com/view?id=Fabric032",
     "sizeMeters": [
-     1.0,
-     1.0
+     0.3,
+     0.3
     ]
    }
   },
@@ -2192,8 +2269,8 @@
     },
     "page": "https://ambientcg.com/view?id=Fabric032",
     "sizeMeters": [
-     1.0,
-     1.0
+     0.3,
+     0.3
     ]
    }
   },
@@ -2678,6 +2755,138 @@
     "textures/brass_vase_01_diff_2k.jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/brass_vase_01/brass_vase_01_diff_2k.jpg",
     "textures/brass_vase_01_rough_2k.jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/brass_vase_01/brass_vase_01_rough_2k.jpg"
    }
+  },
+  "decorative_book_set_01": {
+   "id": "decorative_book_set_01",
+   "category": "books",
+   "blenderOnly": true,
+   "gltf2k": null,
+   "include2k": {},
+   "blend2k": "https://dl.polyhaven.org/file/ph-assets/Models/blend/2k/decorative_book_set_01/decorative_book_set_01_2k.blend",
+   "blendInclude2k": {
+    "textures/book_hardcover_01_roughness_2k.jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/decorative_book_set_01/book_hardcover_01_roughness_2k.jpg",
+    "textures/book_softcover_01_roughness_2k.jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/decorative_book_set_01/book_softcover_01_roughness_2k.jpg",
+    "textures/book_softcover_01_cover58_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover58_2k.png",
+    "textures/book_softcover_01_cover59_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover59_2k.png",
+    "textures/book_softcover_01_cover56_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover56_2k.png",
+    "textures/book_softcover_01_mask03_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_mask03_2k.png",
+    "textures/catalogue_softcover_01_cover10_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/catalogue_softcover_01_cover10_2k.png",
+    "textures/book_softcover_01_mask01_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_mask01_2k.png",
+    "textures/book_hardcover_01_mask03_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_mask03_2k.png",
+    "textures/book_hardcover_01_mask02_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_mask02_2k.png",
+    "textures/book_softcover_01_mask02_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_mask02_2k.png",
+    "textures/book_softcover_01_cover12_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover12_2k.png",
+    "textures/book_hardcover_01_cover29_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover29_2k.png",
+    "textures/magazine_01_mask03_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/magazine_01_mask03_2k.png",
+    "textures/book_hardcover_01_mask01_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_mask01_2k.png",
+    "textures/book_hardcover_01_cover36_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover36_2k.png",
+    "textures/book_hardcover_01_cover34_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover34_2k.png",
+    "textures/book_hardcover_01_cover65_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover65_2k.png",
+    "textures/book_softcover_01_cover14_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover14_2k.png",
+    "textures/magazine_01_mask01_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/magazine_01_mask01_2k.png",
+    "textures/book_softcover_01_cover61_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover61_2k.png",
+    "textures/catalogue_hardcover_01_roughness_2k.jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/decorative_book_set_01/catalogue_hardcover_01_roughness_2k.jpg",
+    "textures/book_softcover_01_cover27_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover27_2k.png",
+    "textures/book_hardcover_01_cover69_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover69_2k.png",
+    "textures/catalogue_hardcover_01_diff_2k.jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/decorative_book_set_01/catalogue_hardcover_01_diff_2k.jpg",
+    "textures/catalogue_softcover_01_nor_gl_2k.exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/decorative_book_set_01/catalogue_softcover_01_nor_gl_2k.exr",
+    "textures/book_softcover_01_cover25_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover25_2k.png",
+    "textures/book_softcover_01_cover52_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover52_2k.png",
+    "textures/catalogue_hardcover_01_nor_gl_2k.exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/decorative_book_set_01/catalogue_hardcover_01_nor_gl_2k.exr",
+    "textures/magazine_01_cover71_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/magazine_01_cover71_2k.png",
+    "textures/magazine_01_cover73_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/magazine_01_cover73_2k.png",
+    "textures/magazine_01_diff_2k.jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/decorative_book_set_01/magazine_01_diff_2k.jpg",
+    "textures/book_softcover_01_cover86_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover86_2k.png",
+    "textures/book_softcover_01_cover82_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover82_2k.png",
+    "textures/book_softcover_01_cover64_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover64_2k.png",
+    "textures/catalogue_softcover_01_diff_2k.jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/decorative_book_set_01/catalogue_softcover_01_diff_2k.jpg",
+    "textures/book_hardcover_01_cover06_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover06_2k.png",
+    "textures/book_hardcover_01_nor_gl_2k.exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/decorative_book_set_01/book_hardcover_01_nor_gl_2k.exr",
+    "textures/book_softcover_01_nor_gl_2k.exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/decorative_book_set_01/book_softcover_01_nor_gl_2k.exr",
+    "textures/book_hardcover_01_cover02_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover02_2k.png",
+    "textures/book_hardcover_01_cover24_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover24_2k.png",
+    "textures/magazine_01_cover16_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/magazine_01_cover16_2k.png",
+    "textures/book_hardcover_01_cover23_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover23_2k.png",
+    "textures/book_hardcover_01_cover35_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover35_2k.png",
+    "textures/book_hardcover_01_cover42_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover42_2k.png",
+    "textures/magazine_01_roughness_2k.jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/decorative_book_set_01/magazine_01_roughness_2k.jpg",
+    "textures/catalogue_hardcover_01_cover60_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/catalogue_hardcover_01_cover60_2k.png",
+    "textures/catalogue_softcover_01_roughness_2k.jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/decorative_book_set_01/catalogue_softcover_01_roughness_2k.jpg",
+    "textures/book_hardcover_01_cover68_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover68_2k.png",
+    "textures/book_softcover_01_cover28_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover28_2k.png",
+    "textures/book_softcover_01_diff_2k.jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/decorative_book_set_01/book_softcover_01_diff_2k.jpg",
+    "textures/book_softcover_01_cover39_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover39_2k.png",
+    "textures/catalogue_softcover_01_cover57_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/catalogue_softcover_01_cover57_2k.png",
+    "textures/magazine_01_cover89_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/magazine_01_cover89_2k.png",
+    "textures/book_softcover_01_cover31_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover31_2k.png",
+    "textures/book_softcover_01_cover46_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover46_2k.png",
+    "textures/magazine_01_cover74_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/magazine_01_cover74_2k.png",
+    "textures/book_hardcover_01_cover75_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover75_2k.png",
+    "textures/book_hardcover_01_cover79_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover79_2k.png",
+    "textures/book_softcover_01_cover78_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover78_2k.png",
+    "textures/book_softcover_01_cover77_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover77_2k.png",
+    "textures/book_softcover_01_cover76_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover76_2k.png",
+    "textures/book_hardcover_01_diff_2k.jpg": "https://dl.polyhaven.org/file/ph-assets/Models/jpg/2k/decorative_book_set_01/book_hardcover_01_diff_2k.jpg",
+    "textures/book_hardcover_01_cover13_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover13_2k.png",
+    "textures/book_softcover_01_cover70_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover70_2k.png",
+    "textures/magazine_01_cover20_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/magazine_01_cover20_2k.png",
+    "textures/magazine_01_cover22_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/magazine_01_cover22_2k.png",
+    "textures/magazine_01_cover21_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/magazine_01_cover21_2k.png",
+    "textures/book_hardcover_01_cover15_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover15_2k.png",
+    "textures/catalogue_hardcover_01_cover44_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/catalogue_hardcover_01_cover44_2k.png",
+    "textures/magazine_01_cover19_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/magazine_01_cover19_2k.png",
+    "textures/catalogue_hardcover_01_mask03_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/catalogue_hardcover_01_mask03_2k.png",
+    "textures/magazine_01_cover18_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/magazine_01_cover18_2k.png",
+    "textures/catalogue_softcover_01_mask01_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/catalogue_softcover_01_mask01_2k.png",
+    "textures/catalogue_softcover_01_mask03_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/catalogue_softcover_01_mask03_2k.png",
+    "textures/magazine_01_cover53_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/magazine_01_cover53_2k.png",
+    "textures/book_hardcover_01_cover54_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover54_2k.png",
+    "textures/book_hardcover_01_cover49_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover49_2k.png",
+    "textures/book_hardcover_01_cover41_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover41_2k.png",
+    "textures/catalogue_hardcover_01_mask01_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/catalogue_hardcover_01_mask01_2k.png",
+    "textures/book_softcover_01_cover05_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover05_2k.png",
+    "textures/book_softcover_01_cover01_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover01_2k.png",
+    "textures/book_hardcover_01_cover47_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover47_2k.png",
+    "textures/book_softcover_01_cover09_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover09_2k.png",
+    "textures/book_softcover_01_cover45_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover45_2k.png",
+    "textures/book_hardcover_01_cover87_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover87_2k.png",
+    "textures/book_hardcover_01_cover85_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover85_2k.png",
+    "textures/book_softcover_01_cover32_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover32_2k.png",
+    "textures/book_hardcover_01_cover83_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover83_2k.png",
+    "textures/book_softcover_01_cover38_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover38_2k.png",
+    "textures/catalogue_softcover_01_cover26_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/catalogue_softcover_01_cover26_2k.png",
+    "textures/book_softcover_01_cover88_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover88_2k.png",
+    "textures/book_softcover_01_cover67_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover67_2k.png",
+    "textures/book_softcover_01_cover63_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover63_2k.png",
+    "textures/book_hardcover_01_cover07_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover07_2k.png",
+    "textures/book_softcover_01_cover81_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover81_2k.png",
+    "textures/catalogue_hardcover_01_cover55_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/catalogue_hardcover_01_cover55_2k.png",
+    "textures/magazine_01_nor_gl_2k.exr": "https://dl.polyhaven.org/file/ph-assets/Models/exr/2k/decorative_book_set_01/magazine_01_nor_gl_2k.exr",
+    "textures/book_hardcover_01_cover08_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover08_2k.png",
+    "textures/magazine_01_cover17_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/magazine_01_cover17_2k.png",
+    "textures/catalogue_softcover_01_mask02_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/catalogue_softcover_01_mask02_2k.png",
+    "textures/book_hardcover_01_cover62_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover62_2k.png",
+    "textures/magazine_01_cover43_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/magazine_01_cover43_2k.png",
+    "textures/book_hardcover_01_cover37_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover37_2k.png",
+    "textures/book_softcover_01_cover11_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover11_2k.png",
+    "textures/book_softcover_01_cover04_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover04_2k.png",
+    "textures/book_hardcover_01_cover80_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover80_2k.png",
+    "textures/catalogue_hardcover_01_cover03_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/catalogue_hardcover_01_cover03_2k.png",
+    "textures/magazine_01_mask02_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/magazine_01_mask02_2k.png",
+    "textures/catalogue_hardcover_01_mask02_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/catalogue_hardcover_01_mask02_2k.png",
+    "textures/book_hardcover_01_cover51_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover51_2k.png",
+    "textures/magazine_01_cover50_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/magazine_01_cover50_2k.png",
+    "textures/book_hardcover_01_cover48_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover48_2k.png",
+    "textures/book_softcover_01_cover40_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover40_2k.png",
+    "textures/book_hardcover_01_cover66_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_hardcover_01_cover66_2k.png",
+    "textures/magazine_01_cover72_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/magazine_01_cover72_2k.png",
+    "textures/book_softcover_01_cover33_2k.png": "https://dl.polyhaven.org/file/ph-assets/Models/png/2k/decorative_book_set_01/book_softcover_01_cover33_2k.png"
+   },
+   "dimensions": [
+    2.505,
+    0.321,
+    0.286
+   ]
   },
   "book_encyclopedia_set_01": {
    "id": "book_encyclopedia_set_01",
