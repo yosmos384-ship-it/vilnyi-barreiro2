@@ -1,11 +1,11 @@
-[    0.0s] job preview-0.A-noir: scope=unit unit=0.A pkg=noir quality=preview shots=2
+[    0.0s] job preview-0.A-noir: scope=unit unit=0.A pkg=noir quality=preview shots=3
 [    0.5s] import building: 401 objects in 0.5s
-[    0.7s] import context: 123 objects in 0.3s
+[    0.8s] import context: 123 objects in 0.3s
 [    1.0s] import unit-0.A-noir: 87 objects in 0.2s
 [    1.2s] box UVs on 547 meshes
 [    2.1s] [foliage] env-trees-0@ebebe1: foliage faces=650 crown faces=0 src=context
-[    2.2s] [foliage] env-trees-0@ebf5e1: foliage faces=390 crown faces=0 src=context
-[    2.2s] [foliage] env-trees-0@f5ebe1: foliage faces=390 crown faces=130 src=context
+[    2.1s] [foliage] env-trees-0@ebf5e1: foliage faces=390 crown faces=0 src=context
+[    2.1s] [foliage] env-trees-0@f5ebe1: foliage faces=390 crown faces=130 src=context
 [    2.3s] [foliage]   -> vbCrowns-env-trees-0@f5ebe1: crown polys=130 instances=115328 inner faces on source=130
 [    2.3s] [foliage] env-trees-0@f5ebeb: foliage faces=390 crown faces=0 src=context
 [    2.3s] [foliage] env-trees-0@f5f5e1: foliage faces=130 crown faces=0 src=context
@@ -15,8 +15,8 @@
 [    2.9s] [foliage]   -> vbCrowns-env-trees-0@f5ffeb: crown polys=130 instances=128357 inner faces on source=130
 [    2.9s] [foliage] env-trees-0@fff5eb: foliage faces=780 crown faces=0 src=context
 [    2.9s] [foliage] env-trees-0@fff5f5: foliage faces=429 crown faces=130 src=context
-[    3.2s] [foliage]   -> vbCrowns-env-trees-0@fff5f5: crown polys=130 instances=79223 inner faces on source=130
-[    3.2s] [foliage] env-trees-0@ffffeb: foliage faces=260 crown faces=0 src=context
+[    3.3s] [foliage]   -> vbCrowns-env-trees-0@fff5f5: crown polys=130 instances=79223 inner faces on source=130
+[    3.3s] [foliage] env-trees-0@ffffeb: foliage faces=260 crown faces=0 src=context
 [    3.3s] [foliage] env-trees-0@fffff5: foliage faces=4436 crown faces=0 src=context
 [    3.3s] [foliage] env-trees-0@ffffff: foliage faces=4587 crown faces=280 src=context
 [    3.9s] [foliage]   -> vbCrowns-env-trees-0@ffffff: crown polys=280 instances=354908 inner faces on source=280
@@ -30,10 +30,10 @@
 [    5.0s] [foliage] env-trees-2@ebf5e1: foliage faces=180 crown faces=0 src=context
 [    5.0s] [foliage] env-trees-2@f5ebeb: foliage faces=90 crown faces=0 src=context
 [    5.0s] [foliage] env-trees-2@f5f5eb: foliage faces=360 crown faces=0 src=context
-[    5.0s] [foliage] env-trees-2@f5ffeb: foliage faces=270 crown faces=0 src=context
-[    5.0s] [foliage] env-trees-2@fff5f5: foliage faces=90 crown faces=0 src=context
-[    5.0s] [foliage] env-trees-2@ffffeb: foliage faces=180 crown faces=90 src=context
-[    5.8s] [foliage]   -> vbCrowns-env-trees-2@ffffeb: crown polys=90 instances=175751 inner faces on source=90
+[    5.1s] [foliage] env-trees-2@f5ffeb: foliage faces=270 crown faces=0 src=context
+[    5.1s] [foliage] env-trees-2@fff5f5: foliage faces=90 crown faces=0 src=context
+[    5.1s] [foliage] env-trees-2@ffffeb: foliage faces=180 crown faces=90 src=context
+[    5.7s] [foliage]   -> vbCrowns-env-trees-2@ffffeb: crown polys=90 instances=175751 inner faces on source=90
 [    5.8s] [foliage] env-trees-2@fffff5: foliage faces=540 crown faces=90 src=context
 [    6.5s] [foliage]   -> vbCrowns-env-trees-2@fffff5: crown polys=90 instances=78324 inner faces on source=90
 [    6.5s] [foliage] env-trees-2@ffffff: foliage faces=630 crown faces=0 src=context
@@ -41,9 +41,9 @@
 [    6.5s] [foliage] first-leaf: foliage faces=1200 crown faces=880 src=building
 [    7.2s] [foliage]   -> vbCrowns-first-leaf: crown polys=880 instances=3988 inner faces on source=880
 [    7.2s] [foliage] ground-olive: foliage faces=320 crown faces=320 src=building
-[    7.9s] [foliage]   -> vbCrowns-ground-olive: crown polys=320 instances=3467 inner faces on source=320
-[    8.0s] [foliage] int-grassBlade: foliage faces=1639 crown faces=519 src=unit-0.A-noir
-[    8.7s] [foliage]   -> vbCrowns-int-grassBlade: crown polys=519 instances=200 inner faces on source=519
+[    8.0s] [foliage]   -> vbCrowns-ground-olive: crown polys=320 instances=3467 inner faces on source=320
+[    8.0s] [foliage] int-grassBlade: foliage faces=1637 crown faces=517 src=unit-0.A-noir
+[    8.7s] [foliage]   -> vbCrowns-int-grassBlade: crown polys=517 instances=199 inner faces on source=517
 [    8.8s] [foliage] site-ivy: foliage faces=19860 crown faces=960 src=building
 [    9.5s] [foliage]   -> vbCrowns-site-ivy: crown polys=960 instances=2983 inner faces on source=960
 [    9.6s] [foliage] site-leaf: foliage faces=7120 crown faces=5360 src=building
@@ -54,14 +54,20 @@
 [   12.0s] [foliage]   -> vbCrowns-site-oliveLight: crown polys=3120 instances=20412 inner faces on source=3120
 [   12.0s] [foliage] leafified 16 objects, crown area 1054 m2 -> ~1369812 leaves
 [   12.0s] materials: built=202 textured=64 by_key={'aluminium-frame': 1, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 3, 'asphalt': 1, 'bark': 2, 'bath-floor': 1, 'bath-wall': 1, 'book': 3, 'brass': 10, 'brick-facade': 1, 'bulb-emissive': 2, 'candle-wax': 1, 'car-glass': 1, 'car-light': 2, 'car-paint': 10, 'ceiling': 2, 'ceiling-white': 1, 'ceramic-plate': 3, 'concrete': 3, 'curtain-fabric': 1, 'cutlery-steel': 1, 'deck-teak': 2, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 3, 'epoxy-floor': 1, 'fabric-boucle': 1, 'fabric-linen': 12, 'fabric-sofa': 2, 'floor-main': 3, 'foliage': 18, 'foliage-inner': 1, 'fruit': 6, 'garage-door': 1, 'glass-drinking': 1, 'glass-railing': 2, 'glass-window': 3, 'gravel': 2, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 1, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 3, 'led-strip-emissive': 7, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 4, 'mirror': 2, 'paint-marking': 8, 'paving-calcada': 2, 'plant-leaf': 3, 'planter-concrete': 1, 'plaster-white': 2, 'pot-terracotta': 1, 'pv-panel': 1, 'render-cream': 1, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 2, 'rug': 1, 'sanitary-ceramic': 3, 'shower-glass': 1, 'shower-wall': 1, 'skirting': 1, 'soil': 4, 'steel-dark': 11, 'stone-coping': 2, 'timber-slats': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 2, 'zinc-standing-seam': 2}
-[   12.0s] lights: imported=4 emissive->lights=116 portals=14 boost=2.5 total_lights=134 polys=257978
+[   12.0s] lights: imported=4 emissive->lights=116 portals=14 boost=2.5 total_lights=134 polys=257974
 [   12.5s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
-[   12.7s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
-[   12.7s] scene ready in 12.7s  (world kloofendal_43d_clear_puresky)
-[   29.7s] [expo] Lavg=0.0003585 p95=0.07249 ev=9.12 ev_hi=7.59 -> 7.59 sky=None
-[   29.7s] [wb] gains (0.637, 1.0, 1.6)
-[  284.7s] SHOT 0.A-noir-h5 pano 2048x1024 spp<=32 ev=7.59 in 272.1s -> renders/preview/0.A/noir/0.A-noir-h5.jpg
-[  301.6s] [expo] Lavg=0.0005775 p95=0.04902 ev=8.44 ev_hi=8.16 -> 8.16 sky=None
-[  301.6s] [wb] gains (0.625, 1.0, 1.6)
-[  390.9s] SHOT 0.A-bathroom still 960x540 spp<=64 ev=8.16 in 106.2s -> renders/preview/0.A/noir/0.A-bathroom.jpg
-[  390.9s] DONE 2 images in 390.9s
+[   12.6s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[   12.6s] scene ready in 12.6s  (world kloofendal_43d_clear_puresky)
+[   30.3s] [expo] Lavg=0.0003559 p95=0.01946 ev=9.13 ev_hi=7.27 -> 7.27 sky=None
+[   30.3s] [sky] visible sky x0.05 (measured 21.1, ev 7.27)
+[   30.3s] [wb] gains (0.639, 1.0, 1.6)
+[  283.3s] SHOT 0.A-noir-h5 pano 2048x1024 spp<=32 ev=7.27 in 270.6s -> renders/preview/0.A/noir/0.A-noir-h5.jpg
+[  296.4s] [expo] Lavg=0.1233 p95=3.457 ev=0.70 ev_hi=-0.47 -> -0.47 sky=None
+[  296.4s] [sky] visible sky x0.05 (measured 21.1, ev -0.47)
+[  296.4s] [wb] gains (0.895, 1.0, 1.107)
+[  480.4s] SHOT 0.A-noir-h7 pano 2048x1024 spp<=32 ev=-0.47 in 197.1s -> renders/preview/0.A/noir/0.A-noir-h7.jpg
+[  497.6s] [expo] Lavg=0.007529 p95=0.6282 ev=4.73 ev_hi=2.26 -> 2.26 sky=None
+[  497.6s] [sky] visible sky x0.05 (measured 21.1, ev 2.26)
+[  497.6s] [wb] gains (0.953, 1.0, 1.185)
+[  620.6s] SHOT 0.A-living still 960x540 spp<=64 ev=2.26 in 140.2s -> renders/preview/0.A/noir/0.A-living.jpg
+[  620.6s] DONE 3 images in 620.6s

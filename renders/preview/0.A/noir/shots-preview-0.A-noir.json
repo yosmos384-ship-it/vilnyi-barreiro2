@@ -7,7 +7,8 @@
   "tod": "day",
   "shots": [
    "0.A-noir-h5",
-   "0.A-bathroom"
+   "0.A-living",
+   "0.A-noir-h7"
   ],
   "out": "renders/preview/0.A/noir",
   "name": "preview-0.A-noir",
@@ -24,7 +25,7 @@
    "W": 2048,
    "H": 1024,
    "spp": 32,
-   "ev": 7.593348712512598,
+   "ev": 7.268012562423776,
    "tod": "day",
    "position": [
     4.525,
@@ -45,40 +46,71 @@
    "kind": null,
    "yawOffset": 1.96637,
    "index": 5,
-   "seconds": 272.1
+   "seconds": 270.6
   },
   {
-   "id": "0.A-bathroom",
+   "id": "0.A-noir-h7",
+   "type": "pano",
+   "file": "renders/preview/0.A/noir/0.A-noir-h7.jpg",
+   "thumb": "renders/preview/0.A/noir/thumbs/0.A-noir-h7.jpg",
+   "W": 2048,
+   "H": 1024,
+   "spp": 32,
+   "ev": -0.4676718336666332,
+   "tod": "day",
+   "position": [
+    4.3,
+    1.6,
+    -2.75
+   ],
+   "lookAt": [
+    2.1,
+    1.3,
+    1.5
+   ],
+   "roomId": "0.A-garden",
+   "name": {
+    "en": "Private garden & deck",
+    "pt": "Jardim privado",
+    "he": "גינה פרטית ודק"
+   },
+   "kind": null,
+   "yawOffset": 2.66393,
+   "index": 7,
+   "seconds": 197.1
+  },
+  {
+   "id": "0.A-living",
    "type": "still",
-   "file": "renders/preview/0.A/noir/0.A-bathroom.jpg",
-   "thumb": "renders/preview/0.A/noir/thumbs/0.A-bathroom.jpg",
+   "file": "renders/preview/0.A/noir/0.A-living.jpg",
+   "thumb": "renders/preview/0.A/noir/thumbs/0.A-living.jpg",
    "W": 960,
    "H": 540,
    "spp": 64,
-   "ev": 8.15797938709283,
+   "ev": 2.255751552893116,
    "tod": "day",
    "position": [
-    1.749,
+    3.668,
     1.45,
-    5.772
+    4.132
    ],
    "lookAt": [
-    0.662,
+    5.13,
     1.45,
-    6.641
+    1.635
    ],
-   "roomId": "0.A-ensuite",
+   "roomId": "0.A-living",
    "name": {
-    "en": "En-suite bathroom",
-    "pt": "I.S. suite",
-    "he": "חדר רחצה צמוד"
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
    },
-   "kind": "bathroom",
-   "lens": 18.0,
+   "kind": "living",
+   "lens": 24.0,
    "shift_y": 0.0,
-   "seconds": 106.2
+   "seconds": 140.2
   }
  ],
- "seconds": 390.9,
+ "seconds": 620.6,
  "blender": "4.2.3 LTS"
 }
