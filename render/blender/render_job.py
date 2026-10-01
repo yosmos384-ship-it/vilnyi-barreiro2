@@ -358,7 +358,12 @@ def render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod):
     w = sc.world.node_tree.nodes.get('vbSkyCam') if sc.world else None
     if w is not None:
         w.inputs['Strength'].default_value = w.get('base', w.inputs['Strength'].default_value)
-    ev, sky_lum = LI.measure_exposure(tmp, key, dict(expo_samples=q.get('expo_samples', 16), hi_white=opts.get('hi_white', 2.5)), log)
+    interior = (is_unit or job['scope'] == 'common') and s.get('kind') != 'garden' and not str(s.get('roomId', '')).split('-')[-1] in ('garden',) \
+        and not any(str(s.get('roomId', '')).startswith(b) for b in ('1.rear', '1.front', '2.rear', '2.front'))
+    # interiors are exposed for the room (like an architectural photographer); windows may bloom
+    eo = dict(expo_samples=q.get('expo_samples', 16), hi_white=opts.get('hi_white', 14.0 if interior else 2.5),
+              meter_hi_pct=75 if interior else 97)
+    ev, sky_lum = LI.measure_exposure(tmp, key, eo, log)
     if True:   # interiors too: balcony/garden panoramas and views through windows
         LI.set_sky_visible(ev, sky_lum, opts.get('sky_target', 0.55 if tod != 'dusk' else 0.45), log)
     ev += float(opts.get('ev_bias', 0.0)) + float((opts.get('ev_shot') or {}).get(s['id'], 0.0))

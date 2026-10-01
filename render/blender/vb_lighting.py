@@ -327,7 +327,7 @@ def measure_exposure(tmpdir, key, opts, log, w=None, h=None):
         # un-premultiply is not needed for opaque pixels
     lum = 0.2126 * px[:, 0] + 0.7152 * px[:, 1] + 0.0722 * px[:, 2]
     lum = lum[np.isfinite(lum)]
-    lo, hi = np.percentile(lum, [2, 97])
+    lo, hi = np.percentile(lum, [2, opts.get('meter_hi_pct', 97)])
     sel = lum[(lum >= lo) & (lum <= hi)]
     if sel.size == 0:
         return 0.0, sky_lum
