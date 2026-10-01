@@ -1,8 +1,10 @@
 // VILNYI · Barreiro 2 — AERIAL: bird's-eye 360° panorama with landmark labels.
-// export createAerial(THREE, { camera, dom, scene, environment, labelsEl, lang }) => { enable, disable, setLang, update }
+// export createAerial(THREE, { camera, dom, scene, environment, labelsEl, lang }) => { enable, disable, setLang, update, setHeading }
+// Local frame is rotated to the street (see data.js SITE_FRAME): `heading` below is a LOCAL azimuth
+// (0 = looking along local -z, + towards local +x); compass bearings are derived from SITE_FRAME.north.
 // All DOM/CSS is prefixed `va-`. No side effects on import.
 
-import { PROJECT, LANDMARKS } from './data.js';
+import { PROJECT, LANDMARKS, SITE_FRAME, geoToLocal } from './data.js';
 
 // ---------------------------------------------------------------------------
 // Verified landmark coordinates (researched Sept 2026). `source` = where the
@@ -182,21 +184,38 @@ const CSS = `
   .va-root[dir=rtl] .va-pill{padding:4px 4px 4px 10px}
   .va-compass{width:72px;height:72px}
 }
+.va-st{position:absolute;left:0;top:0;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .45s ease;
+  font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;font-weight:500;color:rgba(255,255,255,.92);
+  text-shadow:0 0 2px rgba(0,0,0,.9),0 1px 6px rgba(0,0,0,.65);will-change:transform,opacity}
+.va-st.va-on{opacity:.9}
+.va-st.va-main{font-size:12px;letter-spacing:.2em;font-weight:600;color:#f3d9ab;opacity:0}
+.va-st.va-main.va-on{opacity:1}
+.va-st.va-main::before,.va-st.va-main::after{content:'';display:inline-block;width:14px;height:1px;background:currentColor;
+  vertical-align:middle;margin:0 8px;opacity:.7}
+.va-attr{position:absolute;inset-inline-start:10px;bottom:6px;font-size:9.5px;letter-spacing:.04em;color:rgba(255,255,255,.62);
+  text-shadow:0 1px 2px rgba(0,0,0,.6);pointer-events:none}
 @media (prefers-reduced-motion:reduce){.va-pulse{animation:none;opacity:.5;transform:scale(1)}}
 `;
 
 // ---------------------------------------------------------------------------
 export function createAerial(THREE, { camera, dom, scene, environment, labelsEl, lang = 'en' } = {}) {
   const DEG = Math.PI / 180;
-  const TARGET = new THREE.Vector3(7, 5, 7);          // orbit target: building centre
+  const TARGET = new THREE.Vector3(7, 5, 7);          // orbit target: building centre (≈ geoToLocal(PROJECT))
   const SITE_TOP = new THREE.Vector3(7, 11.2, 7.3);   // marker anchor above the roof
   const D_MIN = 60, D_MAX = 400;
   const reduced = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
   const lat0 = PROJECT.lat, lon0 = PROJECT.lon;
+  // True north in local coordinates → local heading that faces north.
+  const NORTH = (SITE_FRAME && SITE_FRAME.north) || { x: 0, z: -1 };
+  const H_NORTH = Math.atan2(NORTH.x, -NORTH.z);            // ≈ 28.6°
+  const bearingOf = (h) => h - H_NORTH;                        // local heading → compass bearing (rad)
+  const headingOf = (b) => b + H_NORTH;                        // compass bearing → local heading
+  const SITE = (() => { try { const p = geoToLocal(lat0, lon0); return { x: p.x, z: p.z }; } catch (e) { return { x: 7, z: 7 }; } })();
+  const STREET_ZOOM = 180;                                     // street names shown below this camera distance
 
   // ---- state
   let enabled = false;
-  let heading = 330 * DEG;       // view bearing (0 = looking north, clockwise); Lisbon skyline in view
+  let heading = 320 * DEG + H_NORTH; // local heading; starts at compass bearing 320° (Tagus + Lisbon skyline)
   let dist = 280;                // default: ~120 m above the site, 250 m out
   let elev = Math.asin(115 / 280);
   let vHeading = 0, vElev = 0;
@@ -208,14 +227,38 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
   let curLang = UI[lang] ? lang : 'en';
 
   // ---- geo
+  // Terrain: environment.heightAt when present, else the DEM grid from osm.json (y = elevation - 12.70).
+  let terrain = null;
+  const demY = (x, z) => {
+    const t = terrain; if (!t) return null;
+    const fi = (x - t.x0) / t.step, fj = (z - t.z0) / t.step;
+    if (fi < 0 || fj < 0 || fi > t.N - 1 || fj > t.N - 1) return null;
+    const i = Math.min(t.N - 2, Math.floor(fi)), j = Math.min(t.N - 2, Math.floor(fj)), u = fi - i, v = fj - j;
+    const g = (a, b) => { const h = t.h[b * t.N + a]; return h == null ? 0 : h; };
+    const e = (g(i, j) * (1 - u) + g(i + 1, j) * u) * (1 - v) + (g(i, j + 1) * (1 - u) + g(i + 1, j + 1) * u) * v;
+    return Math.max(-12.7, e - 12.7);
+  };
+  const groundAt = (x, z) => {
+    try {
+      if (environment && typeof environment.heightAt === 'function') {
+        const y = environment.heightAt(x, z); if (Number.isFinite(y)) return Math.max(-12.7, y);
+      }
+    } catch (e) { /* ignore */ }
+    const y = demY(x, z);
+    return y == null ? (Math.hypot(x - SITE.x, z - SITE.z) > 1500 ? -12.7 : 0) : y;
+  };
   const geo = (lat, lon) => {
     try {
       if (environment && typeof environment.geo === 'function') {
         const v = environment.geo(lat, lon);
-        if (v && Number.isFinite(v.x) && Number.isFinite(v.z)) return new THREE.Vector3(v.x, 0, v.z);
+        if (v && Number.isFinite(v.x) && Number.isFinite(v.z)) {
+          const y = Number.isFinite(v.y) && v.y !== 0 ? v.y : groundAt(v.x, v.z);
+          return new THREE.Vector3(v.x, y, v.z);
+        }
       }
     } catch (e) { /* fall through */ }
-    return new THREE.Vector3(7 + (lon - lon0) * Math.cos(lat0 * DEG) * 111320, 0, 7 - (lat - lat0) * 110540);
+    const p = geoToLocal(lat, lon);
+    return new THREE.Vector3(p.x, groundAt(p.x, p.z), p.z);
   };
   const haversineKm = (lat, lon) => {
     const R = 6371.0088, dLat = (lat - lat0) * DEG, dLon = (lon - lon0) * DEG;
@@ -223,11 +266,86 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
     return 2 * R * Math.asin(Math.sqrt(a));
   };
 
-  const items = mergedLandmarks().map(l => {
-    const g = geo(l.lat, l.lon);
-    return { ...l, ground: g, anchor: new THREE.Vector3(g.x, l.h || 0, g.z), km: haversineKm(l.lat, l.lon),
-      el: null, w: 0, h: 0, line: null };
-  });
+  const items = mergedLandmarks().map(l => ({ ...l, ground: new THREE.Vector3(), anchor: new THREE.Vector3(),
+    km: haversineKm(l.lat, l.lon), el: null, w: 0, h: 0, line: null }));
+  // (Re)place landmarks — called on enable and when osm terrain arrives, since the environment may finish loading late.
+  function placeLandmarks() {
+    for (const it of items) {
+      const g = geo(it.lat, it.lon);
+      it.ground.copy(g); it.anchor.set(g.x, g.y + (it.h || 0) + 2, g.z);
+      if (it.line) { if (hoverLine === it.line) { group.remove(hoverLine); hoverLine = null; } it.line.geometry.dispose(); it.line = null; }
+    }
+    for (const st of streets) for (const c of st.cands) c.pos.y = groundAt(c.pos.x, c.pos.z) + 1.5;
+    if (active) setActive(active);
+  }
+
+  // ---- street names from OSM (nearest named streets to the plot)
+  const streets = [];
+  const FIX_NAMES = { 'Rua Edurado Couto': 'Rua Eduardo Couto', 'Rua Garcia de Resenede': 'Rua Garcia de Resende' };
+  let osmPromise = null;
+  function loadOSM() {
+    if (osmPromise) return osmPromise;
+    osmPromise = (async () => {
+      try {
+        const url = new URL('../data/osm.json', import.meta.url);
+        const res = await fetch(url); if (!res.ok) return;
+        const d = await res.json();
+        if (d.terrain && Array.isArray(d.terrain.h)) terrain = d.terrain;
+        buildStreets(d.r || []);
+        placeLandmarks();
+      } catch (e) { /* streets are optional */ }
+    })();
+    return osmPromise;
+  }
+  function buildStreets(roads) {
+    const segDist = (ax, az, bx, bz) => {
+      const dx = bx - ax, dz = bz - az, L = dx * dx + dz * dz || 1e-9;
+      const u = Math.max(0, Math.min(1, ((SITE.x - ax) * dx + (SITE.z - az) * dz) / L));
+      return Math.hypot(ax + u * dx - SITE.x, az + u * dz - SITE.z);
+    };
+    const best = new Map();   // name -> { d, ways: [...] }
+    for (const r of roads) {
+      if (!r || !r.n || !Array.isArray(r.p) || r.p.length < 2) continue;
+      const name = FIX_NAMES[r.n] || r.n;
+      let dmin = Infinity;
+      for (let i = 0; i < r.p.length - 1; i++) dmin = Math.min(dmin, segDist(r.p[i][0], r.p[i][1], r.p[i + 1][0], r.p[i + 1][1]));
+      const cur = best.get(name) || { d: Infinity, ways: [] };
+      cur.d = Math.min(cur.d, dmin); cur.ways.push(r.p); best.set(name, cur);
+    }
+    const chosen = [...best.entries()].sort((a, b) => a[1].d - b[1].d).filter(e => e[1].d < 260).slice(0, 8);
+    for (const [name, { ways }] of chosen) {
+      // candidate anchors every ~18 m along the street (within 260 m, clear of the plot); the layout picks
+      // the first one that is on screen and free, nearest-to-the-way's-midpoint first.
+      const cands = [];
+      for (const p of ways) {
+        const lens = [0]; for (let i = 1; i < p.length; i++) lens.push(lens[i - 1] + Math.hypot(p[i][0] - p[i - 1][0], p[i][1] - p[i - 1][1]));
+        const L = lens[lens.length - 1]; if (L < 12) continue;
+        for (let sAl = 6; sAl <= L - 6; sAl += 18) {
+          let i = 1; while (i < p.length - 1 && lens[i] < sAl) i++;
+          const t = (sAl - lens[i - 1]) / ((lens[i] - lens[i - 1]) || 1);
+          const x = p[i - 1][0] + (p[i][0] - p[i - 1][0]) * t, z = p[i - 1][1] + (p[i][1] - p[i - 1][1]) * t;
+          const dd = Math.hypot(x - SITE.x, z - SITE.z); if (dd < 22 || dd > 260) continue;
+          const dx = p[i][0] - p[i - 1][0], dz = p[i][1] - p[i - 1][1], n = Math.hypot(dx, dz) || 1;
+          cands.push({ pos: new THREE.Vector3(x, groundAt(x, z) + 1.5, z), dir: new THREE.Vector3(dx / n, 0, dz / n), k: Math.abs(sAl - L / 2) + dd * 0.5 });
+        }
+      }
+      if (!cands.length) continue;
+      cands.sort((a, b) => a.k - b.k);
+      streets.push({ name, main: /eduardo couto/i.test(name), cands, el: null, w: 0 });
+    }
+    if (root) buildStreetDOM();
+  }
+  function buildStreetDOM() {
+    for (const st of streets) {
+      if (st.el) continue;
+      const el = document.createElement('div');
+      el.className = 'va-st' + (st.main ? ' va-main' : '');
+      el.setAttribute('dir', 'ltr'); el.setAttribute('lang', 'pt');
+      el.textContent = st.name;
+      root.insertBefore(el, root.firstChild);
+      st.el = el;
+    }
+  }
 
   // ---- CSS + DOM
   let root = null, compass = null, help = null, siteEl = null, ringEls = [];
@@ -292,6 +410,11 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
     help = document.createElement('div'); help.className = 'va-help';
     root.appendChild(help);
 
+    const attr = document.createElement('div'); attr.className = 'va-attr';
+    attr.textContent = '© OpenStreetMap contributors · EU-DEM (Copernicus)'; attr.setAttribute('dir', 'ltr');
+    root.appendChild(attr);
+    if (streets.length) buildStreetDOM();
+
     applyLang();
   }
 
@@ -344,14 +467,14 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
   const gold = new THREE.Color('#d6b27a');
   const ringMat = new THREE.MeshBasicMaterial({ color: gold, transparent: true, opacity: 0.5, depthWrite: false, side: THREE.DoubleSide });
   const pulse = new THREE.Mesh(new THREE.RingGeometry(0.92, 1, 96), ringMat);
-  pulse.rotation.x = -Math.PI / 2; pulse.position.set(7, 0.25, 7.3); pulse.renderOrder = 10; pulse.name = 'aerial-pulse';
+  pulse.rotation.x = -Math.PI / 2; pulse.position.set(SITE.x, 0.25, SITE.z); pulse.renderOrder = 10; pulse.name = 'aerial-pulse';
   group.add(pulse);
   const pulse2 = pulse.clone(); pulse2.material = ringMat.clone(); group.add(pulse2);
   const distRings = [500, 1000, 2000].map(r => {
     const pts = [];
-    for (let i = 0; i <= 256; i++) { const a = i / 256 * Math.PI * 2; pts.push(new THREE.Vector3(7 + Math.cos(a) * r, 1.2, 7.3 + Math.sin(a) * r)); }
+    for (let i = 0; i <= 256; i++) { const a = i / 256 * Math.PI * 2; pts.push(new THREE.Vector3(SITE.x + Math.cos(a) * r, 1.2, SITE.z + Math.sin(a) * r)); }
     const geom = new THREE.BufferGeometry().setFromPoints(pts);
-    const line = new THREE.Line(geom, new THREE.LineDashedMaterial({ color: 0xffffff, transparent: true, opacity: 0.22, dashSize: r / 60, gapSize: r / 60, depthWrite: false }));
+    const line = new THREE.Line(geom, new THREE.LineDashedMaterial({ color: 0xffffff, transparent: true, opacity: 0.22, dashSize: r / 60, gapSize: r / 60, depthWrite: false, depthTest: false }));
     line.computeLineDistances(); line.renderOrder = 9; line.name = `aerial-ring-${r}`;
     group.add(line);
     return line;
@@ -360,10 +483,10 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
   let hoverLine = null, lineAlpha = 0, lineFor = null;
 
   function makeLine(it) {
-    const a = new THREE.Vector3(7, 1.5, 7.3), b = new THREE.Vector3(it.ground.x, 1.5, it.ground.z);
+    const a = new THREE.Vector3(SITE.x, 1.5, SITE.z), b = new THREE.Vector3(it.ground.x, Math.max(-12, it.ground.y + 1.5), it.ground.z);
     const len = a.distanceTo(b);
     const n = Math.max(2, Math.ceil(len / 25));
-    const pts = []; for (let i = 0; i <= n; i++) pts.push(a.clone().lerp(b, i / n));
+    const pts = []; for (let i = 0; i <= n; i++) { const q = a.clone().lerp(b, i / n); if (i > 0 && i < n) q.y = Math.max(q.y, groundAt(q.x, q.z) + 1.5); pts.push(q); }
     const geom = new THREE.BufferGeometry().setFromPoints(pts);
     const m = lineMat.clone(); m.dashSize = Math.max(3, len / 90); m.gapSize = m.dashSize * 0.7;
     const line = new THREE.Line(geom, m); line.computeLineDistances(); line.renderOrder = 20; line.name = `aerial-line-${it.id}`;
@@ -439,7 +562,7 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
 
   function faceNorth() {
     kick();
-    let d = (-heading) % (Math.PI * 2);
+    let d = (H_NORTH - heading) % (Math.PI * 2);
     if (d > Math.PI) d -= Math.PI * 2; if (d < -Math.PI) d += Math.PI * 2;
     anim = { from: heading, to: heading + d, t: 0, dur: reduced ? 0.01 : 1.1 };
   }
@@ -459,7 +582,7 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
   }
 
   // ---- labels layout
-  const _v = new THREE.Vector3(), _cs = new THREE.Vector3();
+  const _v = new THREE.Vector3(), _v2 = new THREE.Vector3(), _cs = new THREE.Vector3();
   const STEMS = [22, 50, 78, 106];
   function measure(el) { return { w: el.querySelector('.va-pill').offsetWidth, h: el.querySelector('.va-pill').offsetHeight }; }
 
@@ -471,6 +594,30 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
   }
 
   const overlaps = (r, list) => list.some(o => r.x < o.x + o.w && r.x + r.w > o.x && r.y < o.y + o.h && r.y + r.h > o.y);
+
+  function placeStreet(st, W, H, placed) {
+    if (!st.el) return;
+    let ok = false;
+    if (dist < STREET_ZOOM) {
+      if (!st.w) st.w = st.el.offsetWidth || 120;
+      const w = st.w, h = 16;
+      for (const c of st.cands) {
+        const p = project(c.pos, W, H); if (!p) continue;
+        _v2.copy(c.pos).addScaledVector(c.dir, 12);
+        const q = project(_v2, W, H);
+        let ang = q ? Math.atan2(q.y - p.y, q.x - p.x) : 0;
+        if (ang > Math.PI / 2) ang -= Math.PI; else if (ang < -Math.PI / 2) ang += Math.PI;
+        const cs = Math.abs(Math.cos(ang)), sn = Math.abs(Math.sin(ang));
+        const bw = w * cs + h * sn, bh = w * sn + h * cs;
+        const r = { x: p.x - bw / 2, y: p.y - bh / 2, w: bw, h: bh };
+        if (r.x < 6 || r.x + r.w > W - 6 || r.y < 6 || r.y + r.h > H - 30 || overlaps(r, placed)) continue;
+        placed.push(r);
+        st.el.style.transform = `translate3d(${(p.x - w / 2).toFixed(1)}px,${(p.y - h / 2).toFixed(1)}px,0) rotate(${(ang / DEG).toFixed(1)}deg)`;
+        ok = true; break;
+      }
+    }
+    st.el.classList.toggle('va-on', ok);
+  }
 
   function layout() {
     if (!root) return;
@@ -494,6 +641,9 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
       siteEl.classList.add('va-on');
       placed.push({ x: sp.x - siteEl._w / 2 - pad, y: sp.y - stem - siteEl._h - pad, w: siteEl._w + pad * 2, h: siteEl._h + stem + pad * 2 });
     } else siteEl.classList.remove('va-on');
+
+    // the plot's own street (Rua Eduardo Couto) right after the site marker
+    for (const st of streets) if (st.main) placeStreet(st, W, H, placed);
 
     // landmarks by priority: active, rank, then nearer
     const order = items.slice().sort((a, b) => (b.id === active) - (a.id === active) || a.rank - b.rank || a.km - b.km);
@@ -529,9 +679,12 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
       if (!ok) el.style.pointerEvents = 'none'; else el.style.pointerEvents = '';
     }
 
+    // other street names after the landmarks
+    for (const st of streets) if (!st.main) placeStreet(st, W, H, placed);
+
     // distance ring labels, placed straight ahead along the view heading
     for (const r of ringEls) {
-      const pt = new THREE.Vector3(7 + Math.sin(heading) * r.r, 1.2, 7.3 - Math.cos(heading) * r.r);
+      const pt = new THREE.Vector3(SITE.x + Math.sin(heading) * r.r, 1.2, SITE.z - Math.cos(heading) * r.r);
       const p = project(pt, W, H);
       let ok = false;
       if (p) {
@@ -546,7 +699,7 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
     }
 
     // compass
-    const hdeg = ((heading / DEG) % 360 + 360) % 360;
+    const hdeg = ((bearingOf(heading) / DEG) % 360 + 360) % 360;
     const dial = compass.querySelector('.va-dial');
     dial.setAttribute('transform', `rotate(${(-hdeg).toFixed(2)} 50 50)`);
     compass.querySelectorAll('.va-card').forEach(t => {
@@ -568,6 +721,8 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
       if (root) { root.hidden = false; for (const it of items) it.w = 0; siteEl && (siteEl._w = 0); }
       if (helpShown && help) help.classList.remove('va-gone');
       if (scene && !group.parent) scene.add(group);
+      placeLandmarks();
+      loadOSM();
       // continue from where the camera is: keep its bearing around the building
       const dx = camera.position.x - TARGET.x, dz = camera.position.z - TARGET.z;
       if (Math.hypot(dx, dz) > 1) heading = Math.atan2(-dx, dz);
@@ -664,7 +819,7 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
     } catch (e) { /* never break the render loop */ }
   }
 
-  function setHeading(deg) { heading = deg * DEG; kick(); }
+  function setHeading(bearingDeg) { heading = headingOf(bearingDeg * DEG); kick(); } // compass bearing
 
   return { enable, disable, setLang, update, setHeading, landmarks: items.map(({ el, line, ...rest }) => rest) };
 }

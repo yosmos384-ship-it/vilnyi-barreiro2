@@ -8,12 +8,18 @@
 //     ready: Promise<{ modules }>, setMode(mode, opts) => Promise<boolean>, getMode(),
 //     selectUnit(unitId, styleId) => Promise, setTimeOfDay(name), setLang(lang),
 //     hotspots(unitId) => [...], lookFrom(hotspot), balconyView(unitId), goToLift(floorId),
-//     walkUnit(unitId, roomId?), takeLift(from, to), resize(), has(moduleName), on(event, cb) => off, dispose()
+//     walkUnit(unitId, roomId?), takeLift(from, to), resize(), has(moduleName), on(event, cb) => off, dispose(),
+//     setPhotoreal(on) => Promise<boolean>, isPhotoreal(), setPhotorealLabels({...}), setHeading(bearing),
+//     attribution() => string
 //   }
-//   events: 'floor-select' {floorId} · 'unit-select' {unitId, styleId?, source} · 'mode' {mode}
+//   events: 'floor-select' {floorId} · 'unit-select' {unitId, styleId?, source} · 'mode' {mode, prev}
 //           'progress' {p, label} · 'place' {floorId, roomId, unitId, inLift} · 'error' {error}
+//           'photoreal' {state:'loading'|'on'|'off'|'error', phase?, p?, samples?, error?}
+//
+// Phase 2: postfx.js renders the raster views (exterior/interior/aerial presets), pathtrace.js is imported lazily
+// on the first setPhotoreal(true), google3d.js only when PROJECT.googleMapsKey is set, interiors.prewarm runs at idle.
 
-import { UNITS, BALCONIES, LEVELS, roomsOfUnit, unitById } from './data.js';
+import { UNITS, BALCONIES, LEVELS, PROJECT, roomsOfUnit, unitById } from './data.js';
 
 const EXTERIOR_TARGET = [7, 4.2, 7.2];
 const EXTERIOR_CAMERA = [-1.5, 4.2, 25.2];
@@ -56,11 +62,16 @@ export function createViewer(container, options = {}) {
   const hudEl = el('div', 'v-hud', container);
   const floorTip = el('div', 'v-floortip', container);
   floorTip.hidden = true;
+  const attribEl = el('div', 'v-attrib', container);
+  attribEl.hidden = true;
 
   let THREE, renderer, scene, camera, controls, pmrem, envTex;
   let env = null, building = null, interiors = null, walker = null, aerial = null;
   let fallbackLights = null;
-  const modules = { environment: false, building: false, interiors: false, walk: false, aerial: false };
+  let postfx = null, pt = null, ptOn = false, ptLoading = null, ptLabels = null, g3d = null, g3dHidden = null;
+  let shadowTick = 0;
+  const lastCam = new Float32Array(16);
+  const modules = { environment: false, building: false, interiors: false, walk: false, aerial: false, postfx: false, pathtrace: false, google3d: false };
   let mode = null;
   let disposed = false;
   let raf = 0;
@@ -81,7 +92,7 @@ export function createViewer(container, options = {}) {
   async function loadModule(name, path, build) {
     try {
       const m = await import(path);
-      const r = build(m);
+      const r = await build(m);
       modules[name] = !!r;
       return r || null;
     } catch (e) {
@@ -144,7 +155,16 @@ export function createViewer(container, options = {}) {
     progress(0.3, 'environment');
     env = await loadModule('environment', './environment.js', m => m.buildEnvironment(THREE, { scene, renderer, quality }));
     if (!env) addFallbackEnvironment();
-    else { try { env.setTimeOfDay(tod); } catch (e) { console.warn(e); } }
+    else {
+      try { env.setTimeOfDay(tod); } catch (e) { console.warn(e); }
+      tuneShadows();
+      if (env.attribution) { attribEl.textContent = env.attribution; attribEl.hidden = false; }
+      Promise.resolve(env.ready).then(() => { invalidateShadows(); schedule(); }, () => { /* OSM context missing: env keeps its base */ });
+    }
+    renderer.shadowMap.autoUpdate = false;
+    invalidateShadows();
+    postfx = await loadModule('postfx', './postfx.js', m => m.createPostFX(THREE, { renderer, scene, camera, quality, mode: 'exterior' }));
+    if (postfx) { try { postfx.setTimeOfDay?.(tod); } catch (e) { /* optional */ } }
     await tick();
 
     progress(0.5, 'building');
@@ -176,6 +196,7 @@ export function createViewer(container, options = {}) {
       aerial = await loadModule('aerial', './aerial.js', m => m.createAerial(THREE, { camera, dom: renderer.domElement, scene, environment: env, labelsEl, lang }));
       if (aerial) { try { aerial.disable(); } catch (e) { /* ignore */ } }
     }
+    if (controls) controls.addEventListener('change', () => { if (ptOn) pt?.reset(); });
 
     bindPointer();
     listen(document, 'visibilitychange', schedule);
@@ -195,8 +216,80 @@ export function createViewer(container, options = {}) {
     renderer.render(scene, camera);
     progress(1, 'done');
     schedule();
+    afterLoad();
     return { modules: { ...modules }, quality };
   })();
+
+  // Idle work after the first frame: interior texture prewarm, optional Google 3D tiles.
+  function afterLoad() {
+    const idle = (cb, ms) => (typeof requestIdleCallback === 'function' ? requestIdleCallback(cb, { timeout: ms }) : setTimeout(cb, 400));
+    idle(() => {
+      if (disposed || !interiors) return;
+      try {
+        const p = (interiors.prewarm || null)?.(['atlantic', 'lisboa', 'noir'], { renderer });
+        if (p && p.catch) p.catch(() => { /* optional */ });
+      } catch (e) { /* optional */ }
+    }, 3000);
+    const key = PROJECT.googleMapsKey;
+    if (env && typeof key === 'string' && key.trim().length >= 20) {
+      Promise.resolve(env.ready).catch(() => null).then(async () => {
+        if (disposed) return;
+        try {
+          const m = await import('./google3d.js');
+          if (!m.GOOGLE3D_AVAILABLE?.(key)) return;
+          g3d = await m.createGoogle3D(THREE, { renderer, scene, camera, apiKey: key });
+          if (!g3d || disposed) { g3d = null; return; }
+          modules.google3d = true;
+          applyGoogleVisibility();
+          invalidateShadows();
+          schedule();
+        } catch (e) { console.warn('[viewer] google3d unavailable', e); g3d = null; }
+      });
+    }
+  }
+
+  // While the Google tiles show, hide the OSM context meshes (lights and the sky stay).
+  function setEnvContext(visible) {
+    if (!env?.group) return;
+    if (!visible) {
+      if (g3dHidden) return;
+      g3dHidden = [];
+      env.group.traverse(o => {
+        if (!(o.isMesh || o.isLine || o.isPoints || o.isSprite) || !o.visible) return;
+        if (o.name === 'env-sky' || o.parent?.name === 'env-sky') return;
+        o.visible = false; g3dHidden.push(o);
+      });
+    } else if (g3dHidden) {
+      for (const o of g3dHidden) o.visible = true;
+      g3dHidden = null;
+    }
+  }
+  function applyGoogleVisibility() {
+    if (!g3d) return;
+    const show = !ptOn; // the path tracer cannot trace the streamed tiles: photoreal shows the OSM context instead
+    try { g3d.setVisible(show); } catch (e) { /* ignore */ }
+    setEnvContext(!show);
+    attribEl.hidden = !env?.attribution || show;
+  }
+
+  // Shadow tuning the viewer can apply on ENV's sun (ENV keeps ownership of colour/intensity/direction).
+  function tuneShadows() {
+    const sun = env?.sun;
+    if (!sun || !sun.shadow) return;
+    try {
+      const tgt = sun.target.position;
+      const dir = sun.position.clone().sub(tgt);
+      const len = dir.length();
+      if (len > 1e-3) sun.position.copy(tgt).addScaledVector(dir.multiplyScalar(1 / len), 60);
+      sun.shadow.camera.far = 125;
+      sun.shadow.camera.near = 1;
+      sun.shadow.camera.updateProjectionMatrix();
+      sun.shadow.bias = -0.00015;
+      sun.shadow.normalBias = 0.035;
+    } catch (e) { /* ignore */ }
+    invalidateShadows();
+  }
+  function invalidateShadows() { if (renderer) renderer.shadowMap.needsUpdate = true; }
   ready.catch(err => { if (!disposed) emit('error', { error: err }); });
 
   function addFallbackEnvironment() {
@@ -274,8 +367,9 @@ export function createViewer(container, options = {}) {
   }
 
   // ---------- loop ----------
+  let paused = false;
   function shouldRun() {
-    return !disposed && renderer && inView && !document.hidden && container.isConnected && container.offsetParent !== null;
+    return !disposed && !paused && renderer && inView && !document.hidden && container.isConnected && container.offsetParent !== null;
   }
   function schedule() {
     if (shouldRun()) {
@@ -297,7 +391,18 @@ export function createViewer(container, options = {}) {
       interiors?.update?.(dt);
       if (mode === 'walk' && walker) walker.update(dt);
       if (mode === 'aerial' && aerial) aerial.update(dt);
-      renderer.render(scene, camera);
+      if (g3d) { try { g3d.update(dt); } catch (e) { /* google3d switches itself off */ } }
+      // doors and the lift move in walk mode: refresh the (otherwise static) shadow map a few times a second
+      if (mode === 'walk' && ++shadowTick % 12 === 0) invalidateShadows();
+      camera.updateMatrixWorld();
+      const m = camera.matrixWorld.elements;
+      let moved = false;
+      for (let i = 0; i < 16; i++) if (Math.abs(m[i] - lastCam[i]) > 1e-5) { moved = true; lastCam[i] = m[i]; }
+      if (ptOn && pt) {
+        if (moved) pt.reset();
+        pt.render();
+      } else if (postfx) postfx.render(dt);
+      else renderer.render(scene, camera);
     } catch (e) {
       console.error('[viewer] frame', e);
     }
@@ -311,6 +416,8 @@ export function createViewer(container, options = {}) {
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
+    try { postfx?.setSize(w, h); } catch (e) { /* ignore */ }
+    if (ptOn) pt?.reset();
     schedule();
   }
 
@@ -343,6 +450,7 @@ export function createViewer(container, options = {}) {
     if (disposed || !renderer) return false;
     if (next === 'walk' && !walker && !(opts.position && opts.lookAt)) return false;
     if (next === 'aerial' && !aerial) return false;
+    if (next === 'aerial' && ptOn) await setPhotoreal(false);
     if (next !== mode || next === 'walk') {
       if (!(mode === 'walk' && next === 'walk')) exitCurrent();
     }
@@ -365,7 +473,7 @@ export function createViewer(container, options = {}) {
         aerial.setLang?.(lang);
         aerial.enable();
       } else if (next === 'walk') {
-        setClip(0.05, 30000);
+        setClip(0.1, 30000);
         if (walker) {
           hudEl.classList.add('is-active');
           if (!walker.isEnabled?.()) walker.enable();
@@ -386,9 +494,75 @@ export function createViewer(container, options = {}) {
     } catch (e) {
       console.error('[viewer] setMode', next, e);
     }
+    try { postfx?.setMode(next === 'walk' ? 'interior' : next); } catch (e) { /* ignore */ }
+    if (ptOn && pt) { try { pt.setScope(next === 'walk' ? 'interior' : 'exterior'); pt.reset(); } catch (e) { /* ignore */ } }
+    if (next === 'exterior' && ptOn) controls.autoRotate = false;
+    applyGoogleVisibility();
+    invalidateShadows();
     emit('mode', { mode: next, prev });
     schedule();
     return true;
+  }
+
+  // ---------- photoreal (progressive path tracing) ----------
+  async function setPhotoreal(on) {
+    on = !!on;
+    if (on === ptOn && !ptLoading) return ptOn;
+    if (!on) {
+      ptOn = false;
+      try { pt?.stop(); } catch (e) { /* ignore */ }
+      applyGoogleVisibility();
+      lastIdle = performance.now();
+      emit('photoreal', { state: 'off' });
+      schedule();
+      return false;
+    }
+    try { await ready; } catch (e) { return false; }
+    if (mode === 'aerial') return false;
+    if (ptLoading) return ptLoading;
+    ptLoading = (async () => {
+      emit('photoreal', { state: 'loading', phase: 'load', p: 0 });
+      try {
+        if (!pt) {
+          const m = await import('./pathtrace.js');
+          pt = await m.createPathTracer(THREE, {
+            renderer, scene, camera,
+            onProgress: o => {
+              if (!o) return;
+              if (o.phase === 'error') {
+                if (ptOn) { ptOn = false; applyGoogleVisibility(); }
+                emit('photoreal', { state: 'error', error: o.error });
+                schedule();
+              } else emit('photoreal', { state: ptOn ? 'on' : 'loading', ...o });
+            }
+          });
+          if (!pt) throw new Error('path tracer unavailable');
+          modules.pathtrace = true;
+          if (ptLabels) { try { pt.setLabels?.(ptLabels); } catch (e) { /* optional */ } }
+        }
+        pt.setScope(mode === 'walk' ? 'interior' : 'exterior');
+        ptOn = true;
+        if (controls) controls.autoRotate = false;
+        applyGoogleVisibility();
+        const ok = await pt.start();
+        if (ok === false || !pt.isActive?.()) {
+          ptOn = false; applyGoogleVisibility();
+          emit('photoreal', { state: 'error', error: new Error('path tracer did not start') });
+          return false;
+        }
+        emit('photoreal', { state: 'on', samples: 0 });
+        schedule();
+        return true;
+      } catch (e) {
+        console.warn('[viewer] photoreal unavailable', e);
+        ptOn = false; applyGoogleVisibility();
+        emit('photoreal', { state: 'error', error: e });
+        return false;
+      } finally {
+        ptLoading = null;
+      }
+    })();
+    return ptLoading;
   }
 
   // ---------- unit helpers ----------
@@ -397,6 +571,8 @@ export function createViewer(container, options = {}) {
     try { await ready; } catch (e) { return; }
     if (interiors && unitId) {
       try { await interiors.furnish(unitId, styleId || 'atlantic'); } catch (e) { console.warn('[viewer] furnish', e); }
+      invalidateShadows();
+      if (ptOn) pt?.reset();
     }
     emit('unit-select', { unitId, styleId, source: 'app' });
   }
@@ -479,7 +655,10 @@ export function createViewer(container, options = {}) {
 
   function setTimeOfDay(name) {
     tod = name;
-    if (env) { try { env.setTimeOfDay(name); } catch (e) { console.warn(e); } }
+    if (env) { try { env.setTimeOfDay(name); } catch (e) { console.warn(e); } tuneShadows(); }
+    try { postfx?.setTimeOfDay?.(name); } catch (e) { /* ignore */ }
+    invalidateShadows();
+    if (ptOn) { try { pt.stop(); pt.start(); } catch (e) { /* sky changed: rebuild the captured environment */ } }
     else if (fallbackLights && THREE) {
       const bg = { day: 0xc9d6df, golden: 0xe8c9a4, dusk: 0x3b4660 }[name] || 0xc9d6df;
       scene.background = new THREE.Color(bg);
@@ -499,6 +678,9 @@ export function createViewer(container, options = {}) {
     if (raf) cancelAnimationFrame(raf);
     raf = 0;
     try { exitCurrent(); } catch (e) { /* ignore */ }
+    try { pt?.dispose(); } catch (e) { /* ignore */ }
+    try { g3d?.dispose(); } catch (e) { /* ignore */ }
+    try { postfx?.dispose(); } catch (e) { /* ignore */ }
     for (const c of cleanups.splice(0)) { try { c(); } catch (e) { /* ignore */ } }
     try { controls?.dispose(); } catch (e) { /* ignore */ }
     try {
@@ -515,7 +697,7 @@ export function createViewer(container, options = {}) {
     try { renderer?.dispose(); renderer?.forceContextLoss?.(); } catch (e) { /* ignore */ }
     renderer?.domElement?.remove();
     container.classList.remove('v-root');
-    canvasHost.remove(); labelsEl.remove(); hudEl.remove(); floorTip.remove();
+    canvasHost.remove(); labelsEl.remove(); hudEl.remove(); floorTip.remove(); attribEl.remove();
     for (const k of Object.keys(listeners)) delete listeners[k];
   }
 
@@ -536,6 +718,12 @@ export function createViewer(container, options = {}) {
     goToLift,
     takeLift,
     resize,
+    setPaused: b => { paused = !!b; schedule(); },   // freeze the loop (tests, screenshots); the last frame stays
+    setPhotoreal,
+    isPhotoreal: () => ptOn,
+    setPhotorealLabels: l => { ptLabels = l; try { pt?.setLabels?.(l); } catch (e) { /* optional */ } },
+    setHeading: b => { try { aerial?.setHeading?.(b); } catch (e) { /* ignore */ } },
+    attribution: () => env?.attribution || '',
     has: name => !!modules[name],
     modules: () => ({ ...modules }),
     on,

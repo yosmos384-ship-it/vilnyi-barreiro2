@@ -8,6 +8,7 @@ const RADIUS = 0.25;
 const WALK_SPEED = 1.45;          // m/s
 const RUN_SPEED = 2.6;
 const TURN_SPEED = 1.9;           // rad/s (keys / HUD)
+const LOOK_SPEED = 1.0;           // rad/s pitch (look up / down buttons)
 const STEP_TOL = 0.45;            // max height change per move step (stairs)
 const DOOR_NEAR = 1.4;
 const DOOR_FAR = 2.1;
@@ -46,9 +47,9 @@ const CAB_C = { x: (LIFT.x0 + LIFT.x1) / 2, z: (LIFT.z0 + LIFT.z1) / 2 };
 const LIFT_DOOR_PT = { x: LIFT.doorOnX, z: (LIFT.doorZ[0] + LIFT.doorZ[1]) / 2 };
 
 const T = {
-  en: { hint: 'Drag to look · Double-click to walk', hintTouch: 'Drag to look · Double-tap to walk', plan: 'Plan', lift: 'Lift', apartment: 'Apartment', balcony: 'Balcony', terrace: 'Terrace', deck: 'Garden deck', fwd: 'Forward', back: 'Back', left: 'Turn left', right: 'Turn right', up: 'Up', down: 'Down', floor: 'Floor', close: 'Close plan' },
-  pt: { hint: 'Arraste para olhar · Duplo clique para andar', hintTouch: 'Arraste para olhar · Toque duplo para andar', plan: 'Planta', lift: 'Elevador', apartment: 'Apartamento', balcony: 'Varanda', terrace: 'Terraço', deck: 'Deck do jardim', fwd: 'Avançar', back: 'Recuar', left: 'Rodar à esquerda', right: 'Rodar à direita', up: 'Subir', down: 'Descer', floor: 'Piso', close: 'Fechar planta' },
-  he: { hint: 'גררו כדי להסתכל · לחיצה כפולה כדי ללכת', hintTouch: 'גררו כדי להסתכל · הקשה כפולה כדי ללכת', plan: 'תוכנית', lift: 'מעלית', apartment: 'דירה', balcony: 'מרפסת', terrace: 'טרסה', deck: 'דק גינה', fwd: 'קדימה', back: 'אחורה', left: 'פנייה שמאלה', right: 'פנייה ימינה', up: 'למעלה', down: 'למטה', floor: 'קומה', close: 'סגירת תוכנית' }
+  en: { hint: 'Drag to look · Double-click to walk', hintTouch: 'Drag to look · Double-tap to walk', plan: 'Plan', lift: 'Lift', apartment: 'Apartment', balcony: 'Balcony', terrace: 'Terrace', deck: 'Garden deck', fwd: 'Forward', back: 'Back', left: 'Turn left', right: 'Turn right', lookUp: 'Look up', lookDown: 'Look down', up: 'Up', down: 'Down', floor: 'Floor', close: 'Close plan' },
+  pt: { hint: 'Arraste para olhar · Duplo clique para andar', hintTouch: 'Arraste para olhar · Toque duplo para andar', plan: 'Planta', lift: 'Elevador', apartment: 'Apartamento', balcony: 'Varanda', terrace: 'Terraço', deck: 'Deck do jardim', fwd: 'Avançar', back: 'Recuar', left: 'Rodar à esquerda', right: 'Rodar à direita', lookUp: 'Olhar para cima', lookDown: 'Olhar para baixo', up: 'Subir', down: 'Descer', floor: 'Piso', close: 'Fechar planta' },
+  he: { hint: 'גררו כדי להסתכל · לחיצה כפולה כדי ללכת', hintTouch: 'גררו כדי להסתכל · הקשה כפולה כדי ללכת', plan: 'תוכנית', lift: 'מעלית', apartment: 'דירה', balcony: 'מרפסת', terrace: 'טרסה', deck: 'דק גינה', fwd: 'קדימה', back: 'אחורה', left: 'פנייה שמאלה', right: 'פנייה ימינה', lookUp: 'הבט למעלה', lookDown: 'הבט למטה', up: 'למעלה', down: 'למטה', floor: 'קומה', close: 'סגירת תוכנית' }
 };
 
 // ───────────────────────────── small helpers ─────────────────────────────
@@ -131,8 +132,9 @@ function balconiesOf(floorId) { return BALCONIES.filter(b => b.level === floorId
 
 // ───────────────────────────── CSS ─────────────────────────────
 const CSS = `
+.vw-root.vw-root{pointer-events:none}
 .vw-root{position:absolute;inset:0;pointer-events:none;z-index:6;color:#f5f1ea;font-family:inherit;-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;
- --vw-glass:rgba(18,17,16,.62);--vw-glass-hi:rgba(30,28,26,.74);--vw-line:rgba(255,255,255,.16);--vw-line-hi:rgba(255,255,255,.34);--vw-accent:#cdb07a;--vw-inset:18px;line-height:1.25}
+ --vw-glass:rgba(18,17,16,.62);--vw-glass-hi:rgba(30,28,26,.74);--vw-line:rgba(255,255,255,.16);--vw-line-hi:rgba(255,255,255,.34);--vw-accent:#cdb07a;--vw-inset:18px;--vw-b:44px;touch-action:none;line-height:1.25}
 .vw-root[hidden]{display:none!important}
 .vw-glass{background:var(--vw-glass);-webkit-backdrop-filter:blur(16px) saturate(135%);backdrop-filter:blur(18px) saturate(140%);border:1px solid var(--vw-line);border-radius:14px;text-shadow:0 1px 1px rgba(0,0,0,.25);box-shadow:0 10px 34px rgba(0,0,0,.22)}
 .vw-cap{font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:500;opacity:.66}
@@ -143,14 +145,20 @@ const CSS = `
 .vw-hint{position:absolute;inset-block-end:calc(var(--vw-inset) + 6px);left:50%;transform:translateX(-50%);padding:8px 16px;border-radius:999px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;opacity:0;transition:opacity .8s}
 .vw-hint.vw-on{opacity:.9}
 .vw-pad{position:absolute;inset-block-end:var(--vw-inset);inset-inline-start:var(--vw-inset);pointer-events:none}
-.vw-padgrid{display:grid;grid-template-columns:repeat(3,44px);grid-template-rows:repeat(2,44px);gap:6px;direction:ltr}
+.vw-padgrid{display:grid;grid-template-columns:repeat(3,var(--vw-b));grid-template-rows:repeat(3,var(--vw-b));gap:5px;direction:ltr}
+.vw-padhub{grid-column:2;grid-row:2;align-self:center;justify-self:center;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.28);box-shadow:0 0 0 1px rgba(0,0,0,.15)}
 .vw-btn{pointer-events:auto;appearance:none;-webkit-appearance:none;margin:0;padding:0;font:inherit;color:inherit;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;cursor:pointer;touch-action:none;outline:none;
  background:var(--vw-glass);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid var(--vw-line);transition:background .18s,border-color .18s,color .18s,box-shadow .18s}
 .vw-btn:hover{border-color:var(--vw-line-hi);background:var(--vw-glass-hi)}
 .vw-btn:focus-visible{border-color:var(--vw-accent)}
 .vw-btn.vw-down{background:rgba(205,176,122,.26);border-color:var(--vw-accent);color:#fff}
 .vw-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
-.vw-pad .vw-fwd{grid-column:2;grid-row:1}.vw-pad .vw-left{grid-column:1;grid-row:2}.vw-pad .vw-back{grid-column:2;grid-row:2}.vw-pad .vw-right{grid-column:3;grid-row:2}
+.vw-pad .vw-fwd{grid-column:2;grid-row:1}.vw-pad .vw-left{grid-column:1;grid-row:2}.vw-pad .vw-back{grid-column:2;grid-row:3}.vw-pad .vw-right{grid-column:3;grid-row:2}
+.vw-pad .vw-btn,.vw-look .vw-btn{width:var(--vw-b);height:var(--vw-b)}
+.vw-pad .vw-btn svg{width:20px;height:20px;stroke-width:1.5}
+.vw-row{display:flex;align-items:flex-end;gap:8px;pointer-events:none}
+.vw-look{display:flex;flex-direction:column;gap:5px;pointer-events:none;direction:ltr}
+.vw-look .vw-btn svg{width:18px;height:18px}
 .vw-mapwrap{position:absolute;inset-block-end:var(--vw-inset);inset-inline-end:var(--vw-inset);display:flex;flex-direction:column;align-items:flex-end;gap:8px;pointer-events:none}
 [dir=rtl] .vw-mapwrap,.vw-root[dir=rtl] .vw-mapwrap{align-items:flex-start}
 .vw-maptoggle{width:auto;padding:0 14px 0 12px;gap:8px;display:inline-flex;align-items:center;font-size:10px;letter-spacing:.18em;text-transform:uppercase}
@@ -175,8 +183,8 @@ const CSS = `
 .vw-lift-ud svg{width:14px;height:14px}
 @keyframes vw-in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @keyframes vw-blink{0%,100%{opacity:1}50%{opacity:.35}}
-@media (pointer:coarse){.vw-padgrid{grid-template-columns:repeat(3,52px);grid-template-rows:repeat(2,52px)}.vw-pad .vw-btn{width:52px;height:52px}}
-@media (max-width:560px){.vw-root{--vw-inset:12px}.vw-label{max-width:56vw}.vw-lift{width:92px}.vw-hint{inset-block-end:calc(var(--vw-inset) + 124px);white-space:normal;text-align:center;width:max-content;max-width:78vw;line-height:1.5}}
+@media (pointer:coarse){.vw-root{--vw-b:48px}}
+@media (max-width:560px){.vw-root{--vw-inset:12px}.vw-maptoggle span{display:none}.vw-maptoggle{width:var(--vw-b);padding:0;justify-content:center}.vw-label{max-width:56vw}.vw-lift{width:84px;padding:10px 0;gap:9px}.vw-lift-ind{width:58px;height:40px}.vw-lift-num{font-size:22px}.vw-lift-btns{gap:6px}.vw-lbtn{width:38px;height:38px;font-size:13px}.vw-lift-ud{width:66px;padding-top:8px}.vw-lift-ud .vw-btn{width:30px;height:30px}.vw-hint{inset-block-end:calc(var(--vw-inset) + 3 * var(--vw-b) + 26px);white-space:normal;text-align:center;width:max-content;max-width:78vw;line-height:1.5}}
 @media (prefers-reduced-motion:reduce){.vw-root *{transition:none!important;animation:none!important}}
 `;
 const ICON = {
@@ -185,6 +193,12 @@ const ICON = {
   left: '<svg viewBox="0 0 24 24"><path d="M5.2 10A7.5 7.5 0 1 1 7 17.3"/><path d="M4.5 4.5v5.8h5.8"/></svg>',
   right: '<svg viewBox="0 0 24 24"><path d="M18.8 10A7.5 7.5 0 1 0 17 17.3"/><path d="M19.5 4.5v5.8h-5.8"/></svg>',
   plan: '<svg viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="1"/><path d="M10 4.5v7h10.5M10 15v4.5"/></svg>',
+  aup: '<svg viewBox="0 0 24 24"><path d="M12 19.5V5M6 11l6-6 6 6"/></svg>',
+  adown: '<svg viewBox="0 0 24 24"><path d="M12 4.5V19M6 13l6 6 6-6"/></svg>',
+  aleft: '<svg viewBox="0 0 24 24"><path d="M19.5 12H5M11 6l-6 6 6 6"/></svg>',
+  aright: '<svg viewBox="0 0 24 24"><path d="M4.5 12H19M13 6l6 6-6 6"/></svg>',
+  lookup: '<svg viewBox="0 0 24 24"><path d="M5 4.5h14"/><path d="M12 20V9M7 14l5-5 5 5"/></svg>',
+  lookdown: '<svg viewBox="0 0 24 24"><path d="M5 19.5h14"/><path d="M12 4v11M7 10l5 5 5-5"/></svg>',
   tri: '<svg viewBox="0 0 12 14"><path d="M6 1l5 6H1z"/><path d="M6 13l5-6H1z" opacity="0"/></svg>'
 };
 
@@ -199,6 +213,9 @@ function injectCSS() {
 // ───────────────────────────── main ─────────────────────────────
 export function createWalker(THREE, { camera, dom, scene, building, overlay } = {}) {
   const lift = building && building.lift ? building.lift : null;
+  if (building && building.stairLayout && typeof building.stairLayout === 'object') {
+    for (const k of Object.keys(SL)) if (Number.isFinite(building.stairLayout[k])) SL[k] = building.stairLayout[k];
+  }
   const reduceMotion = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
   const coarse = typeof matchMedia === 'function' && matchMedia('(pointer: coarse)').matches;
   let langOverride = null;
@@ -216,7 +233,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   let enabled = false, placed = false, clock = 0;
   let auto = null;                 // auto-walk target {x,z,stuck}
   const keys = new Set();
-  const hudIn = { fwd: false, back: false, left: false, right: false };
+  const hudIn = { fwd: false, back: false, left: false, right: false, lup: false, ldown: false };
   let wheelImpulse = 0;
   const listeners = [];
   let lastState = null;
@@ -263,11 +280,11 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
       for (const o of ops) {
         if (o.from > cur) add(makeSeg(P(cur), P(o.from), w.t));
         if (o.type === 'elevator') {
-          add(makeSeg(P(o.from), P(o.to), w.t, { cond: () => !(cabLevel === fid && !job?.moving && liftDoor > 0.7) }));
+          add(makeSeg(P(o.from), P(o.to), w.t, { y0: 2.1, cond: () => !(cabLevel === fid && !job?.moving && liftDoor > 0.7) }));
         } else if (LEAF.has(o.type)) {
           const m = P((o.from + o.to) / 2);
           const rec = findDoor(fid, m[0], m[1]);
-          if (rec) add(makeSeg(P(o.from), P(o.to), w.t, { cond: () => rec.t < 0.5 }));
+          if (rec) add(makeSeg(P(o.from), P(o.to), w.t, { y0: o.type === 'main' ? 2.4 : 2.1, cond: () => rec.t < 0.5 }));
         }
         cur = Math.max(cur, o.to);
       }
@@ -277,7 +294,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     add(makeSeg([LIFT.x0 - 0.3, LIFT.z0], [LIFT.x1, LIFT.z0], 0.1));
     add(makeSeg([LIFT.x0 - 0.3, LIFT.z1], [LIFT.x1, LIFT.z1], 0.1));
     // stairs: central balustrade between the flights, back wall behind the half landing
-    add(makeSeg([SL.xMid, SL.zLand], [SL.xMid, SL.zTurn], 0.08));
+    add(makeSeg([SL.xMid, SL.zLand], [SL.xMid, SL.zTurn], 0.08, { y0: -3.2, y1: 4.0 }));
     add(makeSeg([SL.x0 - 0.3, SL.z1 + 0.04], [SL.x1, SL.z1 + 0.04], 0.08));
     // balcony balustrades (all edges except the building side)
     const onFacade = (p, q) => (Math.abs(p[1]) < 0.02 && Math.abs(q[1]) < 0.02) || (Math.abs(p[1] - 14.7) < 0.02 && Math.abs(q[1] - 14.7) < 0.02);
@@ -286,11 +303,11 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
       const poly = b.poly;
       for (let i = 0; i < poly.length; i++) {
         const p = poly[i], q = poly[(i + 1) % poly.length];
-        if (!onFacade(p, q)) add(makeSeg(p, q, 0.06));
+        if (!onFacade(p, q)) add(makeSeg(p, q, 0.06, { y1: 1.05 }));
       }
       if (b.split != null) {
         const zs = poly.map(p => p[1]);
-        add(makeSeg([b.split, Math.min(...zs)], [b.split, Math.max(...zs)], 0.06));
+        add(makeSeg([b.split, Math.min(...zs)], [b.split, Math.max(...zs)], 0.06, { y1: 1.6 }));
       }
     }
     // gardens (ground): boundary walls & fence, clipped to the garden side of the rear façade
@@ -300,7 +317,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
         const c = clipEdgeZMax(r.poly[i], r.poly[(i + 1) % r.poly.length], -0.02);
         if (!c) continue;
         if (c[0][1] > -0.3 && c[1][1] > -0.3) continue;
-        add(makeSeg(c[0], c[1], 0.1));
+        add(makeSeg(c[0], c[1], 0.1, { y1: 1.8 }));
       }
     }
     segCache.set(fid, segs);
@@ -621,6 +638,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     const h = { liftBtns: new Map() };
     if (typeof document === 'undefined') return h;
     const root = el('div', 'vw-root');
+    root.style.pointerEvents = 'none';
     root.hidden = true;
     root.setAttribute('data-vw', '');
     h.root = root;
@@ -648,8 +666,11 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
       b.addEventListener('contextmenu', (e) => e.preventDefault());
       return b;
     };
-    h.pad = { fwd: mk('vw-fwd', 'up', 'fwd'), left: mk('vw-left', 'left', 'left'), back: mk('vw-back', 'down', 'back'), right: mk('vw-right', 'right', 'right') };
-    padGrid.append(h.pad.fwd, h.pad.left, h.pad.back, h.pad.right);
+    h.pad = { fwd: mk('vw-fwd', 'aup', 'fwd'), left: mk('vw-left', 'aleft', 'left'), back: mk('vw-back', 'adown', 'back'), right: mk('vw-right', 'aright', 'right'),
+      lup: mk('vw-lup', 'lookup', 'lup'), ldown: mk('vw-ldown', 'lookdown', 'ldown') };
+    padGrid.append(h.pad.fwd, h.pad.left, el('span', 'vw-padhub'), h.pad.right, h.pad.back);
+    const look = el('div', 'vw-look');
+    look.append(h.pad.lup, h.pad.ldown);
     // map
     const mapWrap = el('div', 'vw-mapwrap');
     h.mapPanel = el('div', 'vw-map vw-glass');
@@ -661,7 +682,9 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     h.mapBtn.setAttribute('aria-pressed', 'false');
     h.mapBtn.addEventListener('click', () => { unlockAudio(); setMapOpen(!mapOpen); });
     h.canvas.addEventListener('pointerdown', onMapPointer);
-    mapWrap.append(h.mapPanel, h.mapBtn);
+    const row = el('div', 'vw-row');
+    row.append(h.mapBtn, look);
+    mapWrap.append(h.mapPanel, row);
     // lift panel
     const lp = el('div', 'vw-lift vw-glass');
     lp.setAttribute('role', 'group');
@@ -689,6 +712,8 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     h.lift = lp;
     root.append(label, h.hint, pad, mapWrap, lp);
     root.addEventListener('pointerdown', unlockAudio, { passive: true });
+    root.addEventListener('dblclick', (e) => e.preventDefault());
+    root.addEventListener('gesturestart', (e) => e.preventDefault());
     root.addEventListener('wheel', (e) => { if (e.target.closest && e.target.closest('.vw-btn,.vw-map')) e.preventDefault(); }, { passive: false });
     if (overlay) overlay.appendChild(root);
     return h;
@@ -703,6 +728,10 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     hud.pad.back.setAttribute('aria-label', tr('back'));
     hud.pad.left.setAttribute('aria-label', tr('left'));
     hud.pad.right.setAttribute('aria-label', tr('right'));
+    hud.pad.lup.setAttribute('aria-label', tr('lookUp'));
+    hud.pad.ldown.setAttribute('aria-label', tr('lookDown'));
+    for (const k in hud.pad) hud.pad[k].title = hud.pad[k].getAttribute('aria-label');
+    hud.mapBtn.setAttribute('aria-label', tr('plan'));
     hud.liftHead.textContent = tr('lift');
     hud.lift.setAttribute('aria-label', tr('lift'));
     hud.liftUp.setAttribute('aria-label', tr('up'));
@@ -917,6 +946,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   const raycaster = new THREE.Raycaster();
   raycaster.far = 40;
   const pickerSet = new Set(((building && building.floorPickers) || []).map(p => p && p.mesh).filter(Boolean));
+  let lastPick = null;
   function usable(o) {
     if (!o || o.userData?.noWalkRaycast || pickerSet.has(o) || o.isSprite || o.isPoints || o.isLine) return false;
     for (let a = o; a; a = a.parent) if (!a.visible) return false;
@@ -942,37 +972,42 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     }
     return null;
   }
+  // Tap-to-walk target by ray-marching the plan data (walls, rails, floors, stairs) — independent of the
+  // scene's mesh complexity (the OSM context can be ~1M triangles) and of furniture.
+  function marchTarget(o, d) {
+    const fid = floorId, base = LEVEL_Y[fid];
+    const occ = segsFor(fid);
+    const hl = Math.hypot(d.x, d.z) || 1e-6;
+    const back = (x, z, dist) => ({ x: x - (d.x / hl) * dist, z: z - (d.z / hl) * dist });
+    let g = feetY, lastIn = { x: pos.x, z: pos.z };
+    const STEP = 0.04;
+    for (let t = 0.05; t < 22; t += STEP) {
+      const x = o.x + d.x * t, y = o.y + d.y * t, z = o.z + d.z * t;
+      const cands = inStairBox(x, z) ? stairHeights(x, z) : LEVEL_YS;
+      let best = g, bd = Infinity;
+      for (const c of cands) { const dd = Math.abs(c - g); if (dd < bd) { bd = dd; best = c; } }
+      if (bd < 0.7) g = best;
+      if (y <= g + 0.002) return { x, z, y: g, hit: 'floor' };
+      const ry = y - base;
+      for (const sg of occ) {
+        const y0 = sg.y0 != null ? sg.y0 : -0.2, y1 = sg.y1 != null ? sg.y1 : 2.75;
+        if (ry < y0 || ry > y1) continue;
+        if (segDist(x, z, sg) < 0.015) { const b = back(x, z, 0.4 + RADIUS * 0.2); return { x: b.x, z: b.z, y: g, hit: 'wall' }; }
+      }
+      if (inRegion(x, z, fid)) lastIn = { x, z };
+      if (ry > 2.75 && !inStairBox(x, z)) return { x, z, y: g, hit: 'ceiling' };
+    }
+    return { x: lastIn.x, z: lastIn.z, y: g, hit: 'none' };
+  }
   function walkToScreen(clientX, clientY) {
-    if (job && job.carry) return;
+    if (job && job.carry) return false;
     camera.updateMatrixWorld();
     raycaster.setFromCamera(ndc(clientX, clientY), camera);
-    const hits = scene ? raycaster.intersectObjects(scene.children, true) : [];
-    const dir = raycaster.ray.direction;
-    let tx = null, tz = null, ty = feetY;
-    for (const h of hits) {
-      if (!usable(h.object)) continue;
-      let ny = 1;
-      if (h.face) {
-        const n = h.face.normal.clone().transformDirection(h.object.matrixWorld);
-        ny = n.y;
-      }
-      if (ny > 0.6) { tx = h.point.x; tz = h.point.z; ty = h.point.y; }
-      else {
-        const hl = Math.hypot(dir.x, dir.z) || 1;
-        tx = h.point.x - (dir.x / hl) * 0.4; tz = h.point.z - (dir.z / hl) * 0.4;
-      }
-      break;
-    }
-    if (tx === null) {
-      if (dir.y < -0.03) {
-        const t = Math.min((eyeY - feetY) / -dir.y, 12);
-        tx = camera.position.x + dir.x * t; tz = camera.position.z + dir.z * t;
-      } else {
-        const hl = Math.hypot(dir.x, dir.z) || 1;
-        tx = pos.x + (dir.x / hl) * 3; tz = pos.z + (dir.z / hl) * 3;
-      }
-    }
-    walkTo(tx, tz, ty);
+    const o = raycaster.ray.origin, d = raycaster.ray.direction;
+    const tg = marchTarget({ x: o.x, y: o.y, z: o.z }, d);
+    if (Math.hypot(tg.x - pos.x, tg.z - pos.z) < 0.15) return false;
+    lastPick = tg;
+    return walkTo(tg.x, tg.z, tg.y);
   }
   function walkTo(x, z, yHint) {
     if (job && job.carry) return false;
@@ -1021,11 +1056,13 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     dom.style.cursor = 'grab';
     const now = performance.now();
     if (now - ptr.lastT < 70 && ptr.moved > 8) { yawVel = clamp(ptr.vx, -6, 6); pitchVel = clamp(ptr.vy, -4, 4); }
-    const isTap = ptr.moved < 9 && now - ptr.t0 < 350 && e.type === 'pointerup';
-    if (!isTap) return;
+    const touch = e.pointerType !== 'mouse';
+    const isTap = ptr.moved < (touch ? 14 : 9) && now - ptr.t0 < (touch ? 400 : 350) && e.type === 'pointerup';
+    if (!isTap) { lastTap.t = -1e9; return; }
+    // single tap: only the 3D lift buttons react; everything else waits for the second tap
     const fid = pickPanel(e.clientX, e.clientY);
     if (fid) { ride(fid); lastTap.t = -1e9; return; }
-    if (now - lastTap.t < 380 && Math.hypot(e.clientX - lastTap.x, e.clientY - lastTap.y) < 40) {
+    if (now - lastTap.t < (touch ? 420 : 380) && Math.hypot(e.clientX - lastTap.x, e.clientY - lastTap.y) < (touch ? 48 : 36)) {
       lastTap.t = -1e9;
       walkToScreen(e.clientX, e.clientY);
     } else lastTap = { t: now, x: e.clientX, y: e.clientY };
@@ -1035,7 +1072,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     wheelImpulse = clamp(wheelImpulse - Math.sign(e.deltaY) * 0.35, -1.2, 1.2);
     auto = null;
   }
-  const KEYMAP = { KeyW: 'f', ArrowUp: 'f', KeyS: 'b', ArrowDown: 'b', KeyA: 'sl', KeyD: 'sr', ArrowLeft: 'tl', ArrowRight: 'tr', KeyQ: 'tl', KeyE: 'tr', ShiftLeft: 'run', ShiftRight: 'run' };
+  const KEYMAP = { KeyW: 'f', ArrowUp: 'f', KeyS: 'b', ArrowDown: 'b', KeyA: 'sl', KeyD: 'sr', ArrowLeft: 'tl', ArrowRight: 'tr', KeyQ: 'tl', KeyE: 'tr', PageUp: 'lu', PageDown: 'ld', KeyR: 'lu', KeyF: 'ld', ShiftLeft: 'run', ShiftRight: 'run' };
   function onKeyDown(e) {
     const t = e.target;
     if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
@@ -1049,7 +1086,14 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   function onKeyUp(e) { const k = KEYMAP[e.code]; if (k) keys.delete(k); }
   function onBlur() { keys.clear(); for (const k in hudIn) hudIn[k] = false; }
   function onContext(e) { e.preventDefault(); }
+  function onTouchStart(e) { if (e.cancelable) e.preventDefault(); } // belt-and-braces with touch-action:none: no double-tap zoom, no scroll
 
+  const padLit = {};
+  function syncPadHighlight() {
+    if (!hud.pad) return;
+    const st = { fwd: keys.has('f') || hudIn.fwd, back: keys.has('b') || hudIn.back, left: keys.has('tl') || hudIn.left, right: keys.has('tr') || hudIn.right, lup: keys.has('lu') || hudIn.lup, ldown: keys.has('ld') || hudIn.ldown };
+    for (const k in st) if (padLit[k] !== st[k]) { padLit[k] = st[k]; hud.pad[k].classList.toggle('vw-down', st[k]); }
+  }
   function hideHint() { if (hud.hint) hud.hint.classList.remove('vw-on'); hintTimer = 0; }
 
   // ── state emission ──
@@ -1126,6 +1170,9 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     // turning
     const turn = (keys.has('tl') || hudIn.left ? 1 : 0) - (keys.has('tr') || hudIn.right ? 1 : 0);
     if (turn) yaw += turn * TURN_SPEED * dt;
+    const lookV = (keys.has('lu') || hudIn.lup ? 1 : 0) - (keys.has('ld') || hudIn.ldown ? 1 : 0);
+    if (lookV) { pitch = clamp(pitch + lookV * LOOK_SPEED * dt, PITCH_MIN, PITCH_MAX); pitchVel = 0; }
+    syncPadHighlight();
     yaw = wrapAngle(yaw);
     // desired velocity
     const riding = job && job.carry && (job.moving || job.phase === 'closing');
@@ -1195,6 +1242,9 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
       on(dom, 'pointercancel', onPointerUp, { passive: true });
       on(dom, 'wheel', onWheel, { passive: false });
       on(dom, 'contextmenu', onContext, false);
+      on(dom, 'dblclick', onContext, false);            // walking is handled on pointerup; never select/zoom
+      on(dom, 'gesturestart', onContext, false);        // iOS pinch/double-tap zoom
+      on(dom, 'touchstart', onTouchStart, { passive: false });
     }
     on(window, 'keydown', onKeyDown, false);
     on(window, 'keyup', onKeyUp, false);

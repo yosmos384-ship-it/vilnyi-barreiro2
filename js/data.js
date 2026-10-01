@@ -18,6 +18,7 @@ export const PROJECT = {
   lon: -9.047975,
   googleMaps: 'https://www.google.com/maps/search/?api=1&query=38.668462,-9.047975',
   googleEarth: 'https://earth.google.com/web/@38.668462,-9.047975,15a,250d,35y,331h,60t,0r',
+  googleMapsKey: '',   // optional: Google Maps Platform key (Map Tiles API) for real Google 3D tiles on a self-hosted copy — see GOOGLE3D.md
   streetView: 'https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=38.668340,-9.047900&heading=331&pitch=5&fov=80',
   stage: 'Preliminary study · September 2026',
   // Indicative programme — edit when licensing dates are known
@@ -303,7 +304,7 @@ export const STYLES = [
 // Nearby places for the aerial panorama. Coordinates are approximate.
 export const LANDMARKS = [
   { id: 'tejo', kind: 'water', lat: 38.6760, lon: -9.0470, name: { en: 'Tagus estuary waterfront', pt: 'Frente ribeirinha do Tejo', he: 'חוף שפך הטז׳ו' } },
-  { id: 'lavradio-station', kind: 'train', lat: 38.6725, lon: -9.0430, name: { en: 'Lavradio station', pt: 'Estação do Lavradio', he: 'תחנת רכבת לברדיו' } },
+  { id: 'lavradio-station', kind: 'train', lat: 38.66185, lon: -9.05847, name: { en: 'Lavradio station', pt: 'Estação do Lavradio', he: 'תחנת רכבת לברדיו' } },
   { id: 'barreiro-ferry', kind: 'ferry', lat: 38.6570, lon: -9.0790, name: { en: 'Barreiro ferry to Lisbon (Soflusa)', pt: 'Terminal fluvial do Barreiro', he: 'מעבורת בריירו–ליסבון' } },
   { id: 'baixa-chiado', kind: 'city', lat: 38.7075, lon: -9.1365, name: { en: 'Lisbon · Baixa / Terreiro do Paço', pt: 'Lisboa · Terreiro do Paço', he: 'ליסבון · טראיירו דו פאסו' } },
   { id: 'parque-nacoes', kind: 'city', lat: 38.7680, lon: -9.0940, name: { en: 'Lisbon · Parque das Nações', pt: 'Lisboa · Parque das Nações', he: 'ליסבון · פארק האומות' } },

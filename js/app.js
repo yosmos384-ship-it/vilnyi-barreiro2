@@ -29,6 +29,7 @@ const state = {
   res: { unitId: null, styleId: 'atlantic', step: 1, data: {}, ref: null, saved: null },
   db: null, user: null, isOwner: false, canWrite: null,
   landmarks: LANDMARKS,
+  mapFocus: null,
   route: ''
 };
 const statusOf = id => state.overrides[id] || unitById(id)?.status || 'available';
@@ -112,6 +113,9 @@ function applyLang(l, rerender = true) {
   for (const el of $$('[data-i18n-aria]')) el.setAttribute('aria-label', t(el.dataset.i18nAria));
   document.title = t('meta.title');
   viewerApi?.setLang?.(info.id);
+  viewerApi?.setPhotorealLabels?.(ptLabels());
+  try { siteMap?.setLang?.(info.id); } catch (e) { /* ignore */ }
+  updatePhotorealUI();
   if (rerender) renderAll();
 }
 
@@ -295,11 +299,48 @@ async function renderLocation() {
   $('#addr').innerHTML = `${esc(PROJECT.address)}<br><span class="fineprint">${esc(PROJECT.postcode)} · ${esc(PROJECT.region)}</span>`;
   $('#mapsLink').href = PROJECT.googleMaps;
   $('#earthLink').href = PROJECT.googleEarth;
-  $('#coords').textContent = `${PROJECT.lat.toFixed(5)}° N, ${Math.abs(PROJECT.lon).toFixed(5)}° W`;
+  const sv = $('#streetLink');
+  if (PROJECT.streetView) sv.href = PROJECT.streetView; else sv.hidden = true;
+  $('#coords').textContent = `${PROJECT.lat.toFixed(6)}, ${PROJECT.lon.toFixed(6)}`;
   const list = state.landmarks
     .map(l => ({ ...l, km: haversineKm(PROJECT.lat, PROJECT.lon, l.lat, l.lon) }))
     .sort((a, b) => a.km - b.km);
-  $('#distList').innerHTML = list.map(l => `<li>${icon(l.kind)}<span>${esc(L(l.name))}</span><span class="km">${fmtNum(l.km, l.km < 10 ? 1 : 0)} ${esc(t('misc.km'))}</span></li>`).join('');
+  $('#distList').innerHTML = list.map(l => `<li><button type="button" class="dist-b${state.mapFocus === l.id ? ' is-on' : ''}" data-lm="${esc(l.id)}" aria-pressed="${state.mapFocus === l.id}">${icon(l.kind)}<span>${esc(L(l.name))}</span><span class="km">${fmtNum(l.km, l.km < 10 ? 1 : 0)} ${esc(t('misc.km'))}</span></button></li>`).join('');
+}
+
+// ---------------------------------------------------------------- location map (sitemap.js, lazy)
+let siteMap = null;
+function initSiteMap() {
+  const box = $('#siteMap');
+  if (!box || initSiteMap._started) return;
+  const startMap = async () => {
+    if (initSiteMap._started) return;
+    initSiteMap._started = true;
+    try {
+      const m = await import('./sitemap.js');
+      siteMap = await m.createSiteMap(box, { lang: getLang(), onOpen3D: () => openImmersive('aerial') });
+      if (state.mapFocus) siteMap?.highlight?.(state.mapFocus);
+    } catch (e) {
+      console.warn('[app] site map unavailable', e);
+      box.classList.add('is-failed');
+      box.innerHTML = `<div class="loc-map-fail"><img src="assets/site-street.jpg" alt=""><p>${esc(t('loc.mapFail'))}</p><a class="btn btn-light" href="${esc(PROJECT.googleMaps)}" target="_blank" rel="noopener">${esc(t('loc.maps'))}</a></div>`;
+    }
+  };
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => { if (es.some(e => e.isIntersecting)) { io.disconnect(); startMap(); } }, { rootMargin: '600px 0px' });
+    io.observe(box);
+  } else startMap();
+}
+
+function focusLandmark(id) {
+  state.mapFocus = state.mapFocus === id ? null : id;
+  $$('#distList [data-lm]').forEach(b => { const on = b.dataset.lm === state.mapFocus; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', on); });
+  try { siteMap?.highlight?.(state.mapFocus); } catch (e) { /* ignore */ }
+  const box = $('#siteMap');
+  if (state.mapFocus && box) {
+    const r = box.getBoundingClientRect();
+    if (r.bottom < 60 || r.top > window.innerHeight - 120) box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
 }
 
 function renderFooter() {
@@ -472,7 +513,9 @@ async function getViewer() {
         loadEl.className = 'v-load';
         loadEl.innerHTML = `<div><div class="lbl">${esc(t('v.loading'))}</div><div class="bar"><i></i></div></div>`;
         host.appendChild(loadEl);
-        const v = mod.createViewer(inner, { floorLabel: f => `${floorName(f)} · ${levelMark(f)}`, lang: getLang() });
+        const dbg = /^(127\.0\.0\.1|localhost)$/.test(location.hostname) ? (window.__vb2 ||= {}) : null;
+        const v = mod.createViewer(inner, { floorLabel: f => `${floorName(f)} · ${levelMark(f)}`, lang: getLang(), quality: dbg?.quality });
+        if (dbg) dbg.viewer = v;   // local test hook only
         v.on('progress', ({ p }) => {
           const bar = loadEl.querySelector('i'); if (bar) bar.style.width = `${Math.round(p * 100)}%`;
           if (p >= 1) loadEl.hidden = true;
@@ -484,6 +527,8 @@ async function getViewer() {
         });
         v.on('mode', ({ mode }) => updateImmModes(mode));
         v.on('place', info => updatePlace(info));
+        v.on('photoreal', ev => onPhotoreal(ev));
+        v.setPhotorealLabels?.(ptLabels());
         viewerApi = v;
         v.ready.then(() => updateImmModes(v.getMode()), err => { failViewer(err); });
         return v;
@@ -543,6 +588,7 @@ function closeImmersive(restore = true) {
   imm.hidden = true;
   document.body.classList.remove('no-scroll');
   $('#immPlace').hidden = true;
+  if (viewerApi?.isPhotoreal?.() && !(restore && returnMount && returnMount.id === 'tour')) togglePhotoreal(false);
   if (host) {
     if (restore && returnMount && returnMount.isConnected && returnMount.offsetParent !== null) {
       mount(returnMount);
@@ -550,6 +596,46 @@ function closeImmersive(restore = true) {
     } else host.remove();
   }
   returnMount = null;
+}
+
+// ---------------------------------------------------------------- photoreal (path tracing)
+const pr = { state: 'off' };
+function ptLabels() {
+  return { name: t('pt.name'), preparing: t('pt.preparing'), moving: t('pt.moving'), sample: t('pt.sample'), samples: t('pt.samples'), error: t('pt.error') };
+}
+function onPhotoreal(ev) {
+  const prev = pr.state;
+  if (ev.state === 'error') {
+    pr.state = 'off';
+    if (prev !== 'off' || ev.error) toast(t('v.pt.error'), 4200);
+  } else if (ev.state === 'loading') pr.state = 'loading';
+  else if (ev.state === 'on') { if (prev !== 'on') toast(t('v.pt.hint'), 3600); pr.state = 'on'; }
+  else if (ev.state === 'off') pr.state = 'off';
+  updatePhotorealUI();
+}
+function updatePhotorealUI() {
+  const on = pr.state === 'on' || pr.state === 'loading';
+  const aerial = viewerApi?.getMode?.() === 'aerial';
+  for (const b of $$('#prBtn, [data-tour="photoreal"]')) {
+    b.setAttribute('aria-pressed', on);
+    b.classList.toggle('is-busy', pr.state === 'loading');
+    b.disabled = aerial;
+    b.title = aerial ? t('v.pt.aerial') : '';
+    const lab = b.querySelector('[data-i18n]') || b;
+    if (lab !== b || b.dataset.tour) lab.textContent = t(on ? 'v.photorealOn' : 'v.photoreal');
+  }
+}
+async function togglePhotoreal(force) {
+  const v = await getViewer();
+  if (!v) { toast(t('v.unavailable')); return false; }
+  try { await v.ready; } catch (e) { return false; }
+  const want = typeof force === 'boolean' ? force : !(pr.state === 'on' || pr.state === 'loading');
+  if (want && v.getMode() === 'aerial') { toast(t('v.pt.aerial')); return false; }
+  if (want) { pr.state = 'loading'; updatePhotorealUI(); }
+  const ok = await v.setPhotoreal(want);
+  pr.state = v.isPhotoreal() ? 'on' : 'off';
+  updatePhotorealUI();
+  return ok;
 }
 
 function updateImmModes(mode) {
@@ -565,6 +651,8 @@ function updateImmModes(mode) {
   else hint.hidden = true;
   // the tour bar on a unit page mirrors walk state
   $$('[data-tour]').forEach(b => { if (b.dataset.tour === 'walk') b.setAttribute('aria-pressed', mode === 'walk'); });
+  if (viewerApi && !viewerApi.isPhotoreal?.() && pr.state === 'on') pr.state = 'off';
+  updatePhotorealUI();
 }
 
 function updatePlace(info) {
@@ -597,6 +685,7 @@ function bindImmersive() {
     if (!ok) toast(t('v.unavailable'));
   });
   $('#todSel').addEventListener('change', e => viewerApi?.setTimeOfDay(e.target.value));
+  $('#prBtn').addEventListener('click', () => togglePhotoreal());
   document.addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
     if (!$('#modal').hidden) closeModal();
@@ -620,7 +709,10 @@ function showHome(show) {
 }
 
 function detachHostFromPage() {
-  if (host && $('#page').contains(host)) host.remove();
+  if (host && $('#page').contains(host)) {
+    host.remove();
+    if (viewerApi?.isPhotoreal?.()) togglePhotoreal(false);
+  }
 }
 
 function route() {
@@ -712,6 +804,7 @@ function renderUnit(page, id) {
             <button type="button" class="btn btn-line" data-tour="views" aria-pressed="false">${esc(t('unit.views'))}</button>
             <button type="button" class="btn btn-line" data-tour="balcony">${esc(garden ? t('unit.gardenView') : t('unit.balconyView'))}</button>
             <button type="button" class="btn btn-line" data-tour="lift">${esc(t('unit.lift.take'))}</button>
+            <button type="button" class="btn btn-line btn-pr" data-tour="photoreal" aria-pressed="false">${esc(t('v.photoreal'))}</button>
             <button type="button" class="btn btn-line" data-tour="full">${esc(t('unit.fullscreen'))}</button>
           </div>
           <div class="hotspots" id="hotspots" hidden></div>
@@ -800,6 +893,17 @@ function bindUnit(page, u) {
         if (!v) return;
         if (!host.parentElement || host.parentElement !== tourEl) { await start(); }
         await openImmersive(v.getMode() === 'walk' ? 'keep' : 'exterior');
+        return;
+      }
+      if (action === 'photoreal') {
+        const cur = viewerApi?.isPhotoreal?.();
+        if (!cur) {
+          const v0 = await start();
+          if (!v0) return;
+          if (v0.getMode() !== 'walk') await v0.walkUnit(u.id);
+        }
+        msg(null);
+        await togglePhotoreal();
         return;
       }
       const v = await start();
@@ -1265,6 +1369,9 @@ function bindGlobal() {
     $('#menuBtn').setAttribute('aria-expanded', open);
   });
   document.addEventListener('click', e => {
+    const lm = e.target.closest('#distList [data-lm]');
+    if (lm) { focusLandmark(lm.dataset.lm); return; }
+    if (e.target.closest('#coordsCopy')) { copyText(`${PROJECT.lat}, ${PROJECT.lon}`, $('#coords'), e.target.closest('#coordsCopy')); return; }
     const c = e.target.closest('[data-copy]');
     if (c) { copyText(c.dataset.copy, c.dataset.copyTarget ? $(c.dataset.copyTarget) : null, c); return; }
     const a = e.target.closest('[data-act]');
@@ -1289,6 +1396,7 @@ function boot() {
   route();
   initCapabilities();
   initLandmarks();
+  initSiteMap();
 }
 
 try { boot(); } catch (e) { console.error('[app] boot failed', e); }

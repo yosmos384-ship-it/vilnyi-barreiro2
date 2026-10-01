@@ -7,6 +7,14 @@ export const LANGS = [
 ];
 
 const en = {
+  'v.photoreal': 'Photoreal', 'v.photorealOn': 'Photoreal on', 'v.pt.loading': 'Preparing the photoreal render…',
+  'v.pt.error': 'The photoreal render could not start on this device. You are back in the normal view.',
+  'v.pt.aerial': 'Photoreal works in the exterior and walk views.', 'v.pt.hint': 'Hold still for a sharper image. You can keep walking.',
+  'pt.name': 'Photoreal', 'pt.preparing': 'preparing', 'pt.moving': 'moving · preview', 'pt.sample': 'sample', 'pt.samples': 'samples', 'pt.error': 'unavailable',
+  'loc.streetview': 'Street View', 'loc.address': 'Address', 'loc.copyCoords': 'Copy coordinates', 'loc.mapTitle': 'The neighbourhood',
+  'loc.plotNote': 'The plot is the 13.8 m gap between the pink house (no. 4) and the white house with the round window.',
+  'loc.mapFail': 'The map could not be drawn here. Use the Google Maps link instead.',
+
   'meta.title': 'Barreiro 2 · VILNYI',
   'nav.apartments': 'Apartments', 'nav.location': 'Location', 'nav.building': 'The building', 'nav.reserve': 'Reserve',
   'nav.menu': 'Menu', 'nav.lang': 'Language', 'nav.theme': 'Switch light / dark',
@@ -125,6 +133,14 @@ const en = {
 };
 
 const pt = {
+  'v.photoreal': 'Fotorrealista', 'v.photorealOn': 'Fotorrealista ativo', 'v.pt.loading': 'A preparar a imagem fotorrealista…',
+  'v.pt.error': 'A imagem fotorrealista não arrancou neste dispositivo. Voltou à vista normal.',
+  'v.pt.aerial': 'O modo fotorrealista funciona nas vistas exterior e de passeio.', 'v.pt.hint': 'Fique parado para uma imagem mais nítida. Pode continuar a andar.',
+  'pt.name': 'Fotorrealista', 'pt.preparing': 'a preparar', 'pt.moving': 'em movimento · pré-visualização', 'pt.sample': 'amostra', 'pt.samples': 'amostras', 'pt.error': 'indisponível',
+  'loc.streetview': 'Street View', 'loc.address': 'Morada', 'loc.copyCoords': 'Copiar coordenadas', 'loc.mapTitle': 'A vizinhança',
+  'loc.plotNote': 'O lote é o espaço de 13,8 m entre a casa cor-de-rosa (n.º 4) e a casa branca com a janela redonda.',
+  'loc.mapFail': 'Não foi possível desenhar o mapa aqui. Use a ligação do Google Maps.',
+
   'nav.apartments': 'Apartamentos', 'nav.location': 'Localização', 'nav.building': 'O edifício', 'nav.reserve': 'Reservar',
   'nav.menu': 'Menu', 'nav.lang': 'Idioma', 'nav.theme': 'Alternar claro / escuro',
   'hero.eyebrow': 'Lavradio · Barreiro · Área Metropolitana de Lisboa',
@@ -206,6 +222,14 @@ const pt = {
 };
 
 const he = {
+  'v.photoreal': 'רנדר אמיתי', 'v.photorealOn': 'רנדר אמיתי פעיל', 'v.pt.loading': 'מכינים רנדר פוטו־ריאליסטי…',
+  'v.pt.error': 'הרנדר האמיתי לא הופעל במכשיר זה. חזרתם לתצוגה הרגילה.',
+  'v.pt.aerial': 'הרנדר האמיתי זמין בתצוגת החוץ ובסיור.', 'v.pt.hint': 'עמדו במקום לתמונה חדה יותר. אפשר להמשיך ללכת.',
+  'pt.name': 'רנדר אמיתי', 'pt.preparing': 'בהכנה', 'pt.moving': 'בתנועה · תצוגה מקדימה', 'pt.sample': 'דגימה', 'pt.samples': 'דגימות', 'pt.error': 'לא זמין',
+  'loc.streetview': 'Street View', 'loc.address': 'כתובת', 'loc.copyCoords': 'העתקת קואורדינטות', 'loc.mapTitle': 'השכונה',
+  'loc.plotNote': 'המגרש הוא הרווח של 13.8 מ׳ בין הבית הוורוד (מס׳ 4) לבית הלבן עם החלון העגול.',
+  'loc.mapFail': 'לא ניתן לשרטט כאן את המפה. השתמשו בקישור ל־Google Maps.',
+
   'nav.apartments': 'דירות', 'nav.location': 'מיקום', 'nav.building': 'הבניין', 'nav.reserve': 'הזמנה',
   'nav.menu': 'תפריט', 'nav.lang': 'שפה', 'nav.theme': 'מעבר בהיר / כהה',
   'hero.eyebrow': 'לברדיו · בריירו · מטרופולין ליסבון',
@@ -287,6 +311,14 @@ const he = {
 };
 
 const ru = {
+  'v.photoreal': 'Фотореализм', 'v.photorealOn': 'Фотореализм включён', 'v.pt.loading': 'Готовим фотореалистичное изображение…',
+  'v.pt.error': 'На этом устройстве фотореалистичный режим не запустился. Вы вернулись к обычному виду.',
+  'v.pt.aerial': 'Фотореализм работает в видах снаружи и при прогулке.', 'v.pt.hint': 'Остановитесь, чтобы изображение стало чётче. Ходить можно и дальше.',
+  'pt.name': 'Фотореализм', 'pt.preparing': 'подготовка', 'pt.moving': 'движение · превью', 'pt.sample': 'проход', 'pt.samples': 'проходов', 'pt.error': 'недоступно',
+  'loc.streetview': 'Street View', 'loc.address': 'Адрес', 'loc.copyCoords': 'Скопировать координаты', 'loc.mapTitle': 'Район',
+  'loc.plotNote': 'Участок — промежуток шириной 13,8 м между розовым домом (№ 4) и белым домом с круглым окном.',
+  'loc.mapFail': 'Карту здесь нарисовать не удалось. Воспользуйтесь ссылкой на Google Maps.',
+
   'nav.apartments': 'Квартиры', 'nav.location': 'Расположение', 'nav.building': 'Дом', 'nav.reserve': 'Бронь',
   'nav.menu': 'Меню', 'nav.lang': 'Язык', 'nav.theme': 'Светлая / тёмная тема',
   'hero.eyebrow': 'Лавраду · Баррейру · Лиссабонская агломерация',

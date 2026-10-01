@@ -1,4 +1,15 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Barreiro 2 · VILNYI</title>
+<meta name="theme-color" content="#1b1a17">
+<meta property="og:title" content="Barreiro 2 · VILNYI">
+<meta property="og:description" content="Eight one- and two-bedroom apartments by VILNYI on Rua Eduardo Couto, Lavradio, Barreiro, across the Tagus from Lisbon.">
+<meta property="og:image" content="assets/street-dusk.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,&lt;svg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; viewBox=&#x27;0 0 64 64&#x27;&gt;&lt;rect width=&#x27;64&#x27; height=&#x27;64&#x27; fill=&#x27;%231b1a17&#x27;/&gt;&lt;text x=&#x27;32&#x27; y=&#x27;44&#x27; font-family=&#x27;Georgia,serif&#x27; font-size=&#x27;34&#x27; text-anchor=&#x27;middle&#x27; fill=&#x27;%23c8964f&#x27;&gt;V&lt;/text&gt;&lt;/svg&gt;">
 <meta name="description" content="Barreiro 2 by VILNYI: eight one- and two-bedroom apartments on Rua Eduardo Couto, Lavradio, Barreiro, across the Tagus from Lisbon.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -7,10 +18,17 @@
 <script type="importmap">
 { "imports": {
   "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
-  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+  "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+  "three-mesh-bvh": "https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.7.3/build/index.module.js",
+  "three-gpu-pathtracer": "https://cdn.jsdelivr.net/npm/three-gpu-pathtracer@0.0.20/build/index.module.js",
+  "3d-tiles-renderer": "https://cdn.jsdelivr.net/npm/3d-tiles-renderer@0.3.46/src/index.js",
+  "3d-tiles-renderer/plugins": "https://cdn.jsdelivr.net/npm/3d-tiles-renderer@0.3.46/src/plugins/index.js"
 } }
 </script>
-
+<style>:root{padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}[hidden]{display:none!important}</style>
+</head>
+<body>
 <a class="skip" href="#apartments" data-i18n="sel.title">Choose your apartment</a>
 
 <header class="top" id="topbar">
@@ -124,6 +142,9 @@
         <h2 id="locTitle" data-i18n="loc.title">Lavradio, on the south bank of the Tagus</h2>
         <p class="lede" data-i18n="loc.lede">Rua Eduardo Couto is a residential street of two-storey houses in Lavradio, Barreiro.</p>
       </div>
+      <div class="loc-map" id="siteMap" aria-label="Map">
+        <noscript><a href="https://www.google.com/maps/search/?api=1&amp;query=38.668462,-9.047975">Google Maps</a></noscript>
+      </div>
       <div class="loc-grid">
         <div class="gallery" id="gallery">
           <figure class="g-a"><img src="assets/site-street.jpg" alt="" loading="lazy" width="720" height="1280"><figcaption data-i18n="loc.street">The plot from Rua Eduardo Couto</figcaption></figure>
@@ -132,10 +153,16 @@
           <figure class="g-d"><img src="assets/site-rear.jpg" alt="" loading="lazy" width="464" height="848"><figcaption data-i18n="loc.rear">Neighbouring blocks behind the plot</figcaption></figure>
         </div>
         <aside class="loc-side">
-          <p class="addr" id="addr"></p>
+          <div class="addr-block">
+            <span class="h-small" data-i18n="loc.address">Address</span>
+            <p class="addr" id="addr"></p>
+            <p class="fineprint" data-i18n="loc.plotNote">The plot is the 13.8 m gap between the pink house (no. 4) and the white house with the round window.</p>
+            <div class="copyline coords-line"><span class="val mono" id="coords"></span><button type="button" class="copybtn" id="coordsCopy" data-i18n="loc.copyCoords">Copy coordinates</button></div>
+          </div>
           <div class="loc-actions">
             <a class="btn btn-line" id="mapsLink" target="_blank" rel="noopener" data-i18n="loc.maps">Open in Google Maps</a>
             <a class="btn btn-line" id="earthLink" target="_blank" rel="noopener" data-i18n="loc.earth">Open in Google Earth</a>
+            <a class="btn btn-line" id="streetLink" target="_blank" rel="noopener" data-i18n="loc.streetview">Street View</a>
             <button class="btn btn-solid" type="button" data-act="aerial">
               <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v3M12 17.5v3M3.5 12h3M17.5 12h3M12 8.5l2 3.5-2 3.5-2-3.5z"/></svg>
               <span data-i18n="loc.aerial">Bird’s-eye 360°</span>
@@ -143,7 +170,7 @@
           </div>
           <h3 class="h-small" data-i18n="loc.distances">Nearby</h3>
           <ul class="dist" id="distList"></ul>
-          <p class="fineprint"><span data-i18n="loc.distNote">Straight-line distances from the site.</span> <span class="mono" id="coords"></span></p>
+          <p class="fineprint" data-i18n="loc.distNote">Straight-line distances from the site.</p>
         </aside>
       </div>
     </div>
@@ -204,6 +231,10 @@
       <button type="button" class="seg-b" data-mode="aerial" data-i18n="v.aerial">Bird’s-eye</button>
       <button type="button" class="seg-b" data-mode="walk" data-i18n="v.walk">Walk</button>
     </div>
+    <button type="button" class="pr-btn" id="prBtn" aria-pressed="false">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.2"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/></svg>
+      <span data-i18n="v.photoreal">Photoreal</span>
+    </button>
     <label class="tod">
       <span class="sr" data-i18n="v.time">Light</span>
       <select id="todSel" aria-label="Light">
@@ -227,3 +258,5 @@
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
 <script type="module" src="js/app.js"></script>
+</body>
+</html>
