@@ -326,7 +326,7 @@ def measure_exposure(tmpdir, key, opts, log, w=None, h=None):
         px = px[geo]
         # un-premultiply is not needed for opaque pixels
     lum = 0.2126 * px[:, 0] + 0.7152 * px[:, 1] + 0.0722 * px[:, 2]
-    lum = lum[np.isfinite(lum)]
+    lum = np.maximum(lum[np.isfinite(lum)], 0.0)
     def logavg(hp):
         lo, hi = np.percentile(lum, [2, hp])
         sel = lum[(lum >= lo) & (lum <= hi)]

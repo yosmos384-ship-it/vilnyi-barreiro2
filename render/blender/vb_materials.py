@@ -132,6 +132,7 @@ class NB:
         nd = self.node('ShaderNodeMix', data_type='RGBA', blend_type=blend, clamp_result=clamp)
         if isinstance(fac, (int, float)) and (fac > 1 or fac < 0):
             nd.clamp_factor = False
+            nd.clamp_result = True     # extrapolated detail must never go negative (negative albedo!)
         ins = [s for s in nd.inputs if s.type == 'RGBA']
         fi = nd.inputs['Factor'] if 'Factor' in nd.inputs else nd.inputs[0]
         for s, v in ((fi, fac), (ins[0], a), (ins[1], b)):
