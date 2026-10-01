@@ -1,0 +1,1021 @@
+{
+ "textures": {
+  "render-white": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Plaster001",
+    "note": "white mineral render (stucco)"
+   }
+  },
+  "render-pink": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Plaster003",
+    "tint": "#e6a58f",
+    "note": "neighbour pink render: multiply albedo by tint"
+   }
+  },
+  "render-cream": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Plaster003",
+    "tint": "#efe0c4",
+    "note": "context cream render: multiply albedo by tint"
+   }
+  },
+  "brick-facade": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Bricks051",
+    "alt": [
+     "Bricks059",
+     "red_brick",
+     "Bricks085"
+    ]
+   }
+  },
+  "zinc-standing-seam": {
+   "default": {
+    "source": "ambientcg",
+    "id": "CorrugatedSteel009",
+    "note": "anthracite ribbed metal; ribs run along U - rotate so ribs run down the slope",
+    "alt": [
+     "Metal030",
+     "Metal032"
+    ],
+    "metal": true
+   }
+  },
+  "stone-coping": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Travertine009",
+    "alt": [
+     "Marble014"
+    ]
+   }
+  },
+  "concrete": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Concrete034",
+    "alt": [
+     "Concrete046",
+     "concrete_floor_01"
+    ]
+   }
+  },
+  "glass-window": {
+   "default": null
+  },
+  "glass-railing": {
+   "default": null
+  },
+  "aluminium-frame": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Metal027",
+    "note": "anthracite powder-coated",
+    "metal": true,
+    "alt": [
+     "Metal046A"
+    ]
+   }
+  },
+  "steel-dark": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Metal046A",
+    "metal": true,
+    "alt": [
+     "Metal027"
+    ]
+   }
+  },
+  "timber-soffit": {
+   "default": {
+    "source": "polyhaven",
+    "id": "teak_veneer",
+    "alt": [
+     "oak_veneer_01"
+    ]
+   }
+  },
+  "timber-slats": {
+   "default": {
+    "source": "polyhaven",
+    "id": "teak_veneer",
+    "alt": [
+     "Planks032"
+    ]
+   }
+  },
+  "garage-door": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Metal030",
+    "note": "dark grey painted steel",
+    "metal": true
+   }
+  },
+  "paving-calcada": {
+   "default": {
+    "source": "ambientcg",
+    "id": "PavingStones046",
+    "note": "light limestone setts (calcada); tint slightly whiter if needed",
+    "alt": [
+     "PavingStones150",
+     "PavingStones151"
+    ]
+   }
+  },
+  "asphalt": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Asphalt015",
+    "alt": [
+     "asphalt_02",
+     "Asphalt023S"
+    ]
+   }
+  },
+  "kerb-stone": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Granite005A",
+    "alt": [
+     "Travertine009"
+    ]
+   }
+  },
+  "gravel": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Gravel023",
+    "alt": [
+     "Gravel022"
+    ]
+   }
+  },
+  "lawn": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Grass004",
+    "alt": [
+     "Grass001"
+    ]
+   }
+  },
+  "soil": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Ground048",
+    "alt": [
+     "Ground036"
+    ]
+   }
+  },
+  "planter-concrete": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Concrete016",
+    "alt": [
+     "Concrete034"
+    ]
+   }
+  },
+  "roof-tile-terracotta": {
+   "default": {
+    "source": "ambientcg",
+    "id": "RoofingTiles012A",
+    "alt": [
+     "RoofingTiles011A",
+     "clay_roof_tiles_02"
+    ]
+   }
+  },
+  "deck-teak": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Planks029S",
+    "alt": [
+     "wood_floor_deck"
+    ]
+   }
+  },
+  "foliage": {
+   "default": null
+  },
+  "bark": {
+   "default": {
+    "source": "polyhaven",
+    "id": "bark_willow",
+    "note": "grey furrowed bark (olive-like)",
+    "alt": [
+     "bark_brown_02"
+    ]
+   }
+  },
+  "water": {
+   "default": null
+  },
+  "lobby-floor-stone": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Tiles078",
+    "note": "large-format beige marble tiles",
+    "alt": [
+     "Travertine009",
+     "Marble024"
+    ]
+   }
+  },
+  "lobby-wall-walnut-slats": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Wood051",
+    "alt": [
+     "walnut_veneer_02"
+    ]
+   }
+  },
+  "landing-floor-stone": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Tiles078"
+   }
+  },
+  "stair-stone": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Marble014",
+    "alt": [
+     "Travertine009"
+    ]
+   }
+  },
+  "handrail-steel": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Metal009",
+    "metal": true
+   }
+  },
+  "lift-steel": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Metal011",
+    "metal": true,
+    "alt": [
+     "Metal009"
+    ]
+   }
+  },
+  "lift-walnut": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Wood051"
+   }
+  },
+  "mirror": {
+   "default": null
+  },
+  "plaster-white": {
+   "default": {
+    "source": "ambientcg",
+    "id": "PaintedPlaster017",
+    "alt": [
+     "Plaster002"
+    ]
+   }
+  },
+  "ceiling-white": {
+   "default": {
+    "source": "ambientcg",
+    "id": "PaintedPlaster017"
+   }
+  },
+  "skirting": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Plastic010",
+    "note": "white satin lacquer"
+   },
+   "atlantic": "default",
+   "lisboa": {
+    "source": "ambientcg",
+    "id": "Wood051"
+   },
+   "noir": {
+    "source": "polyhaven",
+    "id": "smoke_speckled_veneer"
+   }
+  },
+  "door-walnut": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Wood051",
+    "alt": [
+     "walnut_veneer_02",
+     "american_walnut_veneer"
+    ]
+   }
+  },
+  "brass": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Metal034",
+    "metal": true,
+    "note": "polished brass; raise roughness ~0.3 for brushed"
+   }
+  },
+  "floor-main": {
+   "atlantic": {
+    "source": "ambientcg",
+    "id": "WoodFloor062",
+    "note": "light natural oak planks",
+    "alt": [
+     "WoodFloor047",
+     "wooden_floor_01"
+    ]
+   },
+   "lisboa": {
+    "source": "ambientcg",
+    "id": "WoodFloor014",
+    "note": "walnut herringbone",
+    "alt": [
+     "WoodFloor016",
+     "herringbone_parquet"
+    ]
+   },
+   "noir": {
+    "source": "ambientcg",
+    "id": "WoodFloor005",
+    "note": "smoked oak long planks",
+    "alt": [
+     "WoodFloor011",
+     "WoodFloor048"
+    ]
+   }
+  },
+  "wall-paint": {
+   "atlantic": {
+    "source": "ambientcg",
+    "id": "PaintedPlaster017",
+    "tint": "#f3efe8"
+   },
+   "lisboa": {
+    "source": "ambientcg",
+    "id": "Plaster002",
+    "tint": "#efe6d8",
+    "note": "lime plaster"
+   },
+   "noir": {
+    "source": "ambientcg",
+    "id": "PaintedPlaster017",
+    "tint": "#8f8a84",
+    "note": "warm grey paint"
+   }
+  },
+  "wall-feature": {
+   "atlantic": {
+    "source": "polyhaven",
+    "id": "oak_veneer_01",
+    "note": "oak panelling"
+   },
+   "lisboa": {
+    "source": "ambientcg",
+    "id": "Wood051",
+    "note": "walnut panelling"
+   },
+   "noir": {
+    "source": "ambientcg",
+    "id": "Concrete030",
+    "note": "charcoal microcement",
+    "alt": [
+     "Concrete017"
+    ]
+   }
+  },
+  "ceiling": {
+   "default": {
+    "source": "ambientcg",
+    "id": "PaintedPlaster017"
+   }
+  },
+  "door-interior": {
+   "atlantic": {
+    "source": "ambientcg",
+    "id": "Plastic010",
+    "note": "white lacquer"
+   },
+   "lisboa": {
+    "source": "ambientcg",
+    "id": "Wood051",
+    "note": "walnut veneer"
+   },
+   "noir": {
+    "source": "polyhaven",
+    "id": "smoke_speckled_veneer",
+    "note": "dark smoked oak",
+    "alt": [
+     "black_oak_veneer"
+    ]
+   }
+  },
+  "door-handle": {
+   "atlantic": {
+    "source": "ambientcg",
+    "id": "Metal009",
+    "metal": true,
+    "note": "satin steel"
+   },
+   "lisboa": {
+    "source": "ambientcg",
+    "id": "Metal034",
+    "metal": true,
+    "note": "brass"
+   },
+   "noir": {
+    "source": "ambientcg",
+    "id": "Metal008",
+    "metal": true,
+    "note": "bronze"
+   }
+  },
+  "bath-floor": {
+   "atlantic": {
+    "source": "ambientcg",
+    "id": "Tiles002",
+    "note": "stone-look porcelain, large format"
+   },
+   "lisboa": {
+    "source": "ambientcg",
+    "id": "Tiles078",
+    "note": "Estremoz-like marble tiles"
+   },
+   "noir": {
+    "source": "ambientcg",
+    "id": "Tiles075",
+    "note": "black marble tiles",
+    "alt": [
+     "granite_tile"
+    ]
+   }
+  },
+  "bath-wall": {
+   "atlantic": {
+    "source": "ambientcg",
+    "id": "Tiles040",
+    "note": "stone-look porcelain 60x120"
+   },
+   "lisboa": {
+    "source": "ambientcg",
+    "id": "Marble001",
+    "note": "honed Estremoz-like white marble",
+    "alt": [
+     "Marble014",
+     "Marble012"
+    ]
+   },
+   "noir": {
+    "source": "ambientcg",
+    "id": "Marble016",
+    "note": "Nero Marquina",
+    "alt": [
+     "Marble023"
+    ]
+   }
+  },
+  "shower-wall": {
+   "atlantic": {
+    "source": "ambientcg",
+    "id": "Tiles040"
+   },
+   "lisboa": {
+    "source": "ambientcg",
+    "id": "Tiles101",
+    "note": "azulejo accent wall (blue/white)"
+   },
+   "noir": {
+    "source": "ambientcg",
+    "id": "Concrete030",
+    "note": "microcement"
+   }
+  },
+  "shower-glass": {
+   "default": null
+  },
+  "sanitary-ceramic": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Porcelain001"
+   },
+   "noir": {
+    "source": "ambientcg",
+    "id": "Marble002",
+    "note": "stone basin"
+   }
+  },
+  "tap-metal": {
+   "atlantic": {
+    "source": "ambientcg",
+    "id": "Metal049A",
+    "metal": true,
+    "note": "chrome"
+   },
+   "lisboa": {
+    "source": "ambientcg",
+    "id": "Metal034",
+    "metal": true,
+    "note": "brushed brass: roughness*1.5"
+   },
+   "noir": {
+    "source": "ambientcg",
+    "id": "Metal008",
+    "metal": true,
+    "note": "bronze/gunmetal"
+   }
+  },
+  "kitchen-front": {
+   "atlantic": {
+    "source": "ambientcg",
+    "id": "Plastic010",
+    "note": "white matt lacquer"
+   },
+   "lisboa": {
+    "source": "ambientcg",
+    "id": "Plastic010",
+    "tint": "#2f4a6b",
+    "note": "navy lacquer: multiply albedo by tint",
+    "alt": [
+     "Plastic008"
+    ]
+   },
+   "noir": {
+    "source": "polyhaven",
+    "id": "smoke_speckled_veneer",
+    "note": "fluted smoked oak"
+   }
+  },
+  "kitchen-worktop": {
+   "atlantic": {
+    "source": "ambientcg",
+    "id": "Marble025",
+    "note": "white quartz"
+   },
+   "lisboa": {
+    "source": "ambientcg",
+    "id": "Marble012",
+    "note": "Calacatta-like quartz",
+    "alt": [
+     "Marble005",
+     "Marble003"
+    ]
+   },
+   "noir": {
+    "source": "ambientcg",
+    "id": "Marble002",
+    "note": "dark sintered stone",
+    "alt": [
+     "Marble013"
+    ]
+   }
+  },
+  "kitchen-splashback": {
+   "atlantic": {
+    "source": "ambientcg",
+    "id": "Marble025"
+   },
+   "lisboa": {
+    "source": "ambientcg",
+    "id": "Tiles101",
+    "note": "azulejo"
+   },
+   "noir": {
+    "source": "ambientcg",
+    "id": "Marble002"
+   }
+  },
+  "appliance-steel": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Metal009",
+    "metal": true
+   }
+  },
+  "appliance-glass-black": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Porcelain003",
+    "note": "black glass / ceramic hob"
+   }
+  },
+  "joinery-wardrobe": {
+   "atlantic": {
+    "source": "ambientcg",
+    "id": "Plastic010",
+    "tint": "#e9e2d6"
+   },
+   "lisboa": {
+    "source": "ambientcg",
+    "id": "Plastic010",
+    "tint": "#2f4a6b"
+   },
+   "noir": {
+    "source": "polyhaven",
+    "id": "smoke_speckled_veneer"
+   }
+  },
+  "window-sheer": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Fabric032"
+   }
+  },
+  "curtain-fabric": {
+   "atlantic": {
+    "source": "ambientcg",
+    "id": "Fabric036"
+   },
+   "lisboa": {
+    "source": "polyhaven",
+    "id": "cotton_jersey"
+   },
+   "noir": {
+    "source": "ambientcg",
+    "id": "Fabric031"
+   }
+  },
+  "fabric-sofa": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Fabric061"
+   },
+   "atlantic": "default",
+   "lisboa": {
+    "source": "ambientcg",
+    "id": "Fabric066",
+    "note": "sage linen"
+   },
+   "noir": {
+    "source": "ambientcg",
+    "id": "Fabric031",
+    "note": "charcoal weave"
+   }
+  },
+  "fabric-linen": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Fabric032",
+    "alt": [
+     "rough_linen"
+    ]
+   }
+  },
+  "fabric-boucle": {
+   "default": {
+    "source": "polyhaven",
+    "id": "curly_teddy_natural"
+   }
+  },
+  "leather": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Leather023",
+    "note": "cognac",
+    "alt": [
+     "brown_leather"
+    ]
+   },
+   "noir": {
+    "source": "ambientcg",
+    "id": "Leather026",
+    "note": "black"
+   }
+  },
+  "wood-furniture": {
+   "default": {
+    "source": "polyhaven",
+    "id": "oak_veneer_01"
+   },
+   "atlantic": "default",
+   "lisboa": {
+    "source": "ambientcg",
+    "id": "Wood051"
+   },
+   "noir": {
+    "source": "polyhaven",
+    "id": "smoke_speckled_veneer"
+   }
+  },
+  "metal-furniture": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Metal027",
+    "metal": true
+   },
+   "atlantic": "default",
+   "lisboa": {
+    "source": "ambientcg",
+    "id": "Metal034",
+    "metal": true
+   },
+   "noir": {
+    "source": "ambientcg",
+    "id": "Metal008",
+    "metal": true
+   }
+  },
+  "marble-table": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Marble012"
+   },
+   "noir": {
+    "source": "ambientcg",
+    "id": "Marble016"
+   }
+  },
+  "ceramic-plate": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Porcelain001"
+   }
+  },
+  "glass-drinking": {
+   "default": null
+  },
+  "cutlery-steel": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Metal049A",
+    "metal": true
+   }
+  },
+  "candle-wax": {
+   "default": null
+  },
+  "plant-leaf": {
+   "default": null
+  },
+  "pot-terracotta": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Clay003"
+   }
+  },
+  "rug": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Carpet016"
+   },
+   "noir": {
+    "source": "ambientcg",
+    "id": "Fabric045"
+   }
+  },
+  "book": {
+   "default": {
+    "source": "polyhaven",
+    "id": "book_pattern"
+   }
+  },
+  "art-canvas": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Fabric032"
+   }
+  },
+  "lamp-shade": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Fabric032"
+   }
+  },
+  "bulb-emissive": {
+   "default": null
+  },
+  "downlight-emissive": {
+   "default": null
+  },
+  "led-strip-emissive": {
+   "default": null
+  }
+ },
+ "hdris": {
+  "day": {
+   "id": "kloofendal_48d_partly_cloudy_puresky",
+   "intensityHint": 1.0,
+   "note": "midday, partly cloudy, sun ~48deg",
+   "alt": [
+    "qwantani_puresky",
+    "kloofendal_43d_clear_puresky"
+   ]
+  },
+  "golden": {
+   "id": "kloppenheim_06_puresky",
+   "intensityHint": 1.0,
+   "note": "low warm sun, scattered clouds",
+   "alt": [
+    "table_mountain_2_puresky",
+    "lonely_road_afternoon_puresky"
+   ]
+  },
+  "dusk": {
+   "id": "qwantani_dusk_2_puresky",
+   "intensityHint": 1.0,
+   "note": "blue hour after sunset",
+   "alt": [
+    "evening_road_01_puresky"
+   ]
+  },
+  "studio": {
+   "id": "studio_small_09",
+   "intensityHint": 1.0,
+   "note": "neutral softbox studio (for product/interior fill)",
+   "alt": [
+    "studio_small_08",
+    "photo_studio_loft_hall"
+   ]
+  }
+ },
+ "models": [
+  {
+   "id": "sofa_02",
+   "category": "sofa"
+  },
+  {
+   "id": "mid_century_lounge_chair",
+   "category": "armchair"
+  },
+  {
+   "id": "modern_arm_chair_01",
+   "category": "armchair"
+  },
+  {
+   "id": "Ottoman_01",
+   "category": "ottoman"
+  },
+  {
+   "id": "dining_chair_02",
+   "category": "dining-chair"
+  },
+  {
+   "id": "modern_coffee_table_01",
+   "category": "coffee-table"
+  },
+  {
+   "id": "coffee_table_round_01",
+   "category": "coffee-table"
+  },
+  {
+   "id": "side_table_01",
+   "category": "side-table"
+  },
+  {
+   "id": "modern_wooden_cabinet",
+   "category": "sideboard"
+  },
+  {
+   "id": "wooden_display_shelves_01",
+   "category": "shelves"
+  },
+  {
+   "id": "steel_frame_shelves_03",
+   "category": "shelves"
+  },
+  {
+   "id": "outdoor_table_chair_set_01",
+   "category": "outdoor"
+  },
+  {
+   "id": "modern_ceiling_lamp_01",
+   "category": "lamp"
+  },
+  {
+   "id": "potted_plant_01",
+   "category": "plant"
+  },
+  {
+   "id": "potted_plant_02",
+   "category": "plant"
+  },
+  {
+   "id": "potted_plant_04",
+   "category": "plant"
+  },
+  {
+   "id": "planter_pot_clay",
+   "category": "pot"
+  },
+  {
+   "id": "ceramic_vase_01",
+   "category": "vase"
+  },
+  {
+   "id": "ceramic_vase_02",
+   "category": "vase"
+  },
+  {
+   "id": "ceramic_vase_03",
+   "category": "vase"
+  },
+  {
+   "id": "ceramic_vase_04",
+   "category": "vase"
+  },
+  {
+   "id": "antique_ceramic_vase_01",
+   "category": "vase"
+  },
+  {
+   "id": "brass_vase_01",
+   "category": "vase"
+  },
+  {
+   "id": "decorative_book_set_01",
+   "category": "books"
+  },
+  {
+   "id": "book_encyclopedia_set_01",
+   "category": "books"
+  },
+  {
+   "id": "standing_picture_frame_01",
+   "category": "frame"
+  },
+  {
+   "id": "hanging_picture_frame_01",
+   "category": "frame"
+  },
+  {
+   "id": "marble_bust_01",
+   "category": "decor"
+  },
+  {
+   "id": "wicker_basket_02",
+   "category": "decor"
+  },
+  {
+   "id": "lambis_shell",
+   "category": "decor"
+  },
+  {
+   "id": "vintage_electric_kettle",
+   "category": "kitchen"
+  },
+  {
+   "id": "wooden_bowl_01",
+   "category": "kitchen"
+  },
+  {
+   "id": "wine_bottles_01",
+   "category": "kitchen"
+  },
+  {
+   "id": "wooden_cutting_board",
+   "category": "kitchen"
+  },
+  {
+   "id": "tea_set_01",
+   "category": "kitchen"
+  },
+  {
+   "id": "carved_wooden_plate",
+   "category": "kitchen"
+  },
+  {
+   "id": "food_apple_01",
+   "category": "food"
+  },
+  {
+   "id": "lemon",
+   "category": "food"
+  },
+  {
+   "id": "food_pomegranate_01",
+   "category": "food"
+  },
+  {
+   "id": "island_tree_01",
+   "category": "tree-olive-like",
+   "blenderOnly": true
+  },
+  {
+   "id": "island_tree_02",
+   "category": "tree-olive-like",
+   "blenderOnly": true
+  },
+  {
+   "id": "shrub_04",
+   "category": "shrub",
+   "blenderOnly": true
+  },
+  {
+   "id": "grass_bermuda_01",
+   "category": "grass",
+   "blenderOnly": true
+  }
+ ]
+}
