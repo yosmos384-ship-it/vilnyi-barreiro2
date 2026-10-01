@@ -15,24 +15,30 @@
    "default": {
     "source": "ambientcg",
     "id": "Plaster003",
-    "tint": "#e6a58f",
     "note": "neighbour pink render: multiply albedo by tint",
     "sizeMeters": [
      2,
      2
-    ]
+    ],
+    "slot": "plaster003-pink",
+    "bake": {
+     "multiply": "#e6a58f"
+    }
    }
   },
   "render-cream": {
    "default": {
     "source": "ambientcg",
     "id": "Plaster003",
-    "tint": "#efe0c4",
     "note": "context cream render: multiply albedo by tint",
     "sizeMeters": [
      2,
      2
-    ]
+    ],
+    "slot": "plaster003-cream",
+    "bake": {
+     "multiply": "#efe0c4"
+    }
    }
   },
   "brick-facade": {
@@ -470,31 +476,40 @@
    "atlantic": {
     "source": "ambientcg",
     "id": "PaintedPlaster017",
-    "tint": "#f3efe8",
     "sizeMeters": [
      2,
      2
-    ]
+    ],
+    "slot": "paintedplaster017-warmwhite",
+    "bake": {
+     "multiply": "#f6f2ea"
+    }
    },
    "lisboa": {
     "source": "ambientcg",
     "id": "Plaster002",
-    "tint": "#efe6d8",
     "note": "lime plaster",
     "sizeMeters": [
      2,
      2
-    ]
+    ],
+    "slot": "plaster002-lime",
+    "bake": {
+     "multiply": "#f2e9db"
+    }
    },
    "noir": {
     "source": "ambientcg",
     "id": "PaintedPlaster017",
-    "tint": "#8f8a84",
     "note": "warm grey paint",
     "sizeMeters": [
      2,
      2
-    ]
+    ],
+    "slot": "paintedplaster017-warmgrey",
+    "bake": {
+     "multiply": "#8f8a84"
+    }
    }
   },
   "wall-feature": {
@@ -585,7 +600,7 @@
     "id": "Metal048A",
     "slot": "metal048a-bronze",
     "bake": {
-     "multiply": "#b08a63"
+     "multiply": "#8c6e5c"
     },
     "metal": true,
     "note": "bronze (baked)",
@@ -729,7 +744,7 @@
     "id": "Metal048A",
     "slot": "metal048a-bronze",
     "bake": {
-     "multiply": "#b08a63"
+     "multiply": "#8c6e5c"
     },
     "metal": true,
     "note": "bronze (baked)",
@@ -809,8 +824,8 @@
     "id": "Tiles010",
     "note": "white marble subway tiles",
     "sizeMeters": [
-     0.9,
-     0.9
+     0.6,
+     0.6
     ]
    },
    "lisboa": {
@@ -1016,7 +1031,7 @@
     "id": "Metal048A",
     "slot": "metal048a-bronze",
     "bake": {
-     "multiply": "#b08a63"
+     "multiply": "#8c6e5c"
     },
     "metal": true
    }
