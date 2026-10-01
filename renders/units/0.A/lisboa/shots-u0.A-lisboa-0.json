@@ -1,0 +1,178 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "0.A",
+  "pkg": "lisboa",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "0.A-lisboa-h0",
+   "0.A-lisboa-h1",
+   "0.A-lisboa-h2",
+   "0.A-lisboa-h3",
+   "0.A-lisboa-h4"
+  ],
+  "out": "renders/units/0.A/lisboa",
+  "name": "u0.A-lisboa-0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "0.A-lisboa-h0",
+   "type": "pano",
+   "file": "renders/units/0.A/lisboa/0.A-lisboa-h0.jpg",
+   "thumb": "renders/units/0.A/lisboa/thumbs/0.A-lisboa-h0.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 4.01081543474737,
+   "tod": "day",
+   "position": [
+    0.85,
+    1.6,
+    4.6
+   ],
+   "lookAt": [
+    1.028,
+    0.95,
+    2.75
+   ],
+   "roomId": "0.A-suite",
+   "name": {
+    "en": "Master suite",
+    "pt": "Suite",
+    "he": "סוויטת הורים"
+   },
+   "kind": null,
+   "yawOffset": -0.09592,
+   "index": 0,
+   "seconds": 1740.9
+  },
+  {
+   "id": "0.A-lisboa-h1",
+   "type": "pano",
+   "file": "renders/units/0.A/lisboa/0.A-lisboa-h1.jpg",
+   "thumb": "renders/units/0.A/lisboa/thumbs/0.A-lisboa-h1.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 4.056476482997929,
+   "tod": "day",
+   "position": [
+    2.208,
+    1.6,
+    4.648
+   ],
+   "lookAt": [
+    1.173,
+    1,
+    3.672
+   ],
+   "roomId": "0.A-suite",
+   "name": {
+    "en": "Master suite · view 2",
+    "pt": "Suite · vista 2",
+    "he": "סוויטת הורים · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": 0.81473,
+   "index": 1,
+   "seconds": 1735.5
+  },
+  {
+   "id": "0.A-lisboa-h2",
+   "type": "pano",
+   "file": "renders/units/0.A/lisboa/0.A-lisboa-h2.jpg",
+   "thumb": "renders/units/0.A/lisboa/thumbs/0.A-lisboa-h2.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.624034318756419,
+   "tod": "day",
+   "position": [
+    3.66,
+    1.6,
+    4.6
+   ],
+   "lookAt": [
+    5.06,
+    1.25,
+    0.474
+   ],
+   "roomId": "0.A-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": null,
+   "yawOffset": -0.32712,
+   "index": 2,
+   "seconds": 1711.2
+  },
+  {
+   "id": "0.A-lisboa-h3",
+   "type": "pano",
+   "file": "renders/units/0.A/lisboa/0.A-lisboa-h3.jpg",
+   "thumb": "renders/units/0.A/lisboa/thumbs/0.A-lisboa-h3.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 1.622651836538857,
+   "tod": "day",
+   "position": [
+    4.751,
+    1.6,
+    2.306
+   ],
+   "lookAt": [
+    4.07,
+    1,
+    3.672
+   ],
+   "roomId": "0.A-living",
+   "name": {
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": 2.67912,
+   "index": 3,
+   "seconds": 1772.4
+  },
+  {
+   "id": "0.A-lisboa-h4",
+   "type": "pano",
+   "file": "renders/units/0.A/lisboa/0.A-lisboa-h4.jpg",
+   "thumb": "renders/units/0.A/lisboa/thumbs/0.A-lisboa-h4.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 2.3259198067921285,
+   "tod": "day",
+   "position": [
+    1.375,
+    1.6,
+    6.01
+   ],
+   "lookAt": [
+    0.548,
+    1.3,
+    6.732
+   ],
+   "roomId": "0.A-ensuite",
+   "name": {
+    "en": "En-suite bathroom",
+    "pt": "I.S. suite",
+    "he": "חדר רחצה צמוד"
+   },
+   "kind": null,
+   "yawOffset": 2.28851,
+   "index": 4,
+   "seconds": 1853.8
+  }
+ ],
+ "seconds": 8829.7,
+ "blender": "4.2.3 LTS"
+}
