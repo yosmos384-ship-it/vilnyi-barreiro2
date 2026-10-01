@@ -1,0 +1,43 @@
+{
+ "job": {
+  "scope": "exterior",
+  "quality": "standard",
+  "shots": [
+   "street-eye"
+  ],
+  "out": "renders/exterior",
+  "name": "ext-street-eye",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "street-eye",
+   "type": "still",
+   "file": "renders/exterior/street-eye.jpg",
+   "thumb": "renders/exterior/thumbs/street-eye.jpg",
+   "W": 1350,
+   "H": 2400,
+   "spp": 192,
+   "ev": -3.7150146010420237,
+   "tod": "day",
+   "position": [
+    -3.5,
+    0.62,
+    21.8
+   ],
+   "lookAt": [
+    10.5,
+    2.2,
+    10
+   ],
+   "roomId": null,
+   "name": "Street, eye level (like assets/site-street.jpg)",
+   "kind": null,
+   "lens": 24.0,
+   "shift_y": 0.0575,
+   "seconds": 1293.0
+  }
+ ],
+ "seconds": 1301.6,
+ "blender": "4.2.3 LTS"
+}
