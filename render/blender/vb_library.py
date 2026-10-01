@@ -109,7 +109,7 @@ TILE60x120 = dict(w=1.2, h=0.6, grout=0.002, offset=0.0, jitter=0.035)
 PACKAGES = {
     # Essencial · Atlantic Light — natural oak 190 mm, warm white plaster, stone-look porcelain 60x120, white lacquer + quartz, chrome
     'atlantic': {
-        'floor-main':       dict(tex='plank_flooring_04', size=2.0, hsv=(0.5, 0.75, 1.15), rough=(0.45, 0.65), bump=0.08, var=0.05, coat=0.0),
+        'floor-main':       dict(tex='plank_flooring_04', size=2.0, tint='#c2a27a', detail=0.9, rough=(0.45, 0.65), bump=0.08, var=0.05, coat=0.0),
         'wall-paint':       dict(color='#f1ece3', rough=0.9, var=0.012, tex='white_plaster_02', size=1.5, tint='#efebe4', detail=0.15, bump=0.02),
         'wall-feature':     dict(color='#e7e0d4', rough=0.85, tex='white_plaster_02', size=1.5, tint='#e6dfd3', detail=0.3, bump=0.04),
         'ceiling':          dict(color='#f8f6f2', rough=0.92),
@@ -162,7 +162,7 @@ PACKAGES = {
     },
     # Signature · Noir Riverside — smoked oak 240 mm, charcoal microcement, Nero Marquina, fluted smoked oak + sintered stone, bronze
     'noir': {
-        'floor-main':       dict(tex='plank_flooring_04', size=2.0, hsv=(0.5, 0.8, 0.42), rough=(0.4, 0.6), bump=0.12, var=0.05),
+        'floor-main':       dict(tex='plank_flooring_04', size=2.0, tint='#4d3c2f', detail=1.0, rough=(0.4, 0.6), bump=0.12, var=0.05),
         'wall-paint':       dict(tex='white_plaster_02', size=1.5, tint='#8d8780', detail=0.25, rough=(0.85, 0.95), bump=0.04, var=0.02),
         'wall-feature':     dict(tex='concrete_floor_02', size=2.0, tint='#4a4846', hsv=(0.5, 0.15, 1.0), proc='microcement', rough=(0.5, 0.75), bump=0.06, var=0.06),
         'ceiling':          dict(color='#e9e6e1', rough=0.92),
