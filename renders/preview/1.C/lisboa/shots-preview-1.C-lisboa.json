@@ -7,12 +7,14 @@
   "tod": "day",
   "shots": [
    "1.C-living",
+   "1.C-bedroom",
+   "1.C-bathroom",
    "1.C-lisboa-h3"
   ],
   "out": "renders/preview/1.C/lisboa",
   "name": "preview-1.C-lisboa",
   "opts": {
-   "profile": true
+   "ev_bias": 0.7
   }
  },
  "shots": [
@@ -24,7 +26,7 @@
    "W": 2048,
    "H": 1024,
    "spp": 32,
-   "ev": 2.7140240806631724,
+   "ev": 3.8271472647747427,
    "tod": "day",
    "position": [
     10.26,
@@ -45,7 +47,7 @@
    "kind": null,
    "yawOffset": -2.83015,
    "index": 3,
-   "seconds": 421.0
+   "seconds": 429.3
   },
   {
    "id": "1.C-living",
@@ -55,17 +57,17 @@
    "W": 960,
    "H": 540,
    "spp": 64,
-   "ev": 1.8203022941883356,
+   "ev": 3.0786726079964346,
    "tod": "day",
    "position": [
-    10.143,
-    4.45,
-    6.733
+    13.4,
+    4.3,
+    13.85
    ],
    "lookAt": [
-    12.838,
-    4.45,
-    12.623
+    9.56,
+    4.3,
+    14.55
    ],
    "roomId": "1.C-living",
    "name": {
@@ -74,11 +76,73 @@
     "he": "סלון ומטבח"
    },
    "kind": "living",
-   "lens": 24.0,
+   "lens": 20.0,
    "shift_y": 0.0,
-   "seconds": 199.8
+   "seconds": 225.8
+  },
+  {
+   "id": "1.C-bedroom",
+   "type": "still",
+   "file": "renders/preview/1.C/lisboa/1.C-bedroom.jpg",
+   "thumb": "renders/preview/1.C/lisboa/thumbs/1.C-bedroom.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": 3.3074648295999767,
+   "tod": "day",
+   "position": [
+    5.45,
+    4.25,
+    11.75
+   ],
+   "lookAt": [
+    4.645,
+    4.25,
+    12.905
+   ],
+   "roomId": "1.C-bed1",
+   "name": {
+    "en": "Main bedroom",
+    "pt": "Quarto",
+    "he": "חדר שינה ראשי"
+   },
+   "kind": "bedroom",
+   "lens": 19.0,
+   "shift_y": 0.0,
+   "seconds": 203.3
+  },
+  {
+   "id": "1.C-bathroom",
+   "type": "still",
+   "file": "renders/preview/1.C/lisboa/1.C-bathroom.jpg",
+   "thumb": "renders/preview/1.C/lisboa/thumbs/1.C-bathroom.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": 3.9954407549952613,
+   "tod": "day",
+   "position": [
+    8.15,
+    4.4,
+    8.9
+   ],
+   "lookAt": [
+    9.44,
+    4.4,
+    7.25
+   ],
+   "roomId": "1.C-wc",
+   "name": {
+    "en": "Bathroom",
+    "pt": "I.S.",
+    "he": "חדר רחצה"
+   },
+   "kind": "bathroom",
+   "lens": 16.0,
+   "shift_y": 0.0,
+   "seconds": 234.9
   }
  ],
- "seconds": 785.5,
+ "seconds": 1098.1,
  "blender": "4.2.3 LTS"
 }
