@@ -1,15 +1,203 @@
 {
-  "_doc": "Camera overrides for render_job.py (three.js metres, Y-up). hero_auto: apartment hero stills (living/bedroom/bathroom) are re-framed by ray-casting the furnished room (clear foreground, long view, window in frame; door leaves of that room hidden). 'shots' entries override any field of a shot after that (position, lookAt, lens_mm, clip_start, auto:false to keep the exported/explicit camera, hide:[object-name substrings]). 'extra_exterior' / 'extra_common' add shots.",
-  "hero_auto": true,
-  "shots": {
-    "street-golden-34": {"dpos": [-1.0, 0.0, -2.6]},
-    "basement": {"position": [9.6, -1.25, 7.6], "lookAt": [3.0, -1.9, -3.5], "lens_mm": 18}
+ "_doc": "Camera overrides for render_job.py (three.js metres, Y-up). hero_auto: apartment hero stills (living/bedroom/bathroom) are re-framed by ray-casting the furnished room (clear foreground, long view, window in frame; door leaves of that room hidden). 'shots' entries override any field of a shot after that (position, lookAt, lens_mm, clip_start, auto:false to keep the exported/explicit camera, hide:[object-name substrings]). 'extra_exterior' / 'extra_common' add shots.",
+ "hero_auto": false,
+ "shots": {
+  "street-golden-34": {
+   "dpos": [
+    -1.0,
+    0.0,
+    -2.6
+   ]
   },
-  "extra_exterior": [
-    {"id": "rear-garden-golden", "name": "Rear gardens and garden facade, golden hour", "position": [8.6, 1.75, -7.2], "lookAt": [6.2, 3.9, 0.0],
-     "lens_mm": 17, "sensor_width_mm": 36, "aspect": "16:9", "time_of_day": "golden", "scenes": ["building", "context"]},
-    {"id": "aerial-dusk-34", "name": "3/4 aerial at dusk", "position": [36.0, 24.0, 44.0], "lookAt": [6.5, 3.5, 8.0],
-     "lens_mm": 35, "sensor_width_mm": 36, "aspect": "16:9", "time_of_day": "dusk", "scenes": ["building", "context"]}
-  ],
-  "extra_common": []
+  "basement": {
+   "position": [
+    9.6,
+    -1.25,
+    7.6
+   ],
+   "lookAt": [
+    3.0,
+    -1.9,
+    -3.5
+   ],
+   "lens_mm": 18
+  }
+ },
+ "extra_exterior": [
+  {
+   "id": "rear-garden-golden",
+   "name": "Rear gardens and garden facade, golden hour",
+   "position": [
+    8.6,
+    1.75,
+    -7.2
+   ],
+   "lookAt": [
+    6.2,
+    3.9,
+    0.0
+   ],
+   "lens_mm": 17,
+   "sensor_width_mm": 36,
+   "aspect": "16:9",
+   "time_of_day": "golden",
+   "scenes": [
+    "building",
+    "context"
+   ]
+  },
+  {
+   "id": "aerial-dusk-34",
+   "name": "3/4 aerial at dusk",
+   "position": [
+    36.0,
+    24.0,
+    44.0
+   ],
+   "lookAt": [
+    6.5,
+    3.5,
+    8.0
+   ],
+   "lens_mm": 35,
+   "sensor_width_mm": 36,
+   "aspect": "16:9",
+   "time_of_day": "dusk",
+   "scenes": [
+    "building",
+    "context"
+   ]
+  },
+  {
+   "id": "entrance-day",
+   "name": "Street entrance",
+   "position": [
+    7.2,
+    0.75,
+    19.6
+   ],
+   "lookAt": [
+    4.4,
+    1.1,
+    14.7
+   ],
+   "lens_mm": 28,
+   "time_of_day": "day",
+   "scenes": [
+    "building",
+    "context"
+   ],
+   "sensor_width_mm": 36,
+   "aspect": "16:9"
+  },
+  {
+   "id": "entrance-dusk",
+   "name": "Street entrance at dusk",
+   "position": [
+    7.2,
+    0.75,
+    19.6
+   ],
+   "lookAt": [
+    4.4,
+    1.1,
+    14.7
+   ],
+   "lens_mm": 28,
+   "time_of_day": "dusk",
+   "scenes": [
+    "building",
+    "context"
+   ],
+   "sensor_width_mm": 36,
+   "aspect": "16:9"
+  },
+  {
+   "id": "garage-ramp",
+   "name": "Garage entrance and ramp",
+   "position": [
+    11.2,
+    0.75,
+    21.2
+   ],
+   "lookAt": [
+    12.2,
+    -0.3,
+    14.7
+   ],
+   "lens_mm": 28,
+   "time_of_day": "day",
+   "scenes": [
+    "building",
+    "context"
+   ],
+   "sensor_width_mm": 36,
+   "aspect": "16:9"
+  }
+ ],
+ "extra_common": [
+  {
+   "id": "lobby-2",
+   "name": "Lobby towards the entrance",
+   "position": [
+    3.4,
+    1.55,
+    10.0
+   ],
+   "lookAt": [
+    8.6,
+    1.2,
+    14.2
+   ],
+   "lens_mm": 18,
+   "time_of_day": "day",
+   "scenes": [
+    "building"
+   ],
+   "sensor_width_mm": 36,
+   "aspect": "16:9"
+  },
+  {
+   "id": "carpark-2",
+   "name": "Car park, bays P1 to P6",
+   "position": [
+    9.4,
+    -1.2,
+    1.2
+   ],
+   "lookAt": [
+    1.5,
+    -2.1,
+    -4.5
+   ],
+   "lens_mm": 18,
+   "time_of_day": "day",
+   "scenes": [
+    "building"
+   ],
+   "sensor_width_mm": 36,
+   "aspect": "16:9"
+  },
+  {
+   "id": "carpark-ramp",
+   "name": "Car park from the ramp",
+   "position": [
+    12.3,
+    -1.0,
+    4.2
+   ],
+   "lookAt": [
+    5.0,
+    -2.0,
+    10.5
+   ],
+   "lens_mm": 18,
+   "time_of_day": "day",
+   "scenes": [
+    "building"
+   ],
+   "sensor_width_mm": 36,
+   "aspect": "16:9"
+  }
+ ]
 }
