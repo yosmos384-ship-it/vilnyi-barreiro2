@@ -1,0 +1,26 @@
+[    0.0s] job u0.B-lisboa-1: scope=unit unit=0.B pkg=lisboa quality=standard shots=5
+[    0.6s] import building: 401 objects in 0.5s
+[    0.9s] import context: 123 objects in 0.3s
+[    1.2s] import unit-0.B-lisboa: 94 objects in 0.3s
+[    1.4s] box UVs on 554 meshes
+[    2.6s] materials: built=202 textured=64 by_key={'aluminium-frame': 1, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 5, 'asphalt': 1, 'bark': 2, 'bath-floor': 1, 'bath-wall': 1, 'book': 5, 'brass': 10, 'brick-facade': 1, 'bulb-emissive': 2, 'candle-wax': 1, 'car-glass': 1, 'car-light': 2, 'car-paint': 10, 'ceiling': 2, 'ceiling-white': 1, 'ceramic-plate': 3, 'concrete': 3, 'curtain-fabric': 1, 'cutlery-steel': 1, 'deck-teak': 2, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 3, 'epoxy-floor': 1, 'fabric-boucle': 2, 'fabric-linen': 12, 'fabric-sofa': 2, 'floor-main': 3, 'foliage': 17, 'fruit': 6, 'garage-door': 1, 'glass-drinking': 1, 'glass-railing': 2, 'glass-window': 3, 'gravel': 2, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 1, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 3, 'led-strip-emissive': 7, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 4, 'mirror': 2, 'paint-marking': 8, 'paving-calcada': 2, 'plant-leaf': 3, 'planter-concrete': 1, 'plaster-white': 2, 'pot-terracotta': 1, 'pv-panel': 1, 'render-cream': 1, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 2, 'rug': 1, 'sanitary-ceramic': 2, 'shower-glass': 1, 'skirting': 1, 'soil': 4, 'steel-dark': 11, 'stone-coping': 2, 'timber-slats': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 1, 'zinc-standing-seam': 2}
+[    2.6s] lights: imported=4 emissive->lights=109 portals=22 boost=2.5 total_lights=135 polys=258054
+[    3.2s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[    3.4s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[    3.4s] scene ready in 3.4s  (world kloofendal_43d_clear_puresky)
+[    9.8s] [expo] Lavg=0.001612 p95=0.404 ev=6.95 ev_hi=2.63 -> 2.63 sky=None
+[    9.8s] [wb] gains (0.625, 1.0, 1.6)
+[ 1573.9s] SHOT 0.B-lisboa-h5 pano 3072x1536 spp<=64 ev=2.63 in 1570.4s -> renders/units/0.B/lisboa/0.B-lisboa-h5.jpg
+[ 1578.7s] [expo] Lavg=0.004124 p95=0.08825 ev=5.60 ev_hi=4.82 -> 4.82 sky=None
+[ 1578.7s] [wb] gains (0.625, 1.0, 1.6)
+[ 2937.7s] SHOT 0.B-lisboa-h6 pano 3072x1536 spp<=64 ev=4.82 in 1363.8s -> renders/units/0.B/lisboa/0.B-lisboa-h6.jpg
+[ 2942.4s] [expo] Lavg=0.002395 p95=0.08401 ev=6.38 ev_hi=4.90 -> 4.90 sky=None
+[ 2942.4s] [wb] gains (0.625, 1.0, 1.6)
+[ 4208.4s] SHOT 0.B-lisboa-h7 pano 3072x1536 spp<=64 ev=4.90 in 1270.7s -> renders/units/0.B/lisboa/0.B-lisboa-h7.jpg
+[ 4211.1s] [expo] Lavg=0.02198 p95=4.756 ev=3.19 ev_hi=-0.93 -> -0.93 sky=None
+[ 4211.1s] [wb] gains (0.949, 1.0, 1.058)
+[ 4956.8s] SHOT 0.B-lisboa-h8 pano 3072x1536 spp<=64 ev=-0.93 in 748.5s -> renders/units/0.B/lisboa/0.B-lisboa-h8.jpg
+[ 4960.1s] [expo] Lavg=0.04607 p95=3.57 ev=2.12 ev_hi=-0.51 -> -0.51 sky=None
+[ 4960.1s] [wb] gains (0.857, 1.0, 1.077)
+[ 5901.8s] SHOT 0.B-lisboa-h9 pano 3072x1536 spp<=64 ev=-0.51 in 945.0s -> renders/units/0.B/lisboa/0.B-lisboa-h9.jpg
+[ 5901.8s] DONE 5 images in 5901.8s
