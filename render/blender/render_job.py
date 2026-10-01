@@ -263,6 +263,8 @@ def render_group(job, q, quality, scn, tod, shots, tmp, out_dir):
     # real lights from emissive meshes: interiors always; exteriors only at dusk and only for our building
     if is_unit:
         n_em = S.emissive_to_lights(lopts, region=region, sources=None)
+    elif job['scope'] == 'common':
+        n_em = S.emissive_to_lights(lopts, region=None, sources={'building'})
     elif tod == 'dusk':
         n_em = S.emissive_to_lights(lopts, region=None, sources={'building'} | {k for k in objs_by if k.startswith('unit-')})
     else:
