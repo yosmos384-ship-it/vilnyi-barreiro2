@@ -166,6 +166,36 @@ def mode_thumbs(req):
         log('contact sheet', n // per, len(chunk))
 
 
+# ------------------------------------------------------------------ swatch (flat 1K albedo crops)
+def mode_swatch(req):
+    from PIL import Image, ImageDraw
+    cells = []
+    for i in req.get('swatch', []):
+        try:
+            if i.startswith('acg:'):
+                a = acg_asset(i[4:])
+                z = get(acg_zip_url(a, '1K-JPG'), binary=True)
+                with zipfile.ZipFile(io.BytesIO(z)) as zf:
+                    n = [x for x in zf.namelist() if re.search(r'_Color\.(jpg|png)$', x)][0]
+                    im = Image.open(io.BytesIO(zf.read(n))).convert('RGB')
+            else:
+                f = get(f'{PH_API}/files/{i}')
+                u = ph_pick(f, ['diffuse', 'diff', 'albedo', 'col_1', 'col_01'], '1k') or ph_pick(f, [k.lower() for k in f if k.lower().startswith(('col', 'diff'))], '1k')
+                im = Image.open(io.BytesIO(get(u, binary=True))).convert('RGB')
+            cells.append((i, im))
+        except Exception as e:
+            log('swatch failed', i, e)
+    W, cols, per = 384, 5, 20
+    for n in range(0, len(cells), per):
+        ch = cells[n:n + per]; rows = (len(ch) + cols - 1) // cols
+        sh = Image.new('RGB', (cols * W, rows * (W + 18)), (30, 30, 30)); d = ImageDraw.Draw(sh)
+        for j, (i, im) in enumerate(ch):
+            x, y = (j % cols) * W, (j // cols) * (W + 18)
+            sh.paste(im.resize((W - 4, W - 4)), (x + 2, y + 2)); d.text((x + 3, y + W), i, fill=(255, 255, 0))
+        sh.save(os.path.join(ROOT, f'render/logs/contact-{n // per}.jpg'), quality=82)
+        log('swatch sheet', n // per, len(ch))
+
+
 # ------------------------------------------------------------------ build helpers
 from PIL import Image  # noqa: E402
 
@@ -200,6 +230,10 @@ def ph_urls(files, res):
         u = ph_pick(files, pk, res)
         if u:
             out[m] = u
+    if 'albedo' not in out:
+        cand = sorted(k for k in files if k.lower().startswith(('col', 'diff', 'base')))
+        if cand:
+            out['albedo'] = ph_pick(files, [cand[0].lower()], res)
     if 'arm' in {k.lower() for k in files}:
         out['_arm'] = ph_pick(files, ['arm'], res)
     return out
@@ -558,7 +592,7 @@ def main():
     mode = sys.argv[1] if len(sys.argv) > 1 else req.get('mode', 'build')
     log(f'mode={mode} cache={CACHE} time={time.strftime("%Y-%m-%d %H:%M:%S")}')
     try:
-        {'catalog': mode_catalog, 'thumbs': mode_thumbs, 'build': mode_build}[mode](req)
+        {'catalog': mode_catalog, 'thumbs': mode_thumbs, 'swatch': mode_swatch, 'build': mode_build}[mode](req)
     except Exception as e:
         import traceback
         log('FATAL', e, traceback.format_exc())
