@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-10-01T16:01:35Z",
+ "generated": "2026-10-01T18:18:50Z",
  "conventions": {
   "position": "three.js world metres (Y-up), eye point of the panorama",
   "yawOffset": "radians; three.js camera yaw (rotation.y, YXZ order; 0 looks along -Z, +pi/2 looks along -X) of the panorama CENTRE column (u = 0.5). u grows to the right (clockwise seen from above). Seam at u = 0/1 faces away.",
@@ -760,160 +760,6 @@
    "noir": {
     "panos": [
      {
-      "id": "0.A-noir-h0",
-      "roomId": "0.A-suite",
-      "name": {
-       "en": "Master suite",
-       "pt": "Suite",
-       "he": "סוויטת הורים"
-      },
-      "file": "renders/units/0.A/noir/0.A-noir-h0.jpg",
-      "thumb": "renders/units/0.A/noir/thumbs/0.A-noir-h0.jpg",
-      "position": [
-       0.85,
-       1.6,
-       4.6
-      ],
-      "lookAt": [
-       1.028,
-       0.95,
-       2.75
-      ],
-      "yawOffset": -0.09592,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       1,
-       4,
-       2,
-       3
-      ]
-     },
-     {
-      "id": "0.A-noir-h1",
-      "roomId": "0.A-suite",
-      "name": {
-       "en": "Master suite · view 2",
-       "pt": "Suite · vista 2",
-       "he": "סוויטת הורים · מבט 2"
-      },
-      "file": "renders/units/0.A/noir/0.A-noir-h1.jpg",
-      "thumb": "renders/units/0.A/noir/thumbs/0.A-noir-h1.jpg",
-      "position": [
-       2.208,
-       1.6,
-       4.648
-      ],
-      "lookAt": [
-       1.173,
-       1,
-       3.672
-      ],
-      "yawOffset": 0.81473,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       0,
-       2,
-       4,
-       3
-      ]
-     },
-     {
-      "id": "0.A-noir-h2",
-      "roomId": "0.A-living",
-      "name": {
-       "en": "Living & kitchen",
-       "pt": "Sala / cozinha",
-       "he": "סלון ומטבח"
-      },
-      "file": "renders/units/0.A/noir/0.A-noir-h2.jpg",
-      "thumb": "renders/units/0.A/noir/thumbs/0.A-noir-h2.jpg",
-      "position": [
-       3.66,
-       1.6,
-       4.6
-      ],
-      "lookAt": [
-       5.06,
-       1.25,
-       0.474
-      ],
-      "yawOffset": -0.32712,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       1,
-       5,
-       6,
-       3,
-       0,
-       8,
-       7
-      ]
-     },
-     {
-      "id": "0.A-noir-h3",
-      "roomId": "0.A-living",
-      "name": {
-       "en": "Living & kitchen · view 2",
-       "pt": "Sala / cozinha · vista 2",
-       "he": "סלון ומטבח · מבט 2"
-      },
-      "file": "renders/units/0.A/noir/0.A-noir-h3.jpg",
-      "thumb": "renders/units/0.A/noir/thumbs/0.A-noir-h3.jpg",
-      "position": [
-       4.751,
-       1.6,
-       2.306
-      ],
-      "lookAt": [
-       4.07,
-       1,
-       3.672
-      ],
-      "yawOffset": 2.67912,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       2,
-       1,
-       5,
-       6,
-       8,
-       0,
-       7
-      ]
-     },
-     {
-      "id": "0.A-noir-h4",
-      "roomId": "0.A-ensuite",
-      "name": {
-       "en": "En-suite bathroom",
-       "pt": "I.S. suite",
-       "he": "חדר רחצה צמוד"
-      },
-      "file": "renders/units/0.A/noir/0.A-noir-h4.jpg",
-      "thumb": "renders/units/0.A/noir/thumbs/0.A-noir-h4.jpg",
-      "position": [
-       1.375,
-       1.6,
-       6.01
-      ],
-      "lookAt": [
-       0.548,
-       1.3,
-       6.732
-      ],
-      "yawOffset": 2.28851,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       0,
-       1
-      ]
-     },
-     {
       "id": "0.A-noir-h5",
       "roomId": "0.A-wc",
       "name": {
@@ -937,8 +783,7 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       2,
-       3
+       1
       ]
      },
      {
@@ -965,8 +810,7 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       2,
-       3
+       0
       ]
      },
      {
@@ -993,9 +837,7 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       8,
-       3,
-       2
+       3
       ]
      },
      {
@@ -1022,8 +864,6 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       7,
-       3,
        2
       ]
      }
@@ -1956,164 +1796,6 @@
    "noir": {
     "panos": [
      {
-      "id": "0.B-noir-h0",
-      "roomId": "0.B-living",
-      "name": {
-       "en": "Living & kitchen",
-       "pt": "Sala / cozinha",
-       "he": "סלון ומטבח"
-      },
-      "file": "renders/units/0.B/noir/0.B-noir-h0.jpg",
-      "thumb": "renders/units/0.B/noir/thumbs/0.B-noir-h0.jpg",
-      "position": [
-       9,
-       1.6,
-       4.6
-      ],
-      "lookAt": [
-       7.296,
-       1.25,
-       0.474
-      ],
-      "yawOffset": 0.39165,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       5,
-       3,
-       4,
-       2,
-       1,
-       9,
-       8
-      ]
-     },
-     {
-      "id": "0.B-noir-h1",
-      "roomId": "0.B-living",
-      "name": {
-       "en": "Living & kitchen · view 2",
-       "pt": "Sala / cozinha · vista 2",
-       "he": "סלון ומטבח · מבט 2"
-      },
-      "file": "renders/units/0.B/noir/0.B-noir-h1.jpg",
-      "thumb": "renders/units/0.B/noir/thumbs/0.B-noir-h1.jpg",
-      "position": [
-       6.908,
-       1.6,
-       0.842
-      ],
-      "lookAt": [
-       8.25,
-       1,
-       2.9
-      ],
-      "yawOffset": -2.56375,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       9,
-       0,
-       8,
-       3,
-       5,
-       4,
-       2
-      ]
-     },
-     {
-      "id": "0.B-noir-h2",
-      "roomId": "0.B-bed",
-      "name": {
-       "en": "Bedroom",
-       "pt": "Quarto",
-       "he": "חדר שינה"
-      },
-      "file": "renders/units/0.B/noir/0.B-noir-h2.jpg",
-      "thumb": "renders/units/0.B/noir/thumbs/0.B-noir-h2.jpg",
-      "position": [
-       12.81,
-       1.6,
-       4.15
-      ],
-      "lookAt": [
-       11.672,
-       0.95,
-       2.39
-      ],
-      "yawOffset": 0.57398,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       3,
-       0,
-       1,
-       9,
-       8
-      ]
-     },
-     {
-      "id": "0.B-noir-h3",
-      "roomId": "0.B-bed",
-      "name": {
-       "en": "Bedroom · view 2",
-       "pt": "Quarto · vista 2",
-       "he": "חדר שינה · מבט 2"
-      },
-      "file": "renders/units/0.B/noir/0.B-noir-h3.jpg",
-      "thumb": "renders/units/0.B/noir/thumbs/0.B-noir-h3.jpg",
-      "position": [
-       10.608,
-       1.6,
-       4.725
-      ],
-      "lookAt": [
-       12.331,
-       1,
-       3.663
-      ],
-      "yawOffset": -1.01843,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       0,
-       2,
-       1,
-       9,
-       8
-      ]
-     },
-     {
-      "id": "0.B-noir-h4",
-      "roomId": "0.B-hall",
-      "name": {
-       "en": "Hall",
-       "pt": "Hall",
-       "he": "מבואה"
-      },
-      "file": "renders/units/0.B/noir/0.B-noir-h4.jpg",
-      "thumb": "renders/units/0.B/noir/thumbs/0.B-noir-h4.jpg",
-      "position": [
-       7.82,
-       1.6,
-       7.215
-      ],
-      "lookAt": [
-       9.035,
-       1.25,
-       8.629
-      ],
-      "yawOffset": -2.43174,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       0,
-       6,
-       7,
-       1
-      ]
-     },
-     {
       "id": "0.B-noir-h5",
       "roomId": "0.B-wc",
       "name": {
@@ -2137,7 +1819,6 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       0,
        1
       ]
      },
@@ -2165,8 +1846,8 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       7,
-       4
+       2,
+       0
       ]
      },
      {
@@ -2193,8 +1874,7 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       6,
-       4
+       1
       ]
      },
      {
@@ -2221,11 +1901,7 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       9,
-       1,
-       0,
-       2,
-       3
+       4
       ]
      },
      {
@@ -2252,11 +1928,7 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       8,
-       1,
-       0,
-       3,
-       2
+       3
       ]
      }
     ],
@@ -2378,9 +2050,9 @@
       "file": "renders/units/1.A/atlantic/1.A-atlantic-h0.jpg",
       "thumb": "renders/units/1.A/atlantic/thumbs/1.A-atlantic-h0.jpg",
       "position": [
-       0.85,
-       4.6,
-       4.6
+       3.668,
+       4.45,
+       4.132
       ],
       "lookAt": [
        1.028,
@@ -2391,10 +2063,12 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       1,
-       4,
        2,
-       3
+       1,
+       5,
+       6,
+       3,
+       7
       ]
      },
      {
@@ -2421,9 +2095,9 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       0,
-       2,
        4,
+       2,
+       0,
        3
       ]
      },
@@ -2451,43 +2125,41 @@
       "W": 3072,
       "H": 1536,
       "links": [
+       0,
        1,
        5,
        6,
        3,
-       0,
        7
       ]
      },
      {
       "id": "1.A-atlantic-h3",
-      "roomId": "1.A-living",
+      "roomId": "1.A-suite",
       "name": {
-       "en": "Living & kitchen · view 2",
-       "pt": "Sala / cozinha · vista 2",
-       "he": "סלון ומטבח · מבט 2"
+       "en": "Master suite",
+       "pt": "Suite",
+       "he": "סוויטת הורים"
       },
       "file": "renders/units/1.A/atlantic/1.A-atlantic-h3.jpg",
       "thumb": "renders/units/1.A/atlantic/thumbs/1.A-atlantic-h3.jpg",
       "position": [
-       4.751,
-       4.6,
-       2.306
+       0.449,
+       4.4,
+       4.763
       ],
       "lookAt": [
-       4.07,
-       4,
-       3.672
+       2.332,
+       4.4,
+       1.131
       ],
       "yawOffset": 2.67912,
       "W": 3072,
       "H": 1536,
       "links": [
-       2,
-       7,
+       4,
        1,
-       5,
-       6,
+       2,
        0
       ]
      },
@@ -2502,21 +2174,21 @@
       "file": "renders/units/1.A/atlantic/1.A-atlantic-h4.jpg",
       "thumb": "renders/units/1.A/atlantic/thumbs/1.A-atlantic-h4.jpg",
       "position": [
-       1.375,
-       4.6,
-       6.01
+       1.749,
+       4.45,
+       5.772
       ],
       "lookAt": [
-       0.548,
-       4.3,
-       6.732
+       0.662,
+       4.45,
+       6.641
       ],
       "yawOffset": 2.28851,
       "W": 3072,
       "H": 1536,
       "links": [
-       0,
-       1
+       1,
+       3
       ]
      },
      {
@@ -2544,7 +2216,7 @@
       "H": 1536,
       "links": [
        2,
-       3
+       0
       ]
      },
      {
@@ -2572,7 +2244,7 @@
       "H": 1536,
       "links": [
        2,
-       3
+       0
       ]
      },
      {
@@ -2599,7 +2271,7 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       3,
+       0,
        2
       ]
      }
@@ -2685,158 +2357,6 @@
    "lisboa": {
     "panos": [
      {
-      "id": "1.A-lisboa-h0",
-      "roomId": "1.A-suite",
-      "name": {
-       "en": "Master suite",
-       "pt": "Suite",
-       "he": "סוויטת הורים"
-      },
-      "file": "renders/units/1.A/lisboa/1.A-lisboa-h0.jpg",
-      "thumb": "renders/units/1.A/lisboa/thumbs/1.A-lisboa-h0.jpg",
-      "position": [
-       0.85,
-       4.6,
-       4.6
-      ],
-      "lookAt": [
-       1.028,
-       3.95,
-       2.75
-      ],
-      "yawOffset": -0.09592,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       1,
-       4,
-       2,
-       3
-      ]
-     },
-     {
-      "id": "1.A-lisboa-h1",
-      "roomId": "1.A-suite",
-      "name": {
-       "en": "Master suite · view 2",
-       "pt": "Suite · vista 2",
-       "he": "סוויטת הורים · מבט 2"
-      },
-      "file": "renders/units/1.A/lisboa/1.A-lisboa-h1.jpg",
-      "thumb": "renders/units/1.A/lisboa/thumbs/1.A-lisboa-h1.jpg",
-      "position": [
-       2.208,
-       4.6,
-       4.648
-      ],
-      "lookAt": [
-       1.173,
-       4,
-       3.672
-      ],
-      "yawOffset": 0.81473,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       0,
-       2,
-       4,
-       3
-      ]
-     },
-     {
-      "id": "1.A-lisboa-h2",
-      "roomId": "1.A-living",
-      "name": {
-       "en": "Living & kitchen",
-       "pt": "Sala / cozinha",
-       "he": "סלון ומטבח"
-      },
-      "file": "renders/units/1.A/lisboa/1.A-lisboa-h2.jpg",
-      "thumb": "renders/units/1.A/lisboa/thumbs/1.A-lisboa-h2.jpg",
-      "position": [
-       3.66,
-       4.6,
-       4.6
-      ],
-      "lookAt": [
-       5.06,
-       4.25,
-       0.474
-      ],
-      "yawOffset": -0.32712,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       1,
-       5,
-       6,
-       3,
-       0,
-       7
-      ]
-     },
-     {
-      "id": "1.A-lisboa-h3",
-      "roomId": "1.A-living",
-      "name": {
-       "en": "Living & kitchen · view 2",
-       "pt": "Sala / cozinha · vista 2",
-       "he": "סלון ומטבח · מבט 2"
-      },
-      "file": "renders/units/1.A/lisboa/1.A-lisboa-h3.jpg",
-      "thumb": "renders/units/1.A/lisboa/thumbs/1.A-lisboa-h3.jpg",
-      "position": [
-       4.751,
-       4.6,
-       2.306
-      ],
-      "lookAt": [
-       4.07,
-       4,
-       3.672
-      ],
-      "yawOffset": 2.67912,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       2,
-       7,
-       1,
-       5,
-       6,
-       0
-      ]
-     },
-     {
-      "id": "1.A-lisboa-h4",
-      "roomId": "1.A-ensuite",
-      "name": {
-       "en": "En-suite bathroom",
-       "pt": "I.S. suite",
-       "he": "חדר רחצה צמוד"
-      },
-      "file": "renders/units/1.A/lisboa/1.A-lisboa-h4.jpg",
-      "thumb": "renders/units/1.A/lisboa/thumbs/1.A-lisboa-h4.jpg",
-      "position": [
-       1.375,
-       4.6,
-       6.01
-      ],
-      "lookAt": [
-       0.548,
-       4.3,
-       6.732
-      ],
-      "yawOffset": 2.28851,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       0,
-       1
-      ]
-     },
-     {
       "id": "1.A-lisboa-h5",
       "roomId": "1.A-wc",
       "name": {
@@ -2860,8 +2380,8 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       2,
-       3
+       1,
+       2
       ]
      },
      {
@@ -2888,8 +2408,7 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       2,
-       3
+       0
       ]
      },
      {
@@ -2916,8 +2435,7 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       3,
-       2
+       0
       ]
      }
     ],
@@ -3002,158 +2520,6 @@
    "noir": {
     "panos": [
      {
-      "id": "1.A-noir-h0",
-      "roomId": "1.A-suite",
-      "name": {
-       "en": "Master suite",
-       "pt": "Suite",
-       "he": "סוויטת הורים"
-      },
-      "file": "renders/units/1.A/noir/1.A-noir-h0.jpg",
-      "thumb": "renders/units/1.A/noir/thumbs/1.A-noir-h0.jpg",
-      "position": [
-       0.85,
-       4.6,
-       4.6
-      ],
-      "lookAt": [
-       1.028,
-       3.95,
-       2.75
-      ],
-      "yawOffset": -0.09592,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       1,
-       4,
-       2,
-       3
-      ]
-     },
-     {
-      "id": "1.A-noir-h1",
-      "roomId": "1.A-suite",
-      "name": {
-       "en": "Master suite · view 2",
-       "pt": "Suite · vista 2",
-       "he": "סוויטת הורים · מבט 2"
-      },
-      "file": "renders/units/1.A/noir/1.A-noir-h1.jpg",
-      "thumb": "renders/units/1.A/noir/thumbs/1.A-noir-h1.jpg",
-      "position": [
-       2.208,
-       4.6,
-       4.648
-      ],
-      "lookAt": [
-       1.173,
-       4,
-       3.672
-      ],
-      "yawOffset": 0.81473,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       0,
-       2,
-       4,
-       3
-      ]
-     },
-     {
-      "id": "1.A-noir-h2",
-      "roomId": "1.A-living",
-      "name": {
-       "en": "Living & kitchen",
-       "pt": "Sala / cozinha",
-       "he": "סלון ומטבח"
-      },
-      "file": "renders/units/1.A/noir/1.A-noir-h2.jpg",
-      "thumb": "renders/units/1.A/noir/thumbs/1.A-noir-h2.jpg",
-      "position": [
-       3.66,
-       4.6,
-       4.6
-      ],
-      "lookAt": [
-       5.06,
-       4.25,
-       0.474
-      ],
-      "yawOffset": -0.32712,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       1,
-       5,
-       6,
-       3,
-       0,
-       7
-      ]
-     },
-     {
-      "id": "1.A-noir-h3",
-      "roomId": "1.A-living",
-      "name": {
-       "en": "Living & kitchen · view 2",
-       "pt": "Sala / cozinha · vista 2",
-       "he": "סלון ומטבח · מבט 2"
-      },
-      "file": "renders/units/1.A/noir/1.A-noir-h3.jpg",
-      "thumb": "renders/units/1.A/noir/thumbs/1.A-noir-h3.jpg",
-      "position": [
-       4.751,
-       4.6,
-       2.306
-      ],
-      "lookAt": [
-       4.07,
-       4,
-       3.672
-      ],
-      "yawOffset": 2.67912,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       2,
-       7,
-       1,
-       5,
-       6,
-       0
-      ]
-     },
-     {
-      "id": "1.A-noir-h4",
-      "roomId": "1.A-ensuite",
-      "name": {
-       "en": "En-suite bathroom",
-       "pt": "I.S. suite",
-       "he": "חדר רחצה צמוד"
-      },
-      "file": "renders/units/1.A/noir/1.A-noir-h4.jpg",
-      "thumb": "renders/units/1.A/noir/thumbs/1.A-noir-h4.jpg",
-      "position": [
-       1.375,
-       4.6,
-       6.01
-      ],
-      "lookAt": [
-       0.548,
-       4.3,
-       6.732
-      ],
-      "yawOffset": 2.28851,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       0,
-       1
-      ]
-     },
-     {
       "id": "1.A-noir-h5",
       "roomId": "1.A-wc",
       "name": {
@@ -3177,8 +2543,8 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       2,
-       3
+       1,
+       2
       ]
      },
      {
@@ -3205,8 +2571,7 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       2,
-       3
+       0
       ]
      },
      {
@@ -3233,8 +2598,7 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       3,
-       2
+       0
       ]
      }
     ],
@@ -3331,24 +2695,24 @@
       "file": "renders/units/1.B/atlantic/1.B-atlantic-h0.jpg",
       "thumb": "renders/units/1.B/atlantic/thumbs/1.B-atlantic-h0.jpg",
       "position": [
-       9,
-       4.6,
-       4.6
+       9.374,
+       4.45,
+       4.803
       ],
       "lookAt": [
-       7.296,
-       4.25,
-       0.474
+       6.847,
+       4.45,
+       1.099
       ],
       "yawOffset": 0.39165,
       "W": 3072,
       "H": 1536,
       "links": [
+       1,
        5,
        3,
        4,
        2,
-       1,
        6
       ]
      },
@@ -3363,9 +2727,9 @@
       "file": "renders/units/1.B/atlantic/1.B-atlantic-h1.jpg",
       "thumb": "renders/units/1.B/atlantic/thumbs/1.B-atlantic-h1.jpg",
       "position": [
-       6.908,
-       4.6,
-       0.842
+       10.199,
+       4.4,
+       4.972
       ],
       "lookAt": [
        8.25,
@@ -3376,11 +2740,7 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       6,
        0,
-       4,
-       3,
-       5,
        2
       ]
      },
@@ -3408,38 +2768,36 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       3,
-       0,
-       1
+       1,
+       0
       ]
      },
      {
       "id": "1.B-atlantic-h3",
-      "roomId": "1.B-bed",
+      "roomId": "1.B-wc",
       "name": {
-       "en": "Bedroom · view 2",
-       "pt": "Quarto · vista 2",
-       "he": "חדר שינה · מבט 2"
+       "en": "Bathroom",
+       "pt": "I.S.",
+       "he": "חדר רחצה"
       },
       "file": "renders/units/1.B/atlantic/1.B-atlantic-h3.jpg",
       "thumb": "renders/units/1.B/atlantic/thumbs/1.B-atlantic-h3.jpg",
       "position": [
-       10.608,
-       4.6,
-       4.725
+       7.993,
+       4.45,
+       5.832
       ],
       "lookAt": [
-       12.331,
-       4,
-       3.663
+       9.085,
+       4.45,
+       6.594
       ],
       "yawOffset": -1.01843,
       "W": 3072,
       "H": 1536,
       "links": [
-       0,
-       2,
-       1
+       5,
+       0
       ]
      },
      {
@@ -3466,8 +2824,7 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       0,
-       1
+       0
       ]
      },
      {
@@ -3494,8 +2851,8 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       0,
-       1
+       3,
+       0
       ]
      },
      {
@@ -3522,7 +2879,6 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       1,
        0
       ]
      }
@@ -3895,156 +3251,6 @@
    "noir": {
     "panos": [
      {
-      "id": "1.B-noir-h0",
-      "roomId": "1.B-living",
-      "name": {
-       "en": "Living & kitchen",
-       "pt": "Sala / cozinha",
-       "he": "סלון ומטבח"
-      },
-      "file": "renders/units/1.B/noir/1.B-noir-h0.jpg",
-      "thumb": "renders/units/1.B/noir/thumbs/1.B-noir-h0.jpg",
-      "position": [
-       9,
-       4.6,
-       4.6
-      ],
-      "lookAt": [
-       7.296,
-       4.25,
-       0.474
-      ],
-      "yawOffset": 0.39165,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       5,
-       3,
-       4,
-       2,
-       1,
-       6
-      ]
-     },
-     {
-      "id": "1.B-noir-h1",
-      "roomId": "1.B-living",
-      "name": {
-       "en": "Living & kitchen · view 2",
-       "pt": "Sala / cozinha · vista 2",
-       "he": "סלון ומטבח · מבט 2"
-      },
-      "file": "renders/units/1.B/noir/1.B-noir-h1.jpg",
-      "thumb": "renders/units/1.B/noir/thumbs/1.B-noir-h1.jpg",
-      "position": [
-       6.908,
-       4.6,
-       0.842
-      ],
-      "lookAt": [
-       8.25,
-       4,
-       2.9
-      ],
-      "yawOffset": -2.56375,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       6,
-       0,
-       4,
-       3,
-       5,
-       2
-      ]
-     },
-     {
-      "id": "1.B-noir-h2",
-      "roomId": "1.B-bed",
-      "name": {
-       "en": "Bedroom",
-       "pt": "Quarto",
-       "he": "חדר שינה"
-      },
-      "file": "renders/units/1.B/noir/1.B-noir-h2.jpg",
-      "thumb": "renders/units/1.B/noir/thumbs/1.B-noir-h2.jpg",
-      "position": [
-       12.81,
-       4.6,
-       4.15
-      ],
-      "lookAt": [
-       11.672,
-       3.95,
-       2.39
-      ],
-      "yawOffset": 0.57398,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       3,
-       0,
-       1
-      ]
-     },
-     {
-      "id": "1.B-noir-h3",
-      "roomId": "1.B-bed",
-      "name": {
-       "en": "Bedroom · view 2",
-       "pt": "Quarto · vista 2",
-       "he": "חדר שינה · מבט 2"
-      },
-      "file": "renders/units/1.B/noir/1.B-noir-h3.jpg",
-      "thumb": "renders/units/1.B/noir/thumbs/1.B-noir-h3.jpg",
-      "position": [
-       10.608,
-       4.6,
-       4.725
-      ],
-      "lookAt": [
-       12.331,
-       4,
-       3.663
-      ],
-      "yawOffset": -1.01843,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       0,
-       2,
-       1
-      ]
-     },
-     {
-      "id": "1.B-noir-h4",
-      "roomId": "1.B-hall",
-      "name": {
-       "en": "Entrance hall",
-       "pt": "Hall",
-       "he": "מבואה"
-      },
-      "file": "renders/units/1.B/noir/1.B-noir-h4.jpg",
-      "thumb": "renders/units/1.B/noir/thumbs/1.B-noir-h4.jpg",
-      "position": [
-       6.795,
-       4.6,
-       6.01
-      ],
-      "lookAt": [
-       6.428,
-       4.3,
-       6.732
-      ],
-      "yawOffset": 2.67132,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       0,
-       1
-      ]
-     },
-     {
       "id": "1.B-noir-h5",
       "roomId": "1.B-wc",
       "name": {
@@ -4068,7 +3274,6 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       0,
        1
       ]
      },
@@ -4096,7 +3301,6 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       1,
        0
       ]
      }
@@ -4822,156 +4026,6 @@
    "noir": {
     "panos": [
      {
-      "id": "1.C-noir-h0",
-      "roomId": "1.C-hall",
-      "name": {
-       "en": "Hall",
-       "pt": "Hall",
-       "he": "מסדרון"
-      },
-      "file": "renders/units/1.C/noir/1.C-noir-h0.jpg",
-      "thumb": "renders/units/1.C/noir/thumbs/1.C-noir-h0.jpg",
-      "position": [
-       3.7,
-       4.6,
-       9.95
-      ],
-      "lookAt": [
-       8.721,
-       4.25,
-       10.788
-      ],
-      "yawOffset": -1.73617,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       1,
-       5,
-       2,
-       6,
-       3
-      ]
-     },
-     {
-      "id": "1.C-noir-h1",
-      "roomId": "1.C-hall",
-      "name": {
-       "en": "Hall · view 2",
-       "pt": "Hall · vista 2",
-       "he": "מסדרון · מבט 2"
-      },
-      "file": "renders/units/1.C/noir/1.C-noir-h1.jpg",
-      "thumb": "renders/units/1.C/noir/thumbs/1.C-noir-h1.jpg",
-      "position": [
-       6.799,
-       4.6,
-       10.125
-      ],
-      "lookAt": [
-       5.132,
-       4,
-       9.842
-      ],
-      "yawOffset": 1.40263,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       2,
-       6,
-       0,
-       5,
-       3,
-       4
-      ]
-     },
-     {
-      "id": "1.C-noir-h2",
-      "roomId": "1.C-wc",
-      "name": {
-       "en": "Bathroom",
-       "pt": "I.S.",
-       "he": "חדר רחצה"
-      },
-      "file": "renders/units/1.C/noir/1.C-noir-h2.jpg",
-      "thumb": "renders/units/1.C/noir/thumbs/1.C-noir-h2.jpg",
-      "position": [
-       8.15,
-       4.6,
-       8.59
-      ],
-      "lookAt": [
-       9.044,
-       4.3,
-       7.628
-      ],
-      "yawOffset": -0.74878,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       1,
-       0
-      ]
-     },
-     {
-      "id": "1.C-noir-h3",
-      "roomId": "1.C-living",
-      "name": {
-       "en": "Living & kitchen",
-       "pt": "Sala / cozinha",
-       "he": "סלון ומטבח"
-      },
-      "file": "renders/units/1.C/noir/1.C-noir-h3.jpg",
-      "thumb": "renders/units/1.C/noir/thumbs/1.C-noir-h3.jpg",
-      "position": [
-       10.26,
-       4.6,
-       7.21
-      ],
-      "lookAt": [
-       12.44,
-       4.25,
-       13.982
-      ],
-      "yawOffset": -2.83015,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       1,
-       0,
-       4,
-       7
-      ]
-     },
-     {
-      "id": "1.C-noir-h4",
-      "roomId": "1.C-living",
-      "name": {
-       "en": "Living & kitchen · view 2",
-       "pt": "Sala / cozinha · vista 2",
-       "he": "סלון ומטבח · מבט 2"
-      },
-      "file": "renders/units/1.C/noir/1.C-noir-h4.jpg",
-      "thumb": "renders/units/1.C/noir/thumbs/1.C-noir-h4.jpg",
-      "position": [
-       13.086,
-       4.6,
-       13.882
-      ],
-      "lookAt": [
-       11.76,
-       4,
-       9.46
-      ],
-      "yawOffset": 0.29133,
-      "W": 3072,
-      "H": 1536,
-      "links": [
-       7,
-       3,
-       1
-      ]
-     },
-     {
       "id": "1.C-noir-h5",
       "roomId": "1.C-bed1",
       "name": {
@@ -4995,9 +4049,7 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       7,
-       1,
-       0
+       2
       ]
      },
      {
@@ -5024,9 +4076,7 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       1,
-       7,
-       0
+       2
       ]
      },
      {
@@ -5053,10 +4103,8 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       5,
-       6,
-       4,
-       3
+       0,
+       1
       ]
      }
     ],
