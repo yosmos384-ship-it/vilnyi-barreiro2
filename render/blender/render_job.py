@@ -361,7 +361,10 @@ def render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod):
     interior = (is_unit or job['scope'] == 'common') and s.get('kind') != 'garden' and not str(s.get('roomId', '')).split('-')[-1] in ('garden',) \
         and not any(str(s.get('roomId', '')).startswith(b) for b in ('1.rear', '1.front', '2.rear', '2.front'))
     # interiors are exposed for the room (like an architectural photographer); windows may bloom
-    eo = dict(expo_samples=max(32, q.get('expo_samples', 16)) if interior else q.get('expo_samples', 16), hi_white=opts.get('hi_white', 14.0 if interior else 2.5),
+    # highlight rule: dark finishes (Noir) must not be metered to mid-grey -> the brightest ~12% (ceiling, sanitaryware,
+    # sheers) is kept below ~3 scene-linear, windows beyond that may bloom
+    eo = dict(expo_samples=max(32, q.get('expo_samples', 16)) if interior else q.get('expo_samples', 16), hi_white=opts.get('hi_white', 3.0 if interior else 2.5),
+              hi_pct=88.0 if interior else 95.0,
               meter_hi_pct=75 if interior else 97)
     ev, sky_lum = LI.measure_exposure(tmp, key, eo, log)
     if True:   # interiors too: balcony/garden panoramas and views through windows
