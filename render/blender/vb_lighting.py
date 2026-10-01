@@ -327,11 +327,19 @@ def measure_exposure(tmpdir, key, opts, log, w=None, h=None):
         # un-premultiply is not needed for opaque pixels
     lum = 0.2126 * px[:, 0] + 0.7152 * px[:, 1] + 0.0722 * px[:, 2]
     lum = lum[np.isfinite(lum)]
-    lo, hi = np.percentile(lum, [2, opts.get('meter_hi_pct', 97)])
-    sel = lum[(lum >= lo) & (lum <= hi)]
-    if sel.size == 0:
+    def logavg(hp):
+        lo, hi = np.percentile(lum, [2, hp])
+        sel = lum[(lum >= lo) & (lum <= hi)]
+        if sel.size == 0:
+            return None
+        floor = max(1e-6, float(np.median(sel)) * 0.02)     # under-sampled black pixels must not dominate
+        return float(np.exp(np.mean(np.log(np.maximum(sel, floor)))))
+    lavg97 = logavg(97)
+    if lavg97 is None:
         return 0.0, sky_lum
-    lavg = float(np.exp(np.mean(np.log(sel + 1e-5))))
+    lavg = logavg(opts.get('meter_hi_pct', 97)) or lavg97
+    # room-exposure may lift by at most +1 EV over full-frame metering
+    lavg = max(lavg, lavg97 / 2.0)
     # grey-world estimate on mid-tones (for a partial, photographer-style white balance)
     mid = px[(lum > np.percentile(lum, 20)) & (lum < np.percentile(lum, 95))][:, :3]
     WB[0] = tuple(float(x) for x in mid.mean(axis=0)) if len(mid) > 20 else None
