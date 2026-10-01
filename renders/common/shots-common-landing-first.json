@@ -1,0 +1,43 @@
+{
+ "job": {
+  "scope": "common",
+  "quality": "standard",
+  "shots": [
+   "landing-first"
+  ],
+  "out": "renders/common",
+  "name": "common-landing-first",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "landing-first",
+   "type": "still",
+   "file": "renders/common/landing-first.jpg",
+   "thumb": "renders/common/thumbs/landing-first.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 2.662414542368295,
+   "tod": "day",
+   "position": [
+    7.1,
+    4.5,
+    8.35
+   ],
+   "lookAt": [
+    1.8,
+    4.45,
+    7.6
+   ],
+   "roomId": null,
+   "name": "Typical landing (1st floor)",
+   "kind": null,
+   "lens": 18.0,
+   "shift_y": -0.0047,
+   "seconds": 3462.5
+  }
+ ],
+ "seconds": 3465.5,
+ "blender": "4.2.3 LTS"
+}
