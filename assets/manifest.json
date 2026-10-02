@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-10-02T00:32:17Z",
+ "generated": "2026-10-02T00:41:07Z",
  "license": "All assets CC0 1.0 (Poly Haven, ambientCG). Credits below.",
  "notes": {
   "normal": "OpenGL convention (+Y up), linear",
@@ -796,13 +796,14 @@
      1.0,
      1.0
     ],
-    "note": "pale ash veneer (brightened, baked)",
+    "note": "pale ash veneer (desaturated + brightened, baked)",
     "alt": [
      "white_maple_veneer",
      "washed_grey_oak_veneer"
     ],
     "baked": {
-     "brightness": 1.3
+     "saturation": 0.55,
+     "brightness": 1.22
     }
    },
    "riviera": {
@@ -1123,7 +1124,8 @@
     ],
     "note": "soft grey paint (baked)",
     "baked": {
-     "multiply": "#e4e1db"
+     "saturation": 0.4,
+     "brightness": 1.18
     }
    }
   },
@@ -1199,13 +1201,14 @@
      1.0,
      1.0
     ],
-    "note": "ash timber slats (brightened, baked)",
+    "note": "ash timber slats (desaturated + brightened, baked)",
     "alt": [
      "white_maple_veneer",
      "washed_grey_oak_veneer"
     ],
     "baked": {
-     "brightness": 1.3
+     "saturation": 0.55,
+     "brightness": 1.22
     }
    },
    "riviera": {
@@ -1224,8 +1227,9 @@
     ],
     "note": "heavier trowelled plaster, warm white (baked)",
     "baked": {
-     "brightness": 1.35,
-     "multiply": "#f4ebdc"
+     "saturation": 0.3,
+     "brightness": 1.5,
+     "multiply": "#f7f0e3"
     }
    },
    "urban": {
@@ -1341,13 +1345,14 @@
      1.0,
      1.0
     ],
-    "note": "pale ash veneer (brightened, baked)",
+    "note": "pale ash veneer (desaturated + brightened, baked)",
     "alt": [
      "white_maple_veneer",
      "washed_grey_oak_veneer"
     ],
     "baked": {
-     "brightness": 1.3
+     "saturation": 0.55,
+     "brightness": 1.22
     }
    },
    "riviera": {
@@ -2106,13 +2111,14 @@
      1.0,
      1.0
     ],
-    "note": "pale ash veneer (brightened, baked)",
+    "note": "pale ash veneer (desaturated + brightened, baked)",
     "alt": [
      "white_maple_veneer",
      "washed_grey_oak_veneer"
     ],
     "baked": {
-     "brightness": 1.3
+     "saturation": 0.55,
+     "brightness": 1.22
     }
    },
    "riviera": {
@@ -2480,13 +2486,14 @@
      1.0,
      1.0
     ],
-    "note": "pale ash veneer (brightened, baked)",
+    "note": "pale ash veneer (desaturated + brightened, baked)",
     "alt": [
      "white_maple_veneer",
      "washed_grey_oak_veneer"
     ],
     "baked": {
-     "brightness": 1.3
+     "saturation": 0.55,
+     "brightness": 1.22
     }
    },
    "riviera": {
@@ -2959,13 +2966,14 @@
      1.0,
      1.0
     ],
-    "note": "pale ash veneer (brightened, baked)",
+    "note": "pale ash veneer (desaturated + brightened, baked)",
     "alt": [
      "white_maple_veneer",
      "washed_grey_oak_veneer"
     ],
     "baked": {
-     "brightness": 1.3
+     "saturation": 0.55,
+     "brightness": 1.22
     }
    },
    "riviera": {

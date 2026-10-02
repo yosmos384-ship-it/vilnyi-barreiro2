@@ -1,4 +1,4 @@
-mode=build cache=/home/runner/.cache/vilnyi-assets time=2026-10-02 00:32:17
+mode=build cache=/home/runner/.cache/vilnyi-assets time=2026-10-02 00:41:07
 == TEXTURES
   render-white             default   ambientcg  Plaster001                                   570 KB  [2, 2]
   render-pink              default   ambientcg  Plaster003                                   730 KB  [2, 2]
@@ -34,7 +34,7 @@ mode=build cache=/home/runner/.cache/vilnyi-assets time=2026-10-02 00:32:17
   skirting                 default   ambientcg  Plastic013A                                  352 KB  [1, 1]
   skirting                 lisboa    ambientcg  Wood051                                        0 KB  [0.8, 0.8]
   skirting                 noir      polyhaven  smoke_speckled_veneer                        570 KB  [1.0, 1.0]
-  skirting                 natura    polyhaven  ash_veneer                                   694 KB  [1.0, 1.0]
+  skirting                 natura    polyhaven  ash_veneer                                   686 KB  [1.0, 1.0]
   skirting                 riviera   ambientcg  Plastic013A                                  346 KB  [1, 1]
   skirting                 urban     ambientcg  Plastic013A                                  325 KB  [1, 1]
   door-walnut              default   ambientcg  Wood051                                        0 KB  [0.8, 0.8]
@@ -50,12 +50,12 @@ mode=build cache=/home/runner/.cache/vilnyi-assets time=2026-10-02 00:32:17
   wall-paint               noir      ambientcg  PaintedPlaster017                            627 KB  [2, 2]
   wall-paint               natura    ambientcg  Plaster002                                   656 KB  [2, 2]
   wall-paint               riviera   ambientcg  Plaster001                                     0 KB  [2, 2]
-  wall-paint               urban     ambientcg  PaintedPlaster017                            666 KB  [2, 2]
+  wall-paint               urban     ambientcg  PaintedPlaster017                            694 KB  [2, 2]
   wall-feature             atlantic  polyhaven  oak_veneer_01                                609 KB  [1.83, 1.83]
   wall-feature             lisboa    ambientcg  Wood051                                        0 KB  [0.8, 0.8]
   wall-feature             noir      ambientcg  Concrete030                                  787 KB  [2, 2]
   wall-feature             natura    polyhaven  ash_veneer                                     0 KB  [1.0, 1.0]
-  wall-feature             riviera   ambientcg  Plaster004                                   854 KB  [2, 2]
+  wall-feature             riviera   ambientcg  Plaster004                                   869 KB  [2, 2]
   wall-feature             urban     polyhaven  brick_wall_001                               826 KB  [3.0, 3.0]
   ceiling                  default   ambientcg  PaintedPlaster017                              0 KB  [2, 2]
   door-interior            atlantic  ambientcg  Plastic013A                                    0 KB  [1, 1]
@@ -221,7 +221,7 @@ mode=build cache=/home/runner/.cache/vilnyi-assets time=2026-10-02 00:32:17
   island_tree_02                           blender-only
   shrub_04                                 blender-only
   grass_bermuda_01                         blender-only
-== SIZES (KB) {'pbr': 58236, 'hdri': 5464, 'models': 23288} total MB 89.1
+== SIZES (KB) {'pbr': 58273, 'hdri': 5464, 'models': 23288} total MB 89.1
 == FAILURES (0)
 58M	assets/pbr
 5.4M	assets/hdri

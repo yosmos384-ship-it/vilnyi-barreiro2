@@ -798,7 +798,8 @@
      1.0
     ],
     "bake": {
-     "brightness": 1.3
+     "saturation": 0.55,
+     "brightness": 1.22
     }
    },
    "riviera": {
@@ -1125,7 +1126,8 @@
      2
     ],
     "bake": {
-     "multiply": "#e4e1db"
+     "saturation": 0.4,
+     "brightness": 1.18
     }
    }
   },
@@ -1215,7 +1217,8 @@
      1.0
     ],
     "bake": {
-     "brightness": 1.3
+     "saturation": 0.55,
+     "brightness": 1.22
     }
    },
    "riviera": {
@@ -1235,8 +1238,9 @@
      2
     ],
     "bake": {
-     "brightness": 1.35,
-     "multiply": "#f4ebdc"
+     "saturation": 0.3,
+     "brightness": 1.5,
+     "multiply": "#f7f0e3"
     }
    },
    "urban": {
@@ -1369,7 +1373,8 @@
      1.0
     ],
     "bake": {
-     "brightness": 1.3
+     "saturation": 0.55,
+     "brightness": 1.22
     }
    },
    "riviera": {
@@ -2121,7 +2126,8 @@
      1.0
     ],
     "bake": {
-     "brightness": 1.3
+     "saturation": 0.55,
+     "brightness": 1.22
     }
    },
    "riviera": {
@@ -2510,7 +2516,8 @@
      1.0
     ],
     "bake": {
-     "brightness": 1.3
+     "saturation": 0.55,
+     "brightness": 1.22
     }
    },
    "riviera": {
@@ -3060,7 +3067,8 @@
      1.0
     ],
     "bake": {
-     "brightness": 1.3
+     "saturation": 0.55,
+     "brightness": 1.22
     }
    },
    "riviera": {
