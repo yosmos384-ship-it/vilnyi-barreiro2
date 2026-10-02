@@ -1,0 +1,116 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.B",
+  "pkg": "natura",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "2.B-living",
+   "2.B-bedroom",
+   "2.B-bathroom"
+  ],
+  "out": "renders/units/2.B/natura",
+  "name": "u2.B-natura-s",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "2.B-living",
+   "type": "still",
+   "file": "renders/units/2.B/natura/2.B-living.jpg",
+   "thumb": "renders/units/2.B/natura/thumbs/2.B-living.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 1.9607014115800672,
+   "tod": "day",
+   "position": [
+    9.374,
+    7.45,
+    4.803
+   ],
+   "lookAt": [
+    6.847,
+    7.45,
+    1.099
+   ],
+   "roomId": "2.B-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1030.8
+  },
+  {
+   "id": "2.B-bedroom",
+   "type": "still",
+   "file": "renders/units/2.B/natura/2.B-bedroom.jpg",
+   "thumb": "renders/units/2.B/natura/thumbs/2.B-bedroom.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 2.2693479459459867,
+   "tod": "day",
+   "position": [
+    10.199,
+    7.4,
+    4.972
+   ],
+   "lookAt": [
+    13.175,
+    7.4,
+    1.739
+   ],
+   "roomId": "2.B-bed",
+   "name": {
+    "en": "Bedroom",
+    "pt": "Quarto",
+    "he": "חדר שינה"
+   },
+   "kind": "bedroom",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1027.8
+  },
+  {
+   "id": "2.B-bathroom",
+   "type": "still",
+   "file": "renders/units/2.B/natura/2.B-bathroom.jpg",
+   "thumb": "renders/units/2.B/natura/thumbs/2.B-bathroom.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 3.156430564603342,
+   "tod": "day",
+   "position": [
+    7.993,
+    7.45,
+    5.832
+   ],
+   "lookAt": [
+    9.085,
+    7.45,
+    6.594
+   ],
+   "roomId": "2.B-wc",
+   "name": {
+    "en": "Bathroom",
+    "pt": "I.S.",
+    "he": "חדר רחצה"
+   },
+   "kind": "bathroom",
+   "lens": 18.0,
+   "shift_y": 0.0,
+   "seconds": 989.1
+  }
+ ],
+ "seconds": 3050.5,
+ "blender": "4.2.3 LTS"
+}
