@@ -1,22 +1,17 @@
 [    0.0s] job preview-u0.B-noir-night-0: scope=unit unit=0.B pkg=noir quality=preview shots=1
 [    0.8s] import building: 491 objects in 0.8s
-[    1.2s] import context: 127 objects in 0.3s
-[    1.5s] import unit-0.B-noir: 96 objects in 0.4s
+[    1.2s] import context: 127 objects in 0.4s
+[    1.6s] import unit-0.B-noir: 96 objects in 0.4s
 [    2.0s] box UVs on 648 meshes
 [    2.0s] [presets] from lighting_presets.json (snapshot of js/environment.js)
-[    3.7s] [foliage] leafified 26 objects, crown area 1128 m2 -> ~1466892 leaves
-[    3.7s] materials: built=243 textured=70 by_key={'aluminium-frame': 2, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 5, 'asphalt': 1, 'bark': 2, 'bath-floor': 1, 'bath-wall': 1, 'book': 5, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 3, 'candle-wax': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-taillight': 1, 'car-tyre': 1, 'ceiling': 1, 'ceiling-white': 2, 'ceramic-plate': 4, 'concrete': 5, 'curtain-fabric': 1, 'cutlery-steel': 1, 'deck-teak': 2, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'fabric-boucle': 6, 'fabric-linen': 8, 'fabric-sofa': 1, 'floor-main': 2, 'foliage': 21, 'foliage-inner': 1, 'fruit': 3, 'garage-door': 1, 'glass-drinking': 1, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 2, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 2, 'leather': 2, 'led-strip-emissive': 13, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 3, 'mirror': 2, 'paint-white': 1, 'paving-calcada': 2, 'plant-leaf': 4, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'pot-terracotta': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 2, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 1, 'sanitary-ceramic': 2, 'shower-glass': 1, 'signage': 39, 'skirting': 2, 'soil': 3, 'steel-dark': 9, 'stone-coping': 2, 'tap-metal': 1, 'timber-soffit': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 3, 'zinc-standing-seam': 2}
-[    3.8s] GROUP FAILED ('building', 'context', 'unit-0.B-noir') night ReferenceError('StructRNA of type Object has been removed')
-[    3.8s] Traceback (most recent call last):
-  File "/home/runner/work/vilnyi-barreiro2/vilnyi-barreiro2/render/blender/render_job.py", line 235, in main
-    results += render_group(job, q, quality, scn, tod, group, tmp, out_dir)
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/vilnyi-barreiro2/vilnyi-barreiro2/render/blender/render_job.py", line 323, in render_group
-    mn, mx = S.scene_bounds(unit_objs)
-             ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/work/vilnyi-barreiro2/vilnyi-barreiro2/render/blender/vb_scene.py", line 318, in scene_bounds
-    if o.type != 'MESH':
-       ^^^^^^
-ReferenceError: StructRNA of type Object has been removed
-
-[    3.8s] DONE 0 images in 3.8s
+[    3.8s] [foliage] leafified 26 objects, crown area 1128 m2 -> ~1466892 leaves
+[    3.8s] materials: built=243 textured=70 by_key={'aluminium-frame': 2, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 5, 'asphalt': 1, 'bark': 2, 'bath-floor': 1, 'bath-wall': 1, 'book': 5, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 3, 'candle-wax': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-taillight': 1, 'car-tyre': 1, 'ceiling': 1, 'ceiling-white': 2, 'ceramic-plate': 4, 'concrete': 5, 'curtain-fabric': 1, 'cutlery-steel': 1, 'deck-teak': 2, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'fabric-boucle': 6, 'fabric-linen': 8, 'fabric-sofa': 1, 'floor-main': 2, 'foliage': 21, 'foliage-inner': 1, 'fruit': 3, 'garage-door': 1, 'glass-drinking': 1, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 2, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 2, 'leather': 2, 'led-strip-emissive': 13, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 3, 'mirror': 2, 'paint-white': 1, 'paving-calcada': 2, 'plant-leaf': 4, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'pot-terracotta': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 2, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 1, 'sanitary-ceramic': 2, 'shower-glass': 1, 'signage': 39, 'skirting': 2, 'soil': 3, 'steel-dark': 9, 'stone-coping': 2, 'tap-metal': 1, 'timber-soffit': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 3, 'zinc-standing-seam': 2}
+[    3.8s] [lamps] night: list=7 new=0 merged-with-bulbs=2 strips=2 no-fixture=3 (640 lm per unit intensity)
+[    3.8s] evening lights: street=6 lamp-list=2 lit-window fraction=0.45
+[    3.8s] lights: imported=0 emissive->lights=104 portals=0 boost=1.0 total_lights=110 polys=386125
+[    5.3s] [world] procedural night: moon bearing 168 alt 40 key 7.0 lux, sky 2.6 lux (mean radiance 0.001656), stars 2600, camera gain 1.6
+[    5.3s] scene ready in 5.3s  (world procedural-night)
+[   19.0s] [expo] interior night: in/out/sky=21369/915/116 key=0.15 Lavg=0.0002548 p97=0.01928 ev_hi=8.28 -> ev=8.28 windowND=0.08
+[   19.0s] [wb] gains (0.484, 1.0, 2.203)
+[  109.5s] SHOT 0.B-living still 960x540 spp<=64 ev=8.28 in 104.2s -> renders/preview/0.B/noir/0.B-living.night.jpg
+[  109.5s] DONE 1 images in 109.5s

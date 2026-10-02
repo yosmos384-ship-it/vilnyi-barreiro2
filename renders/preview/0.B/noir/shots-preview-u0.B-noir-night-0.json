@@ -12,7 +12,40 @@
   "name": "preview-u0.B-noir-night-0",
   "opts": {}
  },
- "shots": [],
- "seconds": 3.8,
+ "shots": [
+  {
+   "id": "0.B-living",
+   "type": "still",
+   "file": "renders/preview/0.B/noir/0.B-living.night.jpg",
+   "thumb": "renders/preview/0.B/noir/thumbs/0.B-living.night.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": 8.281405335123035,
+   "tod": "night",
+   "position": [
+    9.374,
+    1.45,
+    4.803
+   ],
+   "lookAt": [
+    6.847,
+    1.45,
+    1.099
+   ],
+   "roomId": "0.B-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "night",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 104.2
+  }
+ ],
+ "seconds": 109.5,
  "blender": "4.2.3 LTS"
 }
