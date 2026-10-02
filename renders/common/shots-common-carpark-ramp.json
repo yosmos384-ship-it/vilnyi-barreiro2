@@ -1,0 +1,45 @@
+{
+ "job": {
+  "scope": "common",
+  "quality": "standard",
+  "shots": [
+   "carpark-ramp"
+  ],
+  "out": "renders/common",
+  "name": "common-carpark-ramp",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "carpark-ramp",
+   "type": "still",
+   "file": "renders/common/carpark-ramp.jpg",
+   "thumb": "renders/common/thumbs/carpark-ramp.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 3.9328515416815324,
+   "tod": "day",
+   "position": [
+    12.3,
+    -1.0,
+    4.2
+   ],
+   "lookAt": [
+    5.0,
+    -2.0,
+    10.5
+   ],
+   "roomId": null,
+   "name": "Car park from the ramp",
+   "kind": null,
+   "lens": 18.0,
+   "shift_y": -0.0519,
+   "seconds": 3630.3
+  }
+ ],
+ "seconds": 3633.3,
+ "blender": "4.2.3 LTS"
+}
