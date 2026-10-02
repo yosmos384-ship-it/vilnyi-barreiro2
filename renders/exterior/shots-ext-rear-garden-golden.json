@@ -1,0 +1,45 @@
+{
+ "job": {
+  "scope": "exterior",
+  "quality": "standard",
+  "shots": [
+   "rear-garden-golden"
+  ],
+  "out": "renders/exterior",
+  "name": "ext-rear-garden-golden",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "rear-garden-golden",
+   "type": "still",
+   "file": "renders/exterior/rear-garden-golden.jpg",
+   "thumb": "renders/exterior/thumbs/rear-garden-golden.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 192,
+   "ev": 0.7924761939050797,
+   "tod": "golden",
+   "position": [
+    8.6,
+    1.75,
+    -7.2
+   ],
+   "lookAt": [
+    6.2,
+    3.9,
+    0.0
+   ],
+   "roomId": null,
+   "name": "Rear gardens and garden facade, golden hour",
+   "kind": null,
+   "lens": 17.0,
+   "shift_y": 0.1338,
+   "seconds": 2338.9
+  }
+ ],
+ "seconds": 2349.8,
+ "blender": "4.2.3 LTS"
+}
