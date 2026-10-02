@@ -1,0 +1,45 @@
+{
+ "job": {
+  "scope": "exterior",
+  "quality": "standard",
+  "shots": [
+   "entrance-dusk"
+  ],
+  "out": "renders/exterior",
+  "name": "ext-entrance-dusk",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "entrance-dusk",
+   "type": "still",
+   "file": "renders/exterior/entrance-dusk.jpg",
+   "thumb": "renders/exterior/thumbs/entrance-dusk.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 192,
+   "ev": 1.150214731328819,
+   "tod": "dusk",
+   "position": [
+    7.2,
+    0.75,
+    19.6
+   ],
+   "lookAt": [
+    4.4,
+    1.1,
+    14.7
+   ],
+   "roomId": null,
+   "name": "Street entrance at dusk",
+   "kind": null,
+   "lens": 28.0,
+   "shift_y": 0.0482,
+   "seconds": 11454.0
+  }
+ ],
+ "seconds": 11464.8,
+ "blender": "4.2.3 LTS"
+}
