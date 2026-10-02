@@ -6,10 +6,9 @@
   "quality": "standard",
   "tod": "night",
   "shots": [
-   "1.C-lisboa-h0",
-   "1.C-lisboa-h1",
-   "1.C-lisboa-h2",
-   "1.C-lisboa-h5"
+   "1.C-lisboa-h3",
+   "1.C-lisboa-h4",
+   "1.C-living"
   ],
   "out": "renders/units/1.C/lisboa",
   "name": "u1.C-lisboa-night-0",
@@ -17,134 +16,102 @@
  },
  "shots": [
   {
-   "id": "1.C-lisboa-h0",
+   "id": "1.C-lisboa-h3",
    "type": "pano",
-   "file": "renders/units/1.C/lisboa/1.C-lisboa-h0.night.jpg",
-   "thumb": "renders/units/1.C/lisboa/thumbs/1.C-lisboa-h0.night.jpg",
+   "file": "renders/units/1.C/lisboa/1.C-lisboa-h3.night.jpg",
+   "thumb": "renders/units/1.C/lisboa/thumbs/1.C-lisboa-h3.night.jpg",
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 8.246002667389654,
+   "ev": 6.38155111594815,
    "tod": "night",
    "position": [
-    3.7,
+    10.26,
     4.6,
-    9.95
+    7.21
    ],
    "lookAt": [
-    8.721,
+    12.44,
     4.25,
-    10.788
+    13.982
    ],
-   "roomId": "1.C-hall",
+   "roomId": "1.C-living",
    "name": {
-    "en": "Hall",
-    "pt": "Hall",
-    "he": "מסדרון"
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
    },
    "kind": null,
    "variant": "night",
-   "yawOffset": -1.73617,
-   "index": 0,
-   "seconds": 522.5
+   "yawOffset": -2.83015,
+   "index": 3,
+   "seconds": 987.6
   },
   {
-   "id": "1.C-lisboa-h1",
+   "id": "1.C-lisboa-h4",
    "type": "pano",
-   "file": "renders/units/1.C/lisboa/1.C-lisboa-h1.night.jpg",
-   "thumb": "renders/units/1.C/lisboa/thumbs/1.C-lisboa-h1.night.jpg",
+   "file": "renders/units/1.C/lisboa/1.C-lisboa-h4.night.jpg",
+   "thumb": "renders/units/1.C/lisboa/thumbs/1.C-lisboa-h4.night.jpg",
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 7.803821474736145,
+   "ev": 8.355313404325164,
    "tod": "night",
    "position": [
-    6.799,
+    13.086,
     4.6,
-    10.125
+    13.882
    ],
    "lookAt": [
-    5.132,
+    11.76,
     4,
-    9.842
+    9.71
    ],
-   "roomId": "1.C-hall",
+   "roomId": "1.C-living",
    "name": {
-    "en": "Hall · view 2",
-    "pt": "Hall · vista 2",
-    "he": "מסדרון · מבט 2"
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
    },
    "kind": null,
    "variant": "night",
-   "yawOffset": 1.40263,
-   "index": 1,
-   "seconds": 553.2
+   "yawOffset": 0.30774,
+   "index": 4,
+   "seconds": 781.0
   },
   {
-   "id": "1.C-lisboa-h2",
-   "type": "pano",
-   "file": "renders/units/1.C/lisboa/1.C-lisboa-h2.night.jpg",
-   "thumb": "renders/units/1.C/lisboa/thumbs/1.C-lisboa-h2.night.jpg",
-   "W": 3072,
-   "H": 1536,
-   "spp": 64,
-   "ev": 6.683314915955339,
+   "id": "1.C-living",
+   "type": "still",
+   "file": "renders/units/1.C/lisboa/1.C-living.night.jpg",
+   "thumb": "renders/units/1.C/lisboa/thumbs/1.C-living.night.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 7.242064259425325,
    "tod": "night",
    "position": [
-    8.15,
-    4.6,
-    8.59
+    10.143,
+    4.45,
+    6.733
    ],
    "lookAt": [
-    9.044,
-    4.3,
-    7.628
+    12.838,
+    4.45,
+    12.623
    ],
-   "roomId": "1.C-wc",
+   "roomId": "1.C-living",
    "name": {
-    "en": "Bathroom",
-    "pt": "I.S.",
-    "he": "חדר רחצה"
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
    },
-   "kind": null,
+   "kind": "living",
    "variant": "night",
-   "yawOffset": -0.74878,
-   "index": 2,
-   "seconds": 790.8
-  },
-  {
-   "id": "1.C-lisboa-h5",
-   "type": "pano",
-   "file": "renders/units/1.C/lisboa/1.C-lisboa-h5.night.jpg",
-   "thumb": "renders/units/1.C/lisboa/thumbs/1.C-lisboa-h5.night.jpg",
-   "W": 3072,
-   "H": 1536,
-   "spp": 64,
-   "ev": 9.238966206469005,
-   "tod": "night",
-   "position": [
-    5.5,
-    4.6,
-    13.91
-   ],
-   "lookAt": [
-    4.662,
-    3.95,
-    12.6
-   ],
-   "roomId": "1.C-bed1",
-   "name": {
-    "en": "Main bedroom",
-    "pt": "Quarto",
-    "he": "חדר שינה ראשי"
-   },
-   "kind": null,
-   "variant": "night",
-   "yawOffset": 0.5691,
-   "index": 5,
-   "seconds": 562.8
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1042.0
   }
  ],
- "seconds": 2432.5,
+ "seconds": 2814.9,
  "blender": "4.2.3 LTS"
 }
