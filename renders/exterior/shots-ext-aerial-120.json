@@ -7,7 +7,9 @@
   ],
   "out": "renders/exterior",
   "name": "ext-aerial-120",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
@@ -18,7 +20,7 @@
    "W": 2400,
    "H": 1350,
    "spp": 192,
-   "ev": -1.8992180463013961,
+   "ev": -1.7568992145599083,
    "tod": "golden",
    "position": [
     49.75,
@@ -35,9 +37,9 @@
    "kind": null,
    "lens": 35.0,
    "shift_y": 0.0,
-   "seconds": 1719.4
+   "seconds": 1520.7
   }
  ],
- "seconds": 1968.1,
+ "seconds": 1531.8,
  "blender": "4.2.3 LTS"
 }
