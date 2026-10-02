@@ -1,0 +1,45 @@
+{
+ "job": {
+  "scope": "exterior",
+  "quality": "standard",
+  "shots": [
+   "street-night"
+  ],
+  "out": "renders/exterior",
+  "name": "ext-street-night",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "street-night",
+   "type": "still",
+   "file": "renders/exterior/street-night.jpg",
+   "thumb": "renders/exterior/thumbs/street-night.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 192,
+   "ev": 6.157793496706777,
+   "tod": "night",
+   "position": [
+    7,
+    0.5,
+    26.2
+   ],
+   "lookAt": [
+    7,
+    4.4,
+    14.7
+   ],
+   "roomId": null,
+   "name": "Frontal street view at night",
+   "kind": null,
+   "variant_of": "street-dusk",
+   "variant_tod": "night",
+   "lens": 18.0,
+   "shift_y": 0.1696,
+   "seconds": 4817.8
+  }
+ ],
+ "seconds": 4830.1,
+ "blender": "4.2.3 LTS"
+}
