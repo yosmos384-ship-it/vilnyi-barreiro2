@@ -1,0 +1,45 @@
+{
+ "job": {
+  "scope": "exterior",
+  "quality": "standard",
+  "shots": [
+   "entrance-day"
+  ],
+  "out": "renders/exterior",
+  "name": "ext-entrance-day",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "entrance-day",
+   "type": "still",
+   "file": "renders/exterior/entrance-day.jpg",
+   "thumb": "renders/exterior/thumbs/entrance-day.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 192,
+   "ev": -2.522997973756566,
+   "tod": "day",
+   "position": [
+    7.2,
+    0.75,
+    19.6
+   ],
+   "lookAt": [
+    4.4,
+    1.1,
+    14.7
+   ],
+   "roomId": null,
+   "name": "Street entrance",
+   "kind": null,
+   "lens": 28.0,
+   "shift_y": 0.0482,
+   "seconds": 2165.8
+  }
+ ],
+ "seconds": 2177.4,
+ "blender": "4.2.3 LTS"
+}
