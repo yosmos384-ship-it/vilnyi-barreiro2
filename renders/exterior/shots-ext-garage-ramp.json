@@ -1,0 +1,45 @@
+{
+ "job": {
+  "scope": "exterior",
+  "quality": "standard",
+  "shots": [
+   "garage-ramp"
+  ],
+  "out": "renders/exterior",
+  "name": "ext-garage-ramp",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "garage-ramp",
+   "type": "still",
+   "file": "renders/exterior/garage-ramp.jpg",
+   "thumb": "renders/exterior/thumbs/garage-ramp.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 192,
+   "ev": -3.5924219927964782,
+   "tod": "day",
+   "position": [
+    11.2,
+    0.75,
+    21.2
+   ],
+   "lookAt": [
+    12.2,
+    -0.3,
+    14.7
+   ],
+   "roomId": null,
+   "name": "Garage entrance and ramp",
+   "kind": null,
+   "lens": 28.0,
+   "shift_y": -0.1242,
+   "seconds": 1921.8
+  }
+ ],
+ "seconds": 1933.8,
+ "blender": "4.2.3 LTS"
+}
