@@ -1,0 +1,84 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.C",
+  "pkg": "urban",
+  "quality": "preview",
+  "tod": "night",
+  "shots": [
+   "2.C-urban-h8",
+   "2.C-bedroom"
+  ],
+  "out": "renders/preview/2.C/urban",
+  "name": "preview-u2.C-urban-night-0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "2.C-urban-h8",
+   "type": "pano",
+   "file": "renders/preview/2.C/urban/2.C-urban-h8.night.jpg",
+   "thumb": "renders/preview/2.C/urban/thumbs/2.C-urban-h8.night.jpg",
+   "W": 2048,
+   "H": 1024,
+   "spp": 32,
+   "ev": 8.697710898924692,
+   "tod": "night",
+   "position": [
+    11.75,
+    7.6,
+    15.05
+   ],
+   "lookAt": [
+    9.75,
+    7.4,
+    26.7
+   ],
+   "roomId": "2.front.2",
+   "name": {
+    "en": "Balcony",
+    "pt": "Varanda",
+    "he": "מרפסת"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": 2.97158,
+   "index": 8,
+   "seconds": 242.0
+  },
+  {
+   "id": "2.C-bedroom",
+   "type": "still",
+   "file": "renders/preview/2.C/urban/2.C-bedroom.night.jpg",
+   "thumb": "renders/preview/2.C/urban/thumbs/2.C-bedroom.night.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": 10.502079393194823,
+   "tod": "night",
+   "position": [
+    3.219,
+    7.4,
+    11.598
+   ],
+   "lookAt": [
+    5.786,
+    7.4,
+    13.951
+   ],
+   "roomId": "2.C-bed1",
+   "name": {
+    "en": "Main bedroom",
+    "pt": "Quarto",
+    "he": "חדר שינה ראשי"
+   },
+   "kind": "bedroom",
+   "variant": "night",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 91.5
+  }
+ ],
+ "seconds": 338.7,
+ "blender": "4.2.3 LTS"
+}
