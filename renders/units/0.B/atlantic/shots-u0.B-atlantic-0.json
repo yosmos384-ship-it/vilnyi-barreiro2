@@ -6,35 +6,36 @@
   "quality": "standard",
   "tod": "day",
   "shots": [
-   "0.B-living",
-   "0.B-bedroom",
-   "0.B-bathroom",
-   "0.B-garden"
+   "0.B-atlantic-h0",
+   "0.B-atlantic-h1",
+   "0.B-atlantic-h2"
   ],
   "out": "renders/units/0.B/atlantic",
   "name": "u0.B-atlantic-0",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
-   "id": "0.B-living",
-   "type": "still",
-   "file": "renders/units/0.B/atlantic/0.B-living.jpg",
-   "thumb": "renders/units/0.B/atlantic/thumbs/0.B-living.jpg",
-   "W": 2400,
-   "H": 1350,
-   "spp": 96,
-   "ev": 0.9182665310603543,
+   "id": "0.B-atlantic-h0",
+   "type": "pano",
+   "file": "renders/units/0.B/atlantic/0.B-atlantic-h0.jpg",
+   "thumb": "renders/units/0.B/atlantic/thumbs/0.B-atlantic-h0.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.014506088320053,
    "tod": "day",
    "position": [
-    9.374,
-    1.45,
-    4.803
+    9,
+    1.6,
+    4.6
    ],
    "lookAt": [
-    6.847,
-    1.45,
-    1.099
+    7.296,
+    1.25,
+    0.474
    ],
    "roomId": "0.B-living",
    "name": {
@@ -42,105 +43,74 @@
     "pt": "Sala / cozinha",
     "he": "סלון ומטבח"
    },
-   "kind": "living",
-   "lens": 24.0,
-   "shift_y": 0.0,
-   "seconds": 2368.7
+   "kind": null,
+   "yawOffset": 0.39165,
+   "index": 0,
+   "seconds": 2157.6
   },
   {
-   "id": "0.B-bedroom",
-   "type": "still",
-   "file": "renders/units/0.B/atlantic/0.B-bedroom.jpg",
-   "thumb": "renders/units/0.B/atlantic/thumbs/0.B-bedroom.jpg",
-   "W": 2400,
-   "H": 1350,
-   "spp": 96,
-   "ev": 3.2319931427808735,
+   "id": "0.B-atlantic-h1",
+   "type": "pano",
+   "file": "renders/units/0.B/atlantic/0.B-atlantic-h1.jpg",
+   "thumb": "renders/units/0.B/atlantic/thumbs/0.B-atlantic-h1.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 2.2065478731329145,
    "tod": "day",
    "position": [
-    10.162,
-    1.4,
-    8.573
-   ],
-   "lookAt": [
-    12.822,
-    1.4,
-    6.245
-   ],
-   "roomId": "0.B-suite",
-   "name": {
-    "en": "Suite",
-    "pt": "Suite",
-    "he": "סוויטה"
-   },
-   "kind": "bedroom",
-   "lens": 24.0,
-   "shift_y": 0.0,
-   "seconds": 2282.9
-  },
-  {
-   "id": "0.B-bathroom",
-   "type": "still",
-   "file": "renders/units/0.B/atlantic/0.B-bathroom.jpg",
-   "thumb": "renders/units/0.B/atlantic/thumbs/0.B-bathroom.jpg",
-   "W": 2400,
-   "H": 1350,
-   "spp": 96,
-   "ev": 1.6344340245676772,
-   "tod": "day",
-   "position": [
-    9.053,
-    1.45,
-    5.982
-   ],
-   "lookAt": [
-    8.688,
-    1.45,
-    6.473
-   ],
-   "roomId": "0.B-wc",
-   "name": {
-    "en": "Bathroom",
-    "pt": "I.S.",
-    "he": "חדר רחצה"
-   },
-   "kind": "bathroom",
-   "lens": 18.0,
-   "shift_y": 0.0,
-   "seconds": 2248.1
-  },
-  {
-   "id": "0.B-garden",
-   "type": "still",
-   "file": "renders/units/0.B/atlantic/0.B-garden.jpg",
-   "thumb": "renders/units/0.B/atlantic/thumbs/0.B-garden.jpg",
-   "W": 2400,
-   "H": 1350,
-   "spp": 96,
-   "ev": -1.8428367467480085,
-   "tod": "day",
-   "position": [
-    8.68,
+    6.908,
     1.6,
-    -4.15
+    0.842
    ],
    "lookAt": [
-    8.68,
-    2.4,
-    0
+    8.25,
+    1,
+    2.9
    ],
-   "roomId": "0.B-garden",
+   "roomId": "0.B-living",
    "name": {
-    "en": "Private garden & deck",
-    "pt": "Jardim privado",
-    "he": "גינה פרטית ודק"
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
    },
-   "kind": "garden",
-   "lens": 20.0,
-   "shift_y": 0.1071,
-   "seconds": 1795.4
+   "kind": null,
+   "yawOffset": -2.56375,
+   "index": 1,
+   "seconds": 2158.7
+  },
+  {
+   "id": "0.B-atlantic-h2",
+   "type": "pano",
+   "file": "renders/units/0.B/atlantic/0.B-atlantic-h2.jpg",
+   "thumb": "renders/units/0.B/atlantic/thumbs/0.B-atlantic-h2.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.1567996765991992,
+   "tod": "day",
+   "position": [
+    12.81,
+    1.6,
+    4.15
+   ],
+   "lookAt": [
+    11.672,
+    0.95,
+    2.39
+   ],
+   "roomId": "0.B-bed",
+   "name": {
+    "en": "Bedroom",
+    "pt": "Quarto",
+    "he": "חדר שינה"
+   },
+   "kind": null,
+   "yawOffset": 0.57398,
+   "index": 2,
+   "seconds": 2162.6
   }
  ],
- "seconds": 8712.1,
+ "seconds": 6483.7,
  "blender": "4.2.3 LTS"
 }
