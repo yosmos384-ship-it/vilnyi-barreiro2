@@ -13,7 +13,9 @@
   ],
   "out": "renders/units/0.A/noir",
   "name": "u0.A-noir-1",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
@@ -24,7 +26,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 5.566590716625178,
+   "ev": 5.909981241249175,
    "tod": "day",
    "position": [
     4.525,
@@ -45,7 +47,7 @@
    "kind": null,
    "yawOffset": 1.96637,
    "index": 5,
-   "seconds": 1142.2
+   "seconds": 936.0
   },
   {
    "id": "0.A-noir-h6",
@@ -55,7 +57,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 5.559910669471288,
+   "ev": 6.507408880538804,
    "tod": "day",
    "position": [
     5.55,
@@ -76,7 +78,7 @@
    "kind": null,
    "yawOffset": 2.74543,
    "index": 6,
-   "seconds": 1205.5
+   "seconds": 1033.5
   },
   {
    "id": "0.A-noir-h7",
@@ -86,7 +88,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": -2.528031032429528,
+   "ev": -1.1108407675568062,
    "tod": "day",
    "position": [
     4.3,
@@ -107,7 +109,7 @@
    "kind": null,
    "yawOffset": 2.66393,
    "index": 7,
-   "seconds": 1022.6
+   "seconds": 1020.0
   },
   {
    "id": "0.A-noir-h8",
@@ -117,7 +119,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": -2.1734226856565493,
+   "ev": -0.7239484219847271,
    "tod": "day",
    "position": [
     3.1,
@@ -138,9 +140,9 @@
    "kind": null,
    "yawOffset": 0.304,
    "index": 8,
-   "seconds": 1187.3
+   "seconds": 1164.0
   }
  ],
- "seconds": 4573.3,
+ "seconds": 4158.0,
  "blender": "4.2.3 LTS"
 }
