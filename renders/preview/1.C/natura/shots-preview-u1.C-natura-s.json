@@ -1,0 +1,116 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.C",
+  "pkg": "natura",
+  "quality": "preview",
+  "tod": "day",
+  "shots": [
+   "1.C-living",
+   "1.C-bedroom",
+   "1.C-bathroom"
+  ],
+  "out": "renders/preview/1.C/natura",
+  "name": "preview-u1.C-natura-s",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "1.C-living",
+   "type": "still",
+   "file": "renders/preview/1.C/natura/1.C-living.jpg",
+   "thumb": "renders/preview/1.C/natura/thumbs/1.C-living.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": 3.2189188187639988,
+   "tod": "day",
+   "position": [
+    10.143,
+    4.45,
+    6.733
+   ],
+   "lookAt": [
+    12.838,
+    4.45,
+    12.623
+   ],
+   "roomId": "1.C-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 255.2
+  },
+  {
+   "id": "1.C-bedroom",
+   "type": "still",
+   "file": "renders/preview/1.C/natura/1.C-bedroom.jpg",
+   "thumb": "renders/preview/1.C/natura/thumbs/1.C-bedroom.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": 2.943570205747886,
+   "tod": "day",
+   "position": [
+    3.219,
+    4.4,
+    11.598
+   ],
+   "lookAt": [
+    5.786,
+    4.4,
+    13.951
+   ],
+   "roomId": "1.C-bed1",
+   "name": {
+    "en": "Main bedroom",
+    "pt": "Quarto",
+    "he": "חדר שינה ראשי"
+   },
+   "kind": "bedroom",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 238.0
+  },
+  {
+   "id": "1.C-bathroom",
+   "type": "still",
+   "file": "renders/preview/1.C/natura/1.C-bathroom.jpg",
+   "thumb": "renders/preview/1.C/natura/thumbs/1.C-bathroom.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": 3.298803839997697,
+   "tod": "day",
+   "position": [
+    8.147,
+    4.45,
+    8.484
+   ],
+   "lookAt": [
+    8.692,
+    4.45,
+    7.964
+   ],
+   "roomId": "1.C-wc",
+   "name": {
+    "en": "Bathroom",
+    "pt": "I.S.",
+    "he": "חדר רחצה"
+   },
+   "kind": "bathroom",
+   "lens": 18.0,
+   "shift_y": 0.0,
+   "seconds": 241.4
+  }
+ ],
+ "seconds": 739.6,
+ "blender": "4.2.3 LTS"
+}
