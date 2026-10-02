@@ -13,7 +13,9 @@
   ],
   "out": "renders/units/0.A/lisboa",
   "name": "u0.A-lisboa-1",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
@@ -24,7 +26,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 2.2158326788424154,
+   "ev": 3.912915203865887,
    "tod": "day",
    "position": [
     4.525,
@@ -45,7 +47,7 @@
    "kind": null,
    "yawOffset": 1.96637,
    "index": 5,
-   "seconds": 1955.2
+   "seconds": 1382.3
   },
   {
    "id": "0.A-lisboa-h6",
@@ -55,7 +57,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 3.6971925581507823,
+   "ev": 4.660309237356619,
    "tod": "day",
    "position": [
     5.55,
@@ -76,7 +78,7 @@
    "kind": null,
    "yawOffset": 2.74543,
    "index": 6,
-   "seconds": 1790.7
+   "seconds": 1286.7
   },
   {
    "id": "0.A-lisboa-h7",
@@ -86,7 +88,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": -2.540677406182043,
+   "ev": -1.1467837310749331,
    "tod": "day",
    "position": [
     4.3,
@@ -107,7 +109,7 @@
    "kind": null,
    "yawOffset": 2.66393,
    "index": 7,
-   "seconds": 1029.1
+   "seconds": 759.9
   },
   {
    "id": "0.A-lisboa-h8",
@@ -117,7 +119,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": -2.169013361351303,
+   "ev": -0.7698531024424476,
    "tod": "day",
    "position": [
     3.1,
@@ -138,9 +140,9 @@
    "kind": null,
    "yawOffset": 0.304,
    "index": 8,
-   "seconds": 1186.6
+   "seconds": 847.4
   }
  ],
- "seconds": 5977.5,
+ "seconds": 4280.2,
  "blender": "4.2.3 LTS"
 }

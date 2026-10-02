@@ -1,81 +1,26 @@
 [    0.0s] job u0.A-lisboa-1: scope=unit unit=0.A pkg=lisboa quality=standard shots=4
-[    0.6s] import building: 401 objects in 0.6s
-[    1.0s] import context: 123 objects in 0.3s
-[    1.3s] import unit-0.A-lisboa: 88 objects in 0.3s
-[    1.6s] box UVs on 548 meshes
-[    2.7s] [foliage] env-trees-0@ebebe1: foliage faces=650 crown faces=0 src=context
-[    2.7s] [foliage] env-trees-0@ebf5e1: foliage faces=390 crown faces=0 src=context
-[    2.7s] [foliage] env-trees-0@f5ebe1: foliage faces=390 crown faces=130 src=context
-[    2.9s] [foliage]   -> vbCrowns-env-trees-0@f5ebe1: crown polys=130 instances=115328 inner faces on source=130
-[    2.9s] [foliage] env-trees-0@f5ebeb: foliage faces=390 crown faces=0 src=context
-[    2.9s] [foliage] env-trees-0@f5f5e1: foliage faces=130 crown faces=0 src=context
-[    2.9s] [foliage] env-trees-0@f5f5eb: foliage faces=2340 crown faces=260 src=context
-[    3.2s] [foliage]   -> vbCrowns-env-trees-0@f5f5eb: crown polys=260 instances=251518 inner faces on source=260
-[    3.2s] [foliage] env-trees-0@f5ffeb: foliage faces=520 crown faces=130 src=context
-[    3.6s] [foliage]   -> vbCrowns-env-trees-0@f5ffeb: crown polys=130 instances=128357 inner faces on source=130
-[    3.6s] [foliage] env-trees-0@fff5eb: foliage faces=780 crown faces=0 src=context
-[    3.6s] [foliage] env-trees-0@fff5f5: foliage faces=429 crown faces=130 src=context
-[    4.1s] [foliage]   -> vbCrowns-env-trees-0@fff5f5: crown polys=130 instances=79223 inner faces on source=130
-[    4.1s] [foliage] env-trees-0@ffffeb: foliage faces=260 crown faces=0 src=context
-[    4.1s] [foliage] env-trees-0@fffff5: foliage faces=4436 crown faces=0 src=context
-[    4.1s] [foliage] env-trees-0@ffffff: foliage faces=4587 crown faces=280 src=context
-[    4.9s] [foliage]   -> vbCrowns-env-trees-0@ffffff: crown polys=280 instances=354908 inner faces on source=280
-[    4.9s] [foliage] env-trees-1@ebebe1: foliage faces=22 crown faces=0 src=context
-[    4.9s] [foliage] env-trees-1@f5f5eb: foliage faces=176 crown faces=0 src=context
-[    4.9s] [foliage] env-trees-1@fffff5: foliage faces=154 crown faces=22 src=context
-[    5.6s] [foliage]   -> vbCrowns-env-trees-1@fffff5: crown polys=22 instances=43110 inner faces on source=22
-[    5.6s] [foliage] env-trees-1@ffffff: foliage faces=110 crown faces=22 src=context
-[    6.4s] [foliage]   -> vbCrowns-env-trees-1@ffffff: crown polys=22 instances=21289 inner faces on source=22
-[    6.4s] [foliage] env-trees-2@ebebe1: foliage faces=270 crown faces=0 src=context
-[    6.4s] [foliage] env-trees-2@ebf5e1: foliage faces=180 crown faces=0 src=context
-[    6.4s] [foliage] env-trees-2@f5ebeb: foliage faces=90 crown faces=0 src=context
-[    6.4s] [foliage] env-trees-2@f5f5eb: foliage faces=360 crown faces=0 src=context
-[    6.4s] [foliage] env-trees-2@f5ffeb: foliage faces=270 crown faces=0 src=context
-[    6.4s] [foliage] env-trees-2@fff5f5: foliage faces=90 crown faces=0 src=context
-[    6.4s] [foliage] env-trees-2@ffffeb: foliage faces=180 crown faces=90 src=context
-[    7.3s] [foliage]   -> vbCrowns-env-trees-2@ffffeb: crown polys=90 instances=175751 inner faces on source=90
-[    7.3s] [foliage] env-trees-2@fffff5: foliage faces=540 crown faces=90 src=context
-[    8.2s] [foliage]   -> vbCrowns-env-trees-2@fffff5: crown polys=90 instances=78324 inner faces on source=90
-[    8.2s] [foliage] env-trees-2@ffffff: foliage faces=630 crown faces=0 src=context
-[    8.2s] [foliage] first-ivy: foliage faces=320 crown faces=0 src=building
-[    8.2s] [foliage] first-leaf: foliage faces=1200 crown faces=880 src=building
-[    9.1s] [foliage]   -> vbCrowns-first-leaf: crown polys=880 instances=3988 inner faces on source=880
-[    9.1s] [foliage] ground-olive: foliage faces=320 crown faces=320 src=building
-[   10.0s] [foliage]   -> vbCrowns-ground-olive: crown polys=320 instances=3467 inner faces on source=320
-[   10.0s] [foliage] int-grassBlade: foliage faces=1641 crown faces=521 src=unit-0.A-lisboa
-[   11.0s] [foliage]   -> vbCrowns-int-grassBlade: crown polys=521 instances=204 inner faces on source=521
-[   11.1s] [foliage] site-ivy: foliage faces=19860 crown faces=960 src=building
-[   12.0s] [foliage]   -> vbCrowns-site-ivy: crown polys=960 instances=2983 inner faces on source=960
-[   12.1s] [foliage] site-leaf: foliage faces=7120 crown faces=5360 src=building
-[   13.0s] [foliage]   -> vbCrowns-site-leaf: crown polys=5360 instances=44600 inner faces on source=5360
-[   13.1s] [foliage] site-olive: foliage faces=11920 crown faces=8800 src=building
-[   14.1s] [foliage]   -> vbCrowns-site-olive: crown polys=8800 instances=46394 inner faces on source=8800
-[   14.1s] [foliage] site-oliveLight: foliage faces=3120 crown faces=3120 src=building
-[   15.1s] [foliage]   -> vbCrowns-site-oliveLight: crown polys=3120 instances=20412 inner faces on source=3120
-[   15.1s] [foliage] leafified 16 objects, crown area 1054 m2 -> ~1369812 leaves
-[   15.1s] materials: built=201 textured=63 by_key={'aluminium-frame': 1, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 3, 'asphalt': 1, 'bark': 2, 'bath-floor': 1, 'bath-wall': 1, 'book': 3, 'brass': 10, 'brick-facade': 1, 'bulb-emissive': 2, 'candle-wax': 1, 'car-glass': 1, 'car-light': 2, 'car-paint': 10, 'ceiling': 2, 'ceiling-white': 1, 'ceramic-plate': 3, 'concrete': 3, 'curtain-fabric': 1, 'cutlery-steel': 1, 'deck-teak': 2, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 3, 'epoxy-floor': 1, 'fabric-boucle': 1, 'fabric-linen': 12, 'fabric-sofa': 2, 'floor-main': 3, 'foliage': 18, 'foliage-inner': 1, 'fruit': 6, 'garage-door': 1, 'glass-drinking': 1, 'glass-railing': 2, 'glass-window': 3, 'gravel': 2, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 1, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 3, 'led-strip-emissive': 7, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 4, 'mirror': 2, 'paint-marking': 8, 'paving-calcada': 2, 'plant-leaf': 3, 'planter-concrete': 1, 'plaster-white': 2, 'pot-terracotta': 1, 'pv-panel': 1, 'render-cream': 1, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 2, 'rug': 1, 'sanitary-ceramic': 3, 'shower-glass': 1, 'shower-wall': 1, 'skirting': 1, 'soil': 4, 'steel-dark': 11, 'stone-coping': 2, 'timber-slats': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 1, 'zinc-standing-seam': 2}
-[   15.2s] lights: imported=4 emissive->lights=98 portals=14 boost=2.5 total_lights=116 polys=259450
-[   15.8s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
-[   16.0s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
-[   16.0s] scene ready in 16.0s  (world kloofendal_43d_clear_puresky)
-[   38.9s] [expo] transparent-pass mean 0.08547  opaque-pass mean 0.08547  geo=1.00
-[   38.9s] [expo] Lavg=0.004442 p95=0.1937 ev=5.49 ev_hi=2.22 -> 2.22 sky=None
-[   38.9s] [sky] visible sky x0.05 (measured 21.1, ev 2.22)
-[   38.9s] [wb] gains (0.625, 1.0, 1.6)
-[ 1971.2s] SHOT 0.A-lisboa-h5 pano 3072x1536 spp<=64 ev=2.22 in 1955.2s -> renders/units/0.A/lisboa/0.A-lisboa-h5.jpg
-[ 1992.8s] [expo] transparent-pass mean 0.03813  opaque-pass mean 0.03817  geo=1.00
-[ 1992.8s] [expo] Lavg=0.003603 p95=0.06939 ev=5.79 ev_hi=3.70 -> 3.70 sky=None
-[ 1992.8s] [sky] visible sky x0.05 (measured 21.1, ev 3.70)
-[ 1992.8s] [wb] gains (0.625, 1.0, 1.6)
-[ 3761.9s] SHOT 0.A-lisboa-h6 pano 3072x1536 spp<=64 ev=3.70 in 1790.7s -> renders/units/0.A/lisboa/0.A-lisboa-h6.jpg
-[ 3778.5s] [expo] transparent-pass mean 0.9576  opaque-pass mean 4.69  geo=1.00
-[ 3778.5s] [expo] Lavg=1.164 p95=13.07 ev=-2.54 ev_hi=-2.39 -> -2.54 sky=None
-[ 3778.5s] [sky] visible sky x0.15 (measured 21.1, ev -2.54)
-[ 3778.5s] [wb] gains (1.283, 1.0, 0.636)
-[ 4791.0s] SHOT 0.A-lisboa-h7 pano 3072x1536 spp<=64 ev=-2.54 in 1029.1s -> renders/units/0.A/lisboa/0.A-lisboa-h7.jpg
-[ 4808.3s] [expo] transparent-pass mean 0.9631  opaque-pass mean 3.463  geo=1.00
-[ 4808.3s] [expo] Lavg=0.7956 p95=11.24 ev=-1.99 ev_hi=-2.17 -> -2.17 sky=None
-[ 4808.3s] [sky] visible sky x0.12 (measured 21.1, ev -2.17)
-[ 4808.3s] [wb] gains (1.213, 1.0, 0.656)
-[ 5977.5s] SHOT 0.A-lisboa-h8 pano 3072x1536 spp<=64 ev=-2.17 in 1186.6s -> renders/units/0.A/lisboa/0.A-lisboa-h8.jpg
-[ 5977.5s] DONE 4 images in 5977.5s
+[    0.7s] import building: 491 objects in 0.7s
+[    1.0s] import context: 127 objects in 0.3s
+[    1.3s] import unit-0.A-lisboa: 87 objects in 0.3s
+[    1.6s] box UVs on 639 meshes
+[    3.2s] [foliage] leafified 26 objects, crown area 1128 m2 -> ~1466790 leaves
+[    3.2s] materials: built=238 textured=69 by_key={'aluminium-frame': 2, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 3, 'asphalt': 1, 'bark': 2, 'bath-floor': 1, 'bath-wall': 1, 'book': 3, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 3, 'candle-wax': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-taillight': 1, 'car-tyre': 1, 'ceiling': 1, 'ceiling-white': 2, 'ceramic-plate': 4, 'concrete': 5, 'curtain-fabric': 1, 'cutlery-steel': 1, 'deck-teak': 2, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'fabric-boucle': 6, 'fabric-linen': 8, 'fabric-sofa': 1, 'floor-main': 2, 'foliage': 21, 'foliage-inner': 1, 'fruit': 3, 'garage-door': 1, 'glass-drinking': 1, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 2, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 2, 'leather': 1, 'led-strip-emissive': 13, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 3, 'mirror': 2, 'paint-white': 1, 'paving-calcada': 2, 'plant-leaf': 3, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'pot-terracotta': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 2, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 1, 'sanitary-ceramic': 3, 'shower-glass': 1, 'shower-wall': 1, 'signage': 39, 'skirting': 2, 'soil': 3, 'steel-dark': 9, 'stone-coping': 2, 'tap-metal': 1, 'timber-soffit': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 2, 'zinc-standing-seam': 2}
+[    3.3s] lights: imported=4 emissive->lights=80 portals=14 boost=2.5 total_lights=98 polys=353840
+[    3.8s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[    4.0s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[    4.0s] scene ready in 4.0s  (world kloofendal_43d_clear_puresky)
+[   16.4s] [expo] interior: in/out/sky=19888/112/0 Lavg=0.01052 p97=0.22 ev_hi=3.56 -> ev=3.56 windowND=1.00
+[   16.4s] [wb] gains (0.625, 1.0, 1.6)
+[ 1386.3s] SHOT 0.A-lisboa-h5 pano 3072x1536 spp<=64 ev=3.91 in 1382.3s -> renders/units/0.A/lisboa/0.A-lisboa-h5.jpg
+[ 1396.5s] [expo] interior: in/out/sky=19910/90/0 Lavg=0.009286 p97=0.1311 ev_hi=4.31 -> ev=4.31 windowND=1.00
+[ 1396.5s] [wb] gains (0.625, 1.0, 1.6)
+[ 2673.0s] SHOT 0.A-lisboa-h6 pano 3072x1536 spp<=64 ev=4.66 in 1286.7s -> renders/units/0.A/lisboa/0.A-lisboa-h6.jpg
+[ 2681.6s] [expo] exterior: geo/sky=14233/5767 Lavg=0.508 p95=4.657 ev_hi=-0.90 -> ev=-1.50 sky=8.851190567016602
+[ 2681.6s] [sky] visible sky x0.18 (measured 8.85, ev -1.50)
+[ 2681.6s] [wb] gains (0.966, 1.0, 1.029)
+[ 3432.9s] SHOT 0.A-lisboa-h7 pano 3072x1536 spp<=64 ev=-1.15 in 759.9s -> renders/units/0.A/lisboa/0.A-lisboa-h7.jpg
+[ 3441.7s] [expo] exterior: geo/sky=16084/3916 Lavg=0.3912 p95=3.441 ev_hi=-0.46 -> ev=-1.12 sky=8.735135078430176
+[ 3441.7s] [sky] visible sky x0.14 (measured 8.74, ev -1.12)
+[ 3441.7s] [wb] gains (0.957, 1.0, 1.009)
+[ 4280.2s] SHOT 0.A-lisboa-h8 pano 3072x1536 spp<=64 ev=-0.77 in 847.4s -> renders/units/0.A/lisboa/0.A-lisboa-h8.jpg
+[ 4280.2s] DONE 4 images in 4280.2s
