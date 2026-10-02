@@ -6,96 +6,100 @@
   "quality": "standard",
   "tod": "day",
   "shots": [
-   "2.C-living",
-   "2.C-bedroom",
-   "2.C-bathroom"
+   "2.C-noir-h0",
+   "2.C-noir-h1",
+   "2.C-noir-h2",
+   "2.C-noir-h3",
+   "2.C-noir-h4"
   ],
   "out": "renders/units/2.C/noir",
   "name": "u2.C-noir-0",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
-   "id": "2.C-living",
-   "type": "still",
-   "file": "renders/units/2.C/noir/2.C-living.jpg",
-   "thumb": "renders/units/2.C/noir/thumbs/2.C-living.jpg",
-   "W": 2400,
-   "H": 1350,
-   "spp": 96,
-   "ev": 1.1299672688428826,
+   "id": "2.C-noir-h0",
+   "type": "pano",
+   "file": "renders/units/2.C/noir/2.C-noir-h0.jpg",
+   "thumb": "renders/units/2.C/noir/thumbs/2.C-noir-h0.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 6.037614418201384,
    "tod": "day",
    "position": [
-    13.075,
-    7.45,
-    6.869
+    3.7,
+    7.6,
+    9.95
    ],
    "lookAt": [
-    10.492,
-    7.45,
-    12.513
+    8.721,
+    7.25,
+    10.788
    ],
-   "roomId": "2.C-living",
+   "roomId": "2.C-hall",
    "name": {
-    "en": "Living & kitchen",
-    "pt": "Sala / cozinha",
-    "he": "סלון ומטבח"
+    "en": "Hall",
+    "pt": "Hall",
+    "he": "מסדרון"
    },
-   "kind": "living",
-   "lens": 24.0,
-   "shift_y": 0.0,
-   "seconds": 1560.1
+   "kind": null,
+   "yawOffset": -1.73617,
+   "index": 0,
+   "seconds": 1174.5
   },
   {
-   "id": "2.C-bedroom",
-   "type": "still",
-   "file": "renders/units/2.C/noir/2.C-bedroom.jpg",
-   "thumb": "renders/units/2.C/noir/thumbs/2.C-bedroom.jpg",
-   "W": 2400,
-   "H": 1350,
-   "spp": 96,
-   "ev": -1.5701522514845612,
+   "id": "2.C-noir-h1",
+   "type": "pano",
+   "file": "renders/units/2.C/noir/2.C-noir-h1.jpg",
+   "thumb": "renders/units/2.C/noir/thumbs/2.C-noir-h1.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 4.185220866288343,
    "tod": "day",
    "position": [
-    3.219,
-    7.4,
-    11.598
+    6.799,
+    7.6,
+    10.125
    ],
    "lookAt": [
-    5.786,
-    7.4,
-    13.951
+    5.132,
+    7,
+    9.842
    ],
-   "roomId": "2.C-bed1",
+   "roomId": "2.C-hall",
    "name": {
-    "en": "Main bedroom",
-    "pt": "Quarto",
-    "he": "חדר שינה ראשי"
+    "en": "Hall · view 2",
+    "pt": "Hall · vista 2",
+    "he": "מסדרון · מבט 2"
    },
-   "kind": "bedroom",
-   "lens": 24.0,
-   "shift_y": 0.0,
-   "seconds": 1323.9
+   "kind": null,
+   "yawOffset": 1.40263,
+   "index": 1,
+   "seconds": 1337.5
   },
   {
-   "id": "2.C-bathroom",
-   "type": "still",
-   "file": "renders/units/2.C/noir/2.C-bathroom.jpg",
-   "thumb": "renders/units/2.C/noir/thumbs/2.C-bathroom.jpg",
-   "W": 2400,
-   "H": 1350,
-   "spp": 96,
-   "ev": 6.0669339172548975,
+   "id": "2.C-noir-h2",
+   "type": "pano",
+   "file": "renders/units/2.C/noir/2.C-noir-h2.jpg",
+   "thumb": "renders/units/2.C/noir/thumbs/2.C-noir-h2.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 4.40314804609425,
    "tod": "day",
    "position": [
-    8.147,
-    7.45,
-    8.484
+    8.15,
+    7.6,
+    8.59
    ],
    "lookAt": [
-    8.692,
-    7.45,
-    7.964
+    9.044,
+    7.3,
+    7.628
    ],
    "roomId": "2.C-wc",
    "name": {
@@ -103,12 +107,74 @@
     "pt": "I.S.",
     "he": "חדר רחצה"
    },
-   "kind": "bathroom",
-   "lens": 18.0,
-   "shift_y": 0.0,
-   "seconds": 1175.3
+   "kind": null,
+   "yawOffset": -0.74878,
+   "index": 2,
+   "seconds": 1111.6
+  },
+  {
+   "id": "2.C-noir-h3",
+   "type": "pano",
+   "file": "renders/units/2.C/noir/2.C-noir-h3.jpg",
+   "thumb": "renders/units/2.C/noir/thumbs/2.C-noir-h3.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.0627759619428345,
+   "tod": "day",
+   "position": [
+    12.21,
+    7.6,
+    13.06
+   ],
+   "lookAt": [
+    10.88,
+    7.25,
+    10.573
+   ],
+   "roomId": "2.C-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": null,
+   "yawOffset": 0.49108,
+   "index": 3,
+   "seconds": 1505.2
+  },
+  {
+   "id": "2.C-noir-h4",
+   "type": "pano",
+   "file": "renders/units/2.C/noir/2.C-noir-h4.jpg",
+   "thumb": "renders/units/2.C/noir/thumbs/2.C-noir-h4.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.0471819952643524,
+   "tod": "day",
+   "position": [
+    10.194,
+    7.6,
+    6.428
+   ],
+   "lookAt": [
+    11.51,
+    7,
+    9.46
+   ],
+   "roomId": "2.C-living",
+   "name": {
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": -2.73209,
+   "index": 4,
+   "seconds": 1476.2
   }
  ],
- "seconds": 4077.5,
+ "seconds": 6610.1,
  "blender": "4.2.3 LTS"
 }
