@@ -1,10 +1,24 @@
 {
  "version": 1,
- "generated": "2026-10-01T23:45:49Z",
+ "generated": "2026-10-02T03:03:43Z",
+ "packages": [
+  "atlantic",
+  "lisboa",
+  "noir",
+  "natura",
+  "riviera",
+  "urban"
+ ],
+ "timesOfDay": [
+  "day",
+  "dusk",
+  "night"
+ ],
  "conventions": {
   "position": "three.js world metres (Y-up), eye point of the panorama",
   "yawOffset": "radians; three.js camera yaw (rotation.y, YXZ order; 0 looks along -Z, +pi/2 looks along -X) of the panorama CENTRE column (u = 0.5). u grows to the right (clockwise seen from above). Seam at u = 0/1 faces away.",
   "links": "indices into the same panos array (same room, or rooms connected by a door/opening/glass door, < 9 m)",
+  "variants": "file / thumb = DAY; variants.dusk / variants.night = {file, thumb} of the same camera (same yawOffset) at blue hour / at night (<name>.dusk.jpg / <name>.night.jpg). Exterior / common: variantOf = id of the day shot with the same framing (the entry is also attached there as variants.<tod>).",
   "files": "repo-relative paths (the Pages site serves them at the same relative path)"
  },
  "units": {
@@ -1631,7 +1645,7 @@
        0.95,
        2.39
       ],
-      "yawOffset": 0.57397,
+      "yawOffset": 0.57398,
       "W": 3072,
       "H": 1536,
       "links": [
@@ -2041,7 +2055,7 @@
        0.95,
        2.39
       ],
-      "yawOffset": 0.57397,
+      "yawOffset": 0.57398,
       "W": 3072,
       "H": 1536,
       "links": [
@@ -7992,6 +8006,39 @@
    "H": 1350
   },
   {
+   "id": "aerial-dusk-34",
+   "roomId": null,
+   "name": "3/4 aerial at dusk",
+   "file": "renders/exterior/aerial-dusk-34.jpg",
+   "thumb": "renders/exterior/thumbs/aerial-dusk-34.jpg",
+   "tod": "dusk",
+   "lens": 35.0,
+   "W": 2400,
+   "H": 1350
+  },
+  {
+   "id": "entrance-day",
+   "roomId": null,
+   "name": "Street entrance",
+   "file": "renders/exterior/entrance-day.jpg",
+   "thumb": "renders/exterior/thumbs/entrance-day.jpg",
+   "tod": "day",
+   "lens": 28.0,
+   "W": 2400,
+   "H": 1350
+  },
+  {
+   "id": "garage-ramp",
+   "roomId": null,
+   "name": "Garage entrance and ramp",
+   "file": "renders/exterior/garage-ramp.jpg",
+   "thumb": "renders/exterior/thumbs/garage-ramp.jpg",
+   "tod": "day",
+   "lens": 28.0,
+   "W": 2400,
+   "H": 1350
+  },
+  {
    "id": "rear-garden",
    "roomId": null,
    "name": "Rear gardens and garden façade (from the far end of the 0.B garden)",
@@ -7999,6 +8046,17 @@
    "thumb": "renders/exterior/thumbs/rear-garden.jpg",
    "tod": "golden",
    "lens": 18.0,
+   "W": 2400,
+   "H": 1350
+  },
+  {
+   "id": "rear-garden-golden",
+   "roomId": null,
+   "name": "Rear gardens and garden facade, golden hour",
+   "file": "renders/exterior/rear-garden-golden.jpg",
+   "thumb": "renders/exterior/thumbs/rear-garden-golden.jpg",
+   "tod": "golden",
+   "lens": 17.0,
    "W": 2400,
    "H": 1350
   },
@@ -8049,6 +8107,28 @@
    "H": 1350
   },
   {
+   "id": "carpark-2",
+   "roomId": null,
+   "name": "Car park, bays P1 to P6",
+   "file": "renders/common/carpark-2.jpg",
+   "thumb": "renders/common/thumbs/carpark-2.jpg",
+   "tod": "day",
+   "lens": 18.0,
+   "W": 2400,
+   "H": 1350
+  },
+  {
+   "id": "carpark-ramp",
+   "roomId": null,
+   "name": "Car park from the ramp",
+   "file": "renders/common/carpark-ramp.jpg",
+   "thumb": "renders/common/thumbs/carpark-ramp.jpg",
+   "tod": "day",
+   "lens": 18.0,
+   "W": 2400,
+   "H": 1350
+  },
+  {
    "id": "landing-first",
    "roomId": null,
    "name": "Typical landing (1st floor)",
@@ -8076,6 +8156,17 @@
    "name": "Entrance lobby",
    "file": "renders/common/lobby.jpg",
    "thumb": "renders/common/thumbs/lobby.jpg",
+   "tod": "day",
+   "lens": 18.0,
+   "W": 2400,
+   "H": 1350
+  },
+  {
+   "id": "lobby-2",
+   "roomId": null,
+   "name": "Lobby towards the entrance",
+   "file": "renders/common/lobby-2.jpg",
+   "thumb": "renders/common/thumbs/lobby-2.jpg",
    "tod": "day",
    "lens": 18.0,
    "W": 2400,
