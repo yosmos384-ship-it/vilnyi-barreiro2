@@ -12,7 +12,9 @@
   ],
   "out": "renders/units/1.C/noir",
   "name": "u1.C-noir-1",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
@@ -23,7 +25,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 1.6831698330466955,
+   "ev": 3.3914181487285386,
    "tod": "day",
    "position": [
     5.5,
@@ -44,7 +46,7 @@
    "kind": null,
    "yawOffset": 0.5691,
    "index": 5,
-   "seconds": 898.8
+   "seconds": 1371.8
   },
   {
    "id": "1.C-noir-h6",
@@ -54,7 +56,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 3.9637486960392434,
+   "ev": 4.0954562981395775,
    "tod": "day",
    "position": [
     8.16,
@@ -75,7 +77,7 @@
    "kind": null,
    "yawOffset": 2.62423,
    "index": 6,
-   "seconds": 786.6
+   "seconds": 1169.6
   },
   {
    "id": "1.C-noir-h7",
@@ -85,7 +87,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": -2.3784110231250324,
+   "ev": -0.7861536242381576,
    "tod": "day",
    "position": [
     8.15,
@@ -106,9 +108,9 @@
    "kind": null,
    "yawOffset": 2.97158,
    "index": 7,
-   "seconds": 720.1
+   "seconds": 1145.3
   }
  ],
- "seconds": 2416.2,
+ "seconds": 3691.4,
  "blender": "4.2.3 LTS"
 }
