@@ -1,0 +1,23 @@
+[
+ {
+  "set": "units",
+  "quality": "standard",
+  "units": "",
+  "packages": "",
+  "tod": "dusk,night",
+  "shots": "living",
+  "opts": {}
+ },
+ {
+  "set": "exterior",
+  "quality": "standard",
+  "shots": "street-night,street-eye-night,entrance-night",
+  "opts": {}
+ },
+ {
+  "set": "common",
+  "quality": "standard",
+  "shots": "lobby-night,lobby-2-night",
+  "opts": {}
+ }
+]
