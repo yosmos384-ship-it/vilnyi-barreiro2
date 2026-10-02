@@ -1,0 +1,45 @@
+{
+ "job": {
+  "scope": "common",
+  "quality": "standard",
+  "shots": [
+   "carpark-2"
+  ],
+  "out": "renders/common",
+  "name": "common-carpark-2",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "carpark-2",
+   "type": "still",
+   "file": "renders/common/carpark-2.jpg",
+   "thumb": "renders/common/thumbs/carpark-2.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 2.5013648453358748,
+   "tod": "day",
+   "position": [
+    9.4,
+    -1.2,
+    1.2
+   ],
+   "lookAt": [
+    1.5,
+    -2.1,
+    -4.5
+   ],
+   "roomId": null,
+   "name": "Car park, bays P1 to P6",
+   "kind": null,
+   "lens": 18.0,
+   "shift_y": -0.0462,
+   "seconds": 2743.9
+  }
+ ],
+ "seconds": 2746.5,
+ "blender": "4.2.3 LTS"
+}
