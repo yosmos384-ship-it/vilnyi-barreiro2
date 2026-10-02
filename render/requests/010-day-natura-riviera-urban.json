@@ -1,0 +1,13 @@
+[
+ {
+  "set": "units",
+  "quality": "standard",
+  "units": "",
+  "packages": "natura,riviera,urban",
+  "tod": "day",
+  "shots": "",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ }
+]
