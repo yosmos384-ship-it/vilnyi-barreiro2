@@ -1,0 +1,45 @@
+{
+ "job": {
+  "scope": "common",
+  "quality": "standard",
+  "shots": [
+   "lobby-night"
+  ],
+  "out": "renders/common",
+  "name": "common-lobby-night",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "lobby-night",
+   "type": "still",
+   "file": "renders/common/lobby-night.jpg",
+   "thumb": "renders/common/thumbs/lobby-night.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 2.2522224933904216,
+   "tod": "night",
+   "position": [
+    9,
+    1.5,
+    14.25
+   ],
+   "lookAt": [
+    3.2,
+    1.45,
+    9.6
+   ],
+   "roomId": null,
+   "name": "Entrance lobby at night",
+   "kind": null,
+   "variant_of": "lobby",
+   "variant_tod": "night",
+   "lens": 18.0,
+   "shift_y": -0.0034,
+   "seconds": 3800.7
+  }
+ ],
+ "seconds": 3804.6,
+ "blender": "4.2.3 LTS"
+}
