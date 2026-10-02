@@ -1,0 +1,21 @@
+[    0.0s] job u2.C-lisboa-s: scope=unit unit=2.C pkg=lisboa quality=standard shots=3
+[    0.9s] import building: 491 objects in 0.8s
+[    1.2s] import context: 127 objects in 0.3s
+[    1.6s] import unit-2.C-lisboa: 98 objects in 0.4s
+[    2.0s] box UVs on 650 meshes
+[    3.7s] [foliage] leafified 27 objects, crown area 1129 m2 -> ~1468093 leaves
+[    3.7s] materials: built=246 textured=71 by_key={'aluminium-frame': 2, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 6, 'asphalt': 1, 'bark': 1, 'bath-floor': 1, 'bath-wall': 1, 'book': 7, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 3, 'candle-wax': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-taillight': 1, 'car-tyre': 1, 'ceiling': 1, 'ceiling-white': 2, 'ceramic-plate': 5, 'concrete': 5, 'cutlery-steel': 1, 'deck-teak': 3, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'fabric-boucle': 6, 'fabric-linen': 7, 'fabric-sofa': 1, 'floor-main': 2, 'foliage': 21, 'foliage-inner': 1, 'fruit': 3, 'garage-door': 1, 'glass-drinking': 2, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 2, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 2, 'leather': 2, 'led-strip-emissive': 13, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'marble-table': 1, 'metal-furniture': 3, 'mirror': 2, 'paint-white': 1, 'paving-calcada': 2, 'plant-leaf': 1, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 2, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 1, 'sanitary-ceramic': 3, 'shower-glass': 1, 'shower-wall': 1, 'signage': 39, 'skirting': 2, 'soil': 3, 'steel-dark': 9, 'stone-coping': 2, 'tap-metal': 1, 'timber-soffit': 1, 'wall-paint': 1, 'wine': 1, 'wood-furniture': 5, 'zinc-standing-seam': 2}
+[    3.8s] lights: imported=4 emissive->lights=89 portals=32 boost=2.5 total_lights=125 polys=402489
+[    4.3s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[    4.5s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[    4.5s] scene ready in 4.5s  (world kloofendal_43d_clear_puresky)
+[   19.2s] [expo] interior: in/out/sky=20438/1962/0 Lavg=0.03853 p97=0.625 ev_hi=2.06 -> ev=2.06 windowND=0.09
+[   19.2s] [wb] gains (0.752, 1.0, 1.232)
+[ 1650.9s] SHOT 2.C-living still 2400x1350 spp<=96 ev=2.41 in 1646.3s -> renders/units/2.C/lisboa/2.C-living.jpg
+[ 1662.6s] [expo] interior: in/out/sky=16558/5316/526 Lavg=0.005069 p97=0.3196 ev_hi=3.02 -> ev=3.02 windowND=0.05
+[ 1662.6s] [wb] gains (0.852, 1.0, 1.167)
+[ 2914.8s] SHOT 2.C-bedroom still 2400x1350 spp<=96 ev=3.37 in 1263.9s -> renders/units/2.C/lisboa/2.C-bedroom.jpg
+[ 2927.4s] [expo] interior: in/out/sky=22400/0/0 Lavg=0.02712 p97=0.2132 ev_hi=3.61 -> ev=3.47 windowND=1.00
+[ 2927.4s] [wb] gains (0.625, 1.0, 1.6)
+[ 4860.5s] SHOT 2.C-bathroom still 2400x1350 spp<=96 ev=3.82 in 1945.7s -> renders/units/2.C/lisboa/2.C-bathroom.jpg
+[ 4860.5s] DONE 3 images in 4860.5s
