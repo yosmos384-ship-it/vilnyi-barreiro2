@@ -6,13 +6,17 @@
   "quality": "standard",
   "tod": "day",
   "shots": [
-   "1.A-living",
-   "1.A-bedroom",
-   "1.A-bathroom"
+   "1.A-atlantic-h0",
+   "1.A-atlantic-h1",
+   "1.A-atlantic-h2",
+   "1.A-atlantic-h3",
+   "1.A-atlantic-h4"
   ],
   "out": "renders/units/1.A/atlantic",
   "name": "u1.A-atlantic-0",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
@@ -23,12 +27,12 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 3.1112483501808854,
+   "ev": 3.7232230017527526,
    "tod": "day",
    "position": [
-    3.668,
-    4.45,
-    4.132
+    0.85,
+    4.6,
+    4.6
    ],
    "lookAt": [
     1.028,
@@ -44,7 +48,7 @@
    "kind": null,
    "yawOffset": -0.09592,
    "index": 0,
-   "seconds": 2310.3
+   "seconds": 1600.7
   },
   {
    "id": "1.A-atlantic-h1",
@@ -54,7 +58,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 2.8612384975196026,
+   "ev": 3.5600445481140963,
    "tod": "day",
    "position": [
     2.208,
@@ -75,7 +79,7 @@
    "kind": null,
    "yawOffset": 0.81473,
    "index": 1,
-   "seconds": 2330.8
+   "seconds": 1598.5
   },
   {
    "id": "1.A-atlantic-h2",
@@ -85,7 +89,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 1.7728754079971305,
+   "ev": 2.8546900308517826,
    "tod": "day",
    "position": [
     3.66,
@@ -106,7 +110,7 @@
    "kind": null,
    "yawOffset": -0.32712,
    "index": 2,
-   "seconds": 2345.8
+   "seconds": 1638.3
   },
   {
    "id": "1.A-atlantic-h3",
@@ -116,28 +120,28 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 0.8044289807207285,
+   "ev": 2.2141841485613485,
    "tod": "day",
    "position": [
-    0.449,
-    4.4,
-    4.763
+    4.751,
+    4.6,
+    2.306
    ],
    "lookAt": [
-    2.332,
-    4.4,
-    1.131
+    4.07,
+    4,
+    3.672
    ],
-   "roomId": "1.A-suite",
+   "roomId": "1.A-living",
    "name": {
-    "en": "Master suite",
-    "pt": "Suite",
-    "he": "סוויטת הורים"
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
    },
    "kind": null,
    "yawOffset": 2.67912,
    "index": 3,
-   "seconds": 2249.1
+   "seconds": 1565.6
   },
   {
    "id": "1.A-atlantic-h4",
@@ -147,17 +151,17 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 1.7477881628010816,
+   "ev": 3.243426543562813,
    "tod": "day",
    "position": [
-    1.749,
-    4.45,
-    5.772
+    1.375,
+    4.6,
+    6.01
    ],
    "lookAt": [
-    0.662,
-    4.45,
-    6.641
+    0.548,
+    4.3,
+    6.732
    ],
    "roomId": "1.A-ensuite",
    "name": {
@@ -168,9 +172,9 @@
    "kind": null,
    "yawOffset": 2.28851,
    "index": 4,
-   "seconds": 2225.1
+   "seconds": 1592.9
   }
  ],
- "seconds": 11479.4,
+ "seconds": 7999.5,
  "blender": "4.2.3 LTS"
 }
