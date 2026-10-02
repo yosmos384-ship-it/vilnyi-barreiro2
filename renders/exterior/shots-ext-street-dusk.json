@@ -7,7 +7,9 @@
   ],
   "out": "renders/exterior",
   "name": "ext-street-dusk",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
@@ -18,11 +20,11 @@
    "W": 2400,
    "H": 1350,
    "spp": 192,
-   "ev": 0.3468031229140955,
+   "ev": 0.8375032161081692,
    "tod": "dusk",
    "position": [
     7,
-    0.37,
+    0.5,
     26.2
    ],
    "lookAt": [
@@ -34,10 +36,10 @@
    "name": "Frontal street view at dusk (like assets/street-dusk.jpg)",
    "kind": null,
    "lens": 18.0,
-   "shift_y": 0.1752,
-   "seconds": 8808.9
+   "shift_y": 0.1696,
+   "seconds": 8658.3
   }
  ],
- "seconds": 9028.4,
+ "seconds": 8669.6,
  "blender": "4.2.3 LTS"
 }
