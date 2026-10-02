@@ -1,0 +1,18 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "0.B",
+  "pkg": "noir",
+  "quality": "preview",
+  "tod": "night",
+  "shots": [
+   "0.B-living"
+  ],
+  "out": "renders/preview/0.B/noir",
+  "name": "preview-u0.B-noir-night-0",
+  "opts": {}
+ },
+ "shots": [],
+ "seconds": 3.8,
+ "blender": "4.2.3 LTS"
+}
