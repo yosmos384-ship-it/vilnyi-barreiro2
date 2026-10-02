@@ -1,0 +1,150 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.C",
+  "pkg": "urban",
+  "quality": "standard",
+  "tod": "night",
+  "shots": [
+   "2.C-urban-h0",
+   "2.C-urban-h1",
+   "2.C-urban-h2",
+   "2.C-urban-h5"
+  ],
+  "out": "renders/units/2.C/urban",
+  "name": "u2.C-urban-night-0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "2.C-urban-h0",
+   "type": "pano",
+   "file": "renders/units/2.C/urban/2.C-urban-h0.night.jpg",
+   "thumb": "renders/units/2.C/urban/thumbs/2.C-urban-h0.night.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 8.169353586710324,
+   "tod": "night",
+   "position": [
+    3.7,
+    7.6,
+    9.95
+   ],
+   "lookAt": [
+    8.721,
+    7.25,
+    10.788
+   ],
+   "roomId": "2.C-hall",
+   "name": {
+    "en": "Hall",
+    "pt": "Hall",
+    "he": "מסדרון"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": -1.73617,
+   "index": 0,
+   "seconds": 929.8
+  },
+  {
+   "id": "2.C-urban-h1",
+   "type": "pano",
+   "file": "renders/units/2.C/urban/2.C-urban-h1.night.jpg",
+   "thumb": "renders/units/2.C/urban/thumbs/2.C-urban-h1.night.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 8.3336347095196,
+   "tod": "night",
+   "position": [
+    6.799,
+    7.6,
+    10.125
+   ],
+   "lookAt": [
+    5.132,
+    7,
+    9.842
+   ],
+   "roomId": "2.C-hall",
+   "name": {
+    "en": "Hall · view 2",
+    "pt": "Hall · vista 2",
+    "he": "מסדרון · מבט 2"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": 1.40263,
+   "index": 1,
+   "seconds": 924.3
+  },
+  {
+   "id": "2.C-urban-h2",
+   "type": "pano",
+   "file": "renders/units/2.C/urban/2.C-urban-h2.night.jpg",
+   "thumb": "renders/units/2.C/urban/thumbs/2.C-urban-h2.night.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 5.539185968176626,
+   "tod": "night",
+   "position": [
+    8.15,
+    7.6,
+    8.59
+   ],
+   "lookAt": [
+    9.044,
+    7.3,
+    7.628
+   ],
+   "roomId": "2.C-wc",
+   "name": {
+    "en": "Bathroom",
+    "pt": "I.S.",
+    "he": "חדר רחצה"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": -0.74878,
+   "index": 2,
+   "seconds": 1404.7
+  },
+  {
+   "id": "2.C-urban-h5",
+   "type": "pano",
+   "file": "renders/units/2.C/urban/2.C-urban-h5.night.jpg",
+   "thumb": "renders/units/2.C/urban/thumbs/2.C-urban-h5.night.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 10.383240479451866,
+   "tod": "night",
+   "position": [
+    5.5,
+    7.6,
+    13.91
+   ],
+   "lookAt": [
+    4.662,
+    6.95,
+    12.6
+   ],
+   "roomId": "2.C-bed1",
+   "name": {
+    "en": "Main bedroom",
+    "pt": "Quarto",
+    "he": "חדר שינה ראשי"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": 0.5691,
+   "index": 5,
+   "seconds": 785.4
+  }
+ ],
+ "seconds": 4049.6,
+ "blender": "4.2.3 LTS"
+}
