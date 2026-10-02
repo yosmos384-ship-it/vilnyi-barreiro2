@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-10-02T03:03:43Z",
+ "generated": "2026-10-02T03:32:42Z",
  "packages": [
   "atlantic",
   "lisboa",
@@ -8025,7 +8025,26 @@
    "tod": "day",
    "lens": 28.0,
    "W": 2400,
-   "H": 1350
+   "H": 1350,
+   "variants": {
+    "dusk": {
+     "file": "renders/exterior/entrance-dusk.jpg",
+     "thumb": "renders/exterior/thumbs/entrance-dusk.jpg"
+    }
+   }
+  },
+  {
+   "id": "entrance-dusk",
+   "roomId": null,
+   "name": "Street entrance at dusk",
+   "file": "renders/exterior/entrance-dusk.jpg",
+   "thumb": "renders/exterior/thumbs/entrance-dusk.jpg",
+   "tod": "dusk",
+   "lens": 28.0,
+   "W": 2400,
+   "H": 1350,
+   "variantOf": "entrance-day",
+   "variantTod": "dusk"
   },
   {
    "id": "garage-ramp",
