@@ -1,0 +1,15 @@
+[    0.0s] job preview-common-lobby-night: scope=common unit=None pkg=None quality=preview shots=1
+[    0.9s] import building: 491 objects in 0.9s
+[    1.4s] import context: 127 objects in 0.4s
+[    1.6s] box UVs on 555 meshes
+[    1.6s] [presets] from lighting_presets.json (snapshot of js/environment.js)
+[    2.9s] [foliage] leafified 38 objects, crown area 7103 m2 -> ~9234294 leaves
+[    2.9s] materials: built=165 textured=37 by_key={'aluminium-frame': 2, 'asphalt': 1, 'bark': 1, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-taillight': 1, 'car-tyre': 1, 'ceiling-white': 2, 'ceramic-plate': 1, 'concrete': 5, 'deck-teak': 1, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 1, 'foliage': 20, 'foliage-inner': 1, 'garage-door': 1, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'kerb-stone': 2, 'lawn': 2, 'leather': 1, 'led-strip-emissive': 12, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'mirror': 1, 'paint-white': 1, 'paving-calcada': 2, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 2, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 1, 'signage': 39, 'skirting': 1, 'soil': 2, 'steel-dark': 9, 'stone-coping': 2, 'timber-soffit': 1, 'zinc-standing-seam': 2}
+[    3.0s] evening lights: street=6 lamp-list=0 lit-window fraction=0.45
+[    3.0s] lights: imported=0 emissive->lights=750 portals=0 boost=1.6 total_lights=756 polys=283019
+[    4.9s] [world] procedural night: moon bearing 168 alt 40 key 7.0 lux, sky 2.6 lux (mean radiance 0.001656), stars 2600, camera gain 1.6
+[    4.9s] scene ready in 4.9s  (world procedural-night)
+[   82.8s] [expo] interior night: in/out/sky=22400/0/0 key=0.22 Lavg=0.04626 p97=0.786 ev_hi=2.93 -> ev=2.25 windowND=1.00
+[   82.8s] [wb] gains (0.453, 1.0, 3.16)
+[  599.4s] SHOT lobby-night still 960x540 spp<=64 ev=2.25 in 594.5s -> renders/preview/common/lobby-night.jpg
+[  599.4s] DONE 1 images in 599.4s
