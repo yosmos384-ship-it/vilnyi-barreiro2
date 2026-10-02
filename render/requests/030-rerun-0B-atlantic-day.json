@@ -1,0 +1,14 @@
+[
+ {
+  "set": "units",
+  "quality": "standard",
+  "units": "0.B",
+  "packages": "atlantic",
+  "tod": "day",
+  "per_shard": 3,
+  "shots": "0.B-atlantic-h0,0.B-atlantic-h1,0.B-atlantic-h2,0.B-atlantic-h3,0.B-atlantic-h4",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ }
+]
