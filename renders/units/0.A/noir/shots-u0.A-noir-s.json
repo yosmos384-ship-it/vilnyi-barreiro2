@@ -1,0 +1,148 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "0.A",
+  "pkg": "noir",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "0.A-living",
+   "0.A-bedroom",
+   "0.A-bathroom",
+   "0.A-garden"
+  ],
+  "out": "renders/units/0.A/noir",
+  "name": "u0.A-noir-s",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "0.A-living",
+   "type": "still",
+   "file": "renders/units/0.A/noir/0.A-living.jpg",
+   "thumb": "renders/units/0.A/noir/thumbs/0.A-living.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 3.564885835169131,
+   "tod": "day",
+   "position": [
+    3.668,
+    1.45,
+    4.132
+   ],
+   "lookAt": [
+    5.13,
+    1.45,
+    1.635
+   ],
+   "roomId": "0.A-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1404.9
+  },
+  {
+   "id": "0.A-bedroom",
+   "type": "still",
+   "file": "renders/units/0.A/noir/0.A-bedroom.jpg",
+   "thumb": "renders/units/0.A/noir/thumbs/0.A-bedroom.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 6.229434825280168,
+   "tod": "day",
+   "position": [
+    0.449,
+    1.4,
+    4.763
+   ],
+   "lookAt": [
+    2.332,
+    1.4,
+    1.131
+   ],
+   "roomId": "0.A-suite",
+   "name": {
+    "en": "Master suite",
+    "pt": "Suite",
+    "he": "סוויטת הורים"
+   },
+   "kind": "bedroom",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1133.7
+  },
+  {
+   "id": "0.A-bathroom",
+   "type": "still",
+   "file": "renders/units/0.A/noir/0.A-bathroom.jpg",
+   "thumb": "renders/units/0.A/noir/thumbs/0.A-bathroom.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 8.514844112175776,
+   "tod": "day",
+   "position": [
+    1.749,
+    1.45,
+    5.772
+   ],
+   "lookAt": [
+    0.662,
+    1.45,
+    6.641
+   ],
+   "roomId": "0.A-ensuite",
+   "name": {
+    "en": "En-suite bathroom",
+    "pt": "I.S. suite",
+    "he": "חדר רחצה צמוד"
+   },
+   "kind": "bathroom",
+   "lens": 18.0,
+   "shift_y": 0.0,
+   "seconds": 618.5
+  },
+  {
+   "id": "0.A-garden",
+   "type": "still",
+   "file": "renders/units/0.A/noir/0.A-garden.jpg",
+   "thumb": "renders/units/0.A/noir/thumbs/0.A-garden.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": -1.5355003613719642,
+   "tod": "day",
+   "position": [
+    3.075,
+    1.6,
+    -7.15
+   ],
+   "lookAt": [
+    3.075,
+    2.4,
+    0
+   ],
+   "roomId": "0.A-garden",
+   "name": {
+    "en": "Private garden & deck",
+    "pt": "Jardim privado",
+    "he": "גינה פרטית ודק"
+   },
+   "kind": "garden",
+   "lens": 20.0,
+   "shift_y": 0.0622,
+   "seconds": 1540.3
+  }
+ ],
+ "seconds": 4701.9,
+ "blender": "4.2.3 LTS"
+}
