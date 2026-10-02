@@ -1,0 +1,180 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.B",
+  "pkg": "natura",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "2.B-natura-h0",
+   "2.B-natura-h1",
+   "2.B-natura-h2",
+   "2.B-natura-h3",
+   "2.B-natura-h4"
+  ],
+  "out": "renders/units/2.B/natura",
+  "name": "u2.B-natura-0",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "2.B-natura-h0",
+   "type": "pano",
+   "file": "renders/units/2.B/natura/2.B-natura-h0.jpg",
+   "thumb": "renders/units/2.B/natura/thumbs/2.B-natura-h0.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 2.0692841591875677,
+   "tod": "day",
+   "position": [
+    9,
+    7.6,
+    4.6
+   ],
+   "lookAt": [
+    7.296,
+    7.25,
+    0.474
+   ],
+   "roomId": "2.B-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": null,
+   "yawOffset": 0.39165,
+   "index": 0,
+   "seconds": 1956.8
+  },
+  {
+   "id": "2.B-natura-h1",
+   "type": "pano",
+   "file": "renders/units/2.B/natura/2.B-natura-h1.jpg",
+   "thumb": "renders/units/2.B/natura/thumbs/2.B-natura-h1.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 1.9615873962899144,
+   "tod": "day",
+   "position": [
+    6.908,
+    7.6,
+    0.842
+   ],
+   "lookAt": [
+    8.25,
+    7,
+    2.9
+   ],
+   "roomId": "2.B-living",
+   "name": {
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": -2.56375,
+   "index": 1,
+   "seconds": 1580.0
+  },
+  {
+   "id": "2.B-natura-h2",
+   "type": "pano",
+   "file": "renders/units/2.B/natura/2.B-natura-h2.jpg",
+   "thumb": "renders/units/2.B/natura/thumbs/2.B-natura-h2.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 2.6573795150042105,
+   "tod": "day",
+   "position": [
+    12.81,
+    7.6,
+    4.15
+   ],
+   "lookAt": [
+    11.672,
+    6.95,
+    2.39
+   ],
+   "roomId": "2.B-bed",
+   "name": {
+    "en": "Bedroom",
+    "pt": "Quarto",
+    "he": "חדר שינה"
+   },
+   "kind": null,
+   "yawOffset": 0.57398,
+   "index": 2,
+   "seconds": 1938.1
+  },
+  {
+   "id": "2.B-natura-h3",
+   "type": "pano",
+   "file": "renders/units/2.B/natura/2.B-natura-h3.jpg",
+   "thumb": "renders/units/2.B/natura/thumbs/2.B-natura-h3.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 1.8869911197999745,
+   "tod": "day",
+   "position": [
+    10.608,
+    7.6,
+    4.725
+   ],
+   "lookAt": [
+    12.331,
+    7,
+    3.663
+   ],
+   "roomId": "2.B-bed",
+   "name": {
+    "en": "Bedroom · view 2",
+    "pt": "Quarto · vista 2",
+    "he": "חדר שינה · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": -1.01843,
+   "index": 3,
+   "seconds": 1954.6
+  },
+  {
+   "id": "2.B-natura-h4",
+   "type": "pano",
+   "file": "renders/units/2.B/natura/2.B-natura-h4.jpg",
+   "thumb": "renders/units/2.B/natura/thumbs/2.B-natura-h4.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 2.856053745896522,
+   "tod": "day",
+   "position": [
+    6.795,
+    7.6,
+    6.01
+   ],
+   "lookAt": [
+    6.428,
+    7.3,
+    6.732
+   ],
+   "roomId": "2.B-hall",
+   "name": {
+    "en": "Entrance hall",
+    "pt": "Hall",
+    "he": "מבואה"
+   },
+   "kind": null,
+   "yawOffset": 2.67132,
+   "index": 4,
+   "seconds": 1893.2
+  }
+ ],
+ "seconds": 9327.3,
+ "blender": "4.2.3 LTS"
+}
