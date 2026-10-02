@@ -410,6 +410,45 @@
    "noir": {
     "source": "polyhaven",
     "id": "smoke_speckled_veneer"
+   },
+   "natura": {
+    "source": "polyhaven",
+    "id": "ash_veneer",
+    "slot": "ash_veneer-pale",
+    "bake": {
+     "brightness": 1.3
+    },
+    "note": "pale ash veneer (brightened, baked)",
+    "alt": [
+     "white_maple_veneer",
+     "washed_grey_oak_veneer"
+    ]
+   },
+   "riviera": {
+    "source": "ambientcg",
+    "id": "Plastic013A",
+    "slot": "plastic013a-linen",
+    "bake": {
+     "multiply": "#ece6dc"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "lacquer #ece6dc (baked)"
+   },
+   "urban": {
+    "source": "ambientcg",
+    "id": "Plastic013A",
+    "slot": "plastic013a-black",
+    "bake": {
+     "multiply": "#2a2b2d"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "lacquer #2a2b2d (baked)"
    }
   },
   "door-walnut": {
@@ -470,6 +509,43 @@
      "WoodFloor011",
      "dark_wooden_planks"
     ]
+   },
+   "natura": {
+    "source": "ambientcg",
+    "id": "WoodFloor039",
+    "note": "pale ash boards, white-oiled",
+    "alt": [
+     "oak_wood_planks"
+    ]
+   },
+   "riviera": {
+    "source": "ambientcg",
+    "id": "Marble015",
+    "sizeMeters": [
+     1.2,
+     1.2
+    ],
+    "note": "honed Moleanos-like limestone; add 60x90 joints as geometry/decal if wanted",
+    "alt": [
+     "Tiles141",
+     "Marble014"
+    ]
+   },
+   "urban": {
+    "source": "ambientcg",
+    "id": "Concrete016",
+    "slot": "concrete016-neutral",
+    "bake": {
+     "saturation": 0.25
+    },
+    "sizeMeters": [
+     2.5,
+     2.5
+    ],
+    "note": "polished concrete screed (neutralised, baked); roughness ~0.25",
+    "alt": [
+     "Concrete042A"
+    ]
    }
   },
   "wall-paint": {
@@ -510,6 +586,41 @@
     "bake": {
      "multiply": "#8f8a84"
     }
+   },
+   "natura": {
+    "source": "ambientcg",
+    "id": "Plaster002",
+    "slot": "plaster002-sand",
+    "bake": {
+     "multiply": "#e6dac4"
+    },
+    "sizeMeters": [
+     2,
+     2
+    ],
+    "note": "warm sand limewash (baked)"
+   },
+   "riviera": {
+    "source": "ambientcg",
+    "id": "Plaster001",
+    "sizeMeters": [
+     2,
+     2
+    ],
+    "note": "hand-trowelled white plaster"
+   },
+   "urban": {
+    "source": "ambientcg",
+    "id": "PaintedPlaster017",
+    "slot": "paintedplaster017-softgrey",
+    "bake": {
+     "multiply": "#e4e1db"
+    },
+    "sizeMeters": [
+     2,
+     2
+    ],
+    "note": "soft grey paint (baked)"
    }
   },
   "wall-feature": {
@@ -537,6 +648,42 @@
     "sizeMeters": [
      2,
      2
+    ]
+   },
+   "natura": {
+    "source": "polyhaven",
+    "id": "ash_veneer",
+    "slot": "ash_veneer-pale",
+    "bake": {
+     "brightness": 1.3
+    },
+    "note": "ash timber slats (brightened, baked)",
+    "alt": [
+     "white_maple_veneer",
+     "washed_grey_oak_veneer"
+    ]
+   },
+   "riviera": {
+    "source": "ambientcg",
+    "id": "Plaster004",
+    "slot": "plaster004-warm",
+    "bake": {
+     "brightness": 1.35,
+     "multiply": "#f4ebdc"
+    },
+    "sizeMeters": [
+     2,
+     2
+    ],
+    "note": "heavier trowelled plaster, warm white (baked)"
+   },
+   "urban": {
+    "source": "polyhaven",
+    "id": "brick_wall_001",
+    "note": "reclaimed exposed brick",
+    "alt": [
+     "red_brick_03",
+     "Bricks097"
     ]
    }
   },
@@ -576,6 +723,37 @@
     "alt": [
      "black_oak_veneer"
     ]
+   },
+   "natura": {
+    "source": "polyhaven",
+    "id": "ash_veneer",
+    "slot": "ash_veneer-pale",
+    "bake": {
+     "brightness": 1.3
+    },
+    "note": "pale ash veneer (brightened, baked)",
+    "alt": [
+     "white_maple_veneer",
+     "washed_grey_oak_veneer"
+    ]
+   },
+   "riviera": {
+    "source": "ambientcg",
+    "id": "Plastic013A",
+    "slot": "plastic013a-linen",
+    "bake": {
+     "multiply": "#ece6dc"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "lacquer #ece6dc (baked)"
+   },
+   "urban": {
+    "source": "polyhaven",
+    "id": "oak_veneer_01",
+    "note": "oak doors"
    }
   },
   "door-handle": {
@@ -607,6 +785,39 @@
     "alt": [
      "Metal036"
     ]
+   },
+   "natura": {
+    "source": "ambientcg",
+    "id": "Metal027",
+    "metal": true,
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "matt black"
+   },
+   "riviera": {
+    "source": "ambientcg",
+    "id": "Metal048B",
+    "metal": true,
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "aged brass",
+    "alt": [
+     "Metal048C"
+    ]
+   },
+   "urban": {
+    "source": "ambientcg",
+    "id": "Metal027",
+    "metal": true,
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "matt black"
    }
   },
   "bath-floor": {
@@ -634,6 +845,40 @@
     "note": "black marble tiles",
     "alt": [
      "granite_tile"
+    ]
+   },
+   "natura": {
+    "source": "ambientcg",
+    "id": "Travertine009",
+    "note": "honed travertine",
+    "alt": [
+     "Travertine001"
+    ]
+   },
+   "riviera": {
+    "source": "ambientcg",
+    "id": "Marble015",
+    "sizeMeters": [
+     1.2,
+     1.2
+    ],
+    "note": "honed Moleanos-like limestone; add 60x90 joints as geometry/decal if wanted",
+    "alt": [
+     "Tiles141",
+     "Marble014"
+    ]
+   },
+   "urban": {
+    "source": "ambientcg",
+    "id": "Terrazzo005",
+    "sizeMeters": [
+     1.0,
+     1.0
+    ],
+    "note": "black/white chip terrazzo",
+    "alt": [
+     "Terrazzo001",
+     "Tiles043"
     ]
    }
   },
@@ -670,6 +915,39 @@
     "alt": [
      "Marble023"
     ]
+   },
+   "natura": {
+    "source": "ambientcg",
+    "id": "Travertine009",
+    "note": "honed travertine",
+    "alt": [
+     "Travertine001"
+    ]
+   },
+   "riviera": {
+    "source": "ambientcg",
+    "id": "Tiles034",
+    "sizeMeters": [
+     1.0,
+     1.0
+    ],
+    "note": "glazed green tiles with tonal variation (zellige-like)",
+    "alt": [
+     "Tiles032"
+    ]
+   },
+   "urban": {
+    "source": "ambientcg",
+    "id": "Terrazzo005",
+    "sizeMeters": [
+     1.0,
+     1.0
+    ],
+    "note": "black/white chip terrazzo",
+    "alt": [
+     "Terrazzo001",
+     "Tiles043"
+    ]
    }
   },
   "shower-wall": {
@@ -698,6 +976,39 @@
      2
     ],
     "note": "microcement"
+   },
+   "natura": {
+    "source": "ambientcg",
+    "id": "Travertine009",
+    "note": "honed travertine",
+    "alt": [
+     "Travertine001"
+    ]
+   },
+   "riviera": {
+    "source": "ambientcg",
+    "id": "Tiles034",
+    "sizeMeters": [
+     1.0,
+     1.0
+    ],
+    "note": "glazed green tiles with tonal variation (zellige-like)",
+    "alt": [
+     "Tiles032"
+    ]
+   },
+   "urban": {
+    "source": "ambientcg",
+    "id": "Terrazzo005",
+    "sizeMeters": [
+     1.0,
+     1.0
+    ],
+    "note": "black/white chip terrazzo",
+    "alt": [
+     "Terrazzo001",
+     "Tiles043"
+    ]
    }
   },
   "shower-glass": {
@@ -720,6 +1031,13 @@
      1.5,
      1.5
     ]
+   },
+   "natura": "default",
+   "riviera": "default",
+   "urban": {
+    "source": "ambientcg",
+    "id": "Concrete034",
+    "note": "concrete basin"
    }
   },
   "tap-metal": {
@@ -751,6 +1069,39 @@
     "alt": [
      "Metal036"
     ]
+   },
+   "natura": {
+    "source": "ambientcg",
+    "id": "Metal027",
+    "metal": true,
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "matt black"
+   },
+   "riviera": {
+    "source": "ambientcg",
+    "id": "Metal048B",
+    "metal": true,
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "aged brass",
+    "alt": [
+     "Metal048C"
+    ]
+   },
+   "urban": {
+    "source": "ambientcg",
+    "id": "Metal027",
+    "metal": true,
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "matt black"
    }
   },
   "kitchen-front": {
@@ -780,6 +1131,45 @@
     "source": "polyhaven",
     "id": "smoke_speckled_veneer",
     "note": "fluted smoked oak"
+   },
+   "natura": {
+    "source": "polyhaven",
+    "id": "ash_veneer",
+    "slot": "ash_veneer-pale",
+    "bake": {
+     "brightness": 1.3
+    },
+    "note": "pale ash veneer (brightened, baked)",
+    "alt": [
+     "white_maple_veneer",
+     "washed_grey_oak_veneer"
+    ]
+   },
+   "riviera": {
+    "source": "ambientcg",
+    "id": "Plastic013A",
+    "slot": "plastic013a-sage",
+    "bake": {
+     "multiply": "#7f9a88"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "lacquer #7f9a88 (baked)"
+   },
+   "urban": {
+    "source": "ambientcg",
+    "id": "Plastic013A",
+    "slot": "plastic013a-black",
+    "bake": {
+     "multiply": "#2a2b2d"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "lacquer #2a2b2d (baked)"
    }
   },
   "kitchen-worktop": {
@@ -816,6 +1206,33 @@
     "alt": [
      "Marble013"
     ]
+   },
+   "natura": {
+    "source": "ambientcg",
+    "id": "Travertine009",
+    "note": "travertine-look sintered stone",
+    "alt": [
+     "Travertine001"
+    ]
+   },
+   "riviera": {
+    "source": "ambientcg",
+    "id": "Marble021",
+    "sizeMeters": [
+     1.4,
+     1.4
+    ],
+    "note": "white marble-look"
+   },
+   "urban": {
+    "source": "ambientcg",
+    "id": "Metal009",
+    "metal": true,
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "brushed stainless steel"
    }
   },
   "kitchen-splashback": {
@@ -843,6 +1260,35 @@
     "sizeMeters": [
      1.5,
      1.5
+    ]
+   },
+   "natura": {
+    "source": "ambientcg",
+    "id": "Travertine009",
+    "note": "honed travertine",
+    "alt": [
+     "Travertine001"
+    ]
+   },
+   "riviera": {
+    "source": "ambientcg",
+    "id": "Tiles027",
+    "sizeMeters": [
+     0.9,
+     0.9
+    ],
+    "note": "terracotta tiles 15 cm",
+    "alt": [
+     "patio_tiles"
+    ]
+   },
+   "urban": {
+    "source": "ambientcg",
+    "id": "Metal009",
+    "metal": true,
+    "sizeMeters": [
+     1,
+     1
     ]
    }
   },
@@ -898,6 +1344,45 @@
    "noir": {
     "source": "polyhaven",
     "id": "smoke_speckled_veneer"
+   },
+   "natura": {
+    "source": "polyhaven",
+    "id": "ash_veneer",
+    "slot": "ash_veneer-pale",
+    "bake": {
+     "brightness": 1.3
+    },
+    "note": "pale ash veneer (brightened, baked)",
+    "alt": [
+     "white_maple_veneer",
+     "washed_grey_oak_veneer"
+    ]
+   },
+   "riviera": {
+    "source": "ambientcg",
+    "id": "Plastic013A",
+    "slot": "plastic013a-sage",
+    "bake": {
+     "multiply": "#7f9a88"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "lacquer #7f9a88 (baked)"
+   },
+   "urban": {
+    "source": "ambientcg",
+    "id": "Plastic013A",
+    "slot": "plastic013a-black",
+    "bake": {
+     "multiply": "#2a2b2d"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "lacquer #2a2b2d (baked)"
    }
   },
   "window-sheer": {
@@ -908,7 +1393,10 @@
      0.3,
      0.3
     ]
-   }
+   },
+   "natura": "default",
+   "riviera": "default",
+   "urban": "default"
   },
   "curtain-fabric": {
    "atlantic": {
@@ -930,6 +1418,29 @@
      0.5,
      0.5
     ]
+   },
+   "natura": {
+    "source": "ambientcg",
+    "id": "Fabric062",
+    "note": "natural linen weave"
+   },
+   "riviera": {
+    "source": "ambientcg",
+    "id": "Fabric032",
+    "sizeMeters": [
+     0.3,
+     0.3
+    ],
+    "note": "white linen"
+   },
+   "urban": {
+    "source": "ambientcg",
+    "id": "Fabric030",
+    "sizeMeters": [
+     0.5,
+     0.5
+    ],
+    "note": "grey roller-blind weave"
    }
   },
   "fabric-sofa": {
@@ -951,6 +1462,22 @@
      0.5,
      0.5
     ]
+   },
+   "natura": {
+    "source": "ambientcg",
+    "id": "Fabric062"
+   },
+   "riviera": {
+    "source": "ambientcg",
+    "id": "Fabric062"
+   },
+   "urban": {
+    "source": "ambientcg",
+    "id": "Fabric030",
+    "sizeMeters": [
+     0.5,
+     0.5
+    ]
    }
   },
   "fabric-linen": {
@@ -964,7 +1491,13 @@
      0.3,
      0.3
     ]
-   }
+   },
+   "natura": {
+    "source": "ambientcg",
+    "id": "Fabric062"
+   },
+   "riviera": "default",
+   "urban": "default"
   },
   "fabric-boucle": {
    "default": {
@@ -993,6 +1526,17 @@
      0.6,
      0.6
     ]
+   },
+   "natura": "default",
+   "riviera": {
+    "source": "ambientcg",
+    "id": "Leather029",
+    "note": "tan"
+   },
+   "urban": {
+    "source": "polyhaven",
+    "id": "fabric_leather_02",
+    "note": "cognac leather"
    }
   },
   "wood-furniture": {
@@ -1008,6 +1552,33 @@
    "noir": {
     "source": "polyhaven",
     "id": "smoke_speckled_veneer"
+   },
+   "natura": {
+    "source": "polyhaven",
+    "id": "ash_veneer",
+    "slot": "ash_veneer-pale",
+    "bake": {
+     "brightness": 1.3
+    },
+    "note": "pale ash veneer (brightened, baked)",
+    "alt": [
+     "white_maple_veneer",
+     "washed_grey_oak_veneer"
+    ]
+   },
+   "riviera": {
+    "source": "polyhaven",
+    "id": "teak_veneer",
+    "note": "warm honey timber"
+   },
+   "urban": {
+    "source": "polyhaven",
+    "id": "oak_veneer_01",
+    "slot": "oak_veneer_01-aged",
+    "bake": {
+     "multiply": "#c4a888"
+    },
+    "note": "aged oak (baked)"
    }
   },
   "metal-furniture": {
@@ -1034,6 +1605,39 @@
      "multiply": "#8c6e5c"
     },
     "metal": true
+   },
+   "natura": {
+    "source": "ambientcg",
+    "id": "Metal027",
+    "metal": true,
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "matt black"
+   },
+   "riviera": {
+    "source": "ambientcg",
+    "id": "Metal048B",
+    "metal": true,
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "aged brass",
+    "alt": [
+     "Metal048C"
+    ]
+   },
+   "urban": {
+    "source": "ambientcg",
+    "id": "Metal027",
+    "metal": true,
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "matt black"
    }
   },
   "marble-table": {
@@ -1047,6 +1651,35 @@
     "sizeMeters": [
      1.4,
      1.4
+    ]
+   },
+   "natura": {
+    "source": "ambientcg",
+    "id": "Travertine009",
+    "note": "honed travertine",
+    "alt": [
+     "Travertine001"
+    ]
+   },
+   "riviera": {
+    "source": "ambientcg",
+    "id": "Marble021",
+    "sizeMeters": [
+     1.4,
+     1.4
+    ]
+   },
+   "urban": {
+    "source": "ambientcg",
+    "id": "Terrazzo005",
+    "sizeMeters": [
+     1.0,
+     1.0
+    ],
+    "note": "black/white chip terrazzo",
+    "alt": [
+     "Terrazzo001",
+     "Tiles043"
     ]
    }
   },
@@ -1102,6 +1735,29 @@
      0.6,
      0.6
     ]
+   },
+   "natura": {
+    "source": "ambientcg",
+    "id": "Carpet014",
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "cream woven wool"
+   },
+   "riviera": {
+    "source": "polyhaven",
+    "id": "hessian_380",
+    "note": "jute"
+   },
+   "urban": {
+    "source": "ambientcg",
+    "id": "Carpet001",
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "grey flat-weave"
    }
   },
   "book": {
@@ -1138,6 +1794,20 @@
   },
   "led-strip-emissive": {
    "default": null
+  },
+  "rattan": {
+   "default": {
+    "source": "ambientcg",
+    "id": "Wicker010A",
+    "sizeMeters": [
+     0.3,
+     0.3
+    ],
+    "note": "rattan/wicker weave (riviera furniture, baskets)",
+    "alt": [
+     "Wicker008A"
+    ]
+   }
   }
  },
  "hdris": {
