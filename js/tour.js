@@ -1,9 +1,16 @@
 // VILNYI · Barreiro 2 — photoreal 360° tour (Matterport-style) over Blender Cycles equirect panoramas.
 //
-//   export async function createTour(container, { THREE, manifestUrl, lang, onClose, onPackageChange })
-//     => { open(unitId, packageId, roomId?) → Promise<boolean>, setPackage(packageId), setLang(lang), close(), dispose(), isOpen() }
-//   export async function createGallery(container, { manifestUrl, lang, unitId?, packageId?, include? })
-//     => { setLang(lang), setFilter({ unitId, packageId, include }), open(index), close(), dispose(), count() }
+//   export async function createTour(container, { THREE, manifestUrl, lang, timeOfDay?, onClose, onPackageChange, onTimeOfDayChange })
+//     => { open(unitId, packageId, roomId?, { timeOfDay? }?) → Promise<boolean>, setPackage(packageId), setTimeOfDay('day'|'dusk'|'night'),
+//          setLang(lang), close(), dispose(), isOpen() }
+//   export async function createGallery(container, { manifestUrl, lang, unitId?, packageId?, include?, timeOfDay?, onOpenPano? })
+//     => { setLang(lang), setFilter({ unitId, packageId, include }), setTimeOfDay(id), open(index), close(), dispose(), count() }
+//
+// Manifest additions understood here (all optional):
+//   pano.variants  = { dusk: { file, thumb? }, night: { file, thumb? } }   (the base `file`/`thumb` is DAY; same camera, same yawOffset)
+//   still.variants = { dusk: { file, thumb? }, night: { file, thumb? } }   (unit stills and `exterior` entries)
+//   still.roomId / still.panoId  → lets the gallery match a still to its 360° pano (falls back to matching the names)
+//   pano.initialYaw (rad) or pano.lookAt [x,y,z]; pano.links as indices or pano ids; any package id (unknown ones get a chip too).
 //
 // ── Panorama yaw convention (the ONE thing the renderer and this viewer must agree on) ──────────────
 //   World frame = three.js / data.js: x east, y up, z south (towards the street). "World yaw" ψ is the
@@ -26,6 +33,19 @@ const FOV_MIN = 35, FOV_MAX = 90, FOV_DEFAULT = 75;
 const MOVE_MS = 600, PKG_MS = 450, SHARPEN_MS = 320;
 const TURN_STEP = Math.PI / 6;
 const TAU = Math.PI * 2;
+const TODS = ['day', 'dusk', 'night'];
+// requested state → what to show when a pano lacks it (nearest available first; day always exists)
+const TOD_FALLBACK = { day: ['day'], dusk: ['dusk', 'night', 'day'], night: ['night', 'dusk', 'day'] };
+const normTod = (t) => (TODS.includes(t) ? t : 'day');
+function srcFor(item, tod) {
+  for (const k of TOD_FALLBACK[tod] || TOD_FALLBACK.day) {
+    if (k === 'day') break;
+    const v = item.variants && item.variants[k];
+    if (v) return { file: v.file, thumb: v.thumb || null, tod: k };
+  }
+  return { file: item.file, thumb: item.thumb || null, tod: 'day' };
+}
+const DTAP_MS = 350, DTAP_PX = 30, NUDGE_MS = 400;
 
 // ─────────────────────────────── i18n ───────────────────────────────
 const T = {
@@ -37,7 +57,8 @@ const T = {
     emptyCap: 'Blender Cycles · in production', emptyTitle: 'Photoreal renders are being produced',
     emptyBody: 'The 360° walkthrough of apartment {u} is being path-traced in Blender Cycles — every room, in all three finish packages. It will appear here automatically as soon as it is published.',
     emptyBodyAll: 'Photoreal stills and 360° panoramas are being path-traced in Blender Cycles right now. They will appear here automatically as soon as they are published.',
-    gallery: 'Photoreal renders', exterior: 'Exterior', interior: 'Interiors', prev: 'Previous', next: 'Next', of: 'of', view360: '360°'
+    gallery: 'Photoreal renders', exterior: 'Exterior', interior: 'Interiors', prev: 'Previous', next: 'Next', of: 'of', view360: '360°',
+    light: 'Time of day', day: 'Day', dusk: 'Dusk', night: 'Night', open360: 'Open the 360° view'
   },
   pt: {
     caption: 'Fotorrealista 360°', apartment: 'Apartamento', close: 'Fechar', fullscreen: 'Ecrã inteiro', map: 'Planta', gyro: 'Movimento',
@@ -47,7 +68,8 @@ const T = {
     emptyCap: 'Blender Cycles · em produção', emptyTitle: 'Os renders fotorrealistas estão a ser produzidos',
     emptyBody: 'A visita 360° do apartamento {u} está a ser calculada em Blender Cycles — todas as divisões, nos três pacotes de acabamentos. Aparecerá aqui automaticamente assim que for publicada.',
     emptyBodyAll: 'As imagens fotorrealistas e os panoramas 360° estão a ser calculados em Blender Cycles. Aparecerão aqui automaticamente assim que forem publicados.',
-    gallery: 'Renders fotorrealistas', exterior: 'Exterior', interior: 'Interiores', prev: 'Anterior', next: 'Seguinte', of: 'de', view360: '360°'
+    gallery: 'Renders fotorrealistas', exterior: 'Exterior', interior: 'Interiores', prev: 'Anterior', next: 'Seguinte', of: 'de', view360: '360°',
+    light: 'Hora do dia', day: 'Dia', dusk: 'Entardecer', night: 'Noite', open360: 'Abrir a vista 360°'
   },
   he: {
     caption: 'פוטוריאליסטי 360°', apartment: 'דירה', close: 'סגירה', fullscreen: 'מסך מלא', map: 'תוכנית', gyro: 'תנועה',
@@ -57,7 +79,8 @@ const T = {
     emptyCap: 'Blender Cycles · בהפקה', emptyTitle: 'ההדמיות הפוטוריאליסטיות בהפקה',
     emptyBody: 'סיור ה-360° בדירה {u} מרונדר כעת ב-Blender Cycles — כל החדרים, בשלוש חבילות הגמר. הוא יופיע כאן אוטומטית מיד עם פרסומו.',
     emptyBodyAll: 'הדמיות פוטוריאליסטיות ופנורמות 360° מרונדרות כעת ב-Blender Cycles. הן יופיעו כאן אוטומטית מיד עם פרסומן.',
-    gallery: 'הדמיות פוטוריאליסטיות', exterior: 'חוץ', interior: 'פנים', prev: 'הקודם', next: 'הבא', of: 'מתוך', view360: '360°'
+    gallery: 'הדמיות פוטוריאליסטיות', exterior: 'חוץ', interior: 'פנים', prev: 'הקודם', next: 'הבא', of: 'מתוך', view360: '360°',
+    light: 'שעת היום', day: 'יום', dusk: 'דמדומים', night: 'לילה', open360: 'פתיחת תצוגת 360°'
   },
   ru: {
     caption: 'Фотореализм 360°', apartment: 'Квартира', close: 'Закрыть', fullscreen: 'Во весь экран', map: 'План', gyro: 'Гироскоп',
@@ -67,7 +90,8 @@ const T = {
     emptyCap: 'Blender Cycles · в работе', emptyTitle: 'Фотореалистичные рендеры готовятся',
     emptyBody: '360°-тур по квартире {u} сейчас рендерится в Blender Cycles — все комнаты, во всех трёх пакетах отделки. Он появится здесь автоматически сразу после публикации.',
     emptyBodyAll: 'Фотореалистичные изображения и 360°-панорамы сейчас рендерятся в Blender Cycles и появятся здесь автоматически.',
-    gallery: 'Фотореалистичные рендеры', exterior: 'Экстерьер', interior: 'Интерьеры', prev: 'Назад', next: 'Далее', of: 'из', view360: '360°'
+    gallery: 'Фотореалистичные рендеры', exterior: 'Экстерьер', interior: 'Интерьеры', prev: 'Назад', next: 'Далее', of: 'из', view360: '360°',
+    light: 'Время суток', day: 'День', dusk: 'Сумерки', night: 'Ночь', open360: 'Открыть 360°'
   }
 };
 const normLang = (l) => { const k = String(l || (typeof document !== 'undefined' && document.documentElement.lang) || 'en').slice(0, 2).toLowerCase(); return T[k] ? k : 'en'; };
@@ -88,12 +112,15 @@ const ICON = {
   aperture: '<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="27"/><path d="M32 5l9 24M59 32l-24 9M32 59l-9-24M5 32l24-9M51.1 12.9L38 35M51.1 51.1L29 38M12.9 51.1L26 29M12.9 12.9L35 26"/></svg>',
   prev: '<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>',
   next: '<svg viewBox="0 0 24 24"><path d="M9 5l7 7-7 7"/></svg>',
+  day: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2.2M12 18.8V21M3 12h2.2M18.8 12H21M5.6 5.6l1.6 1.6M16.8 16.8l1.6 1.6M18.4 5.6l-1.6 1.6M7.2 16.8l-1.6 1.6"/></svg>',
+  dusk: '<svg viewBox="0 0 24 24"><path d="M7.5 16a4.5 4.5 0 0 1 9 0"/><path d="M3 16h18M6.5 19.5h11M12 6v2.4M4.9 9.6l1.7 1.6M19.1 9.6l-1.7 1.6"/></svg>',
+  night: '<svg viewBox="0 0 24 24"><path d="M19.5 14.2A8 8 0 0 1 9.8 4.5a8 8 0 1 0 9.7 9.7z"/></svg>',
   pano: '<svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="9" ry="4"/><path d="M12 3v2M12 19v2"/></svg>'
 };
 
 // ─────────────────────────────── CSS ───────────────────────────────
 const CSS = `
-.tr-root{position:absolute;inset:0;z-index:60;overflow:hidden;background:#0c0b0a;color:#f3efe8;font-family:var(--f-body,'Jost','Avenir Next','Segoe UI',system-ui,sans-serif);line-height:1.25;
+.tr-root{position:absolute;inset:0;z-index:60;overflow:hidden;overscroll-behavior:contain;background:#0c0b0a;color:#f3efe8;font-family:var(--f-body,'Jost','Avenir Next','Segoe UI',system-ui,sans-serif);line-height:1.25;
  -webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:none;
  --tr-glass:rgba(17,16,15,.56);--tr-glass-hi:rgba(30,28,26,.72);--tr-line:rgba(255,255,255,.15);--tr-line-hi:rgba(255,255,255,.34);--tr-accent:#cdb07a;--tr-in:14px;--tr-b:44px;
  --tr-top:calc(env(safe-area-inset-top,0px) + var(--tr-in));--tr-bot:calc(env(safe-area-inset-bottom,0px) + var(--tr-in))}
@@ -121,8 +148,22 @@ const CSS = `
 .tr-title .tr-cap b{color:var(--tr-accent);font-weight:500;unicode-bidi:isolate}
 .tr-title .tr-cap{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tr-act{grid-area:act;display:flex;gap:8px;pointer-events:auto}
-.tr-pk{grid-area:pk;pointer-events:auto;display:flex;border-radius:14px;padding:3px;gap:2px;justify-self:stretch}
-.tr-pkb{flex:1 1 0;appearance:none;border:0;margin:0;font:inherit;color:rgba(243,239,232,.74);background:transparent;border-radius:11px;padding:7px 10px 8px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;transition:background .2s,color .2s;outline:none}
+.tr-pk{grid-area:pk;pointer-events:auto;border-radius:14px;padding:3px;justify-self:start;min-width:0;max-width:100%;position:relative;overflow:hidden}
+.tr-pks{position:relative;display:flex;gap:2px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior:contain;scroll-behavior:smooth;border-radius:11px}
+.tr-pks::-webkit-scrollbar{display:none}
+.tr-pk:before,.tr-pk:after{content:"";position:absolute;top:3px;bottom:3px;width:30px;pointer-events:none;opacity:0;transition:opacity .2s;z-index:1}
+.tr-pk:before{left:3px;background:linear-gradient(90deg,rgba(17,16,15,.92),rgba(17,16,15,0));border-radius:11px 0 0 11px}
+.tr-pk:after{right:3px;background:linear-gradient(270deg,rgba(17,16,15,.92),rgba(17,16,15,0));border-radius:0 11px 11px 0}
+.tr-pk.tr-ml:before,.tr-pk.tr-mr:after{opacity:1}
+.tr-pkb{flex:0 0 auto;appearance:none;border:0;margin:0;font:inherit;color:rgba(243,239,232,.74);background:transparent;border-radius:11px;padding:9px 13px 10px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:0;transition:background .2s,color .2s;outline:none}
+.tr-tod{display:flex;align-items:center;gap:2px;padding:3px;border-radius:12px;height:40px;flex:none}
+.tr-tod[hidden]{display:none}
+.tr-todb{appearance:none;border:0;margin:0;padding:0;font:inherit;width:32px;height:32px;border-radius:9px;display:grid;place-items:center;cursor:pointer;background:transparent;color:rgba(243,239,232,.66);outline:none;transition:background .2s,color .2s}
+.tr-todb svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
+.tr-todb:hover{color:#fff;background:rgba(255,255,255,.07)}
+.tr-todb:focus-visible{box-shadow:0 0 0 1px var(--tr-accent) inset}
+.tr-todb[aria-pressed=true]{background:rgba(205,176,122,.2);color:var(--tr-accent);box-shadow:0 0 0 1px rgba(205,176,122,.55) inset}
+.tr-todb[disabled]{opacity:.3;cursor:not-allowed}
 .tr-pkb:hover{color:#fff;background:rgba(255,255,255,.06)}
 .tr-pkb:focus-visible{box-shadow:0 0 0 1px var(--tr-accent) inset}
 .tr-pkb[aria-pressed=true]{background:rgba(205,176,122,.17);color:#fff;box-shadow:0 0 0 1px rgba(205,176,122,.55) inset}
@@ -185,14 +226,19 @@ const CSS = `
 .tr-root.tr-isempty .tr-pk,.tr-root.tr-isempty .tr-pad,.tr-root.tr-isempty .tr-map,.tr-root.tr-isempty .tr-hint,.tr-root.tr-isempty [data-k=map],.tr-root.tr-isempty [data-k=gyro],.tr-root.tr-isempty .tr-shade{display:none!important}
 @media (min-width:760px){
  .tr-root{--tr-in:20px}
- .tr-top{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);grid-template-areas:"title pk act"}
+ .tr-top{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"title pk act"}
  .tr-act{justify-self:end}
- .tr-pk{justify-self:center;width:auto}
- .tr-pkb{flex:0 0 auto;min-width:148px;padding:8px 16px 9px}
- .tr-pkn{display:block}
+ .tr-pk{justify-self:center}
+ .tr-pkb{padding:8px 14px 9px}
  .tr-map{--tr-mapw:190px}
 }
-@media (max-width:759px){ .tr-capx{display:none} .tr-hint{inset-block-end:auto;top:calc(var(--tr-top) + 128px)} .tr-room{font-size:19px} }
+@media (min-width:1100px){ .tr-pkn{display:block} }
+@media (max-width:759px){
+ .tr-capx{display:none} .tr-room{font-size:19px}
+ .tr-hint{inset-block-end:calc(var(--tr-bot) + 214px);max-width:calc(100% - 28px);white-space:normal;text-align:center;border-radius:14px;line-height:1.5}
+ .tr-tod{position:absolute;inset-block-start:calc(100% + 10px);inset-inline-end:0;flex-direction:column;height:auto;width:40px;border-radius:13px}
+ .tr-todb{width:32px;height:34px}
+}
 @media (prefers-reduced-motion:reduce){ .tr-empty:before,.tr-ecard svg{animation:none} }
 [dir=rtl] .tr-hs{padding:5px 5px 5px 12px}
 
@@ -209,6 +255,19 @@ const CSS = `
 .tr-gi:hover img{transform:scale(1.035)}
 .tr-gi:focus-visible{box-shadow:0 0 0 2px var(--accent,#8a5a1c)}
 .tr-gi figcaption{position:absolute;inset-inline:0;inset-block-end:0;padding:22px 12px 9px;color:#fff;font-size:12.5px;letter-spacing:.02em;text-align:start;background:linear-gradient(0deg,rgba(0,0,0,.6),transparent)}
+.tr-g360{position:absolute;inset-block-start:8px;inset-inline-end:8px;display:inline-flex;align-items:center;gap:5px;padding:4px 8px 4px 6px;border-radius:999px;background:rgba(17,16,15,.6);color:#fff;font-size:10px;letter-spacing:.14em;-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2)}
+.tr-g360 svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.5}
+.tr-gtools{display:flex;justify-content:flex-end;margin-bottom:12px}
+.tr-gtools .tr-tod{background:var(--card,#fbfaf7);border:1px solid var(--line,#d6cfc3);position:static;flex-direction:row;height:40px;width:auto}
+.tr-gtools .tr-todb{color:var(--ink-2,#5b544a);width:32px;height:32px}
+.tr-gtools .tr-todb:hover{color:var(--ink,#1b1a17);background:rgba(0,0,0,.05)}
+.tr-gtools .tr-todb[aria-pressed=true]{color:var(--accent,#8a5a1c);background:var(--bronze-soft,rgba(138,90,28,.12));box-shadow:0 0 0 1px var(--accent,#8a5a1c) inset}
+.tr-lbz{grid-area:1/1;display:grid;grid-template:minmax(0,1fr)/minmax(0,1fr);transform-origin:0 0;will-change:transform;min-width:0;min-height:0}
+.tr-lbbar .tr-lbr{display:flex;gap:8px;align-items:center}
+.tr-lb .tr-tod{position:static;flex-direction:row;height:40px;width:auto;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15)}
+.tr-lb .tr-todb{width:32px;height:32px}
+.tr-lb360[hidden]{display:none}
+.tr-lb360{width:auto;padding:0 12px 0 10px;gap:7px;display:inline-flex;align-items:center;font-size:10px;letter-spacing:.16em}
 .tr-gempty{padding:34px 20px;text-align:center;border:1px solid var(--line,#d6cfc3);border-radius:var(--r,2px);display:flex;flex-direction:column;align-items:center;gap:10px}
 .tr-gempty svg{width:40px;height:40px;stroke:var(--accent,#8a5a1c);fill:none;stroke-width:1.2;animation:tr-spin 24s linear infinite}
 .tr-gempty b{font-family:var(--f-display,'Cormorant',Georgia,serif);font-size:22px;font-weight:500}
@@ -216,7 +275,7 @@ const CSS = `
 .tr-lb{position:fixed;inset:0;z-index:1000;background:#0b0a09;color:#f3efe8;display:none;touch-action:none;-webkit-user-select:none;user-select:none;font-family:var(--f-body,'Jost',system-ui,sans-serif)}
 .tr-lb.tr-on{display:block;animation:tr-in .25s ease-out}
 .tr-lbtrack{position:absolute;inset:0;display:flex;will-change:transform;direction:ltr}
-.tr-lbs{flex:0 0 100%;height:100%;position:relative;display:grid;grid-template:minmax(0,1fr)/minmax(0,1fr);padding:calc(env(safe-area-inset-top,0px) + 64px) 12px calc(env(safe-area-inset-bottom,0px) + 70px)}
+.tr-lbs{flex:0 0 100%;height:100%;position:relative;overflow:hidden;display:grid;grid-template:minmax(0,1fr)/minmax(0,1fr);padding:calc(env(safe-area-inset-top,0px) + 64px) 12px calc(env(safe-area-inset-bottom,0px) + 70px)}
 .tr-lbs img{width:100%;height:100%;object-fit:contain;grid-area:1/1;transition:opacity .4s}
 .tr-lbs img.tr-th{filter:blur(8px);transform:scale(1.002)}
 .tr-lbs img.tr-full{opacity:0}
@@ -268,6 +327,15 @@ function normalizeManifest(j, base) {
   if (!j || typeof j !== 'object') return null;
   const abs = (f) => { if (!f || typeof f !== 'string') return null; try { return new URL(f, base).href; } catch (e) { return null; } };
   const num = (v, d) => (typeof v === 'number' && isFinite(v) ? v : d);
+  const vnorm = (v, thumbFallback) => {
+    const o = {};
+    if (v && typeof v === 'object') for (const k of ['dusk', 'night']) {
+      const e = v[k];
+      const f = abs(typeof e === 'string' ? e : e && e.file);
+      if (f) o[k] = { file: f, thumb: abs(e && e.thumb) || (thumbFallback ? f : null) };
+    }
+    return o;
+  };
   const units = {};
   const src = j.units && typeof j.units === 'object' ? j.units : {};
   for (const uid of Object.keys(src)) {
@@ -284,7 +352,7 @@ function normalizeManifest(j, base) {
         remap.set(i, panos.length);
         panos.push({
           id: String(p.id != null ? p.id : uid + '-' + i), roomId: p.roomId || null, name: p.name || null,
-          file: abs(p.file), thumb: abs(p.thumb), pos: pos || [0, EYE, 0], hasPos: !!pos,
+          file: abs(p.file), thumb: abs(p.thumb), variants: vnorm(p.variants, false), pos: pos || [0, EYE, 0], hasPos: !!pos,
           yawOffset: num(p.yawOffset, 0), initialYaw: typeof p.initialYaw === 'number' ? p.initialYaw : null,
           lookAt: Array.isArray(p.lookAt) && p.lookAt.length >= 3 ? p.lookAt : null,
           rawLinks: Array.isArray(p.links) ? p.links : null
@@ -304,12 +372,12 @@ function normalizeManifest(j, base) {
         p.links = links;
         delete p.rawLinks;
       });
-      const stills = (Array.isArray(e.stills) ? e.stills : []).filter(s => s && abs(s.file)).map(s => ({ file: abs(s.file), thumb: abs(s.thumb) || abs(s.file), name: s.name || null }));
+      const stills = (Array.isArray(e.stills) ? e.stills : []).filter(s => s && abs(s.file)).map(s => ({ file: abs(s.file), thumb: abs(s.thumb) || abs(s.file), name: s.name || null, variants: vnorm(s.variants, true), roomId: s.roomId || null, panoId: s.panoId != null ? String(s.panoId) : null }));
       if (!panos.length && !stills.length) continue;
       (units[uid] = units[uid] || {})[pid] = { panos, stills };
     }
   }
-  const exterior = (Array.isArray(j.exterior) ? j.exterior : []).filter(s => s && abs(s.file)).map((s, i) => ({ id: s.id || 'ext' + i, file: abs(s.file), thumb: abs(s.thumb) || abs(s.file), name: s.name || null, pano: !!s.pano }));
+  const exterior = (Array.isArray(j.exterior) ? j.exterior : []).filter(s => s && abs(s.file)).map((s, i) => ({ id: s.id || 'ext' + i, file: abs(s.file), thumb: abs(s.thumb) || abs(s.file), name: s.name || null, pano: !!s.pano, variants: vnorm(s.variants, true) }));
   if (!Object.keys(units).length && !exterior.length) return null;
   return { units, exterior };
 }
@@ -376,7 +444,7 @@ class TexLRU {
 }
 
 // ═══════════════════════════════════ TOUR ═══════════════════════════════════
-export async function createTour(container, { THREE, manifestUrl = defaultManifestUrl(), lang, onClose, onPackageChange } = {}) {
+export async function createTour(container, { THREE, manifestUrl = defaultManifestUrl(), lang, timeOfDay, onClose, onPackageChange, onTimeOfDayChange } = {}) {
   if (!THREE) throw new Error('createTour: THREE is required');
   injectCSS();
   let L = normLang(lang);
@@ -408,15 +476,51 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
   titleBox.append(capEl, roomEl);
   const pkBox = el('div', 'tr-pk tr-glass');
   pkBox.setAttribute('role', 'group');
+  const pkScroll = el('div', 'tr-pks');
+  pkBox.append(pkScroll);
   const pkBtns = new Map();
-  for (const s of STYLES) {
+  function addPkBtn(id, colour) {
     const b = el('button', 'tr-pkb');
     b.type = 'button';
-    b.dataset.pk = s.id;
-    b.innerHTML = `<span class="tr-pkt"><span class="tr-pkd" style="background:${s.palette.floor}"></span><span class="tr-pkl"></span></span><span class="tr-pkn"></span>`;
-    b.addEventListener('click', () => { if (!b.disabled) userSetPackage(s.id); });
-    pkBtns.set(s.id, b);
-    pkBox.append(b);
+    b.dataset.pk = id;
+    b.innerHTML = `<span class="tr-pkt"><span class="tr-pkd"></span><span class="tr-pkl"></span></span><span class="tr-pkn"></span>`;
+    b.querySelector('.tr-pkd').style.background = colour || '#b9b0a2';
+    b.addEventListener('click', () => { if (!b.disabled) userSetPackage(id); });
+    pkBtns.set(id, b);
+    pkScroll.append(b);
+    return b;
+  }
+  for (const s of STYLES) addPkBtn(s.id, s.palette && s.palette.floor);
+  function updatePkFades() {
+    const c = pkScroll.getBoundingClientRect();
+    const f = pkScroll.firstElementChild, l = pkScroll.lastElementChild;
+    if (!f || !c.width) return;
+    let lo = Infinity, hi = -Infinity;
+    for (const e of [f, l]) { const r = e.getBoundingClientRect(); lo = Math.min(lo, r.left); hi = Math.max(hi, r.right); }
+    pkBox.classList.toggle('tr-ml', lo < c.left - 3);
+    pkBox.classList.toggle('tr-mr', hi > c.right + 3);
+  }
+  pkScroll.addEventListener('scroll', updatePkFades, { passive: true });
+  pkScroll.addEventListener('wheel', (e) => { if (pkScroll.scrollWidth > pkScroll.clientWidth && Math.abs(e.deltaY) > Math.abs(e.deltaX)) { e.preventDefault(); pkScroll.scrollBy({ left: e.deltaY, behavior: 'auto' }); } }, { passive: false });
+  function revealPk(id, instant) {
+    const b = pkBtns.get(id);
+    if (!b || !pkScroll.clientWidth) return;
+    const c = pkScroll.getBoundingClientRect(), r = b.getBoundingClientRect();
+    const delta = (r.left + r.width / 2) - (c.left + c.width / 2);
+    try { pkScroll.scrollBy({ left: delta, behavior: instant ? 'auto' : 'smooth' }); } catch (e) { pkScroll.scrollLeft += delta; }
+    setTimeout(updatePkFades, instant ? 0 : 350);
+  }
+  // light switch: day / dusk / night
+  const todBox = el('div', 'tr-tod tr-glass');
+  todBox.setAttribute('role', 'group');
+  const todBtns = new Map();
+  for (const id of TODS) {
+    const b = el('button', 'tr-todb', ICON[id]);
+    b.type = 'button';
+    b.dataset.tod = id;
+    b.addEventListener('click', (e) => { e.stopPropagation(); if (!b.disabled) userSetTod(id); });
+    todBtns.set(id, b);
+    todBox.append(b);
   }
   const act = el('div', 'tr-act');
   const mkBtn = (k, icon) => { const b = el('button', 'tr-btn', ICON[icon]); b.type = 'button'; b.dataset.k = k; return b; };
@@ -431,7 +535,7 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
   fsBtn.hidden = !canFS;
   mapBtn.setAttribute('aria-pressed', 'false');
   gyroBtn.setAttribute('aria-pressed', 'false');
-  act.append(mapBtn, gyroBtn, fsBtn, closeBtn);
+  act.append(todBox, mapBtn, gyroBtn, fsBtn, closeBtn);
   top.append(titleBox, pkBox, act);
   // pad
   const pad = el('div', 'tr-pad');
@@ -546,7 +650,9 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
   // ── state ──
   let manifest = null;
   let isOpenFlag = false, disposed = false;
-  let cur = null;          // { unitId, pkg, list, idx }
+  let cur = null;          // { unitId, pkg, list, idx, shown }
+  let tod = normTod(timeOfDay);
+  let nudgeAnim = null;
   let yaw = 0, pitch = 0, fov = FOV_DEFAULT, fovMul = 1;
   let yawVel = 0, pitchVel = 0;
   let turnAnim = null;     // { from, to, t, dur }
@@ -565,9 +671,9 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
   function refreshText() {
     root.setAttribute('lang', L);
     root.dir = L === 'he' ? 'rtl' : 'ltr';
-    for (const s of STYLES) {
-      const b = pkBtns.get(s.id);
-      const nm = pick(s.name, L);
+    for (const [id, b] of pkBtns) {
+      const s = STYLES.find(x => x.id === id);
+      const nm = s ? pick(s.name, L) : id.charAt(0).toUpperCase() + id.slice(1);
       const parts = nm.split(' · ');
       b.querySelector('.tr-pkl').textContent = parts[0];
       b.querySelector('.tr-pkn').textContent = parts.slice(1).join(' · ') || '';
@@ -575,6 +681,9 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
       b.setAttribute('aria-label', nm);
     }
     pkBox.setAttribute('aria-label', tr('pkg'));
+    todBox.setAttribute('aria-label', tr('light'));
+    for (const [id, b] of todBtns) { b.setAttribute('aria-label', tr(id)); b.title = b.disabled ? tr(id) + ' — ' + tr('notRendered') : tr(id); }
+    setTimeout(updatePkFades, 0);
     const lab = (b, k) => { b.setAttribute('aria-label', tr(k)); b.title = tr(k); };
     lab(mapBtn, 'map'); lab(gyroBtn, 'gyro'); lab(fsBtn, 'fullscreen'); lab(closeBtn, 'close');
     lab(padF, 'fwd'); lab(padB, 'back'); lab(padL, 'left'); lab(padR, 'right');
@@ -611,11 +720,30 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
   }
   function updatePkButtons() {
     const avail = (cur && manifest && manifest.units[cur.unitId]) || {};
+    let added = false;
+    for (const id of Object.keys(avail)) if (!pkBtns.has(id)) { addPkBtn(id); added = true; }
     for (const [id, b] of pkBtns) {
       const ok = !!(avail[id] && avail[id].panos && avail[id].panos.length);
       b.disabled = !ok;
       b.setAttribute('aria-pressed', String(!!cur && cur.pkg === id));
     }
+    if (added) refreshText();
+    if (cur) revealPk(cur.pkg, true);
+    updateTodButtons();
+  }
+  function updateTodButtons() {
+    // a state is disabled only when NO pano of this unit/package has it
+    const list = (cur && cur.list) || [];
+    // highlight what is actually on screen (a pano without the requested state shows its nearest one)
+    const cp = list[cur ? cur.idx : -1];
+    const shownTod = cp ? srcFor(cp, tod).tod : tod;
+    for (const [id, b] of todBtns) {
+      const ok = id === 'day' || list.some(p => p.variants && p.variants[id]);
+      b.disabled = !ok;
+      b.setAttribute('aria-pressed', String(shownTod === id));
+      b.title = ok ? tr(id) : tr(id) + ' — ' + tr('notRendered');
+    }
+    todBox.hidden = !list.length;
   }
 
   // ── mini-map ──
@@ -827,20 +955,21 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
   function setBusy(v) { busy.classList.toggle('tr-on', !!v); }
   function showToast() { toast.classList.add('tr-on'); clearTimeout(showToast.t); showToast.t = setTimeout(() => toast.classList.remove('tr-on'), 2600); }
   async function acquire(pano) {
-    const full = fullCache.peek(pano.file);
-    if (full) return { tex: full, full: true, fullP: Promise.resolve(full) };
-    const fullP = fullCache.load(pano.file, 'high');
+    const src = srcFor(pano, tod);
+    const full = fullCache.peek(src.file);
+    if (full) return { tex: full, full: true, fullP: Promise.resolve(full), file: src.file };
+    const fullP = fullCache.load(src.file, 'high');
     fullP.catch(() => {});
-    if (!pano.thumb) { const t = await fullP; return { tex: t, full: true, fullP }; }
-    const thumbP = thumbCache.load(pano.thumb, 'high');
+    if (!src.thumb) { const t = await fullP; return { tex: t, full: true, fullP, file: src.file }; }
+    const thumbP = thumbCache.load(src.thumb, 'high');
     const first = await Promise.race([
       fullP.then(t => ({ tex: t, full: true }), () => null),
       thumbP.then(t => ({ tex: t, full: false }), () => null)
     ]);
-    if (first) return { ...first, fullP };
+    if (first) return { ...first, fullP, file: src.file };
     // whichever resolved first failed: wait for the other
-    try { return { tex: await fullP, full: true, fullP }; } catch (e) { /* */ }
-    return { tex: await thumbP, full: false, fullP };
+    try { return { tex: await fullP, full: true, fullP, file: src.file }; } catch (e) { /* */ }
+    return { tex: await thumbP, full: false, fullP, file: src.file };
   }
   async function goTo(idx, mode = 'move') {
     if (!cur || !cur.list[idx] || disposed) return false;
@@ -863,6 +992,8 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
     }
     clearHotspots();
     cur.idx = idx;
+    cur.shown = got.file;
+    updateTodButtons();
     updateTitle();
     updateMapState();
     const first = !spheres[front].visible;
@@ -892,13 +1023,21 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
       const order = p.links.slice().sort((a, b) => {
         const A = hsItems.find(h => h.idx === a), B = hsItems.find(h => h.idx === b);
         return (A ? Math.abs(wrapPI(A.yaw - yaw)) : 9) - (B ? Math.abs(wrapPI(B.yaw - yaw)) : 9);
-      }).slice(0, fullCache.max - 2);
-      for (const j of order) {
+      });
+      // queue: the link straight ahead, then the other light states of THIS pano, then the remaining links
+      const jobs = [];
+      const linkJob = (j) => { const q = cur.list[j]; if (q) { const s = srcFor(q, tod); jobs.push(s); } };
+      if (order.length) linkJob(order[0]);
+      for (const k of TODS) {
+        if (k === tod) continue;
+        const s = k === 'day' ? { file: p.file, thumb: p.thumb } : (p.variants[k] || null);
+        if (s && s.file !== cur.shown && !jobs.some(x => x.file === s.file)) jobs.push(s);
+      }
+      for (const j of order.slice(1)) linkJob(j);
+      for (const s of jobs.slice(0, fullCache.max - 1)) {
         if (!cur || tok !== navTok || !isOpenFlag) return;
-        const q = cur.list[j];
-        if (!q) continue;
-        if (q.thumb) { try { await thumbCache.load(q.thumb, 'low'); } catch (e) { /* */ } }
-        try { await fullCache.load(q.file, 'low'); } catch (e) { /* */ }
+        if (s.thumb) { try { await thumbCache.load(s.thumb, 'low'); } catch (e) { /* */ } }
+        try { await fullCache.load(s.file, 'low'); } catch (e) { /* */ }
       }
     }, 450);
   }
@@ -913,12 +1052,11 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
     }
     return best;
   }
+  // "forward nudge": a 400 ms FOV squeeze so the walk gesture always answers, even with nowhere to go
   function nudge() {
-    if (reduceMotion) return;
-    turnAnim = null;
-    const t0 = performance.now();
-    const f = () => { const u = (performance.now() - t0) / 260; fovMul = u >= 1 ? 1 : 1 - 0.035 * Math.sin(Math.PI * u); dirty = true; if (u < 1 && !trans) requestAnimationFrame(f); };
-    requestAnimationFrame(f);
+    if (trans) return;
+    nudgeAnim = { t: 0, dur: NUDGE_MS / 1000, amp: reduceMotion ? 0.02 : 0.07 };
+    dirty = true;
   }
   function moveForward() { const j = linkInDirection(yaw, 75 * Math.PI / 180); if (j >= 0) goTo(j, 'move'); else nudge(); }
   function moveBack() {
@@ -959,8 +1097,9 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
     if (trans) { const r = trans.resolve; trans = null; r(); }
     clearHotspots();
   }
-  async function open(unitId, packageId, roomId) {
+  async function open(unitId, packageId, roomId, opts) {
     if (disposed) return false;
+    if (opts && opts.timeOfDay) tod = normTod(opts.timeOfDay);
     const tok = ++navTok;
     if (!isOpenFlag) {
       isOpenFlag = true;
@@ -971,7 +1110,7 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
       try { stage.focus({ preventScroll: true }); } catch (e) { /* */ }
     }
     resetView();
-    cur = { unitId, pkg: packageId, list: [], idx: -1 };
+    cur = { unitId, pkg: packageId, list: [], idx: -1, shown: null };
     updateTitle();
     showEmpty(false);
     setBusy(true);
@@ -1020,6 +1159,19 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
     updatePkButtons();
     buildMap();
     return goTo(idx, 'pkg');
+  }
+  function switchTod(id) {
+    id = normTod(id);
+    if (tod === id) return Promise.resolve(false);
+    tod = id;
+    updateTodButtons();
+    if (!cur || !isOpenFlag || !cur.list.length || cur.idx < 0) return Promise.resolve(true);
+    const p = cur.list[cur.idx];
+    if (srcFor(p, tod).file === cur.shown) { schedulePreload(); return Promise.resolve(true); }   // this pano has no such variant: keep what is shown
+    return goTo(cur.idx, 'pkg').then(() => true);
+  }
+  function userSetTod(id) {
+    switchTod(id).then(ok => { if (ok && typeof onTimeOfDayChange === 'function') { try { onTimeOfDayChange(tod); } catch (e) { /* */ } } });
   }
   function userSetPackage(id) {
     switchPackage(id).then(ok => { if (ok && typeof onPackageChange === 'function') { try { onPackageChange(id); } catch (e) { /* */ } } });
@@ -1130,12 +1282,13 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
     const d = drag; drag = null;
     const now = performance.now();
     if (now - d.lt > 80) { yawVel = 0; pitchVel = 0; }
-    if (d.moved < 8 && now - d.t0 < 400) {
+    // a tap = finger lifted close to where it landed (net displacement, real fingers jitter) and quickly.
+    // Double-tap is detected here by hand (two taps < 350 ms and < 30 px apart) — never via 'dblclick', which iOS does not deliver reliably.
+    if (Math.hypot(e.clientX - d.x0, e.clientY - d.y0) < 12 && now - d.t0 < DTAP_MS) {
       yawVel = pitchVel = 0;
-      // tap
       const m = markerAt(e.clientX, e.clientY);
       if (m >= 0) { lastTap = null; goTo(m, 'move'); return; }
-      if (lastTap && now - lastTap.t < 340 && Math.hypot(e.clientX - lastTap.x, e.clientY - lastTap.y) < 36) {
+      if (lastTap && now - lastTap.t < DTAP_MS && Math.hypot(e.clientX - lastTap.x, e.clientY - lastTap.y) < DTAP_PX) {
         lastTap = null;
         doubleTap(e.clientX, e.clientY);
       } else lastTap = { t: now, x: e.clientX, y: e.clientY };
@@ -1145,7 +1298,7 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
     const ray = rayAt(cx, cy);
     const dyaw = yawOf(ray.direction.x, ray.direction.z);
     const fp = floorPointAt(cx, cy);
-    const j = linkInDirection(dyaw, 50 * Math.PI / 180, fp && Math.hypot(fp.x, fp.z) < 12 ? fp : null);
+    const j = linkInDirection(dyaw, 60 * Math.PI / 180, fp && Math.hypot(fp.x, fp.z) < 12 ? fp : null);
     if (j >= 0) goTo(j, 'move'); else nudge();
   }
   function onWheel(e) {
@@ -1169,10 +1322,23 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
     else if (k === '+' || k === '=') { fov = clamp(fov - 8, FOV_MIN, FOV_MAX); dirty = true; }
     else if (k === '-' || k === '_') { fov = clamp(fov + 8, FOV_MIN, FOV_MAX); dirty = true; }
   }
-  stage.addEventListener('pointerdown', onDown);
-  stage.addEventListener('pointermove', onMove);
-  stage.addEventListener('pointerup', onUp);
-  stage.addEventListener('pointercancel', onUp);
+  if (typeof window !== 'undefined' && window.PointerEvent) {
+    stage.addEventListener('pointerdown', onDown);
+    stage.addEventListener('pointermove', onMove);
+    stage.addEventListener('pointerup', onUp);
+    stage.addEventListener('pointercancel', onUp);
+  } else {
+    // very old WebKit: same handlers fed from touch + mouse events
+    const each = (fn) => (e) => { if (e.target.closest && e.target.closest('.tr-hs')) return; e.preventDefault(); for (const t of e.changedTouches) fn({ pointerId: t.identifier, clientX: t.clientX, clientY: t.clientY, pointerType: 'touch', button: 0 }); };
+    stage.addEventListener('touchstart', each(onDown), { passive: false });
+    stage.addEventListener('touchmove', each(onMove), { passive: false });
+    stage.addEventListener('touchend', each(onUp), { passive: false });
+    stage.addEventListener('touchcancel', each(onUp), { passive: false });
+    const mouse = (fn) => (e) => fn({ pointerId: 1, clientX: e.clientX, clientY: e.clientY, pointerType: 'mouse', button: e.button });
+    stage.addEventListener('mousedown', mouse(onDown));
+    window.addEventListener('mousemove', mouse(onMove));
+    window.addEventListener('mouseup', mouse(onUp));
+  }
   stage.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse' && !pointers.size) { cursor.visible = false; hotIdx = -1; dirty = true; } });
   stage.addEventListener('wheel', onWheel, { passive: false });
   stage.addEventListener('dblclick', (e) => e.preventDefault());
@@ -1254,7 +1420,14 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
   const ro = typeof ResizeObserver === 'function' ? new ResizeObserver(() => { if (isOpenFlag) resize(); }) : null;
   if (ro) ro.observe(root); else window.addEventListener('resize', resize);
   function update(dt) {
-    if (trans) stepTransition(dt);
+    if (trans) { nudgeAnim = null; stepTransition(dt); }
+    else if (nudgeAnim) {
+      nudgeAnim.t += dt;
+      const u = clamp(nudgeAnim.t / nudgeAnim.dur, 0, 1);
+      fovMul = 1 - nudgeAnim.amp * Math.sin(Math.PI * u) * (1 - 0.35 * u);
+      if (u >= 1) { fovMul = 1; nudgeAnim = null; }
+      dirty = true;
+    }
     if (turnAnim) {
       turnAnim.t += dt;
       const u = clamp(turnAnim.t / turnAnim.dur, 0, 1);
@@ -1300,7 +1473,9 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
   if (!renderer) { showEmpty(true); }
 
   return {
-    open: (unitId, packageId, roomId) => open(unitId, packageId, roomId).catch(() => false),
+    open: (unitId, packageId, roomId, opts) => open(unitId, packageId, roomId, opts).catch(() => false),
+    setTimeOfDay: (id) => switchTod(id).catch(() => false),
+    getTimeOfDay: () => tod,
     setPackage: (id) => { if (cur && isOpenFlag && cur.list.length) return switchPackage(id).catch(() => false); if (cur) cur.pkg = id; return Promise.resolve(false); },
     setLang: (l) => { L = normLang(l); refreshText(); dirty = true; },
     close,
@@ -1321,16 +1496,18 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
       root.remove();
     },
     // for tests / integration
-    _debug: () => ({ yaw, pitch, fov, idx: cur && cur.idx, pkg: cur && cur.pkg, id: cur && cur.list[cur.idx] && cur.list[cur.idx].id, links: hsItems.map(h => h.idx), fwd: fwdIdx, cached: [...fullCache.map.keys()].length })
+    _debug: () => ({ tod, shown: cur && cur.shown && cur.shown.split('/').pop(), yaw, pitch, fov, idx: cur && cur.idx, pkg: cur && cur.pkg, id: cur && cur.list[cur.idx] && cur.list[cur.idx].id, links: hsItems.map(h => h.idx), fwd: fwdIdx, cached: [...fullCache.map.keys()].length })
   };
 }
 
 // ═══════════════════════════════════ GALLERY ═══════════════════════════════════
-export async function createGallery(container, { manifestUrl = defaultManifestUrl(), lang, unitId = null, packageId = null, include = 'all' } = {}) {
+export async function createGallery(container, { manifestUrl = defaultManifestUrl(), lang, unitId = null, packageId = null, include = 'all', timeOfDay, onOpenPano } = {}) {
   injectCSS();
   let L = normLang(lang);
+  let tod = normTod(timeOfDay);
   const tr = (k) => (T[L] && T[L][k]) || T.en[k] || k;
   const filter = { unitId, packageId, include };
+  const canPano = typeof onOpenPano === 'function';
   const root = el('div', 'tr-gal');
   container.appendChild(root);
   const lb = el('div', 'tr-lb');
@@ -1339,8 +1516,23 @@ export async function createGallery(container, { manifestUrl = defaultManifestUr
   const track = el('div', 'tr-lbtrack');
   const lbBar = el('div', 'tr-lbbar');
   const counter = el('div', 'tr-cap');
+  const lbRight = el('div', 'tr-lbr');
+  const lb360 = el('button', 'tr-btn tr-lb360', ICON.pano + '<span>360°</span>'); lb360.type = 'button';
   const lbClose = el('button', 'tr-btn', ICON.close); lbClose.type = 'button';
-  lbBar.append(counter, lbClose);
+  const mkTod = () => {
+    const box = el('div', 'tr-tod');
+    box.setAttribute('role', 'group');
+    for (const id of TODS) {
+      const b = el('button', 'tr-todb', ICON[id]);
+      b.type = 'button'; b.dataset.tod = id;
+      b.addEventListener('click', (e) => { e.stopPropagation(); if (!b.disabled) setTod(id); });
+      box.append(b);
+    }
+    return box;
+  };
+  const lbTod = mkTod(), gridTod = mkTod();
+  lbRight.append(lbTod, lb360, lbClose);
+  lbBar.append(counter, lbRight);
   const lbPrev = el('button', 'tr-btn tr-lbnav tr-p', ICON.prev); lbPrev.type = 'button';
   const lbNext = el('button', 'tr-btn tr-lbnav tr-n', ICON.next); lbNext.type = 'button';
   const lbCap = el('div', 'tr-lbcap');
@@ -1348,6 +1540,19 @@ export async function createGallery(container, { manifestUrl = defaultManifestUr
   document.body.appendChild(lb);
   let manifest = null, items = [], idx = 0, openFlag = false, disposed = false;
 
+  const nrm = (v) => String(v || '').trim().toLowerCase();
+  function findPano(it) {
+    if (!canPano || it.group !== 'interior' || !manifest) return null;
+    const e = manifest.units[it.unitId] && manifest.units[it.unitId][it.pkg];
+    if (!e || !e.panos.length) return null;
+    let p = it.panoId ? e.panos.find(q => q.id === it.panoId) : null;
+    if (!p && it.roomId) p = e.panos.find(q => q.roomId === it.roomId);
+    if (!p && !it.roomId && !it.panoId) {
+      const n = nrm(pick(it.name, 'en'));
+      if (n) p = e.panos.find(q => nrm(pick(q.name, 'en')) === n || (q.roomId && ROOM_BY_ID.get(q.roomId) && nrm(ROOM_BY_ID.get(q.roomId).name.en) === n));
+    }
+    return p ? { unitId: it.unitId, packageId: it.pkg, roomId: p.roomId || p.id, panoId: p.id } : null;
+  }
   function collect() {
     const out = [];
     if (!manifest) return out;
@@ -1363,6 +1568,7 @@ export async function createGallery(container, { manifestUrl = defaultManifestUr
         for (const p of pids) if (um[p]) for (const s of um[p].stills) out.push({ ...s, group: 'interior', unitId: u, pkg: p });
       }
     }
+    for (const it of out) it.match = findPano(it);
     return out;
   }
   const styleName = (id) => { const s = STYLES.find(x => x.id === id); return s ? pick(s.name, L) : id; };
@@ -1370,6 +1576,21 @@ export async function createGallery(container, { manifestUrl = defaultManifestUr
     const n = pick(it.name, L);
     if (it.group === 'exterior') return n || tr('exterior');
     return [n, it.unitId && !filter.unitId && !inLb ? tr('apartment') + ' ' + it.unitId : '', it.pkg && !filter.packageId ? styleName(it.pkg).split(' · ')[0] : ''].filter(Boolean).join(' · ');
+  }
+  function syncTod() {
+    const has = (k) => k === 'day' || items.some(it => it.variants && it.variants[k]);
+    const any = has('dusk') || has('night');
+    for (const box of [lbTod, gridTod]) {
+      box.hidden = !any;
+      box.setAttribute('aria-label', tr('light'));
+      for (const b of box.children) {
+        const id = b.dataset.tod;
+        b.disabled = !has(id);
+        b.setAttribute('aria-pressed', String(id === tod));
+        b.setAttribute('aria-label', tr(id)); b.title = tr(id);
+      }
+    }
+    return any;
   }
   function render() {
     root.innerHTML = '';
@@ -1385,6 +1606,7 @@ export async function createGallery(container, { manifestUrl = defaultManifestUr
       root.append(e);
       return;
     }
+    if (syncTod()) { const tools = el('div', 'tr-gtools'); tools.append(gridTod); root.append(tools); }
     const groups = [['exterior', tr('exterior')], ['interior', tr('interior')]];
     for (const [g, title] of groups) {
       const list = items.map((it, i) => [it, i]).filter(([it]) => it.group === g);
@@ -1401,9 +1623,10 @@ export async function createGallery(container, { manifestUrl = defaultManifestUr
         const img = new Image();
         img.loading = 'lazy'; img.decoding = 'async'; img.alt = caption(it);
         img.onload = () => img.classList.add('tr-ld');
-        img.src = it.thumb;
+        img.src = srcFor(it, tod).thumb || srcFor(it, tod).file;
         const fc = el('figcaption'); fc.textContent = caption(it); fc.dir = 'auto';
         b.append(img, fc);
+        if (it.match) b.append(el('span', 'tr-g360', ICON.pano + '<span>360°</span>'));
         b.addEventListener('click', () => openAt(i));
         grid.append(b);
       }
@@ -1411,37 +1634,74 @@ export async function createGallery(container, { manifestUrl = defaultManifestUr
       root.append(sec);
     }
   }
-  // lightbox
+  function setTod(id) {
+    id = normTod(id);
+    if (id === tod) return;
+    tod = id;
+    render();
+    if (openFlag) { buildSlides(); show(idx, false); }
+  }
+
+  // ── lightbox ──
   const slides = [];
+  let zoom = null;   // { z:HTMLElement, tx, ty, w, h } when the current slide is zoomed 2×
   function buildSlides() {
     track.innerHTML = '';
     slides.length = 0;
+    zoom = null;
     for (let i = 0; i < items.length; i++) { const s = el('div', 'tr-lbs'); track.append(s); slides.push(s); }
   }
   function fillSlide(i) {
     const s = slides[i];
     if (!s || s.dataset.f) return;
     s.dataset.f = '1';
-    const it = items[i];
-    const th = new Image(); th.className = 'tr-th'; th.src = it.thumb; th.alt = '';
-    const full = new Image(); full.className = 'tr-full'; full.decoding = 'async'; full.alt = caption(it);
+    const it = items[i], src = srcFor(it, tod);
+    const z = el('div', 'tr-lbz');
+    const th = new Image(); th.className = 'tr-th'; th.src = src.thumb || src.file; th.alt = ''; th.draggable = false;
+    const full = new Image(); full.className = 'tr-full'; full.decoding = 'async'; full.alt = caption(it); full.draggable = false;
     full.onload = () => { full.classList.add('tr-ld'); setTimeout(() => { th.style.opacity = '0'; }, 400); };
-    full.src = it.file;
-    s.append(th, full);
+    full.src = src.file;
+    z.append(th, full);
+    s.append(z);
   }
-  let dragX = null;
   function place(animate, extra = 0) {
     const w = lb.clientWidth || innerWidth;
     track.style.transition = animate ? 'transform .38s cubic-bezier(.2,.7,.2,1)' : 'none';
     track.style.transform = `translate3d(${-idx * w + extra}px,0,0)`;
   }
+  function resetZoom(animate) {
+    if (!zoom) return;
+    zoom.z.style.transition = animate ? 'transform .3s cubic-bezier(.2,.7,.2,1)' : 'none';
+    zoom.z.style.transform = '';
+    zoom = null;
+    lb.style.cursor = '';
+  }
+  function applyZoom(animate) {
+    zoom.tx = clamp(zoom.tx, -zoom.w, 0); zoom.ty = clamp(zoom.ty, -zoom.h, 0);
+    zoom.z.style.transition = animate ? 'transform .3s cubic-bezier(.2,.7,.2,1)' : 'none';
+    zoom.z.style.transform = `translate3d(${zoom.tx}px,${zoom.ty}px,0) scale(2)`;
+  }
+  function toggleZoom(cx, cy) {
+    if (zoom) { resetZoom(true); return; }
+    const s = slides[idx], z = s && s.querySelector('.tr-lbz');
+    if (!z) return;
+    const r = z.getBoundingClientRect();
+    const px = clamp(cx - r.left, 0, r.width), py = clamp(cy - r.top, 0, r.height);
+    zoom = { z, tx: -px, ty: -py, w: r.width, h: r.height };   // scale 2 about the tapped point
+    lb.style.cursor = 'grab';
+    applyZoom(true);
+  }
   function show(i, animate = true) {
     if (!items.length) return;
+    resetZoom(false);
     idx = (i + items.length) % items.length;
     fillSlide(idx); fillSlide((idx + 1) % items.length); fillSlide((idx - 1 + items.length) % items.length);
     place(animate);
     counter.textContent = `${idx + 1} ${tr('of')} ${items.length}`;
     const it = items[idx];
+    lb360.hidden = !it.match;
+    const eff = srcFor(it, tod).tod;   // highlight the state actually shown for this still
+    for (const b of lbTod.children) b.setAttribute('aria-pressed', String(b.dataset.tod === eff));
     lbCap.innerHTML = '';
     const c = el('span', 'tr-cap'); c.textContent = it.group === 'exterior' ? tr('exterior') : (it.unitId ? tr('apartment') + ' ' + it.unitId : tr('interior'));
     const t = el('span'); t.textContent = caption(it, true); t.dir = 'auto';
@@ -1452,6 +1712,8 @@ export async function createGallery(container, { manifestUrl = defaultManifestUr
     openFlag = true;
     lb.dir = L === 'he' ? 'rtl' : 'ltr';
     lbClose.setAttribute('aria-label', tr('close')); lbPrev.setAttribute('aria-label', tr('prev')); lbNext.setAttribute('aria-label', tr('next'));
+    lb360.setAttribute('aria-label', tr('open360')); lb360.title = tr('open360');
+    syncTod();
     lb.classList.add('tr-on');
     buildSlides();
     show(i, false);
@@ -1463,8 +1725,17 @@ export async function createGallery(container, { manifestUrl = defaultManifestUr
     openFlag = false;
     lb.classList.remove('tr-on');
     track.innerHTML = '';
+    zoom = null;
     window.removeEventListener('keydown', onKey);
     window.removeEventListener('resize', onResize);
+  }
+  function openPano() {
+    const it = items[idx];
+    if (!it || !it.match || !canPano) return false;
+    const m = { unitId: it.match.unitId, packageId: it.match.packageId, roomId: it.match.roomId, panoId: it.match.panoId, timeOfDay: tod };
+    closeLb();
+    try { onOpenPano(m); } catch (e) { /* */ }
+    return true;
   }
   const rtl = () => L === 'he';
   function onKey(e) {
@@ -1472,37 +1743,79 @@ export async function createGallery(container, { manifestUrl = defaultManifestUr
     else if (e.key === 'ArrowRight') show(idx + 1);
     else if (e.key === 'ArrowLeft') show(idx - 1);
   }
-  const onResize = () => place(false);
+  const onResize = () => { resetZoom(false); place(false); };
   lbClose.addEventListener('click', closeLb);
+  lb360.addEventListener('click', openPano);
   lbPrev.addEventListener('click', () => show(rtl() ? idx + 1 : idx - 1));
   lbNext.addEventListener('click', () => show(rtl() ? idx - 1 : idx + 1));
-  lb.addEventListener('pointerdown', (e) => {
-    if (e.target.closest('.tr-btn')) return;
-    dragX = { x: e.clientX, y: e.clientY, id: e.pointerId, dx: 0, t: performance.now() };
+  // gestures: swipe = previous/next · double-tap (hand-rolled: 2 taps < 350 ms, < 30 px) = open the matching 360° pano, else zoom 2× at the point
+  let g = null, lastTap = null;
+  const pts = new Set();
+  function down(e) {
+    if (e.target.closest && e.target.closest('.tr-btn,.tr-tod')) return;
+    pts.add(e.pointerId);
+    if (pts.size > 1) { g = null; return; }
+    g = { x: e.clientX, y: e.clientY, lx: e.clientX, ly: e.clientY, id: e.pointerId, dx: 0, t: performance.now() };
     try { lb.setPointerCapture(e.pointerId); } catch (er) { /* */ }
-  });
-  lb.addEventListener('pointermove', (e) => { if (!dragX || dragX.id !== e.pointerId) return; dragX.dx = e.clientX - dragX.x; place(false, dragX.dx); });
-  const end = (e) => {
-    if (!dragX || dragX.id !== e.pointerId) return;
-    const d = dragX; dragX = null;
+  }
+  function move(e) {
+    if (!g || g.id !== e.pointerId) return;
+    if (zoom) {
+      zoom.tx += e.clientX - g.lx; zoom.ty += e.clientY - g.ly;
+      applyZoom(false);
+    } else {
+      g.dx = e.clientX - g.x;
+      if (Math.abs(g.dx) > 6) place(false, g.dx);
+    }
+    g.lx = e.clientX; g.ly = e.clientY;
+  }
+  function up(e) {
+    pts.delete(e.pointerId);
+    if (!g || g.id !== e.pointerId) return;
+    const d = g; g = null;
+    const now = performance.now();
+    const dist = Math.hypot(e.clientX - d.x, e.clientY - d.y);
+    if (dist < 12 && now - d.t < DTAP_MS) {
+      if (!zoom) place(true);
+      if (lastTap && now - lastTap.t < DTAP_MS && Math.hypot(e.clientX - lastTap.x, e.clientY - lastTap.y) < DTAP_PX) {
+        lastTap = null;
+        if (!openPano()) toggleZoom(e.clientX, e.clientY);
+      } else lastTap = { t: now, x: e.clientX, y: e.clientY };
+      return;
+    }
+    if (zoom) return;
     const w = lb.clientWidth || innerWidth;
-    const fast = Math.abs(d.dx) > 30 && performance.now() - d.t < 300;
+    const fast = Math.abs(d.dx) > 30 && now - d.t < 300;
     if (Math.abs(d.dx) > w * 0.18 || fast) show(d.dx < 0 ? idx + 1 : idx - 1);
-    else if (Math.abs(d.dx) < 6 && Math.abs(e.clientY - d.y) < 6 && e.target === lb) closeLb();
     else place(true);
-  };
-  lb.addEventListener('pointerup', end);
-  lb.addEventListener('pointercancel', end);
+  }
+  if (typeof window !== 'undefined' && window.PointerEvent) {
+    lb.addEventListener('pointerdown', down);
+    lb.addEventListener('pointermove', move);
+    lb.addEventListener('pointerup', up);
+    lb.addEventListener('pointercancel', up);
+  } else {
+    const each = (fn) => (e) => { for (const t of e.changedTouches) fn({ pointerId: t.identifier, clientX: t.clientX, clientY: t.clientY, target: e.target }); };
+    lb.addEventListener('touchstart', each(down), { passive: true });
+    lb.addEventListener('touchmove', each(move), { passive: true });
+    lb.addEventListener('touchend', each(up));
+    lb.addEventListener('touchcancel', each(up));
+  }
+  lb.addEventListener('dblclick', (e) => e.preventDefault());
+  lb.addEventListener('wheel', (e) => e.preventDefault(), { passive: false });
 
   manifest = await loadManifest(manifestUrl);
   if (!disposed) render();
   return {
     setLang(l) { L = normLang(l); render(); if (openFlag) show(idx, false); },
     setFilter(f = {}) { Object.assign(filter, f); render(); },
+    setTimeOfDay: (id) => setTod(id),
+    getTimeOfDay: () => tod,
     async refresh() { manifest = await loadManifest(manifestUrl, true); render(); },
     open: (i = 0) => openAt(i),
     close: closeLb,
     count: () => items.length,
-    dispose() { disposed = true; closeLb(); lb.remove(); root.remove(); }
+    dispose() { disposed = true; closeLb(); lb.remove(); root.remove(); },
+    _debug: () => ({ idx, tod, zoomed: !!zoom, open: openFlag, match: items[idx] && items[idx].match })
   };
 }

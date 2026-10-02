@@ -1,5 +1,6 @@
 // VILNYI · Barreiro 2 — AERIAL: bird's-eye 360° panorama with landmark labels.
-// export createAerial(THREE, { camera, dom, scene, environment, labelsEl, lang }) => { enable, disable, setLang, update, setHeading }
+// export createAerial(THREE, { camera, dom, scene, environment, labelsEl, lang }) => { enable, disable, setLang, update, setHeading, zoomOut, setOnEnterSite }
+// Options also accept onEnterSite(): called on a double-tap on the Barreiro 2 marker / building.
 // Local frame is rotated to the street (see data.js SITE_FRAME): `heading` below is a LOCAL azimuth
 // (0 = looking along local -z, + towards local +x); compass bearings are derived from SITE_FRAME.north.
 // All DOM/CSS is prefixed `va-`. No side effects on import.
@@ -86,9 +87,9 @@ function mergedLandmarks() {
 
 // ---------------------------------------------------------------------------
 const UI = {
-  en: { hint: 'Drag to turn 360° · scroll or pinch to zoom', north: 'Face north', site: 'Rua Eduardo Couto · Lavradio', km: 'km', m: 'm', ring: (t) => t },
-  pt: { hint: 'Arraste para rodar 360° · deslize ou use dois dedos para zoom', north: 'Orientar a norte', site: 'Rua Eduardo Couto · Lavradio', km: 'km', m: 'm', ring: (t) => t },
-  he: { hint: 'גררו לסיבוב 360° · גלגלת או צביטה לזום', north: 'כיוון צפון', site: 'רחוב אדוארדו קוטו · לברדיו', km: 'ק״מ', m: 'מ׳', ring: (t) => t }
+  en: { hint: 'Drag to turn 360° · double-tap to fly closer', north: 'Face north', out: 'Zoom out', site: 'Rua Eduardo Couto · Lavradio', km: 'km', m: 'm', ring: (t) => t },
+  pt: { hint: 'Arraste para rodar 360° · toque duplo para aproximar', north: 'Orientar a norte', out: 'Afastar', site: 'Rua Eduardo Couto · Lavradio', km: 'km', m: 'm', ring: (t) => t },
+  he: { hint: 'גררו לסיבוב 360° · הקשה כפולה להתקרבות', north: 'כיוון צפון', out: 'התרחקות', site: 'רחוב אדוארדו קוטו · לברדיו', km: 'ק״מ', m: 'מ׳', ring: (t) => t }
 };
 const CARDINALS = {
   en: ['N', 'E', 'S', 'W'], pt: ['N', 'E', 'S', 'O'], he: ['צ', 'מז', 'ד', 'מע']
@@ -194,15 +195,28 @@ const CSS = `
   vertical-align:middle;margin:0 8px;opacity:.7}
 .va-attr{position:absolute;inset-inline-start:10px;bottom:6px;font-size:9.5px;letter-spacing:.04em;color:rgba(255,255,255,.62);
   text-shadow:0 1px 2px rgba(0,0,0,.6);pointer-events:none}
+.va-pill,.va-compass,.va-out{touch-action:none}
+.va-out{position:absolute;top:calc(var(--va-compass-top,16px) + 100px);inset-inline-end:calc(var(--va-compass-end,16px) + 24px);
+  width:40px;height:40px;border-radius:50%;display:grid;place-items:center;padding:0;margin:0;font:inherit;color:#f4efe6;
+  background:var(--va-glass);border:1px solid var(--va-line);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  box-shadow:0 8px 24px rgba(0,0,0,.28);cursor:pointer;pointer-events:none;opacity:0;transform:scale(.85);
+  transition:opacity .3s,transform .3s,border-color .2s}
+.va-out.va-on{opacity:1;transform:none;pointer-events:auto}
+.va-out:hover{border-color:rgba(214,178,122,.7)}
+@media (max-width:600px){.va-out{top:calc(var(--va-compass-top,16px) + 82px);inset-inline-end:calc(var(--va-compass-end,16px) + 16px)}}
 @media (prefers-reduced-motion:reduce){.va-pulse{animation:none;opacity:.5;transform:scale(1)}}
 `;
 
 // ---------------------------------------------------------------------------
-export function createAerial(THREE, { camera, dom, scene, environment, labelsEl, lang = 'en' } = {}) {
+export function createAerial(THREE, { camera, dom, scene, environment, labelsEl, lang = 'en', onEnterSite = null } = {}) {
   const DEG = Math.PI / 180;
   const TARGET = new THREE.Vector3(7, 5, 7);          // orbit target: building centre (≈ geoToLocal(PROJECT))
   const SITE_TOP = new THREE.Vector3(7, 11.2, 7.3);   // marker anchor above the roof
+  const HOME = TARGET.clone(), D_HOME = 280;
   const D_MIN = 60, D_MAX = 400;
+  let enterCb = typeof onEnterSite === 'function' ? onEnterSite : null;
+  let fly = null;                // { t, dur, t0, t1, d0, d1 } double-tap flight
+  let outBtn = null;
   const reduced = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
   const lat0 = PROJECT.lat, lon0 = PROJECT.lon;
   // True north in local coordinates → local heading that faces north.
@@ -390,8 +404,16 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
     siteEl = document.createElement('div');
     siteEl.className = 'va-lm va-site';
     siteEl.innerHTML = `<div class="va-pulse"></div><div class="va-pulse va-p2"></div><div class="va-stem"></div><div class="va-dot"></div><div class="va-pill"><span class="va-ic">${ICONS.site}</span><span class="va-tx"><span class="va-nm"></span><span class="va-mt"></span></span></div>`;
-    siteEl.querySelector('.va-pill').addEventListener('pointerdown', e => e.stopPropagation());
-    siteEl.querySelector('.va-pill').addEventListener('click', e => { e.stopPropagation(); setActive(null); });
+    const sitePill = siteEl.querySelector('.va-pill');
+    sitePill.setAttribute('role', 'button');
+    sitePill.addEventListener('pointerdown', e => e.stopPropagation());
+    sitePill.addEventListener('pointerup', (e) => {            // manual double-tap on the marker → enter the site
+      e.stopPropagation();
+      const now = e.timeStamp || performance.now();
+      if (now - (sitePill._t || 0) < 350) { sitePill._t = 0; e.preventDefault(); enterSite(); } else sitePill._t = now;
+    });
+    sitePill.addEventListener('click', e => { e.stopPropagation(); setActive(null); });
+    sitePill.addEventListener('dblclick', e => e.preventDefault());
     root.appendChild(siteEl);
 
     ringEls = [500, 1000, 2000].map(r => {
@@ -406,6 +428,12 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
     compass.addEventListener('click', (e) => { e.stopPropagation(); faceNorth(); });
     root.appendChild(compass);
     headingText = compass.querySelector('.va-hd');
+
+    outBtn = document.createElement('button'); outBtn.type = 'button'; outBtn.className = 'va-out';
+    outBtn.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12"/></svg>';
+    outBtn.addEventListener('pointerdown', e => e.stopPropagation());
+    outBtn.addEventListener('click', (e) => { e.stopPropagation(); zoomOut(); });
+    root.appendChild(outBtn);
 
     help = document.createElement('div'); help.className = 'va-help';
     root.appendChild(help);
@@ -459,6 +487,7 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
     const c = CARDINALS[curLang];
     compass.querySelectorAll('.va-card').forEach(t => { t.textContent = c[+t.dataset.i]; });
     compass.title = UI[curLang].north;
+    if (outBtn) { outBtn.title = UI[curLang].out; outBtn.setAttribute('aria-label', UI[curLang].out); }
     help.textContent = UI[curLang].hint;
   }
 
@@ -511,11 +540,17 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
   const clampElev = (e) => Math.min(72 * DEG, Math.max(14 * DEG, e));
   const clampDist = (d) => Math.min(D_MAX, Math.max(D_MIN, d));
 
+  // gesture bookkeeping for manual tap / double-tap detection (no reliance on 'dblclick')
+  let gStart = 0, gMax = 0, gMoved = 0, lastTap = null;
+  const TAP_MS = 300, DBL_MS = 350, DBL_PX = 30;
+
   function onDown(e) {
     if (!enabled) return;
     pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
     try { dom.setPointerCapture(e.pointerId); } catch (_) { /* ignore */ }
     dragMoved = 0; vHeading = 0; vElev = 0; kick();
+    if (pointers.size === 1) { gStart = e.timeStamp || performance.now(); gMax = 1; gMoved = 0; if (fly) fly = null; }
+    else gMax = Math.max(gMax, pointers.size);
     if (pointers.size === 2) {
       const [a, b] = [...pointers.values()];
       pinch0 = Math.hypot(a.x - b.x, a.y - b.y) || 1; dist0 = dist;
@@ -525,7 +560,9 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
     if (!enabled || !pointers.has(e.pointerId)) return;
     const p = pointers.get(e.pointerId);
     const dx = e.clientX - p.x, dy = e.clientY - p.y;
+    if (dx === 0 && dy === 0) return;
     p.x = e.clientX; p.y = e.clientY;
+    gMoved += Math.abs(dx) + Math.abs(dy);
     if (pointers.size === 1) {
       const k = 0.0055;
       heading -= dx * k; elev = clampElev(elev + dy * k * 0.8);
@@ -543,8 +580,72 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
     pointers.delete(e.pointerId);
     if (pointers.size < 2) pinch0 = 0;
     if (pointers.size === 1) { vHeading = 0; vElev = 0; }
-    if (e.type === 'pointerup' && dragMoved < 4 && pointers.size === 0) setActive(null);
+    if (e.type !== 'pointerup' || pointers.size !== 0) { if (e.type !== 'pointerup') lastTap = null; return; }
+    const now = e.timeStamp || performance.now();   // event time: robust to main-thread jank
+    const slop = (e.pointerType === 'mouse' ? 5 : 14) * gMax;
+    if (gMoved > slop || now - gStart > TAP_MS) { lastTap = null; return; }
+    // it was a tap
+    vHeading = 0; vElev = 0;
+    const tap = { t: now, x: e.clientX, y: e.clientY, n: Math.min(2, gMax) };
+    if (lastTap && lastTap.n === tap.n && tap.t - lastTap.t < DBL_MS && Math.hypot(tap.x - lastTap.x, tap.y - lastTap.y) < (tap.n === 2 ? 260 : DBL_PX))   /* 2 fingers: whichever finger lifts last is reported */ {
+      lastTap = null;
+      if (e.cancelable) e.preventDefault();
+      if (tap.n === 2) zoomOut(); else flyToward(tap.x, tap.y);
+    } else {
+      lastTap = tap;
+      if (tap.n === 1) setActive(null);
+    }
   }
+  // Belt and braces against page zoom on double-tap (older iOS ignores touch-action in some containers)
+  let lastTouchEnd = 0;
+  function onTouchEnd(e) {
+    const now = performance.now();
+    if (now - lastTouchEnd < 400 && e.cancelable) e.preventDefault();
+    lastTouchEnd = now;
+  }
+  const onDbl = (e) => { e.preventDefault(); };
+
+  // ---- double-tap flight
+  const _ray = new THREE.Raycaster(), _ndc = new THREE.Vector2(), _hit = new THREE.Vector3();
+  function groundPoint(cx, cy) {
+    const r = dom.getBoundingClientRect();
+    _ndc.set(((cx - r.left) / (r.width || 1)) * 2 - 1, -((cy - r.top) / (r.height || 1)) * 2 + 1);
+    camera.updateMatrixWorld();
+    _ray.setFromCamera(_ndc, camera);
+    const o = _ray.ray.origin, d = _ray.ray.direction;
+    if (d.y > -0.03) return null;                 // at or above the horizon
+    let y = 0;
+    for (let i = 0; i < 4; i++) { const t = (y - o.y) / d.y; _hit.copy(o).addScaledVector(d, t); y = groundAt(_hit.x, _hit.z); }
+    return { p: _hit.clone(), sx: cx - r.left, sy: cy - r.top, W: r.width, H: r.height };
+  }
+  function startFly(t1, d1) {
+    kick();
+    t1.y = groundAt(t1.x, t1.z) + HOME.y;
+    fly = { t: 0, dur: reduced ? 0.01 : 0.7, t0: TARGET.clone(), t1, d0: dist, d1: clampDist(d1) };
+  }
+  function enterSite() {
+    if (enterCb) { try { enterCb(); } catch (e) { /* ignore */ } }
+    else startFly(HOME.clone(), dist * 0.7);
+  }
+  function flyToward(cx, cy) {
+    const g = groundPoint(cx, cy);
+    if (!g) return;
+    // on the building / its marker?
+    const c = project(_v2.set(HOME.x, 5, HOME.z), g.W, g.H);
+    const onSite = Math.hypot(g.p.x - SITE.x, g.p.z - SITE.z) < 16 || (c && Math.hypot(c.x - g.sx, c.y - g.sy) < 34);
+    if (onSite) { enterSite(); return; }
+    const t1 = TARGET.clone().lerp(g.p, 0.4);
+    // keep the orbit within the mapped neighbourhood
+    const dx = t1.x - SITE.x, dz = t1.z - SITE.z, r = Math.hypot(dx, dz), RMAX = 1200;
+    if (r > RMAX) { t1.x = SITE.x + dx / r * RMAX; t1.z = SITE.z + dz / r * RMAX; }
+    startFly(t1, dist * 0.7);
+  }
+  function zoomOut() {
+    const away = TARGET.distanceTo(HOME) > 3;
+    if (away || dist < D_HOME - 1) startFly(HOME.clone(), Math.max(dist, D_HOME));
+    else startFly(HOME.clone(), dist / 0.7);
+  }
+
   function onWheel(e) {
     if (!enabled) return;
     e.preventDefault();
@@ -723,6 +824,7 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
       if (scene && !group.parent) scene.add(group);
       placeLandmarks();
       loadOSM();
+      TARGET.copy(HOME); fly = null;
       // continue from where the camera is: keep its bearing around the building
       const dx = camera.position.x - TARGET.x, dz = camera.position.z - TARGET.z;
       if (Math.hypot(dx, dz) > 1) heading = Math.atan2(-dx, dz);
@@ -735,6 +837,8 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
         dom.addEventListener('pointerup', onUp);
         dom.addEventListener('pointercancel', onUp);
         dom.addEventListener('wheel', onWheel, { passive: false });
+        dom.addEventListener('touchend', onTouchEnd, { passive: false });
+        dom.addEventListener('dblclick', onDbl);
       }
       window.addEventListener('keydown', onKey);
     } catch (e) { enabled = true; }
@@ -746,7 +850,7 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
     try {
       if (root) root.hidden = true;
       if (group.parent) group.parent.remove(group);
-      pointers.clear(); setActive(null);
+      pointers.clear(); setActive(null); fly = null; lastTap = null;
       if (dom) {
         dom.style.touchAction = dom._vaTouch || '';
         dom.removeEventListener('pointerdown', onDown);
@@ -754,6 +858,8 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
         dom.removeEventListener('pointerup', onUp);
         dom.removeEventListener('pointercancel', onUp);
         dom.removeEventListener('wheel', onWheel);
+        dom.removeEventListener('touchend', onTouchEnd);
+        dom.removeEventListener('dblclick', onDbl);
       }
       window.removeEventListener('keydown', onKey);
     } catch (e) { /* ignore */ }
@@ -787,6 +893,14 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
           heading += 2.2 * DEG * dt * ramp;
         }
       }
+      if (fly) {
+        fly.t += dt / fly.dur;
+        const k = ease(Math.min(1, fly.t));
+        TARGET.lerpVectors(fly.t0, fly.t1, k);
+        dist = fly.d0 + (fly.d1 - fly.d0) * k;
+        if (fly.t >= 1) fly = null;
+      }
+      if (outBtn) outBtn.classList.toggle('va-on', TARGET.distanceTo(HOME) > 3 || dist < D_HOME - 60);
       pose(_pos, _q);
       if (trans) {
         trans.t += dt / trans.dur;
@@ -821,5 +935,8 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
 
   function setHeading(bearingDeg) { heading = headingOf(bearingDeg * DEG); kick(); } // compass bearing
 
-  return { enable, disable, setLang, update, setHeading, landmarks: items.map(({ el, line, ...rest }) => rest) };
+  const setOnEnterSite = (cb) => { enterCb = typeof cb === 'function' ? cb : null; };
+
+  return { enable, disable, setLang, update, setHeading, zoomOut, setOnEnterSite,
+    get view() { return { target: TARGET.clone(), dist }; }, landmarks: items.map(({ el, line, ...rest }) => rest) };
 }

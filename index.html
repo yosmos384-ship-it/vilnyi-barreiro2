@@ -106,7 +106,7 @@
       <p class="lede" data-i18n="sel.lede">Tap a floor on the façade to open its plan. Every apartment is coloured by its current availability.</p>
     </div>
 
-    <div class="sel-grid">
+    <div class="sel-grid" id="selGrid">
       <div class="sel-visual">
         <div class="seg" role="tablist" aria-label="View">
           <button type="button" role="tab" class="seg-b is-on" id="selFacadeTab" aria-selected="true" data-i18n="sel.view.facade">Façade</button>
@@ -137,6 +137,7 @@
         <ol class="floors" id="floorList" aria-label="Floors"></ol>
         <div class="legend" id="legend"></div>
       </div>
+      <section class="usheet" id="unitSheet" role="dialog" aria-labelledby="usTitle" hidden></section>
     </div>
 
     <div class="filters" id="filters"></div>
@@ -218,7 +219,7 @@
       <p class="fineprint" data-i18n="bld.timelineNote">Indicative dates. They depend on the licensing process.</p>
     </div>
     <div class="finishes-block">
-      <h3 class="h-mid" data-i18n="bld.finishes">Three finishes</h3>
+      <h3 class="h-mid" data-i18n="bld.finishes">Six finishes</h3>
       <p class="lede" data-i18n="bld.finishesLede">Choose the finish when you reserve.</p>
       <div class="finish-cards" id="finishCards"></div>
     </div>
@@ -271,15 +272,7 @@
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l1.9 5.1 5.1 1.9-5.1 1.9L12 17.5l-1.9-5.1L5 10.5l5.1-1.9L12 3.5ZM18.5 16.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8.8-2.2Z"/></svg>
       <span class="lbl" data-i18n="v.photoreal">Photoreal</span>
     </button>
-    <label class="tod">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.6"/><path d="M12 3v2.2M12 18.8V21M3 12h2.2M18.8 12H21M5.6 5.6l1.6 1.6M16.8 16.8l1.6 1.6M5.6 18.4l1.6-1.6M16.8 7.2l1.6-1.6"/></svg>
-      <span class="sr" data-i18n="v.time">Light</span>
-      <select id="todSel" aria-label="Light">
-        <option value="day" data-i18n="tod.day">Day</option>
-        <option value="golden" data-i18n="tod.golden">Golden hour</option>
-        <option value="dusk" data-i18n="tod.dusk">Dusk</option>
-      </select>
-    </label>
+    <div class="tod3" id="immTod" role="group" aria-label="Light" data-i18n-aria="v.time"></div>
     <button class="icon-btn imm-close" type="button" id="immClose" aria-label="Close" data-i18n-aria="v.close">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
     </button>

@@ -3,7 +3,7 @@
 // Units carry data-unit="<id>" for event delegation.
 //   opts: { label(obj) => string, status(unitId) => 'available'|'reserved'|'sold',
 //           dim(unitId) => bool, selected: unitId|null, only: unitId|null (unit page: others muted),
-//           showRooms: true, showLabels: true, title: string }
+//           showRooms: true, showLabels: true, title: string, focus: unitId (adds data-focus / data-full view boxes) }
 import { FLOORS, BALCONIES, UNITS, PARKING, floorById, unitById } from './data.js';
 
 export const S = 50;           // user units per metre
@@ -120,7 +120,19 @@ export function drawFloorplan(floorId, opts = {}) {
   const only = opts.only || null;
   const b = bounds(floor);
   const vb = [s(b.x0 - PAD), s(b.z0 - PAD), s(b.x1 - b.x0 + PAD * 2.4), s(b.z1 - b.z0 + PAD * 2.8)];
-  let out = `<svg class="fp" viewBox="${vb.join(' ')}" role="img" aria-label="${esc(opts.title || label(floor.label))}" preserveAspectRatio="xMidYMid meet">`;
+  // opts.focus = unitId: the box of that unit (rooms + its balcony / garden) is published as data-focus so the caller can zoom to it
+  let focusAttr = '';
+  if (opts.focus) {
+    let x0 = Infinity, x1 = -Infinity, z0 = Infinity, z1 = -Infinity;
+    const add = ([x, z]) => { x0 = Math.min(x0, x); x1 = Math.max(x1, x); z0 = Math.min(z0, z); z1 = Math.max(z1, z); };
+    for (const r of floor.rooms) if (r.unit === opts.focus) r.poly.forEach(add);
+    for (const bal of BALCONIES) if (bal.level === floorId && bal.unit.includes(opts.focus)) bal.poly.forEach(add);
+    if (Number.isFinite(x0)) {
+      const m = 0.8;
+      focusAttr = ` data-full="${vb.join(' ')}" data-focus="${[s(x0 - m), s(z0 - m), s(x1 - x0 + 2 * m), s(z1 - z0 + 2 * m)].join(' ')}"`;
+    }
+  }
+  let out = `<svg class="fp"${focusAttr} viewBox="${vb.join(' ')}" role="img" aria-label="${esc(opts.title || label(floor.label))}" preserveAspectRatio="xMidYMid meet">`;
 
   // balconies / decks / gardens
   for (const bal of BALCONIES.filter(x => x.level === floorId)) {

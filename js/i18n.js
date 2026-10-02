@@ -629,6 +629,19 @@ const P4 = {
 };
 Object.assign(en, P4.en); Object.assign(pt, P4.pt); Object.assign(he, P4.he); Object.assign(ru, P4.ru);
 
+// ---- Phase 5: six packages, light switch, apartment sheet ----
+const P5 = {
+  en: { 'bld.finishes': 'Six building-material packages', 'pkg.note': 'Six complete packages of building materials, fitted throughout: floors, walls, bathrooms, kitchen, appliances, doors and windows.',
+    'unit.backFloor': 'Back to the floor plan', 'v.time': 'Light', 'pkg.noRenders': 'Photoreal renders of this package are being produced.' },
+  pt: { 'bld.finishes': 'Seis pacotes de materiais de construção', 'pkg.note': 'Seis pacotes completos de materiais, aplicados em toda a casa: pavimentos, paredes, casas de banho, cozinha, eletrodomésticos, portas e janelas.',
+    'unit.backFloor': 'Voltar à planta do piso', 'v.time': 'Luz', 'pkg.noRenders': 'Os renders fotorrealistas deste pacote estão em produção.' },
+  he: { 'bld.finishes': 'שש חבילות חומרי בנייה', 'pkg.note': 'שש חבילות שלמות של חומרי בנייה, בכל הדירה: ריצוף, קירות, חדרי רחצה, מטבח, מכשירי חשמל, דלתות וחלונות.',
+    'unit.backFloor': 'חזרה לתוכנית הקומה', 'v.time': 'תאורה', 'pkg.noRenders': 'ההדמיות הפוטוריאליסטיות של חבילה זו בהכנה.' },
+  ru: { 'bld.finishes': 'Шесть пакетов строительных материалов', 'pkg.note': 'Шесть полных пакетов материалов для всей квартиры: полы, стены, санузлы, кухня, техника, двери и окна.',
+    'unit.backFloor': 'Назад к плану этажа', 'v.time': 'Свет', 'pkg.noRenders': 'Фотореалистичные рендеры этого пакета готовятся.' }
+};
+Object.assign(en, P5.en); Object.assign(pt, P5.pt); Object.assign(he, P5.he); Object.assign(ru, P5.ru);
+
 export const DICTS = { en, pt, he, ru };
 
 let current = 'en';

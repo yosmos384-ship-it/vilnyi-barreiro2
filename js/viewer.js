@@ -6,7 +6,7 @@
 // API:
 //   createViewer(container, { quality, floorLabel(floorId) => string, lang }) => {
 //     ready: Promise<{ modules }>, setMode(mode, opts) => Promise<boolean>, getMode(),
-//     selectUnit(unitId, styleId) => Promise, setTimeOfDay(name), setLang(lang),
+//     selectUnit(unitId, styleId) => Promise, setTimeOfDay('day'|'dusk'|'night'|'golden'), getTimeOfDay(), setLang(lang),
 //     hotspots(unitId) => [...], lookFrom(hotspot), balconyView(unitId), goToLift(floorId), goToLobby(), goToParking(),
 //     walkUnit(unitId, roomId?), takeLift(from, to), resize(), has(moduleName), on(event, cb) => off, dispose(),
 //     setPhotoreal(on) => Promise<boolean>, isPhotoreal(), setPhotorealLabels({...}), setHeading(bearing),
@@ -79,6 +79,8 @@ export function createViewer(container, options = {}) {
   let inView = true;
   let hoveredFloor = null;
   let currentUnit = null;
+  let currentStyle = null;
+  let dolly = null;     // exterior double-tap: { t0, ms, c0, c1, g0, g1 }
   let lastIdle = performance.now();
   let tod = 'golden';
   let lookState = null; // fallback static view when no walker
@@ -157,6 +159,7 @@ export function createViewer(container, options = {}) {
     if (!env) addFallbackEnvironment();
     else {
       try { env.setTimeOfDay(tod); } catch (e) { console.warn(e); }
+      applyExposure();
       tuneShadows();
       if (env.attribution) { attribEl.textContent = env.attribution; attribEl.hidden = false; }
       Promise.resolve(env.ready).then(() => { invalidateShadows(); schedule(); }, () => { /* OSM context missing: env keeps its base */ });
@@ -174,6 +177,7 @@ export function createViewer(container, options = {}) {
 
     progress(0.68, 'interiors');
     interiors = await loadModule('interiors', './interiors.js', m => m.buildInteriors(THREE, { scene, building }));
+    try { interiors?.setTimeOfDay?.(interiorTod(tod)); } catch (e) { /* optional */ }
     await tick();
 
     progress(0.8, 'walk');
@@ -193,7 +197,7 @@ export function createViewer(container, options = {}) {
 
     progress(0.9, 'aerial');
     if (env) {
-      aerial = await loadModule('aerial', './aerial.js', m => m.createAerial(THREE, { camera, dom: renderer.domElement, scene, environment: env, labelsEl, lang }));
+      aerial = await loadModule('aerial', './aerial.js', m => m.createAerial(THREE, { camera, dom: renderer.domElement, scene, environment: env, labelsEl, lang, onEnterSite: () => { setMode('exterior'); } }));
       if (aerial) { try { aerial.disable(); } catch (e) { /* ignore */ } }
     }
     if (controls) controls.addEventListener('change', () => { if (ptOn) pt?.reset(); });
@@ -226,7 +230,7 @@ export function createViewer(container, options = {}) {
     idle(() => {
       if (disposed || !interiors) return;
       try {
-        const p = (interiors.prewarm || null)?.(['atlantic', 'lisboa', 'noir'], { renderer });
+        const p = (interiors.prewarm || null)?.(currentStyle || 'atlantic', { renderer });   // lazy: this package and its neighbours
         if (p && p.catch) p.catch(() => { /* optional */ });
       } catch (e) { /* optional */ }
     }, 3000);
@@ -352,44 +356,78 @@ export function createViewer(container, options = {}) {
       setHover(pick(ev), ev);
     });
     listen(dom, 'pointerleave', () => { if (mode === 'exterior') setHover(null); });
+    // Double-tap / double-click = go forward. Detected by hand (two taps < 350 ms, < 30 px apart), never via 'dblclick':
+    //   on a window or door → step inside through it; on the building from close by (< 12 m) → in through the nearest opening;
+    //   anywhere else → the camera glides 35 % closer to the tapped point. A single tap on a floor still opens its plan,
+    //   once the double-tap window has passed.
+    const DTAP_MS = 350, DTAP_PX = 30, NEAR_M = 12;
     let lastTap = null, tapTimer = 0;
-    listen(dom, 'pointerdown', ev => { down = { x: ev.clientX, y: ev.clientY, t: performance.now() }; lastIdle = performance.now(); controls.autoRotate = false; });
+    listen(dom, 'pointerdown', ev => { down = { x: ev.clientX, y: ev.clientY, t: performance.now() }; lastIdle = performance.now(); controls.autoRotate = false; dolly = null; });
     listen(dom, 'pointerup', ev => {
       if (mode !== 'exterior' || !down) return;
       const moved = Math.hypot(ev.clientX - down.x, ev.clientY - down.y);
       const quick = performance.now() - down.t < 500;
       down = null;
-      if (moved > 7 || !quick) return;
+      if (moved > 7 || !quick) { lastTap = null; return; }
       const f = pick(ev);
       setHover(f, ev);
-      // double-tap / double-click on a window or door: step inside through it
       const now = performance.now();
-      if (lastTap && now - lastTap.t < 380 && Math.hypot(ev.clientX - lastTap.x, ev.clientY - lastTap.y) < 34) {
+      if (lastTap && now - lastTap.t < DTAP_MS && Math.hypot(ev.clientX - lastTap.x, ev.clientY - lastTap.y) < DTAP_PX) {
         clearTimeout(tapTimer); lastTap = null;
-        enterThrough(ev);
+        if (ev.cancelable) ev.preventDefault();
+        forward(ev);
         return;
       }
       lastTap = { x: ev.clientX, y: ev.clientY, t: now };
       clearTimeout(tapTimer);
-      tapTimer = setTimeout(() => { lastTap = null; if (f && mode === 'exterior') emit('floor-select', { floorId: f }); }, 390);
+      tapTimer = setTimeout(() => { lastTap = null; if (f && mode === 'exterior') emit('floor-select', { floorId: f }); }, DTAP_MS + 30);
     });
     listen(dom, 'dblclick', ev => { ev.preventDefault(); });
+    // iOS: a second touch must not zoom the page
+    let lastTouchEnd = 0;
+    listen(dom, 'touchend', ev => { const n = performance.now(); if (n - lastTouchEnd < DTAP_MS + 50 && ev.cancelable) ev.preventDefault(); lastTouchEnd = n; }, { passive: false });
     const enterRay = new THREE.Raycaster();
-    async function enterThrough(ev) {
-      if (!walker || !building) return;
+    const ground = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0.85);
+    function forward(ev) {
       const r = dom.getBoundingClientRect();
-      const ndc = new THREE.Vector2(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
-      enterRay.setFromCamera(ndc, camera);
-      const hits = enterRay.intersectObject(building.group, true);
+      const p2 = new THREE.Vector2(((ev.clientX - r.left) / r.width) * 2 - 1, -((ev.clientY - r.top) / r.height) * 2 + 1);
+      enterRay.setFromCamera(p2, camera);
       let target = null;
-      for (const h of hits) {
-        if (!h.object.visible || h.object.userData?.ui || h.object.material?.colorWrite === false) continue;
-        let o = h.object, op = null;
-        while (o && !op) { op = o.userData?.opening || null; o = o.parent; }
-        target = op ? { opening: op, point: h.point } : { point: h.point };
-        break;
+      if (building) {
+        for (const h of enterRay.intersectObject(building.group, true)) {
+          if (!h.object.visible || h.object.userData?.ui || h.object.material?.colorWrite === false) continue;
+          let o = h.object, op = null;
+          while (o && !op) { op = o.userData?.opening || null; o = o.parent; }
+          target = { opening: op, point: h.point.clone(), distance: h.distance };
+          break;
+        }
       }
-      if (!target) return;
+      // "on the building" = on its envelope (walls, glazing, roof), not the paving, planters or garden walls of the same group
+      const onEnvelope = target && target.point.y > -0.4 && target.point.x > -0.6 && target.point.x < 14.5 && target.point.z > -0.6 && target.point.z < 15.6;
+      if (target && walker && (target.opening || (onEnvelope && target.distance < NEAR_M))) { enterThrough(target); return; }
+      let point = target ? target.point : null;
+      if (!point) {
+        const g = new THREE.Vector3();
+        if (enterRay.ray.intersectPlane(ground, g) && g.distanceTo(camera.position) < 400) point = g;
+        else point = enterRay.ray.at(camera.position.distanceTo(controls.target), new THREE.Vector3());
+      }
+      dollyTowards(point);
+    }
+    function dollyTowards(point) {
+      const c0 = camera.position.clone(), g0 = controls.target.clone();
+      const dist = c0.distanceTo(g0);
+      // camera and orbit target both move towards the point, so the orbit distance shrinks by the same factor
+      const k = Math.max(0, Math.min(0.35, 1 - controls.minDistance / Math.max(dist, 1e-3)));
+      const c1 = c0.clone().lerp(point, 0.35), g1 = g0.clone().lerp(point, 0.35);
+      if (k < 0.35) c1.copy(g1).add(c0.clone().sub(g0).setLength(Math.max(controls.minDistance, dist * (1 - k))));   // clamp: never closer than minDistance
+      c1.y = Math.max(c1.y, 0.4);
+      g1.y = Math.max(g1.y, 0);
+      dolly = { t0: performance.now(), ms: reducedMotion ? 1 : 600, c0, c1, g0, g1 };
+      lastIdle = performance.now();
+      schedule();
+    }
+    async function enterThrough(target) {
+      if (!walker || !building) return;
       setHover(null);
       const ok = await setMode('walk', { keep: true });
       if (ok === false) return;
@@ -418,6 +456,13 @@ export function createViewer(container, options = {}) {
     last = now;
     try {
       if (mode === 'exterior') {
+        if (dolly) {
+          const u = Math.min(1, (now - dolly.t0) / dolly.ms), e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
+          camera.position.lerpVectors(dolly.c0, dolly.c1, e);
+          controls.target.lerpVectors(dolly.g0, dolly.g1, e);
+          if (u >= 1) dolly = null;
+          lastIdle = now;
+        }
         if (!reducedMotion && !controls.autoRotate && now - lastIdle > 9000) controls.autoRotate = true;
         controls.update();
       }
@@ -466,6 +511,7 @@ export function createViewer(container, options = {}) {
       floorTip.hidden = true;
     }
     lookState = null;
+    dolly = null;
     controls.enabled = false;
     controls.autoRotate = false;
     hudEl.classList.remove('is-active');
@@ -603,6 +649,7 @@ export function createViewer(container, options = {}) {
   // ---------- unit helpers ----------
   async function selectUnit(unitId, styleId) {
     currentUnit = unitId;
+    currentStyle = styleId || currentStyle;
     try { await ready; } catch (e) { return; }
     if (interiors && unitId) {
       try { await interiors.furnish(unitId, styleId || 'atlantic'); } catch (e) { console.warn('[viewer] furnish', e); }
@@ -716,18 +763,33 @@ export function createViewer(container, options = {}) {
     return true;
   }
 
+  // Light: 'day' | 'dusk' | 'night' (the buttons) plus 'golden', the default exterior look until a button is used.
+  const TODS = ['day', 'golden', 'dusk', 'night'];
+  const interiorTod = name => (name === 'golden' ? 'day' : name);
+  function applyExposure() {
+    if (!renderer) return;
+    let ex = 1;
+    try { if (env && typeof env.exposureFor === 'function') ex = env.exposureFor(tod); } catch (e) { ex = 1; }
+    renderer.toneMappingExposure = Number.isFinite(ex) && ex > 0 ? ex : 1;
+  }
   function setTimeOfDay(name) {
+    if (!TODS.includes(name)) return false;
+    if (env && Array.isArray(env.timesOfDay) && !env.timesOfDay.includes(name)) name = name === 'night' ? 'dusk' : 'day';
     tod = name;
     if (env) { try { env.setTimeOfDay(name); } catch (e) { console.warn(e); } tuneShadows(); }
-    try { postfx?.setTimeOfDay?.(name); } catch (e) { /* ignore */ }
+    applyExposure();
+    try { interiors?.setTimeOfDay?.(interiorTod(name)); } catch (e) { console.warn('[viewer] interiors light', e); }
+    try { postfx?.setTimeOfDay?.(name === 'night' ? 'dusk' : name); } catch (e) { /* ignore */ }
     invalidateShadows();
     if (ptOn) { try { pt.stop(); pt.start(); } catch (e) { /* sky changed: rebuild the captured environment */ } }
     else if (fallbackLights && THREE) {
-      const bg = { day: 0xc9d6df, golden: 0xe8c9a4, dusk: 0x3b4660 }[name] || 0xc9d6df;
+      const bg = { day: 0xc9d6df, golden: 0xe8c9a4, dusk: 0x3b4660, night: 0x0d1220 }[name] || 0xc9d6df;
       scene.background = new THREE.Color(bg);
       scene.fog.color.set(bg);
     }
+    emit('time', { timeOfDay: name });
     schedule();
+    return true;
   }
 
   function setLang(l) {

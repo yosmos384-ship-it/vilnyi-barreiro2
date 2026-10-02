@@ -1,7 +1,8 @@
 // VILNYI · Barreiro 2 — ENVIRONMENT (agent: ENVIRONMENT) · phase 2: real OpenStreetMap + EU-DEM context
 //
 // export function buildEnvironment(THREE, { scene, renderer, quality:'high'|'low' }) => {
-//   group, sun, hemi, setTimeOfDay('day'|'golden'|'dusk'), geo(lat, lon) => Vector3, update(dt, camera),
+//   group, sun, hemi, setTimeOfDay('day'|'golden'|'dusk'|'night'), geo(lat, lon) => Vector3, update(dt, camera),
+//   timesOfDay, exposureFor(name), lightingPresets (also module exports),
 //   ready: Promise (resolves when data/osm.json is loaded and the real neighbourhood is built),
 //   heightAt(x, z), timeOfDay, waterY, street, attribution
 // }
@@ -464,7 +465,7 @@ void main() {
 const SKY_FS = /* glsl */`
 uniform vec3 zenith; uniform vec3 horizon; uniform vec3 horizonAway; uniform vec3 mid; uniform vec3 ground; uniform vec3 sunCol; uniform vec3 glowCol;
 uniform vec3 sunDir; uniform float sunSize; uniform float cloudCover; uniform vec3 cloudLit; uniform vec3 cloudShade;
-uniform float time; uniform float stars;
+uniform float time; uniform float stars; uniform float moon;
 uniform sampler2D hdr; uniform float hdrMix; uniform float hdrRot; uniform float hdrGain;
 varying vec3 vDir;
 float h21(vec2 p){ p = fract(p*vec2(123.34,456.21)); p += dot(p,p+45.32); return fract(p.x*p.y); }
@@ -487,6 +488,7 @@ void main() {
   // below horizon: blend to ground haze
   col = mix(col, ground, smoothstep(0.0, -0.08, y));
   // clouds on a virtual plane
+  float cloudA = 0.0;
   if (y > 0.015 && cloudCover > 0.0) {
     vec2 uv = d.xz / (y + 0.08) * 1.3 + vec2(time * 0.004, time * 0.0016);
     float n = fbm(uv);
@@ -497,16 +499,30 @@ void main() {
     cc += glowCol * pow(sd, 4.0) * 0.5;
     float fade = smoothstep(0.015, 0.2, y);
     col = mix(col, cc, c * fade * 0.92);
+    cloudA = c * fade;
   }
-  // sun disc
-  float disc = smoothstep(cos(sunSize), cos(sunSize * 0.6), dot(d, sunDir));
-  col += sunCol * disc;
-  // stars at dusk
-  if (stars > 0.0 && y > 0.1) {
-    vec2 g = d.xz / (y + 0.3) * 420.0;
-    vec2 fg = fract(g) - 0.5;
-    float s = step(0.9975, h21(floor(g))) * smoothstep(0.25, 0.7, y) * smoothstep(0.22, 0.05, length(fg)) * h21(floor(g) + 7.0);
-    col += vec3(s) * stars;
+  // stars (dusk: a few high up; night: dense, twinkling) — drawn before the moon / clouds cover them
+  float starK = 0.0;
+  if (stars > 0.0 && y > 0.04 && cloudA < 0.9) {
+    for (int l = 0; l < 2; l++) {
+      vec2 g = d.xz / (y + 0.3) * (l == 0 ? 420.0 : 230.0) + float(l) * 17.3;
+      vec2 fg = fract(g) - 0.5;
+      float h = h21(floor(g));
+      float tw = 0.75 + 0.25 * sin(time * (1.5 + 4.0 * h) + h * 50.0);
+      starK += (1.0 - cloudA) * step(l == 0 ? 0.9975 : 0.994, h) * smoothstep(0.04, 0.45, y) * smoothstep(0.24, 0.04, length(fg)) * (0.35 + 0.65 * h21(floor(g) + 7.0)) * tw;
+    }
+  }
+  // sun disc, or the moon (soft disc with a faint mare pattern and a halo)
+  float cd = dot(d, sunDir);
+  if (moon > 0.0) {
+    float ang = acos(clamp(cd, -1.0, 1.0));
+    float m = smoothstep(sunSize, sunSize * 0.86, ang);
+    float mare = 0.82 + 0.18 * vn(d.xz * 160.0 + d.y * 90.0);
+    col += glowCol * (exp(-ang * 9.0) * 0.16 + exp(-ang * 40.0) * 0.22);
+    col = mix(col + vec3(starK) * stars * (1.0 - smoothstep(0.02, 0.2, exp(-ang * 9.0))), sunCol * mare, m);
+  } else {
+    col += vec3(starK) * stars;
+    col += sunCol * smoothstep(cos(sunSize), cos(sunSize * 0.6), cd);
   }
   if (hdrMix > 0.0) {
     // real HDRI sky (equirect, rotated about y so its sun sits on the scene sun), filmic tone-mapped here
@@ -532,7 +548,7 @@ function makeSky() {
       zenith: { value: new T.Color() }, horizon: { value: new T.Color() }, horizonAway: { value: new T.Color() }, mid: { value: new T.Color() }, ground: { value: new T.Color() },
       sunCol: { value: new T.Color() }, glowCol: { value: new T.Color() }, sunDir: { value: new T.Vector3(0, 1, 0) },
       sunSize: { value: 0.012 }, cloudCover: { value: 0.35 }, cloudLit: { value: new T.Color() }, cloudShade: { value: new T.Color() },
-      time: { value: 0 }, stars: { value: 0 },
+      time: { value: 0 }, stars: { value: 0 }, moon: { value: 0 },
       hdr: { value: null }, hdrMix: { value: 0 }, hdrRot: { value: 0 }, hdrGain: { value: 1 }
     },
     vertexShader: SKY_VS, fragmentShader: SKY_FS,
@@ -565,21 +581,69 @@ const TOD = {
     hemiSky: '#b9c8e0', hemiGround: '#b08e6c', hemiI: 0.4, env: 0.6,
     fog: 0.000065, exposure: 1.0, lamps: 0, city: 0.15, stars: 0, water: '#3c5f7a', waterSky: '#d9c3a8'
   },
+  // blue hour: the sun is ~4° below the horizon — orange band low in the west under a deep-blue dome, lamps on, ~25 % of windows lit
   dusk: {
-    az: 250, alt: 3, sun: '#ff9a6a', sunI: 0.3, hdriAlt: null, envE: 0.6, skyGain: 0.42,
-    zenith: '#1b2748', mid: '#46557e', horizon: '#ee9a6c', away: '#8b8aa3', fogCol: '#77738a', ground: '#3a3c4a', glow: '#ff8a55', sunDisc: 0.0,
-    cloud: 0.18, cloudLit: '#f0a283', cloudShade: '#4a4a62',
-    hemiSky: '#5a6c9a', hemiGround: '#3e3136', hemiI: 0.35, env: 0.25,
-    fog: 0.00007, exposure: 1.0, lamps: 1, city: 1, stars: 0.5, water: '#1b2438', waterSky: '#6b5a70'
+    az: 250, alt: -4, sun: '#ffa27a', sunI: 0.22, hdriAlt: null, envE: 0.5, skyGain: 0.3, skyHDR: 0.3,
+    zenith: '#0d1a40', mid: '#233c80', horizon: '#f08a4e', away: '#34488a', fogCol: '#3f4c80', ground: '#2a2e3e', glow: '#ff7a3c', sunDisc: 0.0,
+    cloud: 0.16, cloudLit: '#d98a72', cloudShade: '#2c3152',
+    hemiSky: '#4a5f9a', hemiGround: '#33292c', hemiI: 0.3, env: 0.2,
+    fog: 0.00007, exposure: 1.1, lamps: 1, city: 1, stars: 0.35, water: '#141c33', waterSky: '#6a5a78',
+    win: 'dusk', winI: 1.5, pool: 0.16, lampI: 22, shadowRadius: 4
+  },
+  // night: moonlight is the directional light (cool, low, soft shadows); the dusk HDRI, darkened and tinted blue, is only the
+  // image-based fill so interiors are not lit by a bright sky; street lamps, ~45 % of windows and the far shore are lit
+  night: {
+    moon: true, az: 168, alt: 40, sun: '#a9bfe8', sunI: 0.3, hdri: 'dusk', hdriAlt: null, envE: 0.06, envTint: '#7f97d8', skyGain: 0.1, skyHDR: 0,
+    zenith: '#040814', mid: '#081024', horizon: '#18223e', away: '#121a32', fogCol: '#0d1426', ground: '#090d18', glow: '#9db2e2', sunDisc: 0.95, sunSize: 0.015,
+    cloud: 0.2, cloudLit: '#26304e', cloudShade: '#0a0f1e',
+    hemiSky: '#263864', hemiGround: '#15120f', hemiI: 0.14, env: 0.05,
+    fog: 0.00006, exposure: 1.2, lamps: 1, city: 1, stars: 1.0, water: '#050912', waterSky: '#18223e',
+    win: 'night', winI: 1.9, pool: 0.3, lampI: 30, shadowRadius: 7
   }
 };
+Object.assign(TOD.day, { exposure: 1.0 });
+Object.assign(TOD.golden, { exposure: 1.0 });
 
-export function sunDirection(az, alt) {
-  // compass azimuth (from true north, clockwise) → local frame (north = SITE_FRAME.north, east = its clockwise normal)
+// ---- lighting API shared with the viewer and the Blender pipeline (plain data, no THREE needed)
+export const timesOfDay = ['day', 'golden', 'dusk', 'night'];
+/** Suggested renderer.toneMappingExposure for a preset. */
+export function exposureFor(name) { return (TOD[name] || TOD.golden).exposure; }
+function dirXYZ(az, alt) {
+  // compass azimuth (from true north, clockwise) → local three.js frame (north = SITE_FRAME.north, east = its clockwise normal)
   const a = az * DEG, e = alt * DEG, sa = Math.sin(a), ca = Math.cos(a);
-  const x = sa * EAST[0] + ca * NORTH[0], z = sa * EAST[1] + ca * NORTH[1];
-  return new T.Vector3(x * Math.cos(e), Math.sin(e), z * Math.cos(e)).normalize();
+  const x = (sa * EAST[0] + ca * NORTH[0]) * Math.cos(e), y = Math.sin(e), z = (sa * EAST[1] + ca * NORTH[1]) * Math.cos(e);
+  const l = Math.hypot(x, y, z) || 1;
+  return [x / l, y / l, z / l];
 }
+const MIN_LIGHT_Y = 0.035;   // the DirectionalLight never drops below ~2° (blue hour: sky glow from the sunset bearing)
+function lightDir(az, alt) {
+  const d = dirXYZ(az, alt);
+  const y = Math.max(d[1], MIN_LIGHT_Y), l = Math.hypot(d[0], y, d[2]);
+  return [d[0] / l, y / l, d[2] / l];
+}
+const hexLin = (h) => [1, 3, 5].map(i => { const c = parseInt(h.slice(i, i + 2), 16) / 255; return +(c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)).toFixed(4); });
+const r4 = (a) => a.map(v => +v.toFixed(4));
+/**
+ * Key light and sky per preset, in three.js world coordinates of this site (x = along Rua Eduardo Couto, y = up, z = towards the street).
+ * `direction` is the unit vector FROM the scene TOWARDS the light as the realtime DirectionalLight uses it (clamped ≥ 2° above the
+ * horizon); `trueDirection` is the un-clamped astronomical one. Blender (Z-up): (x, y, z)three → (x, −z, y).
+ * Note: for 'day' and 'golden' the realtime light takes its altitude from the loaded HDRI, clamped to `hdriAltitudeRange`.
+ */
+export const lightingPresets = Object.fromEntries(timesOfDay.map((name) => {
+  const P = TOD[name];
+  return [name, {
+    name, light: P.moon ? 'moon' : 'sun', azimuth: P.az, altitude: P.alt, hdriAltitudeRange: P.hdriAlt || null,
+    direction: r4(lightDir(P.az, P.alt)), trueDirection: r4(dirXYZ(P.az, P.alt)),
+    color: P.sun, colorLinear: hexLin(P.sun), intensity: P.sunI, shadowSoftness: P.shadowRadius || 3,
+    hdri: P.hdri || name, hdriStrength: P.envE, hdriTint: P.envTint || '#ffffff', hdriVisible: P.skyHDR === undefined ? 1 : P.skyHDR,
+    sky: { zenith: P.zenith, mid: P.mid, horizon: P.horizon, horizonAway: P.away, haze: P.fogCol },
+    hemisphere: { sky: P.hemiSky, ground: P.hemiGround, intensity: P.hemiI },
+    streetLamps: P.lamps, lampColor: '#ffb46b', windowsLit: P.win === 'night' ? 0.45 : P.win === 'dusk' ? 0.25 : 0, cityLights: P.city,
+    stars: P.stars, exposure: P.exposure
+  }];
+}));
+
+export function sunDirection(az, alt) { const d = dirXYZ(az, alt); return new T.Vector3(d[0], d[1], d[2]); }
 
 // ---------------------------------------------------------------- water
 const WATER_VS = /* glsl */`
@@ -694,10 +758,16 @@ function makeFacadeTextures(rng, size, aniso) {
       if (L.kind !== 'door') { g.fillStyle = '#fbfaf7'; g.fillRect(R.x - px * 0.25, R.y + R.h, R.w + px * 0.5, px * 0.14); g.fillStyle = 'rgba(0,0,0,0.18)'; g.fillRect(R.x - px * 0.2, R.y + R.h + px * 0.14, R.w + px * 0.4, px * 0.08); }
     }
   }, { aniso });
-  const lit = canvasTex(size, (g, s) => {
-    g.fillStyle = '#000'; g.fillRect(0, 0, s, s);
+  // emissive variants: the same 16 windows, lit in a fixed random order → 4 of 16 (25 %) at dusk, 7 of 16 (44 %) at night
+  const order = layout.map((_, i) => i), r2 = rngFrom(0x11A7);
+  for (let i = order.length - 1; i > 0; i--) { const j = Math.floor(r2() * (i + 1)); [order[i], order[j]] = [order[j], order[i]]; }
+  order.forEach((idx, k) => { layout[idx].rank = k; });
+  const LS = 512;
+  const litTex = (count) => canvasTex(LS, (g) => {
+    g.fillStyle = '#000'; g.fillRect(0, 0, LS, LS);
+    g.scale(LS / size, LS / size);
     for (const L of layout) {
-      if (!L.lit) continue;
+      if (L.rank >= count) continue;
       const R = rectOf(L);
       const y0 = R.y + R.h * L.shutter;
       g.fillStyle = L.warm < 0.75 ? '#ffc27a' : '#dfe6ff';
@@ -706,7 +776,8 @@ function makeFacadeTextures(rng, size, aniso) {
       g.globalAlpha = 1;
     }
   }, { aniso });
-  return { map, lit };
+  const lit = litTex(4), litNight = litTex(7);
+  return { map, lit, litNight };
 }
 
 // ---------------------------------------------------------------- building primitives (merged)
@@ -810,6 +881,7 @@ const ROOF_COLS = ['#b5563a', '#a94d33', '#c0613f', '#9c4a34', '#b8603f', '#a858
 // ---------------------------------------------------------------- materials
 function makeMaterials(C, tex, fac) {
   const M = C.mats;
+  C.fac = fac;
   M.facade = new T.MeshStandardMaterial({ name: 'env-facade', map: fac.map, vertexColors: true, roughness: 0.88, metalness: 0,
     emissive: new T.Color('#ffffff'), emissiveMap: fac.lit, emissiveIntensity: 0, envMapIntensity: 0.7 });
   M.city = new T.MeshStandardMaterial({ name: 'env-city', map: fac.map, vertexColors: true, roughness: 0.9, metalness: 0,
@@ -2071,25 +2143,26 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
       tex.wrapS = T.RepeatWrapping; tex.minFilter = T.LinearFilter; tex.magFilter = T.LinearFilter; tex.generateMipmaps = false;
       tex.needsUpdate = true;
       Object.assign(H, analyseHDRI(tex), { tex, ready: true });
-      if (current === name) setTimeOfDay(name);
+      if ((TOD[current].hdri || current) === name) setTimeOfDay(current);
       return true;
     })().catch((e) => { console.warn('[environment] HDRI ' + name + ' unavailable, procedural sky kept', e); return false; });
     return H.p;
   };
   // PMREM of the HDRI rotated about y (r160 has no scene.environmentRotation) and scaled; the sun disc is clamped
   // (the DirectionalLight is the sun) so the image-based light is sky + clouds + ground bounce only.
-  const hdriEnv = (H, rot, gain, groundCol) => {
-    const key = rot.toFixed(3) + '|' + gain;
+  const hdriEnv = (H, rot, gain, groundCol, tint = '#ffffff') => {
+    const key = rot.toFixed(3) + '|' + gain + '|' + tint;
     if (H.env[key]) return H.env[key];
     if (!pmrem) pmrem = new T.PMREMGenerator(renderer);
     if (!envScene) {
       envMat = new T.ShaderMaterial({
-        uniforms: { hdr: { value: null }, rot: { value: 0 }, gain: { value: 1 }, ground: { value: new T.Color() } },
+        uniforms: { hdr: { value: null }, rot: { value: 0 }, gain: { value: 1 }, ground: { value: new T.Color() }, tint: { value: new T.Color(1, 1, 1) } },
         vertexShader: 'varying vec3 vDir; void main(){ vDir = position; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }',
-        fragmentShader: `uniform sampler2D hdr; uniform float rot; uniform float gain; uniform vec3 ground; varying vec3 vDir;
+        fragmentShader: `uniform sampler2D hdr; uniform float rot; uniform float gain; uniform vec3 ground; uniform vec3 tint; varying vec3 vDir;
           void main(){ vec3 d = normalize(vDir);
             vec2 uv = vec2((atan(d.z, d.x) + rot) * 0.15915494 + 0.5, asin(clamp(d.y, -1.0, 1.0)) * 0.31830989 + 0.5);
             vec3 c = min(texture2D(hdr, uv).rgb, vec3(14.0)) * gain;
+            if (tint != vec3(1.0)) c = mix(vec3(dot(c, vec3(0.2126, 0.7152, 0.0722))), c, 0.35) * tint; // night: desaturated, cool
             c = mix(c, ground, smoothstep(0.0, -0.12, d.y));
             gl_FragColor = vec4(c, 1.0); }`,
         side: T.BackSide, depthWrite: false, depthTest: false, toneMapped: false, fog: false
@@ -2098,7 +2171,7 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
       envScene.add(new T.Mesh(new T.SphereGeometry(10, 48, 24), envMat));
     }
     envMat.uniforms.hdr.value = H.tex; envMat.uniforms.rot.value = rot; envMat.uniforms.gain.value = gain;
-    envMat.uniforms.ground.value.copy(groundCol);
+    envMat.uniforms.ground.value.copy(groundCol); envMat.uniforms.tint.value.set(tint);
     const rt = pmrem.fromScene(envScene, 0, 0.1, 100);
     rt.texture.name = 'env-hdri-pmrem';
     return (H.env[key] = rt.texture);
@@ -2173,48 +2246,63 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
     const P = TOD[name] || TOD.golden;
     current = TOD[name] ? name : 'golden';
     if (baseEnv === null) baseEnv = scene.environment || false;   // the viewer's RoomEnvironment (kept as fallback)
-    const H = hdri[current] && hdri[current].ready ? hdri[current] : null;
-    if (!hdri[current]) requestHDRI(current);
+    const hname = P.hdri || current;
+    const H = hdri[hname] && hdri[hname].ready ? hdri[hname] : null;
+    if (!hdri[hname]) requestHDRI(hname);
     const alt = H && H.alt != null && P.hdriAlt ? clamp(H.alt, P.hdriAlt[0], P.hdriAlt[1]) : P.alt;
     const d = sunDirection(P.az, alt);
-    sun.position.set(7 + d.x * 120, Math.max(d.y, 0.035) * 120, 7 + d.z * 120);
+    sun.position.set(7 + d.x * 120, Math.max(d.y, MIN_LIGHT_Y) * 120, 7 + d.z * 120);
     sun.color.set(P.sun); sun.intensity = P.sunI;
+    sun.shadow.radius = P.shadowRadius || 3;
+    sun.userData.kind = P.moon ? 'moon' : 'sun';
     const U = sky.material.uniforms;
     U.zenith.value.set(P.zenith); U.horizon.value.set(P.horizon); U.horizonAway.value.set(P.away); U.mid.value.set(P.mid); U.ground.value.set(P.fogCol);
     U.glowCol.value.set(P.glow); U.sunCol.value.set(P.sun).multiplyScalar(P.sunDisc); U.sunDir.value.copy(d);
     U.cloudCover.value = P.cloud; U.cloudLit.value.set(P.cloudLit); U.cloudShade.value.set(P.cloudShade); U.stars.value = P.stars;
+    U.moon.value = P.moon ? 1 : 0; U.sunSize.value = P.sunSize || 0.012;
     hemi.color.set(P.hemiSky); hemi.groundColor.set(P.hemiGround); hemi.intensity = P.hemiI;
     scene.fog.color.set(P.fogCol); scene.fog.density = P.fog;
     scene.background = col(P.fogCol);
     U.hdrMix.value = 0;
     if (H) {
       // real sky: rotate the HDRI so its sun / glow sits on the scene sun bearing; haze & fog take its horizon colour
-      const rot = H.phi0 - Math.atan2(d.z, d.x);
-      const hz = new T.Color(filmic(H.hor[0] * P.skyGain), filmic(H.hor[1] * P.skyGain), filmic(H.hor[2] * P.skyGain));
-      U.hdr.value = H.tex; U.hdrRot.value = rot; U.hdrGain.value = P.skyGain; U.hdrMix.value = 1;
-      U.ground.value.copy(hz); scene.fog.color.copy(hz); scene.background = hz.clone();
-      const gain = +(P.envE / H.E).toFixed(3);   // normalise every HDRI to the preset's sky irradiance
+      // (night: the moon is not in the HDRI — keep its sunset glow on the dusk bearing, the visible sky stays procedural)
+      const dg = P.moon ? sunDirection(TOD.dusk.az, 0) : d;
+      const rot = H.phi0 - Math.atan2(dg.z, dg.x);
+      const mix = P.skyHDR === undefined ? 1 : P.skyHDR;
+      if (mix > 0) {
+        const hz = new T.Color(filmic(H.hor[0] * P.skyGain), filmic(H.hor[1] * P.skyGain), filmic(H.hor[2] * P.skyGain));
+        if (mix < 1) hz.lerpColors(new T.Color(P.fogCol), hz, mix);
+        U.hdr.value = H.tex; U.hdrRot.value = rot; U.hdrGain.value = P.skyGain; U.hdrMix.value = mix;
+        U.ground.value.copy(hz); scene.fog.color.copy(hz); scene.background = hz.clone();
+      }
+      const gain = +(P.envE / H.E).toFixed(4);   // normalise every HDRI to the preset's sky irradiance
       const bounce = new T.Color(P.hemiGround).multiplyScalar(P.envE * 0.09);
-      try { scene.environment = hdriEnv(H, rot, gain, bounce); } catch (e) { console.warn('[environment] PMREM', e); }
+      try { scene.environment = hdriEnv(H, rot, gain, bounce, P.envTint); } catch (e) { console.warn('[environment] PMREM', e); }
       hemi.intensity = P.hemiI * 0.2;
     } else if (baseEnv && scene.environment && scene.environment.name === 'env-hdri-pmrem') scene.environment = baseEnv;
     const W = C.mats.water && C.mats.water.uniforms;
     if (W) {
       W.deep.value.set(P.water); W.skyLow.value.set(P.waterSky); W.skyHigh.value.set(P.zenith);
-      W.sunCol.value.set(P.sun).multiplyScalar(P.alt > 0 ? 1 : 0.3); W.sunDir.value.copy(d); W.lights.value = P.city;
+      W.sunCol.value.set(P.sun).multiplyScalar(P.moon ? 0.22 : P.alt > 0 ? 1 : 0.3); W.sunDir.value.copy(d); W.lights.value = P.city;
     }
     const M = C.mats;
-    M.facade.emissiveIntensity = P.lamps * 1.4;
+    const litMap = P.win === 'night' ? C.fac.litNight : C.fac.lit, winI = P.lamps * (P.winI || 1.4);
+    for (const m of [M.facade, M.facadePink, M.facadeWhite, M.city]) {
+      if (!m) continue;
+      if (m.emissiveMap !== litMap) { m.emissiveMap = litMap; m.needsUpdate = true; }
+      m.emissiveIntensity = winI;
+    }
     M.city.emissiveIntensity = P.city * 2.2;
     M.lights.opacity = P.city; M.redLights.opacity = P.city;
     M.lampHead.emissiveIntensity = P.lamps * 6;
-    M.glow.opacity = P.lamps * 0.6; M.pool.opacity = P.lamps * 0.13;
+    M.glow.opacity = P.lamps * 0.6; M.pool.opacity = P.lamps * (P.pool || 0.13);
     M.glassDark.emissiveIntensity = P.lamps * 0.8;
-    M.cable.color.set(name === 'dusk' ? '#0b0c10' : '#202224');
-    for (const L of lampLights) L.intensity = P.lamps * 22;
+    M.cable.color.set(P.lamps ? '#0b0c10' : '#202224');
+    for (const L of lampLights) L.intensity = P.lamps * (P.lampI || 22);
     envFactor = H ? 1 : P.env;
     applyEnvFactor();
-    if (H && W) { W.skyLow.value.copy(scene.fog.color); }
+    if (H && W && P.skyHDR !== 0) { W.skyLow.value.copy(scene.fog.color); }
   }
 
   function geo(lat, lon) {
@@ -2241,7 +2329,8 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
     heightAt: walkY,                 // walkable ground: lot yards, pavements −0.85, asphalt −0.95, real terrain beyond
     terrainAt: (x, z) => groundY(x, z),
     colliders: C.colliders,          // [{ name, x0, z0, x1, z1, y0, y1 }] hand-modelled neighbour houses & walls (also group.userData.colliders)
-    hdriReady: (name) => requestHDRI(name || current),
+    hdriReady: (name) => { const n = TOD[name] ? name : current; return requestHDRI(TOD[n].hdri || n); },
+    timesOfDay, exposureFor, lightingPresets,
     waterY: WATER_Y,
     street: { zKerb: STREET.zKerb, zRoad0: SITE_ST.road[0], zRoad1: SITE_ST.road[1], zFar: SITE_ST.paveS[1], pavementY: PAVE_Y, roadY: TERR_FLAT + ROAD_UP }
   };

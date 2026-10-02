@@ -342,6 +342,57 @@ export const STYLES = [
       { k: 'windows', en: 'Slim-profile thermal-break aluminium, solar-control glazing',  pt: 'Alumínio de perfil fino, vidro de controlo solar',           he: 'אלומיניום בפרופיל דק, זיגוג בקרת שמש' }
     ]
   }
+  ,{
+    id: 'natura', tier: 'natura',
+    name: { en: 'Natura · Japandi Calm', pt: 'Natura · Japandi', he: 'נטורה · יפנדי רגוע', ru: 'Natura · Джапанди' },
+    blurb: { en: 'Pale ash floors, limewash walls, travertine, linen and black steel details.', pt: 'Soalho de freixo claro, paredes a cal, travertino, linho e detalhes em aço preto.', he: 'פרקט מילה בהיר, קירות סיד, טרוורטין, פשתן ופרטי פלדה שחורה.', ru: 'Светлый ясень, известковые стены, травертин, лён и чёрная сталь.' },
+    palette: { floor: '#dfd2b8', wall: '#ece6da', ceiling: '#f6f2ea', joinery: '#cdbb9b', worktop: '#d9cdb8', accent: '#2b2b28', fabric: '#d8cfbf', metal: '#2d2c2a', bathTile: '#d8ccb6', rug: '#bfb39d', wood: '#c6ae86' },
+    extra: 6500,
+    spec: [
+      { k: 'floor',   en: 'Pale ash engineered boards, 220 mm, white-oiled',               pt: 'Soalho de freixo claro, réguas 220 mm, óleo branco',          he: 'פרקט מילה בהיר, לוחות 220 מ״מ, שמן לבן' },
+      { k: 'walls',   en: 'Mineral limewash in warm sand, timber slat feature wall',       pt: 'Pintura a cal em tom areia, parede ripada em madeira',         he: 'צבע סיד מינרלי בגוון חול, קיר לוחות עץ' },
+      { k: 'bath',    en: 'Honed travertine floor to ceiling, niche shelves',              pt: 'Travertino amaciado do chão ao teto, nichos',                  he: 'טרוורטין מוברש מהרצפה עד התקרה, נישות' },
+      { k: 'sanitary',en: 'Matt-black mixers, stone-resin basin, wall-hung WC',            pt: 'Misturadoras preto mate, lavatório em resina mineral, sanita suspensa', he: 'ברזים שחור מט, כיור אבן יצוקה, אסלה תלויה' },
+      { k: 'kitchen', en: 'Ash veneer fronts, travertine-look sintered worktop',           pt: 'Frentes em folha de freixo, bancada sinterizada efeito travertino', he: 'חזיתות פורניר מילה, משטח סינטר במראה טרוורטין' },
+      { k: 'appliances', en: 'Integrated A-rated appliances, flush induction',             pt: 'Eletrodomésticos integrados classe A, indução à face',        he: 'מכשירים אינטגרליים בדירוג A, אינדוקציה שקועה' },
+      { k: 'doors',   en: 'Ash veneer doors with black handles',                           pt: 'Portas em folha de freixo com puxadores pretos',              he: 'דלתות פורניר מילה עם ידיות שחורות' },
+      { k: 'windows', en: 'Thermal-break aluminium, linen sheers on recessed tracks',      pt: 'Alumínio com corte térmico, cortinados de linho em calha embutida', he: 'אלומיניום עם גשר תרמי, וילונות פשתן במסילה שקועה' }
+    ]
+  },
+  {
+    id: 'riviera', tier: 'riviera',
+    name: { en: 'Riviera · Mediterranean', pt: 'Riviera · Mediterrâneo', he: 'ריביירה · ים־תיכוני', ru: 'Riviera · Средиземноморье' },
+    blurb: { en: 'Limestone floors, white plaster, glazed green zellige, rattan and terracotta.', pt: 'Pavimento em calcário, estuque branco, zellige verde vidrado, vime e terracota.', he: 'רצפת אבן גיר, טיח לבן, אריחי זליג׳ ירוקים מזוגגים, ראטן וטרקוטה.', ru: 'Известняк, белая штукатурка, зелёный зеллидж, ротанг и терракота.' },
+    palette: { floor: '#e3d9c6', wall: '#f6f2ea', ceiling: '#fbf8f2', joinery: '#6f8f7d', worktop: '#efe9df', accent: '#c26a3d', fabric: '#efe6d6', metal: '#b89a5e', bathTile: '#4f7f6a', rug: '#d9b991', wood: '#b98b5a' },
+    extra: 11000,
+    spec: [
+      { k: 'floor',   en: 'Portuguese limestone (Moleanos) 60×90, honed',                  pt: 'Calcário português (Moleanos) 60×90, amaciado',               he: 'אבן גיר פורטוגזית (מולאנוס) 60×90, מוברשת' },
+      { k: 'walls',   en: 'Hand-trowelled white plaster, arched niches',                   pt: 'Estuque branco à talocha, nichos em arco',                    he: 'טיח לבן בעבודת יד, נישות מקושתות' },
+      { k: 'bath',    en: 'Glazed green zellige tiles, limestone floor',                   pt: 'Azulejo zellige verde vidrado, pavimento em calcário',        he: 'אריחי זליג׳ ירוקים מזוגגים, רצפת אבן גיר' },
+      { k: 'sanitary',en: 'Aged-brass mixers, ceramic vessel basin on a stone shelf',      pt: 'Misturadoras latão envelhecido, lavatório de pousar em prateleira de pedra', he: 'ברזים בפליז מיושן, כיור קרמי מונח על מדף אבן' },
+      { k: 'kitchen', en: 'Sage-green shaker fronts, white marble-look worktop, terracotta splashback', pt: 'Frentes shaker verde-sálvia, bancada efeito mármore branco, salpico em terracota', he: 'חזיתות שייקר ירוק מרווה, משטח במראה שיש לבן, חיפוי טרקוטה' },
+      { k: 'appliances', en: 'Integrated appliances, range-style oven, wine cooler',       pt: 'Eletrodomésticos integrados, forno tipo fogão, garrafeira',   he: 'מכשירים אינטגרליים, תנור רחב, מקרר יין' },
+      { k: 'doors',   en: 'Painted panel doors in off-white, brass handles',               pt: 'Portas almofadadas lacadas, puxadores latão',                 he: 'דלתות פאנל צבועות, ידיות פליז' },
+      { k: 'windows', en: 'Thermal-break aluminium, timber shutters to bedrooms',          pt: 'Alumínio com corte térmico, portadas de madeira nos quartos', he: 'אלומיניום עם גשר תרמי, תריסי עץ בחדרי השינה' }
+    ]
+  },
+  {
+    id: 'urban', tier: 'urban',
+    name: { en: 'Urban · Industrial Loft', pt: 'Urban · Loft Industrial', he: 'אורבן · לופט תעשייתי', ru: 'Urban · Индустриальный лофт' },
+    blurb: { en: 'Polished concrete, exposed brick, black steel, terrazzo and cognac leather.', pt: 'Betão polido, tijolo à vista, aço preto, terrazzo e pele conhaque.', he: 'בטון מוחלק, לבנים חשופות, פלדה שחורה, טראצו ועור בגוון קוניאק.', ru: 'Полированный бетон, кирпич, чёрная сталь, терраццо и кожа коньячного цвета.' },
+    palette: { floor: '#9a9790', wall: '#e4e1db', ceiling: '#eeece7', joinery: '#2a2b2d', worktop: '#7d7a74', accent: '#a65a2e', fabric: '#8a6a4c', metal: '#1f2022', bathTile: '#cfc8bd', rug: '#6d6a66', wood: '#7a5a3c' },
+    extra: 8000,
+    spec: [
+      { k: 'floor',   en: 'Polished concrete screed with underfloor heating',              pt: 'Betonilha polida com piso radiante',                          he: 'בטון מוחלק עם חימום תת־רצפתי' },
+      { k: 'walls',   en: 'Exposed reclaimed-brick feature wall, soft grey paint',         pt: 'Parede em tijolo recuperado à vista, tinta cinza suave',      he: 'קיר לבנים חשופות ממוחזרות, צבע אפור רך' },
+      { k: 'bath',    en: 'Terrazzo floor and walls, black-framed shower screen',          pt: 'Terrazzo em pavimento e paredes, resguardo de duche com perfil preto', he: 'טראצו ברצפה ובקירות, מקלחון עם פרופיל שחור' },
+      { k: 'sanitary',en: 'Matt-black fittings, concrete basin, exposed shower column',    pt: 'Torneiras preto mate, lavatório em betão, coluna de duche à vista', he: 'ברזים שחור מט, כיור בטון, עמוד מקלחת גלוי' },
+      { k: 'kitchen', en: 'Matt-black fronts, stainless-steel worktop and open oak shelves', pt: 'Frentes preto mate, bancada em aço inox e prateleiras de carvalho', he: 'חזיתות שחור מט, משטח נירוסטה ומדפי אלון פתוחים' },
+      { k: 'appliances', en: 'Stainless professional-style appliances',                    pt: 'Eletrodomésticos em inox de estilo profissional',             he: 'מכשירי נירוסטה בסגנון מקצועי' },
+      { k: 'doors',   en: 'Black steel-framed glazed doors to the living room, oak doors elsewhere', pt: 'Portas envidraçadas em aço preto na sala, carvalho nos restantes', he: 'דלתות זכוכית במסגרת פלדה שחורה לסלון, דלתות אלון בשאר' },
+      { k: 'windows', en: 'Slim black thermal-break aluminium, roller blinds',             pt: 'Alumínio preto de perfil fino, estores de rolo',              he: 'אלומיניום שחור בפרופיל דק, וילונות גלילה' }
+    ]
+  }
 ];
 
 // Nearby places for the aerial panorama. Coordinates are approximate.
@@ -407,3 +458,10 @@ export function localToGeo(x, z) {
   const pz = F._A[1] + (s - 80.9) * F._u[1] + n * F._n[1];
   return { lat: F._lat0 - pz / kz, lon: F._lon0 + px / kx };
 }
+
+// Lighting moods available in every 3D view and in the photoreal tour.
+export const TIMES_OF_DAY = [
+  { id: 'day',   name: { en: 'Day',   pt: 'Dia',        he: 'יום',     ru: 'День' } },
+  { id: 'dusk',  name: { en: 'Dusk',  pt: 'Crepúsculo', he: 'דמדומים', ru: 'Сумерки' } },
+  { id: 'night', name: { en: 'Night', pt: 'Noite',      he: 'לילה',    ru: 'Ночь' } }
+];

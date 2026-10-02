@@ -1,6 +1,6 @@
 // VILNYI · Barreiro 2 — sales app (APP agent).
 import {
-  PROJECT, BANK, PAYMENT_PLAN, LEVELS, FLOORS, UNITS, STYLES, LANDMARKS, PARKING, BALCONIES, PRICE_PER_M2,
+  PROJECT, BANK, PAYMENT_PLAN, LEVELS, FLOORS, UNITS, STYLES, LANDMARKS, PARKING, BALCONIES, PRICE_PER_M2, TIMES_OF_DAY,
   unitById, floorById
 } from './data.js';
 import { t, L, setLang, getLang, langInfo, fmtMoney, fmtNum, LANGS, DICTS } from './i18n.js';
@@ -25,6 +25,8 @@ const state = {
   filters: { type: 'all', floor: 'all', max: null, availOnly: false },
   openFloor: null,
   planView: 'plan',
+  tod: 'day',                 // light: day · dusk · night (page ↔ 3D ↔ 360° tour ↔ gallery)
+  todChosen: false,
   style: {},                  // unitId -> styleId
   res: { unitId: null, styleId: 'atlantic', step: 1, data: {}, ref: null, saved: null },
   db: null, user: null, isOwner: false, canWrite: null,
@@ -532,7 +534,7 @@ function renderSpecs() {
   const specs = [['energy', 'bld.energy', 'bld.energyT'], ['pv', 'bld.pv', 'bld.pvT'], ['lift', 'bld.lift', 'bld.liftT'], ['parking', 'bld.parking', 'bld.parkingT'], ['mansard', 'bld.mansard', 'bld.mansardT'], ['garden', 'bld.outdoor', 'bld.outdoorT']];
   $('#specs').innerHTML = specs.map(([i, h, p]) => `<li>${icon(i)}<b>${esc(t(h))}</b><span>${esc(t(p))}</span></li>`).join('');
   $('#timeline').innerHTML = PROJECT.timeline.map(x => `<li><span class="tl-date">${esc(x.date)}</span><span class="tl-label">${esc(L(x.label))}</span></li>`).join('');
-  $('#finishCards').innerHTML = STYLES.map(s => finishCard(s, false)).join('');
+  $('#finishCards').innerHTML = STYLES.map(s => packageCard(s, { asButton: false })).join('');
 }
 
 function finishCard(s, asButton, pressed = false) {
@@ -650,6 +652,7 @@ function renderAll() {
   renderHome();
   renderFooter();
   if (state.route && !isHomeRoute(state.route)) renderPage(state.route, false);
+  if (unitUI.id) renderUnitSheet(true);
   updateImmLabels();
 }
 
@@ -695,7 +698,7 @@ function bindHome() {
   window.addEventListener('resize', () => {
     if (!state.openFloor) return;
     focusScene(state.openFloor);
-    document.body.classList.toggle('no-scroll', sheetMode() || !$('#imm').hidden || !$('#modal').hidden);
+    document.body.classList.toggle('no-scroll', sheetMode() || !$('#imm').hidden || !$('#modal').hidden || !!tourApi?.isOpen?.());
   });
 
   // façade / 3D toggle
@@ -711,8 +714,10 @@ function bindHome() {
     if (e.target.closest('[data-act="closePlan"]')) { dismissFloor(); return; }
     const fl = e.target.closest('.flc-rail [data-floor]');
     if (fl) { if (fl.dataset.floor !== state.openFloor) go(`floor-${fl.dataset.floor}`); return; }
+    const chip = e.target.closest('.flc-chip[data-unit]');
+    if (chip) { unitUI.from = chip.getBoundingClientRect(); return; }   // the link itself navigates to #unit-…
     const u = e.target.closest('svg [data-unit]');
-    if (u) go(`unit-${unitToken(u.dataset.unit)}`);
+    if (u) { unitUI.from = unitOrigin(u.dataset.unit) || u.getBoundingClientRect(); go(`unit-${unitToken(u.dataset.unit)}`); }
   });
   panel.addEventListener('keydown', e => {
     const u = e.target.closest?.('svg [data-unit]');
@@ -842,6 +847,8 @@ async function getViewer() {
         v.on('photoreal', ev => onPhotoreal(ev));
         v.setPhotorealLabels?.(ptLabels());
         viewerApi = v;
+        // 'golden' stays the default exterior look until the visitor uses the Day / Dusk / Night switch
+        if (state.todChosen) v.ready.then(() => v.setTimeOfDay(state.tod), () => {});
         v.ready.then(() => updateImmModes(v.getMode()), err => { failViewer(err); });
         return v;
       } catch (e) {
@@ -1011,7 +1018,8 @@ function updatePlace(info) {
 
 function updateImmLabels() {
   for (const el of $$('#imm [data-i18n]')) el.textContent = t(el.dataset.i18n);
-  $('#todSel').value = viewerApi?.getTimeOfDay?.() || 'golden';
+  const tb = $('#immTod');
+  if (tb) tb.innerHTML = TIMES_OF_DAY.map(x => `<button type="button" data-tod="${x.id}" aria-pressed="${x.id === state.tod}" aria-label="${esc(todName(x.id))}" title="${esc(todName(x.id))}">${TOD_ICON[x.id] || ''}</button>`).join('');
 }
 
 function bindImmersive() {
@@ -1022,7 +1030,6 @@ function bindImmersive() {
     const ok = await viewerApi.setMode(b.dataset.mode);
     if (!ok) toast(t('v.unavailable'));
   });
-  $('#todSel').addEventListener('change', e => viewerApi?.setTimeOfDay(e.target.value));
   $('#prBtn').addEventListener('click', () => togglePhotoreal());
   // entry points: the lobby (street door) and the basement car park (foot of the ramp)
   $('#immGo').addEventListener('click', async e => {
@@ -1041,6 +1048,8 @@ function bindImmersive() {
     if (e.key === 'Escape') {
       if (!$('#modal').hidden) closeModal();
       else if (!$('#imm').hidden) closeImmersive();
+      else if (tourApi?.isOpen?.()) return;
+      else if (unitUI.id) go(`floor-${unitById(unitUI.id).floor}`);
       else if (state.openFloor) dismissFloor();
       return;
     }
@@ -1050,7 +1059,7 @@ function bindImmersive() {
 
 // ---------------------------------------------------------------- routing
 const HOME_SECTIONS = ['', 'top', 'apartments', 'gallery-renders', 'location', 'building'];
-function isHomeRoute(r) { return HOME_SECTIONS.includes(r) || r.startsWith('floor-') || r === 'interest' || r === '3d' || r === 'aerial'; }
+function isHomeRoute(r) { return HOME_SECTIONS.includes(r) || r.startsWith('floor-') || r.startsWith('unit-') || r === 'interest' || r === '3d' || r === 'aerial'; }
 
 function go(token) {
   if (location.hash === `#${token}`) route();
@@ -1080,7 +1089,15 @@ function route() {
     const wasPage = !$('#page').hidden;
     detachHostFromPage();
     showHome(true);
-    if (r.startsWith('floor-')) {
+    if (r.startsWith('unit-')) {
+      // the apartment opens in place, over the floor card on the façade (also for direct links)
+      const u = unitById(tokenToUnit(r.slice(5)));
+      if (!u) { closeUnit(false); toast(t('unit.notfound')); route.booted = true; return; }
+      const fresh = wasPage || !route.booted;
+      if (fresh) document.getElementById('apartments')?.scrollIntoView({ behavior: 'auto', block: 'start' });
+      openUnit(u.id, { animate: !fresh });
+    } else if (r.startsWith('floor-')) {
+      if (unitUI.id) closeUnit(!wasPage);
       // arriving from another page or by a direct link: show the selector first; a tap on the façade never scrolls
       if (wasPage || !route.booted) document.getElementById('apartments')?.scrollIntoView({ behavior: 'auto', block: 'start' });
       openFloor(r.slice(6), { animate: !!route.booted && !wasPage });
@@ -1089,6 +1106,7 @@ function route() {
     } else if (r === '3d' || r === 'aerial') {
       openImmersive(r === 'aerial' ? 'aerial' : 'exterior');
     } else {
+      if (unitUI.id) closeUnit(false);
       if (state.openFloor && r !== 'apartments') closeFloor(false);
       const target = r ? document.getElementById(r) : null;
       if (target) requestAnimationFrame(() => target.scrollIntoView({ behavior: wasPage ? 'auto' : 'smooth', block: 'start' }));
@@ -1098,6 +1116,7 @@ function route() {
     return;
   }
   route.booted = true;
+  if (unitUI.id) closeUnit(false);
   if (state.openFloor) closeFloor(false);
   renderPage(r, prev !== r);
 }
@@ -1106,8 +1125,7 @@ function renderPage(r, scrollTop) {
   detachHostFromPage();
   showHome(false);
   const page = $('#page');
-  if (r.startsWith('unit-')) renderUnit(page, tokenToUnit(r.slice(5)));
-  else if (r === 'reserve' || r.startsWith('reserve-')) renderReserve(page, r === 'reserve' ? null : tokenToUnit(r.slice(8)));
+  if (r === 'reserve' || r.startsWith('reserve-')) renderReserve(page, r === 'reserve' ? null : tokenToUnit(r.slice(8)));
   else if (r === 'admin') renderAdmin(page);
   else { showHome(true); return; }
   if (scrollTop) window.scrollTo({ top: 0, behavior: 'auto' });
@@ -1138,9 +1156,12 @@ function loadRenders() {
           if (!o || typeof o !== 'object') return;
           if (o.file) o.file = absUrl(o.file);
           if (o.thumb) o.thumb = absUrl(o.thumb);
+          for (const v of Object.values(o.variants || {})) { if (v && v.file) v.file = absUrl(v.file); if (v && v.thumb) v.thumb = absUrl(v.thumb); }
           if (nameKey && DICTS.en[nameKey]) o.name = i18nAll(nameKey); else o.name = withRu(o.name);
         };
         for (const u of Object.values(j.units || {})) for (const pk of Object.values(u || {})) { (pk.panos || []).forEach(p => fix(p)); (pk.stills || []).forEach(s => fix(s)); }
+        j.exterior = (j.exterior || []).filter(s => !s.variantOf);
+        j.common = (j.common || []).filter(s => !s.variantOf);
         (j.exterior || []).forEach(s => fix(s, `ext.${s.id}`));
         (j.common || []).forEach(s => fix(s, `common.${s.id}`));
         renders.m = j;
@@ -1206,9 +1227,10 @@ function getTour() {
       await loadRenders();
       const [THREE, m] = await Promise.all([import('three'), import('./tour.js')]);
       const api = await m.createTour(document.body, {
-        THREE, manifestUrl: renders.url || undefined, lang: getLang(),
-        onClose: () => { document.body.classList.remove('no-scroll'); },
-        onPackageChange: pkg => onTourPackage(pkg)
+        THREE, manifestUrl: renders.url || undefined, lang: getLang(), timeOfDay: state.tod,
+        onClose: () => { if (!(sheetMode() && (state.openFloor || unitUI.id)) && $('#imm').hidden) document.body.classList.remove('no-scroll'); },
+        onPackageChange: pkg => onTourPackage(pkg),
+        onTimeOfDayChange: tod => setTod(tod, 'tour')
       });
       tourApi = api;
       return api;
@@ -1217,7 +1239,7 @@ function getTour() {
   }
   return tourP;
 }
-async function openTour(unitId, pkg, roomId) {
+async function openTour(unitId, pkg, roomId, opts = {}) {
   unitId = unitId || '1.C';
   pkg = pkg || state.style[unitId] || 'atlantic';
   tourUnit = unitId;
@@ -1226,7 +1248,8 @@ async function openTour(unitId, pkg, roomId) {
     const tr = await getTour();
     clearTimeout(slow);
     if (!$('#imm').hidden) closeImmersive(false);
-    const ok = await tr.open(unitId, pkg, roomId || undefined);
+    if (opts.timeOfDay && opts.timeOfDay !== state.tod) setTod(opts.timeOfDay, 'tour');
+    const ok = await tr.open(unitId, pkg, roomId || undefined, { timeOfDay: state.tod });
     if (ok === false) toast(t('tour.failed'), 4200);
     return ok !== false;
   } catch (e) {
@@ -1239,8 +1262,7 @@ async function openTour(unitId, pkg, roomId) {
 function onTourPackage(pkg) {
   if (!tourUnit || !STYLES.some(s => s.id === pkg)) return;
   state.style[tourUnit] = pkg;
-  const page = $('#page');
-  if (state.route.startsWith('unit-') && unitFromRoute()?.id === tourUnit) applyPackage(page, unitById(tourUnit), pkg, true);
+  if (unitUI.id === tourUnit) renderUnitSheet(true);
 }
 
 // Gallery section: three createGallery instances (exterior · common areas · apartments by package).
@@ -1256,10 +1278,11 @@ function initGallery() {
     try {
       const m = await import('./tour.js');
       const lang = getLang();
+      const onOpenPano = o => { if (o && o.unitId) openTour(o.unitId, o.packageId, o.roomId, { timeOfDay: o.timeOfDay }); };
       [gal.ext, gal.common, gal.units] = await Promise.all([
-        m.createGallery($('#galExt'), { manifestUrl: renders.url, lang, include: 'exterior' }),
-        m.createGallery($('#galCommon'), { manifestUrl: renders.commonUrl, lang, include: 'exterior' }),
-        m.createGallery($('#galUnits'), { manifestUrl: renders.url, lang, include: 'interior', packageId: gal.pkg })
+        m.createGallery($('#galExt'), { manifestUrl: renders.url, lang, include: 'exterior', timeOfDay: state.tod, onOpenPano }),
+        m.createGallery($('#galCommon'), { manifestUrl: renders.commonUrl, lang, include: 'exterior', timeOfDay: state.tod, onOpenPano }),
+        m.createGallery($('#galUnits'), { manifestUrl: renders.url, lang, include: 'interior', packageId: gal.pkg, timeOfDay: state.tod, onOpenPano })
       ]);
       renderGalleryChips();
     } catch (e) {
@@ -1299,250 +1322,336 @@ function packageCard(s, { pressed = false, asButton = true, thumb = null, compac
     : `<div class="pkcard">${inner}</div>`;
 }
 
-// Unit page: photoreal stills, package thumbs and the materials board (loaded after first paint).
-async function refreshUnitVisuals(page, u) {
-  if (!page || !u || !page.isConnected) return;
-  await Promise.all([loadRenders(), loadMaterials()]);
-  if (!page.isConnected || !page.querySelector('#uBoard') || unitFromRoute()?.id !== u.id) return;
-  const pkg = state.style[u.id] || STYLES[0].id;
-  const stills = unitStills(u.id, pkg);
-  const poster = page.querySelector('#tourPoster img');
-  if (poster && stills[0]) { poster.src = stills[0].file; poster.style.objectFit = 'cover'; }
-  const strip = page.querySelector('#uStills');
-  if (strip) strip.innerHTML = stills.map((s, i) => `<button type="button" class="ustill" data-still="${i}" aria-label="${esc(L(s.name) || '')}"><img src="${esc(s.thumb || s.file)}" alt="" loading="lazy" decoding="async"></button>`).join('');
-  if (strip) strip._stills = stills;
-  const pick = page.querySelector('#finishPick');
-  if (pick && !pick.dataset.pk) {
-    pick.dataset.pk = '1';
-    pick.classList.add('finish-cards');
-    pick.innerHTML = STYLES.map(s => { const st = unitStills(u.id, s.id)[0]; return packageCard(s, { pressed: s.id === pkg, thumb: st ? (st.thumb || st.file) : null }); }).join('');
-  } else if (pick) {
-    pick.querySelectorAll('[data-style]').forEach(x => x.setAttribute('aria-pressed', x.dataset.style === pkg));
-  }
-  const board = page.querySelector('#uBoard');
-  if (board) board.innerHTML = boardHtml(pkg);
+// ---------------------------------------------------------------- light: day · dusk · night
+const TOD_ICON = {
+  day: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.8"/><path d="M12 3v2.2M12 18.800V21M3 12h2.200M18.800 12H21M5.600 5.600l1.600 1.600M16.800 16.800l1.600 1.600M5.600 18.400l1.600-1.600M16.800 7.200l1.600-1.600"/></svg>',
+  dusk: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7.500 16a4.500 4.500 0 0 1 9 0M3 16h18M6 20h12M12 6v2.500M5.300 9.300l1.700 1.700M18.700 9.300 17 11"/></svg>',
+  night: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.500 14.200A7.800 7.800 0 0 1 9.800 4.500a7.800 7.800 0 1 0 9.700 9.700Z"/></svg>'
+};
+const todName = id => L(TIMES_OF_DAY.find(x => x.id === id)?.name) || id;
+function todSwitchHtml(cls = '') {
+  return `<div class="tod3${cls ? ' ' + cls : ''}" role="group" aria-label="${esc(t('v.time'))}">${TIMES_OF_DAY.map(x => `<button type="button" data-tod="${x.id}" aria-pressed="${x.id === state.tod}" aria-label="${esc(todName(x.id))}" title="${esc(todName(x.id))}">${TOD_ICON[x.id] || ''}</button>`).join('')}</div>`;
 }
-function applyPackage(page, u, pkg) {
-  const b = page.querySelector(`[data-style="${pkg}"]`);
-  if (b && b.getAttribute('aria-pressed') !== 'true') b.click(); else refreshUnitVisuals(page, u);
+// One light state for the whole site: the realtime 3D, the 360° tour, the galleries and the apartment sheet follow it.
+function setTod(id, src = 'page') {
+  if (!TIMES_OF_DAY.some(x => x.id === id)) return;
+  const changed = state.tod !== id;
+  state.tod = id; state.todChosen = true;
+  $$('.tod3 [data-tod]').forEach(b => b.setAttribute('aria-pressed', b.dataset.tod === id));
+  try { viewerApi?.setTimeOfDay?.(id); } catch (e) { /* optional */ }
+  if (src !== 'tour') { try { tourApi?.setTimeOfDay?.(id); } catch (e) { /* optional */ } }
+  for (const g of [gal.ext, gal.common, gal.units]) { try { g?.setTimeOfDay?.(id); } catch (e) { /* optional */ } }
+  if (changed && unitUI.id) refreshUnitHero();
 }
 document.addEventListener('click', e => {
-  const page = $('#page');
-  if (!page) return;
-  const sb = e.target.closest('[data-style]');
-  if (sb && page.contains(sb) && state.route.startsWith('unit-')) {
-    const u = unitFromRoute();
-    if (u) setTimeout(() => refreshUnitVisuals(page, u), 0);
-    return;
-  }
-  const st = e.target.closest('[data-still]');
-  if (st && page.contains(st)) {
-    const strip = st.parentElement; const s = strip?._stills?.[+st.dataset.still];
-    const poster = page.querySelector('#tourPoster img');
-    if (s && poster) { poster.src = s.file; page.querySelector('#tour')?.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
-  }
+  const b = e.target.closest('.tod3 [data-tod]');
+  if (!b || b.closest('.tr-root')) return;
+  // phones: the 3D bar shows one button that cycles day → dusk → night
+  if (b.closest('#immBar') && immCompact()) {
+    const ids = TIMES_OF_DAY.map(x => x.id);
+    setTod(ids[(ids.indexOf(state.tod) + 1) % ids.length]);
+    requestAnimationFrame(() => $('#immTod [aria-pressed="true"]')?.focus({ preventScroll: true }));
+  } else setTod(b.dataset.tod);
 });
-function unitFromRoute() {
-  const tok = String(state.route || '').replace(/^unit-/, '');
-  return UNITS.find(x => unitToken(x.id) === tok) || null;
+
+// ---------------------------------------------------------------- apartment sheet (opens in place, over the floor card)
+// One unit experience: tapping an apartment (chip, plan, table row or a #unit-… link) expands it into a sheet over the dimmed
+// façade — full height on phones, a wide two-column card on desktop. Back returns to the floor card, X to the building.
+const unitUI = { id: null, seq: 0, from: null, loaded: false };
+const unitTitle = u => `<bdi>${u.id}</bdi><span class="sep">·</span><bdi>${u.type}</bdi><span class="sep">·</span><bdi>${fmtNum(u.area, 2)} ${esc(t('misc.m2'))}</bdi>`;
+const stillSrc = s => s?.variants?.[state.tod]?.file || s?.file || '';
+
+function unitHeroSlides(u, pkg) {
+  const stills = unitStills(u.id, pkg);
+  if (!stills.length) {
+    const p = styleById(pkg).palette;
+    return `<figure class="us-slide is-empty" style="--c1:${p.wall};--c2:${p.floor};--c3:${p.joinery}"><div><span class="swatches" aria-hidden="true">${[p.floor, p.wall, p.joinery, p.worktop, p.accent, p.metal].map(c => `<i style="background:${c}"></i>`).join('')}</span><p>${esc(renders.m || unitUI.loaded ? t('pkg.noRenders') : t('tour.loading'))}</p></div></figure>`;
+  }
+  return stills.map((s, i) => `<figure class="us-slide"><img src="${esc(stillSrc(s))}" alt="${esc(L(s.name) || '')}" ${i ? 'loading="lazy"' : 'fetchpriority="high"'} decoding="async" draggable="false"><figcaption>${esc(L(s.name) || '')}</figcaption></figure>`).join('');
+}
+function refreshUnitHero() {
+  const u = unitById(unitUI.id), strip = $('#usStrip');
+  if (!u || !strip) return;
+  const x = strip.scrollLeft;
+  strip.innerHTML = unitHeroSlides(u, state.style[u.id] || STYLES[0].id);
+  strip.scrollLeft = x;
+  updateStillCount();
+}
+function updateStillCount() {
+  const strip = $('#usStrip'), out = $('#usCount');
+  if (!strip || !out) return;
+  const n = strip.querySelectorAll('.us-slide:not(.is-empty)').length;
+  out.hidden = n < 2;
+  if (n > 1) out.textContent = `${Math.min(n, Math.round(Math.abs(strip.scrollLeft) / Math.max(1, strip.clientWidth)) + 1)} / ${n}`;
 }
 
-// ---------------------------------------------------------------- unit page
-function renderUnit(page, id) {
-  const u = unitById(id);
-  if (!u) {
-    page.innerHTML = `<div class="wrap"><p class="lede">${esc(t('unit.notfound'))}</p><a class="btn btn-line" href="#apartments">${esc(t('unit.back'))}</a></div>`;
-    return;
-  }
-  const styleId = state.style[u.id] || 'atlantic';
-  const style = styleById(styleId);
+function renderUnitSheet(keep = false) {
+  const sheet = $('#unitSheet');
+  const u = unitById(unitUI.id);
+  if (!sheet || !u) return;
+  const sc = keep ? { y: $('.us-scroll', sheet)?.scrollTop || 0, b: $('.us-body', sheet)?.scrollTop || 0, pk: $('#usPk', sheet)?.scrollLeft || 0, st: $('#usStrip', sheet)?.scrollLeft || 0, board: $('#usBoard', sheet)?.open, rooms: $('#usRooms', sheet)?.open } : null;
+  const styleId = state.style[u.id] || STYLES[0].id, style = styleById(styleId);
   const st = statusOf(u.id);
   const idx = UNITS.indexOf(u);
   const prev = UNITS[(idx + UNITS.length - 1) % UNITS.length], next = UNITS[(idx + 1) % UNITS.length];
-  const rooms = unitRoomAreas(u.id);
-  const bay = PARKING.find(p => p.unit === u.id);
   const garden = u.outdoorKind === 'garden';
-  const view = state.unitPlanView || 'plan';
-  const dirWord = { N: t('aspect.N'), S: t('aspect.S'), E: t('aspect.E'), W: t('aspect.W') };
-
+  const bay = PARKING.find(p => p.unit === u.id);
+  const rooms = unitRoomAreas(u.id);
   const roomRows = rooms.map(r => {
     const name = r.name ? L(r.name) : (r.use === 'deck' ? t('unit.garden') : t('unit.balcony'));
     return `<tr${r.use === 'balcony' || r.use === 'deck' || r.use === 'garden' ? ' class="sub"' : ''}><td>${esc(name)}</td><td>${fmtNum(r.area, 1)} ${esc(t('misc.m2'))}</td></tr>`;
   }).join('') + (bay ? `<tr class="sub"><td>${esc(t('unit.parking'))} · ${bay.id}</td><td>${fmtNum((bay.x1 - bay.x0) * (bay.z1 - bay.z0), 1)} ${esc(t('misc.m2'))}</td></tr>` : '');
-
-  const planHtml = view === 'plan'
-    ? drawFloorplan(u.floor, { label: L, status: statusOf, only: u.id, title: `${u.id} · ${floorName(u.floor)}` })
-    : `<div class="pp-drawing"><img src="${floorById(u.floor).plan}" alt="${esc(t('plan.drawing.alt', { floor: floorName(u.floor) }))}" loading="lazy"></div>`;
-
-  page.innerHTML = `<div class="wrap unit" data-unit="${u.id}">
-    <nav class="crumbs">
-      <a class="btn-text" href="#apartments">← ${esc(t('unit.back'))}</a>
-      <span style="display:flex;gap:18px"><a class="btn-text" href="#unit-${unitToken(prev.id)}">${esc(t('unit.prev'))} · <bdi>${prev.id}</bdi></a><a class="btn-text" href="#unit-${unitToken(next.id)}"><bdi>${next.id}</bdi> · ${esc(t('unit.next'))}</a></span>
-    </nav>
-    <header class="unit-head">
-      <p class="eyebrow">${esc(floorName(u.floor))} · <bdi class="mono">${levelMark(u.floor)}</bdi></p>
-      <h1 class="unit-title"><bdi>${u.id}</bdi><span class="sep">·</span><bdi>${u.type}</bdi><span class="sep">·</span><bdi class="num">${fmtNum(u.area, 2)}</bdi> <span class="mono">${esc(t('misc.m2'))}</span></h1>
-      <div><span class="pill st-${st}">${esc(t('status.' + st))}</span></div>
-    </header>
-    <div class="unit-grid">
-      <div class="unit-main">
-        <section>
-          <div class="block-h"><h3>${esc(t('unit.tour'))}</h3></div>
-          <div class="tour" id="tour">
-            <div class="tour-poster" id="tourPoster">
-              <img src="assets/${u.floor === 'second' ? 'street-dusk' : 'facade-day'}.jpg" alt="">
-              <div class="tp-in"><button type="button" class="btn btn-bronze" data-tour="pano">${esc(t('tour.photoreal'))}</button><button type="button" class="btn btn-light" data-tour="start">${esc(t('tour.free'))}</button><p>${esc(t('unit.tour.note'))}</p></div>
-            </div>
-          </div>
-          <div class="ustills" id="uStills"></div>
-          <div class="tour-bar">
-            <button type="button" class="btn btn-bronze" data-tour="pano">${esc(t('tour.photoreal'))}</button>
-            <button type="button" class="btn btn-line" data-tour="walk" aria-pressed="false">${esc(t('unit.walk'))}</button>
-            <button type="button" class="btn btn-line" data-tour="views" aria-pressed="false">${esc(t('unit.views'))}</button>
-            <button type="button" class="btn btn-line" data-tour="balcony">${esc(garden ? t('unit.gardenView') : t('unit.balconyView'))}</button>
-            <button type="button" class="btn btn-line" data-tour="lift">${esc(t('unit.lift.take'))}</button>
-            <button type="button" class="btn btn-line btn-pr" data-tour="photoreal" aria-pressed="false">${esc(t('v.photoreal'))}</button>
-            <button type="button" class="btn btn-line" data-tour="full">${esc(t('unit.fullscreen'))}</button>
-          </div>
-          <div class="hotspots" id="hotspots" hidden></div>
-        </section>
-        <section>
-          <div class="block-h"><h3>${esc(t('unit.finish'))}</h3><p class="fineprint">${esc(t('unit.finishNote'))}</p></div>
-          <div class="finish-pick" id="finishPick">${STYLES.map(s => finishCard(s, true, s.id === styleId)).join('')}</div>
-          <div id="uBoard"></div>
-        </section>
-        <section>
-          <div class="block-h"><h3>${esc(t('unit.plan'))}</h3>
-            <div class="seg"><button type="button" class="seg-b${view === 'plan' ? ' is-on' : ''}" data-upv="plan">${esc(t('plan.view.plan'))}</button><button type="button" class="seg-b${view === 'drawing' ? ' is-on' : ''}" data-upv="drawing">${esc(t('plan.view.drawing'))}</button></div>
-          </div>
-          <div class="unit-plan">${planHtml}</div>
-        </section>
-        <section>
-          <div class="block-h"><h3>${esc(t('unit.rooms'))}</h3></div>
-          <table class="rooms"><tbody>${roomRows}</tbody></table>
-          <p class="fineprint" style="margin-top:10px">${esc(t('unit.roomsNote'))}</p>
-        </section>
+  const chev = d => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}"/></svg>`;
+  const fact = (k, v) => `<div><span class="k">${esc(k)}</span><span class="v">${v}</span></div>`;
+  sheet.innerHTML = `
+    <div class="us-grab" aria-hidden="true"></div>
+    <header class="us-bar">
+      <button type="button" class="icon-btn us-back" data-us="back" aria-label="${esc(t('unit.backFloor'))}" title="${esc(t('unit.backFloor'))}">${chev('M14.500 5.500 8 12l6.500 6.500')}</button>
+      <div class="us-ttl"><span class="us-eyebrow">${esc(floorName(u.floor).split(' · ')[0])} · <bdi class="mono">${levelMark(u.floor)}</bdi></span><h3 id="usTitle">${unitTitle(u)}</h3></div>
+      <div class="us-nav">
+        <button type="button" class="icon-btn" data-us="prev" aria-label="${esc(t('unit.prev'))} · ${prev.id}" title="${esc(t('unit.prev'))} · ${prev.id}">${chev('M14.500 5.500 8 12l6.500 6.500')}</button>
+        <button type="button" class="icon-btn" data-us="next" aria-label="${esc(t('unit.next'))} · ${next.id}" title="${esc(t('unit.next'))} · ${next.id}">${chev('M9.500 5.500 16 12l-6.500 6.500')}</button>
       </div>
-      <aside class="unit-aside">
-        <div class="price-card">
-          <span class="h-small">${esc(t('unit.price'))}</span>
-          <div class="price-big" id="uTotal">${fmtMoney(priceOf(u.id, styleId))}</div>
-          <p class="price-ppm">${esc(t('price.perM2'))} <b>${ppmFmt(ppmOf(u))}</b></p>
-          <div class="price-rows">
-            <div><span>${esc(t('res.base'))} ${u.id}</span><span>${fmtMoney(u.price)}</span></div>
-            <div><span id="uStyleName">${esc(L(style.name))}</span><span id="uStyleExtra">${style.extra ? '+ ' + fmtMoney(style.extra) : esc(t('unit.included'))}</span></div>
-          </div>
-          ${st === 'available' ? '' : `<p class="notice">${esc(t('unit.notAvailable', { status: t('status.' + st).toLowerCase() }))}</p>`}
-          <div class="price-actions">
-            ${st === 'available' ? `<a class="btn btn-bronze" href="#reserve-${unitToken(u.id)}">${esc(t('unit.reserve'))}</a>` : ''}
-            <button type="button" class="btn btn-line" data-act="interest" data-unit="${u.id}">${esc(t('unit.interest'))}</button>
-          </div>
-          <p class="fineprint">${esc(t('hero.note'))}</p>
+      <button type="button" class="icon-btn us-x" data-us="close" aria-label="${esc(t('v.close'))}" title="${esc(t('v.close'))}">${chev('M6 6l12 12M18 6 6 18')}</button>
+    </header>
+    <div class="us-body">
+      <div class="us-media">
+        <div class="us-hero">
+          <div class="us-strip" id="usStrip" tabindex="0" aria-label="${esc(t('gal.title'))}">${unitHeroSlides(u, styleId)}</div>
+          <div class="us-hero-top">${todSwitchHtml('tod3-glass')}<span class="us-count" id="usCount" hidden></span></div>
+          <div class="us-dots" role="group" aria-label="${esc(t('pkg.title'))}">${STYLES.map(s => `<button type="button" data-style="${s.id}" aria-pressed="${s.id === styleId}" aria-label="${esc(L(s.name))}" title="${esc(L(s.name))}" style="--d1:${s.palette.floor};--d2:${s.palette.accent}"></button>`).join('')}</div>
         </div>
-        <div class="contact-card">${contactHtml({ note: true, text: `Barreiro 2 · ${t('unit.apartment', { id: u.id })} (${u.type}, ${fmtNum(u.area, 2)} m²)` })}</div>
-        <div>
-          <h3 class="h-small" style="margin-bottom:10px">${esc(t('unit.specs'))}</h3>
-          <div class="kv">
-            <div><span class="k">${esc(t('unit.interior'))}</span><span class="v big">${areaFmt(u.area)}</span></div>
-            <div><span class="k">${esc(garden ? t('unit.garden') : t('unit.balcony'))}</span><span class="v big">${fmtNum(u.outdoor, 1)} ${esc(t('misc.m2'))}</span></div>
-            <div><span class="k">${esc(t('unit.beds'))}</span><span class="v">${u.beds}</span></div>
-            <div><span class="k">${esc(t('unit.baths'))}</span><span class="v">${u.baths}</span></div>
-            <div class="wide"><span class="k">${esc(t('unit.aspect'))}</span><span class="v">${u.aspect.map(a => esc(dirWord[a] || a)).join('<br>')}</span></div>
-            <div class="wide"><span class="k">${esc(t('unit.parking'))}</span><span class="v">${esc(t('unit.parkingBay', { bay: u.parking }))}</span></div>
-            <div><span class="k">${esc(t('unit.level'))}</span><span class="v"><span class="mono">${levelMark(u.floor)}</span></span></div>
-            <div><span class="k">${esc(t('unit.lift'))}</span><span class="v">${esc(t('unit.liftYes'))}</span></div>
-          </div>
+      </div>
+      <div class="us-scroll">
+        <div class="us-price">
+          <div><span class="h-small">${esc(t('unit.price'))}</span><div class="price-big" id="usTotal"><bdi>${fmtMoney(priceOf(u.id, styleId))}</bdi></div>
+            <p class="price-ppm">${ppmFmt(ppmOf(u))} · ${esc(L(style.name))} ${style.extra ? `<bdi>+ ${fmtMoney(style.extra)}</bdi>` : `· ${esc(t('unit.included'))}`}</p></div>
+          <span class="pill st-${st}">${esc(t('status.' + st))}</span>
         </div>
-      </aside>
-    </div>
-  </div>`;
-  bindUnit(page, u);
+        ${st === 'available' ? '' : `<p class="notice">${esc(t('unit.notAvailable', { status: t('status.' + st).toLowerCase() }))}</p>`}
+        <div class="us-cta">
+          <button type="button" class="btn btn-bronze" data-us="tour">${esc(t('tour.photoreal'))}</button>
+          <button type="button" class="btn btn-line" data-us="walk">${esc(t('tour.free'))}</button>
+          ${st === 'available' ? `<a class="btn btn-solid" href="#reserve-${unitToken(u.id)}">${esc(t('nav.reserve'))}</a>` : `<button type="button" class="btn btn-solid" data-act="interest" data-unit="${u.id}">${esc(t('unit.interest'))}</button>`}
+        </div>
+        <div class="us-facts">
+          ${fact(t('unit.interior'), `<b>${areaFmt(u.area)}</b>`)}
+          ${fact(garden ? t('unit.garden') : t('unit.balcony'), `<b>${fmtNum(u.outdoor, 1)} ${esc(t('misc.m2'))}</b>`)}
+          ${fact(t('unit.beds'), `<b>${u.beds}</b>`)}
+          ${fact(t('unit.baths'), `<b>${u.baths}</b>`)}
+          ${fact(t('unit.aspect'), `<b>${u.aspect.join(' · ')}</b>`)}
+          ${fact(t('unit.parking'), `<b>${esc(u.parking)}</b>`)}
+        </div>
+        <section>
+          <div class="block-h"><h4>${esc(t('unit.plan'))}</h4></div>
+          <div class="us-plan" id="usPlan">${drawFloorplan(u.floor, { label: L, status: statusOf, only: u.id, focus: u.id, title: `${u.id} · ${floorName(u.floor)}` })}</div>
+        </section>
+        <section>
+          <div class="block-h"><h4>${esc(t('pkg.title'))}</h4><p class="fineprint">${esc(t('pkg.note'))}</p></div>
+          <div class="pk-row" id="usPk">${STYLES.map(s => { const s0 = unitStills(u.id, s.id)[0]; return packageCard(s, { pressed: s.id === styleId, thumb: s0 ? (s0.thumb || s0.file) : null, compact: true }); }).join('')}</div>
+        </section>
+        <details class="us-fold" id="usBoard"${sc?.board ? ' open' : ''}><summary>${esc(t('pkg.board'))} · ${esc(nameOf(style))}</summary>${boardHtml(styleId)}</details>
+        <details class="us-fold" id="usRooms"${sc?.rooms ? ' open' : ''}><summary>${esc(t('unit.rooms'))}</summary><table class="rooms"><tbody>${roomRows}</tbody></table><p class="fineprint" style="margin-top:10px">${esc(t('unit.roomsNote'))}</p></details>
+        <div class="us-more">
+          <button type="button" class="chip" data-us="balcony">${esc(garden ? t('unit.gardenView') : t('unit.balconyView'))}</button>
+          <button type="button" class="chip" data-us="lift">${esc(t('unit.lift.take'))}</button>
+          <button type="button" class="chip" data-act="interest" data-unit="${u.id}">${esc(t('unit.interest'))}</button>
+        </div>
+        ${contactHtml({ note: true, text: `Barreiro 2 · ${t('unit.apartment', { id: u.id })} (${u.type}, ${fmtNum(u.area, 2)} m²)` })}
+        <p class="fineprint">${esc(t('hero.note'))}</p>
+      </div>
+    </div>`;
+  const svg = $('#usPlan svg', sheet);
+  if (svg?.dataset.focus) svg.setAttribute('viewBox', svg.dataset.focus);
+  if (sc) {
+    const a = $('.us-scroll', sheet), b = $('.us-body', sheet), c = $('#usPk', sheet), d = $('#usStrip', sheet);
+    if (a) a.scrollTop = sc.y; if (b) b.scrollTop = sc.b; if (c) c.scrollLeft = sc.pk; if (d) d.scrollLeft = sc.st;
+  } else $('#usPk [aria-pressed="true"]', sheet)?.scrollIntoView?.({ block: 'nearest', inline: 'center' });
+  $('#usStrip', sheet)?.addEventListener('scroll', () => updateStillCount(), { passive: true });
+  updateStillCount();
 }
 
-function bindUnit(page, u) {
-  const tourEl = $('#tour', page);
-  const hotEl = $('#hotspots', page);
-  const msg = (text) => {
-    let m = $('.tour-msg', tourEl);
-    if (!text) { m?.remove(); return; }
-    if (!m) { m = document.createElement('div'); m.className = 'tour-msg'; tourEl.appendChild(m); }
-    m.textContent = text;
+// The plan starts on the whole floor and zooms to the apartment.
+function zoomUnitPlan() {
+  const svg = $('#usPlan svg');
+  if (!svg?.dataset.focus || !svg.dataset.full || reducedMotion()) return;
+  const a = svg.dataset.full.split(' ').map(Number), b = svg.dataset.focus.split(' ').map(Number);
+  const t0 = performance.now() + 260, ms = 700;
+  svg.setAttribute('viewBox', a.join(' '));
+  const step = now => {
+    if (!svg.isConnected) return;
+    const u = Math.max(0, Math.min(1, (now - t0) / ms)), e = u < 0.5 ? 2 * u * u : 1 - Math.pow(-2 * u + 2, 2) / 2;
+    svg.setAttribute('viewBox', a.map((v, i) => (v + (b[i] - v) * e).toFixed(1)).join(' '));
+    if (u < 1) requestAnimationFrame(step);
   };
-  const start = async () => {
-    $('#tourPoster', page)?.remove();
-    const v = await getViewer();
-    if (!tourEl.isConnected) return null;
-    mount(tourEl);
-    if (!v) { msg(t('sel.3d.failed')); return null; }
-    try { await v.ready; } catch (e) { return null; }
-    await v.selectUnit(u.id, state.style[u.id] || 'atlantic');
-    return v;
-  };
-  const renderHotspots = (v) => {
-    const hs = v.hotspots(u.id) || [];
-    hotEl.innerHTML = hs.map((h, i) => `<button type="button" class="chip" data-hs="${i}">${esc(L(h.name))}</button>`).join('');
-    hotEl.hidden = !hs.length;
-    hotEl._hs = hs;
-  };
-  refreshUnitVisuals(page, u);
-  page.addEventListener('click', async e => {
-    const b = e.target.closest('[data-tour]');
-    if (b) {
-      const action = b.dataset.tour;
-      if (action === 'full') {
-        const v = await getViewer();
-        if (!v) return;
-        if (!host.parentElement || host.parentElement !== tourEl) { await start(); }
-        await openImmersive(v.getMode() === 'walk' ? 'keep' : 'exterior');
-        return;
-      }
-      if (action === 'pano') { await openTour(u.id, state.style[u.id] || 'atlantic'); return; }
-      if (action === 'photoreal') {
-        const cur = viewerApi?.isPhotoreal?.();
-        if (!cur) {
-          const v0 = await start();
-          if (!v0) return;
-          if (v0.getMode() !== 'walk') await v0.walkUnit(u.id);
-        }
-        msg(null);
-        await togglePhotoreal();
-        return;
-      }
-      const v = await start();
-      if (!v) return;
-      msg(null);
-      let ok = true;
-      if (action === 'start' || action === 'walk') ok = await v.walkUnit(u.id);
-      else if (action === 'views') { renderHotspots(v); b.setAttribute('aria-pressed', 'true'); if (hotEl._hs?.length) ok = await v.lookFrom(hotEl._hs[0]); }
-      else if (action === 'balcony') ok = await v.balconyView(u.id);
-      else if (action === 'lift') ok = await v.takeLift(u.floor === 'ground' ? 'basement' : 'ground', u.floor);
-      if (!ok) msg(t('v.unavailable'));
-      else { try { await openImmersive('keep'); } catch (err) { /* stays inline */ } }
-      return;
+  requestAnimationFrame(step);
+}
+
+function rectInset(r, c, round = 14) {
+  if (!r || !c.width) return `inset(40% 20% 40% 20% round ${round}px)`;
+  const cl = (v, max) => Math.max(0, Math.min(max, v));
+  return `inset(${cl(r.top - c.top, c.height - 20).toFixed(0)}px ${cl(c.right - r.right, c.width - 20).toFixed(0)}px ${cl(c.bottom - r.bottom, c.height - 20).toFixed(0)}px ${cl(r.left - c.left, c.width - 20).toFixed(0)}px round ${round}px)`;
+}
+const unitOrigin = id => {
+  const el = $(`#floorCard .flc-chip[data-unit="${id}"]`);
+  const r = el?.getBoundingClientRect();
+  return r && r.width ? r : null;
+};
+
+function openUnit(id, { animate = true } = {}) {
+  const u = unitById(id), sheet = $('#unitSheet');
+  if (!u || !sheet) return;
+  const was = unitUI.id;
+  const seq = ++unitUI.seq;
+  if (state.openFloor !== u.floor) openFloor(u.floor, { animate: false });
+  const from = unitUI.from || unitOrigin(u.id);
+  unitUI.from = null;
+  unitUI.id = u.id;
+  renderUnitSheet(false);
+  sheet.hidden = false;
+  sheet.style.transform = '';
+  $('#selGrid').classList.add('has-unit');
+  const sheetM = sheetMode();
+  if (sheetM) document.body.classList.add('no-scroll');
+  else {
+    const r = $('#selGrid').getBoundingClientRect();
+    const visible = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+    if (visible < Math.min(r.height, window.innerHeight) * 0.7) $('#selGrid').scrollIntoView({ behavior: 'auto', block: 'start' });
+  }
+  sheet.getAnimations?.().forEach(a => a.cancel());
+  if (animate && !reducedMotion() && sheet.animate) {
+    if (was && was !== u.id) {
+      const dir = (UNITS.indexOf(u) > UNITS.indexOf(unitById(was)) ? 1 : -1) * (document.documentElement.dir === 'rtl' ? -1 : 1);
+      $('.us-body', sheet)?.animate([{ opacity: 0, transform: `translateX(${dir * 28}px)` }, { opacity: 1, transform: 'none' }], { duration: 260, easing: 'cubic-bezier(.2, .7, .2, 1)' });
+    } else if (!was) {
+      // shared-element morph: the sheet grows out of the tapped chip
+      const c = sheet.getBoundingClientRect();
+      sheet.animate([{ clipPath: rectInset(from, c, 9), opacity: 0.5 }, { opacity: 1, offset: 0.45 }, { clipPath: `inset(0px 0px 0px 0px round ${sheetM ? 0 : 14}px)`, opacity: 1 }], { duration: 400, easing: 'cubic-bezier(.2, .75, .2, 1)' });
     }
-    const hs = e.target.closest('[data-hs]');
-    if (hs && viewerApi) {
-      $$('[data-hs]', hotEl).forEach(x => x.setAttribute('aria-pressed', x === hs));
-      viewerApi.lookFrom(hotEl._hs[+hs.dataset.hs]);
-      return;
-    }
+  }
+  if (!was || was !== u.id) zoomUnitPlan();
+  $('.us-back', sheet)?.focus({ preventScroll: true });
+  if (!unitUI.loaded) {
+    Promise.all([loadRenders(), loadMaterials()]).then(() => {
+      unitUI.loaded = true;
+      if (unitUI.id && !$('#unitSheet').hidden) renderUnitSheet(true);
+    });
+  }
+  if (seq !== unitUI.seq) return;
+}
+
+function closeUnit(animate = true) {
+  const sheet = $('#unitSheet');
+  const id = unitUI.id;
+  if (!sheet || (!id && sheet.hidden)) return;
+  const seq = ++unitUI.seq;
+  unitUI.id = null;
+  const finish = () => {
+    if (seq !== unitUI.seq) return;
+    sheet.hidden = true; sheet.innerHTML = ''; sheet.style.transform = '';
+    $('#selGrid').classList.remove('has-unit');
+    if (!(sheetMode() && state.openFloor) && $('#imm').hidden && $('#modal').hidden) document.body.classList.remove('no-scroll');
+  };
+  sheet.getAnimations?.().forEach(a => a.cancel());
+  if (!animate || reducedMotion() || !sheet.animate || sheet.hidden) { finish(); return; }
+  const c = sheet.getBoundingClientRect();
+  const to = state.openFloor ? unitOrigin(id) : null;
+  const a = sheet.animate(to
+    ? [{ clipPath: `inset(0px 0px 0px 0px round 14px)`, opacity: 1 }, { opacity: 1, offset: 0.6 }, { clipPath: rectInset(to, c, 9), opacity: 0 }]
+    : [{ opacity: 1 }, { opacity: 0 }], { duration: to ? 340 : 200, easing: 'cubic-bezier(.4, 0, .6, 1)', fill: 'forwards' });
+  a.finished.then(() => { try { a.cancel(); } catch (e) { /* done */ } finish(); }, () => finish());
+  if (to) $(`#floorCard .flc-chip[data-unit="${id}"]`)?.focus({ preventScroll: true });
+}
+
+// X: everything folds away and the building image is back.
+function dismissAll() {
+  const hadUnit = !!unitUI.id;
+  if (hadUnit) { const keep = state.openFloor; state.openFloor = null; closeUnit(true); state.openFloor = keep; }
+  closeFloor(!hadUnit);
+  if (/^(unit|floor)-/.test(state.route)) { try { history.replaceState(null, '', '#apartments'); } catch (e) { /* sandboxed */ } state.route = 'apartments'; }
+}
+
+async function unitAction(u, action) {
+  const sid = state.style[u.id] || STYLES[0].id;
+  if (action === 'tour') { await openTour(u.id, sid, undefined, { timeOfDay: state.tod }); return; }
+  const v = await getViewer();
+  if (!v) { toast(t('sel.3d.failed'), 4200); return; }
+  await openImmersive('keep');
+  try { await v.ready; } catch (e) { toast(t('sel.3d.failed'), 4200); return; }
+  await v.selectUnit(u.id, sid);
+  let ok = true;
+  if (action === 'walk') ok = await v.walkUnit(u.id);
+  else if (action === 'balcony') ok = await v.balconyView(u.id);
+  else if (action === 'lift') ok = await v.takeLift(u.floor === 'ground' ? 'basement' : 'ground', u.floor);
+  if (!ok) toast(t('v.unavailable'));
+}
+
+function bindUnitSheet() {
+  const sheet = $('#unitSheet');
+  const stepUnit = d => {
+    const i = UNITS.findIndex(x => x.id === unitUI.id);
+    if (i >= 0) go(`unit-${unitToken(UNITS[(i + d + UNITS.length) % UNITS.length].id)}`);
+  };
+  sheet.addEventListener('click', e => {
+    const u = unitById(unitUI.id);
+    if (!u) return;
     const sb = e.target.closest('[data-style]');
     if (sb) {
-      const sid = sb.dataset.style;
-      state.style[u.id] = sid;
-      $$('[data-style]', page).forEach(x => x.setAttribute('aria-pressed', x.dataset.style === sid));
-      const s = styleById(sid);
-      $('#uTotal', page).textContent = fmtMoney(priceOf(u.id, sid));
-      $('#uStyleName', page).textContent = L(s.name);
-      $('#uStyleExtra', page).textContent = s.extra ? '+ ' + fmtMoney(s.extra) : t('unit.included');
-      if (viewerApi && host?.parentElement === tourEl) viewerApi.selectUnit(u.id, sid);
+      if (state.style[u.id] === sb.dataset.style) return;
+      state.style[u.id] = sb.dataset.style;
+      renderUnitSheet(true);
+      $(`#usPk [data-style="${sb.dataset.style}"]`)?.scrollIntoView?.({ block: 'nearest', inline: 'center', behavior: reducedMotion() ? 'auto' : 'smooth' });
+      (sb.closest('.us-dots') ? $(`.us-dots [data-style="${sb.dataset.style}"]`) : $(`#usPk [data-style="${sb.dataset.style}"]`))?.focus({ preventScroll: true });
+      if (viewerApi && viewerApi.currentUnit?.() === u.id) viewerApi.selectUnit(u.id, sb.dataset.style);
       return;
     }
-    const pv = e.target.closest('[data-upv]');
-    if (pv) { state.unitPlanView = pv.dataset.upv; detachHostFromPage(); renderUnit(page, u.id); return; }
-    const intr = e.target.closest('[data-act="interest"]');
-    if (intr) openInterest(intr.dataset.unit);
+    const b = e.target.closest('[data-us]');
+    if (!b) return;
+    const a = b.dataset.us;
+    if (a === 'back') go(`floor-${u.floor}`);
+    else if (a === 'close') dismissAll();
+    else if (a === 'prev') stepUnit(-1);
+    else if (a === 'next') stepUnit(1);
+    else unitAction(u, a);
   });
+  sheet.addEventListener('keydown', e => {
+    if (e.target.id !== 'usStrip' || !/^Arrow(Left|Right)$/.test(e.key)) return;
+    e.preventDefault();
+    e.target.scrollBy({ left: (e.key === 'ArrowRight' ? 1 : -1) * e.target.clientWidth, behavior: reducedMotion() ? 'auto' : 'smooth' });
+  });
+  // header gestures: swipe sideways = previous / next apartment; on phones drag down = back to the floor
+  let d = null;
+  sheet.addEventListener('pointerdown', e => {
+    if (!e.target.closest('.us-grab, .us-bar') || e.target.closest('button, a')) return;
+    d = { x: e.clientX, y: e.clientY, t: performance.now(), dx: 0, dy: 0, id: e.pointerId, axis: null };
+    try { sheet.setPointerCapture(e.pointerId); } catch (err) { /* synthetic pointer */ }
+  });
+  sheet.addEventListener('pointermove', e => {
+    if (!d || e.pointerId !== d.id) return;
+    d.dx = e.clientX - d.x; d.dy = e.clientY - d.y;
+    if (!d.axis && Math.hypot(d.dx, d.dy) > 8) d.axis = Math.abs(d.dx) > Math.abs(d.dy) ? 'x' : 'y';
+    if (d.axis === 'y' && sheetMode()) sheet.style.transform = d.dy > 0 ? `translateY(${d.dy}px)` : '';
+  });
+  const end = e => {
+    if (!d || (e.pointerId != null && e.pointerId !== d.id)) return;
+    const g = d; d = null;
+    const u = unitById(unitUI.id);
+    if (g.axis === 'x' && Math.abs(g.dx) > 56) { stepUnit((g.dx < 0 ? 1 : -1) * (document.documentElement.dir === 'rtl' ? -1 : 1)); return; }
+    if (g.axis === 'y' && sheetMode() && u) {
+      const v = g.dy / Math.max(1, performance.now() - g.t);
+      if (g.dy > 120 || (g.dy > 30 && v > 0.5)) {
+        // slide the rest of the way down, then show the floor card
+        const a = sheet.animate?.([{ transform: `translateY(${g.dy}px)` }, { transform: 'translateY(104%)' }], { duration: 200, easing: 'ease-in', fill: 'forwards' });
+        const done = () => { closeUnit(false); go(`floor-${u.floor}`); };
+        if (a && !reducedMotion()) a.finished.then(done, done); else done();
+        return;
+      }
+      sheet.style.transform = '';
+      if (g.dy > 0 && !reducedMotion()) sheet.animate?.([{ transform: `translateY(${g.dy}px)` }, { transform: 'none' }], { duration: 200, easing: 'cubic-bezier(.2, .7, .2, 1)' });
+    }
+  };
+  sheet.addEventListener('pointerup', end);
+  sheet.addEventListener('pointercancel', end);
 }
 
 // ---------------------------------------------------------------- reservation
@@ -1609,7 +1718,7 @@ function resStep1(card) {
         <div class="unit-pick">${UNITS.map(u => `<button type="button" data-pick="${u.id}" aria-pressed="${u.id === R.unitId}" ${isAvail(u.id) ? '' : 'disabled'}><b>${u.id}</b><span>${u.type} · ${fmtNum(u.area, 1)} ${esc(t('misc.m2'))}</span><span>${isAvail(u.id) ? fmtMoney(u.price) : esc(t('status.' + statusOf(u.id)))}</span></button>`).join('')}</div>
       </div>
       <div class="field"><span class="lbl">${esc(t('res.finish'))}</span>
-        <div class="finish-pick">${STYLES.map(s => finishCard(s, true, s.id === R.styleId)).join('')}</div>
+        <div class="pk-row">${STYLES.map(s => { const s0 = R.unitId ? unitStills(R.unitId, s.id)[0] : null; return packageCard(s, { pressed: s.id === R.styleId, thumb: s0 ? (s0.thumb || s0.file) : null, compact: true }); }).join('')}</div>
       </div>
     </div>
     ${R.unitId ? summaryHtml(R) : `<p class="notice">${esc(t('res.unavailable'))}</p>`}
@@ -1949,7 +2058,7 @@ async function initCapabilities() {
         state.overrides = o;
         renderFloorList(); renderFacade(); renderTable(); renderFloorCard(); renderFacts();
         state.onStatusChange?.();
-        if (state.route.startsWith('unit-')) { detachHostFromPage(); }
+        if (unitUI.id) renderUnitSheet(true);
       }, err => console.warn('[app] units', err));
     } catch (e) { console.warn(e); }
   }
@@ -1995,7 +2104,9 @@ function boot() {
   renderFooter();
   bindGlobal();
   bindHome();
+  bindUnitSheet();
   bindImmersive();
+  updateImmLabels();
   route();
   initCapabilities();
   initLandmarks();
