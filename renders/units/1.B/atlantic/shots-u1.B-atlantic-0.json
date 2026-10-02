@@ -6,13 +6,17 @@
   "quality": "standard",
   "tod": "day",
   "shots": [
-   "1.B-living",
-   "1.B-bedroom",
-   "1.B-bathroom"
+   "1.B-atlantic-h0",
+   "1.B-atlantic-h1",
+   "1.B-atlantic-h2",
+   "1.B-atlantic-h3",
+   "1.B-atlantic-h4"
   ],
   "out": "renders/units/1.B/atlantic",
   "name": "u1.B-atlantic-0",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
@@ -23,17 +27,17 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 1.4158004529573847,
+   "ev": 2.558592290370726,
    "tod": "day",
    "position": [
-    9.374,
-    4.45,
-    4.803
+    9,
+    4.6,
+    4.6
    ],
    "lookAt": [
-    6.847,
-    4.45,
-    1.099
+    7.296,
+    4.25,
+    0.474
    ],
    "roomId": "1.B-living",
    "name": {
@@ -44,7 +48,7 @@
    "kind": null,
    "yawOffset": 0.39165,
    "index": 0,
-   "seconds": 2028.1
+   "seconds": 1998.9
   },
   {
    "id": "1.B-atlantic-h1",
@@ -54,12 +58,12 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 0.1654636768994705,
+   "ev": 1.7962477838711086,
    "tod": "day",
    "position": [
-    10.199,
-    4.4,
-    4.972
+    6.908,
+    4.6,
+    0.842
    ],
    "lookAt": [
     8.25,
@@ -75,7 +79,7 @@
    "kind": null,
    "yawOffset": -2.56375,
    "index": 1,
-   "seconds": 2012.3
+   "seconds": 1988.4
   },
   {
    "id": "1.B-atlantic-h2",
@@ -85,7 +89,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 2.215751193219049,
+   "ev": 2.9723933533801223,
    "tod": "day",
    "position": [
     12.81,
@@ -106,7 +110,7 @@
    "kind": null,
    "yawOffset": 0.57398,
    "index": 2,
-   "seconds": 2012.2
+   "seconds": 1978.7
   },
   {
    "id": "1.B-atlantic-h3",
@@ -116,28 +120,28 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 1.6945396404179238,
+   "ev": 2.424377186260366,
    "tod": "day",
    "position": [
-    7.993,
-    4.45,
-    5.832
+    10.608,
+    4.6,
+    4.725
    ],
    "lookAt": [
-    9.085,
-    4.45,
-    6.594
+    12.331,
+    4,
+    3.663
    ],
-   "roomId": "1.B-wc",
+   "roomId": "1.B-bed",
    "name": {
-    "en": "Bathroom",
-    "pt": "I.S.",
-    "he": "חדר רחצה"
+    "en": "Bedroom · view 2",
+    "pt": "Quarto · vista 2",
+    "he": "חדר שינה · מבט 2"
    },
    "kind": null,
    "yawOffset": -1.01843,
    "index": 3,
-   "seconds": 2006.0
+   "seconds": 1993.6
   },
   {
    "id": "1.B-atlantic-h4",
@@ -147,7 +151,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 3.0921246035790833,
+   "ev": 3.2871423385917087,
    "tod": "day",
    "position": [
     6.795,
@@ -168,9 +172,9 @@
    "kind": null,
    "yawOffset": 2.67132,
    "index": 4,
-   "seconds": 1958.7
+   "seconds": 1959.1
   }
  ],
- "seconds": 10035.1,
+ "seconds": 9923.2,
  "blender": "4.2.3 LTS"
 }
