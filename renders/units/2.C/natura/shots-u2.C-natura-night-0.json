@@ -1,0 +1,150 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.C",
+  "pkg": "natura",
+  "quality": "standard",
+  "tod": "night",
+  "shots": [
+   "2.C-natura-h0",
+   "2.C-natura-h1",
+   "2.C-natura-h2",
+   "2.C-natura-h5"
+  ],
+  "out": "renders/units/2.C/natura",
+  "name": "u2.C-natura-night-0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "2.C-natura-h0",
+   "type": "pano",
+   "file": "renders/units/2.C/natura/2.C-natura-h0.night.jpg",
+   "thumb": "renders/units/2.C/natura/thumbs/2.C-natura-h0.night.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 4.865851467571508,
+   "tod": "night",
+   "position": [
+    3.7,
+    7.6,
+    9.95
+   ],
+   "lookAt": [
+    8.721,
+    7.25,
+    10.788
+   ],
+   "roomId": "2.C-hall",
+   "name": {
+    "en": "Hall",
+    "pt": "Hall",
+    "he": "מסדרון"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": -1.73617,
+   "index": 0,
+   "seconds": 1390.3
+  },
+  {
+   "id": "2.C-natura-h1",
+   "type": "pano",
+   "file": "renders/units/2.C/natura/2.C-natura-h1.night.jpg",
+   "thumb": "renders/units/2.C/natura/thumbs/2.C-natura-h1.night.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 5.571566471196547,
+   "tod": "night",
+   "position": [
+    6.799,
+    7.6,
+    10.125
+   ],
+   "lookAt": [
+    5.132,
+    7,
+    9.842
+   ],
+   "roomId": "2.C-hall",
+   "name": {
+    "en": "Hall · view 2",
+    "pt": "Hall · vista 2",
+    "he": "מסדרון · מבט 2"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": 1.40263,
+   "index": 1,
+   "seconds": 1233.8
+  },
+  {
+   "id": "2.C-natura-h2",
+   "type": "pano",
+   "file": "renders/units/2.C/natura/2.C-natura-h2.night.jpg",
+   "thumb": "renders/units/2.C/natura/thumbs/2.C-natura-h2.night.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 4.7614113294483795,
+   "tod": "night",
+   "position": [
+    8.15,
+    7.6,
+    8.59
+   ],
+   "lookAt": [
+    9.044,
+    7.3,
+    7.628
+   ],
+   "roomId": "2.C-wc",
+   "name": {
+    "en": "Bathroom",
+    "pt": "I.S.",
+    "he": "חדר רחצה"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": -0.74878,
+   "index": 2,
+   "seconds": 1611.6
+  },
+  {
+   "id": "2.C-natura-h5",
+   "type": "pano",
+   "file": "renders/units/2.C/natura/2.C-natura-h5.night.jpg",
+   "thumb": "renders/units/2.C/natura/thumbs/2.C-natura-h5.night.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 9.678999551165758,
+   "tod": "night",
+   "position": [
+    5.5,
+    7.6,
+    13.91
+   ],
+   "lookAt": [
+    4.662,
+    6.95,
+    12.6
+   ],
+   "roomId": "2.C-bed1",
+   "name": {
+    "en": "Main bedroom",
+    "pt": "Quarto",
+    "he": "חדר שינה ראשי"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": 0.5691,
+   "index": 5,
+   "seconds": 909.1
+  }
+ ],
+ "seconds": 5150.1,
+ "blender": "4.2.3 LTS"
+}
