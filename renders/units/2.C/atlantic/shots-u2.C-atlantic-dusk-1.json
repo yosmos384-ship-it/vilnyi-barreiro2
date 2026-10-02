@@ -1,0 +1,117 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.C",
+  "pkg": "atlantic",
+  "quality": "standard",
+  "tod": "dusk",
+  "shots": [
+   "2.C-atlantic-h6",
+   "2.C-atlantic-h7",
+   "2.C-atlantic-h8"
+  ],
+  "out": "renders/units/2.C/atlantic",
+  "name": "u2.C-atlantic-dusk-1",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "2.C-atlantic-h6",
+   "type": "pano",
+   "file": "renders/units/2.C/atlantic/2.C-atlantic-h6.dusk.jpg",
+   "thumb": "renders/units/2.C/atlantic/thumbs/2.C-atlantic-h6.dusk.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 6.272598104658739,
+   "tod": "dusk",
+   "position": [
+    8.16,
+    7.6,
+    11.96
+   ],
+   "lookAt": [
+    6.92,
+    7.25,
+    14.139
+   ],
+   "roomId": "2.C-bed2",
+   "name": {
+    "en": "Bedroom 2",
+    "pt": "Quarto 2",
+    "he": "חדר שינה 2"
+   },
+   "kind": null,
+   "variant": "dusk",
+   "yawOffset": 2.62423,
+   "index": 6,
+   "seconds": 928.6
+  },
+  {
+   "id": "2.C-atlantic-h7",
+   "type": "pano",
+   "file": "renders/units/2.C/atlantic/2.C-atlantic-h7.dusk.jpg",
+   "thumb": "renders/units/2.C/atlantic/thumbs/2.C-atlantic-h7.dusk.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 5.958211758151719,
+   "tod": "dusk",
+   "position": [
+    7.9,
+    7.6,
+    15.05
+   ],
+   "lookAt": [
+    5.9,
+    7.4,
+    26.7
+   ],
+   "roomId": "2.front.1",
+   "name": {
+    "en": "Balcony",
+    "pt": "Varanda",
+    "he": "מרפסת"
+   },
+   "kind": null,
+   "variant": "dusk",
+   "yawOffset": 2.97158,
+   "index": 7,
+   "seconds": 479.4
+  },
+  {
+   "id": "2.C-atlantic-h8",
+   "type": "pano",
+   "file": "renders/units/2.C/atlantic/2.C-atlantic-h8.dusk.jpg",
+   "thumb": "renders/units/2.C/atlantic/thumbs/2.C-atlantic-h8.dusk.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 5.85062782232428,
+   "tod": "dusk",
+   "position": [
+    11.75,
+    7.6,
+    15.05
+   ],
+   "lookAt": [
+    9.75,
+    7.4,
+    26.7
+   ],
+   "roomId": "2.front.2",
+   "name": {
+    "en": "Balcony",
+    "pt": "Varanda",
+    "he": "מרפסת"
+   },
+   "kind": null,
+   "variant": "dusk",
+   "yawOffset": 2.97158,
+   "index": 8,
+   "seconds": 486.3
+  }
+ ],
+ "seconds": 1898.3,
+ "blender": "4.2.3 LTS"
+}
