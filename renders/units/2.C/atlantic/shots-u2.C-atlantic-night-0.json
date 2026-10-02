@@ -6,10 +6,9 @@
   "quality": "standard",
   "tod": "night",
   "shots": [
-   "2.C-atlantic-h0",
-   "2.C-atlantic-h1",
-   "2.C-atlantic-h2",
-   "2.C-atlantic-h5"
+   "2.C-atlantic-h3",
+   "2.C-atlantic-h4",
+   "2.C-living"
   ],
   "out": "renders/units/2.C/atlantic",
   "name": "u2.C-atlantic-night-0",
@@ -17,134 +16,102 @@
  },
  "shots": [
   {
-   "id": "2.C-atlantic-h0",
+   "id": "2.C-atlantic-h3",
    "type": "pano",
-   "file": "renders/units/2.C/atlantic/2.C-atlantic-h0.night.jpg",
-   "thumb": "renders/units/2.C/atlantic/thumbs/2.C-atlantic-h0.night.jpg",
+   "file": "renders/units/2.C/atlantic/2.C-atlantic-h3.night.jpg",
+   "thumb": "renders/units/2.C/atlantic/thumbs/2.C-atlantic-h3.night.jpg",
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 7.456939921046229,
+   "ev": 7.414057213380557,
    "tod": "night",
    "position": [
-    3.7,
+    12.21,
     7.6,
-    9.95
+    13.06
    ],
    "lookAt": [
-    8.721,
+    10.88,
     7.25,
-    10.788
+    10.573
    ],
-   "roomId": "2.C-hall",
+   "roomId": "2.C-living",
    "name": {
-    "en": "Hall",
-    "pt": "Hall",
-    "he": "מסדרון"
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
    },
    "kind": null,
    "variant": "night",
-   "yawOffset": -1.73617,
-   "index": 0,
-   "seconds": 1037.5
+   "yawOffset": 0.49108,
+   "index": 3,
+   "seconds": 1172.4
   },
   {
-   "id": "2.C-atlantic-h1",
+   "id": "2.C-atlantic-h4",
    "type": "pano",
-   "file": "renders/units/2.C/atlantic/2.C-atlantic-h1.night.jpg",
-   "thumb": "renders/units/2.C/atlantic/thumbs/2.C-atlantic-h1.night.jpg",
+   "file": "renders/units/2.C/atlantic/2.C-atlantic-h4.night.jpg",
+   "thumb": "renders/units/2.C/atlantic/thumbs/2.C-atlantic-h4.night.jpg",
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 6.49833424292426,
+   "ev": 4.7416077996710255,
    "tod": "night",
    "position": [
-    6.799,
+    10.194,
     7.6,
-    10.125
+    6.428
    ],
    "lookAt": [
-    5.132,
+    11.56,
     7,
-    9.842
+    9.71
    ],
-   "roomId": "2.C-hall",
+   "roomId": "2.C-living",
    "name": {
-    "en": "Hall · view 2",
-    "pt": "Hall · vista 2",
-    "he": "מסדרון · מבט 2"
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
    },
    "kind": null,
    "variant": "night",
-   "yawOffset": 1.40263,
-   "index": 1,
-   "seconds": 1154.5
+   "yawOffset": -2.74719,
+   "index": 4,
+   "seconds": 1726.0
   },
   {
-   "id": "2.C-atlantic-h2",
-   "type": "pano",
-   "file": "renders/units/2.C/atlantic/2.C-atlantic-h2.night.jpg",
-   "thumb": "renders/units/2.C/atlantic/thumbs/2.C-atlantic-h2.night.jpg",
-   "W": 3072,
-   "H": 1536,
-   "spp": 64,
-   "ev": 4.617916427853562,
+   "id": "2.C-living",
+   "type": "still",
+   "file": "renders/units/2.C/atlantic/2.C-living.night.jpg",
+   "thumb": "renders/units/2.C/atlantic/thumbs/2.C-living.night.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 6.126806168185478,
    "tod": "night",
    "position": [
-    8.15,
-    7.6,
-    8.59
+    13.075,
+    7.45,
+    6.869
    ],
    "lookAt": [
-    9.044,
-    7.3,
-    7.628
+    10.492,
+    7.45,
+    12.513
    ],
-   "roomId": "2.C-wc",
+   "roomId": "2.C-living",
    "name": {
-    "en": "Bathroom",
-    "pt": "I.S.",
-    "he": "חדר רחצה"
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
    },
-   "kind": null,
+   "kind": "living",
    "variant": "night",
-   "yawOffset": -0.74878,
-   "index": 2,
-   "seconds": 1666.7
-  },
-  {
-   "id": "2.C-atlantic-h5",
-   "type": "pano",
-   "file": "renders/units/2.C/atlantic/2.C-atlantic-h5.night.jpg",
-   "thumb": "renders/units/2.C/atlantic/thumbs/2.C-atlantic-h5.night.jpg",
-   "W": 3072,
-   "H": 1536,
-   "spp": 64,
-   "ev": 9.496398676886576,
-   "tod": "night",
-   "position": [
-    5.5,
-    7.6,
-    13.91
-   ],
-   "lookAt": [
-    4.662,
-    6.95,
-    12.6
-   ],
-   "roomId": "2.C-bed1",
-   "name": {
-    "en": "Main bedroom",
-    "pt": "Quarto",
-    "he": "חדר שינה ראשי"
-   },
-   "kind": null,
-   "variant": "night",
-   "yawOffset": 0.5691,
-   "index": 5,
-   "seconds": 942.2
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1674.1
   }
  ],
- "seconds": 4806.2,
+ "seconds": 4577.7,
  "blender": "4.2.3 LTS"
 }
