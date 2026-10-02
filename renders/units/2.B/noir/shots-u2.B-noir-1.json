@@ -11,7 +11,9 @@
   ],
   "out": "renders/units/2.B/noir",
   "name": "u2.B-noir-1",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
@@ -22,7 +24,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 5.529631133666642,
+   "ev": 5.009062725530224,
    "tod": "day",
    "position": [
     8.35,
@@ -43,7 +45,7 @@
    "kind": null,
    "yawOffset": -2.22887,
    "index": 5,
-   "seconds": 922.2
+   "seconds": 836.2
   },
   {
    "id": "2.B-noir-h6",
@@ -53,7 +55,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": -2.8133082068361897,
+   "ev": -2.2833536544893134,
    "tod": "day",
    "position": [
     7.95,
@@ -74,9 +76,9 @@
    "kind": null,
    "yawOffset": -0.17002,
    "index": 6,
-   "seconds": 738.3
+   "seconds": 822.6
   }
  ],
- "seconds": 1677.0,
+ "seconds": 1663.3,
  "blender": "4.2.3 LTS"
 }
