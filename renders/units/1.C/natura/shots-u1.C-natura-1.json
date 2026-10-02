@@ -1,0 +1,116 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.C",
+  "pkg": "natura",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "1.C-natura-h5",
+   "1.C-natura-h6",
+   "1.C-natura-h7"
+  ],
+  "out": "renders/units/1.C/natura",
+  "name": "u1.C-natura-1",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "1.C-natura-h5",
+   "type": "pano",
+   "file": "renders/units/1.C/natura/1.C-natura-h5.jpg",
+   "thumb": "renders/units/1.C/natura/thumbs/1.C-natura-h5.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 2.691046877076068,
+   "tod": "day",
+   "position": [
+    5.5,
+    4.6,
+    13.91
+   ],
+   "lookAt": [
+    4.662,
+    3.95,
+    12.6
+   ],
+   "roomId": "1.C-bed1",
+   "name": {
+    "en": "Main bedroom",
+    "pt": "Quarto",
+    "he": "חדר שינה ראשי"
+   },
+   "kind": null,
+   "yawOffset": 0.5691,
+   "index": 5,
+   "seconds": 2376.8
+  },
+  {
+   "id": "1.C-natura-h6",
+   "type": "pano",
+   "file": "renders/units/1.C/natura/1.C-natura-h6.jpg",
+   "thumb": "renders/units/1.C/natura/thumbs/1.C-natura-h6.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.0430278550429755,
+   "tod": "day",
+   "position": [
+    8.16,
+    4.6,
+    11.96
+   ],
+   "lookAt": [
+    6.92,
+    4.25,
+    14.139
+   ],
+   "roomId": "1.C-bed2",
+   "name": {
+    "en": "Bedroom 2",
+    "pt": "Quarto 2",
+    "he": "חדר שינה 2"
+   },
+   "kind": null,
+   "yawOffset": 2.62423,
+   "index": 6,
+   "seconds": 2265.5
+  },
+  {
+   "id": "1.C-natura-h7",
+   "type": "pano",
+   "file": "renders/units/1.C/natura/1.C-natura-h7.jpg",
+   "thumb": "renders/units/1.C/natura/thumbs/1.C-natura-h7.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": -0.826823145901595,
+   "tod": "day",
+   "position": [
+    8.15,
+    4.6,
+    15.05
+   ],
+   "lookAt": [
+    6.15,
+    4.4,
+    26.7
+   ],
+   "roomId": "1.front",
+   "name": {
+    "en": "Balcony",
+    "pt": "Varanda",
+    "he": "מרפסת"
+   },
+   "kind": null,
+   "yawOffset": 2.97158,
+   "index": 7,
+   "seconds": 1447.0
+  }
+ ],
+ "seconds": 6094.2,
+ "blender": "4.2.3 LTS"
+}
