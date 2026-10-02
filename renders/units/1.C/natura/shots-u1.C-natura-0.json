@@ -1,0 +1,180 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.C",
+  "pkg": "natura",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "1.C-natura-h0",
+   "1.C-natura-h1",
+   "1.C-natura-h2",
+   "1.C-natura-h3",
+   "1.C-natura-h4"
+  ],
+  "out": "renders/units/1.C/natura",
+  "name": "u1.C-natura-0",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "1.C-natura-h0",
+   "type": "pano",
+   "file": "renders/units/1.C/natura/1.C-natura-h0.jpg",
+   "thumb": "renders/units/1.C/natura/thumbs/1.C-natura-h0.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 4.316524933733152,
+   "tod": "day",
+   "position": [
+    3.7,
+    4.6,
+    9.95
+   ],
+   "lookAt": [
+    8.721,
+    4.25,
+    10.788
+   ],
+   "roomId": "1.C-hall",
+   "name": {
+    "en": "Hall",
+    "pt": "Hall",
+    "he": "מסדרון"
+   },
+   "kind": null,
+   "yawOffset": -1.73617,
+   "index": 0,
+   "seconds": 2161.2
+  },
+  {
+   "id": "1.C-natura-h1",
+   "type": "pano",
+   "file": "renders/units/1.C/natura/1.C-natura-h1.jpg",
+   "thumb": "renders/units/1.C/natura/thumbs/1.C-natura-h1.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.4092216303562273,
+   "tod": "day",
+   "position": [
+    6.799,
+    4.6,
+    10.125
+   ],
+   "lookAt": [
+    5.132,
+    4,
+    9.842
+   ],
+   "roomId": "1.C-hall",
+   "name": {
+    "en": "Hall · view 2",
+    "pt": "Hall · vista 2",
+    "he": "מסדרון · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": 1.40263,
+   "index": 1,
+   "seconds": 2237.0
+  },
+  {
+   "id": "1.C-natura-h2",
+   "type": "pano",
+   "file": "renders/units/1.C/natura/1.C-natura-h2.jpg",
+   "thumb": "renders/units/1.C/natura/thumbs/1.C-natura-h2.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.1701130504502384,
+   "tod": "day",
+   "position": [
+    8.15,
+    4.6,
+    8.59
+   ],
+   "lookAt": [
+    9.044,
+    4.3,
+    7.628
+   ],
+   "roomId": "1.C-wc",
+   "name": {
+    "en": "Bathroom",
+    "pt": "I.S.",
+    "he": "חדר רחצה"
+   },
+   "kind": null,
+   "yawOffset": -0.74878,
+   "index": 2,
+   "seconds": 2221.1
+  },
+  {
+   "id": "1.C-natura-h3",
+   "type": "pano",
+   "file": "renders/units/1.C/natura/1.C-natura-h3.jpg",
+   "thumb": "renders/units/1.C/natura/thumbs/1.C-natura-h3.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.079643713580872,
+   "tod": "day",
+   "position": [
+    10.26,
+    4.6,
+    7.21
+   ],
+   "lookAt": [
+    12.44,
+    4.25,
+    13.982
+   ],
+   "roomId": "1.C-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": null,
+   "yawOffset": -2.83015,
+   "index": 3,
+   "seconds": 2274.4
+  },
+  {
+   "id": "1.C-natura-h4",
+   "type": "pano",
+   "file": "renders/units/1.C/natura/1.C-natura-h4.jpg",
+   "thumb": "renders/units/1.C/natura/thumbs/1.C-natura-h4.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.012333060889239,
+   "tod": "day",
+   "position": [
+    13.086,
+    4.6,
+    13.882
+   ],
+   "lookAt": [
+    11.76,
+    4,
+    9.46
+   ],
+   "roomId": "1.C-living",
+   "name": {
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": 0.29133,
+   "index": 4,
+   "seconds": 2355.4
+  }
+ ],
+ "seconds": 11254.1,
+ "blender": "4.2.3 LTS"
+}
