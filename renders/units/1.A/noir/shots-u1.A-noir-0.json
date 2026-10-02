@@ -6,65 +6,38 @@
   "quality": "standard",
   "tod": "day",
   "shots": [
-   "1.A-living",
-   "1.A-bedroom",
-   "1.A-bathroom"
+   "1.A-noir-h0",
+   "1.A-noir-h1",
+   "1.A-noir-h2",
+   "1.A-noir-h3",
+   "1.A-noir-h4"
   ],
   "out": "renders/units/1.A/noir",
   "name": "u1.A-noir-0",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
-   "id": "1.A-living",
-   "type": "still",
-   "file": "renders/units/1.A/noir/1.A-living.jpg",
-   "thumb": "renders/units/1.A/noir/thumbs/1.A-living.jpg",
-   "W": 2400,
-   "H": 1350,
-   "spp": 96,
-   "ev": -0.9916868059171552,
+   "id": "1.A-noir-h0",
+   "type": "pano",
+   "file": "renders/units/1.A/noir/1.A-noir-h0.jpg",
+   "thumb": "renders/units/1.A/noir/thumbs/1.A-noir-h0.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 6.59533125989021,
    "tod": "day",
    "position": [
-    3.668,
-    4.45,
-    4.132
+    0.85,
+    4.6,
+    4.6
    ],
    "lookAt": [
-    5.13,
-    4.45,
-    1.635
-   ],
-   "roomId": "1.A-living",
-   "name": {
-    "en": "Living & kitchen",
-    "pt": "Sala / cozinha",
-    "he": "סלון ומטבח"
-   },
-   "kind": "living",
-   "lens": 24.0,
-   "shift_y": 0.0,
-   "seconds": 1115.7
-  },
-  {
-   "id": "1.A-bedroom",
-   "type": "still",
-   "file": "renders/units/1.A/noir/1.A-bedroom.jpg",
-   "thumb": "renders/units/1.A/noir/thumbs/1.A-bedroom.jpg",
-   "W": 2400,
-   "H": 1350,
-   "spp": 96,
-   "ev": 5.053957655877295,
-   "tod": "day",
-   "position": [
-    0.449,
-    4.4,
-    4.763
-   ],
-   "lookAt": [
-    2.332,
-    4.4,
-    1.131
+    1.028,
+    3.95,
+    2.75
    ],
    "roomId": "1.A-suite",
    "name": {
@@ -72,30 +45,123 @@
     "pt": "Suite",
     "he": "סוויטת הורים"
    },
-   "kind": "bedroom",
-   "lens": 24.0,
-   "shift_y": 0.0,
-   "seconds": 931.1
+   "kind": null,
+   "yawOffset": -0.09592,
+   "index": 0,
+   "seconds": 997.9
   },
   {
-   "id": "1.A-bathroom",
-   "type": "still",
-   "file": "renders/units/1.A/noir/1.A-bathroom.jpg",
-   "thumb": "renders/units/1.A/noir/thumbs/1.A-bathroom.jpg",
-   "W": 2400,
-   "H": 1350,
-   "spp": 96,
-   "ev": 4.020574940354146,
+   "id": "1.A-noir-h1",
+   "type": "pano",
+   "file": "renders/units/1.A/noir/1.A-noir-h1.jpg",
+   "thumb": "renders/units/1.A/noir/thumbs/1.A-noir-h1.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 6.205328535797128,
    "tod": "day",
    "position": [
-    1.749,
-    4.45,
-    5.772
+    2.208,
+    4.6,
+    4.648
    ],
    "lookAt": [
-    0.662,
-    4.45,
-    6.641
+    1.173,
+    4,
+    3.672
+   ],
+   "roomId": "1.A-suite",
+   "name": {
+    "en": "Master suite · view 2",
+    "pt": "Suite · vista 2",
+    "he": "סוויטת הורים · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": 0.81473,
+   "index": 1,
+   "seconds": 1011.1
+  },
+  {
+   "id": "1.A-noir-h2",
+   "type": "pano",
+   "file": "renders/units/1.A/noir/1.A-noir-h2.jpg",
+   "thumb": "renders/units/1.A/noir/thumbs/1.A-noir-h2.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 4.422810273096937,
+   "tod": "day",
+   "position": [
+    3.66,
+    4.6,
+    4.6
+   ],
+   "lookAt": [
+    5.06,
+    4.25,
+    0.474
+   ],
+   "roomId": "1.A-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": null,
+   "yawOffset": -0.32712,
+   "index": 2,
+   "seconds": 1096.3
+  },
+  {
+   "id": "1.A-noir-h3",
+   "type": "pano",
+   "file": "renders/units/1.A/noir/1.A-noir-h3.jpg",
+   "thumb": "renders/units/1.A/noir/thumbs/1.A-noir-h3.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.318022941003734,
+   "tod": "day",
+   "position": [
+    4.751,
+    4.6,
+    2.306
+   ],
+   "lookAt": [
+    4.07,
+    4,
+    3.672
+   ],
+   "roomId": "1.A-living",
+   "name": {
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": 2.67912,
+   "index": 3,
+   "seconds": 1322.1
+  },
+  {
+   "id": "1.A-noir-h4",
+   "type": "pano",
+   "file": "renders/units/1.A/noir/1.A-noir-h4.jpg",
+   "thumb": "renders/units/1.A/noir/thumbs/1.A-noir-h4.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 6.76198174847122,
+   "tod": "day",
+   "position": [
+    1.375,
+    4.6,
+    6.01
+   ],
+   "lookAt": [
+    0.548,
+    4.3,
+    6.732
    ],
    "roomId": "1.A-ensuite",
    "name": {
@@ -103,12 +169,12 @@
     "pt": "I.S. suite",
     "he": "חדר רחצה צמוד"
    },
-   "kind": "bathroom",
-   "lens": 18.0,
-   "shift_y": 0.0,
-   "seconds": 947.7
+   "kind": null,
+   "yawOffset": 2.28851,
+   "index": 4,
+   "seconds": 855.2
   }
  ],
- "seconds": 3008.8,
+ "seconds": 5287.0,
  "blender": "4.2.3 LTS"
 }
