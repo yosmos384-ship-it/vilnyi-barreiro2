@@ -1,0 +1,20 @@
+[    0.0s] job u2.B-natura-1: scope=unit unit=2.B pkg=natura quality=standard shots=2
+[    0.8s] import building: 491 objects in 0.8s
+[    1.2s] import context: 127 objects in 0.4s
+[    1.5s] import unit-2.B-natura: 76 objects in 0.3s
+[    1.9s] box UVs on 630 meshes
+[    3.8s] [foliage] leafified 26 objects, crown area 1129 m2 -> ~1467238 leaves
+[    3.8s] materials: built=232 textured=69 by_key={'aluminium-frame': 2, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 4, 'asphalt': 1, 'bark': 1, 'bath-floor': 1, 'bath-wall': 1, 'book': 3, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 3, 'candle-wax': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-taillight': 1, 'car-tyre': 1, 'ceiling': 1, 'ceiling-white': 2, 'ceramic-plate': 4, 'concrete': 5, 'cutlery-steel': 1, 'deck-teak': 2, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'fabric-boucle': 4, 'fabric-linen': 6, 'fabric-sofa': 1, 'floor-main': 2, 'foliage': 21, 'foliage-inner': 1, 'fruit': 3, 'garage-door': 1, 'glass-drinking': 1, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 2, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 2, 'lawn': 2, 'leather': 1, 'led-strip-emissive': 13, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 3, 'mirror': 2, 'paint-white': 1, 'paving-calcada': 2, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 2, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 1, 'sanitary-ceramic': 3, 'shower-glass': 1, 'shower-wall': 1, 'signage': 39, 'skirting': 2, 'soil': 3, 'steel-dark': 9, 'stone-coping': 2, 'tap-metal': 1, 'timber-soffit': 1, 'wall-feature': 1, 'wall-paint': 1, 'wine': 1, 'wood-furniture': 4, 'zinc-standing-seam': 2}
+[    3.8s] flames hidden by day: 1
+[    3.9s] lights: imported=2 emissive->lights=109 portals=18 boost=2.5 total_lights=129 polys=347870
+[    4.5s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[    4.7s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[    4.7s] scene ready in 4.7s  (world kloofendal_43d_clear_puresky)
+[   20.2s] [expo] interior: in/out/sky=19898/90/12 key=0.3 Lavg=0.04609 p97=0.4146 ev_hi=2.65 -> ev=2.65 windowND=1.00
+[   20.2s] [wb] gains (0.423, 1.0, 2.4)
+[ 1839.5s] SHOT 2.B-natura-h5 pano 3072x1536 spp<=64 ev=3.00 in 1834.8s -> renders/units/2.B/natura/2.B-natura-h5.jpg
+[ 1850.7s] [expo] exterior: geo/sky=14405/5595 Lavg=0.3304 p95=15.63 ev_hi=-2.64 -> ev=-2.64 sky=9.218947410583496
+[ 1850.7s] [sky] visible sky x0.37 (measured 9.22, ev -2.64)
+[ 1850.7s] [wb] gains (1.003, 1.0, 1.009)
+[ 2711.7s] SHOT 2.B-natura-h6 pano 3072x1536 spp<=64 ev=-2.29 in 872.2s -> renders/units/2.B/natura/2.B-natura-h6.jpg
+[ 2711.7s] DONE 2 images in 2711.7s
