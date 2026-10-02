@@ -1,0 +1,28 @@
+[    0.0s] job u2.B-urban-0: scope=unit unit=2.B pkg=urban quality=standard shots=5
+[    0.9s] import building: 491 objects in 0.8s
+[    1.3s] import context: 127 objects in 0.4s
+[    1.6s] import unit-2.B-urban: 82 objects in 0.3s
+[    1.9s] box UVs on 636 meshes
+[    3.7s] [foliage] leafified 26 objects, crown area 1129 m2 -> ~1467238 leaves
+[    3.7s] materials: built=236 textured=68 by_key={'aluminium-frame': 2, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 4, 'asphalt': 1, 'bark': 1, 'bath-floor': 1, 'bath-wall': 1, 'book': 3, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 4, 'candle-wax': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-taillight': 1, 'car-tyre': 1, 'ceiling': 1, 'ceiling-white': 2, 'ceramic-plate': 4, 'concrete': 5, 'cutlery-steel': 1, 'deck-teak': 2, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 3, 'fabric-boucle': 6, 'fabric-linen': 5, 'fabric-sofa': 1, 'floor-main': 2, 'foliage': 21, 'foliage-inner': 1, 'fruit': 3, 'garage-door': 1, 'glass-drinking': 1, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 2, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 2, 'leather': 2, 'led-strip-emissive': 13, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 3, 'mirror': 2, 'paint-white': 1, 'paving-calcada': 2, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 2, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 1, 'sanitary-ceramic': 2, 'shower-glass': 1, 'shower-wall': 1, 'signage': 39, 'skirting': 2, 'soil': 3, 'steel-dark': 10, 'stone-coping': 2, 'tap-metal': 1, 'timber-soffit': 1, 'wall-feature': 1, 'wall-paint': 1, 'wine': 1, 'wood-furniture': 5, 'zinc-standing-seam': 2}
+[    3.7s] flames hidden by day: 1
+[    3.8s] lights: imported=2 emissive->lights=68 portals=18 boost=2.5 total_lights=88 polys=347694
+[    4.5s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[    4.7s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[    4.7s] scene ready in 4.7s  (world kloofendal_43d_clear_puresky)
+[   19.3s] [expo] interior: in/out/sky=19658/275/67 key=0.3 Lavg=0.02504 p97=0.5654 ev_hi=2.20 -> ev=2.20 windowND=0.05
+[   19.3s] [wb] gains (0.861, 1.0, 1.153)
+[ 1438.3s] SHOT 2.B-urban-h0 pano 3072x1536 spp<=64 ev=2.55 in 1433.6s -> renders/units/2.B/urban/2.B-urban-h0.jpg
+[ 1450.1s] [expo] interior: in/out/sky=17100/1984/916 key=0.3 Lavg=0.01731 p97=0.6703 ev_hi=1.96 -> ev=1.96 windowND=0.10
+[ 1450.1s] [wb] gains (0.945, 1.0, 1.075)
+[ 2644.1s] SHOT 2.B-urban-h1 pano 3072x1536 spp<=64 ev=2.31 in 1205.8s -> renders/units/2.B/urban/2.B-urban-h1.jpg
+[ 2655.6s] [expo] interior: in/out/sky=19943/48/9 key=0.3 Lavg=0.01792 p97=0.3634 ev_hi=2.84 -> ev=2.84 windowND=1.00
+[ 2655.6s] [wb] gains (0.735, 1.0, 1.272)
+[ 3973.4s] SHOT 2.B-urban-h2 pano 3072x1536 spp<=64 ev=3.19 in 1329.3s -> renders/units/2.B/urban/2.B-urban-h2.jpg
+[ 3985.5s] [expo] interior: in/out/sky=19824/158/18 key=0.3 Lavg=0.03867 p97=0.6889 ev_hi=1.92 -> ev=1.92 windowND=1.00
+[ 3985.5s] [wb] gains (0.87, 1.0, 1.165)
+[ 5373.9s] SHOT 2.B-urban-h3 pano 3072x1536 spp<=64 ev=2.27 in 1400.4s -> renders/units/2.B/urban/2.B-urban-h3.jpg
+[ 5386.0s] [expo] interior: in/out/sky=19854/143/3 key=0.3 Lavg=0.008413 p97=0.3468 ev_hi=2.91 -> ev=2.91 windowND=1.00
+[ 5386.0s] [wb] gains (0.664, 1.0, 1.395)
+[ 6729.2s] SHOT 2.B-urban-h4 pano 3072x1536 spp<=64 ev=3.26 in 1355.4s -> renders/units/2.B/urban/2.B-urban-h4.jpg
+[ 6729.2s] DONE 5 images in 6729.2s
