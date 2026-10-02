@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-10-01T22:29:53Z",
+ "generated": "2026-10-02T01:44:07Z",
  "space": "three-y-up",
  "units": "metres",
  "axes": "three.js world: +x = along Rua Eduardo Couto (bearing 61.4°), +y = up, +z = towards the street (0 = rear façade, 14.7 = street façade). y = 0 is ground-floor finished level (+12.70 m a.s.l.).",
@@ -10,7 +10,10 @@
  "packages": [
   "atlantic",
   "lisboa",
-  "noir"
+  "noir",
+  "natura",
+  "riviera",
+  "urban"
  ],
  "exterior": [
   {
@@ -925,6 +928,825 @@
       },
       {
        "id": "0.A-noir-h8",
+       "roomId": "0.A-garden",
+       "name": {
+        "en": "Private garden & deck · view 2",
+        "pt": "Jardim privado · vista 2",
+        "he": "גינה פרטית ודק · מבט 2"
+       },
+       "position": [
+        3.1,
+        1.6,
+        -1.2
+       ],
+       "lookAt": [
+        2.3,
+        1.2,
+        -3.75
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "0.A-living",
+       "kind": "living",
+       "roomId": "0.A-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        3.668,
+        1.45,
+        4.132
+       ],
+       "lookAt": [
+        5.13,
+        1.45,
+        1.635
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "0.A-bedroom",
+       "kind": "bedroom",
+       "roomId": "0.A-suite",
+       "roomName": {
+        "en": "Master suite",
+        "pt": "Suite",
+        "he": "סוויטת הורים"
+       },
+       "position": [
+        0.449,
+        1.4,
+        4.763
+       ],
+       "lookAt": [
+        2.332,
+        1.4,
+        1.131
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "0.A-bathroom",
+       "kind": "bathroom",
+       "roomId": "0.A-ensuite",
+       "roomName": {
+        "en": "En-suite bathroom",
+        "pt": "I.S. suite",
+        "he": "חדר רחצה צמוד"
+       },
+       "position": [
+        1.749,
+        1.45,
+        5.772
+       ],
+       "lookAt": [
+        0.662,
+        1.45,
+        6.641
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "0.A-garden",
+       "kind": "garden",
+       "roomId": "0.A-garden",
+       "roomName": {
+        "en": "Private garden & deck",
+        "pt": "Jardim privado",
+        "he": "גינה פרטית ודק"
+       },
+       "position": [
+        3.075,
+        1.6,
+        -7.15
+       ],
+       "lookAt": [
+        3.075,
+        2.4,
+        0
+       ],
+       "lens_mm": 20,
+       "sensor_width_mm": 36,
+       "aspect": "16:9"
+      }
+     ]
+    },
+    "natura": {
+     "glb": "unit-0.A-natura.glb",
+     "hotspots": [
+      {
+       "id": "0.A-natura-h0",
+       "roomId": "0.A-suite",
+       "name": {
+        "en": "Master suite",
+        "pt": "Suite",
+        "he": "סוויטת הורים"
+       },
+       "position": [
+        0.85,
+        1.6,
+        4.6
+       ],
+       "lookAt": [
+        1.028,
+        0.95,
+        2.75
+       ]
+      },
+      {
+       "id": "0.A-natura-h1",
+       "roomId": "0.A-suite",
+       "name": {
+        "en": "Master suite · view 2",
+        "pt": "Suite · vista 2",
+        "he": "סוויטת הורים · מבט 2"
+       },
+       "position": [
+        2.208,
+        1.6,
+        4.648
+       ],
+       "lookAt": [
+        1.173,
+        1,
+        3.672
+       ]
+      },
+      {
+       "id": "0.A-natura-h2",
+       "roomId": "0.A-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        3.66,
+        1.6,
+        4.6
+       ],
+       "lookAt": [
+        5.06,
+        1.25,
+        0.474
+       ]
+      },
+      {
+       "id": "0.A-natura-h3",
+       "roomId": "0.A-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        4.751,
+        1.6,
+        2.306
+       ],
+       "lookAt": [
+        4.07,
+        1,
+        3.672
+       ]
+      },
+      {
+       "id": "0.A-natura-h4",
+       "roomId": "0.A-ensuite",
+       "name": {
+        "en": "En-suite bathroom",
+        "pt": "I.S. suite",
+        "he": "חדר רחצה צמוד"
+       },
+       "position": [
+        1.375,
+        1.6,
+        6.01
+       ],
+       "lookAt": [
+        0.548,
+        1.3,
+        6.732
+       ]
+      },
+      {
+       "id": "0.A-natura-h5",
+       "roomId": "0.A-wc",
+       "name": {
+        "en": "Guest bathroom",
+        "pt": "I.S. serviço",
+        "he": "חדר רחצה אורחים"
+       },
+       "position": [
+        4.525,
+        1.6,
+        6.01
+       ],
+       "lookAt": [
+        2.796,
+        1.3,
+        6.732
+       ]
+      },
+      {
+       "id": "0.A-natura-h6",
+       "roomId": "0.A-hall",
+       "name": {
+        "en": "Entrance hall",
+        "pt": "Hall",
+        "he": "מבואה"
+       },
+       "position": [
+        5.55,
+        1.6,
+        6.01
+       ],
+       "lookAt": [
+        5.248,
+        1.3,
+        6.732
+       ]
+      },
+      {
+       "id": "0.A-natura-h7",
+       "roomId": "0.A-garden",
+       "name": {
+        "en": "Private garden & deck",
+        "pt": "Jardim privado",
+        "he": "גינה פרטית ודק"
+       },
+       "position": [
+        4.3,
+        1.6,
+        -2.75
+       ],
+       "lookAt": [
+        2.1,
+        1.3,
+        1.5
+       ]
+      },
+      {
+       "id": "0.A-natura-h8",
+       "roomId": "0.A-garden",
+       "name": {
+        "en": "Private garden & deck · view 2",
+        "pt": "Jardim privado · vista 2",
+        "he": "גינה פרטית ודק · מבט 2"
+       },
+       "position": [
+        3.1,
+        1.6,
+        -1.2
+       ],
+       "lookAt": [
+        2.3,
+        1.2,
+        -3.75
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "0.A-living",
+       "kind": "living",
+       "roomId": "0.A-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        3.668,
+        1.45,
+        4.132
+       ],
+       "lookAt": [
+        5.13,
+        1.45,
+        1.635
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "0.A-bedroom",
+       "kind": "bedroom",
+       "roomId": "0.A-suite",
+       "roomName": {
+        "en": "Master suite",
+        "pt": "Suite",
+        "he": "סוויטת הורים"
+       },
+       "position": [
+        0.449,
+        1.4,
+        4.763
+       ],
+       "lookAt": [
+        2.332,
+        1.4,
+        1.131
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "0.A-bathroom",
+       "kind": "bathroom",
+       "roomId": "0.A-ensuite",
+       "roomName": {
+        "en": "En-suite bathroom",
+        "pt": "I.S. suite",
+        "he": "חדר רחצה צמוד"
+       },
+       "position": [
+        1.749,
+        1.45,
+        5.772
+       ],
+       "lookAt": [
+        0.662,
+        1.45,
+        6.641
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "0.A-garden",
+       "kind": "garden",
+       "roomId": "0.A-garden",
+       "roomName": {
+        "en": "Private garden & deck",
+        "pt": "Jardim privado",
+        "he": "גינה פרטית ודק"
+       },
+       "position": [
+        3.075,
+        1.6,
+        -7.15
+       ],
+       "lookAt": [
+        3.075,
+        2.4,
+        0
+       ],
+       "lens_mm": 20,
+       "sensor_width_mm": 36,
+       "aspect": "16:9"
+      }
+     ]
+    },
+    "riviera": {
+     "glb": "unit-0.A-riviera.glb",
+     "hotspots": [
+      {
+       "id": "0.A-riviera-h0",
+       "roomId": "0.A-suite",
+       "name": {
+        "en": "Master suite",
+        "pt": "Suite",
+        "he": "סוויטת הורים"
+       },
+       "position": [
+        0.85,
+        1.6,
+        4.6
+       ],
+       "lookAt": [
+        1.028,
+        0.95,
+        2.75
+       ]
+      },
+      {
+       "id": "0.A-riviera-h1",
+       "roomId": "0.A-suite",
+       "name": {
+        "en": "Master suite · view 2",
+        "pt": "Suite · vista 2",
+        "he": "סוויטת הורים · מבט 2"
+       },
+       "position": [
+        2.208,
+        1.6,
+        4.648
+       ],
+       "lookAt": [
+        1.173,
+        1,
+        3.672
+       ]
+      },
+      {
+       "id": "0.A-riviera-h2",
+       "roomId": "0.A-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        3.66,
+        1.6,
+        4.6
+       ],
+       "lookAt": [
+        5.06,
+        1.25,
+        0.474
+       ]
+      },
+      {
+       "id": "0.A-riviera-h3",
+       "roomId": "0.A-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        4.751,
+        1.6,
+        2.306
+       ],
+       "lookAt": [
+        4.07,
+        1,
+        3.672
+       ]
+      },
+      {
+       "id": "0.A-riviera-h4",
+       "roomId": "0.A-ensuite",
+       "name": {
+        "en": "En-suite bathroom",
+        "pt": "I.S. suite",
+        "he": "חדר רחצה צמוד"
+       },
+       "position": [
+        1.375,
+        1.6,
+        6.01
+       ],
+       "lookAt": [
+        0.548,
+        1.3,
+        6.732
+       ]
+      },
+      {
+       "id": "0.A-riviera-h5",
+       "roomId": "0.A-wc",
+       "name": {
+        "en": "Guest bathroom",
+        "pt": "I.S. serviço",
+        "he": "חדר רחצה אורחים"
+       },
+       "position": [
+        4.525,
+        1.6,
+        6.01
+       ],
+       "lookAt": [
+        2.796,
+        1.3,
+        6.732
+       ]
+      },
+      {
+       "id": "0.A-riviera-h6",
+       "roomId": "0.A-hall",
+       "name": {
+        "en": "Entrance hall",
+        "pt": "Hall",
+        "he": "מבואה"
+       },
+       "position": [
+        5.55,
+        1.6,
+        6.01
+       ],
+       "lookAt": [
+        5.248,
+        1.3,
+        6.732
+       ]
+      },
+      {
+       "id": "0.A-riviera-h7",
+       "roomId": "0.A-garden",
+       "name": {
+        "en": "Private garden & deck",
+        "pt": "Jardim privado",
+        "he": "גינה פרטית ודק"
+       },
+       "position": [
+        4.3,
+        1.6,
+        -2.75
+       ],
+       "lookAt": [
+        2.1,
+        1.3,
+        1.5
+       ]
+      },
+      {
+       "id": "0.A-riviera-h8",
+       "roomId": "0.A-garden",
+       "name": {
+        "en": "Private garden & deck · view 2",
+        "pt": "Jardim privado · vista 2",
+        "he": "גינה פרטית ודק · מבט 2"
+       },
+       "position": [
+        3.1,
+        1.6,
+        -1.2
+       ],
+       "lookAt": [
+        2.3,
+        1.2,
+        -3.75
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "0.A-living",
+       "kind": "living",
+       "roomId": "0.A-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        3.668,
+        1.45,
+        4.132
+       ],
+       "lookAt": [
+        5.13,
+        1.45,
+        1.635
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "0.A-bedroom",
+       "kind": "bedroom",
+       "roomId": "0.A-suite",
+       "roomName": {
+        "en": "Master suite",
+        "pt": "Suite",
+        "he": "סוויטת הורים"
+       },
+       "position": [
+        0.449,
+        1.4,
+        4.763
+       ],
+       "lookAt": [
+        2.332,
+        1.4,
+        1.131
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "0.A-bathroom",
+       "kind": "bathroom",
+       "roomId": "0.A-ensuite",
+       "roomName": {
+        "en": "En-suite bathroom",
+        "pt": "I.S. suite",
+        "he": "חדר רחצה צמוד"
+       },
+       "position": [
+        1.749,
+        1.45,
+        5.772
+       ],
+       "lookAt": [
+        0.662,
+        1.45,
+        6.641
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "0.A-garden",
+       "kind": "garden",
+       "roomId": "0.A-garden",
+       "roomName": {
+        "en": "Private garden & deck",
+        "pt": "Jardim privado",
+        "he": "גינה פרטית ודק"
+       },
+       "position": [
+        3.075,
+        1.6,
+        -7.15
+       ],
+       "lookAt": [
+        3.075,
+        2.4,
+        0
+       ],
+       "lens_mm": 20,
+       "sensor_width_mm": 36,
+       "aspect": "16:9"
+      }
+     ]
+    },
+    "urban": {
+     "glb": "unit-0.A-urban.glb",
+     "hotspots": [
+      {
+       "id": "0.A-urban-h0",
+       "roomId": "0.A-suite",
+       "name": {
+        "en": "Master suite",
+        "pt": "Suite",
+        "he": "סוויטת הורים"
+       },
+       "position": [
+        0.85,
+        1.6,
+        4.6
+       ],
+       "lookAt": [
+        1.028,
+        0.95,
+        2.75
+       ]
+      },
+      {
+       "id": "0.A-urban-h1",
+       "roomId": "0.A-suite",
+       "name": {
+        "en": "Master suite · view 2",
+        "pt": "Suite · vista 2",
+        "he": "סוויטת הורים · מבט 2"
+       },
+       "position": [
+        2.208,
+        1.6,
+        4.648
+       ],
+       "lookAt": [
+        1.173,
+        1,
+        3.672
+       ]
+      },
+      {
+       "id": "0.A-urban-h2",
+       "roomId": "0.A-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        3.66,
+        1.6,
+        4.6
+       ],
+       "lookAt": [
+        5.06,
+        1.25,
+        0.474
+       ]
+      },
+      {
+       "id": "0.A-urban-h3",
+       "roomId": "0.A-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        4.751,
+        1.6,
+        2.306
+       ],
+       "lookAt": [
+        4.07,
+        1,
+        3.672
+       ]
+      },
+      {
+       "id": "0.A-urban-h4",
+       "roomId": "0.A-ensuite",
+       "name": {
+        "en": "En-suite bathroom",
+        "pt": "I.S. suite",
+        "he": "חדר רחצה צמוד"
+       },
+       "position": [
+        1.375,
+        1.6,
+        6.01
+       ],
+       "lookAt": [
+        0.548,
+        1.3,
+        6.732
+       ]
+      },
+      {
+       "id": "0.A-urban-h5",
+       "roomId": "0.A-wc",
+       "name": {
+        "en": "Guest bathroom",
+        "pt": "I.S. serviço",
+        "he": "חדר רחצה אורחים"
+       },
+       "position": [
+        4.525,
+        1.6,
+        6.01
+       ],
+       "lookAt": [
+        2.796,
+        1.3,
+        6.732
+       ]
+      },
+      {
+       "id": "0.A-urban-h6",
+       "roomId": "0.A-hall",
+       "name": {
+        "en": "Entrance hall",
+        "pt": "Hall",
+        "he": "מבואה"
+       },
+       "position": [
+        5.55,
+        1.6,
+        6.01
+       ],
+       "lookAt": [
+        5.248,
+        1.3,
+        6.732
+       ]
+      },
+      {
+       "id": "0.A-urban-h7",
+       "roomId": "0.A-garden",
+       "name": {
+        "en": "Private garden & deck",
+        "pt": "Jardim privado",
+        "he": "גינה פרטית ודק"
+       },
+       "position": [
+        4.3,
+        1.6,
+        -2.75
+       ],
+       "lookAt": [
+        2.1,
+        1.3,
+        1.5
+       ]
+      },
+      {
+       "id": "0.A-urban-h8",
        "roomId": "0.A-garden",
        "name": {
         "en": "Private garden & deck · view 2",
@@ -2017,6 +2839,882 @@
        "aspect": "16:9"
       }
      ]
+    },
+    "natura": {
+     "glb": "unit-0.B-natura.glb",
+     "hotspots": [
+      {
+       "id": "0.B-natura-h0",
+       "roomId": "0.B-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        9,
+        1.6,
+        4.6
+       ],
+       "lookAt": [
+        7.296,
+        1.25,
+        0.474
+       ]
+      },
+      {
+       "id": "0.B-natura-h1",
+       "roomId": "0.B-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        6.908,
+        1.6,
+        0.842
+       ],
+       "lookAt": [
+        8.25,
+        1,
+        2.9
+       ]
+      },
+      {
+       "id": "0.B-natura-h2",
+       "roomId": "0.B-bed",
+       "name": {
+        "en": "Bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה"
+       },
+       "position": [
+        12.81,
+        1.6,
+        4.15
+       ],
+       "lookAt": [
+        11.672,
+        0.95,
+        2.39
+       ]
+      },
+      {
+       "id": "0.B-natura-h3",
+       "roomId": "0.B-bed",
+       "name": {
+        "en": "Bedroom · view 2",
+        "pt": "Quarto · vista 2",
+        "he": "חדר שינה · מבט 2"
+       },
+       "position": [
+        10.608,
+        1.6,
+        4.725
+       ],
+       "lookAt": [
+        12.331,
+        1,
+        3.663
+       ]
+      },
+      {
+       "id": "0.B-natura-h4",
+       "roomId": "0.B-hall",
+       "name": {
+        "en": "Hall",
+        "pt": "Hall",
+        "he": "מבואה"
+       },
+       "position": [
+        7.82,
+        1.6,
+        7.215
+       ],
+       "lookAt": [
+        9.035,
+        1.25,
+        8.629
+       ]
+      },
+      {
+       "id": "0.B-natura-h5",
+       "roomId": "0.B-wc",
+       "name": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        9.05,
+        1.6,
+        6.01
+       ],
+       "lookAt": [
+        8.496,
+        1.3,
+        6.732
+       ]
+      },
+      {
+       "id": "0.B-natura-h6",
+       "roomId": "0.B-suite",
+       "name": {
+        "en": "Suite",
+        "pt": "Suite",
+        "he": "סוויטה"
+       },
+       "position": [
+        10.71,
+        1.6,
+        8.41
+       ],
+       "lookAt": [
+        11.91,
+        0.95,
+        7.272
+       ]
+      },
+      {
+       "id": "0.B-natura-h7",
+       "roomId": "0.B-suite",
+       "name": {
+        "en": "Suite · view 2",
+        "pt": "Suite · vista 2",
+        "he": "סוויטה · מבט 2"
+       },
+       "position": [
+        12.971,
+        1.6,
+        8.123
+       ],
+       "lookAt": [
+        11.175,
+        1,
+        7.845
+       ]
+      },
+      {
+       "id": "0.B-natura-h8",
+       "roomId": "0.B-garden",
+       "name": {
+        "en": "Private garden & deck",
+        "pt": "Jardim privado",
+        "he": "גינה פרטית ודק"
+       },
+       "position": [
+        9.848,
+        1.6,
+        -2.75
+       ],
+       "lookAt": [
+        7.648,
+        1.3,
+        1.5
+       ]
+      },
+      {
+       "id": "0.B-natura-h9",
+       "roomId": "0.B-garden",
+       "name": {
+        "en": "Private garden & deck · view 2",
+        "pt": "Jardim privado · vista 2",
+        "he": "גינה פרטית ודק · מבט 2"
+       },
+       "position": [
+        8.648,
+        1.6,
+        -1.2
+       ],
+       "lookAt": [
+        7.848,
+        1.2,
+        -3.75
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "0.B-living",
+       "kind": "living",
+       "roomId": "0.B-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        9.374,
+        1.45,
+        4.803
+       ],
+       "lookAt": [
+        6.847,
+        1.45,
+        1.099
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "0.B-bedroom",
+       "kind": "bedroom",
+       "roomId": "0.B-suite",
+       "roomName": {
+        "en": "Suite",
+        "pt": "Suite",
+        "he": "סוויטה"
+       },
+       "position": [
+        10.275,
+        1.4,
+        8.474
+       ],
+       "lookAt": [
+        12.732,
+        1.4,
+        6.324
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "0.B-bathroom",
+       "kind": "bathroom",
+       "roomId": "0.B-wc",
+       "roomName": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        9.053,
+        1.45,
+        5.982
+       ],
+       "lookAt": [
+        8.688,
+        1.45,
+        6.473
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "0.B-garden",
+       "kind": "garden",
+       "roomId": "0.B-garden",
+       "roomName": {
+        "en": "Private garden & deck",
+        "pt": "Jardim privado",
+        "he": "גינה פרטית ודק"
+       },
+       "position": [
+        8.68,
+        1.6,
+        -4.15
+       ],
+       "lookAt": [
+        8.68,
+        2.4,
+        0
+       ],
+       "lens_mm": 20,
+       "sensor_width_mm": 36,
+       "aspect": "16:9"
+      }
+     ]
+    },
+    "riviera": {
+     "glb": "unit-0.B-riviera.glb",
+     "hotspots": [
+      {
+       "id": "0.B-riviera-h0",
+       "roomId": "0.B-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        9,
+        1.6,
+        4.6
+       ],
+       "lookAt": [
+        7.296,
+        1.25,
+        0.474
+       ]
+      },
+      {
+       "id": "0.B-riviera-h1",
+       "roomId": "0.B-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        6.908,
+        1.6,
+        0.842
+       ],
+       "lookAt": [
+        8.25,
+        1,
+        2.9
+       ]
+      },
+      {
+       "id": "0.B-riviera-h2",
+       "roomId": "0.B-bed",
+       "name": {
+        "en": "Bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה"
+       },
+       "position": [
+        12.81,
+        1.6,
+        4.15
+       ],
+       "lookAt": [
+        11.672,
+        0.95,
+        2.39
+       ]
+      },
+      {
+       "id": "0.B-riviera-h3",
+       "roomId": "0.B-bed",
+       "name": {
+        "en": "Bedroom · view 2",
+        "pt": "Quarto · vista 2",
+        "he": "חדר שינה · מבט 2"
+       },
+       "position": [
+        10.608,
+        1.6,
+        4.725
+       ],
+       "lookAt": [
+        12.331,
+        1,
+        3.663
+       ]
+      },
+      {
+       "id": "0.B-riviera-h4",
+       "roomId": "0.B-hall",
+       "name": {
+        "en": "Hall",
+        "pt": "Hall",
+        "he": "מבואה"
+       },
+       "position": [
+        7.82,
+        1.6,
+        7.215
+       ],
+       "lookAt": [
+        9.035,
+        1.25,
+        8.629
+       ]
+      },
+      {
+       "id": "0.B-riviera-h5",
+       "roomId": "0.B-wc",
+       "name": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        9.05,
+        1.6,
+        6.01
+       ],
+       "lookAt": [
+        8.496,
+        1.3,
+        6.732
+       ]
+      },
+      {
+       "id": "0.B-riviera-h6",
+       "roomId": "0.B-suite",
+       "name": {
+        "en": "Suite",
+        "pt": "Suite",
+        "he": "סוויטה"
+       },
+       "position": [
+        10.71,
+        1.6,
+        8.41
+       ],
+       "lookAt": [
+        11.91,
+        0.95,
+        7.272
+       ]
+      },
+      {
+       "id": "0.B-riviera-h7",
+       "roomId": "0.B-suite",
+       "name": {
+        "en": "Suite · view 2",
+        "pt": "Suite · vista 2",
+        "he": "סוויטה · מבט 2"
+       },
+       "position": [
+        12.971,
+        1.6,
+        8.123
+       ],
+       "lookAt": [
+        11.175,
+        1,
+        7.845
+       ]
+      },
+      {
+       "id": "0.B-riviera-h8",
+       "roomId": "0.B-garden",
+       "name": {
+        "en": "Private garden & deck",
+        "pt": "Jardim privado",
+        "he": "גינה פרטית ודק"
+       },
+       "position": [
+        9.848,
+        1.6,
+        -2.75
+       ],
+       "lookAt": [
+        7.648,
+        1.3,
+        1.5
+       ]
+      },
+      {
+       "id": "0.B-riviera-h9",
+       "roomId": "0.B-garden",
+       "name": {
+        "en": "Private garden & deck · view 2",
+        "pt": "Jardim privado · vista 2",
+        "he": "גינה פרטית ודק · מבט 2"
+       },
+       "position": [
+        8.648,
+        1.6,
+        -1.2
+       ],
+       "lookAt": [
+        7.848,
+        1.2,
+        -3.75
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "0.B-living",
+       "kind": "living",
+       "roomId": "0.B-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        9.374,
+        1.45,
+        4.803
+       ],
+       "lookAt": [
+        6.847,
+        1.45,
+        1.099
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "0.B-bedroom",
+       "kind": "bedroom",
+       "roomId": "0.B-suite",
+       "roomName": {
+        "en": "Suite",
+        "pt": "Suite",
+        "he": "סוויטה"
+       },
+       "position": [
+        10.275,
+        1.4,
+        8.474
+       ],
+       "lookAt": [
+        12.732,
+        1.4,
+        6.324
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "0.B-bathroom",
+       "kind": "bathroom",
+       "roomId": "0.B-wc",
+       "roomName": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        9.053,
+        1.45,
+        5.982
+       ],
+       "lookAt": [
+        8.688,
+        1.45,
+        6.473
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "0.B-garden",
+       "kind": "garden",
+       "roomId": "0.B-garden",
+       "roomName": {
+        "en": "Private garden & deck",
+        "pt": "Jardim privado",
+        "he": "גינה פרטית ודק"
+       },
+       "position": [
+        8.68,
+        1.6,
+        -4.15
+       ],
+       "lookAt": [
+        8.68,
+        2.4,
+        0
+       ],
+       "lens_mm": 20,
+       "sensor_width_mm": 36,
+       "aspect": "16:9"
+      }
+     ]
+    },
+    "urban": {
+     "glb": "unit-0.B-urban.glb",
+     "hotspots": [
+      {
+       "id": "0.B-urban-h0",
+       "roomId": "0.B-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        9,
+        1.6,
+        4.6
+       ],
+       "lookAt": [
+        7.296,
+        1.25,
+        0.474
+       ]
+      },
+      {
+       "id": "0.B-urban-h1",
+       "roomId": "0.B-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        6.908,
+        1.6,
+        0.842
+       ],
+       "lookAt": [
+        8.25,
+        1,
+        2.9
+       ]
+      },
+      {
+       "id": "0.B-urban-h2",
+       "roomId": "0.B-bed",
+       "name": {
+        "en": "Bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה"
+       },
+       "position": [
+        12.81,
+        1.6,
+        4.15
+       ],
+       "lookAt": [
+        11.672,
+        0.95,
+        2.39
+       ]
+      },
+      {
+       "id": "0.B-urban-h3",
+       "roomId": "0.B-bed",
+       "name": {
+        "en": "Bedroom · view 2",
+        "pt": "Quarto · vista 2",
+        "he": "חדר שינה · מבט 2"
+       },
+       "position": [
+        10.608,
+        1.6,
+        4.725
+       ],
+       "lookAt": [
+        12.331,
+        1,
+        3.663
+       ]
+      },
+      {
+       "id": "0.B-urban-h4",
+       "roomId": "0.B-hall",
+       "name": {
+        "en": "Hall",
+        "pt": "Hall",
+        "he": "מבואה"
+       },
+       "position": [
+        7.82,
+        1.6,
+        7.215
+       ],
+       "lookAt": [
+        9.035,
+        1.25,
+        8.629
+       ]
+      },
+      {
+       "id": "0.B-urban-h5",
+       "roomId": "0.B-wc",
+       "name": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        9.05,
+        1.6,
+        6.01
+       ],
+       "lookAt": [
+        8.496,
+        1.3,
+        6.732
+       ]
+      },
+      {
+       "id": "0.B-urban-h6",
+       "roomId": "0.B-suite",
+       "name": {
+        "en": "Suite",
+        "pt": "Suite",
+        "he": "סוויטה"
+       },
+       "position": [
+        10.71,
+        1.6,
+        8.41
+       ],
+       "lookAt": [
+        11.91,
+        0.95,
+        7.272
+       ]
+      },
+      {
+       "id": "0.B-urban-h7",
+       "roomId": "0.B-suite",
+       "name": {
+        "en": "Suite · view 2",
+        "pt": "Suite · vista 2",
+        "he": "סוויטה · מבט 2"
+       },
+       "position": [
+        12.971,
+        1.6,
+        8.123
+       ],
+       "lookAt": [
+        11.175,
+        1,
+        7.845
+       ]
+      },
+      {
+       "id": "0.B-urban-h8",
+       "roomId": "0.B-garden",
+       "name": {
+        "en": "Private garden & deck",
+        "pt": "Jardim privado",
+        "he": "גינה פרטית ודק"
+       },
+       "position": [
+        9.848,
+        1.6,
+        -2.75
+       ],
+       "lookAt": [
+        7.648,
+        1.3,
+        1.5
+       ]
+      },
+      {
+       "id": "0.B-urban-h9",
+       "roomId": "0.B-garden",
+       "name": {
+        "en": "Private garden & deck · view 2",
+        "pt": "Jardim privado · vista 2",
+        "he": "גינה פרטית ודק · מבט 2"
+       },
+       "position": [
+        8.648,
+        1.6,
+        -1.2
+       ],
+       "lookAt": [
+        7.848,
+        1.2,
+        -3.75
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "0.B-living",
+       "kind": "living",
+       "roomId": "0.B-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        9.374,
+        1.45,
+        4.803
+       ],
+       "lookAt": [
+        6.847,
+        1.45,
+        1.099
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "0.B-bedroom",
+       "kind": "bedroom",
+       "roomId": "0.B-suite",
+       "roomName": {
+        "en": "Suite",
+        "pt": "Suite",
+        "he": "סוויטה"
+       },
+       "position": [
+        10.388,
+        1.4,
+        8.376
+       ],
+       "lookAt": [
+        12.642,
+        1.4,
+        6.403
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "0.B-bathroom",
+       "kind": "bathroom",
+       "roomId": "0.B-wc",
+       "roomName": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        9.053,
+        1.45,
+        5.982
+       ],
+       "lookAt": [
+        8.688,
+        1.45,
+        6.473
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "0.B-garden",
+       "kind": "garden",
+       "roomId": "0.B-garden",
+       "roomName": {
+        "en": "Private garden & deck",
+        "pt": "Jardim privado",
+        "he": "גינה פרטית ודק"
+       },
+       "position": [
+        8.68,
+        1.6,
+        -4.15
+       ],
+       "lookAt": [
+        8.68,
+        2.4,
+        0
+       ],
+       "lens_mm": 20,
+       "sensor_width_mm": 36,
+       "aspect": "16:9"
+      }
+     ]
     }
    },
    "hero": [
@@ -2811,6 +4509,699 @@
        "verticals": "level (2-point perspective)"
       }
      ]
+    },
+    "natura": {
+     "glb": "unit-1.A-natura.glb",
+     "hotspots": [
+      {
+       "id": "1.A-natura-h0",
+       "roomId": "1.A-suite",
+       "name": {
+        "en": "Master suite",
+        "pt": "Suite",
+        "he": "סוויטת הורים"
+       },
+       "position": [
+        0.85,
+        4.6,
+        4.6
+       ],
+       "lookAt": [
+        1.028,
+        3.95,
+        2.75
+       ]
+      },
+      {
+       "id": "1.A-natura-h1",
+       "roomId": "1.A-suite",
+       "name": {
+        "en": "Master suite · view 2",
+        "pt": "Suite · vista 2",
+        "he": "סוויטת הורים · מבט 2"
+       },
+       "position": [
+        2.208,
+        4.6,
+        4.648
+       ],
+       "lookAt": [
+        1.173,
+        4,
+        3.672
+       ]
+      },
+      {
+       "id": "1.A-natura-h2",
+       "roomId": "1.A-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        3.66,
+        4.6,
+        4.6
+       ],
+       "lookAt": [
+        5.06,
+        4.25,
+        0.474
+       ]
+      },
+      {
+       "id": "1.A-natura-h3",
+       "roomId": "1.A-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        4.751,
+        4.6,
+        2.306
+       ],
+       "lookAt": [
+        4.07,
+        4,
+        3.672
+       ]
+      },
+      {
+       "id": "1.A-natura-h4",
+       "roomId": "1.A-ensuite",
+       "name": {
+        "en": "En-suite bathroom",
+        "pt": "I.S. suite",
+        "he": "חדר רחצה צמוד"
+       },
+       "position": [
+        1.375,
+        4.6,
+        6.01
+       ],
+       "lookAt": [
+        0.548,
+        4.3,
+        6.732
+       ]
+      },
+      {
+       "id": "1.A-natura-h5",
+       "roomId": "1.A-wc",
+       "name": {
+        "en": "Guest bathroom",
+        "pt": "I.S. serviço",
+        "he": "חדר רחצה אורחים"
+       },
+       "position": [
+        4.525,
+        4.6,
+        6.01
+       ],
+       "lookAt": [
+        2.796,
+        4.3,
+        6.732
+       ]
+      },
+      {
+       "id": "1.A-natura-h6",
+       "roomId": "1.A-hall",
+       "name": {
+        "en": "Entrance hall",
+        "pt": "Hall",
+        "he": "מבואה"
+       },
+       "position": [
+        5.55,
+        4.6,
+        6.01
+       ],
+       "lookAt": [
+        5.248,
+        4.3,
+        6.732
+       ]
+      },
+      {
+       "id": "1.A-natura-h7",
+       "roomId": "1.rear",
+       "name": {
+        "en": "Balcony",
+        "pt": "Varanda",
+        "he": "מרפסת"
+       },
+       "position": [
+        4.55,
+        4.6,
+        -0.35
+       ],
+       "lookAt": [
+        6.55,
+        4.4,
+        -12
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "1.A-living",
+       "kind": "living",
+       "roomId": "1.A-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        3.668,
+        4.45,
+        4.132
+       ],
+       "lookAt": [
+        5.13,
+        4.45,
+        1.635
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "1.A-bedroom",
+       "kind": "bedroom",
+       "roomId": "1.A-suite",
+       "roomName": {
+        "en": "Master suite",
+        "pt": "Suite",
+        "he": "סוויטת הורים"
+       },
+       "position": [
+        0.449,
+        4.4,
+        4.763
+       ],
+       "lookAt": [
+        2.332,
+        4.4,
+        1.131
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "1.A-bathroom",
+       "kind": "bathroom",
+       "roomId": "1.A-ensuite",
+       "roomName": {
+        "en": "En-suite bathroom",
+        "pt": "I.S. suite",
+        "he": "חדר רחצה צמוד"
+       },
+       "position": [
+        1.749,
+        4.45,
+        5.772
+       ],
+       "lookAt": [
+        0.662,
+        4.45,
+        6.641
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      }
+     ]
+    },
+    "riviera": {
+     "glb": "unit-1.A-riviera.glb",
+     "hotspots": [
+      {
+       "id": "1.A-riviera-h0",
+       "roomId": "1.A-suite",
+       "name": {
+        "en": "Master suite",
+        "pt": "Suite",
+        "he": "סוויטת הורים"
+       },
+       "position": [
+        0.85,
+        4.6,
+        4.6
+       ],
+       "lookAt": [
+        1.028,
+        3.95,
+        2.75
+       ]
+      },
+      {
+       "id": "1.A-riviera-h1",
+       "roomId": "1.A-suite",
+       "name": {
+        "en": "Master suite · view 2",
+        "pt": "Suite · vista 2",
+        "he": "סוויטת הורים · מבט 2"
+       },
+       "position": [
+        2.208,
+        4.6,
+        4.648
+       ],
+       "lookAt": [
+        1.173,
+        4,
+        3.672
+       ]
+      },
+      {
+       "id": "1.A-riviera-h2",
+       "roomId": "1.A-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        3.66,
+        4.6,
+        4.6
+       ],
+       "lookAt": [
+        5.06,
+        4.25,
+        0.474
+       ]
+      },
+      {
+       "id": "1.A-riviera-h3",
+       "roomId": "1.A-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        4.751,
+        4.6,
+        2.306
+       ],
+       "lookAt": [
+        4.07,
+        4,
+        3.672
+       ]
+      },
+      {
+       "id": "1.A-riviera-h4",
+       "roomId": "1.A-ensuite",
+       "name": {
+        "en": "En-suite bathroom",
+        "pt": "I.S. suite",
+        "he": "חדר רחצה צמוד"
+       },
+       "position": [
+        1.375,
+        4.6,
+        6.01
+       ],
+       "lookAt": [
+        0.548,
+        4.3,
+        6.732
+       ]
+      },
+      {
+       "id": "1.A-riviera-h5",
+       "roomId": "1.A-wc",
+       "name": {
+        "en": "Guest bathroom",
+        "pt": "I.S. serviço",
+        "he": "חדר רחצה אורחים"
+       },
+       "position": [
+        4.525,
+        4.6,
+        6.01
+       ],
+       "lookAt": [
+        2.796,
+        4.3,
+        6.732
+       ]
+      },
+      {
+       "id": "1.A-riviera-h6",
+       "roomId": "1.A-hall",
+       "name": {
+        "en": "Entrance hall",
+        "pt": "Hall",
+        "he": "מבואה"
+       },
+       "position": [
+        5.55,
+        4.6,
+        6.01
+       ],
+       "lookAt": [
+        5.248,
+        4.3,
+        6.732
+       ]
+      },
+      {
+       "id": "1.A-riviera-h7",
+       "roomId": "1.rear",
+       "name": {
+        "en": "Balcony",
+        "pt": "Varanda",
+        "he": "מרפסת"
+       },
+       "position": [
+        4.55,
+        4.6,
+        -0.35
+       ],
+       "lookAt": [
+        6.55,
+        4.4,
+        -12
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "1.A-living",
+       "kind": "living",
+       "roomId": "1.A-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        3.668,
+        4.45,
+        4.132
+       ],
+       "lookAt": [
+        5.13,
+        4.45,
+        1.635
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "1.A-bedroom",
+       "kind": "bedroom",
+       "roomId": "1.A-suite",
+       "roomName": {
+        "en": "Master suite",
+        "pt": "Suite",
+        "he": "סוויטת הורים"
+       },
+       "position": [
+        0.449,
+        4.4,
+        4.763
+       ],
+       "lookAt": [
+        2.332,
+        4.4,
+        1.131
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "1.A-bathroom",
+       "kind": "bathroom",
+       "roomId": "1.A-ensuite",
+       "roomName": {
+        "en": "En-suite bathroom",
+        "pt": "I.S. suite",
+        "he": "חדר רחצה צמוד"
+       },
+       "position": [
+        1.749,
+        4.45,
+        5.772
+       ],
+       "lookAt": [
+        0.662,
+        4.45,
+        6.641
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      }
+     ]
+    },
+    "urban": {
+     "glb": "unit-1.A-urban.glb",
+     "hotspots": [
+      {
+       "id": "1.A-urban-h0",
+       "roomId": "1.A-suite",
+       "name": {
+        "en": "Master suite",
+        "pt": "Suite",
+        "he": "סוויטת הורים"
+       },
+       "position": [
+        0.85,
+        4.6,
+        4.6
+       ],
+       "lookAt": [
+        1.028,
+        3.95,
+        2.75
+       ]
+      },
+      {
+       "id": "1.A-urban-h1",
+       "roomId": "1.A-suite",
+       "name": {
+        "en": "Master suite · view 2",
+        "pt": "Suite · vista 2",
+        "he": "סוויטת הורים · מבט 2"
+       },
+       "position": [
+        2.208,
+        4.6,
+        4.648
+       ],
+       "lookAt": [
+        1.173,
+        4,
+        3.672
+       ]
+      },
+      {
+       "id": "1.A-urban-h2",
+       "roomId": "1.A-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        3.66,
+        4.6,
+        4.6
+       ],
+       "lookAt": [
+        5.06,
+        4.25,
+        0.474
+       ]
+      },
+      {
+       "id": "1.A-urban-h3",
+       "roomId": "1.A-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        4.751,
+        4.6,
+        2.306
+       ],
+       "lookAt": [
+        4.07,
+        4,
+        3.672
+       ]
+      },
+      {
+       "id": "1.A-urban-h4",
+       "roomId": "1.A-ensuite",
+       "name": {
+        "en": "En-suite bathroom",
+        "pt": "I.S. suite",
+        "he": "חדר רחצה צמוד"
+       },
+       "position": [
+        1.375,
+        4.6,
+        6.01
+       ],
+       "lookAt": [
+        0.548,
+        4.3,
+        6.732
+       ]
+      },
+      {
+       "id": "1.A-urban-h5",
+       "roomId": "1.A-wc",
+       "name": {
+        "en": "Guest bathroom",
+        "pt": "I.S. serviço",
+        "he": "חדר רחצה אורחים"
+       },
+       "position": [
+        4.525,
+        4.6,
+        6.01
+       ],
+       "lookAt": [
+        2.796,
+        4.3,
+        6.732
+       ]
+      },
+      {
+       "id": "1.A-urban-h6",
+       "roomId": "1.A-hall",
+       "name": {
+        "en": "Entrance hall",
+        "pt": "Hall",
+        "he": "מבואה"
+       },
+       "position": [
+        5.55,
+        4.6,
+        6.01
+       ],
+       "lookAt": [
+        5.248,
+        4.3,
+        6.732
+       ]
+      },
+      {
+       "id": "1.A-urban-h7",
+       "roomId": "1.rear",
+       "name": {
+        "en": "Balcony",
+        "pt": "Varanda",
+        "he": "מרפסת"
+       },
+       "position": [
+        4.55,
+        4.6,
+        -0.35
+       ],
+       "lookAt": [
+        6.55,
+        4.4,
+        -12
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "1.A-living",
+       "kind": "living",
+       "roomId": "1.A-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        3.668,
+        4.45,
+        4.132
+       ],
+       "lookAt": [
+        5.13,
+        4.45,
+        1.635
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "1.A-bedroom",
+       "kind": "bedroom",
+       "roomId": "1.A-suite",
+       "roomName": {
+        "en": "Master suite",
+        "pt": "Suite",
+        "he": "סוויטת הורים"
+       },
+       "position": [
+        0.449,
+        4.4,
+        4.763
+       ],
+       "lookAt": [
+        2.332,
+        4.4,
+        1.131
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "1.A-bathroom",
+       "kind": "bathroom",
+       "roomId": "1.A-ensuite",
+       "roomName": {
+        "en": "En-suite bathroom",
+        "pt": "I.S. suite",
+        "he": "חדר רחצה צמוד"
+       },
+       "position": [
+        1.749,
+        4.45,
+        5.772
+       ],
+       "lookAt": [
+        0.662,
+        4.45,
+        6.641
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      }
+     ]
     }
    },
    "hero": [
@@ -3433,6 +5824,642 @@
       },
       {
        "id": "1.B-noir-h6",
+       "roomId": "1.rear",
+       "name": {
+        "en": "Balcony",
+        "pt": "Varanda",
+        "he": "מרפסת"
+       },
+       "position": [
+        8.05,
+        4.6,
+        -0.35
+       ],
+       "lookAt": [
+        10.05,
+        4.4,
+        -12
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "1.B-living",
+       "kind": "living",
+       "roomId": "1.B-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        9.374,
+        4.45,
+        4.803
+       ],
+       "lookAt": [
+        6.847,
+        4.45,
+        1.099
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "1.B-bedroom",
+       "kind": "bedroom",
+       "roomId": "1.B-bed",
+       "roomName": {
+        "en": "Bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה"
+       },
+       "position": [
+        10.199,
+        4.4,
+        4.972
+       ],
+       "lookAt": [
+        13.175,
+        4.4,
+        1.739
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "1.B-bathroom",
+       "kind": "bathroom",
+       "roomId": "1.B-wc",
+       "roomName": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        7.993,
+        4.45,
+        5.832
+       ],
+       "lookAt": [
+        9.085,
+        4.45,
+        6.594
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      }
+     ]
+    },
+    "natura": {
+     "glb": "unit-1.B-natura.glb",
+     "hotspots": [
+      {
+       "id": "1.B-natura-h0",
+       "roomId": "1.B-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        9,
+        4.6,
+        4.6
+       ],
+       "lookAt": [
+        7.296,
+        4.25,
+        0.474
+       ]
+      },
+      {
+       "id": "1.B-natura-h1",
+       "roomId": "1.B-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        6.908,
+        4.6,
+        0.842
+       ],
+       "lookAt": [
+        8.25,
+        4,
+        2.9
+       ]
+      },
+      {
+       "id": "1.B-natura-h2",
+       "roomId": "1.B-bed",
+       "name": {
+        "en": "Bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה"
+       },
+       "position": [
+        12.81,
+        4.6,
+        4.15
+       ],
+       "lookAt": [
+        11.672,
+        3.95,
+        2.39
+       ]
+      },
+      {
+       "id": "1.B-natura-h3",
+       "roomId": "1.B-bed",
+       "name": {
+        "en": "Bedroom · view 2",
+        "pt": "Quarto · vista 2",
+        "he": "חדר שינה · מבט 2"
+       },
+       "position": [
+        10.608,
+        4.6,
+        4.725
+       ],
+       "lookAt": [
+        12.331,
+        4,
+        3.663
+       ]
+      },
+      {
+       "id": "1.B-natura-h4",
+       "roomId": "1.B-hall",
+       "name": {
+        "en": "Entrance hall",
+        "pt": "Hall",
+        "he": "מבואה"
+       },
+       "position": [
+        6.795,
+        4.6,
+        6.01
+       ],
+       "lookAt": [
+        6.428,
+        4.3,
+        6.732
+       ]
+      },
+      {
+       "id": "1.B-natura-h5",
+       "roomId": "1.B-wc",
+       "name": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        8.35,
+        4.6,
+        6.01
+       ],
+       "lookAt": [
+        9.284,
+        4.3,
+        6.732
+       ]
+      },
+      {
+       "id": "1.B-natura-h6",
+       "roomId": "1.rear",
+       "name": {
+        "en": "Balcony",
+        "pt": "Varanda",
+        "he": "מרפסת"
+       },
+       "position": [
+        8.05,
+        4.6,
+        -0.35
+       ],
+       "lookAt": [
+        10.05,
+        4.4,
+        -12
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "1.B-living",
+       "kind": "living",
+       "roomId": "1.B-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        9.374,
+        4.45,
+        4.803
+       ],
+       "lookAt": [
+        6.847,
+        4.45,
+        1.099
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "1.B-bedroom",
+       "kind": "bedroom",
+       "roomId": "1.B-bed",
+       "roomName": {
+        "en": "Bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה"
+       },
+       "position": [
+        10.199,
+        4.4,
+        4.972
+       ],
+       "lookAt": [
+        13.175,
+        4.4,
+        1.739
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "1.B-bathroom",
+       "kind": "bathroom",
+       "roomId": "1.B-wc",
+       "roomName": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        7.993,
+        4.45,
+        5.832
+       ],
+       "lookAt": [
+        9.085,
+        4.45,
+        6.594
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      }
+     ]
+    },
+    "riviera": {
+     "glb": "unit-1.B-riviera.glb",
+     "hotspots": [
+      {
+       "id": "1.B-riviera-h0",
+       "roomId": "1.B-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        9,
+        4.6,
+        4.6
+       ],
+       "lookAt": [
+        7.296,
+        4.25,
+        0.474
+       ]
+      },
+      {
+       "id": "1.B-riviera-h1",
+       "roomId": "1.B-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        6.908,
+        4.6,
+        0.842
+       ],
+       "lookAt": [
+        8.25,
+        4,
+        2.9
+       ]
+      },
+      {
+       "id": "1.B-riviera-h2",
+       "roomId": "1.B-bed",
+       "name": {
+        "en": "Bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה"
+       },
+       "position": [
+        12.81,
+        4.6,
+        4.15
+       ],
+       "lookAt": [
+        11.672,
+        3.95,
+        2.39
+       ]
+      },
+      {
+       "id": "1.B-riviera-h3",
+       "roomId": "1.B-bed",
+       "name": {
+        "en": "Bedroom · view 2",
+        "pt": "Quarto · vista 2",
+        "he": "חדר שינה · מבט 2"
+       },
+       "position": [
+        10.608,
+        4.6,
+        4.725
+       ],
+       "lookAt": [
+        12.331,
+        4,
+        3.663
+       ]
+      },
+      {
+       "id": "1.B-riviera-h4",
+       "roomId": "1.B-hall",
+       "name": {
+        "en": "Entrance hall",
+        "pt": "Hall",
+        "he": "מבואה"
+       },
+       "position": [
+        6.795,
+        4.6,
+        6.01
+       ],
+       "lookAt": [
+        6.428,
+        4.3,
+        6.732
+       ]
+      },
+      {
+       "id": "1.B-riviera-h5",
+       "roomId": "1.B-wc",
+       "name": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        8.35,
+        4.6,
+        6.01
+       ],
+       "lookAt": [
+        9.284,
+        4.3,
+        6.732
+       ]
+      },
+      {
+       "id": "1.B-riviera-h6",
+       "roomId": "1.rear",
+       "name": {
+        "en": "Balcony",
+        "pt": "Varanda",
+        "he": "מרפסת"
+       },
+       "position": [
+        8.05,
+        4.6,
+        -0.35
+       ],
+       "lookAt": [
+        10.05,
+        4.4,
+        -12
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "1.B-living",
+       "kind": "living",
+       "roomId": "1.B-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        9.374,
+        4.45,
+        4.803
+       ],
+       "lookAt": [
+        6.847,
+        4.45,
+        1.099
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "1.B-bedroom",
+       "kind": "bedroom",
+       "roomId": "1.B-bed",
+       "roomName": {
+        "en": "Bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה"
+       },
+       "position": [
+        10.199,
+        4.4,
+        4.972
+       ],
+       "lookAt": [
+        13.175,
+        4.4,
+        1.739
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "1.B-bathroom",
+       "kind": "bathroom",
+       "roomId": "1.B-wc",
+       "roomName": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        7.993,
+        4.45,
+        5.832
+       ],
+       "lookAt": [
+        9.085,
+        4.45,
+        6.594
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      }
+     ]
+    },
+    "urban": {
+     "glb": "unit-1.B-urban.glb",
+     "hotspots": [
+      {
+       "id": "1.B-urban-h0",
+       "roomId": "1.B-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        9,
+        4.6,
+        4.6
+       ],
+       "lookAt": [
+        7.296,
+        4.25,
+        0.474
+       ]
+      },
+      {
+       "id": "1.B-urban-h1",
+       "roomId": "1.B-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        6.908,
+        4.6,
+        0.842
+       ],
+       "lookAt": [
+        8.25,
+        4,
+        2.9
+       ]
+      },
+      {
+       "id": "1.B-urban-h2",
+       "roomId": "1.B-bed",
+       "name": {
+        "en": "Bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה"
+       },
+       "position": [
+        12.81,
+        4.6,
+        4.15
+       ],
+       "lookAt": [
+        11.672,
+        3.95,
+        2.39
+       ]
+      },
+      {
+       "id": "1.B-urban-h3",
+       "roomId": "1.B-bed",
+       "name": {
+        "en": "Bedroom · view 2",
+        "pt": "Quarto · vista 2",
+        "he": "חדר שינה · מבט 2"
+       },
+       "position": [
+        10.608,
+        4.6,
+        4.725
+       ],
+       "lookAt": [
+        12.331,
+        4,
+        3.663
+       ]
+      },
+      {
+       "id": "1.B-urban-h4",
+       "roomId": "1.B-hall",
+       "name": {
+        "en": "Entrance hall",
+        "pt": "Hall",
+        "he": "מבואה"
+       },
+       "position": [
+        6.795,
+        4.6,
+        6.01
+       ],
+       "lookAt": [
+        6.428,
+        4.3,
+        6.732
+       ]
+      },
+      {
+       "id": "1.B-urban-h5",
+       "roomId": "1.B-wc",
+       "name": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        8.35,
+        4.6,
+        6.01
+       ],
+       "lookAt": [
+        9.284,
+        4.3,
+        6.732
+       ]
+      },
+      {
+       "id": "1.B-urban-h6",
        "roomId": "1.rear",
        "name": {
         "en": "Balcony",
@@ -4296,6 +7323,699 @@
        "verticals": "level (2-point perspective)"
       }
      ]
+    },
+    "natura": {
+     "glb": "unit-1.C-natura.glb",
+     "hotspots": [
+      {
+       "id": "1.C-natura-h0",
+       "roomId": "1.C-hall",
+       "name": {
+        "en": "Hall",
+        "pt": "Hall",
+        "he": "מסדרון"
+       },
+       "position": [
+        3.7,
+        4.6,
+        9.95
+       ],
+       "lookAt": [
+        8.721,
+        4.25,
+        10.788
+       ]
+      },
+      {
+       "id": "1.C-natura-h1",
+       "roomId": "1.C-hall",
+       "name": {
+        "en": "Hall · view 2",
+        "pt": "Hall · vista 2",
+        "he": "מסדרון · מבט 2"
+       },
+       "position": [
+        6.799,
+        4.6,
+        10.125
+       ],
+       "lookAt": [
+        5.132,
+        4,
+        9.842
+       ]
+      },
+      {
+       "id": "1.C-natura-h2",
+       "roomId": "1.C-wc",
+       "name": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        8.15,
+        4.6,
+        8.59
+       ],
+       "lookAt": [
+        9.044,
+        4.3,
+        7.628
+       ]
+      },
+      {
+       "id": "1.C-natura-h3",
+       "roomId": "1.C-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        10.26,
+        4.6,
+        7.21
+       ],
+       "lookAt": [
+        12.44,
+        4.25,
+        13.982
+       ]
+      },
+      {
+       "id": "1.C-natura-h4",
+       "roomId": "1.C-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        13.086,
+        4.6,
+        13.882
+       ],
+       "lookAt": [
+        11.76,
+        4,
+        9.46
+       ]
+      },
+      {
+       "id": "1.C-natura-h5",
+       "roomId": "1.C-bed1",
+       "name": {
+        "en": "Main bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה ראשי"
+       },
+       "position": [
+        5.5,
+        4.6,
+        13.91
+       ],
+       "lookAt": [
+        4.662,
+        3.95,
+        12.6
+       ]
+      },
+      {
+       "id": "1.C-natura-h6",
+       "roomId": "1.C-bed2",
+       "name": {
+        "en": "Bedroom 2",
+        "pt": "Quarto 2",
+        "he": "חדר שינה 2"
+       },
+       "position": [
+        8.16,
+        4.6,
+        11.96
+       ],
+       "lookAt": [
+        6.92,
+        4.25,
+        14.139
+       ]
+      },
+      {
+       "id": "1.C-natura-h7",
+       "roomId": "1.front",
+       "name": {
+        "en": "Balcony",
+        "pt": "Varanda",
+        "he": "מרפסת"
+       },
+       "position": [
+        8.15,
+        4.6,
+        15.05
+       ],
+       "lookAt": [
+        6.15,
+        4.4,
+        26.7
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "1.C-living",
+       "kind": "living",
+       "roomId": "1.C-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        10.143,
+        4.45,
+        6.733
+       ],
+       "lookAt": [
+        12.838,
+        4.45,
+        12.623
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "1.C-bedroom",
+       "kind": "bedroom",
+       "roomId": "1.C-bed1",
+       "roomName": {
+        "en": "Main bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה ראשי"
+       },
+       "position": [
+        3.219,
+        4.4,
+        11.598
+       ],
+       "lookAt": [
+        5.786,
+        4.4,
+        13.951
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "1.C-bathroom",
+       "kind": "bathroom",
+       "roomId": "1.C-wc",
+       "roomName": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        8.147,
+        4.45,
+        8.484
+       ],
+       "lookAt": [
+        8.692,
+        4.45,
+        7.964
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      }
+     ]
+    },
+    "riviera": {
+     "glb": "unit-1.C-riviera.glb",
+     "hotspots": [
+      {
+       "id": "1.C-riviera-h0",
+       "roomId": "1.C-hall",
+       "name": {
+        "en": "Hall",
+        "pt": "Hall",
+        "he": "מסדרון"
+       },
+       "position": [
+        3.7,
+        4.6,
+        9.95
+       ],
+       "lookAt": [
+        8.721,
+        4.25,
+        10.788
+       ]
+      },
+      {
+       "id": "1.C-riviera-h1",
+       "roomId": "1.C-hall",
+       "name": {
+        "en": "Hall · view 2",
+        "pt": "Hall · vista 2",
+        "he": "מסדרון · מבט 2"
+       },
+       "position": [
+        6.799,
+        4.6,
+        10.125
+       ],
+       "lookAt": [
+        5.132,
+        4,
+        9.842
+       ]
+      },
+      {
+       "id": "1.C-riviera-h2",
+       "roomId": "1.C-wc",
+       "name": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        8.15,
+        4.6,
+        8.59
+       ],
+       "lookAt": [
+        9.044,
+        4.3,
+        7.628
+       ]
+      },
+      {
+       "id": "1.C-riviera-h3",
+       "roomId": "1.C-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        10.26,
+        4.6,
+        7.21
+       ],
+       "lookAt": [
+        12.44,
+        4.25,
+        13.982
+       ]
+      },
+      {
+       "id": "1.C-riviera-h4",
+       "roomId": "1.C-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        13.086,
+        4.6,
+        13.882
+       ],
+       "lookAt": [
+        11.76,
+        4,
+        9.71
+       ]
+      },
+      {
+       "id": "1.C-riviera-h5",
+       "roomId": "1.C-bed1",
+       "name": {
+        "en": "Main bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה ראשי"
+       },
+       "position": [
+        5.5,
+        4.6,
+        13.91
+       ],
+       "lookAt": [
+        4.662,
+        3.95,
+        12.6
+       ]
+      },
+      {
+       "id": "1.C-riviera-h6",
+       "roomId": "1.C-bed2",
+       "name": {
+        "en": "Bedroom 2",
+        "pt": "Quarto 2",
+        "he": "חדר שינה 2"
+       },
+       "position": [
+        8.16,
+        4.6,
+        11.96
+       ],
+       "lookAt": [
+        6.92,
+        4.25,
+        14.139
+       ]
+      },
+      {
+       "id": "1.C-riviera-h7",
+       "roomId": "1.front",
+       "name": {
+        "en": "Balcony",
+        "pt": "Varanda",
+        "he": "מרפסת"
+       },
+       "position": [
+        8.15,
+        4.6,
+        15.05
+       ],
+       "lookAt": [
+        6.15,
+        4.4,
+        26.7
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "1.C-living",
+       "kind": "living",
+       "roomId": "1.C-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        10.143,
+        4.45,
+        6.733
+       ],
+       "lookAt": [
+        12.838,
+        4.45,
+        12.623
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "1.C-bedroom",
+       "kind": "bedroom",
+       "roomId": "1.C-bed1",
+       "roomName": {
+        "en": "Main bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה ראשי"
+       },
+       "position": [
+        3.219,
+        4.4,
+        11.598
+       ],
+       "lookAt": [
+        5.786,
+        4.4,
+        13.951
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "1.C-bathroom",
+       "kind": "bathroom",
+       "roomId": "1.C-wc",
+       "roomName": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        8.147,
+        4.45,
+        8.484
+       ],
+       "lookAt": [
+        8.692,
+        4.45,
+        7.964
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      }
+     ]
+    },
+    "urban": {
+     "glb": "unit-1.C-urban.glb",
+     "hotspots": [
+      {
+       "id": "1.C-urban-h0",
+       "roomId": "1.C-hall",
+       "name": {
+        "en": "Hall",
+        "pt": "Hall",
+        "he": "מסדרון"
+       },
+       "position": [
+        3.7,
+        4.6,
+        9.95
+       ],
+       "lookAt": [
+        8.721,
+        4.25,
+        10.788
+       ]
+      },
+      {
+       "id": "1.C-urban-h1",
+       "roomId": "1.C-hall",
+       "name": {
+        "en": "Hall · view 2",
+        "pt": "Hall · vista 2",
+        "he": "מסדרון · מבט 2"
+       },
+       "position": [
+        6.799,
+        4.6,
+        10.125
+       ],
+       "lookAt": [
+        5.132,
+        4,
+        9.842
+       ]
+      },
+      {
+       "id": "1.C-urban-h2",
+       "roomId": "1.C-wc",
+       "name": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        8.15,
+        4.6,
+        8.59
+       ],
+       "lookAt": [
+        9.044,
+        4.3,
+        7.628
+       ]
+      },
+      {
+       "id": "1.C-urban-h3",
+       "roomId": "1.C-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        10.26,
+        4.6,
+        7.21
+       ],
+       "lookAt": [
+        12.44,
+        4.25,
+        13.982
+       ]
+      },
+      {
+       "id": "1.C-urban-h4",
+       "roomId": "1.C-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        13.086,
+        4.6,
+        13.882
+       ],
+       "lookAt": [
+        11.76,
+        4,
+        9.46
+       ]
+      },
+      {
+       "id": "1.C-urban-h5",
+       "roomId": "1.C-bed1",
+       "name": {
+        "en": "Main bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה ראשי"
+       },
+       "position": [
+        5.5,
+        4.6,
+        13.91
+       ],
+       "lookAt": [
+        4.662,
+        3.95,
+        12.6
+       ]
+      },
+      {
+       "id": "1.C-urban-h6",
+       "roomId": "1.C-bed2",
+       "name": {
+        "en": "Bedroom 2",
+        "pt": "Quarto 2",
+        "he": "חדר שינה 2"
+       },
+       "position": [
+        8.16,
+        4.6,
+        11.96
+       ],
+       "lookAt": [
+        6.92,
+        4.25,
+        14.139
+       ]
+      },
+      {
+       "id": "1.C-urban-h7",
+       "roomId": "1.front",
+       "name": {
+        "en": "Balcony",
+        "pt": "Varanda",
+        "he": "מרפסת"
+       },
+       "position": [
+        8.15,
+        4.6,
+        15.05
+       ],
+       "lookAt": [
+        6.15,
+        4.4,
+        26.7
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "1.C-living",
+       "kind": "living",
+       "roomId": "1.C-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        10.143,
+        4.45,
+        6.733
+       ],
+       "lookAt": [
+        12.838,
+        4.45,
+        12.623
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "1.C-bedroom",
+       "kind": "bedroom",
+       "roomId": "1.C-bed1",
+       "roomName": {
+        "en": "Main bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה ראשי"
+       },
+       "position": [
+        3.219,
+        4.4,
+        11.598
+       ],
+       "lookAt": [
+        5.786,
+        4.4,
+        13.951
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "1.C-bathroom",
+       "kind": "bathroom",
+       "roomId": "1.C-wc",
+       "roomName": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        8.147,
+        4.45,
+        8.484
+       ],
+       "lookAt": [
+        8.692,
+        4.45,
+        7.964
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      }
+     ]
     }
    },
    "hero": [
@@ -5067,6 +8787,699 @@
        "verticals": "level (2-point perspective)"
       }
      ]
+    },
+    "natura": {
+     "glb": "unit-2.A-natura.glb",
+     "hotspots": [
+      {
+       "id": "2.A-natura-h0",
+       "roomId": "2.A-suite",
+       "name": {
+        "en": "Master suite",
+        "pt": "Suite",
+        "he": "סוויטת הורים"
+       },
+       "position": [
+        1.3,
+        7.6,
+        4.6
+       ],
+       "lookAt": [
+        1.028,
+        6.95,
+        2.75
+       ]
+      },
+      {
+       "id": "2.A-natura-h1",
+       "roomId": "2.A-suite",
+       "name": {
+        "en": "Master suite · view 2",
+        "pt": "Suite · vista 2",
+        "he": "סוויטת הורים · מבט 2"
+       },
+       "position": [
+        2.208,
+        7.6,
+        0.842
+       ],
+       "lookAt": [
+        1.397,
+        7,
+        3.672
+       ]
+      },
+      {
+       "id": "2.A-natura-h2",
+       "roomId": "2.A-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        3.66,
+        7.6,
+        4.6
+       ],
+       "lookAt": [
+        5.06,
+        7.25,
+        0.474
+       ]
+      },
+      {
+       "id": "2.A-natura-h3",
+       "roomId": "2.A-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        4.751,
+        7.6,
+        2.306
+       ],
+       "lookAt": [
+        4.07,
+        7,
+        3.672
+       ]
+      },
+      {
+       "id": "2.A-natura-h4",
+       "roomId": "2.A-ensuite",
+       "name": {
+        "en": "En-suite bathroom",
+        "pt": "I.S. suite",
+        "he": "חדר רחצה צמוד"
+       },
+       "position": [
+        1.375,
+        7.6,
+        6.01
+       ],
+       "lookAt": [
+        0.548,
+        7.3,
+        6.732
+       ]
+      },
+      {
+       "id": "2.A-natura-h5",
+       "roomId": "2.A-wc",
+       "name": {
+        "en": "Guest bathroom",
+        "pt": "I.S. serviço",
+        "he": "חדר רחצה אורחים"
+       },
+       "position": [
+        4.525,
+        7.6,
+        6.01
+       ],
+       "lookAt": [
+        2.796,
+        7.3,
+        6.732
+       ]
+      },
+      {
+       "id": "2.A-natura-h6",
+       "roomId": "2.A-hall",
+       "name": {
+        "en": "Entrance hall",
+        "pt": "Hall",
+        "he": "מבואה"
+       },
+       "position": [
+        5.55,
+        7.6,
+        6.01
+       ],
+       "lookAt": [
+        5.248,
+        7.3,
+        6.732
+       ]
+      },
+      {
+       "id": "2.A-natura-h7",
+       "roomId": "2.rear.A",
+       "name": {
+        "en": "Balcony",
+        "pt": "Varanda",
+        "he": "מרפסת"
+       },
+       "position": [
+        4.5,
+        7.6,
+        -0.35
+       ],
+       "lookAt": [
+        6.5,
+        7.4,
+        -12
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "2.A-living",
+       "kind": "living",
+       "roomId": "2.A-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        3.668,
+        7.45,
+        4.132
+       ],
+       "lookAt": [
+        5.13,
+        7.45,
+        1.635
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "2.A-bedroom",
+       "kind": "bedroom",
+       "roomId": "2.A-suite",
+       "roomName": {
+        "en": "Master suite",
+        "pt": "Suite",
+        "he": "סוויטת הורים"
+       },
+       "position": [
+        0.794,
+        7.4,
+        4.097
+       ],
+       "lookAt": [
+        2.056,
+        7.4,
+        1.663
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "2.A-bathroom",
+       "kind": "bathroom",
+       "roomId": "2.A-ensuite",
+       "roomName": {
+        "en": "En-suite bathroom",
+        "pt": "I.S. suite",
+        "he": "חדר רחצה צמוד"
+       },
+       "position": [
+        1.749,
+        7.45,
+        5.772
+       ],
+       "lookAt": [
+        0.662,
+        7.45,
+        6.641
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      }
+     ]
+    },
+    "riviera": {
+     "glb": "unit-2.A-riviera.glb",
+     "hotspots": [
+      {
+       "id": "2.A-riviera-h0",
+       "roomId": "2.A-suite",
+       "name": {
+        "en": "Master suite",
+        "pt": "Suite",
+        "he": "סוויטת הורים"
+       },
+       "position": [
+        1.3,
+        7.6,
+        4.6
+       ],
+       "lookAt": [
+        1.028,
+        6.95,
+        2.75
+       ]
+      },
+      {
+       "id": "2.A-riviera-h1",
+       "roomId": "2.A-suite",
+       "name": {
+        "en": "Master suite · view 2",
+        "pt": "Suite · vista 2",
+        "he": "סוויטת הורים · מבט 2"
+       },
+       "position": [
+        2.208,
+        7.6,
+        0.842
+       ],
+       "lookAt": [
+        1.397,
+        7,
+        3.672
+       ]
+      },
+      {
+       "id": "2.A-riviera-h2",
+       "roomId": "2.A-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        3.66,
+        7.6,
+        4.6
+       ],
+       "lookAt": [
+        5.06,
+        7.25,
+        0.474
+       ]
+      },
+      {
+       "id": "2.A-riviera-h3",
+       "roomId": "2.A-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        4.751,
+        7.6,
+        2.306
+       ],
+       "lookAt": [
+        4.07,
+        7,
+        3.672
+       ]
+      },
+      {
+       "id": "2.A-riviera-h4",
+       "roomId": "2.A-ensuite",
+       "name": {
+        "en": "En-suite bathroom",
+        "pt": "I.S. suite",
+        "he": "חדר רחצה צמוד"
+       },
+       "position": [
+        1.375,
+        7.6,
+        6.01
+       ],
+       "lookAt": [
+        0.548,
+        7.3,
+        6.732
+       ]
+      },
+      {
+       "id": "2.A-riviera-h5",
+       "roomId": "2.A-wc",
+       "name": {
+        "en": "Guest bathroom",
+        "pt": "I.S. serviço",
+        "he": "חדר רחצה אורחים"
+       },
+       "position": [
+        4.525,
+        7.6,
+        6.01
+       ],
+       "lookAt": [
+        2.796,
+        7.3,
+        6.732
+       ]
+      },
+      {
+       "id": "2.A-riviera-h6",
+       "roomId": "2.A-hall",
+       "name": {
+        "en": "Entrance hall",
+        "pt": "Hall",
+        "he": "מבואה"
+       },
+       "position": [
+        5.55,
+        7.6,
+        6.01
+       ],
+       "lookAt": [
+        5.248,
+        7.3,
+        6.732
+       ]
+      },
+      {
+       "id": "2.A-riviera-h7",
+       "roomId": "2.rear.A",
+       "name": {
+        "en": "Balcony",
+        "pt": "Varanda",
+        "he": "מרפסת"
+       },
+       "position": [
+        4.5,
+        7.6,
+        -0.35
+       ],
+       "lookAt": [
+        6.5,
+        7.4,
+        -12
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "2.A-living",
+       "kind": "living",
+       "roomId": "2.A-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        3.668,
+        7.45,
+        4.132
+       ],
+       "lookAt": [
+        5.13,
+        7.45,
+        1.635
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "2.A-bedroom",
+       "kind": "bedroom",
+       "roomId": "2.A-suite",
+       "roomName": {
+        "en": "Master suite",
+        "pt": "Suite",
+        "he": "סוויטת הורים"
+       },
+       "position": [
+        0.794,
+        7.4,
+        4.097
+       ],
+       "lookAt": [
+        2.056,
+        7.4,
+        1.663
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "2.A-bathroom",
+       "kind": "bathroom",
+       "roomId": "2.A-ensuite",
+       "roomName": {
+        "en": "En-suite bathroom",
+        "pt": "I.S. suite",
+        "he": "חדר רחצה צמוד"
+       },
+       "position": [
+        1.749,
+        7.45,
+        5.772
+       ],
+       "lookAt": [
+        0.662,
+        7.45,
+        6.641
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      }
+     ]
+    },
+    "urban": {
+     "glb": "unit-2.A-urban.glb",
+     "hotspots": [
+      {
+       "id": "2.A-urban-h0",
+       "roomId": "2.A-suite",
+       "name": {
+        "en": "Master suite",
+        "pt": "Suite",
+        "he": "סוויטת הורים"
+       },
+       "position": [
+        1.3,
+        7.6,
+        4.6
+       ],
+       "lookAt": [
+        1.028,
+        6.95,
+        2.75
+       ]
+      },
+      {
+       "id": "2.A-urban-h1",
+       "roomId": "2.A-suite",
+       "name": {
+        "en": "Master suite · view 2",
+        "pt": "Suite · vista 2",
+        "he": "סוויטת הורים · מבט 2"
+       },
+       "position": [
+        2.208,
+        7.6,
+        0.842
+       ],
+       "lookAt": [
+        1.397,
+        7,
+        3.672
+       ]
+      },
+      {
+       "id": "2.A-urban-h2",
+       "roomId": "2.A-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        3.66,
+        7.6,
+        4.6
+       ],
+       "lookAt": [
+        5.06,
+        7.25,
+        0.474
+       ]
+      },
+      {
+       "id": "2.A-urban-h3",
+       "roomId": "2.A-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        4.751,
+        7.6,
+        2.306
+       ],
+       "lookAt": [
+        4.07,
+        7,
+        3.672
+       ]
+      },
+      {
+       "id": "2.A-urban-h4",
+       "roomId": "2.A-ensuite",
+       "name": {
+        "en": "En-suite bathroom",
+        "pt": "I.S. suite",
+        "he": "חדר רחצה צמוד"
+       },
+       "position": [
+        1.375,
+        7.6,
+        6.01
+       ],
+       "lookAt": [
+        0.548,
+        7.3,
+        6.732
+       ]
+      },
+      {
+       "id": "2.A-urban-h5",
+       "roomId": "2.A-wc",
+       "name": {
+        "en": "Guest bathroom",
+        "pt": "I.S. serviço",
+        "he": "חדר רחצה אורחים"
+       },
+       "position": [
+        4.525,
+        7.6,
+        6.01
+       ],
+       "lookAt": [
+        2.796,
+        7.3,
+        6.732
+       ]
+      },
+      {
+       "id": "2.A-urban-h6",
+       "roomId": "2.A-hall",
+       "name": {
+        "en": "Entrance hall",
+        "pt": "Hall",
+        "he": "מבואה"
+       },
+       "position": [
+        5.55,
+        7.6,
+        6.01
+       ],
+       "lookAt": [
+        5.248,
+        7.3,
+        6.732
+       ]
+      },
+      {
+       "id": "2.A-urban-h7",
+       "roomId": "2.rear.A",
+       "name": {
+        "en": "Balcony",
+        "pt": "Varanda",
+        "he": "מרפסת"
+       },
+       "position": [
+        4.5,
+        7.6,
+        -0.35
+       ],
+       "lookAt": [
+        6.5,
+        7.4,
+        -12
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "2.A-living",
+       "kind": "living",
+       "roomId": "2.A-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        3.668,
+        7.45,
+        4.132
+       ],
+       "lookAt": [
+        5.13,
+        7.45,
+        1.635
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "2.A-bedroom",
+       "kind": "bedroom",
+       "roomId": "2.A-suite",
+       "roomName": {
+        "en": "Master suite",
+        "pt": "Suite",
+        "he": "סוויטת הורים"
+       },
+       "position": [
+        0.794,
+        7.4,
+        4.097
+       ],
+       "lookAt": [
+        2.056,
+        7.4,
+        1.663
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "2.A-bathroom",
+       "kind": "bathroom",
+       "roomId": "2.A-ensuite",
+       "roomName": {
+        "en": "En-suite bathroom",
+        "pt": "I.S. suite",
+        "he": "חדר רחצה צמוד"
+       },
+       "position": [
+        1.749,
+        7.45,
+        5.772
+       ],
+       "lookAt": [
+        0.662,
+        7.45,
+        6.641
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      }
+     ]
     }
    },
    "hero": [
@@ -5689,6 +10102,642 @@
       },
       {
        "id": "2.B-noir-h6",
+       "roomId": "2.rear.B",
+       "name": {
+        "en": "Balcony",
+        "pt": "Varanda",
+        "he": "מרפסת"
+       },
+       "position": [
+        7.95,
+        7.6,
+        -0.35
+       ],
+       "lookAt": [
+        9.95,
+        7.4,
+        -12
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "2.B-living",
+       "kind": "living",
+       "roomId": "2.B-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        9.374,
+        7.45,
+        4.803
+       ],
+       "lookAt": [
+        6.847,
+        7.45,
+        1.099
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "2.B-bedroom",
+       "kind": "bedroom",
+       "roomId": "2.B-bed",
+       "roomName": {
+        "en": "Bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה"
+       },
+       "position": [
+        10.199,
+        7.4,
+        4.972
+       ],
+       "lookAt": [
+        13.175,
+        7.4,
+        1.739
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "2.B-bathroom",
+       "kind": "bathroom",
+       "roomId": "2.B-wc",
+       "roomName": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        7.993,
+        7.45,
+        5.832
+       ],
+       "lookAt": [
+        9.085,
+        7.45,
+        6.594
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      }
+     ]
+    },
+    "natura": {
+     "glb": "unit-2.B-natura.glb",
+     "hotspots": [
+      {
+       "id": "2.B-natura-h0",
+       "roomId": "2.B-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        9,
+        7.6,
+        4.6
+       ],
+       "lookAt": [
+        7.296,
+        7.25,
+        0.474
+       ]
+      },
+      {
+       "id": "2.B-natura-h1",
+       "roomId": "2.B-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        6.908,
+        7.6,
+        0.842
+       ],
+       "lookAt": [
+        8.25,
+        7,
+        2.9
+       ]
+      },
+      {
+       "id": "2.B-natura-h2",
+       "roomId": "2.B-bed",
+       "name": {
+        "en": "Bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה"
+       },
+       "position": [
+        12.81,
+        7.6,
+        4.15
+       ],
+       "lookAt": [
+        11.672,
+        6.95,
+        2.39
+       ]
+      },
+      {
+       "id": "2.B-natura-h3",
+       "roomId": "2.B-bed",
+       "name": {
+        "en": "Bedroom · view 2",
+        "pt": "Quarto · vista 2",
+        "he": "חדר שינה · מבט 2"
+       },
+       "position": [
+        10.608,
+        7.6,
+        4.725
+       ],
+       "lookAt": [
+        12.331,
+        7,
+        3.663
+       ]
+      },
+      {
+       "id": "2.B-natura-h4",
+       "roomId": "2.B-hall",
+       "name": {
+        "en": "Entrance hall",
+        "pt": "Hall",
+        "he": "מבואה"
+       },
+       "position": [
+        6.795,
+        7.6,
+        6.01
+       ],
+       "lookAt": [
+        6.428,
+        7.3,
+        6.732
+       ]
+      },
+      {
+       "id": "2.B-natura-h5",
+       "roomId": "2.B-wc",
+       "name": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        8.35,
+        7.6,
+        6.01
+       ],
+       "lookAt": [
+        9.284,
+        7.3,
+        6.732
+       ]
+      },
+      {
+       "id": "2.B-natura-h6",
+       "roomId": "2.rear.B",
+       "name": {
+        "en": "Balcony",
+        "pt": "Varanda",
+        "he": "מרפסת"
+       },
+       "position": [
+        7.95,
+        7.6,
+        -0.35
+       ],
+       "lookAt": [
+        9.95,
+        7.4,
+        -12
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "2.B-living",
+       "kind": "living",
+       "roomId": "2.B-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        9.374,
+        7.45,
+        4.803
+       ],
+       "lookAt": [
+        6.847,
+        7.45,
+        1.099
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "2.B-bedroom",
+       "kind": "bedroom",
+       "roomId": "2.B-bed",
+       "roomName": {
+        "en": "Bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה"
+       },
+       "position": [
+        10.199,
+        7.4,
+        4.972
+       ],
+       "lookAt": [
+        13.175,
+        7.4,
+        1.739
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "2.B-bathroom",
+       "kind": "bathroom",
+       "roomId": "2.B-wc",
+       "roomName": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        7.993,
+        7.45,
+        5.832
+       ],
+       "lookAt": [
+        9.085,
+        7.45,
+        6.594
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      }
+     ]
+    },
+    "riviera": {
+     "glb": "unit-2.B-riviera.glb",
+     "hotspots": [
+      {
+       "id": "2.B-riviera-h0",
+       "roomId": "2.B-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        9,
+        7.6,
+        4.6
+       ],
+       "lookAt": [
+        7.296,
+        7.25,
+        0.474
+       ]
+      },
+      {
+       "id": "2.B-riviera-h1",
+       "roomId": "2.B-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        6.908,
+        7.6,
+        0.842
+       ],
+       "lookAt": [
+        8.25,
+        7,
+        2.9
+       ]
+      },
+      {
+       "id": "2.B-riviera-h2",
+       "roomId": "2.B-bed",
+       "name": {
+        "en": "Bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה"
+       },
+       "position": [
+        12.81,
+        7.6,
+        4.15
+       ],
+       "lookAt": [
+        11.672,
+        6.95,
+        2.39
+       ]
+      },
+      {
+       "id": "2.B-riviera-h3",
+       "roomId": "2.B-bed",
+       "name": {
+        "en": "Bedroom · view 2",
+        "pt": "Quarto · vista 2",
+        "he": "חדר שינה · מבט 2"
+       },
+       "position": [
+        10.608,
+        7.6,
+        4.725
+       ],
+       "lookAt": [
+        12.331,
+        7,
+        3.663
+       ]
+      },
+      {
+       "id": "2.B-riviera-h4",
+       "roomId": "2.B-hall",
+       "name": {
+        "en": "Entrance hall",
+        "pt": "Hall",
+        "he": "מבואה"
+       },
+       "position": [
+        6.795,
+        7.6,
+        6.01
+       ],
+       "lookAt": [
+        6.428,
+        7.3,
+        6.732
+       ]
+      },
+      {
+       "id": "2.B-riviera-h5",
+       "roomId": "2.B-wc",
+       "name": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        8.35,
+        7.6,
+        6.01
+       ],
+       "lookAt": [
+        9.284,
+        7.3,
+        6.732
+       ]
+      },
+      {
+       "id": "2.B-riviera-h6",
+       "roomId": "2.rear.B",
+       "name": {
+        "en": "Balcony",
+        "pt": "Varanda",
+        "he": "מרפסת"
+       },
+       "position": [
+        7.95,
+        7.6,
+        -0.35
+       ],
+       "lookAt": [
+        9.95,
+        7.4,
+        -12
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "2.B-living",
+       "kind": "living",
+       "roomId": "2.B-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        9.374,
+        7.45,
+        4.803
+       ],
+       "lookAt": [
+        6.847,
+        7.45,
+        1.099
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "2.B-bedroom",
+       "kind": "bedroom",
+       "roomId": "2.B-bed",
+       "roomName": {
+        "en": "Bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה"
+       },
+       "position": [
+        10.199,
+        7.4,
+        4.972
+       ],
+       "lookAt": [
+        13.175,
+        7.4,
+        1.739
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "2.B-bathroom",
+       "kind": "bathroom",
+       "roomId": "2.B-wc",
+       "roomName": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        7.993,
+        7.45,
+        5.832
+       ],
+       "lookAt": [
+        9.085,
+        7.45,
+        6.594
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      }
+     ]
+    },
+    "urban": {
+     "glb": "unit-2.B-urban.glb",
+     "hotspots": [
+      {
+       "id": "2.B-urban-h0",
+       "roomId": "2.B-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        9,
+        7.6,
+        4.6
+       ],
+       "lookAt": [
+        7.296,
+        7.25,
+        0.474
+       ]
+      },
+      {
+       "id": "2.B-urban-h1",
+       "roomId": "2.B-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        6.908,
+        7.6,
+        0.842
+       ],
+       "lookAt": [
+        8.25,
+        7,
+        2.9
+       ]
+      },
+      {
+       "id": "2.B-urban-h2",
+       "roomId": "2.B-bed",
+       "name": {
+        "en": "Bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה"
+       },
+       "position": [
+        12.81,
+        7.6,
+        4.15
+       ],
+       "lookAt": [
+        11.672,
+        6.95,
+        2.39
+       ]
+      },
+      {
+       "id": "2.B-urban-h3",
+       "roomId": "2.B-bed",
+       "name": {
+        "en": "Bedroom · view 2",
+        "pt": "Quarto · vista 2",
+        "he": "חדר שינה · מבט 2"
+       },
+       "position": [
+        10.608,
+        7.6,
+        4.725
+       ],
+       "lookAt": [
+        12.331,
+        7,
+        3.663
+       ]
+      },
+      {
+       "id": "2.B-urban-h4",
+       "roomId": "2.B-hall",
+       "name": {
+        "en": "Entrance hall",
+        "pt": "Hall",
+        "he": "מבואה"
+       },
+       "position": [
+        6.795,
+        7.6,
+        6.01
+       ],
+       "lookAt": [
+        6.428,
+        7.3,
+        6.732
+       ]
+      },
+      {
+       "id": "2.B-urban-h5",
+       "roomId": "2.B-wc",
+       "name": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        8.35,
+        7.6,
+        6.01
+       ],
+       "lookAt": [
+        9.284,
+        7.3,
+        6.732
+       ]
+      },
+      {
+       "id": "2.B-urban-h6",
        "roomId": "2.rear.B",
        "name": {
         "en": "Balcony",
@@ -6609,6 +11658,756 @@
        "verticals": "level (2-point perspective)"
       }
      ]
+    },
+    "natura": {
+     "glb": "unit-2.C-natura.glb",
+     "hotspots": [
+      {
+       "id": "2.C-natura-h0",
+       "roomId": "2.C-hall",
+       "name": {
+        "en": "Hall",
+        "pt": "Hall",
+        "he": "מסדרון"
+       },
+       "position": [
+        3.7,
+        7.6,
+        9.95
+       ],
+       "lookAt": [
+        8.721,
+        7.25,
+        10.788
+       ]
+      },
+      {
+       "id": "2.C-natura-h1",
+       "roomId": "2.C-hall",
+       "name": {
+        "en": "Hall · view 2",
+        "pt": "Hall · vista 2",
+        "he": "מסדרון · מבט 2"
+       },
+       "position": [
+        6.799,
+        7.6,
+        10.125
+       ],
+       "lookAt": [
+        5.132,
+        7,
+        9.842
+       ]
+      },
+      {
+       "id": "2.C-natura-h2",
+       "roomId": "2.C-wc",
+       "name": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        8.15,
+        7.6,
+        8.59
+       ],
+       "lookAt": [
+        9.044,
+        7.3,
+        7.628
+       ]
+      },
+      {
+       "id": "2.C-natura-h3",
+       "roomId": "2.C-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        12.21,
+        7.6,
+        13.06
+       ],
+       "lookAt": [
+        10.88,
+        7.25,
+        10.573
+       ]
+      },
+      {
+       "id": "2.C-natura-h4",
+       "roomId": "2.C-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        10.194,
+        7.6,
+        6.428
+       ],
+       "lookAt": [
+        11.51,
+        7,
+        9.46
+       ]
+      },
+      {
+       "id": "2.C-natura-h5",
+       "roomId": "2.C-bed1",
+       "name": {
+        "en": "Main bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה ראשי"
+       },
+       "position": [
+        5.5,
+        7.6,
+        13.91
+       ],
+       "lookAt": [
+        4.662,
+        6.95,
+        12.6
+       ]
+      },
+      {
+       "id": "2.C-natura-h6",
+       "roomId": "2.C-bed2",
+       "name": {
+        "en": "Bedroom 2",
+        "pt": "Quarto 2",
+        "he": "חדר שינה 2"
+       },
+       "position": [
+        8.16,
+        7.6,
+        11.96
+       ],
+       "lookAt": [
+        6.92,
+        7.25,
+        14.139
+       ]
+      },
+      {
+       "id": "2.C-natura-h7",
+       "roomId": "2.front.1",
+       "name": {
+        "en": "Balcony",
+        "pt": "Varanda",
+        "he": "מרפסת"
+       },
+       "position": [
+        7.9,
+        7.6,
+        15.05
+       ],
+       "lookAt": [
+        5.9,
+        7.4,
+        26.7
+       ]
+      },
+      {
+       "id": "2.C-natura-h8",
+       "roomId": "2.front.2",
+       "name": {
+        "en": "Balcony",
+        "pt": "Varanda",
+        "he": "מרפסת"
+       },
+       "position": [
+        11.75,
+        7.6,
+        15.05
+       ],
+       "lookAt": [
+        9.75,
+        7.4,
+        26.7
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "2.C-living",
+       "kind": "living",
+       "roomId": "2.C-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        13.075,
+        7.45,
+        6.869
+       ],
+       "lookAt": [
+        10.492,
+        7.45,
+        12.513
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "2.C-bedroom",
+       "kind": "bedroom",
+       "roomId": "2.C-bed1",
+       "roomName": {
+        "en": "Main bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה ראשי"
+       },
+       "position": [
+        3.219,
+        7.4,
+        11.598
+       ],
+       "lookAt": [
+        5.786,
+        7.4,
+        13.951
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "2.C-bathroom",
+       "kind": "bathroom",
+       "roomId": "2.C-wc",
+       "roomName": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        8.147,
+        7.45,
+        8.484
+       ],
+       "lookAt": [
+        8.692,
+        7.45,
+        7.964
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      }
+     ]
+    },
+    "riviera": {
+     "glb": "unit-2.C-riviera.glb",
+     "hotspots": [
+      {
+       "id": "2.C-riviera-h0",
+       "roomId": "2.C-hall",
+       "name": {
+        "en": "Hall",
+        "pt": "Hall",
+        "he": "מסדרון"
+       },
+       "position": [
+        3.7,
+        7.6,
+        9.95
+       ],
+       "lookAt": [
+        8.721,
+        7.25,
+        10.788
+       ]
+      },
+      {
+       "id": "2.C-riviera-h1",
+       "roomId": "2.C-hall",
+       "name": {
+        "en": "Hall · view 2",
+        "pt": "Hall · vista 2",
+        "he": "מסדרון · מבט 2"
+       },
+       "position": [
+        6.799,
+        7.6,
+        10.125
+       ],
+       "lookAt": [
+        5.132,
+        7,
+        9.842
+       ]
+      },
+      {
+       "id": "2.C-riviera-h2",
+       "roomId": "2.C-wc",
+       "name": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        8.15,
+        7.6,
+        8.59
+       ],
+       "lookAt": [
+        9.044,
+        7.3,
+        7.628
+       ]
+      },
+      {
+       "id": "2.C-riviera-h3",
+       "roomId": "2.C-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        12.21,
+        7.6,
+        13.06
+       ],
+       "lookAt": [
+        10.88,
+        7.25,
+        10.573
+       ]
+      },
+      {
+       "id": "2.C-riviera-h4",
+       "roomId": "2.C-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        10.194,
+        7.6,
+        6.428
+       ],
+       "lookAt": [
+        11.56,
+        7,
+        9.71
+       ]
+      },
+      {
+       "id": "2.C-riviera-h5",
+       "roomId": "2.C-bed1",
+       "name": {
+        "en": "Main bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה ראשי"
+       },
+       "position": [
+        5.5,
+        7.6,
+        13.91
+       ],
+       "lookAt": [
+        4.662,
+        6.95,
+        12.6
+       ]
+      },
+      {
+       "id": "2.C-riviera-h6",
+       "roomId": "2.C-bed2",
+       "name": {
+        "en": "Bedroom 2",
+        "pt": "Quarto 2",
+        "he": "חדר שינה 2"
+       },
+       "position": [
+        8.16,
+        7.6,
+        11.96
+       ],
+       "lookAt": [
+        6.92,
+        7.25,
+        14.139
+       ]
+      },
+      {
+       "id": "2.C-riviera-h7",
+       "roomId": "2.front.1",
+       "name": {
+        "en": "Balcony",
+        "pt": "Varanda",
+        "he": "מרפסת"
+       },
+       "position": [
+        7.9,
+        7.6,
+        15.05
+       ],
+       "lookAt": [
+        5.9,
+        7.4,
+        26.7
+       ]
+      },
+      {
+       "id": "2.C-riviera-h8",
+       "roomId": "2.front.2",
+       "name": {
+        "en": "Balcony",
+        "pt": "Varanda",
+        "he": "מרפסת"
+       },
+       "position": [
+        11.75,
+        7.6,
+        15.05
+       ],
+       "lookAt": [
+        9.75,
+        7.4,
+        26.7
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "2.C-living",
+       "kind": "living",
+       "roomId": "2.C-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        13.075,
+        7.45,
+        6.869
+       ],
+       "lookAt": [
+        10.492,
+        7.45,
+        12.513
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "2.C-bedroom",
+       "kind": "bedroom",
+       "roomId": "2.C-bed1",
+       "roomName": {
+        "en": "Main bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה ראשי"
+       },
+       "position": [
+        3.219,
+        7.4,
+        11.598
+       ],
+       "lookAt": [
+        5.786,
+        7.4,
+        13.951
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "2.C-bathroom",
+       "kind": "bathroom",
+       "roomId": "2.C-wc",
+       "roomName": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        8.147,
+        7.45,
+        8.484
+       ],
+       "lookAt": [
+        8.692,
+        7.45,
+        7.964
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      }
+     ]
+    },
+    "urban": {
+     "glb": "unit-2.C-urban.glb",
+     "hotspots": [
+      {
+       "id": "2.C-urban-h0",
+       "roomId": "2.C-hall",
+       "name": {
+        "en": "Hall",
+        "pt": "Hall",
+        "he": "מסדרון"
+       },
+       "position": [
+        3.7,
+        7.6,
+        9.95
+       ],
+       "lookAt": [
+        8.721,
+        7.25,
+        10.788
+       ]
+      },
+      {
+       "id": "2.C-urban-h1",
+       "roomId": "2.C-hall",
+       "name": {
+        "en": "Hall · view 2",
+        "pt": "Hall · vista 2",
+        "he": "מסדרון · מבט 2"
+       },
+       "position": [
+        6.799,
+        7.6,
+        10.125
+       ],
+       "lookAt": [
+        5.132,
+        7,
+        9.842
+       ]
+      },
+      {
+       "id": "2.C-urban-h2",
+       "roomId": "2.C-wc",
+       "name": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        8.15,
+        7.6,
+        8.59
+       ],
+       "lookAt": [
+        9.044,
+        7.3,
+        7.628
+       ]
+      },
+      {
+       "id": "2.C-urban-h3",
+       "roomId": "2.C-living",
+       "name": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        12.21,
+        7.6,
+        13.06
+       ],
+       "lookAt": [
+        10.88,
+        7.25,
+        10.573
+       ]
+      },
+      {
+       "id": "2.C-urban-h4",
+       "roomId": "2.C-living",
+       "name": {
+        "en": "Living & kitchen · view 2",
+        "pt": "Sala / cozinha · vista 2",
+        "he": "סלון ומטבח · מבט 2"
+       },
+       "position": [
+        10.194,
+        7.6,
+        6.428
+       ],
+       "lookAt": [
+        11.51,
+        7,
+        9.46
+       ]
+      },
+      {
+       "id": "2.C-urban-h5",
+       "roomId": "2.C-bed1",
+       "name": {
+        "en": "Main bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה ראשי"
+       },
+       "position": [
+        5.5,
+        7.6,
+        13.91
+       ],
+       "lookAt": [
+        4.662,
+        6.95,
+        12.6
+       ]
+      },
+      {
+       "id": "2.C-urban-h6",
+       "roomId": "2.C-bed2",
+       "name": {
+        "en": "Bedroom 2",
+        "pt": "Quarto 2",
+        "he": "חדר שינה 2"
+       },
+       "position": [
+        8.16,
+        7.6,
+        11.96
+       ],
+       "lookAt": [
+        6.92,
+        7.25,
+        14.139
+       ]
+      },
+      {
+       "id": "2.C-urban-h7",
+       "roomId": "2.front.1",
+       "name": {
+        "en": "Balcony",
+        "pt": "Varanda",
+        "he": "מרפסת"
+       },
+       "position": [
+        7.9,
+        7.6,
+        15.05
+       ],
+       "lookAt": [
+        5.9,
+        7.4,
+        26.7
+       ]
+      },
+      {
+       "id": "2.C-urban-h8",
+       "roomId": "2.front.2",
+       "name": {
+        "en": "Balcony",
+        "pt": "Varanda",
+        "he": "מרפסת"
+       },
+       "position": [
+        11.75,
+        7.6,
+        15.05
+       ],
+       "lookAt": [
+        9.75,
+        7.4,
+        26.7
+       ]
+      }
+     ],
+     "hero": [
+      {
+       "id": "2.C-living",
+       "kind": "living",
+       "roomId": "2.C-living",
+       "roomName": {
+        "en": "Living & kitchen",
+        "pt": "Sala / cozinha",
+        "he": "סלון ומטבח"
+       },
+       "position": [
+        13.075,
+        7.45,
+        6.869
+       ],
+       "lookAt": [
+        10.492,
+        7.45,
+        12.513
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "2.C-bedroom",
+       "kind": "bedroom",
+       "roomId": "2.C-bed1",
+       "roomName": {
+        "en": "Main bedroom",
+        "pt": "Quarto",
+        "he": "חדר שינה ראשי"
+       },
+       "position": [
+        3.219,
+        7.4,
+        11.598
+       ],
+       "lookAt": [
+        5.786,
+        7.4,
+        13.951
+       ],
+       "lens_mm": 24,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      },
+      {
+       "id": "2.C-bathroom",
+       "kind": "bathroom",
+       "roomId": "2.C-wc",
+       "roomName": {
+        "en": "Bathroom",
+        "pt": "I.S.",
+        "he": "חדר רחצה"
+       },
+       "position": [
+        8.147,
+        7.45,
+        8.484
+       ],
+       "lookAt": [
+        8.692,
+        7.45,
+        7.964
+       ],
+       "lens_mm": 18,
+       "sensor_width_mm": 36,
+       "aspect": "16:9",
+       "verticals": "level (2-point perspective)"
+      }
+     ]
     }
    },
    "hero": [
@@ -6686,5 +12485,11 @@
     }
    ]
   }
- }
+ },
+ "timesOfDay": [
+  "day",
+  "dusk",
+  "night"
+ ],
+ "lamps": "lamps.json: per unit / package the full lamp list (three.js world metres, colour, candela, reach) and emissiveTod per material"
 }
