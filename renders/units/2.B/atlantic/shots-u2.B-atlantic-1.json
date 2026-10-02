@@ -11,7 +11,9 @@
   ],
   "out": "renders/units/2.B/atlantic",
   "name": "u2.B-atlantic-1",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
@@ -22,7 +24,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 1.3937877269504468,
+   "ev": 2.8624092533164665,
    "tod": "day",
    "position": [
     8.35,
@@ -43,7 +45,7 @@
    "kind": null,
    "yawOffset": -2.22887,
    "index": 5,
-   "seconds": 1109.9
+   "seconds": 1898.1
   },
   {
    "id": "2.B-atlantic-h6",
@@ -53,7 +55,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": -2.814768283972246,
+   "ev": -2.295904517227633,
    "tod": "day",
    "position": [
     7.95,
@@ -74,9 +76,9 @@
    "kind": null,
    "yawOffset": -0.17002,
    "index": 6,
-   "seconds": 442.3
+   "seconds": 929.6
   }
  ],
- "seconds": 1563.1,
+ "seconds": 2832.1,
  "blender": "4.2.3 LTS"
 }
