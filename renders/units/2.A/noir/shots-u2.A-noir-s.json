@@ -1,0 +1,116 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.A",
+  "pkg": "noir",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "2.A-living",
+   "2.A-bedroom",
+   "2.A-bathroom"
+  ],
+  "out": "renders/units/2.A/noir",
+  "name": "u2.A-noir-s",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "2.A-living",
+   "type": "still",
+   "file": "renders/units/2.A/noir/2.A-living.jpg",
+   "thumb": "renders/units/2.A/noir/thumbs/2.A-living.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 2.7177310863279076,
+   "tod": "day",
+   "position": [
+    3.668,
+    7.45,
+    4.132
+   ],
+   "lookAt": [
+    5.13,
+    7.45,
+    1.635
+   ],
+   "roomId": "2.A-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1130.8
+  },
+  {
+   "id": "2.A-bedroom",
+   "type": "still",
+   "file": "renders/units/2.A/noir/2.A-bedroom.jpg",
+   "thumb": "renders/units/2.A/noir/thumbs/2.A-bedroom.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 4.2718925180637575,
+   "tod": "day",
+   "position": [
+    0.794,
+    7.4,
+    4.097
+   ],
+   "lookAt": [
+    2.056,
+    7.4,
+    1.663
+   ],
+   "roomId": "2.A-suite",
+   "name": {
+    "en": "Master suite",
+    "pt": "Suite",
+    "he": "סוויטת הורים"
+   },
+   "kind": "bedroom",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1401.6
+  },
+  {
+   "id": "2.A-bathroom",
+   "type": "still",
+   "file": "renders/units/2.A/noir/2.A-bathroom.jpg",
+   "thumb": "renders/units/2.A/noir/thumbs/2.A-bathroom.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 7.986728119601568,
+   "tod": "day",
+   "position": [
+    1.749,
+    7.45,
+    5.772
+   ],
+   "lookAt": [
+    0.662,
+    7.45,
+    6.641
+   ],
+   "roomId": "2.A-ensuite",
+   "name": {
+    "en": "En-suite bathroom",
+    "pt": "I.S. suite",
+    "he": "חדר רחצה צמוד"
+   },
+   "kind": "bathroom",
+   "lens": 18.0,
+   "shift_y": 0.0,
+   "seconds": 672.7
+  }
+ ],
+ "seconds": 3209.5,
+ "blender": "4.2.3 LTS"
+}

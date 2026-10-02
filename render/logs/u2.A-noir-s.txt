@@ -1,0 +1,21 @@
+[    0.0s] job u2.A-noir-s: scope=unit unit=2.A pkg=noir quality=standard shots=3
+[    0.8s] import building: 491 objects in 0.8s
+[    1.2s] import context: 127 objects in 0.4s
+[    1.5s] import unit-2.A-noir: 78 objects in 0.3s
+[    1.9s] box UVs on 630 meshes
+[    3.6s] [foliage] leafified 26 objects, crown area 1129 m2 -> ~1467238 leaves
+[    3.6s] materials: built=233 textured=69 by_key={'aluminium-frame': 2, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 3, 'asphalt': 1, 'bark': 1, 'bath-floor': 1, 'bath-wall': 1, 'book': 3, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 3, 'candle-wax': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-taillight': 1, 'car-tyre': 1, 'ceiling': 1, 'ceiling-white': 2, 'ceramic-plate': 4, 'concrete': 5, 'cutlery-steel': 1, 'deck-teak': 2, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'fabric-boucle': 6, 'fabric-linen': 7, 'fabric-sofa': 1, 'floor-main': 2, 'foliage': 21, 'foliage-inner': 1, 'fruit': 3, 'garage-door': 1, 'glass-drinking': 1, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 2, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 2, 'leather': 2, 'led-strip-emissive': 13, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 3, 'mirror': 2, 'paint-white': 1, 'paving-calcada': 2, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 2, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 1, 'sanitary-ceramic': 2, 'shower-glass': 1, 'shower-wall': 1, 'signage': 39, 'skirting': 2, 'soil': 3, 'steel-dark': 9, 'stone-coping': 2, 'tap-metal': 1, 'timber-soffit': 1, 'wall-paint': 1, 'wine': 1, 'wood-furniture': 5, 'zinc-standing-seam': 2}
+[    3.6s] lights: imported=4 emissive->lights=84 portals=12 boost=2.5 total_lights=100 polys=353938
+[    4.2s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[    4.5s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[    4.5s] scene ready in 4.5s  (world kloofendal_43d_clear_puresky)
+[   19.5s] [expo] interior: in/out/sky=15984/4759/1657 Lavg=0.006452 p97=0.5038 ev_hi=2.37 -> ev=2.37 windowND=0.05
+[   19.5s] [wb] gains (0.933, 1.0, 1.046)
+[ 1135.3s] SHOT 2.A-living still 2400x1350 spp<=96 ev=2.72 in 1130.8s -> renders/units/2.A/noir/2.A-living.jpg
+[ 1148.7s] [expo] interior: in/out/sky=21668/678/54 Lavg=0.007802 p97=0.1715 ev_hi=3.92 -> ev=3.92 windowND=0.05
+[ 1148.7s] [wb] gains (0.741, 1.0, 1.257)
+[ 2536.8s] SHOT 2.A-bedroom still 2400x1350 spp<=96 ev=4.27 in 1401.6s -> renders/units/2.A/noir/2.A-bedroom.jpg
+[ 2549.5s] [expo] interior: in/out/sky=22400/0/0 Lavg=0.0002281 p97=0.01306 ev_hi=7.64 -> ev=7.64 windowND=1.00
+[ 2549.5s] [wb] gains (0.754, 1.0, 1.248)
+[ 3209.5s] SHOT 2.A-bathroom still 2400x1350 spp<=96 ev=7.99 in 672.7s -> renders/units/2.A/noir/2.A-bathroom.jpg
+[ 3209.5s] DONE 3 images in 3209.5s
