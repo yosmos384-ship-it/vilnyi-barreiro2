@@ -1,0 +1,45 @@
+{
+ "job": {
+  "scope": "common",
+  "quality": "standard",
+  "shots": [
+   "lobby-2"
+  ],
+  "out": "renders/common",
+  "name": "common-lobby-2",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "lobby-2",
+   "type": "still",
+   "file": "renders/common/lobby-2.jpg",
+   "thumb": "renders/common/thumbs/lobby-2.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 0.7651862146089341,
+   "tod": "day",
+   "position": [
+    3.4,
+    1.55,
+    10.0
+   ],
+   "lookAt": [
+    8.6,
+    1.2,
+    14.2
+   ],
+   "roomId": null,
+   "name": "Lobby towards the entrance",
+   "kind": null,
+   "lens": 18.0,
+   "shift_y": -0.0262,
+   "seconds": 3738.5
+  }
+ ],
+ "seconds": 3741.3,
+ "blender": "4.2.3 LTS"
+}
