@@ -23,7 +23,7 @@
    "W": 2048,
    "H": 1024,
    "spp": 32,
-   "ev": 5.976608428486538,
+   "ev": 6.372768323679693,
    "tod": "night",
    "position": [
     10.26,
@@ -45,7 +45,7 @@
    "variant": "night",
    "yawOffset": -2.83015,
    "index": 3,
-   "seconds": 389.2
+   "seconds": 309.3
   },
   {
    "id": "1.C-lisboa-h4",
@@ -55,7 +55,7 @@
    "W": 2048,
    "H": 1024,
    "spp": 32,
-   "ev": 7.34055106527967,
+   "ev": 8.32981612383508,
    "tod": "night",
    "position": [
     13.086,
@@ -77,7 +77,7 @@
    "variant": "night",
    "yawOffset": 0.30774,
    "index": 4,
-   "seconds": 398.6
+   "seconds": 318.9
   },
   {
    "id": "1.C-living",
@@ -87,7 +87,7 @@
    "W": 960,
    "H": 540,
    "spp": 64,
-   "ev": 6.8509150771282075,
+   "ev": 7.2350384017075875,
    "tod": "night",
    "position": [
     10.143,
@@ -109,9 +109,9 @@
    "variant": "night",
    "lens": 24.0,
    "shift_y": 0.0,
-   "seconds": 123.3
+   "seconds": 105.8
   }
  ],
- "seconds": 916.7,
+ "seconds": 738.1,
  "blender": "4.2.3 LTS"
 }
