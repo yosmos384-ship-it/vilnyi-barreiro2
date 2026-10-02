@@ -6,10 +6,9 @@
   "quality": "standard",
   "tod": "dusk",
   "shots": [
-   "2.C-natura-h0",
-   "2.C-natura-h1",
-   "2.C-natura-h2",
-   "2.C-natura-h5"
+   "2.C-natura-h3",
+   "2.C-natura-h4",
+   "2.C-living"
   ],
   "out": "renders/units/2.C/natura",
   "name": "u2.C-natura-dusk-0",
@@ -17,134 +16,102 @@
  },
  "shots": [
   {
-   "id": "2.C-natura-h0",
+   "id": "2.C-natura-h3",
    "type": "pano",
-   "file": "renders/units/2.C/natura/2.C-natura-h0.dusk.jpg",
-   "thumb": "renders/units/2.C/natura/thumbs/2.C-natura-h0.dusk.jpg",
+   "file": "renders/units/2.C/natura/2.C-natura-h3.dusk.jpg",
+   "thumb": "renders/units/2.C/natura/thumbs/2.C-natura-h3.dusk.jpg",
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 5.185260402647254,
+   "ev": 6.407280418125304,
    "tod": "dusk",
    "position": [
-    3.7,
+    12.21,
     7.6,
-    9.95
+    13.06
    ],
    "lookAt": [
-    8.721,
+    10.88,
     7.25,
-    10.788
+    10.573
    ],
-   "roomId": "2.C-hall",
+   "roomId": "2.C-living",
    "name": {
-    "en": "Hall",
-    "pt": "Hall",
-    "he": "מסדרון"
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
    },
    "kind": null,
    "variant": "dusk",
-   "yawOffset": -1.73617,
-   "index": 0,
-   "seconds": 976.7
+   "yawOffset": 0.49108,
+   "index": 3,
+   "seconds": 1190.3
   },
   {
-   "id": "2.C-natura-h1",
+   "id": "2.C-natura-h4",
    "type": "pano",
-   "file": "renders/units/2.C/natura/2.C-natura-h1.dusk.jpg",
-   "thumb": "renders/units/2.C/natura/thumbs/2.C-natura-h1.dusk.jpg",
+   "file": "renders/units/2.C/natura/2.C-natura-h4.dusk.jpg",
+   "thumb": "renders/units/2.C/natura/thumbs/2.C-natura-h4.dusk.jpg",
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 5.530629080139727,
+   "ev": 5.087978048144864,
    "tod": "dusk",
    "position": [
-    6.799,
+    10.194,
     7.6,
-    10.125
+    6.428
    ],
    "lookAt": [
-    5.132,
+    11.51,
     7,
-    9.842
+    9.46
    ],
-   "roomId": "2.C-hall",
+   "roomId": "2.C-living",
    "name": {
-    "en": "Hall · view 2",
-    "pt": "Hall · vista 2",
-    "he": "מסדרון · מבט 2"
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
    },
    "kind": null,
    "variant": "dusk",
-   "yawOffset": 1.40263,
-   "index": 1,
-   "seconds": 944.3
+   "yawOffset": -2.73209,
+   "index": 4,
+   "seconds": 1660.0
   },
   {
-   "id": "2.C-natura-h2",
-   "type": "pano",
-   "file": "renders/units/2.C/natura/2.C-natura-h2.dusk.jpg",
-   "thumb": "renders/units/2.C/natura/thumbs/2.C-natura-h2.dusk.jpg",
-   "W": 3072,
-   "H": 1536,
-   "spp": 64,
-   "ev": 4.868963550824832,
+   "id": "2.C-living",
+   "type": "still",
+   "file": "renders/units/2.C/natura/2.C-living.dusk.jpg",
+   "thumb": "renders/units/2.C/natura/thumbs/2.C-living.dusk.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 5.730096019300559,
    "tod": "dusk",
    "position": [
-    8.15,
-    7.6,
-    8.59
+    13.075,
+    7.45,
+    6.869
    ],
    "lookAt": [
-    9.044,
-    7.3,
-    7.628
+    10.492,
+    7.45,
+    12.513
    ],
-   "roomId": "2.C-wc",
+   "roomId": "2.C-living",
    "name": {
-    "en": "Bathroom",
-    "pt": "I.S.",
-    "he": "חדר רחצה"
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
    },
-   "kind": null,
+   "kind": "living",
    "variant": "dusk",
-   "yawOffset": -0.74878,
-   "index": 2,
-   "seconds": 1238.2
-  },
-  {
-   "id": "2.C-natura-h5",
-   "type": "pano",
-   "file": "renders/units/2.C/natura/2.C-natura-h5.dusk.jpg",
-   "thumb": "renders/units/2.C/natura/thumbs/2.C-natura-h5.dusk.jpg",
-   "W": 3072,
-   "H": 1536,
-   "spp": 64,
-   "ev": 8.764945241499028,
-   "tod": "dusk",
-   "position": [
-    5.5,
-    7.6,
-    13.91
-   ],
-   "lookAt": [
-    4.662,
-    6.95,
-    12.6
-   ],
-   "roomId": "2.C-bed1",
-   "name": {
-    "en": "Main bedroom",
-    "pt": "Quarto",
-    "he": "חדר שינה ראשי"
-   },
-   "kind": null,
-   "variant": "dusk",
-   "yawOffset": 0.5691,
-   "index": 5,
-   "seconds": 666.1
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1782.4
   }
  ],
- "seconds": 3829.7,
+ "seconds": 4637.9,
  "blender": "4.2.3 LTS"
 }
