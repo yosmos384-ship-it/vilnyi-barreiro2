@@ -6,96 +6,100 @@
   "quality": "standard",
   "tod": "day",
   "shots": [
-   "1.C-living",
-   "1.C-bedroom",
-   "1.C-bathroom"
+   "1.C-atlantic-h0",
+   "1.C-atlantic-h1",
+   "1.C-atlantic-h2",
+   "1.C-atlantic-h3",
+   "1.C-atlantic-h4"
   ],
   "out": "renders/units/1.C/atlantic",
   "name": "u1.C-atlantic-0",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
-   "id": "1.C-living",
-   "type": "still",
-   "file": "renders/units/1.C/atlantic/1.C-living.jpg",
-   "thumb": "renders/units/1.C/atlantic/thumbs/1.C-living.jpg",
-   "W": 2400,
-   "H": 1350,
-   "spp": 96,
-   "ev": 1.57825317435944,
+   "id": "1.C-atlantic-h0",
+   "type": "pano",
+   "file": "renders/units/1.C/atlantic/1.C-atlantic-h0.jpg",
+   "thumb": "renders/units/1.C/atlantic/thumbs/1.C-atlantic-h0.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 4.621193552057876,
    "tod": "day",
    "position": [
-    10.143,
-    4.45,
-    6.733
+    3.7,
+    4.6,
+    9.95
    ],
    "lookAt": [
-    12.838,
-    4.45,
-    12.623
+    8.721,
+    4.25,
+    10.788
    ],
-   "roomId": "1.C-living",
+   "roomId": "1.C-hall",
    "name": {
-    "en": "Living & kitchen",
-    "pt": "Sala / cozinha",
-    "he": "סלון ומטבח"
+    "en": "Hall",
+    "pt": "Hall",
+    "he": "מסדרון"
    },
-   "kind": "living",
-   "lens": 24.0,
-   "shift_y": 0.0,
-   "seconds": 2348.2
+   "kind": null,
+   "yawOffset": -1.73617,
+   "index": 0,
+   "seconds": 2075.8
   },
   {
-   "id": "1.C-bedroom",
-   "type": "still",
-   "file": "renders/units/1.C/atlantic/1.C-bedroom.jpg",
-   "thumb": "renders/units/1.C/atlantic/thumbs/1.C-bedroom.jpg",
-   "W": 2400,
-   "H": 1350,
-   "spp": 96,
-   "ev": -0.528377851282258,
+   "id": "1.C-atlantic-h1",
+   "type": "pano",
+   "file": "renders/units/1.C/atlantic/1.C-atlantic-h1.jpg",
+   "thumb": "renders/units/1.C/atlantic/thumbs/1.C-atlantic-h1.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.764152051582675,
    "tod": "day",
    "position": [
-    3.219,
-    4.4,
-    11.598
+    6.799,
+    4.6,
+    10.125
    ],
    "lookAt": [
-    5.786,
-    4.4,
-    13.951
+    5.132,
+    4,
+    9.842
    ],
-   "roomId": "1.C-bed1",
+   "roomId": "1.C-hall",
    "name": {
-    "en": "Main bedroom",
-    "pt": "Quarto",
-    "he": "חדר שינה ראשי"
+    "en": "Hall · view 2",
+    "pt": "Hall · vista 2",
+    "he": "מסדרון · מבט 2"
    },
-   "kind": "bedroom",
-   "lens": 24.0,
-   "shift_y": 0.0,
-   "seconds": 2484.6
+   "kind": null,
+   "yawOffset": 1.40263,
+   "index": 1,
+   "seconds": 2119.7
   },
   {
-   "id": "1.C-bathroom",
-   "type": "still",
-   "file": "renders/units/1.C/atlantic/1.C-bathroom.jpg",
-   "thumb": "renders/units/1.C/atlantic/thumbs/1.C-bathroom.jpg",
-   "W": 2400,
-   "H": 1350,
-   "spp": 96,
-   "ev": 1.9373514754259709,
+   "id": "1.C-atlantic-h2",
+   "type": "pano",
+   "file": "renders/units/1.C/atlantic/1.C-atlantic-h2.jpg",
+   "thumb": "renders/units/1.C/atlantic/thumbs/1.C-atlantic-h2.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.0611597818450385,
    "tod": "day",
    "position": [
-    8.147,
-    4.45,
-    8.484
+    8.15,
+    4.6,
+    8.59
    ],
    "lookAt": [
-    8.692,
-    4.45,
-    7.964
+    9.044,
+    4.3,
+    7.628
    ],
    "roomId": "1.C-wc",
    "name": {
@@ -103,12 +107,74 @@
     "pt": "I.S.",
     "he": "חדר רחצה"
    },
-   "kind": "bathroom",
-   "lens": 18.0,
-   "shift_y": 0.0,
-   "seconds": 2172.4
+   "kind": null,
+   "yawOffset": -0.74878,
+   "index": 2,
+   "seconds": 2187.0
+  },
+  {
+   "id": "1.C-atlantic-h3",
+   "type": "pano",
+   "file": "renders/units/1.C/atlantic/1.C-atlantic-h3.jpg",
+   "thumb": "renders/units/1.C/atlantic/thumbs/1.C-atlantic-h3.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.04288714387441,
+   "tod": "day",
+   "position": [
+    10.26,
+    4.6,
+    7.21
+   ],
+   "lookAt": [
+    12.44,
+    4.25,
+    13.982
+   ],
+   "roomId": "1.C-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": null,
+   "yawOffset": -2.83015,
+   "index": 3,
+   "seconds": 2186.0
+  },
+  {
+   "id": "1.C-atlantic-h4",
+   "type": "pano",
+   "file": "renders/units/1.C/atlantic/1.C-atlantic-h4.jpg",
+   "thumb": "renders/units/1.C/atlantic/thumbs/1.C-atlantic-h4.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.062769755356622,
+   "tod": "day",
+   "position": [
+    13.086,
+    4.6,
+    13.882
+   ],
+   "lookAt": [
+    11.76,
+    4,
+    9.71
+   ],
+   "roomId": "1.C-living",
+   "name": {
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": 0.30774,
+   "index": 4,
+   "seconds": 2136.8
   }
  ],
- "seconds": 7023.7,
+ "seconds": 10709.8,
  "blender": "4.2.3 LTS"
 }
