@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-10-02T12:22:56Z",
+ "generated": "2026-10-02T13:50:57Z",
  "packages": [
   "atlantic",
   "lisboa",
@@ -5871,6 +5871,10 @@
       "W": 3072,
       "H": 1536,
       "variants": {
+       "dusk": {
+        "file": "renders/units/1.A/natura/1.A-natura-h2.dusk.jpg",
+        "thumb": "renders/units/1.A/natura/thumbs/1.A-natura-h2.dusk.jpg"
+       },
        "night": {
         "file": "renders/units/1.A/natura/1.A-natura-h2.night.jpg",
         "thumb": "renders/units/1.A/natura/thumbs/1.A-natura-h2.night.jpg"
@@ -5909,6 +5913,10 @@
       "W": 3072,
       "H": 1536,
       "variants": {
+       "dusk": {
+        "file": "renders/units/1.A/natura/1.A-natura-h3.dusk.jpg",
+        "thumb": "renders/units/1.A/natura/thumbs/1.A-natura-h3.dusk.jpg"
+       },
        "night": {
         "file": "renders/units/1.A/natura/1.A-natura-h3.night.jpg",
         "thumb": "renders/units/1.A/natura/thumbs/1.A-natura-h3.night.jpg"
@@ -6112,6 +6120,10 @@
       "W": 2400,
       "H": 1350,
       "variants": {
+       "dusk": {
+        "file": "renders/units/1.A/natura/1.A-living.dusk.jpg",
+        "thumb": "renders/units/1.A/natura/thumbs/1.A-living.dusk.jpg"
+       },
        "night": {
         "file": "renders/units/1.A/natura/1.A-living.night.jpg",
         "thumb": "renders/units/1.A/natura/thumbs/1.A-living.night.jpg"
@@ -6552,6 +6564,16 @@
       "yawOffset": -0.32712,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/1.A/riviera/1.A-riviera-h2.dusk.jpg",
+        "thumb": "renders/units/1.A/riviera/thumbs/1.A-riviera-h2.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/1.A/riviera/1.A-riviera-h2.night.jpg",
+        "thumb": "renders/units/1.A/riviera/thumbs/1.A-riviera-h2.night.jpg"
+       }
+      },
       "links": [
        1,
        5,
@@ -6584,6 +6606,16 @@
       "yawOffset": 2.67912,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/1.A/riviera/1.A-riviera-h3.dusk.jpg",
+        "thumb": "renders/units/1.A/riviera/thumbs/1.A-riviera-h3.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/1.A/riviera/1.A-riviera-h3.night.jpg",
+        "thumb": "renders/units/1.A/riviera/thumbs/1.A-riviera-h3.night.jpg"
+       }
+      },
       "links": [
        2,
        7,
@@ -6780,7 +6812,17 @@
        1.635
       ],
       "W": 2400,
-      "H": 1350
+      "H": 1350,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/1.A/riviera/1.A-living.dusk.jpg",
+        "thumb": "renders/units/1.A/riviera/thumbs/1.A-living.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/1.A/riviera/1.A-living.night.jpg",
+        "thumb": "renders/units/1.A/riviera/thumbs/1.A-living.night.jpg"
+       }
+      }
      }
     ]
    },
@@ -6869,6 +6911,16 @@
       "yawOffset": -0.32712,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/1.A/urban/1.A-urban-h2.dusk.jpg",
+        "thumb": "renders/units/1.A/urban/thumbs/1.A-urban-h2.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/1.A/urban/1.A-urban-h2.night.jpg",
+        "thumb": "renders/units/1.A/urban/thumbs/1.A-urban-h2.night.jpg"
+       }
+      },
       "links": [
        1,
        5,
@@ -6901,6 +6953,16 @@
       "yawOffset": 2.67912,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/1.A/urban/1.A-urban-h3.dusk.jpg",
+        "thumb": "renders/units/1.A/urban/thumbs/1.A-urban-h3.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/1.A/urban/1.A-urban-h3.night.jpg",
+        "thumb": "renders/units/1.A/urban/thumbs/1.A-urban-h3.night.jpg"
+       }
+      },
       "links": [
        2,
        7,
@@ -7097,7 +7159,17 @@
        1.635
       ],
       "W": 2400,
-      "H": 1350
+      "H": 1350,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/1.A/urban/1.A-living.dusk.jpg",
+        "thumb": "renders/units/1.A/urban/thumbs/1.A-living.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/1.A/urban/1.A-living.night.jpg",
+        "thumb": "renders/units/1.A/urban/thumbs/1.A-living.night.jpg"
+       }
+      }
      }
     ]
    }
@@ -7128,6 +7200,16 @@
       "yawOffset": 0.39165,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/1.B/atlantic/1.B-atlantic-h0.dusk.jpg",
+        "thumb": "renders/units/1.B/atlantic/thumbs/1.B-atlantic-h0.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/1.B/atlantic/1.B-atlantic-h0.night.jpg",
+        "thumb": "renders/units/1.B/atlantic/thumbs/1.B-atlantic-h0.night.jpg"
+       }
+      },
       "links": [
        5,
        3,
@@ -7160,6 +7242,16 @@
       "yawOffset": -2.56375,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/1.B/atlantic/1.B-atlantic-h1.dusk.jpg",
+        "thumb": "renders/units/1.B/atlantic/thumbs/1.B-atlantic-h1.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/1.B/atlantic/1.B-atlantic-h1.night.jpg",
+        "thumb": "renders/units/1.B/atlantic/thumbs/1.B-atlantic-h1.night.jpg"
+       }
+      },
       "links": [
        6,
        0,
@@ -7386,7 +7478,17 @@
        1.099
       ],
       "W": 2400,
-      "H": 1350
+      "H": 1350,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/1.B/atlantic/1.B-living.dusk.jpg",
+        "thumb": "renders/units/1.B/atlantic/thumbs/1.B-living.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/1.B/atlantic/1.B-living.night.jpg",
+        "thumb": "renders/units/1.B/atlantic/thumbs/1.B-living.night.jpg"
+       }
+      }
      }
     ]
    },
@@ -7415,6 +7517,16 @@
       "yawOffset": 0.39165,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/1.B/lisboa/1.B-lisboa-h0.dusk.jpg",
+        "thumb": "renders/units/1.B/lisboa/thumbs/1.B-lisboa-h0.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/1.B/lisboa/1.B-lisboa-h0.night.jpg",
+        "thumb": "renders/units/1.B/lisboa/thumbs/1.B-lisboa-h0.night.jpg"
+       }
+      },
       "links": [
        5,
        3,
@@ -7447,6 +7559,16 @@
       "yawOffset": -2.56375,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/1.B/lisboa/1.B-lisboa-h1.dusk.jpg",
+        "thumb": "renders/units/1.B/lisboa/thumbs/1.B-lisboa-h1.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/1.B/lisboa/1.B-lisboa-h1.night.jpg",
+        "thumb": "renders/units/1.B/lisboa/thumbs/1.B-lisboa-h1.night.jpg"
+       }
+      },
       "links": [
        6,
        0,
@@ -7673,7 +7795,17 @@
        1.099
       ],
       "W": 2400,
-      "H": 1350
+      "H": 1350,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/1.B/lisboa/1.B-living.dusk.jpg",
+        "thumb": "renders/units/1.B/lisboa/thumbs/1.B-living.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/1.B/lisboa/1.B-living.night.jpg",
+        "thumb": "renders/units/1.B/lisboa/thumbs/1.B-living.night.jpg"
+       }
+      }
      }
     ]
    },
@@ -7989,6 +8121,16 @@
       "yawOffset": 0.39165,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/1.B/noir/1.B-noir-h0.dusk.jpg",
+        "thumb": "renders/units/1.B/noir/thumbs/1.B-noir-h0.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/1.B/noir/1.B-noir-h0.night.jpg",
+        "thumb": "renders/units/1.B/noir/thumbs/1.B-noir-h0.night.jpg"
+       }
+      },
       "links": [
        5,
        3,
@@ -8021,6 +8163,16 @@
       "yawOffset": -2.56375,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/1.B/noir/1.B-noir-h1.dusk.jpg",
+        "thumb": "renders/units/1.B/noir/thumbs/1.B-noir-h1.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/1.B/noir/1.B-noir-h1.night.jpg",
+        "thumb": "renders/units/1.B/noir/thumbs/1.B-noir-h1.night.jpg"
+       }
+      },
       "links": [
        6,
        0,
@@ -8247,7 +8399,17 @@
        1.099
       ],
       "W": 2400,
-      "H": 1350
+      "H": 1350,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/1.B/noir/1.B-living.dusk.jpg",
+        "thumb": "renders/units/1.B/noir/thumbs/1.B-living.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/1.B/noir/1.B-living.night.jpg",
+        "thumb": "renders/units/1.B/noir/thumbs/1.B-living.night.jpg"
+       }
+      }
      }
     ]
    },
@@ -9171,6 +9333,12 @@
       "yawOffset": -1.73617,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "night": {
+        "file": "renders/units/1.C/lisboa/1.C-lisboa-h0.night.jpg",
+        "thumb": "renders/units/1.C/lisboa/thumbs/1.C-lisboa-h0.night.jpg"
+       }
+      },
       "links": [
        1,
        5,
@@ -9202,6 +9370,12 @@
       "yawOffset": 1.40263,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "night": {
+        "file": "renders/units/1.C/lisboa/1.C-lisboa-h1.night.jpg",
+        "thumb": "renders/units/1.C/lisboa/thumbs/1.C-lisboa-h1.night.jpg"
+       }
+      },
       "links": [
        2,
        6,
@@ -9234,6 +9408,12 @@
       "yawOffset": -0.74878,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "night": {
+        "file": "renders/units/1.C/lisboa/1.C-lisboa-h2.night.jpg",
+        "thumb": "renders/units/1.C/lisboa/thumbs/1.C-lisboa-h2.night.jpg"
+       }
+      },
       "links": [
        1,
        0
@@ -9321,6 +9501,12 @@
       "yawOffset": 0.5691,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "night": {
+        "file": "renders/units/1.C/lisboa/1.C-lisboa-h5.night.jpg",
+        "thumb": "renders/units/1.C/lisboa/thumbs/1.C-lisboa-h5.night.jpg"
+       }
+      },
       "links": [
        7,
        1,
@@ -9350,6 +9536,16 @@
       "yawOffset": 2.62423,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/1.C/lisboa/1.C-lisboa-h6.dusk.jpg",
+        "thumb": "renders/units/1.C/lisboa/thumbs/1.C-lisboa-h6.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/1.C/lisboa/1.C-lisboa-h6.night.jpg",
+        "thumb": "renders/units/1.C/lisboa/thumbs/1.C-lisboa-h6.night.jpg"
+       }
+      },
       "links": [
        1,
        7,
@@ -9379,6 +9575,16 @@
       "yawOffset": 2.97158,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/1.C/lisboa/1.C-lisboa-h7.dusk.jpg",
+        "thumb": "renders/units/1.C/lisboa/thumbs/1.C-lisboa-h7.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/1.C/lisboa/1.C-lisboa-h7.night.jpg",
+        "thumb": "renders/units/1.C/lisboa/thumbs/1.C-lisboa-h7.night.jpg"
+       }
+      },
       "links": [
        5,
        6,
@@ -9468,6 +9674,156 @@
    "natura": {
     "panos": [
      {
+      "id": "1.C-natura-h0",
+      "roomId": "1.C-hall",
+      "name": {
+       "en": "Hall",
+       "pt": "Hall",
+       "he": "מסדרון"
+      },
+      "file": "renders/units/1.C/natura/1.C-natura-h0.jpg",
+      "thumb": "renders/units/1.C/natura/thumbs/1.C-natura-h0.jpg",
+      "position": [
+       3.7,
+       4.6,
+       9.95
+      ],
+      "lookAt": [
+       8.721,
+       4.25,
+       10.788
+      ],
+      "yawOffset": -1.73617,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       1,
+       5,
+       2,
+       6,
+       3
+      ]
+     },
+     {
+      "id": "1.C-natura-h1",
+      "roomId": "1.C-hall",
+      "name": {
+       "en": "Hall · view 2",
+       "pt": "Hall · vista 2",
+       "he": "מסדרון · מבט 2"
+      },
+      "file": "renders/units/1.C/natura/1.C-natura-h1.jpg",
+      "thumb": "renders/units/1.C/natura/thumbs/1.C-natura-h1.jpg",
+      "position": [
+       6.799,
+       4.6,
+       10.125
+      ],
+      "lookAt": [
+       5.132,
+       4,
+       9.842
+      ],
+      "yawOffset": 1.40263,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       2,
+       6,
+       0,
+       5,
+       3,
+       4
+      ]
+     },
+     {
+      "id": "1.C-natura-h2",
+      "roomId": "1.C-wc",
+      "name": {
+       "en": "Bathroom",
+       "pt": "I.S.",
+       "he": "חדר רחצה"
+      },
+      "file": "renders/units/1.C/natura/1.C-natura-h2.jpg",
+      "thumb": "renders/units/1.C/natura/thumbs/1.C-natura-h2.jpg",
+      "position": [
+       8.15,
+       4.6,
+       8.59
+      ],
+      "lookAt": [
+       9.044,
+       4.3,
+       7.628
+      ],
+      "yawOffset": -0.74878,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       1,
+       0
+      ]
+     },
+     {
+      "id": "1.C-natura-h3",
+      "roomId": "1.C-living",
+      "name": {
+       "en": "Living & kitchen",
+       "pt": "Sala / cozinha",
+       "he": "סלון ומטבח"
+      },
+      "file": "renders/units/1.C/natura/1.C-natura-h3.jpg",
+      "thumb": "renders/units/1.C/natura/thumbs/1.C-natura-h3.jpg",
+      "position": [
+       10.26,
+       4.6,
+       7.21
+      ],
+      "lookAt": [
+       12.44,
+       4.25,
+       13.982
+      ],
+      "yawOffset": -2.83015,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       1,
+       0,
+       4,
+       7
+      ]
+     },
+     {
+      "id": "1.C-natura-h4",
+      "roomId": "1.C-living",
+      "name": {
+       "en": "Living & kitchen · view 2",
+       "pt": "Sala / cozinha · vista 2",
+       "he": "סלון ומטבח · מבט 2"
+      },
+      "file": "renders/units/1.C/natura/1.C-natura-h4.jpg",
+      "thumb": "renders/units/1.C/natura/thumbs/1.C-natura-h4.jpg",
+      "position": [
+       13.086,
+       4.6,
+       13.882
+      ],
+      "lookAt": [
+       11.76,
+       4,
+       9.46
+      ],
+      "yawOffset": 0.29133,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       7,
+       3,
+       1
+      ]
+     },
+     {
       "id": "1.C-natura-h5",
       "roomId": "1.C-bed1",
       "name": {
@@ -9491,7 +9847,9 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       2
+       7,
+       1,
+       0
       ]
      },
      {
@@ -9517,8 +9875,20 @@
       "yawOffset": 2.62423,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/1.C/natura/1.C-natura-h6.dusk.jpg",
+        "thumb": "renders/units/1.C/natura/thumbs/1.C-natura-h6.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/1.C/natura/1.C-natura-h6.night.jpg",
+        "thumb": "renders/units/1.C/natura/thumbs/1.C-natura-h6.night.jpg"
+       }
+      },
       "links": [
-       2
+       1,
+       7,
+       0
       ]
      },
      {
@@ -9544,9 +9914,21 @@
       "yawOffset": 2.97158,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/1.C/natura/1.C-natura-h7.dusk.jpg",
+        "thumb": "renders/units/1.C/natura/thumbs/1.C-natura-h7.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/1.C/natura/1.C-natura-h7.night.jpg",
+        "thumb": "renders/units/1.C/natura/thumbs/1.C-natura-h7.night.jpg"
+       }
+      },
       "links": [
-       0,
-       1
+       5,
+       6,
+       4,
+       3
       ]
      }
     ],
@@ -9832,6 +10214,12 @@
       "yawOffset": 2.62423,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "night": {
+        "file": "renders/units/1.C/noir/1.C-noir-h6.night.jpg",
+        "thumb": "renders/units/1.C/noir/thumbs/1.C-noir-h6.night.jpg"
+       }
+      },
       "links": [
        1,
        7,
@@ -9861,6 +10249,12 @@
       "yawOffset": 2.97158,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "night": {
+        "file": "renders/units/1.C/noir/1.C-noir-h7.night.jpg",
+        "thumb": "renders/units/1.C/noir/thumbs/1.C-noir-h7.night.jpg"
+       }
+      },
       "links": [
        5,
        6,
@@ -9950,6 +10344,156 @@
    "riviera": {
     "panos": [
      {
+      "id": "1.C-riviera-h0",
+      "roomId": "1.C-hall",
+      "name": {
+       "en": "Hall",
+       "pt": "Hall",
+       "he": "מסדרון"
+      },
+      "file": "renders/units/1.C/riviera/1.C-riviera-h0.jpg",
+      "thumb": "renders/units/1.C/riviera/thumbs/1.C-riviera-h0.jpg",
+      "position": [
+       3.7,
+       4.6,
+       9.95
+      ],
+      "lookAt": [
+       8.721,
+       4.25,
+       10.788
+      ],
+      "yawOffset": -1.73617,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       1,
+       5,
+       2,
+       6,
+       3
+      ]
+     },
+     {
+      "id": "1.C-riviera-h1",
+      "roomId": "1.C-hall",
+      "name": {
+       "en": "Hall · view 2",
+       "pt": "Hall · vista 2",
+       "he": "מסדרון · מבט 2"
+      },
+      "file": "renders/units/1.C/riviera/1.C-riviera-h1.jpg",
+      "thumb": "renders/units/1.C/riviera/thumbs/1.C-riviera-h1.jpg",
+      "position": [
+       6.799,
+       4.6,
+       10.125
+      ],
+      "lookAt": [
+       5.132,
+       4,
+       9.842
+      ],
+      "yawOffset": 1.40263,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       2,
+       6,
+       0,
+       5,
+       3,
+       4
+      ]
+     },
+     {
+      "id": "1.C-riviera-h2",
+      "roomId": "1.C-wc",
+      "name": {
+       "en": "Bathroom",
+       "pt": "I.S.",
+       "he": "חדר רחצה"
+      },
+      "file": "renders/units/1.C/riviera/1.C-riviera-h2.jpg",
+      "thumb": "renders/units/1.C/riviera/thumbs/1.C-riviera-h2.jpg",
+      "position": [
+       8.15,
+       4.6,
+       8.59
+      ],
+      "lookAt": [
+       9.044,
+       4.3,
+       7.628
+      ],
+      "yawOffset": -0.74878,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       1,
+       0
+      ]
+     },
+     {
+      "id": "1.C-riviera-h3",
+      "roomId": "1.C-living",
+      "name": {
+       "en": "Living & kitchen",
+       "pt": "Sala / cozinha",
+       "he": "סלון ומטבח"
+      },
+      "file": "renders/units/1.C/riviera/1.C-riviera-h3.jpg",
+      "thumb": "renders/units/1.C/riviera/thumbs/1.C-riviera-h3.jpg",
+      "position": [
+       10.26,
+       4.6,
+       7.21
+      ],
+      "lookAt": [
+       12.44,
+       4.25,
+       13.982
+      ],
+      "yawOffset": -2.83015,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       1,
+       0,
+       4,
+       7
+      ]
+     },
+     {
+      "id": "1.C-riviera-h4",
+      "roomId": "1.C-living",
+      "name": {
+       "en": "Living & kitchen · view 2",
+       "pt": "Sala / cozinha · vista 2",
+       "he": "סלון ומטבח · מבט 2"
+      },
+      "file": "renders/units/1.C/riviera/1.C-riviera-h4.jpg",
+      "thumb": "renders/units/1.C/riviera/thumbs/1.C-riviera-h4.jpg",
+      "position": [
+       13.086,
+       4.6,
+       13.882
+      ],
+      "lookAt": [
+       11.76,
+       4,
+       9.71
+      ],
+      "yawOffset": 0.30774,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       7,
+       3,
+       1
+      ]
+     },
+     {
       "id": "1.C-riviera-h5",
       "roomId": "1.C-bed1",
       "name": {
@@ -9973,7 +10517,9 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       2
+       7,
+       1,
+       0
       ]
      },
      {
@@ -9999,8 +10545,20 @@
       "yawOffset": 2.62423,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/1.C/riviera/1.C-riviera-h6.dusk.jpg",
+        "thumb": "renders/units/1.C/riviera/thumbs/1.C-riviera-h6.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/1.C/riviera/1.C-riviera-h6.night.jpg",
+        "thumb": "renders/units/1.C/riviera/thumbs/1.C-riviera-h6.night.jpg"
+       }
+      },
       "links": [
-       2
+       1,
+       7,
+       0
       ]
      },
      {
@@ -10026,9 +10584,21 @@
       "yawOffset": 2.97158,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/1.C/riviera/1.C-riviera-h7.dusk.jpg",
+        "thumb": "renders/units/1.C/riviera/thumbs/1.C-riviera-h7.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/1.C/riviera/1.C-riviera-h7.night.jpg",
+        "thumb": "renders/units/1.C/riviera/thumbs/1.C-riviera-h7.night.jpg"
+       }
+      },
       "links": [
-       0,
-       1
+       5,
+       6,
+       4,
+       3
       ]
      }
     ],
@@ -10351,7 +10921,83 @@
       ]
      }
     ],
-    "stills": []
+    "stills": [
+     {
+      "id": "1.C-bathroom",
+      "roomId": "1.C-wc",
+      "name": {
+       "en": "Bathroom",
+       "pt": "I.S.",
+       "he": "חדר רחצה"
+      },
+      "file": "renders/units/1.C/urban/1.C-bathroom.jpg",
+      "thumb": "renders/units/1.C/urban/thumbs/1.C-bathroom.jpg",
+      "kind": "bathroom",
+      "lens": 18.0,
+      "position": [
+       8.147,
+       4.45,
+       8.484
+      ],
+      "lookAt": [
+       8.692,
+       4.45,
+       7.964
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "1.C-bedroom",
+      "roomId": "1.C-bed1",
+      "name": {
+       "en": "Main bedroom",
+       "pt": "Quarto",
+       "he": "חדר שינה ראשי"
+      },
+      "file": "renders/units/1.C/urban/1.C-bedroom.jpg",
+      "thumb": "renders/units/1.C/urban/thumbs/1.C-bedroom.jpg",
+      "kind": "bedroom",
+      "lens": 24.0,
+      "position": [
+       3.219,
+       4.4,
+       11.598
+      ],
+      "lookAt": [
+       5.786,
+       4.4,
+       13.951
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "1.C-living",
+      "roomId": "1.C-living",
+      "name": {
+       "en": "Living & kitchen",
+       "pt": "Sala / cozinha",
+       "he": "סלון ומטבח"
+      },
+      "file": "renders/units/1.C/urban/1.C-living.jpg",
+      "thumb": "renders/units/1.C/urban/thumbs/1.C-living.jpg",
+      "kind": "living",
+      "lens": 24.0,
+      "position": [
+       10.143,
+       4.45,
+       6.733
+      ],
+      "lookAt": [
+       12.838,
+       4.45,
+       12.623
+      ],
+      "W": 2400,
+      "H": 1350
+     }
+    ]
    }
   },
   "2.A": {
@@ -11074,7 +11720,83 @@
       ]
      }
     ],
-    "stills": []
+    "stills": [
+     {
+      "id": "2.A-bathroom",
+      "roomId": "2.A-ensuite",
+      "name": {
+       "en": "En-suite bathroom",
+       "pt": "I.S. suite",
+       "he": "חדר רחצה צמוד"
+      },
+      "file": "renders/units/2.A/natura/2.A-bathroom.jpg",
+      "thumb": "renders/units/2.A/natura/thumbs/2.A-bathroom.jpg",
+      "kind": "bathroom",
+      "lens": 18.0,
+      "position": [
+       1.749,
+       7.45,
+       5.772
+      ],
+      "lookAt": [
+       0.662,
+       7.45,
+       6.641
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "2.A-bedroom",
+      "roomId": "2.A-suite",
+      "name": {
+       "en": "Master suite",
+       "pt": "Suite",
+       "he": "סוויטת הורים"
+      },
+      "file": "renders/units/2.A/natura/2.A-bedroom.jpg",
+      "thumb": "renders/units/2.A/natura/thumbs/2.A-bedroom.jpg",
+      "kind": "bedroom",
+      "lens": 24.0,
+      "position": [
+       0.794,
+       7.4,
+       4.097
+      ],
+      "lookAt": [
+       2.056,
+       7.4,
+       1.663
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "2.A-living",
+      "roomId": "2.A-living",
+      "name": {
+       "en": "Living & kitchen",
+       "pt": "Sala / cozinha",
+       "he": "סלון ומטבח"
+      },
+      "file": "renders/units/2.A/natura/2.A-living.jpg",
+      "thumb": "renders/units/2.A/natura/thumbs/2.A-living.jpg",
+      "kind": "living",
+      "lens": 24.0,
+      "position": [
+       3.668,
+       7.45,
+       4.132
+      ],
+      "lookAt": [
+       5.13,
+       7.45,
+       1.635
+      ],
+      "W": 2400,
+      "H": 1350
+     }
+    ]
    },
    "noir": {
     "panos": [
@@ -11376,6 +12098,486 @@
       },
       "file": "renders/units/2.A/noir/2.A-living.jpg",
       "thumb": "renders/units/2.A/noir/thumbs/2.A-living.jpg",
+      "kind": "living",
+      "lens": 24.0,
+      "position": [
+       3.668,
+       7.45,
+       4.132
+      ],
+      "lookAt": [
+       5.13,
+       7.45,
+       1.635
+      ],
+      "W": 2400,
+      "H": 1350
+     }
+    ]
+   },
+   "riviera": {
+    "panos": [
+     {
+      "id": "2.A-riviera-h0",
+      "roomId": "2.A-suite",
+      "name": {
+       "en": "Master suite",
+       "pt": "Suite",
+       "he": "סוויטת הורים"
+      },
+      "file": "renders/units/2.A/riviera/2.A-riviera-h0.jpg",
+      "thumb": "renders/units/2.A/riviera/thumbs/2.A-riviera-h0.jpg",
+      "position": [
+       1.3,
+       7.6,
+       4.6
+      ],
+      "lookAt": [
+       1.028,
+       6.95,
+       2.75
+      ],
+      "yawOffset": 0.14598,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       4,
+       2,
+       1,
+       3
+      ]
+     },
+     {
+      "id": "2.A-riviera-h1",
+      "roomId": "2.A-suite",
+      "name": {
+       "en": "Master suite · view 2",
+       "pt": "Suite · vista 2",
+       "he": "סוויטת הורים · מבט 2"
+      },
+      "file": "renders/units/2.A/riviera/2.A-riviera-h1.jpg",
+      "thumb": "renders/units/2.A/riviera/thumbs/2.A-riviera-h1.jpg",
+      "position": [
+       2.208,
+       7.6,
+       0.842
+      ],
+      "lookAt": [
+       1.397,
+       7,
+       3.672
+      ],
+      "yawOffset": 2.8625,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       3,
+       0,
+       2,
+       4
+      ]
+     },
+     {
+      "id": "2.A-riviera-h2",
+      "roomId": "2.A-living",
+      "name": {
+       "en": "Living & kitchen",
+       "pt": "Sala / cozinha",
+       "he": "סלון ומטבח"
+      },
+      "file": "renders/units/2.A/riviera/2.A-riviera-h2.jpg",
+      "thumb": "renders/units/2.A/riviera/thumbs/2.A-riviera-h2.jpg",
+      "position": [
+       3.66,
+       7.6,
+       4.6
+      ],
+      "lookAt": [
+       5.06,
+       7.25,
+       0.474
+      ],
+      "yawOffset": -0.32712,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       5,
+       6,
+       0,
+       3,
+       1,
+       7
+      ]
+     },
+     {
+      "id": "2.A-riviera-h3",
+      "roomId": "2.A-living",
+      "name": {
+       "en": "Living & kitchen · view 2",
+       "pt": "Sala / cozinha · vista 2",
+       "he": "סלון ומטבח · מבט 2"
+      },
+      "file": "renders/units/2.A/riviera/2.A-riviera-h3.jpg",
+      "thumb": "renders/units/2.A/riviera/thumbs/2.A-riviera-h3.jpg",
+      "position": [
+       4.751,
+       7.6,
+       2.306
+      ],
+      "lookAt": [
+       4.07,
+       7,
+       3.672
+      ],
+      "yawOffset": 2.67912,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       2,
+       7,
+       1,
+       5,
+       6,
+       0
+      ]
+     },
+     {
+      "id": "2.A-riviera-h4",
+      "roomId": "2.A-ensuite",
+      "name": {
+       "en": "En-suite bathroom",
+       "pt": "I.S. suite",
+       "he": "חדר רחצה צמוד"
+      },
+      "file": "renders/units/2.A/riviera/2.A-riviera-h4.jpg",
+      "thumb": "renders/units/2.A/riviera/thumbs/2.A-riviera-h4.jpg",
+      "position": [
+       1.375,
+       7.6,
+       6.01
+      ],
+      "lookAt": [
+       0.548,
+       7.3,
+       6.732
+      ],
+      "yawOffset": 2.28851,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       0,
+       1
+      ]
+     },
+     {
+      "id": "2.A-riviera-h5",
+      "roomId": "2.A-wc",
+      "name": {
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
+      },
+      "file": "renders/units/2.A/riviera/2.A-riviera-h5.jpg",
+      "thumb": "renders/units/2.A/riviera/thumbs/2.A-riviera-h5.jpg",
+      "position": [
+       4.525,
+       7.6,
+       6.01
+      ],
+      "lookAt": [
+       2.796,
+       7.3,
+       6.732
+      ],
+      "yawOffset": 1.96637,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       2,
+       3
+      ]
+     },
+     {
+      "id": "2.A-riviera-h6",
+      "roomId": "2.A-hall",
+      "name": {
+       "en": "Entrance hall",
+       "pt": "Hall",
+       "he": "מבואה"
+      },
+      "file": "renders/units/2.A/riviera/2.A-riviera-h6.jpg",
+      "thumb": "renders/units/2.A/riviera/thumbs/2.A-riviera-h6.jpg",
+      "position": [
+       5.55,
+       7.6,
+       6.01
+      ],
+      "lookAt": [
+       5.248,
+       7.3,
+       6.732
+      ],
+      "yawOffset": 2.74543,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       2,
+       3
+      ]
+     },
+     {
+      "id": "2.A-riviera-h7",
+      "roomId": "2.rear.A",
+      "name": {
+       "en": "Balcony",
+       "pt": "Varanda",
+       "he": "מרפסת"
+      },
+      "file": "renders/units/2.A/riviera/2.A-riviera-h7.jpg",
+      "thumb": "renders/units/2.A/riviera/thumbs/2.A-riviera-h7.jpg",
+      "position": [
+       4.5,
+       7.6,
+       -0.35
+      ],
+      "lookAt": [
+       6.5,
+       7.4,
+       -12
+      ],
+      "yawOffset": -0.17002,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       3,
+       2
+      ]
+     }
+    ],
+    "stills": [
+     {
+      "id": "2.A-bathroom",
+      "roomId": "2.A-ensuite",
+      "name": {
+       "en": "En-suite bathroom",
+       "pt": "I.S. suite",
+       "he": "חדר רחצה צמוד"
+      },
+      "file": "renders/units/2.A/riviera/2.A-bathroom.jpg",
+      "thumb": "renders/units/2.A/riviera/thumbs/2.A-bathroom.jpg",
+      "kind": "bathroom",
+      "lens": 18.0,
+      "position": [
+       1.749,
+       7.45,
+       5.772
+      ],
+      "lookAt": [
+       0.662,
+       7.45,
+       6.641
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "2.A-bedroom",
+      "roomId": "2.A-suite",
+      "name": {
+       "en": "Master suite",
+       "pt": "Suite",
+       "he": "סוויטת הורים"
+      },
+      "file": "renders/units/2.A/riviera/2.A-bedroom.jpg",
+      "thumb": "renders/units/2.A/riviera/thumbs/2.A-bedroom.jpg",
+      "kind": "bedroom",
+      "lens": 24.0,
+      "position": [
+       0.794,
+       7.4,
+       4.097
+      ],
+      "lookAt": [
+       2.056,
+       7.4,
+       1.663
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "2.A-living",
+      "roomId": "2.A-living",
+      "name": {
+       "en": "Living & kitchen",
+       "pt": "Sala / cozinha",
+       "he": "סלון ומטבח"
+      },
+      "file": "renders/units/2.A/riviera/2.A-living.jpg",
+      "thumb": "renders/units/2.A/riviera/thumbs/2.A-living.jpg",
+      "kind": "living",
+      "lens": 24.0,
+      "position": [
+       3.668,
+       7.45,
+       4.132
+      ],
+      "lookAt": [
+       5.13,
+       7.45,
+       1.635
+      ],
+      "W": 2400,
+      "H": 1350
+     }
+    ]
+   },
+   "urban": {
+    "panos": [
+     {
+      "id": "2.A-urban-h5",
+      "roomId": "2.A-wc",
+      "name": {
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
+      },
+      "file": "renders/units/2.A/urban/2.A-urban-h5.jpg",
+      "thumb": "renders/units/2.A/urban/thumbs/2.A-urban-h5.jpg",
+      "position": [
+       4.525,
+       7.6,
+       6.01
+      ],
+      "lookAt": [
+       2.796,
+       7.3,
+       6.732
+      ],
+      "yawOffset": 1.96637,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       1,
+       2
+      ]
+     },
+     {
+      "id": "2.A-urban-h6",
+      "roomId": "2.A-hall",
+      "name": {
+       "en": "Entrance hall",
+       "pt": "Hall",
+       "he": "מבואה"
+      },
+      "file": "renders/units/2.A/urban/2.A-urban-h6.jpg",
+      "thumb": "renders/units/2.A/urban/thumbs/2.A-urban-h6.jpg",
+      "position": [
+       5.55,
+       7.6,
+       6.01
+      ],
+      "lookAt": [
+       5.248,
+       7.3,
+       6.732
+      ],
+      "yawOffset": 2.74543,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       0
+      ]
+     },
+     {
+      "id": "2.A-urban-h7",
+      "roomId": "2.rear.A",
+      "name": {
+       "en": "Balcony",
+       "pt": "Varanda",
+       "he": "מרפסת"
+      },
+      "file": "renders/units/2.A/urban/2.A-urban-h7.jpg",
+      "thumb": "renders/units/2.A/urban/thumbs/2.A-urban-h7.jpg",
+      "position": [
+       4.5,
+       7.6,
+       -0.35
+      ],
+      "lookAt": [
+       6.5,
+       7.4,
+       -12
+      ],
+      "yawOffset": -0.17002,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       0
+      ]
+     }
+    ],
+    "stills": [
+     {
+      "id": "2.A-bathroom",
+      "roomId": "2.A-ensuite",
+      "name": {
+       "en": "En-suite bathroom",
+       "pt": "I.S. suite",
+       "he": "חדר רחצה צמוד"
+      },
+      "file": "renders/units/2.A/urban/2.A-bathroom.jpg",
+      "thumb": "renders/units/2.A/urban/thumbs/2.A-bathroom.jpg",
+      "kind": "bathroom",
+      "lens": 18.0,
+      "position": [
+       1.749,
+       7.45,
+       5.772
+      ],
+      "lookAt": [
+       0.662,
+       7.45,
+       6.641
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "2.A-bedroom",
+      "roomId": "2.A-suite",
+      "name": {
+       "en": "Master suite",
+       "pt": "Suite",
+       "he": "סוויטת הורים"
+      },
+      "file": "renders/units/2.A/urban/2.A-bedroom.jpg",
+      "thumb": "renders/units/2.A/urban/thumbs/2.A-bedroom.jpg",
+      "kind": "bedroom",
+      "lens": 24.0,
+      "position": [
+       0.794,
+       7.4,
+       4.097
+      ],
+      "lookAt": [
+       2.056,
+       7.4,
+       1.663
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "2.A-living",
+      "roomId": "2.A-living",
+      "name": {
+       "en": "Living & kitchen",
+       "pt": "Sala / cozinha",
+       "he": "סלון ומטבח"
+      },
+      "file": "renders/units/2.A/urban/2.A-living.jpg",
+      "thumb": "renders/units/2.A/urban/thumbs/2.A-living.jpg",
       "kind": "living",
       "lens": 24.0,
       "position": [
@@ -11952,6 +13154,141 @@
       },
       "file": "renders/units/2.B/lisboa/2.B-living.jpg",
       "thumb": "renders/units/2.B/lisboa/thumbs/2.B-living.jpg",
+      "kind": "living",
+      "lens": 24.0,
+      "position": [
+       9.374,
+       7.45,
+       4.803
+      ],
+      "lookAt": [
+       6.847,
+       7.45,
+       1.099
+      ],
+      "W": 2400,
+      "H": 1350
+     }
+    ]
+   },
+   "natura": {
+    "panos": [
+     {
+      "id": "2.B-natura-h5",
+      "roomId": "2.B-wc",
+      "name": {
+       "en": "Bathroom",
+       "pt": "I.S.",
+       "he": "חדר רחצה"
+      },
+      "file": "renders/units/2.B/natura/2.B-natura-h5.jpg",
+      "thumb": "renders/units/2.B/natura/thumbs/2.B-natura-h5.jpg",
+      "position": [
+       8.35,
+       7.6,
+       6.01
+      ],
+      "lookAt": [
+       9.284,
+       7.3,
+       6.732
+      ],
+      "yawOffset": -2.22887,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       1
+      ]
+     },
+     {
+      "id": "2.B-natura-h6",
+      "roomId": "2.rear.B",
+      "name": {
+       "en": "Balcony",
+       "pt": "Varanda",
+       "he": "מרפסת"
+      },
+      "file": "renders/units/2.B/natura/2.B-natura-h6.jpg",
+      "thumb": "renders/units/2.B/natura/thumbs/2.B-natura-h6.jpg",
+      "position": [
+       7.95,
+       7.6,
+       -0.35
+      ],
+      "lookAt": [
+       9.95,
+       7.4,
+       -12
+      ],
+      "yawOffset": -0.17002,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       0
+      ]
+     }
+    ],
+    "stills": [
+     {
+      "id": "2.B-bathroom",
+      "roomId": "2.B-wc",
+      "name": {
+       "en": "Bathroom",
+       "pt": "I.S.",
+       "he": "חדר רחצה"
+      },
+      "file": "renders/units/2.B/natura/2.B-bathroom.jpg",
+      "thumb": "renders/units/2.B/natura/thumbs/2.B-bathroom.jpg",
+      "kind": "bathroom",
+      "lens": 18.0,
+      "position": [
+       7.993,
+       7.45,
+       5.832
+      ],
+      "lookAt": [
+       9.085,
+       7.45,
+       6.594
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "2.B-bedroom",
+      "roomId": "2.B-bed",
+      "name": {
+       "en": "Bedroom",
+       "pt": "Quarto",
+       "he": "חדר שינה"
+      },
+      "file": "renders/units/2.B/natura/2.B-bedroom.jpg",
+      "thumb": "renders/units/2.B/natura/thumbs/2.B-bedroom.jpg",
+      "kind": "bedroom",
+      "lens": 24.0,
+      "position": [
+       10.199,
+       7.4,
+       4.972
+      ],
+      "lookAt": [
+       13.175,
+       7.4,
+       1.739
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "2.B-living",
+      "roomId": "2.B-living",
+      "name": {
+       "en": "Living & kitchen",
+       "pt": "Sala / cozinha",
+       "he": "סלון ומטבח"
+      },
+      "file": "renders/units/2.B/natura/2.B-living.jpg",
+      "thumb": "renders/units/2.B/natura/thumbs/2.B-living.jpg",
       "kind": "living",
       "lens": 24.0,
       "position": [
