@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-10-02T19:03:42Z",
+ "generated": "2026-10-02T21:19:16Z",
  "packages": [
   "atlantic",
   "lisboa",
@@ -15669,6 +15669,16 @@
       "yawOffset": 0.49108,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/2.C/atlantic/2.C-atlantic-h3.dusk.jpg",
+        "thumb": "renders/units/2.C/atlantic/thumbs/2.C-atlantic-h3.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/2.C/atlantic/2.C-atlantic-h3.night.jpg",
+        "thumb": "renders/units/2.C/atlantic/thumbs/2.C-atlantic-h3.night.jpg"
+       }
+      },
       "links": [
        8,
        1,
@@ -15698,6 +15708,16 @@
       "yawOffset": -2.74719,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/2.C/atlantic/2.C-atlantic-h4.dusk.jpg",
+        "thumb": "renders/units/2.C/atlantic/thumbs/2.C-atlantic-h4.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/2.C/atlantic/2.C-atlantic-h4.night.jpg",
+        "thumb": "renders/units/2.C/atlantic/thumbs/2.C-atlantic-h4.night.jpg"
+       }
+      },
       "links": [
        1,
        3,
@@ -15932,7 +15952,17 @@
        12.513
       ],
       "W": 2400,
-      "H": 1350
+      "H": 1350,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/2.C/atlantic/2.C-living.dusk.jpg",
+        "thumb": "renders/units/2.C/atlantic/thumbs/2.C-living.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/2.C/atlantic/2.C-living.night.jpg",
+        "thumb": "renders/units/2.C/atlantic/thumbs/2.C-living.night.jpg"
+       }
+      }
      }
     ]
    },
@@ -16082,6 +16112,16 @@
       "yawOffset": 0.49108,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/2.C/lisboa/2.C-lisboa-h3.dusk.jpg",
+        "thumb": "renders/units/2.C/lisboa/thumbs/2.C-lisboa-h3.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/2.C/lisboa/2.C-lisboa-h3.night.jpg",
+        "thumb": "renders/units/2.C/lisboa/thumbs/2.C-lisboa-h3.night.jpg"
+       }
+      },
       "links": [
        8,
        1,
@@ -16111,6 +16151,16 @@
       "yawOffset": -2.74719,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/2.C/lisboa/2.C-lisboa-h4.dusk.jpg",
+        "thumb": "renders/units/2.C/lisboa/thumbs/2.C-lisboa-h4.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/2.C/lisboa/2.C-lisboa-h4.night.jpg",
+        "thumb": "renders/units/2.C/lisboa/thumbs/2.C-lisboa-h4.night.jpg"
+       }
+      },
       "links": [
        1,
        3,
@@ -16345,7 +16395,17 @@
        12.513
       ],
       "W": 2400,
-      "H": 1350
+      "H": 1350,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/2.C/lisboa/2.C-living.dusk.jpg",
+        "thumb": "renders/units/2.C/lisboa/thumbs/2.C-living.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/2.C/lisboa/2.C-living.night.jpg",
+        "thumb": "renders/units/2.C/lisboa/thumbs/2.C-living.night.jpg"
+       }
+      }
      }
     ]
    },
@@ -16495,6 +16555,16 @@
       "yawOffset": 0.49108,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/2.C/natura/2.C-natura-h3.dusk.jpg",
+        "thumb": "renders/units/2.C/natura/thumbs/2.C-natura-h3.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/2.C/natura/2.C-natura-h3.night.jpg",
+        "thumb": "renders/units/2.C/natura/thumbs/2.C-natura-h3.night.jpg"
+       }
+      },
       "links": [
        8,
        1,
@@ -16524,6 +16594,16 @@
       "yawOffset": -2.73209,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/2.C/natura/2.C-natura-h4.dusk.jpg",
+        "thumb": "renders/units/2.C/natura/thumbs/2.C-natura-h4.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/2.C/natura/2.C-natura-h4.night.jpg",
+        "thumb": "renders/units/2.C/natura/thumbs/2.C-natura-h4.night.jpg"
+       }
+      },
       "links": [
        1,
        3,
@@ -16758,7 +16838,17 @@
        12.513
       ],
       "W": 2400,
-      "H": 1350
+      "H": 1350,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/2.C/natura/2.C-living.dusk.jpg",
+        "thumb": "renders/units/2.C/natura/thumbs/2.C-living.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/2.C/natura/2.C-living.night.jpg",
+        "thumb": "renders/units/2.C/natura/thumbs/2.C-living.night.jpg"
+       }
+      }
      }
     ]
    },
@@ -16909,6 +16999,10 @@
       "W": 3072,
       "H": 1536,
       "variants": {
+       "dusk": {
+        "file": "renders/units/2.C/noir/2.C-noir-h3.dusk.jpg",
+        "thumb": "renders/units/2.C/noir/thumbs/2.C-noir-h3.dusk.jpg"
+       },
        "night": {
         "file": "renders/units/2.C/noir/2.C-noir-h3.night.jpg",
         "thumb": "renders/units/2.C/noir/thumbs/2.C-noir-h3.night.jpg"
@@ -16944,6 +17038,10 @@
       "W": 3072,
       "H": 1536,
       "variants": {
+       "dusk": {
+        "file": "renders/units/2.C/noir/2.C-noir-h4.dusk.jpg",
+        "thumb": "renders/units/2.C/noir/thumbs/2.C-noir-h4.dusk.jpg"
+       },
        "night": {
         "file": "renders/units/2.C/noir/2.C-noir-h4.night.jpg",
         "thumb": "renders/units/2.C/noir/thumbs/2.C-noir-h4.night.jpg"
@@ -17185,6 +17283,10 @@
       "W": 2400,
       "H": 1350,
       "variants": {
+       "dusk": {
+        "file": "renders/units/2.C/noir/2.C-living.dusk.jpg",
+        "thumb": "renders/units/2.C/noir/thumbs/2.C-living.dusk.jpg"
+       },
        "night": {
         "file": "renders/units/2.C/noir/2.C-living.night.jpg",
         "thumb": "renders/units/2.C/noir/thumbs/2.C-living.night.jpg"
@@ -17339,6 +17441,16 @@
       "yawOffset": 0.49108,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/2.C/riviera/2.C-riviera-h3.dusk.jpg",
+        "thumb": "renders/units/2.C/riviera/thumbs/2.C-riviera-h3.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/2.C/riviera/2.C-riviera-h3.night.jpg",
+        "thumb": "renders/units/2.C/riviera/thumbs/2.C-riviera-h3.night.jpg"
+       }
+      },
       "links": [
        8,
        1,
@@ -17368,6 +17480,16 @@
       "yawOffset": -2.74719,
       "W": 3072,
       "H": 1536,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/2.C/riviera/2.C-riviera-h4.dusk.jpg",
+        "thumb": "renders/units/2.C/riviera/thumbs/2.C-riviera-h4.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/2.C/riviera/2.C-riviera-h4.night.jpg",
+        "thumb": "renders/units/2.C/riviera/thumbs/2.C-riviera-h4.night.jpg"
+       }
+      },
       "links": [
        1,
        3,
@@ -17602,7 +17724,17 @@
        12.513
       ],
       "W": 2400,
-      "H": 1350
+      "H": 1350,
+      "variants": {
+       "dusk": {
+        "file": "renders/units/2.C/riviera/2.C-living.dusk.jpg",
+        "thumb": "renders/units/2.C/riviera/thumbs/2.C-living.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/2.C/riviera/2.C-living.night.jpg",
+        "thumb": "renders/units/2.C/riviera/thumbs/2.C-living.night.jpg"
+       }
+      }
      }
     ]
    },
@@ -17756,6 +17888,10 @@
        "dusk": {
         "file": "renders/units/2.C/urban/2.C-urban-h3.dusk.jpg",
         "thumb": "renders/units/2.C/urban/thumbs/2.C-urban-h3.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/2.C/urban/2.C-urban-h3.night.jpg",
+        "thumb": "renders/units/2.C/urban/thumbs/2.C-urban-h3.night.jpg"
        }
       },
       "links": [
@@ -17791,6 +17927,10 @@
        "dusk": {
         "file": "renders/units/2.C/urban/2.C-urban-h4.dusk.jpg",
         "thumb": "renders/units/2.C/urban/thumbs/2.C-urban-h4.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/2.C/urban/2.C-urban-h4.night.jpg",
+        "thumb": "renders/units/2.C/urban/thumbs/2.C-urban-h4.night.jpg"
        }
       },
       "links": [
@@ -18032,6 +18172,10 @@
        "dusk": {
         "file": "renders/units/2.C/urban/2.C-living.dusk.jpg",
         "thumb": "renders/units/2.C/urban/thumbs/2.C-living.dusk.jpg"
+       },
+       "night": {
+        "file": "renders/units/2.C/urban/2.C-living.night.jpg",
+        "thumb": "renders/units/2.C/urban/thumbs/2.C-living.night.jpg"
        }
       }
      }
@@ -18076,6 +18220,10 @@
     "dusk": {
      "file": "renders/exterior/entrance-dusk.jpg",
      "thumb": "renders/exterior/thumbs/entrance-dusk.jpg"
+    },
+    "night": {
+     "file": "renders/exterior/entrance-night.jpg",
+     "thumb": "renders/exterior/thumbs/entrance-night.jpg"
     }
    }
   },
@@ -18091,6 +18239,19 @@
    "H": 1350,
    "variantOf": "entrance-day",
    "variantTod": "dusk"
+  },
+  {
+   "id": "entrance-night",
+   "roomId": null,
+   "name": "Street entrance at night",
+   "file": "renders/exterior/entrance-night.jpg",
+   "thumb": "renders/exterior/thumbs/entrance-night.jpg",
+   "tod": "night",
+   "lens": 28.0,
+   "W": 2400,
+   "H": 1350,
+   "variantOf": "entrance-day",
+   "variantTod": "night"
   },
   {
    "id": "garage-ramp",
@@ -18134,7 +18295,13 @@
    "tod": "dusk",
    "lens": 18.0,
    "W": 2400,
-   "H": 1350
+   "H": 1350,
+   "variants": {
+    "night": {
+     "file": "renders/exterior/street-night.jpg",
+     "thumb": "renders/exterior/thumbs/street-night.jpg"
+    }
+   }
   },
   {
    "id": "street-eye",
@@ -18145,7 +18312,26 @@
    "tod": "day",
    "lens": 24.0,
    "W": 1350,
-   "H": 2400
+   "H": 2400,
+   "variants": {
+    "night": {
+     "file": "renders/exterior/street-eye-night.jpg",
+     "thumb": "renders/exterior/thumbs/street-eye-night.jpg"
+    }
+   }
+  },
+  {
+   "id": "street-eye-night",
+   "roomId": null,
+   "name": "Street, eye level, at night",
+   "file": "renders/exterior/street-eye-night.jpg",
+   "thumb": "renders/exterior/thumbs/street-eye-night.jpg",
+   "tod": "night",
+   "lens": 24.0,
+   "W": 1350,
+   "H": 2400,
+   "variantOf": "street-eye",
+   "variantTod": "night"
   },
   {
    "id": "street-golden-34",
@@ -18157,6 +18343,19 @@
    "lens": 24.0,
    "W": 2400,
    "H": 1350
+  },
+  {
+   "id": "street-night",
+   "roomId": null,
+   "name": "Frontal street view at night",
+   "file": "renders/exterior/street-night.jpg",
+   "thumb": "renders/exterior/thumbs/street-night.jpg",
+   "tod": "night",
+   "lens": 18.0,
+   "W": 2400,
+   "H": 1350,
+   "variantOf": "street-dusk",
+   "variantTod": "night"
   }
  ],
  "common": [
@@ -18224,7 +18423,13 @@
    "tod": "day",
    "lens": 18.0,
    "W": 2400,
-   "H": 1350
+   "H": 1350,
+   "variants": {
+    "night": {
+     "file": "renders/common/lobby-night.jpg",
+     "thumb": "renders/common/thumbs/lobby-night.jpg"
+    }
+   }
   },
   {
    "id": "lobby-2",
@@ -18235,7 +18440,39 @@
    "tod": "day",
    "lens": 18.0,
    "W": 2400,
-   "H": 1350
+   "H": 1350,
+   "variants": {
+    "night": {
+     "file": "renders/common/lobby-2-night.jpg",
+     "thumb": "renders/common/thumbs/lobby-2-night.jpg"
+    }
+   }
+  },
+  {
+   "id": "lobby-2-night",
+   "roomId": null,
+   "name": "Lobby towards the entrance, at night",
+   "file": "renders/common/lobby-2-night.jpg",
+   "thumb": "renders/common/thumbs/lobby-2-night.jpg",
+   "tod": "night",
+   "lens": 18.0,
+   "W": 2400,
+   "H": 1350,
+   "variantOf": "lobby-2",
+   "variantTod": "night"
+  },
+  {
+   "id": "lobby-night",
+   "roomId": null,
+   "name": "Entrance lobby at night",
+   "file": "renders/common/lobby-night.jpg",
+   "thumb": "renders/common/thumbs/lobby-night.jpg",
+   "tod": "night",
+   "lens": 18.0,
+   "W": 2400,
+   "H": 1350,
+   "variantOf": "lobby",
+   "variantTod": "night"
   }
  ]
 }
