@@ -18,7 +18,7 @@
    "W": 960,
    "H": 540,
    "spp": 64,
-   "ev": 2.2496023618511787,
+   "ev": 2.2570917704044957,
    "tod": "night",
    "position": [
     9,
@@ -37,9 +37,9 @@
    "variant_tod": "night",
    "lens": 18.0,
    "shift_y": -0.0034,
-   "seconds": 594.5
+   "seconds": 352.6
   }
  ],
- "seconds": 599.4,
+ "seconds": 355.2,
  "blender": "4.2.3 LTS"
 }
