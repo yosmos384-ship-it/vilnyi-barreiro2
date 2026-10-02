@@ -6,34 +6,38 @@
   "quality": "standard",
   "tod": "day",
   "shots": [
-   "2.B-living",
-   "2.B-bedroom",
-   "2.B-bathroom"
+   "2.B-noir-h0",
+   "2.B-noir-h1",
+   "2.B-noir-h2",
+   "2.B-noir-h3",
+   "2.B-noir-h4"
   ],
   "out": "renders/units/2.B/noir",
   "name": "u2.B-noir-0",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
-   "id": "2.B-living",
-   "type": "still",
-   "file": "renders/units/2.B/noir/2.B-living.jpg",
-   "thumb": "renders/units/2.B/noir/thumbs/2.B-living.jpg",
-   "W": 2400,
-   "H": 1350,
-   "spp": 96,
-   "ev": 2.7113138795151754,
+   "id": "2.B-noir-h0",
+   "type": "pano",
+   "file": "renders/units/2.B/noir/2.B-noir-h0.jpg",
+   "thumb": "renders/units/2.B/noir/thumbs/2.B-noir-h0.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.1156185517093857,
    "tod": "day",
    "position": [
-    9.374,
-    7.45,
-    4.803
+    9,
+    7.6,
+    4.6
    ],
    "lookAt": [
-    6.847,
-    7.45,
-    1.099
+    7.296,
+    7.25,
+    0.474
    ],
    "roomId": "2.B-living",
    "name": {
@@ -41,30 +45,61 @@
     "pt": "Sala / cozinha",
     "he": "סלון ומטבח"
    },
-   "kind": "living",
-   "lens": 24.0,
-   "shift_y": 0.0,
-   "seconds": 968.5
+   "kind": null,
+   "yawOffset": 0.39165,
+   "index": 0,
+   "seconds": 601.6
   },
   {
-   "id": "2.B-bedroom",
-   "type": "still",
-   "file": "renders/units/2.B/noir/2.B-bedroom.jpg",
-   "thumb": "renders/units/2.B/noir/thumbs/2.B-bedroom.jpg",
-   "W": 2400,
-   "H": 1350,
-   "spp": 96,
-   "ev": 0.1182081939018465,
+   "id": "2.B-noir-h1",
+   "type": "pano",
+   "file": "renders/units/2.B/noir/2.B-noir-h1.jpg",
+   "thumb": "renders/units/2.B/noir/thumbs/2.B-noir-h1.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 2.8539361852028517,
    "tod": "day",
    "position": [
-    10.199,
-    7.4,
-    4.972
+    6.908,
+    7.6,
+    0.842
    ],
    "lookAt": [
-    13.175,
-    7.4,
-    1.739
+    8.25,
+    7,
+    2.9
+   ],
+   "roomId": "2.B-living",
+   "name": {
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": -2.56375,
+   "index": 1,
+   "seconds": 601.9
+  },
+  {
+   "id": "2.B-noir-h2",
+   "type": "pano",
+   "file": "renders/units/2.B/noir/2.B-noir-h2.jpg",
+   "thumb": "renders/units/2.B/noir/thumbs/2.B-noir-h2.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.6237583936143305,
+   "tod": "day",
+   "position": [
+    12.81,
+    7.6,
+    4.15
+   ],
+   "lookAt": [
+    11.672,
+    6.95,
+    2.39
    ],
    "roomId": "2.B-bed",
    "name": {
@@ -72,43 +107,74 @@
     "pt": "Quarto",
     "he": "חדר שינה"
    },
-   "kind": "bedroom",
-   "lens": 24.0,
-   "shift_y": 0.0,
-   "seconds": 1263.5
+   "kind": null,
+   "yawOffset": 0.57398,
+   "index": 2,
+   "seconds": 658.3
   },
   {
-   "id": "2.B-bathroom",
-   "type": "still",
-   "file": "renders/units/2.B/noir/2.B-bathroom.jpg",
-   "thumb": "renders/units/2.B/noir/thumbs/2.B-bathroom.jpg",
-   "W": 2400,
-   "H": 1350,
-   "spp": 96,
-   "ev": 6.702849390496373,
+   "id": "2.B-noir-h3",
+   "type": "pano",
+   "file": "renders/units/2.B/noir/2.B-noir-h3.jpg",
+   "thumb": "renders/units/2.B/noir/thumbs/2.B-noir-h3.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 2.775065258018826,
    "tod": "day",
    "position": [
-    7.993,
-    7.45,
-    5.832
+    10.608,
+    7.6,
+    4.725
    ],
    "lookAt": [
-    9.085,
-    7.45,
-    6.594
+    12.331,
+    7,
+    3.663
    ],
-   "roomId": "2.B-wc",
+   "roomId": "2.B-bed",
    "name": {
-    "en": "Bathroom",
-    "pt": "I.S.",
-    "he": "חדר רחצה"
+    "en": "Bedroom · view 2",
+    "pt": "Quarto · vista 2",
+    "he": "חדר שינה · מבט 2"
    },
-   "kind": "bathroom",
-   "lens": 18.0,
-   "shift_y": 0.0,
-   "seconds": 808.7
+   "kind": null,
+   "yawOffset": -1.01843,
+   "index": 3,
+   "seconds": 655.2
+  },
+  {
+   "id": "2.B-noir-h4",
+   "type": "pano",
+   "file": "renders/units/2.B/noir/2.B-noir-h4.jpg",
+   "thumb": "renders/units/2.B/noir/thumbs/2.B-noir-h4.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.8630436954583516,
+   "tod": "day",
+   "position": [
+    6.795,
+    7.6,
+    6.01
+   ],
+   "lookAt": [
+    6.428,
+    7.3,
+    6.732
+   ],
+   "roomId": "2.B-hall",
+   "name": {
+    "en": "Entrance hall",
+    "pt": "Hall",
+    "he": "מבואה"
+   },
+   "kind": null,
+   "yawOffset": 2.67132,
+   "index": 4,
+   "seconds": 575.9
   }
  ],
- "seconds": 3061.7,
+ "seconds": 3095.5,
  "blender": "4.2.3 LTS"
 }
