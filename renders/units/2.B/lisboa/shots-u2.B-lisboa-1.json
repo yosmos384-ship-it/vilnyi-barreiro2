@@ -11,7 +11,9 @@
   ],
   "out": "renders/units/2.B/lisboa",
   "name": "u2.B-lisboa-1",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
@@ -22,7 +24,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 1.8077449635924805,
+   "ev": 3.290059936988237,
    "tod": "day",
    "position": [
     8.35,
@@ -43,7 +45,7 @@
    "kind": null,
    "yawOffset": -2.22887,
    "index": 5,
-   "seconds": 1254.0
+   "seconds": 1627.1
   },
   {
    "id": "2.B-lisboa-h6",
@@ -53,7 +55,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": -2.8097384516231574,
+   "ev": -2.2903314262652024,
    "tod": "day",
    "position": [
     7.95,
@@ -74,9 +76,9 @@
    "kind": null,
    "yawOffset": -0.17002,
    "index": 6,
-   "seconds": 538.5
+   "seconds": 810.4
   }
  ],
- "seconds": 1806.0,
+ "seconds": 2442.0,
  "blender": "4.2.3 LTS"
 }
