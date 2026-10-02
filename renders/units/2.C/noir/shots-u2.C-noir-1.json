@@ -13,7 +13,9 @@
   ],
   "out": "renders/units/2.C/noir",
   "name": "u2.C-noir-1",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
@@ -24,7 +26,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 2.3796396014647256,
+   "ev": 3.7266921128919823,
    "tod": "day",
    "position": [
     5.5,
@@ -45,7 +47,7 @@
    "kind": null,
    "yawOffset": 0.5691,
    "index": 5,
-   "seconds": 791.1
+   "seconds": 1242.0
   },
   {
    "id": "2.C-noir-h6",
@@ -55,7 +57,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 2.6682416843622327,
+   "ev": 3.717669510201187,
    "tod": "day",
    "position": [
     8.16,
@@ -76,7 +78,7 @@
    "kind": null,
    "yawOffset": 2.62423,
    "index": 6,
-   "seconds": 892.9
+   "seconds": 1307.1
   },
   {
    "id": "2.C-noir-h7",
@@ -86,7 +88,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": -3.0079647517979247,
+   "ev": -1.0678217932498213,
    "tod": "day",
    "position": [
     7.9,
@@ -107,7 +109,7 @@
    "kind": null,
    "yawOffset": 2.97158,
    "index": 7,
-   "seconds": 532.6
+   "seconds": 909.1
   },
   {
    "id": "2.C-noir-h8",
@@ -117,7 +119,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": -3.0079647517979247,
+   "ev": -1.177653940655794,
    "tod": "day",
    "position": [
     11.75,
@@ -138,9 +140,9 @@
    "kind": null,
    "yawOffset": 2.97158,
    "index": 8,
-   "seconds": 543.1
+   "seconds": 916.2
   }
  ],
- "seconds": 2772.0,
+ "seconds": 4378.9,
  "blender": "4.2.3 LTS"
 }
