@@ -1,0 +1,117 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.A",
+  "pkg": "atlantic",
+  "quality": "standard",
+  "tod": "dusk",
+  "shots": [
+   "2.A-atlantic-h2",
+   "2.A-atlantic-h3",
+   "2.A-living"
+  ],
+  "out": "renders/units/2.A/atlantic",
+  "name": "u2.A-atlantic-dusk-0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "2.A-atlantic-h2",
+   "type": "pano",
+   "file": "renders/units/2.A/atlantic/2.A-atlantic-h2.dusk.jpg",
+   "thumb": "renders/units/2.A/atlantic/thumbs/2.A-atlantic-h2.dusk.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 5.625266274301056,
+   "tod": "dusk",
+   "position": [
+    3.66,
+    7.6,
+    4.6
+   ],
+   "lookAt": [
+    5.06,
+    7.25,
+    0.474
+   ],
+   "roomId": "2.A-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": null,
+   "variant": "dusk",
+   "yawOffset": -0.32712,
+   "index": 2,
+   "seconds": 1716.0
+  },
+  {
+   "id": "2.A-atlantic-h3",
+   "type": "pano",
+   "file": "renders/units/2.A/atlantic/2.A-atlantic-h3.dusk.jpg",
+   "thumb": "renders/units/2.A/atlantic/thumbs/2.A-atlantic-h3.dusk.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 4.972741404385201,
+   "tod": "dusk",
+   "position": [
+    4.751,
+    7.6,
+    2.306
+   ],
+   "lookAt": [
+    4.07,
+    7,
+    3.672
+   ],
+   "roomId": "2.A-living",
+   "name": {
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
+   },
+   "kind": null,
+   "variant": "dusk",
+   "yawOffset": 2.67912,
+   "index": 3,
+   "seconds": 1778.7
+  },
+  {
+   "id": "2.A-living",
+   "type": "still",
+   "file": "renders/units/2.A/atlantic/2.A-living.dusk.jpg",
+   "thumb": "renders/units/2.A/atlantic/thumbs/2.A-living.dusk.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 4.2057178580212655,
+   "tod": "dusk",
+   "position": [
+    3.668,
+    7.45,
+    4.132
+   ],
+   "lookAt": [
+    5.13,
+    7.45,
+    1.635
+   ],
+   "roomId": "2.A-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "dusk",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1563.5
+  }
+ ],
+ "seconds": 5063.3,
+ "blender": "4.2.3 LTS"
+}

@@ -1,0 +1,23 @@
+[    0.0s] job u2.A-atlantic-dusk-0: scope=unit unit=2.A pkg=atlantic quality=standard shots=3
+[    0.9s] import building: 491 objects in 0.8s
+[    1.3s] import context: 127 objects in 0.4s
+[    1.6s] import unit-2.A-atlantic: 83 objects in 0.3s
+[    2.0s] box UVs on 635 meshes
+[    2.0s] [presets] from lighting_presets.json (snapshot of js/environment.js)
+[    3.7s] [foliage] leafified 26 objects, crown area 1129 m2 -> ~1467238 leaves
+[    3.7s] materials: built=237 textured=66 by_key={'aluminium-frame': 2, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 3, 'asphalt': 1, 'bark': 1, 'bath-floor': 1, 'bath-wall': 1, 'book': 3, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 4, 'candle-wax': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-taillight': 1, 'car-tyre': 1, 'ceiling': 1, 'ceiling-white': 2, 'ceramic-plate': 4, 'concrete': 5, 'cutlery-steel': 1, 'deck-teak': 2, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'fabric-boucle': 6, 'fabric-linen': 7, 'fabric-sofa': 1, 'floor-main': 2, 'foliage': 21, 'foliage-inner': 1, 'fruit': 3, 'garage-door': 1, 'glass-drinking': 2, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 2, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 2, 'leather': 2, 'led-strip-emissive': 13, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 4, 'mirror': 2, 'paint-white': 1, 'paving-calcada': 2, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 2, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 1, 'sanitary-ceramic': 3, 'shower-glass': 1, 'shower-wall': 1, 'signage': 39, 'skirting': 2, 'soil': 3, 'steel-dark': 9, 'stone-coping': 2, 'tap-metal': 1, 'timber-soffit': 1, 'wall-paint': 1, 'wine': 1, 'wood-furniture': 5, 'zinc-standing-seam': 2}
+[    3.7s] [lamps] dusk: list=6 new=0 merged-with-bulbs=2 strips=3 no-fixture=1 (933 lm per unit intensity)
+[    3.7s] evening lights: street=6 lamp-list=2 lit-window fraction=0.25
+[    3.7s] lights: imported=0 emissive->lights=173 portals=12 boost=1.0 total_lights=191 polys=363144
+[    5.1s] [world] procedural dusk: sun bearing 250 alt -4 key 14.0 lux, sky 70.0 lux (mean radiance 0.06276), stars 131, camera gain 1.0
+[    5.1s] scene ready in 5.1s  (world procedural-dusk)
+[   20.4s] [expo] interior dusk: in/out/sky=19781/189/30 key=0.25 Lavg=0.005065 p97=0.05784 ev_hi=6.70 -> ev=5.63 windowND=0.09
+[   20.4s] [wb] gains (0.571, 1.0, 1.526)
+[ 1721.1s] SHOT 2.A-atlantic-h2 pano 3072x1536 spp<=64 ev=5.63 in 1716.0s -> renders/units/2.A/atlantic/2.A-atlantic-h2.dusk.jpg
+[ 1733.7s] [expo] interior dusk: in/out/sky=19101/661/238 key=0.25 Lavg=0.007962 p97=0.1437 ev_hi=5.38 -> ev=4.97 windowND=0.09
+[ 1733.7s] [wb] gains (0.556, 1.0, 1.697)
+[ 3499.8s] SHOT 2.A-atlantic-h3 pano 3072x1536 spp<=64 ev=4.97 in 1778.7s -> renders/units/2.A/atlantic/2.A-atlantic-h3.dusk.jpg
+[ 3513.0s] [expo] interior dusk: in/out/sky=15964/4788/1648 key=0.25 Lavg=0.008284 p97=0.3252 ev_hi=4.21 -> ev=4.21 windowND=0.12
+[ 3513.0s] [wb] gains (0.568, 1.0, 1.747)
+[ 5063.3s] SHOT 2.A-living still 2400x1350 spp<=96 ev=4.21 in 1563.5s -> renders/units/2.A/atlantic/2.A-living.dusk.jpg
+[ 5063.3s] DONE 3 images in 5063.3s
