@@ -6,10 +6,9 @@
   "quality": "standard",
   "tod": "night",
   "shots": [
-   "1.C-riviera-h0",
-   "1.C-riviera-h1",
-   "1.C-riviera-h2",
-   "1.C-riviera-h5"
+   "1.C-riviera-h3",
+   "1.C-riviera-h4",
+   "1.C-living"
   ],
   "out": "renders/units/1.C/riviera",
   "name": "u1.C-riviera-night-0",
@@ -17,134 +16,102 @@
  },
  "shots": [
   {
-   "id": "1.C-riviera-h0",
+   "id": "1.C-riviera-h3",
    "type": "pano",
-   "file": "renders/units/1.C/riviera/1.C-riviera-h0.night.jpg",
-   "thumb": "renders/units/1.C/riviera/thumbs/1.C-riviera-h0.night.jpg",
+   "file": "renders/units/1.C/riviera/1.C-riviera-h3.night.jpg",
+   "thumb": "renders/units/1.C/riviera/thumbs/1.C-riviera-h3.night.jpg",
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 7.913802379982966,
+   "ev": 5.166436589834734,
    "tod": "night",
    "position": [
-    3.7,
+    10.26,
     4.6,
-    9.95
+    7.21
    ],
    "lookAt": [
-    8.721,
+    12.44,
     4.25,
-    10.788
+    13.982
    ],
-   "roomId": "1.C-hall",
+   "roomId": "1.C-living",
    "name": {
-    "en": "Hall",
-    "pt": "Hall",
-    "he": "מסדרון"
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
    },
    "kind": null,
    "variant": "night",
-   "yawOffset": -1.73617,
-   "index": 0,
-   "seconds": 1491.1
+   "yawOffset": -2.83015,
+   "index": 3,
+   "seconds": 1620.7
   },
   {
-   "id": "1.C-riviera-h1",
+   "id": "1.C-riviera-h4",
    "type": "pano",
-   "file": "renders/units/1.C/riviera/1.C-riviera-h1.night.jpg",
-   "thumb": "renders/units/1.C/riviera/thumbs/1.C-riviera-h1.night.jpg",
+   "file": "renders/units/1.C/riviera/1.C-riviera-h4.night.jpg",
+   "thumb": "renders/units/1.C/riviera/thumbs/1.C-riviera-h4.night.jpg",
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 6.599032777710422,
+   "ev": 7.02727846833627,
    "tod": "night",
    "position": [
-    6.799,
+    13.086,
     4.6,
-    10.125
+    13.882
    ],
    "lookAt": [
-    5.132,
+    11.76,
     4,
-    9.842
+    9.71
    ],
-   "roomId": "1.C-hall",
+   "roomId": "1.C-living",
    "name": {
-    "en": "Hall · view 2",
-    "pt": "Hall · vista 2",
-    "he": "מסדרון · מבט 2"
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
    },
    "kind": null,
    "variant": "night",
-   "yawOffset": 1.40263,
-   "index": 1,
-   "seconds": 1465.2
+   "yawOffset": 0.30774,
+   "index": 4,
+   "seconds": 1174.9
   },
   {
-   "id": "1.C-riviera-h2",
-   "type": "pano",
-   "file": "renders/units/1.C/riviera/1.C-riviera-h2.night.jpg",
-   "thumb": "renders/units/1.C/riviera/thumbs/1.C-riviera-h2.night.jpg",
-   "W": 3072,
-   "H": 1536,
-   "spp": 64,
-   "ev": 6.405261632056307,
+   "id": "1.C-living",
+   "type": "still",
+   "file": "renders/units/1.C/riviera/1.C-living.night.jpg",
+   "thumb": "renders/units/1.C/riviera/thumbs/1.C-living.night.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 6.543489168056331,
    "tod": "night",
    "position": [
-    8.15,
-    4.6,
-    8.59
+    10.143,
+    4.45,
+    6.733
    ],
    "lookAt": [
-    9.044,
-    4.3,
-    7.628
+    12.838,
+    4.45,
+    12.623
    ],
-   "roomId": "1.C-wc",
+   "roomId": "1.C-living",
    "name": {
-    "en": "Bathroom",
-    "pt": "I.S.",
-    "he": "חדר רחצה"
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
    },
-   "kind": null,
+   "kind": "living",
    "variant": "night",
-   "yawOffset": -0.74878,
-   "index": 2,
-   "seconds": 1261.7
-  },
-  {
-   "id": "1.C-riviera-h5",
-   "type": "pano",
-   "file": "renders/units/1.C/riviera/1.C-riviera-h5.night.jpg",
-   "thumb": "renders/units/1.C/riviera/thumbs/1.C-riviera-h5.night.jpg",
-   "W": 3072,
-   "H": 1536,
-   "spp": 64,
-   "ev": 8.019947925328946,
-   "tod": "night",
-   "position": [
-    5.5,
-    4.6,
-    13.91
-   ],
-   "lookAt": [
-    4.662,
-    3.95,
-    12.6
-   ],
-   "roomId": "1.C-bed1",
-   "name": {
-    "en": "Main bedroom",
-    "pt": "Quarto",
-    "he": "חדר שינה ראשי"
-   },
-   "kind": null,
-   "variant": "night",
-   "yawOffset": 0.5691,
-   "index": 5,
-   "seconds": 1207.3
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1651.1
   }
  ],
- "seconds": 5431.0,
+ "seconds": 4452.7,
  "blender": "4.2.3 LTS"
 }
