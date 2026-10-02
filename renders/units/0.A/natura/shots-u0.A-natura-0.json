@@ -1,0 +1,180 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "0.A",
+  "pkg": "natura",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "0.A-natura-h0",
+   "0.A-natura-h1",
+   "0.A-natura-h2",
+   "0.A-natura-h3",
+   "0.A-natura-h4"
+  ],
+  "out": "renders/units/0.A/natura",
+  "name": "u0.A-natura-0",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "0.A-natura-h0",
+   "type": "pano",
+   "file": "renders/units/0.A/natura/0.A-natura-h0.jpg",
+   "thumb": "renders/units/0.A/natura/thumbs/0.A-natura-h0.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 4.091599183742428,
+   "tod": "day",
+   "position": [
+    0.85,
+    1.6,
+    4.6
+   ],
+   "lookAt": [
+    1.028,
+    0.95,
+    2.75
+   ],
+   "roomId": "0.A-suite",
+   "name": {
+    "en": "Master suite",
+    "pt": "Suite",
+    "he": "סוויטת הורים"
+   },
+   "kind": null,
+   "yawOffset": -0.09592,
+   "index": 0,
+   "seconds": 2129.9
+  },
+  {
+   "id": "0.A-natura-h1",
+   "type": "pano",
+   "file": "renders/units/0.A/natura/0.A-natura-h1.jpg",
+   "thumb": "renders/units/0.A/natura/thumbs/0.A-natura-h1.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.8834898957567705,
+   "tod": "day",
+   "position": [
+    2.208,
+    1.6,
+    4.648
+   ],
+   "lookAt": [
+    1.173,
+    1,
+    3.672
+   ],
+   "roomId": "0.A-suite",
+   "name": {
+    "en": "Master suite · view 2",
+    "pt": "Suite · vista 2",
+    "he": "סוויטת הורים · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": 0.81473,
+   "index": 1,
+   "seconds": 2187.3
+  },
+  {
+   "id": "0.A-natura-h2",
+   "type": "pano",
+   "file": "renders/units/0.A/natura/0.A-natura-h2.jpg",
+   "thumb": "renders/units/0.A/natura/thumbs/0.A-natura-h2.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.3357333789204664,
+   "tod": "day",
+   "position": [
+    3.66,
+    1.6,
+    4.6
+   ],
+   "lookAt": [
+    5.06,
+    1.25,
+    0.474
+   ],
+   "roomId": "0.A-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": null,
+   "yawOffset": -0.32712,
+   "index": 2,
+   "seconds": 2121.6
+  },
+  {
+   "id": "0.A-natura-h3",
+   "type": "pano",
+   "file": "renders/units/0.A/natura/0.A-natura-h3.jpg",
+   "thumb": "renders/units/0.A/natura/thumbs/0.A-natura-h3.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 2.790473785618059,
+   "tod": "day",
+   "position": [
+    4.751,
+    1.6,
+    2.306
+   ],
+   "lookAt": [
+    4.07,
+    1,
+    3.672
+   ],
+   "roomId": "0.A-living",
+   "name": {
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": 2.67912,
+   "index": 3,
+   "seconds": 2120.0
+  },
+  {
+   "id": "0.A-natura-h4",
+   "type": "pano",
+   "file": "renders/units/0.A/natura/0.A-natura-h4.jpg",
+   "thumb": "renders/units/0.A/natura/thumbs/0.A-natura-h4.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.4332362998992165,
+   "tod": "day",
+   "position": [
+    1.375,
+    1.6,
+    6.01
+   ],
+   "lookAt": [
+    0.548,
+    1.3,
+    6.732
+   ],
+   "roomId": "0.A-ensuite",
+   "name": {
+    "en": "En-suite bathroom",
+    "pt": "I.S. suite",
+    "he": "חדר רחצה צמוד"
+   },
+   "kind": null,
+   "yawOffset": 2.28851,
+   "index": 4,
+   "seconds": 2154.0
+  }
+ ],
+ "seconds": 10717.5,
+ "blender": "4.2.3 LTS"
+}
