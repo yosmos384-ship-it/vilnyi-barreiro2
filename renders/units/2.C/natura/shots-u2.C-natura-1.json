@@ -1,0 +1,148 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.C",
+  "pkg": "natura",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "2.C-natura-h5",
+   "2.C-natura-h6",
+   "2.C-natura-h7",
+   "2.C-natura-h8"
+  ],
+  "out": "renders/units/2.C/natura",
+  "name": "u2.C-natura-1",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "2.C-natura-h5",
+   "type": "pano",
+   "file": "renders/units/2.C/natura/2.C-natura-h5.jpg",
+   "thumb": "renders/units/2.C/natura/thumbs/2.C-natura-h5.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 2.430229923343522,
+   "tod": "day",
+   "position": [
+    5.5,
+    7.6,
+    13.91
+   ],
+   "lookAt": [
+    4.662,
+    6.95,
+    12.6
+   ],
+   "roomId": "2.C-bed1",
+   "name": {
+    "en": "Main bedroom",
+    "pt": "Quarto",
+    "he": "חדר שינה ראשי"
+   },
+   "kind": null,
+   "yawOffset": 0.5691,
+   "index": 5,
+   "seconds": 1730.4
+  },
+  {
+   "id": "2.C-natura-h6",
+   "type": "pano",
+   "file": "renders/units/2.C/natura/2.C-natura-h6.jpg",
+   "thumb": "renders/units/2.C/natura/thumbs/2.C-natura-h6.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 1.8523698808667328,
+   "tod": "day",
+   "position": [
+    8.16,
+    7.6,
+    11.96
+   ],
+   "lookAt": [
+    6.92,
+    7.25,
+    14.139
+   ],
+   "roomId": "2.C-bed2",
+   "name": {
+    "en": "Bedroom 2",
+    "pt": "Quarto 2",
+    "he": "חדר שינה 2"
+   },
+   "kind": null,
+   "yawOffset": 2.62423,
+   "index": 6,
+   "seconds": 1984.6
+  },
+  {
+   "id": "2.C-natura-h7",
+   "type": "pano",
+   "file": "renders/units/2.C/natura/2.C-natura-h7.jpg",
+   "thumb": "renders/units/2.C/natura/thumbs/2.C-natura-h7.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": -1.1505171038875952,
+   "tod": "day",
+   "position": [
+    7.9,
+    7.6,
+    15.05
+   ],
+   "lookAt": [
+    5.9,
+    7.4,
+    26.7
+   ],
+   "roomId": "2.front.1",
+   "name": {
+    "en": "Balcony",
+    "pt": "Varanda",
+    "he": "מרפסת"
+   },
+   "kind": null,
+   "yawOffset": 2.97158,
+   "index": 7,
+   "seconds": 1021.4
+  },
+  {
+   "id": "2.C-natura-h8",
+   "type": "pano",
+   "file": "renders/units/2.C/natura/2.C-natura-h8.jpg",
+   "thumb": "renders/units/2.C/natura/thumbs/2.C-natura-h8.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": -1.2172602515905937,
+   "tod": "day",
+   "position": [
+    11.75,
+    7.6,
+    15.05
+   ],
+   "lookAt": [
+    9.75,
+    7.4,
+    26.7
+   ],
+   "roomId": "2.front.2",
+   "name": {
+    "en": "Balcony",
+    "pt": "Varanda",
+    "he": "מרפסת"
+   },
+   "kind": null,
+   "yawOffset": 2.97158,
+   "index": 8,
+   "seconds": 1019.5
+  }
+ ],
+ "seconds": 5761.0,
+ "blender": "4.2.3 LTS"
+}
