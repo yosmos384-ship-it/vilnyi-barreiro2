@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-10-02T03:32:42Z",
+ "generated": "2026-10-02T06:05:12Z",
  "packages": [
   "atlantic",
   "lisboa",
@@ -1128,6 +1128,111 @@
       },
       "file": "renders/units/0.A/noir/0.A-living.jpg",
       "thumb": "renders/units/0.A/noir/thumbs/0.A-living.jpg",
+      "kind": "living",
+      "lens": 24.0,
+      "position": [
+       3.668,
+       1.45,
+       4.132
+      ],
+      "lookAt": [
+       5.13,
+       1.45,
+       1.635
+      ],
+      "W": 2400,
+      "H": 1350
+     }
+    ]
+   },
+   "riviera": {
+    "panos": [],
+    "stills": [
+     {
+      "id": "0.A-bathroom",
+      "roomId": "0.A-ensuite",
+      "name": {
+       "en": "En-suite bathroom",
+       "pt": "I.S. suite",
+       "he": "חדר רחצה צמוד"
+      },
+      "file": "renders/units/0.A/riviera/0.A-bathroom.jpg",
+      "thumb": "renders/units/0.A/riviera/thumbs/0.A-bathroom.jpg",
+      "kind": "bathroom",
+      "lens": 18.0,
+      "position": [
+       1.749,
+       1.45,
+       5.772
+      ],
+      "lookAt": [
+       0.662,
+       1.45,
+       6.641
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "0.A-bedroom",
+      "roomId": "0.A-suite",
+      "name": {
+       "en": "Master suite",
+       "pt": "Suite",
+       "he": "סוויטת הורים"
+      },
+      "file": "renders/units/0.A/riviera/0.A-bedroom.jpg",
+      "thumb": "renders/units/0.A/riviera/thumbs/0.A-bedroom.jpg",
+      "kind": "bedroom",
+      "lens": 24.0,
+      "position": [
+       0.449,
+       1.4,
+       4.763
+      ],
+      "lookAt": [
+       2.332,
+       1.4,
+       1.131
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "0.A-garden",
+      "roomId": "0.A-garden",
+      "name": {
+       "en": "Private garden & deck",
+       "pt": "Jardim privado",
+       "he": "גינה פרטית ודק"
+      },
+      "file": "renders/units/0.A/riviera/0.A-garden.jpg",
+      "thumb": "renders/units/0.A/riviera/thumbs/0.A-garden.jpg",
+      "kind": "garden",
+      "lens": 20.0,
+      "position": [
+       3.075,
+       1.6,
+       -7.15
+      ],
+      "lookAt": [
+       3.075,
+       2.4,
+       0
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "0.A-living",
+      "roomId": "0.A-living",
+      "name": {
+       "en": "Living & kitchen",
+       "pt": "Sala / cozinha",
+       "he": "סלון ומטבח"
+      },
+      "file": "renders/units/0.A/riviera/0.A-living.jpg",
+      "thumb": "renders/units/0.A/riviera/thumbs/0.A-living.jpg",
       "kind": "living",
       "lens": 24.0,
       "position": [
@@ -2376,6 +2481,521 @@
       "H": 1350
      }
     ]
+   },
+   "riviera": {
+    "panos": [],
+    "stills": [
+     {
+      "id": "0.B-bathroom",
+      "roomId": "0.B-wc",
+      "name": {
+       "en": "Bathroom",
+       "pt": "I.S.",
+       "he": "חדר רחצה"
+      },
+      "file": "renders/units/0.B/riviera/0.B-bathroom.jpg",
+      "thumb": "renders/units/0.B/riviera/thumbs/0.B-bathroom.jpg",
+      "kind": "bathroom",
+      "lens": 18.0,
+      "position": [
+       9.053,
+       1.45,
+       5.982
+      ],
+      "lookAt": [
+       8.688,
+       1.45,
+       6.473
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "0.B-bedroom",
+      "roomId": "0.B-suite",
+      "name": {
+       "en": "Suite",
+       "pt": "Suite",
+       "he": "סוויטה"
+      },
+      "file": "renders/units/0.B/riviera/0.B-bedroom.jpg",
+      "thumb": "renders/units/0.B/riviera/thumbs/0.B-bedroom.jpg",
+      "kind": "bedroom",
+      "lens": 24.0,
+      "position": [
+       10.275,
+       1.4,
+       8.474
+      ],
+      "lookAt": [
+       12.732,
+       1.4,
+       6.324
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "0.B-garden",
+      "roomId": "0.B-garden",
+      "name": {
+       "en": "Private garden & deck",
+       "pt": "Jardim privado",
+       "he": "גינה פרטית ודק"
+      },
+      "file": "renders/units/0.B/riviera/0.B-garden.jpg",
+      "thumb": "renders/units/0.B/riviera/thumbs/0.B-garden.jpg",
+      "kind": "garden",
+      "lens": 20.0,
+      "position": [
+       8.68,
+       1.6,
+       -4.15
+      ],
+      "lookAt": [
+       8.68,
+       2.4,
+       0
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "0.B-living",
+      "roomId": "0.B-living",
+      "name": {
+       "en": "Living & kitchen",
+       "pt": "Sala / cozinha",
+       "he": "סלון ומטבח"
+      },
+      "file": "renders/units/0.B/riviera/0.B-living.jpg",
+      "thumb": "renders/units/0.B/riviera/thumbs/0.B-living.jpg",
+      "kind": "living",
+      "lens": 24.0,
+      "position": [
+       9.374,
+       1.45,
+       4.803
+      ],
+      "lookAt": [
+       6.847,
+       1.45,
+       1.099
+      ],
+      "W": 2400,
+      "H": 1350
+     }
+    ]
+   },
+   "urban": {
+    "panos": [
+     {
+      "id": "0.B-urban-h0",
+      "roomId": "0.B-living",
+      "name": {
+       "en": "Living & kitchen",
+       "pt": "Sala / cozinha",
+       "he": "סלון ומטבח"
+      },
+      "file": "renders/units/0.B/urban/0.B-urban-h0.jpg",
+      "thumb": "renders/units/0.B/urban/thumbs/0.B-urban-h0.jpg",
+      "position": [
+       9,
+       1.6,
+       4.6
+      ],
+      "lookAt": [
+       7.296,
+       1.25,
+       0.474
+      ],
+      "yawOffset": 0.39165,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       5,
+       3,
+       4,
+       2,
+       1,
+       9,
+       8
+      ]
+     },
+     {
+      "id": "0.B-urban-h1",
+      "roomId": "0.B-living",
+      "name": {
+       "en": "Living & kitchen · view 2",
+       "pt": "Sala / cozinha · vista 2",
+       "he": "סלון ומטבח · מבט 2"
+      },
+      "file": "renders/units/0.B/urban/0.B-urban-h1.jpg",
+      "thumb": "renders/units/0.B/urban/thumbs/0.B-urban-h1.jpg",
+      "position": [
+       6.908,
+       1.6,
+       0.842
+      ],
+      "lookAt": [
+       8.25,
+       1,
+       2.9
+      ],
+      "yawOffset": -2.56375,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       9,
+       0,
+       8,
+       3,
+       5,
+       4,
+       2
+      ]
+     },
+     {
+      "id": "0.B-urban-h2",
+      "roomId": "0.B-bed",
+      "name": {
+       "en": "Bedroom",
+       "pt": "Quarto",
+       "he": "חדר שינה"
+      },
+      "file": "renders/units/0.B/urban/0.B-urban-h2.jpg",
+      "thumb": "renders/units/0.B/urban/thumbs/0.B-urban-h2.jpg",
+      "position": [
+       12.81,
+       1.6,
+       4.15
+      ],
+      "lookAt": [
+       11.672,
+       0.95,
+       2.39
+      ],
+      "yawOffset": 0.57398,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       3,
+       0,
+       1,
+       9,
+       8
+      ]
+     },
+     {
+      "id": "0.B-urban-h3",
+      "roomId": "0.B-bed",
+      "name": {
+       "en": "Bedroom · view 2",
+       "pt": "Quarto · vista 2",
+       "he": "חדר שינה · מבט 2"
+      },
+      "file": "renders/units/0.B/urban/0.B-urban-h3.jpg",
+      "thumb": "renders/units/0.B/urban/thumbs/0.B-urban-h3.jpg",
+      "position": [
+       10.608,
+       1.6,
+       4.725
+      ],
+      "lookAt": [
+       12.331,
+       1,
+       3.663
+      ],
+      "yawOffset": -1.01843,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       0,
+       2,
+       1,
+       9,
+       8
+      ]
+     },
+     {
+      "id": "0.B-urban-h4",
+      "roomId": "0.B-hall",
+      "name": {
+       "en": "Hall",
+       "pt": "Hall",
+       "he": "מבואה"
+      },
+      "file": "renders/units/0.B/urban/0.B-urban-h4.jpg",
+      "thumb": "renders/units/0.B/urban/thumbs/0.B-urban-h4.jpg",
+      "position": [
+       7.82,
+       1.6,
+       7.215
+      ],
+      "lookAt": [
+       9.035,
+       1.25,
+       8.629
+      ],
+      "yawOffset": -2.43174,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       0,
+       6,
+       7,
+       1
+      ]
+     },
+     {
+      "id": "0.B-urban-h5",
+      "roomId": "0.B-wc",
+      "name": {
+       "en": "Bathroom",
+       "pt": "I.S.",
+       "he": "חדר רחצה"
+      },
+      "file": "renders/units/0.B/urban/0.B-urban-h5.jpg",
+      "thumb": "renders/units/0.B/urban/thumbs/0.B-urban-h5.jpg",
+      "position": [
+       9.05,
+       1.6,
+       6.01
+      ],
+      "lookAt": [
+       8.496,
+       1.3,
+       6.732
+      ],
+      "yawOffset": 2.4871,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       0,
+       1
+      ]
+     },
+     {
+      "id": "0.B-urban-h6",
+      "roomId": "0.B-suite",
+      "name": {
+       "en": "Suite",
+       "pt": "Suite",
+       "he": "סוויטה"
+      },
+      "file": "renders/units/0.B/urban/0.B-urban-h6.jpg",
+      "thumb": "renders/units/0.B/urban/thumbs/0.B-urban-h6.jpg",
+      "position": [
+       10.71,
+       1.6,
+       8.41
+      ],
+      "lookAt": [
+       11.91,
+       0.95,
+       7.272
+      ],
+      "yawOffset": -0.81191,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       7,
+       4
+      ]
+     },
+     {
+      "id": "0.B-urban-h7",
+      "roomId": "0.B-suite",
+      "name": {
+       "en": "Suite · view 2",
+       "pt": "Suite · vista 2",
+       "he": "סוויטה · מבט 2"
+      },
+      "file": "renders/units/0.B/urban/0.B-urban-h7.jpg",
+      "thumb": "renders/units/0.B/urban/thumbs/0.B-urban-h7.jpg",
+      "position": [
+       12.971,
+       1.6,
+       8.123
+      ],
+      "lookAt": [
+       11.175,
+       1,
+       7.845
+      ],
+      "yawOffset": 1.41723,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       6,
+       4
+      ]
+     },
+     {
+      "id": "0.B-urban-h8",
+      "roomId": "0.B-garden",
+      "name": {
+       "en": "Private garden & deck",
+       "pt": "Jardim privado",
+       "he": "גינה פרטית ודק"
+      },
+      "file": "renders/units/0.B/urban/0.B-urban-h8.jpg",
+      "thumb": "renders/units/0.B/urban/thumbs/0.B-urban-h8.jpg",
+      "position": [
+       9.848,
+       1.6,
+       -2.75
+      ],
+      "lookAt": [
+       7.648,
+       1.3,
+       1.5
+      ],
+      "yawOffset": 2.66393,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       9,
+       1,
+       0,
+       2,
+       3
+      ]
+     },
+     {
+      "id": "0.B-urban-h9",
+      "roomId": "0.B-garden",
+      "name": {
+       "en": "Private garden & deck · view 2",
+       "pt": "Jardim privado · vista 2",
+       "he": "גינה פרטית ודק · מבט 2"
+      },
+      "file": "renders/units/0.B/urban/0.B-urban-h9.jpg",
+      "thumb": "renders/units/0.B/urban/thumbs/0.B-urban-h9.jpg",
+      "position": [
+       8.648,
+       1.6,
+       -1.2
+      ],
+      "lookAt": [
+       7.848,
+       1.2,
+       -3.75
+      ],
+      "yawOffset": 0.304,
+      "W": 3072,
+      "H": 1536,
+      "links": [
+       8,
+       1,
+       0,
+       3,
+       2
+      ]
+     }
+    ],
+    "stills": [
+     {
+      "id": "0.B-bathroom",
+      "roomId": "0.B-wc",
+      "name": {
+       "en": "Bathroom",
+       "pt": "I.S.",
+       "he": "חדר רחצה"
+      },
+      "file": "renders/units/0.B/urban/0.B-bathroom.jpg",
+      "thumb": "renders/units/0.B/urban/thumbs/0.B-bathroom.jpg",
+      "kind": "bathroom",
+      "lens": 18.0,
+      "position": [
+       9.053,
+       1.45,
+       5.982
+      ],
+      "lookAt": [
+       8.688,
+       1.45,
+       6.473
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "0.B-bedroom",
+      "roomId": "0.B-suite",
+      "name": {
+       "en": "Suite",
+       "pt": "Suite",
+       "he": "סוויטה"
+      },
+      "file": "renders/units/0.B/urban/0.B-bedroom.jpg",
+      "thumb": "renders/units/0.B/urban/thumbs/0.B-bedroom.jpg",
+      "kind": "bedroom",
+      "lens": 24.0,
+      "position": [
+       10.388,
+       1.4,
+       8.376
+      ],
+      "lookAt": [
+       12.642,
+       1.4,
+       6.403
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "0.B-garden",
+      "roomId": "0.B-garden",
+      "name": {
+       "en": "Private garden & deck",
+       "pt": "Jardim privado",
+       "he": "גינה פרטית ודק"
+      },
+      "file": "renders/units/0.B/urban/0.B-garden.jpg",
+      "thumb": "renders/units/0.B/urban/thumbs/0.B-garden.jpg",
+      "kind": "garden",
+      "lens": 20.0,
+      "position": [
+       8.68,
+       1.6,
+       -4.15
+      ],
+      "lookAt": [
+       8.68,
+       2.4,
+       0
+      ],
+      "W": 2400,
+      "H": 1350
+     },
+     {
+      "id": "0.B-living",
+      "roomId": "0.B-living",
+      "name": {
+       "en": "Living & kitchen",
+       "pt": "Sala / cozinha",
+       "he": "סלון ומטבח"
+      },
+      "file": "renders/units/0.B/urban/0.B-living.jpg",
+      "thumb": "renders/units/0.B/urban/thumbs/0.B-living.jpg",
+      "kind": "living",
+      "lens": 24.0,
+      "position": [
+       9.374,
+       1.45,
+       4.803
+      ],
+      "lookAt": [
+       6.847,
+       1.45,
+       1.099
+      ],
+      "W": 2400,
+      "H": 1350
+     }
+    ]
    }
   },
   "1.A": {
@@ -2392,9 +3012,9 @@
       "file": "renders/units/1.A/atlantic/1.A-atlantic-h0.jpg",
       "thumb": "renders/units/1.A/atlantic/thumbs/1.A-atlantic-h0.jpg",
       "position": [
-       3.668,
-       4.45,
-       4.132
+       0.85,
+       4.6,
+       4.6
       ],
       "lookAt": [
        1.028,
@@ -2405,12 +3025,10 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       2,
        1,
-       5,
-       6,
-       3,
-       7
+       4,
+       2,
+       3
       ]
      },
      {
@@ -2437,9 +3055,9 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       4,
-       2,
        0,
+       2,
+       4,
        3
       ]
      },
@@ -2467,41 +3085,43 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       0,
        1,
        5,
        6,
        3,
+       0,
        7
       ]
      },
      {
       "id": "1.A-atlantic-h3",
-      "roomId": "1.A-suite",
+      "roomId": "1.A-living",
       "name": {
-       "en": "Master suite",
-       "pt": "Suite",
-       "he": "סוויטת הורים"
+       "en": "Living & kitchen · view 2",
+       "pt": "Sala / cozinha · vista 2",
+       "he": "סלון ומטבח · מבט 2"
       },
       "file": "renders/units/1.A/atlantic/1.A-atlantic-h3.jpg",
       "thumb": "renders/units/1.A/atlantic/thumbs/1.A-atlantic-h3.jpg",
       "position": [
-       0.449,
-       4.4,
-       4.763
+       4.751,
+       4.6,
+       2.306
       ],
       "lookAt": [
-       2.332,
-       4.4,
-       1.131
+       4.07,
+       4,
+       3.672
       ],
       "yawOffset": 2.67912,
       "W": 3072,
       "H": 1536,
       "links": [
-       4,
-       1,
        2,
+       7,
+       1,
+       5,
+       6,
        0
       ]
      },
@@ -2516,21 +3136,21 @@
       "file": "renders/units/1.A/atlantic/1.A-atlantic-h4.jpg",
       "thumb": "renders/units/1.A/atlantic/thumbs/1.A-atlantic-h4.jpg",
       "position": [
-       1.749,
-       4.45,
-       5.772
+       1.375,
+       4.6,
+       6.01
       ],
       "lookAt": [
-       0.662,
-       4.45,
-       6.641
+       0.548,
+       4.3,
+       6.732
       ],
       "yawOffset": 2.28851,
       "W": 3072,
       "H": 1536,
       "links": [
-       1,
-       3
+       0,
+       1
       ]
      },
      {
@@ -2558,7 +3178,7 @@
       "H": 1536,
       "links": [
        2,
-       0
+       3
       ]
      },
      {
@@ -2586,7 +3206,7 @@
       "H": 1536,
       "links": [
        2,
-       0
+       3
       ]
      },
      {
@@ -2613,7 +3233,7 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       0,
+       3,
        2
       ]
      }
@@ -3345,24 +3965,24 @@
       "file": "renders/units/1.B/atlantic/1.B-atlantic-h0.jpg",
       "thumb": "renders/units/1.B/atlantic/thumbs/1.B-atlantic-h0.jpg",
       "position": [
-       9.374,
-       4.45,
-       4.803
+       9,
+       4.6,
+       4.6
       ],
       "lookAt": [
-       6.847,
-       4.45,
-       1.099
+       7.296,
+       4.25,
+       0.474
       ],
       "yawOffset": 0.39165,
       "W": 3072,
       "H": 1536,
       "links": [
-       1,
        5,
        3,
        4,
        2,
+       1,
        6
       ]
      },
@@ -3377,9 +3997,9 @@
       "file": "renders/units/1.B/atlantic/1.B-atlantic-h1.jpg",
       "thumb": "renders/units/1.B/atlantic/thumbs/1.B-atlantic-h1.jpg",
       "position": [
-       10.199,
-       4.4,
-       4.972
+       6.908,
+       4.6,
+       0.842
       ],
       "lookAt": [
        8.25,
@@ -3390,7 +4010,11 @@
       "W": 3072,
       "H": 1536,
       "links": [
+       6,
        0,
+       4,
+       3,
+       5,
        2
       ]
      },
@@ -3418,36 +4042,38 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       1,
-       0
+       3,
+       0,
+       1
       ]
      },
      {
       "id": "1.B-atlantic-h3",
-      "roomId": "1.B-wc",
+      "roomId": "1.B-bed",
       "name": {
-       "en": "Bathroom",
-       "pt": "I.S.",
-       "he": "חדר רחצה"
+       "en": "Bedroom · view 2",
+       "pt": "Quarto · vista 2",
+       "he": "חדר שינה · מבט 2"
       },
       "file": "renders/units/1.B/atlantic/1.B-atlantic-h3.jpg",
       "thumb": "renders/units/1.B/atlantic/thumbs/1.B-atlantic-h3.jpg",
       "position": [
-       7.993,
-       4.45,
-       5.832
+       10.608,
+       4.6,
+       4.725
       ],
       "lookAt": [
-       9.085,
-       4.45,
-       6.594
+       12.331,
+       4,
+       3.663
       ],
       "yawOffset": -1.01843,
       "W": 3072,
       "H": 1536,
       "links": [
-       5,
-       0
+       0,
+       2,
+       1
       ]
      },
      {
@@ -3474,7 +4100,8 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       0
+       0,
+       1
       ]
      },
      {
@@ -3501,8 +4128,8 @@
       "W": 3072,
       "H": 1536,
       "links": [
-       3,
-       0
+       0,
+       1
       ]
      },
      {
@@ -3529,6 +4156,7 @@
       "W": 3072,
       "H": 1536,
       "links": [
+       1,
        0
       ]
      }
@@ -3697,7 +4325,7 @@
        3.95,
        2.39
       ],
-      "yawOffset": 0.57397,
+      "yawOffset": 0.57398,
       "W": 3072,
       "H": 1536,
       "links": [
@@ -3984,7 +4612,7 @@
        3.95,
        2.39
       ],
-      "yawOffset": 0.57397,
+      "yawOffset": 0.57398,
       "W": 3072,
       "H": 1536,
       "links": [
