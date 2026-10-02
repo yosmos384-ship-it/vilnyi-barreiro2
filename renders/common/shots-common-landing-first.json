@@ -7,7 +7,9 @@
   ],
   "out": "renders/common",
   "name": "common-landing-first",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
@@ -18,7 +20,7 @@
    "W": 2400,
    "H": 1350,
    "spp": 96,
-   "ev": 2.662414542368295,
+   "ev": 3.843712603005198,
    "tod": "day",
    "position": [
     7.1,
@@ -35,9 +37,9 @@
    "kind": null,
    "lens": 18.0,
    "shift_y": -0.0047,
-   "seconds": 3462.5
+   "seconds": 4224.5
   }
  ],
- "seconds": 3465.5,
+ "seconds": 4227.5,
  "blender": "4.2.3 LTS"
 }
