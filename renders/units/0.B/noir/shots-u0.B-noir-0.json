@@ -6,35 +6,38 @@
   "quality": "standard",
   "tod": "day",
   "shots": [
-   "0.B-living",
-   "0.B-bedroom",
-   "0.B-bathroom",
-   "0.B-garden"
+   "0.B-noir-h0",
+   "0.B-noir-h1",
+   "0.B-noir-h2",
+   "0.B-noir-h3",
+   "0.B-noir-h4"
   ],
   "out": "renders/units/0.B/noir",
   "name": "u0.B-noir-0",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
-   "id": "0.B-living",
-   "type": "still",
-   "file": "renders/units/0.B/noir/0.B-living.jpg",
-   "thumb": "renders/units/0.B/noir/thumbs/0.B-living.jpg",
-   "W": 2400,
-   "H": 1350,
-   "spp": 96,
-   "ev": 4.023725423677899,
+   "id": "0.B-noir-h0",
+   "type": "pano",
+   "file": "renders/units/0.B/noir/0.B-noir-h0.jpg",
+   "thumb": "renders/units/0.B/noir/thumbs/0.B-noir-h0.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 4.664058951582697,
    "tod": "day",
    "position": [
-    9.374,
-    1.45,
-    4.803
+    9,
+    1.6,
+    4.6
    ],
    "lookAt": [
-    6.847,
-    1.45,
-    1.099
+    7.296,
+    1.25,
+    0.474
    ],
    "roomId": "0.B-living",
    "name": {
@@ -42,105 +45,136 @@
     "pt": "Sala / cozinha",
     "he": "סלון ומטבח"
    },
-   "kind": "living",
-   "lens": 24.0,
-   "shift_y": 0.0,
-   "seconds": 1078.6
+   "kind": null,
+   "yawOffset": 0.39165,
+   "index": 0,
+   "seconds": 1209.5
   },
   {
-   "id": "0.B-bedroom",
-   "type": "still",
-   "file": "renders/units/0.B/noir/0.B-bedroom.jpg",
-   "thumb": "renders/units/0.B/noir/thumbs/0.B-bedroom.jpg",
-   "W": 2400,
-   "H": 1350,
-   "spp": 96,
-   "ev": 5.356187486224542,
+   "id": "0.B-noir-h1",
+   "type": "pano",
+   "file": "renders/units/0.B/noir/0.B-noir-h1.jpg",
+   "thumb": "renders/units/0.B/noir/thumbs/0.B-noir-h1.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.269605228910004,
    "tod": "day",
    "position": [
-    10.162,
-    1.4,
-    8.573
-   ],
-   "lookAt": [
-    12.822,
-    1.4,
-    6.245
-   ],
-   "roomId": "0.B-suite",
-   "name": {
-    "en": "Suite",
-    "pt": "Suite",
-    "he": "סוויטה"
-   },
-   "kind": "bedroom",
-   "lens": 24.0,
-   "shift_y": 0.0,
-   "seconds": 1262.5
-  },
-  {
-   "id": "0.B-bathroom",
-   "type": "still",
-   "file": "renders/units/0.B/noir/0.B-bathroom.jpg",
-   "thumb": "renders/units/0.B/noir/thumbs/0.B-bathroom.jpg",
-   "W": 2400,
-   "H": 1350,
-   "spp": 96,
-   "ev": 7.324109336451536,
-   "tod": "day",
-   "position": [
-    9.053,
-    1.45,
-    5.982
-   ],
-   "lookAt": [
-    8.688,
-    1.45,
-    6.473
-   ],
-   "roomId": "0.B-wc",
-   "name": {
-    "en": "Bathroom",
-    "pt": "I.S.",
-    "he": "חדר רחצה"
-   },
-   "kind": "bathroom",
-   "lens": 18.0,
-   "shift_y": 0.0,
-   "seconds": 732.9
-  },
-  {
-   "id": "0.B-garden",
-   "type": "still",
-   "file": "renders/units/0.B/noir/0.B-garden.jpg",
-   "thumb": "renders/units/0.B/noir/thumbs/0.B-garden.jpg",
-   "W": 2400,
-   "H": 1350,
-   "spp": 96,
-   "ev": -1.5382575920920396,
-   "tod": "day",
-   "position": [
-    8.68,
+    6.908,
     1.6,
-    -4.15
+    0.842
    ],
    "lookAt": [
-    8.68,
-    2.4,
-    0
+    8.25,
+    1,
+    2.9
    ],
-   "roomId": "0.B-garden",
+   "roomId": "0.B-living",
    "name": {
-    "en": "Private garden & deck",
-    "pt": "Jardim privado",
-    "he": "גינה פרטית ודק"
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
    },
-   "kind": "garden",
-   "lens": 20.0,
-   "shift_y": 0.1071,
-   "seconds": 1431.3
+   "kind": null,
+   "yawOffset": -2.56375,
+   "index": 1,
+   "seconds": 1498.5
+  },
+  {
+   "id": "0.B-noir-h2",
+   "type": "pano",
+   "file": "renders/units/0.B/noir/0.B-noir-h2.jpg",
+   "thumb": "renders/units/0.B/noir/thumbs/0.B-noir-h2.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 5.4174229828661415,
+   "tod": "day",
+   "position": [
+    12.81,
+    1.6,
+    4.15
+   ],
+   "lookAt": [
+    11.672,
+    0.95,
+    2.39
+   ],
+   "roomId": "0.B-bed",
+   "name": {
+    "en": "Bedroom",
+    "pt": "Quarto",
+    "he": "חדר שינה"
+   },
+   "kind": null,
+   "yawOffset": 0.57398,
+   "index": 2,
+   "seconds": 1131.0
+  },
+  {
+   "id": "0.B-noir-h3",
+   "type": "pano",
+   "file": "renders/units/0.B/noir/0.B-noir-h3.jpg",
+   "thumb": "renders/units/0.B/noir/thumbs/0.B-noir-h3.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 4.2070086105221165,
+   "tod": "day",
+   "position": [
+    10.608,
+    1.6,
+    4.725
+   ],
+   "lookAt": [
+    12.331,
+    1,
+    3.663
+   ],
+   "roomId": "0.B-bed",
+   "name": {
+    "en": "Bedroom · view 2",
+    "pt": "Quarto · vista 2",
+    "he": "חדר שינה · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": -1.01843,
+   "index": 3,
+   "seconds": 1223.1
+  },
+  {
+   "id": "0.B-noir-h4",
+   "type": "pano",
+   "file": "renders/units/0.B/noir/0.B-noir-h4.jpg",
+   "thumb": "renders/units/0.B/noir/thumbs/0.B-noir-h4.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 5.189272225027626,
+   "tod": "day",
+   "position": [
+    7.82,
+    1.6,
+    7.215
+   ],
+   "lookAt": [
+    9.035,
+    1.25,
+    8.629
+   ],
+   "roomId": "0.B-hall",
+   "name": {
+    "en": "Hall",
+    "pt": "Hall",
+    "he": "מבואה"
+   },
+   "kind": null,
+   "yawOffset": -2.43174,
+   "index": 4,
+   "seconds": 1290.0
   }
  ],
- "seconds": 4521.6,
+ "seconds": 6356.9,
  "blender": "4.2.3 LTS"
 }
