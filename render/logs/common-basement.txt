@@ -1,29 +1,13 @@
 [    0.0s] job common-basement: scope=common unit=None pkg=None quality=standard shots=1
-[    0.3s] import building: 401 objects in 0.3s
-[    0.4s] box UVs on 388 meshes
-[    0.7s] [foliage] first-ivy: foliage faces=320 crown faces=320 src=building
-[    0.8s] [foliage]   -> vbCrowns-first-ivy: crown polys=320 instances=302 inner faces on source=320
-[    0.8s] [foliage] first-leaf: foliage faces=1200 crown faces=1200 src=building
-[    0.8s] [foliage]   -> vbCrowns-first-leaf: crown polys=1200 instances=4747 inner faces on source=1200
-[    0.8s] [foliage] ground-olive: foliage faces=320 crown faces=320 src=building
-[    0.8s] [foliage]   -> vbCrowns-ground-olive: crown polys=320 instances=3467 inner faces on source=320
-[    0.9s] [foliage] site-ivy: foliage faces=19860 crown faces=19700 src=building
-[    0.9s] [foliage]   -> vbCrowns-site-ivy: crown polys=19700 instances=34406 inner faces on source=19700
-[    0.9s] [foliage] site-leaf: foliage faces=7120 crown faces=7120 src=building
-[    1.0s] [foliage]   -> vbCrowns-site-leaf: crown polys=7120 instances=47970 inner faces on source=7120
-[    1.0s] [foliage] site-olive: foliage faces=11920 crown faces=11920 src=building
-[    1.1s] [foliage]   -> vbCrowns-site-olive: crown polys=11920 instances=52104 inner faces on source=11920
-[    1.1s] [foliage] site-oliveLight: foliage faces=3120 crown faces=3120 src=building
-[    1.2s] [foliage]   -> vbCrowns-site-oliveLight: crown polys=3120 instances=20412 inner faces on source=3120
-[    1.2s] [foliage] leafified 7 objects, crown area 126 m2 -> ~163259 leaves
-[    1.2s] materials: built=91 textured=23 by_key={'aluminium-frame': 1, 'bark': 1, 'brass': 10, 'brick-facade': 1, 'car-glass': 1, 'car-light': 2, 'car-paint': 1, 'ceiling': 1, 'ceiling-white': 1, 'concrete': 2, 'deck-teak': 1, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'epoxy-floor': 1, 'floor-main': 1, 'foliage': 5, 'foliage-inner': 1, 'garage-door': 1, 'glass-railing': 2, 'glass-window': 2, 'gravel': 2, 'handrail-steel': 1, 'lawn': 3, 'led-strip-emissive': 6, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'mirror': 1, 'paint-marking': 8, 'paving-calcada': 1, 'planter-concrete': 1, 'plaster-white': 2, 'pv-panel': 1, 'render-white': 1, 'rubber': 2, 'skirting': 1, 'soil': 1, 'steel-dark': 6, 'stone-coping': 2, 'timber-slats': 1, 'zinc-standing-seam': 2}
-[    1.2s] lights: imported=2 emissive->lights=600 portals=0 boost=3.0 total_lights=602 polys=152092
-[    1.6s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
-[    1.7s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
-[    1.7s] scene ready in 1.7s  (world kloofendal_43d_clear_puresky)
-[   11.6s] [expo] transparent-pass mean 0.03909  opaque-pass mean 0.03909  geo=1.00
-[   11.6s] [expo] Lavg=0.0009582 p95=0.09404 ev=7.71 ev_hi=3.26 -> 3.26 sky=None
-[   11.6s] [sky] visible sky x0.05 (measured 21.1, ev 3.26)
-[   11.6s] [wb] gains (0.625, 1.0, 1.6)
-[ 1610.6s] SHOT basement still 2400x1350 spp<=96 ev=3.26 in 1608.9s -> renders/common/basement.jpg
-[ 1610.6s] DONE 1 images in 1610.6s
+[    0.8s] import building: 491 objects in 0.8s
+[    1.0s] box UVs on 478 meshes
+[    2.0s] [foliage] leafified 16 objects, crown area 168 m2 -> ~218896 leaves
+[    2.0s] materials: built=126 textured=25 by_key={'aluminium-frame': 2, 'bark': 1, 'brass': 1, 'brick-facade': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 1, 'car-taillight': 1, 'car-tyre': 1, 'ceiling-white': 2, 'ceramic-plate': 1, 'concrete': 5, 'deck-teak': 1, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 1, 'foliage': 8, 'foliage-inner': 1, 'garage-door': 1, 'glass-railing': 3, 'glass-window': 1, 'gravel': 2, 'handrail-steel': 1, 'kerb-stone': 1, 'lawn': 1, 'leather': 1, 'led-strip-emissive': 12, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'mirror': 1, 'paint-white': 1, 'paving-calcada': 1, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'pv-panel': 1, 'render-pink': 1, 'render-white': 2, 'rubber': 1, 'signage': 39, 'skirting': 1, 'soil': 1, 'steel-dark': 5, 'stone-coping': 1, 'timber-soffit': 1, 'zinc-standing-seam': 2}
+[    2.0s] lights: imported=2 emissive->lights=746 portals=0 boost=3.0 total_lights=748 polys=200708
+[    2.6s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[    2.8s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[    2.8s] scene ready in 2.8s  (world kloofendal_43d_clear_puresky)
+[   14.9s] [expo] interior: in/out/sky=22400/0/0 Lavg=0.04566 p97=0.5753 ev_hi=2.18 -> ev=2.18 windowND=1.00
+[   14.9s] [wb] gains (0.739, 1.0, 1.401)
+[ 3603.8s] SHOT basement still 2400x1350 spp<=96 ev=2.53 in 3600.9s -> renders/common/basement.jpg
+[ 3603.8s] DONE 1 images in 3603.8s

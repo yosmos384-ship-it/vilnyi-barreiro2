@@ -7,7 +7,9 @@
   ],
   "out": "renders/common",
   "name": "common-basement",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
@@ -18,26 +20,26 @@
    "W": 2400,
    "H": 1350,
    "spp": 96,
-   "ev": 3.25859950908895,
+   "ev": 2.5260806109653537,
    "tod": "day",
    "position": [
-    12.4,
-    -1.2,
-    13.6
+    9.6,
+    -1.25,
+    7.6
    ],
    "lookAt": [
-    2,
-    -1.6,
-    -4
+    3.0,
+    -1.9,
+    -3.5
    ],
    "roomId": null,
    "name": "Basement car park",
    "kind": null,
    "lens": 18.0,
-   "shift_y": -0.0098,
-   "seconds": 1608.9
+   "shift_y": -0.0252,
+   "seconds": 3600.9
   }
  ],
- "seconds": 1610.6,
+ "seconds": 3603.8,
  "blender": "4.2.3 LTS"
 }
