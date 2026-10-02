@@ -487,7 +487,7 @@ def _render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, hidden, e
         if lo_.size > 0.01 * cls.size:
             p75 = float(np.percentile(lo_, 75))
             if evening:
-                wt = opts.get('window_target_' + tod, {'dusk': 0.40, 'night': 0.13}[tod])
+                wt = opts.get('window_target_' + tod, {'dusk': 0.32, 'night': 0.12}[tod])
                 nd = max(0.05, min(opts.get('window_gain_max', 24.0), wt / max(p75 * (2 ** ev), 1e-6)))
             else:
                 # bare glazing (no sheers: urban roller blinds) reads as dark glass at the default target -> brighter outside
@@ -510,7 +510,7 @@ def _render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, hidden, e
         sel = px[geo][:, :3] if geo.sum() > 20 else px.reshape(-1, 4)[:, :3]
         log(f'[expo] exterior: geo/sky={int(geo.sum())}/{n_sky} Lavg={lavg:.4g} p95={p95:.4g} ev_hi={ev_hi:.2f} -> ev={ev:.2f} sky={sky_lum}')
         if evening:
-            LI.set_sky_visible(ev, sky_lum, opts.get('sky_target_' + tod, {'dusk': 0.30, 'night': 0.035}[tod]), log)
+            LI.set_sky_visible(ev, sky_lum, opts.get('sky_target_' + tod, {'dusk': 0.30, 'night': 0.05}[tod]), log, min_factor=0.002)
         else:
             LI.set_sky_visible(ev, sky_lum, opts.get('sky_target', 0.55 if tod != 'dusk' else 0.45), log)
     sl = 0.2126 * sel[:, 0] + 0.7152 * sel[:, 1] + 0.0722 * sel[:, 2]
@@ -524,11 +524,14 @@ def _render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, hidden, e
     sc.view_settings.exposure = ev
     if evening:
         # tungsten light: take most of the orange cast out of the room (the blue evening outside gets bluer, as in a photograph)
-        wbs = opts.get('wb_strength_evening', 0.72 if interior else 0.3)
+        wbs = opts.get('wb_strength_evening', 0.62 if interior else 0.3)
         wb = LI.wb_gains(wbs, opts.get('wb_max_evening', 3.2)) if wbs > 0 else None
     else:
         wbs = opts.get('wb_strength', 0.6 if interior else 0.25)
         wb = LI.wb_gains(wbs) if wbs > 0 else None
+        if interior and wbs > 0 and n_in > 0.985 * cls.size and 'wb_strength' not in opts and job.get('pkg') in (OVR.get('hero_per_package') or []):
+            # windowless room lit by warm lamps only (bathrooms): a photographer balances for tungsten
+            wb = LI.wb_gains(0.8, 2.4)
     if wb:
         log(f'[wb] gains {tuple(round(x, 3) for x in wb)}')
     LI.compositor(dict(vignette=0.0 if pano else opts.get('vignette', 0.0), glare=opts.get('glare', not (is_unit or job['scope'] == 'common')), glare_mix=opts.get('glare_mix', -0.95), glare_threshold=opts.get('glare_threshold', 10.0), wb=wb, ev=ev), pano=pano)

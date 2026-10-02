@@ -269,22 +269,7 @@ def setup_world_evening(tod, preset, opts, log):
     crgb *= scale
     zen_lum = float(np.mean(0.2126 * crgb[-40:, :, 0] + 0.7152 * crgb[-40:, :, 1] + 0.0722 * crgb[-40:, :, 2]))
     amount = float(preset.get('stars', 0.0)) * ev.get('stars', 1.0)
-    n_stars = int(2600 * min(1.0, amount)) if amount > 0.02 else 0
-    if n_stars:
-        rng = np.random.default_rng(20261002)
-        sz = rng.uniform(0.03, 1.0, n_stars)                       # uniform in sin(elevation) = uniform on the hemisphere
-        sph = rng.uniform(0, 2 * math.pi, n_stars)
-        mag = rng.pareto(2.2, n_stars) + 1.0                        # few bright, many faint
-        bri = np.clip(mag, 1.0, 14.0) * zen_lum * 22.0 * min(1.0, amount * 1.5) * np.clip((sz - 0.02) / 0.25, 0.0, 1.0)
-        tint = rng.uniform(0.0, 1.0, n_stars)
-        col = np.stack([0.85 + 0.3 * tint, np.full(n_stars, 0.95), 1.15 - 0.3 * tint], axis=1)
-        fy = (np.arcsin(sz) / math.pi + 0.5) * H - 0.5
-        fx = (sph / (2 * math.pi)) * W - 0.5
-        x0 = np.floor(fx).astype(int); y0 = np.floor(fy).astype(int)
-        wx = fx - x0; wy = fy - y0
-        for ddx, ddy, wgt in ((0, 0, (1 - wx) * (1 - wy)), (1, 0, wx * (1 - wy)), (0, 1, (1 - wx) * wy), (1, 1, wx * wy)):
-            xi = (x0 + ddx) % W; yi = np.clip(y0 + ddy, 0, H - 1)
-            np.add.at(crgb, (yi, xi), (col * (bri * wgt * 2.2)[:, None]).astype(np.float32))
+    n_stars = int(1500 * min(1.0, amount)) if amount > 0.02 else 0
     if preset.get('light') == 'moon':
         md = bearing_vec(az, alt)
         dz = cz
@@ -308,7 +293,45 @@ def setup_world_evening(tod, preset, opts, log):
     bg2.inputs['Strength'].default_value = cam_gain
     bg2['base'] = cam_gain
     bg2['est'] = mean_up * cam_gain
-    nt.links.new(env2.outputs['Color'], bg2.inputs['Color'])
+    cam_col = env2.outputs['Color']
+    if n_stars:
+        # resolution-independent stars: Voronoi cells on the view direction, a small share of them holds a star (0.03 deg radius)
+        S_ = 300.0
+        vo = nt.nodes.new('ShaderNodeTexVoronoi'); vo.voronoi_dimensions = '3D'; vo.feature = 'F1'
+        vo.inputs['Scale'].default_value = S_
+        nt.links.new(tc.outputs['Generated'], vo.inputs['Vector'])
+        sepc = nt.nodes.new('ShaderNodeSeparateColor'); nt.links.new(vo.outputs['Color'], sepc.inputs[0])
+        def mth(op, a, b):
+            n = nt.nodes.new('ShaderNodeMath'); n.operation = op
+            for k, v in enumerate((a, b)):
+                if isinstance(v, (int, float)):
+                    n.inputs[k].default_value = v
+                else:
+                    nt.links.new(v, n.inputs[k])
+            return n.outputs[0]
+        share = n_stars / (2.0 * math.pi * S_ * S_ * 1.4)            # cells cut by the upper hemisphere ~ 2 pi S^2 x 1.4
+        pick = mth('LESS_THAN', sepc.outputs[0], share)
+        r_star = math.radians(float(ev.get('star_radius_deg', 0.035))) * S_
+        mr = nt.nodes.new('ShaderNodeMapRange'); mr.interpolation_type = 'SMOOTHSTEP'
+        mr.inputs['From Min'].default_value = r_star * 0.5; mr.inputs['From Max'].default_value = r_star
+        mr.inputs['To Min'].default_value = 1.0; mr.inputs['To Max'].default_value = 0.0
+        nt.links.new(vo.outputs['Distance'], mr.inputs['Value'])
+        mag = mth('POWER', sepc.outputs[1], 3.0)                        # few bright, many faint
+        mag = mth('ADD', mth('MULTIPLY', mag, 0.9), 0.1)
+        sepz = nt.nodes.new('ShaderNodeSeparateXYZ'); nt.links.new(tc.outputs['Generated'], sepz.inputs[0])
+        hz = nt.nodes.new('ShaderNodeMapRange'); hz.interpolation_type = 'SMOOTHSTEP'
+        hz.inputs['From Min'].default_value = 0.03; hz.inputs['From Max'].default_value = 0.3
+        nt.links.new(sepz.outputs['Z'], hz.inputs['Value'])
+        st = mth('MULTIPLY', mth('MULTIPLY', pick, mr.outputs['Result']), mth('MULTIPLY', mag, hz.outputs['Result']))
+        st = mth('MULTIPLY', st, zen_lum * float(ev.get('star_gain', 2600.0)) * min(1.0, amount * 1.5))
+        cc = nt.nodes.new('ShaderNodeCombineColor')
+        for k in range(3):
+            nt.links.new(st, cc.inputs[k])
+        addn = nt.nodes.new('ShaderNodeMix'); addn.data_type = 'RGBA'; addn.blend_type = 'ADD'; addn.inputs['Factor'].default_value = 1.0
+        ins = [x for x in addn.inputs if x.type == 'RGBA']
+        nt.links.new(env2.outputs['Color'], ins[0]); nt.links.new(cc.outputs[0], ins[1])
+        cam_col = [o for o in addn.outputs if o.type == 'RGBA'][0]
+    nt.links.new(cam_col, bg2.inputs['Color'])
     lp = nt.nodes.new('ShaderNodeLightPath')
     mx = nt.nodes.new('ShaderNodeMixShader')
     nt.links.new(lp.outputs['Is Camera Ray'], mx.inputs[0]); nt.links.new(bg.outputs[0], mx.inputs[1]); nt.links.new(bg2.outputs[0], mx.inputs[2])
@@ -528,7 +551,7 @@ def measure_exposure(tmpdir, key, opts, log, w=None, h=None):
     return evf, sky_lum
 
 
-def set_sky_visible(ev, sky_lum, target, log):
+def set_sky_visible(ev, sky_lum, target, log, min_factor=0.05):
     """Graduated-filter: scale the camera-visible sky so it lands at `target` (scene-linear after exposure)."""
     w = bpy.context.scene.world
     nd = w.node_tree.nodes.get('vbSkyCam') if w and w.node_tree else None
@@ -542,7 +565,7 @@ def set_sky_visible(ev, sky_lum, target, log):
     cur = nd.inputs['Strength'].default_value
     base = nd.get('base', cur)
     g = target / max(sky_lum * (2 ** ev), 1e-6)
-    newv = max(base * 0.05, min(base * 1.0, cur * g))
+    newv = max(base * min_factor, min(base * 1.0, cur * g))
     nd.inputs['Strength'].default_value = newv
     log(f'[sky] visible sky x{newv / base:.2f} (measured {sky_lum:.3g}, ev {ev:.2f})')
 

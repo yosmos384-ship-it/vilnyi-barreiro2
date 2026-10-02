@@ -325,11 +325,11 @@ EVENING = {
     'night': dict(sky_lux=2.6, key_lux=7.0, key_angle=1.2, cam_gain=1.6, stars=1.0, window_emit=0.03),
 }
 # lamp list (render/scenes/lamps.json): lumens at night for a lamp of intensity 1 (the list is in three.js candela, relative)
-LAMP_LUMENS = 640.0
+LAMP_LUMENS = 1400.0
 LAMP_MOOD = {'day': 0.35 / 9.0, 'dusk': 6.0 / 9.0, 'night': 1.0}
 LAMP_KELVIN = {'pendant': 2750, 'floor-lamp': 2700, 'table-lamp': 2700, 'bedside': 2700, 'under-cabinet': 3000, 'mirror-light': 3000}
 # recessed downlights / track spots / LED strips are dimmed in the evening so the lamps make warm pools of light
-DIM = {'day': dict(spot=1.0, strip=1.0, point=1.0), 'dusk': dict(spot=0.5, strip=0.8, point=1.0), 'night': dict(spot=0.42, strip=0.8, point=1.0)}
+DIM = {'day': dict(spot=1.0, strip=1.0, point=1.0), 'dusk': dict(spot=0.28, strip=0.8, point=1.0), 'night': dict(spot=0.2, strip=0.8, point=1.0)}
 
 # Every texture id referenced above (for the downloader)
 def all_texture_ids():
