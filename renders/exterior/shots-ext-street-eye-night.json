@@ -1,0 +1,45 @@
+{
+ "job": {
+  "scope": "exterior",
+  "quality": "standard",
+  "shots": [
+   "street-eye-night"
+  ],
+  "out": "renders/exterior",
+  "name": "ext-street-eye-night",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "street-eye-night",
+   "type": "still",
+   "file": "renders/exterior/street-eye-night.jpg",
+   "thumb": "renders/exterior/thumbs/street-eye-night.jpg",
+   "W": 1350,
+   "H": 2400,
+   "spp": 192,
+   "ev": 6.3288734472274095,
+   "tod": "night",
+   "position": [
+    -3.5,
+    0.65,
+    21.8
+   ],
+   "lookAt": [
+    10.5,
+    2.2,
+    10
+   ],
+   "roomId": null,
+   "name": "Street, eye level, at night",
+   "kind": null,
+   "variant_of": "street-eye",
+   "variant_tod": "night",
+   "lens": 24.0,
+   "shift_y": 0.0564,
+   "seconds": 4666.1
+  }
+ ],
+ "seconds": 4679.1,
+ "blender": "4.2.3 LTS"
+}
