@@ -1,0 +1,122 @@
+[
+ {
+  "set": "units",
+  "quality": "standard",
+  "units": "1.C",
+  "packages": "atlantic",
+  "tod": "dusk,night",
+  "shots": "1.C-atlantic-h0,1.C-atlantic-h1,1.C-atlantic-h2,1.C-atlantic-h5,1.C-atlantic-h6,1.C-atlantic-h7",
+  "per_shard": 4,
+  "opts": {}
+ },
+ {
+  "set": "units",
+  "quality": "standard",
+  "units": "1.C",
+  "packages": "lisboa",
+  "tod": "dusk,night",
+  "shots": "1.C-lisboa-h0,1.C-lisboa-h1,1.C-lisboa-h2,1.C-lisboa-h5,1.C-lisboa-h6,1.C-lisboa-h7",
+  "per_shard": 4,
+  "opts": {}
+ },
+ {
+  "set": "units",
+  "quality": "standard",
+  "units": "1.C",
+  "packages": "noir",
+  "tod": "dusk,night",
+  "shots": "1.C-noir-h0,1.C-noir-h1,1.C-noir-h2,1.C-noir-h5,1.C-noir-h6,1.C-noir-h7",
+  "per_shard": 4,
+  "opts": {}
+ },
+ {
+  "set": "units",
+  "quality": "standard",
+  "units": "1.C",
+  "packages": "natura",
+  "tod": "dusk,night",
+  "shots": "1.C-natura-h0,1.C-natura-h1,1.C-natura-h2,1.C-natura-h5,1.C-natura-h6,1.C-natura-h7",
+  "per_shard": 4,
+  "opts": {}
+ },
+ {
+  "set": "units",
+  "quality": "standard",
+  "units": "1.C",
+  "packages": "riviera",
+  "tod": "dusk,night",
+  "shots": "1.C-riviera-h0,1.C-riviera-h1,1.C-riviera-h2,1.C-riviera-h5,1.C-riviera-h6,1.C-riviera-h7",
+  "per_shard": 4,
+  "opts": {}
+ },
+ {
+  "set": "units",
+  "quality": "standard",
+  "units": "1.C",
+  "packages": "urban",
+  "tod": "dusk,night",
+  "shots": "1.C-urban-h0,1.C-urban-h1,1.C-urban-h2,1.C-urban-h5,1.C-urban-h6,1.C-urban-h7",
+  "per_shard": 4,
+  "opts": {}
+ },
+ {
+  "set": "units",
+  "quality": "standard",
+  "units": "2.C",
+  "packages": "atlantic",
+  "tod": "dusk,night",
+  "shots": "2.C-atlantic-h0,2.C-atlantic-h1,2.C-atlantic-h2,2.C-atlantic-h5,2.C-atlantic-h6,2.C-atlantic-h7,2.C-atlantic-h8",
+  "per_shard": 4,
+  "opts": {}
+ },
+ {
+  "set": "units",
+  "quality": "standard",
+  "units": "2.C",
+  "packages": "lisboa",
+  "tod": "dusk,night",
+  "shots": "2.C-lisboa-h0,2.C-lisboa-h1,2.C-lisboa-h2,2.C-lisboa-h5,2.C-lisboa-h6,2.C-lisboa-h7,2.C-lisboa-h8",
+  "per_shard": 4,
+  "opts": {}
+ },
+ {
+  "set": "units",
+  "quality": "standard",
+  "units": "2.C",
+  "packages": "noir",
+  "tod": "dusk,night",
+  "shots": "2.C-noir-h0,2.C-noir-h1,2.C-noir-h2,2.C-noir-h5,2.C-noir-h6,2.C-noir-h7,2.C-noir-h8",
+  "per_shard": 4,
+  "opts": {}
+ },
+ {
+  "set": "units",
+  "quality": "standard",
+  "units": "2.C",
+  "packages": "natura",
+  "tod": "dusk,night",
+  "shots": "2.C-natura-h0,2.C-natura-h1,2.C-natura-h2,2.C-natura-h5,2.C-natura-h6,2.C-natura-h7,2.C-natura-h8",
+  "per_shard": 4,
+  "opts": {}
+ },
+ {
+  "set": "units",
+  "quality": "standard",
+  "units": "2.C",
+  "packages": "riviera",
+  "tod": "dusk,night",
+  "shots": "2.C-riviera-h0,2.C-riviera-h1,2.C-riviera-h2,2.C-riviera-h5,2.C-riviera-h6,2.C-riviera-h7,2.C-riviera-h8",
+  "per_shard": 4,
+  "opts": {}
+ },
+ {
+  "set": "units",
+  "quality": "standard",
+  "units": "2.C",
+  "packages": "urban",
+  "tod": "dusk,night",
+  "shots": "2.C-urban-h0,2.C-urban-h1,2.C-urban-h2,2.C-urban-h5,2.C-urban-h6,2.C-urban-h7,2.C-urban-h8",
+  "per_shard": 4,
+  "opts": {}
+ }
+]
