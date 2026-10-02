@@ -1,0 +1,116 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.A",
+  "pkg": "riviera",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "2.A-riviera-h5",
+   "2.A-riviera-h6",
+   "2.A-riviera-h7"
+  ],
+  "out": "renders/units/2.A/riviera",
+  "name": "u2.A-riviera-1",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "2.A-riviera-h5",
+   "type": "pano",
+   "file": "renders/units/2.A/riviera/2.A-riviera-h5.jpg",
+   "thumb": "renders/units/2.A/riviera/thumbs/2.A-riviera-h5.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.1951022692161906,
+   "tod": "day",
+   "position": [
+    4.525,
+    7.6,
+    6.01
+   ],
+   "lookAt": [
+    2.796,
+    7.3,
+    6.732
+   ],
+   "roomId": "2.A-wc",
+   "name": {
+    "en": "Guest bathroom",
+    "pt": "I.S. serviço",
+    "he": "חדר רחצה אורחים"
+   },
+   "kind": null,
+   "yawOffset": 1.96637,
+   "index": 5,
+   "seconds": 1264.9
+  },
+  {
+   "id": "2.A-riviera-h6",
+   "type": "pano",
+   "file": "renders/units/2.A/riviera/2.A-riviera-h6.jpg",
+   "thumb": "renders/units/2.A/riviera/thumbs/2.A-riviera-h6.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.43682249683741,
+   "tod": "day",
+   "position": [
+    5.55,
+    7.6,
+    6.01
+   ],
+   "lookAt": [
+    5.248,
+    7.3,
+    6.732
+   ],
+   "roomId": "2.A-hall",
+   "name": {
+    "en": "Entrance hall",
+    "pt": "Hall",
+    "he": "מבואה"
+   },
+   "kind": null,
+   "yawOffset": 2.74543,
+   "index": 6,
+   "seconds": 1699.5
+  },
+  {
+   "id": "2.A-riviera-h7",
+   "type": "pano",
+   "file": "renders/units/2.A/riviera/2.A-riviera-h7.jpg",
+   "thumb": "renders/units/2.A/riviera/thumbs/2.A-riviera-h7.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": -1.912097507098955,
+   "tod": "day",
+   "position": [
+    4.5,
+    7.6,
+    -0.35
+   ],
+   "lookAt": [
+    6.5,
+    7.4,
+    -12
+   ],
+   "roomId": "2.rear.A",
+   "name": {
+    "en": "Balcony",
+    "pt": "Varanda",
+    "he": "מרפסת"
+   },
+   "kind": null,
+   "yawOffset": -0.17002,
+   "index": 7,
+   "seconds": 744.6
+  }
+ ],
+ "seconds": 3713.9,
+ "blender": "4.2.3 LTS"
+}
