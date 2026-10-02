@@ -1,0 +1,148 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "0.B",
+  "pkg": "riviera",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "0.B-living",
+   "0.B-bedroom",
+   "0.B-bathroom",
+   "0.B-garden"
+  ],
+  "out": "renders/units/0.B/riviera",
+  "name": "u0.B-riviera-s",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "0.B-living",
+   "type": "still",
+   "file": "renders/units/0.B/riviera/0.B-living.jpg",
+   "thumb": "renders/units/0.B/riviera/thumbs/0.B-living.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 2.381138857794743,
+   "tod": "day",
+   "position": [
+    9.374,
+    1.45,
+    4.803
+   ],
+   "lookAt": [
+    6.847,
+    1.45,
+    1.099
+   ],
+   "roomId": "0.B-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1921.2
+  },
+  {
+   "id": "0.B-bedroom",
+   "type": "still",
+   "file": "renders/units/0.B/riviera/0.B-bedroom.jpg",
+   "thumb": "renders/units/0.B/riviera/thumbs/0.B-bedroom.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 4.542257988740209,
+   "tod": "day",
+   "position": [
+    10.275,
+    1.4,
+    8.474
+   ],
+   "lookAt": [
+    12.732,
+    1.4,
+    6.324
+   ],
+   "roomId": "0.B-suite",
+   "name": {
+    "en": "Suite",
+    "pt": "Suite",
+    "he": "סוויטה"
+   },
+   "kind": "bedroom",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1880.3
+  },
+  {
+   "id": "0.B-bathroom",
+   "type": "still",
+   "file": "renders/units/0.B/riviera/0.B-bathroom.jpg",
+   "thumb": "renders/units/0.B/riviera/thumbs/0.B-bathroom.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 4.942869968234217,
+   "tod": "day",
+   "position": [
+    9.053,
+    1.45,
+    5.982
+   ],
+   "lookAt": [
+    8.688,
+    1.45,
+    6.473
+   ],
+   "roomId": "0.B-wc",
+   "name": {
+    "en": "Bathroom",
+    "pt": "I.S.",
+    "he": "חדר רחצה"
+   },
+   "kind": "bathroom",
+   "lens": 18.0,
+   "shift_y": 0.0,
+   "seconds": 1252.8
+  },
+  {
+   "id": "0.B-garden",
+   "type": "still",
+   "file": "renders/units/0.B/riviera/0.B-garden.jpg",
+   "thumb": "renders/units/0.B/riviera/thumbs/0.B-garden.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": -1.7127792727059061,
+   "tod": "day",
+   "position": [
+    8.68,
+    1.6,
+    -4.15
+   ],
+   "lookAt": [
+    8.68,
+    2.4,
+    0
+   ],
+   "roomId": "0.B-garden",
+   "name": {
+    "en": "Private garden & deck",
+    "pt": "Jardim privado",
+    "he": "גינה פרטית ודק"
+   },
+   "kind": "garden",
+   "lens": 20.0,
+   "shift_y": 0.1071,
+   "seconds": 1581.7
+  }
+ ],
+ "seconds": 6640.8,
+ "blender": "4.2.3 LTS"
+}
