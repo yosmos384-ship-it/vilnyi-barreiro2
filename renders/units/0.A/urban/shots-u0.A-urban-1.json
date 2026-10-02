@@ -1,0 +1,148 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "0.A",
+  "pkg": "urban",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "0.A-urban-h5",
+   "0.A-urban-h6",
+   "0.A-urban-h7",
+   "0.A-urban-h8"
+  ],
+  "out": "renders/units/0.A/urban",
+  "name": "u0.A-urban-1",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "0.A-urban-h5",
+   "type": "pano",
+   "file": "renders/units/0.A/urban/0.A-urban-h5.jpg",
+   "thumb": "renders/units/0.A/urban/thumbs/0.A-urban-h5.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.394944042767184,
+   "tod": "day",
+   "position": [
+    4.525,
+    1.6,
+    6.01
+   ],
+   "lookAt": [
+    2.796,
+    1.3,
+    6.732
+   ],
+   "roomId": "0.A-wc",
+   "name": {
+    "en": "Guest bathroom",
+    "pt": "I.S. serviço",
+    "he": "חדר רחצה אורחים"
+   },
+   "kind": null,
+   "yawOffset": 1.96637,
+   "index": 5,
+   "seconds": 1712.3
+  },
+  {
+   "id": "0.A-urban-h6",
+   "type": "pano",
+   "file": "renders/units/0.A/urban/0.A-urban-h6.jpg",
+   "thumb": "renders/units/0.A/urban/thumbs/0.A-urban-h6.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 4.819329229595911,
+   "tod": "day",
+   "position": [
+    5.55,
+    1.6,
+    6.01
+   ],
+   "lookAt": [
+    5.248,
+    1.3,
+    6.732
+   ],
+   "roomId": "0.A-hall",
+   "name": {
+    "en": "Entrance hall",
+    "pt": "Hall",
+    "he": "מבואה"
+   },
+   "kind": null,
+   "yawOffset": 2.74543,
+   "index": 6,
+   "seconds": 1417.1
+  },
+  {
+   "id": "0.A-urban-h7",
+   "type": "pano",
+   "file": "renders/units/0.A/urban/0.A-urban-h7.jpg",
+   "thumb": "renders/units/0.A/urban/thumbs/0.A-urban-h7.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": -1.08270035266808,
+   "tod": "day",
+   "position": [
+    4.3,
+    1.6,
+    -2.75
+   ],
+   "lookAt": [
+    2.1,
+    1.3,
+    1.5
+   ],
+   "roomId": "0.A-garden",
+   "name": {
+    "en": "Private garden & deck",
+    "pt": "Jardim privado",
+    "he": "גינה פרטית ודק"
+   },
+   "kind": null,
+   "yawOffset": 2.66393,
+   "index": 7,
+   "seconds": 977.7
+  },
+  {
+   "id": "0.A-urban-h8",
+   "type": "pano",
+   "file": "renders/units/0.A/urban/0.A-urban-h8.jpg",
+   "thumb": "renders/units/0.A/urban/thumbs/0.A-urban-h8.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": -0.7165780106753351,
+   "tod": "day",
+   "position": [
+    3.1,
+    1.6,
+    -1.2
+   ],
+   "lookAt": [
+    2.3,
+    1.2,
+    -3.75
+   ],
+   "roomId": "0.A-garden",
+   "name": {
+    "en": "Private garden & deck · view 2",
+    "pt": "Jardim privado · vista 2",
+    "he": "גינה פרטית ודק · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": 0.304,
+   "index": 8,
+   "seconds": 1106.4
+  }
+ ],
+ "seconds": 5217.9,
+ "blender": "4.2.3 LTS"
+}
