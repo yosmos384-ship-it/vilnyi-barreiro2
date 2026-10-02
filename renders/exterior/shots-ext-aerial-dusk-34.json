@@ -1,0 +1,45 @@
+{
+ "job": {
+  "scope": "exterior",
+  "quality": "standard",
+  "shots": [
+   "aerial-dusk-34"
+  ],
+  "out": "renders/exterior",
+  "name": "ext-aerial-dusk-34",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "aerial-dusk-34",
+   "type": "still",
+   "file": "renders/exterior/aerial-dusk-34.jpg",
+   "thumb": "renders/exterior/thumbs/aerial-dusk-34.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 192,
+   "ev": -0.5196577476738169,
+   "tod": "dusk",
+   "position": [
+    36.0,
+    24.0,
+    44.0
+   ],
+   "lookAt": [
+    6.5,
+    3.5,
+    8.0
+   ],
+   "roomId": null,
+   "name": "3/4 aerial at dusk",
+   "kind": null,
+   "lens": 35.0,
+   "shift_y": -0.4282,
+   "seconds": 3986.3
+  }
+ ],
+ "seconds": 3994.8,
+ "blender": "4.2.3 LTS"
+}
