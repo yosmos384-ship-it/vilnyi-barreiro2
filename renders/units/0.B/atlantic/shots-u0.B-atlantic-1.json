@@ -6,11 +6,8 @@
   "quality": "standard",
   "tod": "day",
   "shots": [
-   "0.B-atlantic-h5",
-   "0.B-atlantic-h6",
-   "0.B-atlantic-h7",
-   "0.B-atlantic-h8",
-   "0.B-atlantic-h9"
+   "0.B-atlantic-h3",
+   "0.B-atlantic-h4"
   ],
   "out": "renders/units/0.B/atlantic",
   "name": "u0.B-atlantic-1",
@@ -20,161 +17,68 @@
  },
  "shots": [
   {
-   "id": "0.B-atlantic-h5",
+   "id": "0.B-atlantic-h3",
    "type": "pano",
-   "file": "renders/units/0.B/atlantic/0.B-atlantic-h5.jpg",
-   "thumb": "renders/units/0.B/atlantic/thumbs/0.B-atlantic-h5.jpg",
+   "file": "renders/units/0.B/atlantic/0.B-atlantic-h3.jpg",
+   "thumb": "renders/units/0.B/atlantic/thumbs/0.B-atlantic-h3.jpg",
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 3.295990595010163,
+   "ev": 2.935840957831508,
    "tod": "day",
    "position": [
-    9.05,
+    10.608,
     1.6,
-    6.01
+    4.725
    ],
    "lookAt": [
-    8.496,
-    1.3,
-    6.732
-   ],
-   "roomId": "0.B-wc",
-   "name": {
-    "en": "Bathroom",
-    "pt": "I.S.",
-    "he": "חדר רחצה"
-   },
-   "kind": null,
-   "yawOffset": 2.4871,
-   "index": 5,
-   "seconds": 1366.2
-  },
-  {
-   "id": "0.B-atlantic-h6",
-   "type": "pano",
-   "file": "renders/units/0.B/atlantic/0.B-atlantic-h6.jpg",
-   "thumb": "renders/units/0.B/atlantic/thumbs/0.B-atlantic-h6.jpg",
-   "W": 3072,
-   "H": 1536,
-   "spp": 64,
-   "ev": 4.369575562337704,
-   "tod": "day",
-   "position": [
-    10.71,
-    1.6,
-    8.41
-   ],
-   "lookAt": [
-    11.91,
-    0.95,
-    7.272
-   ],
-   "roomId": "0.B-suite",
-   "name": {
-    "en": "Suite",
-    "pt": "Suite",
-    "he": "סוויטה"
-   },
-   "kind": null,
-   "yawOffset": -0.81191,
-   "index": 6,
-   "seconds": 1411.6
-  },
-  {
-   "id": "0.B-atlantic-h7",
-   "type": "pano",
-   "file": "renders/units/0.B/atlantic/0.B-atlantic-h7.jpg",
-   "thumb": "renders/units/0.B/atlantic/thumbs/0.B-atlantic-h7.jpg",
-   "W": 3072,
-   "H": 1536,
-   "spp": 64,
-   "ev": 4.2927300293413735,
-   "tod": "day",
-   "position": [
-    12.971,
-    1.6,
-    8.123
-   ],
-   "lookAt": [
-    11.175,
+    12.331,
     1,
-    7.845
+    3.663
    ],
-   "roomId": "0.B-suite",
+   "roomId": "0.B-bed",
    "name": {
-    "en": "Suite · view 2",
-    "pt": "Suite · vista 2",
-    "he": "סוויטה · מבט 2"
+    "en": "Bedroom · view 2",
+    "pt": "Quarto · vista 2",
+    "he": "חדר שינה · מבט 2"
    },
    "kind": null,
-   "yawOffset": 1.41723,
-   "index": 7,
-   "seconds": 1354.7
+   "yawOffset": -1.01843,
+   "index": 3,
+   "seconds": 2140.1
   },
   {
-   "id": "0.B-atlantic-h8",
+   "id": "0.B-atlantic-h4",
    "type": "pano",
-   "file": "renders/units/0.B/atlantic/0.B-atlantic-h8.jpg",
-   "thumb": "renders/units/0.B/atlantic/thumbs/0.B-atlantic-h8.jpg",
+   "file": "renders/units/0.B/atlantic/0.B-atlantic-h4.jpg",
+   "thumb": "renders/units/0.B/atlantic/thumbs/0.B-atlantic-h4.jpg",
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": -1.4677015146779397,
+   "ev": 3.3753274003972904,
    "tod": "day",
    "position": [
-    9.848,
+    7.82,
     1.6,
-    -2.75
+    7.215
    ],
    "lookAt": [
-    7.648,
-    1.3,
-    1.5
+    9.035,
+    1.25,
+    8.629
    ],
-   "roomId": "0.B-garden",
+   "roomId": "0.B-hall",
    "name": {
-    "en": "Private garden & deck",
-    "pt": "Jardim privado",
-    "he": "גינה פרטית ודק"
+    "en": "Hall",
+    "pt": "Hall",
+    "he": "מבואה"
    },
    "kind": null,
-   "yawOffset": 2.66393,
-   "index": 8,
-   "seconds": 703.1
-  },
-  {
-   "id": "0.B-atlantic-h9",
-   "type": "pano",
-   "file": "renders/units/0.B/atlantic/0.B-atlantic-h9.jpg",
-   "thumb": "renders/units/0.B/atlantic/thumbs/0.B-atlantic-h9.jpg",
-   "W": 3072,
-   "H": 1536,
-   "spp": 64,
-   "ev": -0.37986258963363995,
-   "tod": "day",
-   "position": [
-    8.648,
-    1.6,
-    -1.2
-   ],
-   "lookAt": [
-    7.848,
-    1.2,
-    -3.75
-   ],
-   "roomId": "0.B-garden",
-   "name": {
-    "en": "Private garden & deck · view 2",
-    "pt": "Jardim privado · vista 2",
-    "he": "גינה פרטית ודק · מבט 2"
-   },
-   "kind": null,
-   "yawOffset": 0.304,
-   "index": 9,
-   "seconds": 889.7
+   "yawOffset": -2.43174,
+   "index": 4,
+   "seconds": 2080.9
   }
  ],
- "seconds": 5729.6,
+ "seconds": 4225.5,
  "blender": "4.2.3 LTS"
 }
