@@ -1,0 +1,117 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.B",
+  "pkg": "lisboa",
+  "quality": "standard",
+  "tod": "dusk",
+  "shots": [
+   "2.B-lisboa-h0",
+   "2.B-lisboa-h1",
+   "2.B-living"
+  ],
+  "out": "renders/units/2.B/lisboa",
+  "name": "u2.B-lisboa-dusk-0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "2.B-lisboa-h0",
+   "type": "pano",
+   "file": "renders/units/2.B/lisboa/2.B-lisboa-h0.dusk.jpg",
+   "thumb": "renders/units/2.B/lisboa/thumbs/2.B-lisboa-h0.dusk.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 6.5039394851541354,
+   "tod": "dusk",
+   "position": [
+    9,
+    7.6,
+    4.6
+   ],
+   "lookAt": [
+    7.296,
+    7.25,
+    0.474
+   ],
+   "roomId": "2.B-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": null,
+   "variant": "dusk",
+   "yawOffset": 0.39165,
+   "index": 0,
+   "seconds": 1044.5
+  },
+  {
+   "id": "2.B-lisboa-h1",
+   "type": "pano",
+   "file": "renders/units/2.B/lisboa/2.B-lisboa-h1.dusk.jpg",
+   "thumb": "renders/units/2.B/lisboa/thumbs/2.B-lisboa-h1.dusk.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 7.1326247510874055,
+   "tod": "dusk",
+   "position": [
+    6.908,
+    7.6,
+    0.842
+   ],
+   "lookAt": [
+    8.25,
+    7,
+    2.9
+   ],
+   "roomId": "2.B-living",
+   "name": {
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
+   },
+   "kind": null,
+   "variant": "dusk",
+   "yawOffset": -2.56375,
+   "index": 1,
+   "seconds": 974.9
+  },
+  {
+   "id": "2.B-living",
+   "type": "still",
+   "file": "renders/units/2.B/lisboa/2.B-living.dusk.jpg",
+   "thumb": "renders/units/2.B/lisboa/thumbs/2.B-living.dusk.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 6.381887920224761,
+   "tod": "dusk",
+   "position": [
+    9.374,
+    7.45,
+    4.803
+   ],
+   "lookAt": [
+    6.847,
+    7.45,
+    1.099
+   ],
+   "roomId": "2.B-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "dusk",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 939.4
+  }
+ ],
+ "seconds": 2963.7,
+ "blender": "4.2.3 LTS"
+}
