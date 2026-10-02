@@ -7,7 +7,9 @@
   ],
   "out": "renders/exterior",
   "name": "ext-street-golden-34",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
@@ -18,11 +20,11 @@
    "W": 2400,
    "H": 1350,
    "spp": 192,
-   "ev": -0.8811251607611212,
+   "ev": -0.5566628216413224,
    "tod": "golden",
    "position": [
     22.5,
-    0.72,
+    0.85,
     23.599999999999998
    ],
    "lookAt": [
@@ -34,10 +36,10 @@
    "name": "3/4 view from the street, golden hour",
    "kind": null,
    "lens": 24.0,
-   "shift_y": 0.1139,
-   "seconds": 1291.2
+   "shift_y": 0.1094,
+   "seconds": 1552.6
   }
  ],
- "seconds": 1464.6,
+ "seconds": 1563.3,
  "blender": "4.2.3 LTS"
 }
