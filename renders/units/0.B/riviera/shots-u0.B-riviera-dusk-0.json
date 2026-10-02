@@ -1,0 +1,117 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "0.B",
+  "pkg": "riviera",
+  "quality": "standard",
+  "tod": "dusk",
+  "shots": [
+   "0.B-riviera-h0",
+   "0.B-riviera-h1",
+   "0.B-living"
+  ],
+  "out": "renders/units/0.B/riviera",
+  "name": "u0.B-riviera-dusk-0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "0.B-riviera-h0",
+   "type": "pano",
+   "file": "renders/units/0.B/riviera/0.B-riviera-h0.dusk.jpg",
+   "thumb": "renders/units/0.B/riviera/thumbs/0.B-riviera-h0.dusk.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 5.690291626746027,
+   "tod": "dusk",
+   "position": [
+    9,
+    1.6,
+    4.6
+   ],
+   "lookAt": [
+    7.296,
+    1.25,
+    0.474
+   ],
+   "roomId": "0.B-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": null,
+   "variant": "dusk",
+   "yawOffset": 0.39165,
+   "index": 0,
+   "seconds": 1339.3
+  },
+  {
+   "id": "0.B-riviera-h1",
+   "type": "pano",
+   "file": "renders/units/0.B/riviera/0.B-riviera-h1.dusk.jpg",
+   "thumb": "renders/units/0.B/riviera/thumbs/0.B-riviera-h1.dusk.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 4.88278844114675,
+   "tod": "dusk",
+   "position": [
+    6.908,
+    1.6,
+    0.842
+   ],
+   "lookAt": [
+    8.25,
+    1,
+    2.9
+   ],
+   "roomId": "0.B-living",
+   "name": {
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
+   },
+   "kind": null,
+   "variant": "dusk",
+   "yawOffset": -2.56375,
+   "index": 1,
+   "seconds": 1364.0
+  },
+  {
+   "id": "0.B-living",
+   "type": "still",
+   "file": "renders/units/0.B/riviera/0.B-living.dusk.jpg",
+   "thumb": "renders/units/0.B/riviera/thumbs/0.B-living.dusk.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 5.3439372228987,
+   "tod": "dusk",
+   "position": [
+    9.374,
+    1.45,
+    4.803
+   ],
+   "lookAt": [
+    6.847,
+    1.45,
+    1.099
+   ],
+   "roomId": "0.B-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "dusk",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1416.8
+  }
+ ],
+ "seconds": 4124.4,
+ "blender": "4.2.3 LTS"
+}
