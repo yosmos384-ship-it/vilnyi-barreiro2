@@ -1,0 +1,21 @@
+[    0.0s] job u1.C-lisboa-night-1: scope=unit unit=1.C pkg=lisboa quality=standard shots=2
+[    0.7s] import building: 491 objects in 0.6s
+[    1.0s] import context: 127 objects in 0.3s
+[    1.3s] import unit-1.C-lisboa: 108 objects in 0.4s
+[    1.6s] box UVs on 660 meshes
+[    1.6s] [presets] from lighting_presets.json (snapshot of js/environment.js)
+[    3.2s] [foliage] leafified 27 objects, crown area 1129 m2 -> ~1467544 leaves
+[    3.2s] materials: built=255 textured=77 by_key={'aluminium-frame': 2, 'appliance-glass-black': 3, 'appliance-steel': 1, 'art-canvas': 5, 'asphalt': 1, 'bark': 2, 'bath-floor': 1, 'bath-wall': 1, 'book': 7, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 3, 'candle-wax': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-taillight': 1, 'car-tyre': 1, 'ceiling': 1, 'ceiling-white': 2, 'ceramic-plate': 5, 'concrete': 5, 'curtain-fabric': 1, 'cutlery-steel': 1, 'deck-teak': 3, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'fabric-boucle': 6, 'fabric-linen': 8, 'fabric-sofa': 1, 'floor-main': 2, 'foliage': 21, 'foliage-inner': 1, 'fruit': 3, 'garage-door': 1, 'glass-drinking': 2, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 2, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 2, 'leather': 2, 'led-strip-emissive': 13, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'marble-table': 1, 'metal-furniture': 3, 'mirror': 2, 'paint-white': 1, 'paving-calcada': 2, 'plant-leaf': 3, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'pot-terracotta': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 2, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 1, 'sanitary-ceramic': 3, 'shower-glass': 1, 'shower-wall': 1, 'signage': 39, 'skirting': 2, 'soil': 3, 'steel-dark': 9, 'stone-coping': 2, 'tap-metal': 1, 'timber-soffit': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 7, 'zinc-standing-seam': 2}
+[    3.2s] [lamps] night: list=7 new=0 merged-with-bulbs=3 strips=1 no-fixture=3 (1400 lm per unit intensity)
+[    3.2s] evening lights: street=6 lamp-list=3 lit-window fraction=0.45
+[    3.2s] lights: imported=0 emissive->lights=103 portals=0 boost=1.0 total_lights=109 polys=425915
+[    4.5s] [world] procedural night: moon bearing 168 alt 40 key 7.0 lux, sky 2.6 lux (mean radiance 0.001656), stars 1500, camera gain 1.6
+[    4.5s] scene ready in 4.5s  (world procedural-night)
+[   15.8s] [expo] interior night: in/out/sky=19408/592/0 key=0.22 Lavg=0.0004223 p97=0.00622 ev_hi=9.91 -> ev=9.03 windowND=0.09
+[   15.8s] [wb] gains (0.508, 1.0, 2.008)
+[  623.8s] SHOT 1.C-lisboa-h6 pano 3072x1536 spp<=64 ev=9.03 in 619.4s -> renders/units/1.C/lisboa/1.C-lisboa-h6.night.jpg
+[  632.8s] [expo] exterior: geo/sky=18800/1200 Lavg=0.0002215 p95=0.00448 ev_hi=10.80 -> ev=8.96 sky=0.02819673717021942
+[  632.8s] [sky] visible sky x0.00 (measured 0.0282, ev 8.96)
+[  632.8s] [wb] gains (0.947, 1.0, 0.854)
+[ 1071.9s] SHOT 1.C-lisboa-h7 pano 3072x1536 spp<=64 ev=8.96 in 448.1s -> renders/units/1.C/lisboa/1.C-lisboa-h7.night.jpg
+[ 1071.9s] DONE 2 images in 1071.9s
