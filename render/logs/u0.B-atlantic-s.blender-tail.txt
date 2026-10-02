@@ -1,0 +1,60 @@
+Fra:1 Mem:2044.20M (Peak 2054.27M) | Time:00:00.17 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | int-shade
+Fra:1 Mem:2044.38M (Peak 2054.27M) | Time:00:00.17 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | int-sheer
+Fra:1 Mem:2044.37M (Peak 2054.27M) | Time:00:00.17 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | int-skirting
+Fra:1 Mem:2044.60M (Peak 2054.27M) | Time:00:00.17 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | int-sofa
+Fra:1 Mem:2044.80M (Peak 2054.27M) | Time:00:00.17 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | int-soil
+Fra:1 Mem:2045.06M (Peak 2054.27M) | Time:00:00.17 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | int-splash
+Fra:1 Mem:2045.09M (Peak 2054.27M) | Time:00:00.17 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | int-steel
+Fra:1 Mem:2045.25M (Peak 2054.27M) | Time:00:00.18 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | int-stoneware
+Fra:1 Mem:2045.30M (Peak 2054.27M) | Time:00:00.18 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | int-teak
+Fra:1 Mem:2047.62M (Peak 2054.27M) | Time:00:00.18 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | int-throw
+Fra:1 Mem:2046.85M (Peak 2054.27M) | Time:00:00.18 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | int-towel
+Fra:1 Mem:2047.40M (Peak 2054.27M) | Time:00:00.18 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | int-towel2
+Fra:1 Mem:2046.78M (Peak 2054.27M) | Time:00:00.18 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | int-wall
+Fra:1 Mem:2046.92M (Peak 2054.27M) | Time:00:00.18 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | int-wine
+Fra:1 Mem:2046.98M (Peak 2054.27M) | Time:00:00.18 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | int-wood
+Fra:1 Mem:2046.93M (Peak 2054.27M) | Time:00:00.18 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | int-worktop
+Fra:1 Mem:2047.07M (Peak 2054.27M) | Time:00:00.18 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-basement-hazard
+Fra:1 Mem:2047.08M (Peak 2054.27M) | Time:00:00.18 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-basement-pathPaint
+Fra:1 Mem:2059.18M (Peak 2059.18M) | Time:00:00.20 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-env-trees-0@f5ebe1
+Fra:1 Mem:2089.31M (Peak 2089.31M) | Time:00:00.61 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-env-trees-0@f5f5eb
+Fra:1 Mem:2062.05M (Peak 2089.31M) | Time:00:01.47 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-env-trees-0@f5ffeb
+Fra:1 Mem:2051.18M (Peak 2089.31M) | Time:00:01.89 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-env-trees-0@fff5f5
+Fra:1 Mem:2112.18M (Peak 2112.18M) | Time:00:02.19 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-env-trees-0@ffffff
+Fra:1 Mem:2043.19M (Peak 2112.18M) | Time:00:03.43 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-env-trees-1@fffff5
+Fra:1 Mem:2038.36M (Peak 2112.18M) | Time:00:03.56 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-env-trees-1@ffffff
+Fra:1 Mem:2072.53M (Peak 2112.18M) | Time:00:03.65 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-env-trees-2@ffffeb
+Fra:1 Mem:2050.97M (Peak 2112.18M) | Time:00:04.23 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-env-trees-2@fffff5
+Fra:1 Mem:2033.89M (Peak 2112.18M) | Time:00:04.46 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-first-grass
+Fra:1 Mem:2033.70M (Peak 2112.18M) | Time:00:04.47 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-first-grassDry
+Fra:1 Mem:2033.70M (Peak 2112.18M) | Time:00:04.47 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-first-ivy
+Fra:1 Mem:2034.68M (Peak 2112.18M) | Time:00:04.47 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-first-leaf
+Fra:1 Mem:2033.68M (Peak 2112.18M) | Time:00:04.48 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-ground-grass
+Fra:1 Mem:2033.63M (Peak 2112.18M) | Time:00:04.48 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-ground-grassDry
+Fra:1 Mem:2034.46M (Peak 2112.18M) | Time:00:04.48 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-ground-olive
+Fra:1 Mem:2033.65M (Peak 2112.18M) | Time:00:04.49 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-int-grassBlade
+Fra:1 Mem:2037.48M (Peak 2112.18M) | Time:00:04.50 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-site-grass
+Fra:1 Mem:2035.37M (Peak 2112.18M) | Time:00:04.55 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-site-grassDry
+Fra:1 Mem:2033.68M (Peak 2112.18M) | Time:00:04.57 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-site-hazard
+Fra:1 Mem:2041.09M (Peak 2112.18M) | Time:00:04.58 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-site-ivy
+Fra:1 Mem:2044.87M (Peak 2112.18M) | Time:00:04.69 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-site-leaf
+Fra:1 Mem:2044.58M (Peak 2112.18M) | Time:00:04.85 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-site-olive
+Fra:1 Mem:2037.39M (Peak 2112.18M) | Time:00:05.01 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Synchronizing object | vbCrowns-site-oliveLight
+Fra:1 Mem:2032.83M (Peak 2112.18M) | Time:00:05.06 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Initializing
+Fra:1 Mem:2032.82M (Peak 2112.18M) | Time:00:06.32 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:2032.82M (Peak 2112.18M) | Time:00:06.36 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:2032.82M (Peak 2112.18M) | Time:00:06.36 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:2032.82M (Peak 2112.18M) | Time:00:06.36 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:2032.82M (Peak 2112.18M) | Time:00:06.37 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:2032.82M (Peak 2112.18M) | Time:00:06.37 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:2032.82M (Peak 2112.18M) | Time:00:06.37 | Mem:1876.84M, Peak:1876.84M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:2021.62M (Peak 2112.18M) | Time:00:06.49 | Mem:1401.37M, Peak:1876.84M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:2021.62M (Peak 2112.18M) | Time:00:06.50 | Mem:1401.37M, Peak:1876.84M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:2021.62M (Peak 2112.18M) | Time:00:06.54 | Mem:1401.37M, Peak:1876.84M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:2021.62M (Peak 2112.18M) | Time:00:06.59 | Mem:1401.37M, Peak:1876.84M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:2021.62M (Peak 2112.18M) | Time:00:06.59 | Mem:1401.37M, Peak:1876.84M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:1978.02M (Peak 2112.18M) | Time:00:06.60 | Mem:1352.10M, Peak:1876.84M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:2095.03M (Peak 2112.18M) | Time:00:06.67 | Mem:1352.16M, Peak:1876.84M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:1994.16M (Peak 2112.18M) | Time:00:06.77 | Mem:1368.24M, Peak:1876.84M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:2005.36M (Peak 2112.18M) | Time:00:06.77 | Mem:1368.24M, Peak:1876.84M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Writing: /tmp/blender.crash.txt
