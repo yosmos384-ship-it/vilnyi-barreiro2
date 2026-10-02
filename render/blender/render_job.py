@@ -319,7 +319,7 @@ def render_group(job, q, quality, scn, tod, shots, tmp, out_dir):
     region = None
     inside = None
     if is_unit:
-        unit_objs = [o for k, v in objs_by.items() if k.startswith('unit-') for o in v]
+        unit_objs = [o for o in bpy.data.objects if str(o.get('vb_src', '')).startswith('unit-')]   # (imported lights may be gone)
         mn, mx = S.scene_bounds(unit_objs)
         region = (mn - Vector((0.3, 0.3, 0.2)), mx + Vector((0.3, 0.3, 0.3)))
         inside = (mn + mx) / 2
@@ -490,7 +490,8 @@ def _render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, hidden, e
                 wt = opts.get('window_target_' + tod, {'dusk': 0.40, 'night': 0.13}[tod])
                 nd = max(0.05, min(opts.get('window_gain_max', 24.0), wt / max(p75 * (2 ** ev), 1e-6)))
             else:
-                nd = max(0.05, min(1.0, opts.get('window_target', 1.1) / max(p75 * (2 ** ev), 1e-6)))
+                # bare glazing (no sheers: urban roller blinds) reads as dark glass at the default target -> brighter outside
+                nd = max(0.05, min(1.0, opts.get('window_target', {'urban': 3.0}.get(pkg, 1.1)) / max(p75 * (2 ** ev), 1e-6)))
         LI.set_window_nd(nd)
         log(f'[expo] interior{" " + tod if evening else ""}: in/out/sky={n_in}/{n_out}/{n_sky} key={key} Lavg={lavg:.4g} p97={p97:.4g} ev_hi={ev_hi:.2f} -> ev={ev:.2f} windowND={nd:.2f}')
     else:

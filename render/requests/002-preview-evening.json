@@ -1,0 +1,68 @@
+[
+ {
+  "set": "units",
+  "quality": "preview",
+  "preview": true,
+  "units": "1.C",
+  "packages": "urban",
+  "tod": "day",
+  "shots": "1.C-living,1.C-bathroom",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ {
+  "set": "units",
+  "quality": "preview",
+  "preview": true,
+  "units": "1.C",
+  "packages": "lisboa",
+  "tod": "dusk,night",
+  "shots": "living",
+  "opts": {}
+ },
+ {
+  "set": "units",
+  "quality": "preview",
+  "preview": true,
+  "units": "1.C",
+  "packages": "natura",
+  "tod": "dusk",
+  "shots": "1.C-living",
+  "opts": {}
+ },
+ {
+  "set": "units",
+  "quality": "preview",
+  "preview": true,
+  "units": "1.C",
+  "packages": "urban,riviera",
+  "tod": "night",
+  "shots": "1.C-living",
+  "opts": {}
+ },
+ {
+  "set": "units",
+  "quality": "preview",
+  "preview": true,
+  "units": "0.B",
+  "packages": "noir",
+  "tod": "night",
+  "shots": "0.B-living",
+  "opts": {}
+ },
+ {
+  "set": "exterior",
+  "quality": "preview",
+  "preview": true,
+  "shots": "street-night,entrance-night",
+  "opts": {}
+ },
+ {
+  "set": "common",
+  "quality": "preview",
+  "preview": true,
+  "shots": "lobby-night",
+  "opts": {}
+ }
+]

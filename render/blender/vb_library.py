@@ -200,7 +200,7 @@ PACKAGES = {
     # Natura · Japandi Calm — pale ash boards, sand limewash, honed travertine, ash veneer joinery, matt-black fittings
     'natura': {
         'floor-main':       dict(tex='acg:WoodFloor039', size=1.9, tint='#d3c2a2', detail=0.9, rough=(0.5, 0.7), bump=0.06, var=0.04),
-        'wall-paint':       dict(tex='acg:Plaster002', size=2.0, tint='#e6dcc8', detail=0.45, rough=(0.85, 0.97), bump=0.06, var=0.05),
+        'wall-paint':       dict(tex='acg:Plaster002', size=2.0, tint='#e6dcc8', detail=0.45, rough=(0.85, 0.97), normal=0.3, var=0.05),
         'wall-feature':     dict(tex='ash_veneer', size=1.0, rot=90, tint='#cdb994', detail=0.9, rough=(0.45, 0.65), bump=0.05, var=0.03),
         'ceiling':          dict(color='#f6f2ea', rough=0.92),
         'skirting':         dict(tex='ash_veneer', size=1.0, tint='#cdb994', detail=0.8, rough=(0.45, 0.6), bevel=0.002),
@@ -228,8 +228,8 @@ PACKAGES = {
     # sage shaker kitchen with white marble top and terracotta splashback, aged brass
     'riviera': {
         'floor-main':       dict(tex='acg:Marble015', size=1.2, tint='#dbd0bb', detail=0.8, rough=(0.32, 0.5), bump=0.03, var=0.035),
-        'wall-paint':       dict(tex='acg:Plaster001', size=2.0, tint='#f2ede3', detail=0.5, rough=(0.85, 0.97), bump=0.1, var=0.025),
-        'wall-feature':     dict(tex='acg:Plaster001', size=2.0, tint='#eadfcb', detail=0.6, rough=(0.85, 0.97), bump=0.12, var=0.03),
+        'wall-paint':       dict(tex='acg:Plaster001', size=2.0, tint='#f2ede3', detail=0.5, rough=(0.85, 0.97), normal=0.35, var=0.025),
+        'wall-feature':     dict(tex='acg:Plaster001', size=2.0, tint='#eadfcb', detail=0.6, rough=(0.85, 0.97), normal=0.4, var=0.03),
         'ceiling':          dict(color='#fbf8f2', rough=0.92),
         'skirting':         dict(color='#ece6dc', rough=0.4, bevel=0.002),
         'door-interior':    dict(color='#ece6dc', rough=0.35, coat=0.12, bevel=0.002),
@@ -253,16 +253,16 @@ PACKAGES = {
     # stainless worktop, black steel
     'urban': {
         'floor-main':       dict(tex='acg:Concrete016', size=2.5, tint='#8f8c86', detail=0.85, rough=(0.16, 0.42), coat=0.12, coat_rough=0.1, bump=0.03, var=0.05),
-        'wall-paint':       dict(tex='acg:PaintedPlaster017', size=2.0, tint='#e1ded8', detail=0.4, rough=(0.85, 0.96), bump=0.04, var=0.02),
+        'wall-paint':       dict(tex='acg:PaintedPlaster017', size=2.0, tint='#e1ded8', detail=0.4, rough=(0.85, 0.96), normal=0.25, var=0.02),
         'wall-feature':     dict(tex='brick_wall_001', size=1.6, hsv=(0.5, 0.92, 1.05), rough=(0.78, 0.96), bump=0.7, var=0.04),
         'ceiling':          dict(color='#eeece7', rough=0.92),
         'skirting':         dict(color='#2a2b2d', rough=0.45, bevel=0.002),
         'door-interior':    dict(tex='oak_veneer_01', size=1.83, rot=90, tint='#a98a66', detail=1.0, rough=(0.4, 0.6), bevel=0.002),
         'door-handle':      dict(color='#1b1c1e', rough=0.45, metal=1.0),
-        'bath-floor':       dict(tex='acg:Terrazzo005', size=1.0, rough=(0.22, 0.42), bump=0.02, var=0.02),
-        'bath-wall':        dict(tex='acg:Terrazzo005', size=1.0, rough=(0.2, 0.4), proc='tiles',
+        'bath-floor':       dict(tex='acg:Terrazzo005', size=0.5, rough=(0.22, 0.42), bump=0.02, var=0.02),
+        'bath-wall':        dict(tex='acg:Terrazzo005', size=0.5, rough=(0.2, 0.4), proc='tiles',
                                  tiles=dict(w=0.6, h=1.2, grout=0.002, grout_color='#b3aea6', offset=0.0, jitter=0.02)),
-        'shower-wall':      dict(tex='acg:Terrazzo005', size=1.0, rough=(0.2, 0.4), proc='tiles',
+        'shower-wall':      dict(tex='acg:Terrazzo005', size=0.5, rough=(0.2, 0.4), proc='tiles',
                                  tiles=dict(w=0.6, h=1.2, grout=0.002, grout_color='#b3aea6', offset=0.0, jitter=0.02)),
         'shower-glass':     dict(shader='glass_thin', color='#eef2f1', ior=1.52),
         'sanitary-ceramic': dict(tex='concrete_floor_02', size=1.2, tint='#bdb9b2', detail=0.5, rough=(0.4, 0.6), bevel=0.002, var=0.02),
