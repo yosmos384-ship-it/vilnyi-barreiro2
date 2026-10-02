@@ -1,0 +1,25 @@
+[    0.0s] job u2.C-urban-night-1: scope=unit unit=2.C pkg=urban quality=standard shots=3
+[    0.7s] import building: 491 objects in 0.6s
+[    0.9s] import context: 127 objects in 0.3s
+[    1.3s] import unit-2.C-urban: 107 objects in 0.4s
+[    1.6s] box UVs on 661 meshes
+[    1.6s] [presets] from lighting_presets.json (snapshot of js/environment.js)
+[    3.1s] [foliage] leafified 27 objects, crown area 1129 m2 -> ~1467991 leaves
+[    3.1s] materials: built=254 textured=74 by_key={'aluminium-frame': 2, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 4, 'asphalt': 1, 'bark': 1, 'bath-floor': 1, 'bath-wall': 1, 'book': 11, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 4, 'candle-wax': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-taillight': 1, 'car-tyre': 1, 'ceiling': 1, 'ceiling-white': 2, 'ceramic-plate': 4, 'concrete': 5, 'cutlery-steel': 1, 'deck-teak': 3, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 3, 'fabric-boucle': 6, 'fabric-linen': 6, 'fabric-sofa': 1, 'floor-main': 2, 'foliage': 21, 'foliage-inner': 1, 'fruit': 3, 'garage-door': 1, 'glass-drinking': 2, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 2, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 2, 'leather': 3, 'led-strip-emissive': 13, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 3, 'mirror': 2, 'paint-white': 1, 'paving-calcada': 2, 'plant-leaf': 3, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'pot-terracotta': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 2, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 1, 'sanitary-ceramic': 3, 'shower-glass': 1, 'shower-wall': 1, 'signage': 39, 'skirting': 2, 'soil': 3, 'steel-dark': 10, 'stone-coping': 2, 'tap-metal': 1, 'timber-soffit': 1, 'wall-feature': 1, 'wall-paint': 1, 'wine': 1, 'wood-furniture': 6, 'zinc-standing-seam': 2}
+[    3.1s] [lamps] night: list=7 new=0 merged-with-bulbs=4 strips=2 no-fixture=1 (1400 lm per unit intensity)
+[    3.1s] evening lights: street=6 lamp-list=4 lit-window fraction=0.45
+[    3.1s] lights: imported=0 emissive->lights=97 portals=0 boost=1.0 total_lights=103 polys=391671
+[    4.1s] [world] procedural night: moon bearing 168 alt 40 key 7.0 lux, sky 2.6 lux (mean radiance 0.001656), stars 1500, camera gain 1.6
+[    4.1s] scene ready in 4.1s  (world procedural-night)
+[   15.4s] [expo] interior night: in/out/sky=19408/568/24 key=0.2 Lavg=0.0002814 p97=0.004858 ev_hi=10.27 -> ev=9.47 windowND=0.05
+[   15.4s] [wb] gains (0.612, 1.0, 1.408)
+[  583.4s] SHOT 2.C-urban-h6 pano 3072x1536 spp<=64 ev=9.47 in 579.3s -> renders/units/2.C/urban/2.C-urban-h6.night.jpg
+[  592.0s] [expo] exterior: geo/sky=14763/5237 Lavg=0.0002633 p95=0.004851 ev_hi=10.69 -> ev=8.71 sky=0.017999038100242615
+[  592.0s] [sky] visible sky x0.01 (measured 0.018, ev 8.71)
+[  592.0s] [wb] gains (1.102, 1.0, 0.785)
+[  975.7s] SHOT 2.C-urban-h7 pano 3072x1536 spp<=64 ev=8.71 in 392.2s -> renders/units/2.C/urban/2.C-urban-h7.night.jpg
+[  984.1s] [expo] exterior: geo/sky=14739/5261 Lavg=0.0002916 p95=0.005131 ev_hi=10.61 -> ev=8.56 sky=0.01800379902124405
+[  984.1s] [sky] visible sky x0.01 (measured 0.018, ev 8.56)
+[  984.1s] [wb] gains (1.089, 1.0, 0.788)
+[ 1371.6s] SHOT 2.C-urban-h8 pano 3072x1536 spp<=64 ev=8.56 in 395.9s -> renders/units/2.C/urban/2.C-urban-h8.night.jpg
+[ 1371.6s] DONE 3 images in 1371.6s
