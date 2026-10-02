@@ -1,0 +1,84 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.C",
+  "pkg": "urban",
+  "quality": "standard",
+  "tod": "night",
+  "shots": [
+   "1.C-urban-h6",
+   "1.C-urban-h7"
+  ],
+  "out": "renders/units/1.C/urban",
+  "name": "u1.C-urban-night-1",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "1.C-urban-h6",
+   "type": "pano",
+   "file": "renders/units/1.C/urban/1.C-urban-h6.night.jpg",
+   "thumb": "renders/units/1.C/urban/thumbs/1.C-urban-h6.night.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 9.76732638042846,
+   "tod": "night",
+   "position": [
+    8.16,
+    4.6,
+    11.96
+   ],
+   "lookAt": [
+    6.92,
+    4.25,
+    14.139
+   ],
+   "roomId": "1.C-bed2",
+   "name": {
+    "en": "Bedroom 2",
+    "pt": "Quarto 2",
+    "he": "חדר שינה 2"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": 2.62423,
+   "index": 6,
+   "seconds": 454.2
+  },
+  {
+   "id": "1.C-urban-h7",
+   "type": "pano",
+   "file": "renders/units/1.C/urban/1.C-urban-h7.night.jpg",
+   "thumb": "renders/units/1.C/urban/thumbs/1.C-urban-h7.night.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 9.051226089365727,
+   "tod": "night",
+   "position": [
+    8.15,
+    4.6,
+    15.05
+   ],
+   "lookAt": [
+    6.15,
+    4.4,
+    26.7
+   ],
+   "roomId": "1.front",
+   "name": {
+    "en": "Balcony",
+    "pt": "Varanda",
+    "he": "מרפסת"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": 2.97158,
+   "index": 7,
+   "seconds": 379.5
+  }
+ ],
+ "seconds": 837.2,
+ "blender": "4.2.3 LTS"
+}
