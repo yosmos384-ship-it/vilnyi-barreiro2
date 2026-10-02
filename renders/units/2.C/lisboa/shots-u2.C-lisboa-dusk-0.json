@@ -1,0 +1,150 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.C",
+  "pkg": "lisboa",
+  "quality": "standard",
+  "tod": "dusk",
+  "shots": [
+   "2.C-lisboa-h0",
+   "2.C-lisboa-h1",
+   "2.C-lisboa-h2",
+   "2.C-lisboa-h5"
+  ],
+  "out": "renders/units/2.C/lisboa",
+  "name": "u2.C-lisboa-dusk-0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "2.C-lisboa-h0",
+   "type": "pano",
+   "file": "renders/units/2.C/lisboa/2.C-lisboa-h0.dusk.jpg",
+   "thumb": "renders/units/2.C/lisboa/thumbs/2.C-lisboa-h0.dusk.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 7.816356290035863,
+   "tod": "dusk",
+   "position": [
+    3.7,
+    7.6,
+    9.95
+   ],
+   "lookAt": [
+    8.721,
+    7.25,
+    10.788
+   ],
+   "roomId": "2.C-hall",
+   "name": {
+    "en": "Hall",
+    "pt": "Hall",
+    "he": "מסדרון"
+   },
+   "kind": null,
+   "variant": "dusk",
+   "yawOffset": -1.73617,
+   "index": 0,
+   "seconds": 538.7
+  },
+  {
+   "id": "2.C-lisboa-h1",
+   "type": "pano",
+   "file": "renders/units/2.C/lisboa/2.C-lisboa-h1.dusk.jpg",
+   "thumb": "renders/units/2.C/lisboa/thumbs/2.C-lisboa-h1.dusk.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 7.336787534517606,
+   "tod": "dusk",
+   "position": [
+    6.799,
+    7.6,
+    10.125
+   ],
+   "lookAt": [
+    5.132,
+    7,
+    9.842
+   ],
+   "roomId": "2.C-hall",
+   "name": {
+    "en": "Hall · view 2",
+    "pt": "Hall · vista 2",
+    "he": "מסדרון · מבט 2"
+   },
+   "kind": null,
+   "variant": "dusk",
+   "yawOffset": 1.40263,
+   "index": 1,
+   "seconds": 559.8
+  },
+  {
+   "id": "2.C-lisboa-h2",
+   "type": "pano",
+   "file": "renders/units/2.C/lisboa/2.C-lisboa-h2.dusk.jpg",
+   "thumb": "renders/units/2.C/lisboa/thumbs/2.C-lisboa-h2.dusk.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 6.537188475531804,
+   "tod": "dusk",
+   "position": [
+    8.15,
+    7.6,
+    8.59
+   ],
+   "lookAt": [
+    9.044,
+    7.3,
+    7.628
+   ],
+   "roomId": "2.C-wc",
+   "name": {
+    "en": "Bathroom",
+    "pt": "I.S.",
+    "he": "חדר רחצה"
+   },
+   "kind": null,
+   "variant": "dusk",
+   "yawOffset": -0.74878,
+   "index": 2,
+   "seconds": 814.4
+  },
+  {
+   "id": "2.C-lisboa-h5",
+   "type": "pano",
+   "file": "renders/units/2.C/lisboa/2.C-lisboa-h5.dusk.jpg",
+   "thumb": "renders/units/2.C/lisboa/thumbs/2.C-lisboa-h5.dusk.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 9.265221872039128,
+   "tod": "dusk",
+   "position": [
+    5.5,
+    7.6,
+    13.91
+   ],
+   "lookAt": [
+    4.662,
+    6.95,
+    12.6
+   ],
+   "roomId": "2.C-bed1",
+   "name": {
+    "en": "Main bedroom",
+    "pt": "Quarto",
+    "he": "חדר שינה ראשי"
+   },
+   "kind": null,
+   "variant": "dusk",
+   "yawOffset": 0.5691,
+   "index": 5,
+   "seconds": 461.7
+  }
+ ],
+ "seconds": 2378.0,
+ "blender": "4.2.3 LTS"
+}
