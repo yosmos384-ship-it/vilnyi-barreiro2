@@ -1,0 +1,27 @@
+[    0.0s] job u0.A-riviera-1: scope=unit unit=0.A pkg=riviera quality=standard shots=4
+[    0.7s] import building: 491 objects in 0.7s
+[    1.0s] import context: 127 objects in 0.3s
+[    1.4s] import unit-0.A-riviera: 90 objects in 0.3s
+[    1.7s] box UVs on 644 meshes
+[    3.4s] [foliage] leafified 26 objects, crown area 1128 m2 -> ~1466790 leaves
+[    3.4s] materials: built=242 textured=73 by_key={'aluminium-frame': 2, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 2, 'asphalt': 1, 'bark': 2, 'bath-floor': 1, 'bath-wall': 1, 'book': 3, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 3, 'candle-wax': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-taillight': 1, 'car-tyre': 1, 'ceiling': 1, 'ceiling-white': 2, 'ceramic-plate': 4, 'concrete': 5, 'curtain-fabric': 1, 'cutlery-steel': 1, 'deck-teak': 2, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'fabric-boucle': 6, 'fabric-linen': 8, 'fabric-sofa': 1, 'floor-joint': 1, 'floor-main': 2, 'foliage': 21, 'foliage-inner': 1, 'fruit': 3, 'garage-door': 1, 'glass-drinking': 1, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 2, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 2, 'leather': 1, 'led-strip-emissive': 13, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 3, 'mirror': 2, 'paint-white': 1, 'paving-calcada': 2, 'plant-leaf': 3, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'pot-terracotta': 2, 'pv-panel': 1, 'rattan': 1, 'render-cream': 3, 'render-pink': 2, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 1, 'sanitary-ceramic': 2, 'shower-glass': 1, 'shower-wall': 1, 'signage': 39, 'skirting': 2, 'soil': 3, 'steel-dark': 9, 'stone-coping': 2, 'tap-metal': 1, 'timber-soffit': 1, 'wall-feature': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 4, 'zinc-standing-seam': 2}
+[    3.4s] flames hidden by day: 1
+[    3.4s] lights: imported=2 emissive->lights=79 portals=14 boost=2.5 total_lights=95 polys=361046
+[    3.9s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[    4.1s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[    4.1s] scene ready in 4.1s  (world kloofendal_43d_clear_puresky)
+[   16.3s] [expo] interior: in/out/sky=19892/108/0 key=0.3 Lavg=0.009647 p97=0.2696 ev_hi=3.27 -> ev=3.27 windowND=1.00
+[   16.3s] [wb] gains (0.505, 1.0, 2.4)
+[ 1077.7s] SHOT 0.A-riviera-h5 pano 3072x1536 spp<=64 ev=3.62 in 1073.6s -> renders/units/0.A/riviera/0.A-riviera-h5.jpg
+[ 1088.5s] [expo] interior: in/out/sky=19911/89/0 key=0.3 Lavg=0.02141 p97=0.1545 ev_hi=4.07 -> ev=3.81 windowND=1.00
+[ 1088.5s] [wb] gains (0.488, 1.0, 2.4)
+[ 2529.0s] SHOT 0.A-riviera-h6 pano 3072x1536 spp<=64 ev=4.16 in 1451.3s -> renders/units/0.A/riviera/0.A-riviera-h6.jpg
+[ 2537.7s] [expo] exterior: geo/sky=14233/5767 Lavg=0.5109 p95=4.611 ev_hi=-0.88 -> ev=-1.51 sky=8.851529121398926
+[ 2537.7s] [sky] visible sky x0.18 (measured 8.85, ev -1.51)
+[ 2537.7s] [wb] gains (0.971, 1.0, 1.029)
+[ 3284.0s] SHOT 0.A-riviera-h7 pano 3072x1536 spp<=64 ev=-1.16 in 755.1s -> renders/units/0.A/riviera/0.A-riviera-h7.jpg
+[ 3293.7s] [expo] exterior: geo/sky=16084/3916 Lavg=0.3917 p95=3.45 ev_hi=-0.46 -> ev=-1.12 sky=8.738777160644531
+[ 3293.7s] [sky] visible sky x0.14 (measured 8.74, ev -1.12)
+[ 3293.7s] [wb] gains (0.958, 1.0, 1.009)
+[ 4133.4s] SHOT 0.A-riviera-h8 pano 3072x1536 spp<=64 ev=-0.77 in 849.4s -> renders/units/0.A/riviera/0.A-riviera-h8.jpg
+[ 4133.4s] DONE 4 images in 4133.4s
