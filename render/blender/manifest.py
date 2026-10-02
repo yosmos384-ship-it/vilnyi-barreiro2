@@ -4,14 +4,19 @@ Manifest:
 {
   "version": 1, "generated": iso,
   "conventions": {...},
-  "units": { "<unit>": { "<pkg>": { "panos": [ {id, roomId, name, file, thumb, position, yawOffset, links:[i...]} ],
-                                    "stills": [ {id, kind, roomId, name, file, thumb, lens} ] } } },
-  "exterior": [ {id, name, file, thumb, tod} ], "common": [ ... ]
+  "units": { "<unit>": { "<pkg>": { "panos": [ {id, roomId, name, file, thumb, position, yawOffset, links:[i...], variants?} ],
+                                    "stills": [ {id, kind, roomId, name, file, thumb, lens, variants?} ] } } },
+  "exterior": [ {id, name, file, thumb, tod, variants?, variantOf?} ], "common": [ ... ],
+  "packages": [...], "timesOfDay": ["day", "dusk", "night"]
 }
+Time of day: `file` / `thumb` are the DAY image; `variants` = { dusk: {file, thumb}, night: {file, thumb} } holds the same
+camera (identical yawOffset) at blue hour / at night. Unit variants are the files <name>.dusk.jpg / <name>.night.jpg next to the
+day file (thumbs likewise). Exterior / common night shots are separate entries (id, name, tod, variantOf = id of the day
+shot with the same framing) AND are attached to that base entry as variants.<tod>.
 Links: two panos are linked when they are in the same room/balcony, or their rooms connect through a door/opening/glass
 door/entry in FLOORS[].walls (js/data.js), and they are < 9 m apart.
 """
-import glob, json, math, os, subprocess, sys, time
+import glob, json, math, os, re, subprocess, sys, time
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 PASS = {'door', 'entry', 'opening', 'glassdoor', 'main'}
@@ -171,6 +176,40 @@ def jpeg_size(p):
     return None, None
 
 
+VARIANT_RE = re.compile(r'\.(dusk|night)\.jpg$')
+TODS = ('dusk', 'night')
+
+
+def variants_for(entry):
+    """<name>.dusk.jpg / <name>.night.jpg next to the day file -> {dusk: {file, thumb}, night: {...}}."""
+    out = {}
+    f = entry.get('file') or ''
+    if not f.endswith('.jpg'):
+        return out
+    d, b = os.path.split(f)
+    for tod in TODS:
+        vf = f'{d}/{b[:-4]}.{tod}.jpg'
+        if os.path.exists(os.path.join(ROOT, vf)):
+            vt = f'{d}/thumbs/{b[:-4]}.{tod}.jpg'
+            out[tod] = {'file': vf, 'thumb': vt if os.path.exists(os.path.join(ROOT, vt)) else vf}
+    return out
+
+
+def extra_shots():
+    """id -> definition of the extra exterior / common shots (names, variant_of / variant_tod)."""
+    out = {}
+    try:
+        ovr = json.load(open(os.path.join(ROOT, 'render', 'blender', 'cameras_override.json')))
+        for c in ovr.get('extra_exterior', []) + ovr.get('extra_common', []):
+            out[c['id']] = c
+        cams = json.load(open(os.path.join(ROOT, 'render', 'scenes', 'cameras.json')))
+        for c in cams.get('exterior', []) + cams.get('common', []):
+            out.setdefault(c['id'], c)
+    except Exception as e:
+        print('extra shots not loaded', e)
+    return out
+
+
 def main():
     D = load_data()
     floor_of = {u['id']: u['floor'] for u in (D or {}).get('UNITS', [])}
@@ -186,6 +225,8 @@ def main():
             if not os.path.exists(os.path.join(ROOT, s['file'])):
                 continue
             j = d['job']
+            if j['scope'] == 'unit' and (s.get('variant') or s.get('tod') in ('dusk', 'night') or VARIANT_RE.search(s['file'])):
+                continue        # dusk / night variants are attached to the day entry below (by file name)
             k = (j['scope'], j.get('unit'), j.get('pkg'), s['id'])
             shots[k] = s
     # recover renders whose shots-*.json was overwritten by a later shard (synthesised from cameras.json + the JPEG)
@@ -213,12 +254,21 @@ def main():
                                     position=c['position'], lookAt=c['lookAt'], roomId=c.get('roomId'), name=c.get('roomName'), kind=c.get('kind'), lens=c.get('lens_mm'))
     except Exception as e:
         print('recovery failed', e)
+    try:
+        packages = json.load(open(os.path.join(ROOT, 'render', 'scenes', 'cameras.json'))).get('packages', [])
+    except Exception:
+        packages = []
+    extras = extra_shots()
     man = {'version': 1, 'generated': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()),
+           'packages': packages, 'timesOfDay': ['day', 'dusk', 'night'],
            'conventions': {
                'position': 'three.js world metres (Y-up), eye point of the panorama',
                'yawOffset': 'radians; three.js camera yaw (rotation.y, YXZ order; 0 looks along -Z, +pi/2 looks along -X) of the '
                             'panorama CENTRE column (u = 0.5). u grows to the right (clockwise seen from above). Seam at u = 0/1 faces away.',
                'links': 'indices into the same panos array (same room, or rooms connected by a door/opening/glass door, < 9 m)',
+               'variants': 'file / thumb = DAY; variants.dusk / variants.night = {file, thumb} of the same camera (same yawOffset) at blue '
+                           'hour / at night (<name>.dusk.jpg / <name>.night.jpg). Exterior / common: variantOf = id of the day shot '
+                           'with the same framing (the entry is also attached there as variants.<tod>).',
                'files': 'repo-relative paths (the Pages site serves them at the same relative path)'},
            'units': {}, 'exterior': [], 'common': []}
     for (scope, unit, pkg, sid), s in sorted(shots.items(), key=lambda kv: (kv[0][0], kv[0][1] or '', kv[0][2] or '', kv[1].get('index') if kv[1].get('index') is not None else 999, kv[0][3])):
@@ -230,7 +280,27 @@ def main():
             else:
                 e['stills'].append(dict(base, kind=s.get('kind'), lens=s.get('lens'), position=s['position'], lookAt=s.get('lookAt'), W=s['W'], H=s['H']))
         else:
-            man[scope if scope in ('exterior', 'common') else 'exterior'].append(dict(base, tod=s.get('tod'), lens=s.get('lens'), W=s['W'], H=s['H']))
+            x = extras.get(sid, {})
+            e = dict(base, tod=s.get('tod'), lens=s.get('lens'), W=s['W'], H=s['H'])
+            if not e.get('name') and x.get('name'):
+                e['name'] = x['name']
+            if x.get('variant_of'):
+                e['variantOf'] = x['variant_of']; e['variantTod'] = x.get('variant_tod') or s.get('tod')
+            man[scope if scope in ('exterior', 'common') else 'exterior'].append(e)
+    n_var = 0
+    for sect in ('exterior', 'common'):
+        by_id = {e['id']: e for e in man[sect]}
+        for e in man[sect]:
+            b = by_id.get(e.get('variantOf'))
+            if b is not None and e.get('variantTod') in TODS:
+                b.setdefault('variants', {})[e['variantTod']] = {'file': e['file'], 'thumb': e['thumb']}
+                n_var += 1
+    for pk in man['units'].values():
+        for e in pk.values():
+            for it in e['panos'] + e['stills']:
+                v = variants_for(it)
+                if v:
+                    it['variants'] = v; n_var += len(v)
     for unit, pk in man['units'].items():
         for pkg, e in pk.items():
             link_panos(e['panos'], D, floor_of.get(unit))
@@ -239,7 +309,7 @@ def main():
         json.dump(man, f, indent=1, ensure_ascii=False)
     n_p = sum(len(e['panos']) for pk in man['units'].values() for e in pk.values())
     n_s = sum(len(e['stills']) for pk in man['units'].values() for e in pk.values())
-    print(f'manifest: units={len(man["units"])} panos={n_p} stills={n_s} exterior={len(man["exterior"])} common={len(man["common"])}')
+    print(f'manifest: units={len(man["units"])} panos={n_p} stills={n_s} exterior={len(man["exterior"])} common={len(man["common"])} variants={n_var}')
 
 
 if __name__ == '__main__':

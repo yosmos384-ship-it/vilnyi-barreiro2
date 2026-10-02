@@ -405,6 +405,41 @@ def vcol_node(nb, name):
     return _W
 
 
+# ------------------------------------------------------------------ lit context windows (dusk / night)
+def window_glow(nb, mat, cell_vec, mask, lw, cells=(3.1, 3.1, 2.9)):
+    """Emission strength socket: `mask` (1 on glass) x a per-window on/off lottery (fraction lw['frac'] lit) x brightness variety.
+    cell_vec: optional extra vector that identifies the window (atlas cell); the world position cell is always added."""
+    geo = nb.node('ShaderNodeNewGeometry')
+    dv = nb.node('ShaderNodeVectorMath', operation='DIVIDE'); dv.inputs[1].default_value = cells
+    nb.link(geo.outputs['Position'], dv.inputs[0])
+    fl = nb.node('ShaderNodeVectorMath', operation='FLOOR'); nb.link(dv.outputs['Vector'], fl.inputs[0])
+    vec = fl.outputs['Vector']
+    if cell_vec is not None:
+        ad = nb.node('ShaderNodeVectorMath', operation='ADD'); nb.link(vec, ad.inputs[0]); nb.link(cell_vec, ad.inputs[1])
+        vec = ad.outputs['Vector']
+    wn = nb.node('ShaderNodeTexWhiteNoise', noise_dimensions='3D'); nb.link(vec, wn.inputs['Vector'])
+    frac = max(0.01, min(1.0, float(lw.get('frac', 0.3))))
+    lit = nb.math('LESS_THAN', wn.outputs['Value'], frac)
+    vary = nb.maprange(wn.outputs['Value'], 0.0, frac, 0.35, 1.0)
+    e = nb.math('MULTIPLY', nb.math('MULTIPLY', lit, vary), float(lw.get('strength', 0.03)))
+    if mask is not None:
+        e = nb.math('MULTIPLY', e, mask)
+    try:
+        mat.cycles.emission_sampling = 'NONE'      # seen by the camera and by bounces, never sampled as a lamp
+    except Exception:
+        pass
+    return e
+
+
+def atlas_window_mask(nb, atlas_color):
+    """1 where the facade atlas shows glass (dark and bluish), 0 on render / blinds / sills."""
+    sep = nb.node('ShaderNodeSeparateColor'); nb.link(atlas_color, sep.inputs[0])
+    bw = nb.node('ShaderNodeRGBToBW'); nb.link(atlas_color, bw.inputs[0])
+    blue = nb.math('GREATER_THAN', sep.outputs[2], nb.math('MULTIPLY', sep.outputs[0], 1.12))
+    dark = nb.math('LESS_THAN', bw.outputs[0], 0.3)
+    return nb.math('MULTIPLY', blue, dark)
+
+
 # ------------------------------------------------------------------ main builder
 def build(mat, key, variant, pkg, opts):
     """Rebuild `mat` in place according to the recipe for key/pkg. Returns recipe used (or None)."""
@@ -430,6 +465,19 @@ def build(mat, key, variant, pkg, opts):
     mat['vb_variant'] = variant.split(':')[0] if variant else ''
     mat['vb_shader'] = shader
     STATS['materials'] += 1
+
+    lw = opts.get('lit_windows')
+    base_name = mat.name.split('.')[0].split('~')[0]
+    if lw and key == 'glass-window' and mat['vb_variant'] == 'context':
+        # neighbours' windows after dark: dark reflective panes, a share of them lit warm from inside
+        b = nb.node('ShaderNodeBsdfPrincipled')
+        set_in(b, 'Base Color', hex_lin('#141a20')); set_in(b, 'Roughness', 0.06); set_in(b, ['Specular IOR Level', 'Specular'], 0.6)
+        e = window_glow(nb, mat, None, None, lw, cells=(1.7, 1.7, 1.5))
+        set_in(b, ['Emission Color', 'Emission'], (*kelvin_rgb(lw.get('kelvin', 2900)), 1.0))
+        set_in(b, 'Emission Strength', e, nb)
+        nb.link(b.outputs[0], outn.inputs['Surface'])
+        mat['vb_shader'] = 'principled'
+        return r
 
     # ----- simple special shaders
     if shader == 'glass_thin':
@@ -508,6 +556,8 @@ def build(mat, key, variant, pkg, opts):
         if info['image_uv']:
             u2 = nb.node('ShaderNodeUVMap', uv_map=info['image_uv']); nb.link(u2.outputs['UV'], t.inputs['Vector'])
         color = nb.mix('MULTIPLY', t.outputs['Color'], info['color'], 1.0)
+        tb['atlas'] = t.outputs['Color']
+        tb['atlas_uv'] = u2.outputs['UV'] if info['image_uv'] else nb.node('ShaderNodeTexCoord').outputs['UV']
         if info['vcol']:
             va = vcol_node(nb, info['vcol'])
             color = nb.mix('MULTIPLY', color, va.outputs['Color'], 1.0)
@@ -656,6 +706,17 @@ def build(mat, key, variant, pkg, opts):
         set_in(b, ['Anisotropic'], float(r['aniso']))
         tg = nb.node('ShaderNodeTangent', direction_type='UV_MAP', uv_map=UV)
         nb.link(tg.outputs[0], b.inputs['Tangent'])
+
+    if lw and tb.get('atlas') is not None and base_name in ('env-facade', 'env-city'):
+        # window atlas of the neighbouring facades: light a share of the glass panes
+        sc4 = nb.node('ShaderNodeVectorMath', operation='SCALE'); sc4.inputs['Scale'].default_value = 4.0
+        nb.link(tb['atlas_uv'], sc4.inputs[0])
+        fl4 = nb.node('ShaderNodeVectorMath', operation='FLOOR'); nb.link(sc4.outputs['Vector'], fl4.inputs[0])
+        sc7 = nb.node('ShaderNodeVectorMath', operation='SCALE'); sc7.inputs['Scale'].default_value = 7.31
+        nb.link(fl4.outputs['Vector'], sc7.inputs[0])
+        e = window_glow(nb, mat, sc7.outputs['Vector'], atlas_window_mask(nb, tb['atlas']), lw)
+        set_in(b, ['Emission Color', 'Emission'], (*kelvin_rgb(lw.get('kelvin', 2900)), 1.0))
+        set_in(b, 'Emission Strength', e, nb)
 
     # ----- normals: normal map -> bump (tiles/seams/height) -> bevel
     nrm = None

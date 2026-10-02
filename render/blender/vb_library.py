@@ -108,6 +108,10 @@ BASE = {
     'paint-marking':     dict(keep_color=True, keep_map=True, rough=0.6, var=0.02),
     'fruit':             dict(keep_color=True, rough=0.35, sss=0.3, var=0.05),
     'wine':              dict(keep_color=True, rough=0.05, coat=1.0),
+    # phase-4 names (natura / riviera / urban)
+    'rattan':            dict(tex='acg:Wicker010A', size=0.3, tint='#b08a5c', detail=1.0, rough=(0.55, 0.8), bump=0.5, sheen=0.2, var=0.04),
+    'floor-joint':       dict(color='#b9ad98', rough=0.9, var=0.0),
+    'terracotta':        dict(tex='terracotta_floor_tiles', size=1.0, color='#b86a45', rough=(0.7, 0.95), keep_color=True),
 }
 
 # ------------------------------------------------------------------ packages (apartment keys)
@@ -193,7 +197,88 @@ PACKAGES = {
         'window-sheer':     dict(shader='sheer', color='#d8d3cc', alpha=0.5),
         'curtain-fabric':   dict(tex='velour_velvet', size=0.28, color='#57524c', rough=(0.7, 0.9), sheen=0.9, trans=0.1, keep_color=True),
     },
+    # Natura · Japandi Calm — pale ash boards, sand limewash, honed travertine, ash veneer joinery, matt-black fittings
+    'natura': {
+        'floor-main':       dict(tex='acg:WoodFloor039', size=1.9, tint='#d3c2a2', detail=0.9, rough=(0.5, 0.7), bump=0.06, var=0.04),
+        'wall-paint':       dict(tex='acg:Plaster002', size=2.0, tint='#e6dcc8', detail=0.45, rough=(0.85, 0.97), bump=0.06, var=0.05),
+        'wall-feature':     dict(tex='ash_veneer', size=1.0, rot=90, tint='#cdb994', detail=0.9, rough=(0.45, 0.65), bump=0.05, var=0.03),
+        'ceiling':          dict(color='#f6f2ea', rough=0.92),
+        'skirting':         dict(tex='ash_veneer', size=1.0, tint='#cdb994', detail=0.8, rough=(0.45, 0.6), bevel=0.002),
+        'door-interior':    dict(tex='ash_veneer', size=1.0, rot=90, tint='#cdb994', detail=0.9, rough=(0.4, 0.6), coat=0.1, bevel=0.002),
+        'door-handle':      dict(color='#1d1d1c', rough=0.42, metal=1.0),
+        'bath-floor':       dict(tex='acg:Travertine009', size=1.2, tint='#d6c8ae', detail=0.9, rough=(0.4, 0.62), proc='tiles',
+                                 tiles=dict(w=1.2, h=0.6, grout=0.002, grout_color='#c2b59c', offset=0.0, jitter=0.03), bump=0.05),
+        'bath-wall':        dict(tex='acg:Travertine009', size=1.2, tint='#dccfb6', detail=0.9, rough=(0.35, 0.55), proc='tiles',
+                                 tiles=dict(w=1.2, h=0.6, grout=0.002, grout_color='#c8bba2', offset=0.5, jitter=0.03)),
+        'shower-wall':      dict(tex='acg:Travertine009', size=1.2, tint='#dccfb6', detail=0.9, rough=(0.35, 0.55), proc='tiles',
+                                 tiles=dict(w=1.2, h=0.6, grout=0.002, grout_color='#c8bba2', offset=0.5, jitter=0.03)),
+        'shower-glass':     dict(shader='glass_thin', color='#f2f6f5', ior=1.52),
+        'sanitary-ceramic': dict(color='#f1eee8', rough=0.28, coat=0.1, bevel=0.002),
+        'tap-metal':        dict(color='#1b1b1a', rough=0.4, metal=1.0),
+        'kitchen-front':    dict(tex='ash_veneer', size=1.0, rot=90, tint='#cdb994', detail=0.9, rough=(0.42, 0.6), bevel=0.0015),
+        'kitchen-worktop':  dict(tex='acg:Travertine009', size=1.2, tint='#d9ccb4', detail=0.9, rough=(0.3, 0.5), bevel=0.002),
+        'kitchen-splashback': dict(tex='acg:Travertine009', size=1.2, tint='#d9ccb4', detail=0.9, rough=(0.3, 0.5)),
+        'appliance-steel':  dict(color='#bdbdbb', rough=0.28, metal=1.0, aniso=0.6),
+        'appliance-glass-black': dict(color='#0b0b0c', rough=0.04, coat=0.8, spec=0.6),
+        'joinery-wardrobe': dict(tex='ash_veneer', size=1.0, rot=90, tint='#cdb994', detail=0.9, rough=(0.42, 0.6), bevel=0.0015),
+        'window-sheer':     dict(shader='sheer', color='#f3eee3', alpha=0.5),
+        'curtain-fabric':   dict(tex='rough_linen', size=0.27, color='#e4dccb', rough=(0.85, 1.0), sheen=0.6, trans=0.25, keep_color=True),
+    },
+    # Riviera · Mediterranean — honed Moleanos limestone (joints are geometry), hand-trowelled white plaster, glazed green zellige,
+    # sage shaker kitchen with white marble top and terracotta splashback, aged brass
+    'riviera': {
+        'floor-main':       dict(tex='acg:Marble015', size=1.2, tint='#dbd0bb', detail=0.8, rough=(0.32, 0.5), bump=0.03, var=0.035),
+        'wall-paint':       dict(tex='acg:Plaster001', size=2.0, tint='#f2ede3', detail=0.5, rough=(0.85, 0.97), bump=0.1, var=0.025),
+        'wall-feature':     dict(tex='acg:Plaster001', size=2.0, tint='#eadfcb', detail=0.6, rough=(0.85, 0.97), bump=0.12, var=0.03),
+        'ceiling':          dict(color='#fbf8f2', rough=0.92),
+        'skirting':         dict(color='#ece6dc', rough=0.4, bevel=0.002),
+        'door-interior':    dict(color='#ece6dc', rough=0.35, coat=0.12, bevel=0.002),
+        'door-handle':      dict(color='#b08e52', rough=0.38, metal=1.0, aniso=0.3),
+        'bath-floor':       dict(tex='acg:Marble015', size=1.2, tint='#dbd0bb', detail=0.8, rough=(0.35, 0.52), var=0.03),
+        'bath-wall':        dict(tex='acg:Tiles034', size=1.0, hsv=(0.5, 0.95, 1.25), rough=(0.06, 0.3), coat=0.5, coat_rough=0.06, bump=0.25, var=0.03),
+        'shower-wall':      dict(tex='acg:Tiles034', size=1.0, hsv=(0.5, 0.95, 1.25), rough=(0.06, 0.3), coat=0.5, coat_rough=0.06, bump=0.25, var=0.03),
+        'shower-glass':     dict(shader='glass_thin', color='#f2f6f5', ior=1.52),
+        'sanitary-ceramic': dict(color='#f6f4ef', rough=0.06, coat=0.5, bevel=0.002),
+        'tap-metal':        dict(color='#b08e52', rough=0.34, metal=1.0, aniso=0.3),
+        'kitchen-front':    dict(color='#7f9a88', rough=0.42, coat=0.1, bevel=0.002, var=0.0),
+        'kitchen-worktop':  dict(tex='acg:Marble021', size=1.4, tint='#f1eee8', detail=1.0, rough=(0.1, 0.24), coat=0.3, bevel=0.002),
+        'kitchen-splashback': dict(tex='acg:Tiles027', size=0.9, hsv=(0.5, 0.9, 0.95), rough=(0.3, 0.6), bump=0.3, var=0.04),
+        'appliance-steel':  dict(color='#bdbdbb', rough=0.28, metal=1.0, aniso=0.6),
+        'appliance-glass-black': dict(color='#0b0b0c', rough=0.04, coat=0.8, spec=0.6),
+        'joinery-wardrobe': dict(color='#7f9a88', rough=0.42, coat=0.1, bevel=0.002),
+        'window-sheer':     dict(shader='sheer', color='#f8f3e9', alpha=0.45),
+        'curtain-fabric':   dict(tex='rough_linen', size=0.27, color='#f1e9da', rough=(0.85, 1.0), sheen=0.6, trans=0.25, keep_color=True),
+    },
+    # Urban · Industrial Loft — polished concrete, reclaimed brick feature wall, terrazzo bathroom, matt-black joinery,
+    # stainless worktop, black steel
+    'urban': {
+        'floor-main':       dict(tex='acg:Concrete016', size=2.5, tint='#8f8c86', detail=0.85, rough=(0.16, 0.42), coat=0.12, coat_rough=0.1, bump=0.03, var=0.05),
+        'wall-paint':       dict(tex='acg:PaintedPlaster017', size=2.0, tint='#e1ded8', detail=0.4, rough=(0.85, 0.96), bump=0.04, var=0.02),
+        'wall-feature':     dict(tex='brick_wall_001', size=1.6, hsv=(0.5, 0.92, 1.05), rough=(0.78, 0.96), bump=0.7, var=0.04),
+        'ceiling':          dict(color='#eeece7', rough=0.92),
+        'skirting':         dict(color='#2a2b2d', rough=0.45, bevel=0.002),
+        'door-interior':    dict(tex='oak_veneer_01', size=1.83, rot=90, tint='#a98a66', detail=1.0, rough=(0.4, 0.6), bevel=0.002),
+        'door-handle':      dict(color='#1b1c1e', rough=0.45, metal=1.0),
+        'bath-floor':       dict(tex='acg:Terrazzo005', size=1.0, rough=(0.22, 0.42), bump=0.02, var=0.02),
+        'bath-wall':        dict(tex='acg:Terrazzo005', size=1.0, rough=(0.2, 0.4), proc='tiles',
+                                 tiles=dict(w=0.6, h=1.2, grout=0.002, grout_color='#b3aea6', offset=0.0, jitter=0.02)),
+        'shower-wall':      dict(tex='acg:Terrazzo005', size=1.0, rough=(0.2, 0.4), proc='tiles',
+                                 tiles=dict(w=0.6, h=1.2, grout=0.002, grout_color='#b3aea6', offset=0.0, jitter=0.02)),
+        'shower-glass':     dict(shader='glass_thin', color='#eef2f1', ior=1.52),
+        'sanitary-ceramic': dict(tex='concrete_floor_02', size=1.2, tint='#bdb9b2', detail=0.5, rough=(0.4, 0.6), bevel=0.002, var=0.02),
+        'tap-metal':        dict(color='#1b1c1e', rough=0.42, metal=1.0),
+        'kitchen-front':    dict(color='#28292b', rough=0.5, bevel=0.0015, var=0.0),
+        'kitchen-worktop':  dict(color='#b9babb', rough=0.3, metal=1.0, aniso=0.6, bevel=0.0015, var=0.02),
+        'kitchen-splashback': dict(color='#b9babb', rough=0.3, metal=1.0, aniso=0.6, var=0.02),
+        'appliance-steel':  dict(color='#bdbdbb', rough=0.26, metal=1.0, aniso=0.6),
+        'appliance-glass-black': dict(color='#0a0a0b', rough=0.04, coat=0.8, spec=0.6),
+        'joinery-wardrobe': dict(color='#28292b', rough=0.5, bevel=0.0015),
+        'window-sheer':     dict(shader='sheer', color='#e6e3dc', alpha=0.6),
+        'curtain-fabric':   dict(tex='rough_linen', size=0.27, color='#5b5b5c', rough=(0.85, 1.0), sheen=0.5, trans=0.12, keep_color=True),
+    },
 }
+
+PACKAGE_IDS = list(PACKAGES.keys())
 
 # 'key:variant' overrides (merged over the key's recipe)
 VARIANTS = {
@@ -210,6 +295,11 @@ VARIANTS = {
     'bulb-emissive:flame':     dict(lumens=14, emit=(30.0, 1900)),
     'bulb-emissive:streetlamp': dict(lumens=6000, emit=(40.0, 2400)),
     'gravel:pebble':           dict(size=1.2),
+    # phase-4 (natura / riviera / urban)
+    'steel-dark:steelFrame':   dict(color='#1b1c1e', rough=0.5, metal=0.7),
+    'lamp-shade:paperLamp':    dict(color='#fbf3e2', keep_color=False),
+    'bulb-emissive:filament':  dict(lumens=260, emit=(26.0, 2300)),
+    'downlight-emissive:spot': dict(lumens=520, emit=(14.0, 2900)),
 }
 
 # common keys which also vary by package (lobby etc. stay the same)
@@ -225,6 +315,21 @@ SKIES = {
     'dusk':   dict(hdri='syferfontein_6d_clear_puresky', sun_lux=14000, sky_lux=2500, sun_az=246.0),
     'night':  dict(hdri='qwantani_dusk_2_puresky', sun_lux=None, sky_lux=900, sun_az=250.0),
 }
+
+# Procedural evening skies (apartment interiors at dusk / night, and every 'night' shot). Sun / moon bearing + altitude, the sky
+# gradient colours, stars and the fraction of lit context windows come from js/environment.js (vb_presets); the absolute levels
+# (lux) are set here.  They are deliberately brighter than nature (real blue hour ~5 lux, full moon 0.3 lux): what counts is
+# the ratio to the lamp-lit rooms, which the exposure / camera-side window gain then maps to a readable evening exterior.
+EVENING = {
+    'dusk':  dict(sky_lux=70.0, key_lux=14.0, key_angle=18.0, cam_gain=1.0, stars=0.25, window_emit=0.045),
+    'night': dict(sky_lux=2.6, key_lux=7.0, key_angle=1.2, cam_gain=1.6, stars=1.0, window_emit=0.03),
+}
+# lamp list (render/scenes/lamps.json): lumens at night for a lamp of intensity 1 (the list is in three.js candela, relative)
+LAMP_LUMENS = 640.0
+LAMP_MOOD = {'day': 0.35 / 9.0, 'dusk': 6.0 / 9.0, 'night': 1.0}
+LAMP_KELVIN = {'pendant': 2750, 'floor-lamp': 2700, 'table-lamp': 2700, 'bedside': 2700, 'under-cabinet': 3000, 'mirror-light': 3000}
+# recessed downlights / track spots / LED strips are dimmed in the evening so the lamps make warm pools of light
+DIM = {'day': dict(spot=1.0, strip=1.0, point=1.0), 'dusk': dict(spot=0.5, strip=0.8, point=1.0), 'night': dict(spot=0.42, strip=0.8, point=1.0)}
 
 # Every texture id referenced above (for the downloader)
 def all_texture_ids():

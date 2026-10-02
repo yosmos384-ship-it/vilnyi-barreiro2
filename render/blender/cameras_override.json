@@ -1,5 +1,5 @@
 {
- "_doc": "Camera overrides for render_job.py (three.js metres, Y-up). hero_auto: apartment hero stills (living/bedroom/bathroom) are re-framed by ray-casting the furnished room (clear foreground, long view, window in frame; door leaves of that room hidden). 'shots' entries override any field of a shot after that (position, lookAt, lens_mm, clip_start, auto:false to keep the exported/explicit camera, hide:[object-name substrings]). 'extra_exterior' / 'extra_common' add shots.",
+ "_doc": "Camera overrides for render_job.py (three.js metres, Y-up). hero_auto: apartment hero stills (living/bedroom/bathroom) are re-framed by ray-casting the furnished room (clear foreground, long view, window in frame; door leaves of that room hidden). 'shots' entries override any field of a shot after that (position, lookAt, lens_mm, clip_start, auto:false to keep the exported/explicit camera, hide:[object-name substrings]). 'extra_exterior' / 'extra_common' add shots. 'hero_per_package': packages whose hero stills use their own exported framing (cameras.json unitsData.<unit>.packages.<pkg>.hero) instead of the package-independent one. Extra shots may carry variant_of / variant_tod: the manifest then also attaches them as variants.<tod> of that base shot.",
  "hero_auto": false,
  "shots": {
   "street-golden-34": {
@@ -110,7 +110,9 @@
     "context"
    ],
    "sensor_width_mm": 36,
-   "aspect": "16:9"
+   "aspect": "16:9",
+   "variant_of": "entrance-day",
+   "variant_tod": "dusk"
   },
   {
    "id": "garage-ramp",
@@ -133,6 +135,78 @@
    ],
    "sensor_width_mm": 36,
    "aspect": "16:9"
+  },
+  {
+   "id": "street-night",
+   "name": "Frontal street view at night",
+   "position": [
+    7,
+    0.5,
+    26.2
+   ],
+   "lookAt": [
+    7,
+    4.4,
+    14.7
+   ],
+   "lens_mm": 18,
+   "sensor_width_mm": 36,
+   "aspect": "16:9",
+   "time_of_day": "night",
+   "scenes": [
+    "building",
+    "context"
+   ],
+   "variant_of": "street-dusk",
+   "variant_tod": "night"
+  },
+  {
+   "id": "street-eye-night",
+   "name": "Street, eye level, at night",
+   "position": [
+    -3.5,
+    0.65,
+    21.8
+   ],
+   "lookAt": [
+    10.5,
+    2.2,
+    10
+   ],
+   "lens_mm": 24,
+   "sensor_width_mm": 36,
+   "aspect": "9:16",
+   "time_of_day": "night",
+   "scenes": [
+    "building",
+    "context"
+   ],
+   "variant_of": "street-eye",
+   "variant_tod": "night"
+  },
+  {
+   "id": "entrance-night",
+   "name": "Street entrance at night",
+   "position": [
+    7.2,
+    0.75,
+    19.6
+   ],
+   "lookAt": [
+    4.4,
+    1.1,
+    14.7
+   ],
+   "lens_mm": 28,
+   "time_of_day": "night",
+   "scenes": [
+    "building",
+    "context"
+   ],
+   "sensor_width_mm": 36,
+   "aspect": "16:9",
+   "variant_of": "entrance-day",
+   "variant_tod": "night"
   }
  ],
  "extra_common": [
@@ -198,6 +272,58 @@
    ],
    "sensor_width_mm": 36,
    "aspect": "16:9"
+  },
+  {
+   "id": "lobby-night",
+   "name": "Entrance lobby at night",
+   "position": [
+    9,
+    1.5,
+    14.25
+   ],
+   "lookAt": [
+    3.2,
+    1.45,
+    9.6
+   ],
+   "lens_mm": 18,
+   "sensor_width_mm": 36,
+   "aspect": "16:9",
+   "time_of_day": "night",
+   "scenes": [
+    "building",
+    "context"
+   ],
+   "variant_of": "lobby",
+   "variant_tod": "night"
+  },
+  {
+   "id": "lobby-2-night",
+   "name": "Lobby towards the entrance, at night",
+   "position": [
+    3.4,
+    1.55,
+    10.0
+   ],
+   "lookAt": [
+    8.6,
+    1.2,
+    14.2
+   ],
+   "lens_mm": 18,
+   "time_of_day": "night",
+   "scenes": [
+    "building"
+   ],
+   "sensor_width_mm": 36,
+   "aspect": "16:9",
+   "variant_of": "lobby-2",
+   "variant_tod": "night"
   }
+ ],
+ "hero_per_package": [
+  "natura",
+  "riviera",
+  "urban"
  ]
 }

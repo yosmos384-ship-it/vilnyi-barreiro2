@@ -173,6 +173,161 @@ def setup_world(tod, opts, log):
     return info
 
 
+# ------------------------------------------------------------------ procedural evening skies (blue hour / moonlit night)
+def _hex_lin(h):
+    h = h.lstrip('#')
+    out = []
+    for i in (0, 2, 4):
+        c = int(h[i:i + 2], 16) / 255.0
+        out.append(c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4)
+    return np.array(out, dtype=np.float32)
+
+
+def _smooth(a, b, x):
+    t = np.clip((x - a) / (b - a), 0.0, 1.0)
+    return t * t * (3.0 - 2.0 * t)
+
+
+def evening_sky(preset, tod, w, h, glow_dir):
+    """Equirect sky gradient (float32 [h, w, 3], row 0 = bottom, Cycles environment convention: u = 0.5 looks along +X,
+    u grows clockwise seen from above) built from the js/environment.js preset colours. Returns (rgb, z, dirs)."""
+    vv = (np.arange(h, dtype=np.float32) + 0.5) / h
+    uu = (np.arange(w, dtype=np.float32) + 0.5) / w
+    th = (vv - 0.5) * math.pi
+    ph = (uu - 0.5) * 2.0 * math.pi
+    z = np.sin(th)[:, None] * np.ones((1, w), dtype=np.float32)
+    ct = np.cos(th)[:, None]
+    dx = ct * np.cos(ph)[None, :]; dy = -ct * np.sin(ph)[None, :]
+    g = Vector((glow_dir[0], glow_dir[1], 0.0))
+    g = g.normalized() if g.length > 1e-6 else Vector((1, 0, 0))
+    a = np.clip(np.cos(ph)[None, :] * g.x - np.sin(ph)[None, :] * g.y, 0.0, 1.0) * np.ones((h, 1), dtype=np.float32)   # 1 towards the glow
+    sk = preset['sky']
+    zen, mid, hor, away = (_hex_lin(sk[k]) for k in ('zenith', 'mid', 'horizon', 'horizonAway'))
+    ground = _hex_lin(sk.get('ground') or sk['haze'])
+    glow = _hex_lin(sk.get('glow') or sk['horizon'])
+    az = (a ** 1.6)[..., None]
+    horc = away[None, None, :] * (1 - az) + hor[None, None, :] * az
+    t1 = _smooth(0.0, 0.30 if tod == 'dusk' else 0.22, z)[..., None]
+    c = horc * (1 - t1) + mid[None, None, :] * t1
+    t2 = _smooth(0.22, 0.92, z)[..., None]
+    c = c * (1 - t2) + zen[None, None, :] * t2
+    if tod == 'dusk':
+        # the after-sunset band: a low, narrow orange glow on the sunset bearing
+        band = (a ** 3.0) * np.exp(-((z - 0.02) / 0.085) ** 2)
+        c = c + glow[None, None, :] * band[..., None] * 0.9
+    tg = _smooth(0.0, -0.12, z)[..., None]
+    c = c * (1 - tg) + (ground[None, None, :] * 0.6) * tg
+    return c.astype(np.float32), z, (dx, dy)
+
+
+def _save_exr(name, rgb, path):
+    h, w = rgb.shape[:2]
+    px = np.ones((h, w, 4), dtype=np.float32)
+    px[..., :3] = rgb
+    img = bpy.data.images.new(name, w, h, alpha=True, float_buffer=True)
+    img.pixels.foreach_set(px.ravel())
+    img.filepath_raw = path; img.file_format = 'OPEN_EXR'
+    img.save()
+    bpy.data.images.remove(img)
+    out = bpy.data.images.load(path)
+    try:
+        out.colorspace_settings.name = 'Linear Rec.709'
+    except Exception:
+        try:
+            out.colorspace_settings.name = 'Linear'
+        except Exception:
+            pass
+    return out
+
+
+def setup_world_evening(tod, preset, opts, log):
+    """Blue-hour / moonlit-night world from the js/environment.js preset: gradient sky for the lighting, a sharper camera sky
+    with stars (and the moon at night), plus a soft key light (after-sunset glow / moonlight)."""
+    sc = bpy.context.scene
+    ev = dict(L.EVENING[tod]); ev.update(opts.get('evening') or {})
+    world = bpy.data.worlds.new('vbWorld'); sc.world = world; world.use_nodes = True
+    nt = world.node_tree; nt.nodes.clear()
+    out = nt.nodes.new('ShaderNodeOutputWorld')
+    az, alt = float(preset['azimuth']), float(preset['altitude'])
+    key_dir = bearing_vec(az, max(alt, 3.0))
+    glow_dir = bearing_vec(az, 0.0)
+    tmpdir = opts.get('tmpdir', '/tmp')
+    # ---- lighting sky (small, smooth), normalised to the target horizontal illuminance
+    w, h = 1024, 512
+    rgb, z, _ = evening_sky(preset, tod, w, h, glow_dir)
+    lum = 0.2126 * rgb[..., 0] + 0.7152 * rgb[..., 1] + 0.0722 * rgb[..., 2]
+    lat = ((np.arange(h) + 0.5) / h - 0.5) * math.pi
+    dA = (2 * math.pi / w) * (math.pi / h) * np.cos(lat)[:, None]
+    up = z > 0
+    E = float((lum * dA * np.maximum(z, 0.0))[up].sum())
+    scale = (ev['sky_lux'] * LUMEN_W) / max(E, 1e-9)
+    light_img = _save_exr('vbEveLight', rgb * scale, os.path.join(tmpdir, f'vbsky-{tod}-light.exr'))
+    mean_up = float((lum * dA)[up].sum() / dA[:, :1].repeat(w, axis=1)[up].sum()) * scale
+    # ---- camera sky (4k): same gradient + stars + moon
+    W, H = 4096, 2048
+    crgb, cz, (dx, dy) = evening_sky(preset, tod, W, H, glow_dir)
+    crgb *= scale
+    zen_lum = float(np.mean(0.2126 * crgb[-40:, :, 0] + 0.7152 * crgb[-40:, :, 1] + 0.0722 * crgb[-40:, :, 2]))
+    amount = float(preset.get('stars', 0.0)) * ev.get('stars', 1.0)
+    n_stars = int(2600 * min(1.0, amount)) if amount > 0.02 else 0
+    if n_stars:
+        rng = np.random.default_rng(20261002)
+        sz = rng.uniform(0.03, 1.0, n_stars)                       # uniform in sin(elevation) = uniform on the hemisphere
+        sph = rng.uniform(0, 2 * math.pi, n_stars)
+        mag = rng.pareto(2.2, n_stars) + 1.0                        # few bright, many faint
+        bri = np.clip(mag, 1.0, 14.0) * zen_lum * 22.0 * min(1.0, amount * 1.5) * np.clip((sz - 0.02) / 0.25, 0.0, 1.0)
+        tint = rng.uniform(0.0, 1.0, n_stars)
+        col = np.stack([0.85 + 0.3 * tint, np.full(n_stars, 0.95), 1.15 - 0.3 * tint], axis=1)
+        fy = (np.arcsin(sz) / math.pi + 0.5) * H - 0.5
+        fx = (sph / (2 * math.pi)) * W - 0.5
+        x0 = np.floor(fx).astype(int); y0 = np.floor(fy).astype(int)
+        wx = fx - x0; wy = fy - y0
+        for ddx, ddy, wgt in ((0, 0, (1 - wx) * (1 - wy)), (1, 0, wx * (1 - wy)), (0, 1, (1 - wx) * wy), (1, 1, wx * wy)):
+            xi = (x0 + ddx) % W; yi = np.clip(y0 + ddy, 0, H - 1)
+            np.add.at(crgb, (yi, xi), (col * (bri * wgt * 2.2)[:, None]).astype(np.float32))
+    if preset.get('light') == 'moon':
+        md = bearing_vec(az, alt)
+        dz = cz
+        cosang = np.clip(dx * md.x + dy * md.y + dz * md.z, -1.0, 1.0)
+        ang = np.degrees(np.arccos(cosang))
+        disc = 1.0 - _smooth(0.5, 0.62, ang)
+        halo = np.exp(-(ang / 3.2) ** 2) * 0.9 + np.exp(-(ang / 11.0) ** 2) * 0.18
+        mcol = _hex_lin(preset['color'])
+        mcol = mcol / max(float(mcol.max()), 1e-6)
+        crgb += (disc * zen_lum * 260.0 + halo * zen_lum * 2.2)[..., None] * mcol[None, None, :]
+    cam_img = _save_exr('vbEveCam', crgb, os.path.join(tmpdir, f'vbsky-{tod}-cam.exr'))
+    tc = nt.nodes.new('ShaderNodeTexCoord')
+    env = nt.nodes.new('ShaderNodeTexEnvironment'); env.image = light_img; env.interpolation = 'Linear'
+    nt.links.new(tc.outputs['Generated'], env.inputs['Vector'])
+    bg = nt.nodes.new('ShaderNodeBackground'); bg.inputs['Strength'].default_value = 1.0
+    nt.links.new(env.outputs['Color'], bg.inputs['Color'])
+    env2 = nt.nodes.new('ShaderNodeTexEnvironment'); env2.image = cam_img; env2.interpolation = 'Cubic'
+    nt.links.new(tc.outputs['Generated'], env2.inputs['Vector'])
+    bg2 = nt.nodes.new('ShaderNodeBackground'); bg2.name = 'vbSkyCam'
+    cam_gain = float(ev.get('cam_gain', 1.0))
+    bg2.inputs['Strength'].default_value = cam_gain
+    bg2['base'] = cam_gain
+    bg2['est'] = mean_up * cam_gain
+    nt.links.new(env2.outputs['Color'], bg2.inputs['Color'])
+    lp = nt.nodes.new('ShaderNodeLightPath')
+    mx = nt.nodes.new('ShaderNodeMixShader')
+    nt.links.new(lp.outputs['Is Camera Ray'], mx.inputs[0]); nt.links.new(bg.outputs[0], mx.inputs[1]); nt.links.new(bg2.outputs[0], mx.inputs[2])
+    nt.links.new(mx.outputs[0], out.inputs[0])
+    try:
+        world.cycles.sampling_method = 'MANUAL'; world.cycles.sample_map_resolution = 1024
+    except Exception:
+        pass
+    key_E = ev['key_lux'] * LUMEN_W
+    kc = _hex_lin(preset['color'])
+    kc = kc / max(float(kc.max()), 1e-6)
+    make_sun(key_dir, key_E, tuple(float(x) for x in kc), ev.get('key_angle', 2.0))
+    info = {'tod': tod, 'hdri': f'procedural-{tod}', 'path': None, 'scale': scale, 'sun_bearing': az, 'sun_alt': alt, 'sun_E': key_E,
+            'stars': n_stars, 'evening': True}
+    log(f'[world] procedural {tod}: {preset["light"]} bearing {az:.0f} alt {alt:.0f} key {ev["key_lux"]} lux, sky {ev["sky_lux"]} lux '
+        f'(mean radiance {mean_up:.4g}), stars {n_stars}, camera gain {cam_gain}')
+    return info
+
+
 def make_sun(direction, strength, rgb, angle_deg):
     ld = bpy.data.lights.new('vbSun', type='SUN')
     ld.energy = strength
@@ -429,7 +584,8 @@ def logavg(lum, lo_pct=3, hi_pct=97):
 
 
 def set_window_nd(nd):
-    """Camera-ray 'ND film' on window glass (see vb_materials glass_thin)."""
+    """Camera-ray 'ND film' on window glass (see vb_materials glass_thin). > 1 = gain (evening: the exterior is lifted so it
+    stays readable next to the lamp-lit room, like an HDR real-estate photograph)."""
     n = 0
     for m in bpy.data.materials:
         if m.use_nodes and m.get('vb_key') in ('glass-window',):

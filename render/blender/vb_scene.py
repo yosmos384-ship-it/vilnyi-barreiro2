@@ -164,10 +164,13 @@ def emissive_to_lights(opts, region=None, sources=None):
     """For every material with light='spot|point|strip' create real lights at each emissive island.
     region: optional (min Vector, max Vector) in Blender coords to limit lights (e.g. the unit's floor)."""
     boost = opts.get('lamp_boost', 3.0)
+    dim = opts.get('dim') or {}
     existing = [o for o in bpy.data.objects if o.type == 'LIGHT']
     made = 0
     for ob in [o for o in bpy.data.objects if o.type == 'MESH']:
         if sources is not None and ob.get('vb_src') not in sources:
+            continue
+        if ob.hide_render:
             continue
         idx = {}
         for i, s in enumerate(ob.material_slots):
@@ -195,15 +198,15 @@ def emissive_to_lights(opts, region=None, sources=None):
                     # P = I * 4pi / 683 with I = lm / solid angle of the cone (Blender spot power is defined like a point light)
                     cone = math.radians(110.0)
                     omega = 2 * math.pi * (1 - math.cos(cone / 2))
-                    P = r.get('lumens', 600) / omega * 4 * math.pi * LUMEN_W * boost
+                    P = r.get('lumens', 600) / omega * 4 * math.pi * LUMEN_W * boost * dim.get('spot', 1.0)
                     d = n if n.z < -0.5 else Vector((0, 0, -1))
                     make_light('vbL-spot', 'SPOT', c + d * 0.02, P, col, size=max(0.02, min(0.06, max(dims) / 2)), direction=d)
                 elif kind == 'point':
-                    P = r.get('lumens', 450) * LUMEN_W * boost
+                    P = r.get('lumens', 450) * LUMEN_W * boost * dim.get('point', 1.0)
                     make_light('vbL-bulb', 'POINT', c, P, col, size=max(0.015, min(0.05, max(dims) / 2)))
                 elif kind == 'strip':
                     length = max(dims.x, dims.y, dims.z, 0.05)
-                    P = r.get('lumens_per_m', 900) * length * LUMEN_W * boost * 2.0  # area light emits one hemisphere
+                    P = r.get('lumens_per_m', 900) * length * LUMEN_W * boost * 2.0 * dim.get('strip', 1.0)  # area light emits one hemisphere
                     d = n if n.length > 0.5 else Vector((0, 0, -1))
                     ws = sorted([dims.x, dims.y, dims.z], reverse=True)
                     make_light('vbL-strip', 'AREA', c + d * 0.01, P, col, direction=d, area_size=(max(ws[0], 0.02), max(ws[1], 0.01)))
@@ -215,7 +218,7 @@ def rescale_imported_lights(opts, keep=True):
     """glTF punctual lights (three r160 candela) are imported with W = cd*4pi/683 (importer 'Standard' mode) = our scale."""
     boost = opts.get('lamp_boost', 3.0)
     n = 0
-    for o in [o for o in bpy.data.objects if o.type == 'LIGHT' and not o.name.startswith('vbL')]:
+    for o in [o for o in bpy.data.objects if o.type == 'LIGHT' and not o.name.startswith('vb')]:
         if not keep or o.data.energy <= 1e-6:
             bpy.data.objects.remove(o, do_unlink=True)
             continue
@@ -223,6 +226,68 @@ def rescale_imported_lights(opts, keep=True):
         o.data.shadow_soft_size = max(o.data.shadow_soft_size, 0.04)
         n += 1
     return n
+
+
+def hide_flames(sources):
+    """Candle flames are invisible by day in the realtime scene; the phase-4 GLBs (night mood export) contain them."""
+    n = 0
+    for ob in [o for o in bpy.data.objects if o.type == 'MESH' and o.get('vb_src') in sources]:
+        mats = [sl.material for sl in ob.material_slots if sl.material is not None]
+        if mats and all(m.get('vb_key') == 'bulb-emissive' and m.get('vb_variant') == 'flame' for m in mats):
+            ob.hide_render = True; ob.hide_viewport = True; n += 1
+    return n
+
+
+def _fixture_tree():
+    """KD-tree over the faces of every lamp fixture surface (emissive bulbs / strips / spots, lamp shades, rattan domes)."""
+    from mathutils.kdtree import KDTree
+    pts = []
+    for ob in [o for o in bpy.data.objects if o.type == 'MESH' and not o.hide_render and str(o.get('vb_src', '')).startswith('unit-')]:
+        idx = {i for i, sl in enumerate(ob.material_slots) if sl.material is not None and
+               (sl.material.get('vb_shader') in ('emit', 'lampshade') or sl.material.get('vb_key') in ('rattan', 'lamp-shade'))}
+        if not idx:
+            continue
+        mw = ob.matrix_world
+        for p in ob.data.polygons:
+            if p.material_index in idx:
+                pts.append(mw @ p.center)
+    kd = KDTree(max(1, len(pts)))
+    for i, p in enumerate(pts):
+        kd.insert(p, i)
+    kd.balance()
+    return kd, len(pts)
+
+
+def lamp_lights(lamps, tod, opts, check_fixture=True, log=print):
+    """Every lamp of the exported lamp list (render/scenes/lamps.json) -> a real warm point light, scaled by the mood.
+    A lamp that coincides with an emissive bulb reuses that bulb's light(s); one next to an LED strip is left to the strip;
+    a lamp without any fixture nearby (older GLB than the list) is ignored."""
+    lum = L.LAMP_LUMENS * L.LAMP_MOOD.get(tod, 1.0) * opts.get('lamp_gain', 1.0)
+    kd, npts = _fixture_tree()
+    lights = [o for o in bpy.data.objects if o.type == 'LIGHT' and o.name.startswith('vbL')]
+    made = merged = strips = skipped = 0
+    for lamp in lamps:
+        p = t2b(lamp['position'])
+        col = M.kelvin_rgb(L.LAMP_KELVIN.get(lamp.get('kind'), 2700))
+        P = float(lamp.get('intensity', 1.0)) * lum * LUMEN_W
+        near = [o for o in lights if o.data.type == 'POINT' and (o.location - p).length < 0.45]
+        if near:
+            for o in near:
+                o.data.energy = P / len(near); o.data.color = col
+            merged += 1
+            continue
+        if any(o.data.type == 'AREA' and (o.location - p).length < 0.8 for o in lights):
+            strips += 1
+            continue
+        if check_fixture:
+            hit = kd.find(p) if npts else (None, None, 1e9)
+            if hit[2] is None or hit[2] > 0.6:
+                skipped += 1
+                continue
+        lights.append(make_light('vbL-lamp', 'POINT', p, P, col, size=0.04))
+        made += 1
+    log(f'[lamps] {tod}: list={len(lamps)} new={made} merged-with-bulbs={merged} strips={strips} no-fixture={skipped} ({lum:.0f} lm per unit intensity)')
+    return made + merged
 
 
 def window_portals(region, inside):

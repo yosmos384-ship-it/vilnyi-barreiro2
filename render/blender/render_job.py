@@ -8,8 +8,12 @@
   shots    list of shot ids ('panos' / 'stills' / 'all' allowed)   quality  'preview' | 'standard' | 'high'
   out      output dir (repo-relative), e.g. renders/units/1.C/lisboa
   name     job name (log file render/logs/<name>.txt)
-  tod      optional time-of-day override for unit scope ('day' default)
+  tod      time of day for unit scope: 'day' (default) | 'dusk' | 'night'
 Writes <out>/<shot>.jpg, <out>/thumbs/<shot>.jpg and <out>/shots-<name>.json (metadata for the manifest).
+Unit-scope dusk / night renders are VARIANTS of the day image (same camera): <shot>.dusk.jpg / <shot>.night.jpg.
+Evening lighting: procedural blue-hour / moonlit sky from js/environment.js (vb_presets), every lamp of render/scenes/lamps.json
+switched on (warm 2700-3000 K), context windows and street lamps lit, exposure for the lamp-lit room with a camera-side
+gain on the window glass so the evening exterior stays readable.
 """
 import json, math, os, sys, time, traceback
 
@@ -26,7 +30,31 @@ import vb_materials as M
 import vb_scene as S
 import vb_lighting as LI
 import vb_meter as VM
+import vb_presets as VP
 import numpy as np
+
+EVENING = ('dusk', 'night')
+_presets = {}
+
+
+def presets():
+    if not _presets:
+        _presets.update(VP.load(log))
+    return _presets
+
+
+_lamps = {}
+
+
+def lamp_data(unit, pkg):
+    if not _lamps:
+        try:
+            with open(os.path.join(SCENES, 'lamps.json')) as f:
+                _lamps.update(json.load(f).get('units', {}))
+        except Exception as e:
+            log('no lamps.json', repr(e))
+            _lamps['_'] = {}
+    return (_lamps.get(unit) or {}).get(pkg) or {}
 
 T0 = time.time()
 LOG = []
@@ -104,15 +132,19 @@ def shots_for(job, cams):
         tod = job.get('tod', 'day')
         for i, h in enumerate(pk.get('hotspots', [])):
             out.append(dict(h, type='pano', index=i, tod=tod, scenes=['building', 'context', f"unit-{job['unit']}-{job['pkg']}"]))
-        for c in u.get('hero', []):
+        # hero framing: package-independent (atlantic) for the first three packages (their day stills exist);
+        # the phase-4 packages use their own clearance-tested framing
+        own = job['pkg'] in (OVR.get('hero_per_package') or [])
+        for c in (pk.get('hero') if own and pk.get('hero') else u.get('hero', [])):
             out.append(dict(c, type='still', tod=tod, scenes=['building', 'context', f"unit-{job['unit']}-{job['pkg']}"]))
     want = job.get('shots', 'all')
     if isinstance(want, str):
         want = [want]
     sel = []
     for s in out:
+        living = scope == 'unit' and ((s['type'] == 'pano' and str(s.get('roomId', '')).endswith('-living')) or s.get('kind') == 'living')
         if 'all' in want or s['id'] in want or (s['type'] == 'pano' and 'panos' in want) or (s['type'] == 'still' and 'stills' in want) \
-                or any(w.endswith('*') and s['id'].startswith(w[:-1]) for w in want):
+                or (living and 'living' in want) or any(w.endswith('*') and s['id'].startswith(w[:-1]) for w in want):
             sel.append(s)
     return sel
 
@@ -243,7 +275,13 @@ def render_group(job, q, quality, scn, tod, shots, tmp, out_dir):
         if src.startswith('unit-'):
             return src.rsplit('-', 1)[-1]
         return pkg_default
+    # evening = procedural blue-hour / night world + lamp list + lit context windows. Exterior 'dusk' shots keep the low-sun HDRI look.
+    evening = tod in EVENING and (is_unit or tod == 'night' or bool(opts.get('evening_sky')))
+    preset = presets().get(tod) if evening else None
     mopts = dict(tex_res=opts.get('tex_res', '2k'), bevel=opts.get('bevel', False), emit_scale=opts.get('emit_scale', 1.0))
+    if evening and opts.get('lit_windows', True):
+        mopts['lit_windows'] = dict(frac=float(opts.get('windows_lit', preset.get('windowsLit') or 0.3)),
+                                    strength=float(opts.get('window_emit', L.EVENING[tod]['window_emit'])), kelvin=2900)
     mopts['debug_mats'] = []
     st = M.apply_all(pkg_for, mopts)
     if opts.get('leaves', True):
@@ -266,7 +304,17 @@ def render_group(job, q, quality, scn, tod, shots, tmp, out_dir):
         log(f'materials: MISSING textures: {sorted(st["missing_tex"])}')
 
     lopts = dict(lamp_boost=opts.get('lamp_boost', 2.5 if is_unit else (6.0 if tod == 'dusk' else 3.0)))
-    keep_imported = True
+    if evening:
+        # lamps are the light source now: real lumens (no daylight-fighting boost), downlights dimmed, lamp list on
+        lopts = dict(lamp_boost=opts.get('lamp_boost_evening', 1.0 if is_unit else 1.6), dim=(dict(L.DIM[tod], **(opts.get('dim') or {})) if job['scope'] != 'common' else {}),
+                     lamp_gain=opts.get('lamp_gain', 1.0))
+    unit_tags = [k for k in objs_by if k.startswith('unit-')]
+    if not evening:
+        # phase-4 GLBs are exported in the night mood: candle flames are not lit by day
+        new_tags = {t for t in unit_tags if lamp_data(*t[5:].rsplit('-', 1)).get('source') == 'glb'}
+        if new_tags:
+            log(f'flames hidden by day: {S.hide_flames(new_tags)}')
+    keep_imported = not evening      # evening: the two exported runtime point lights are replaced by the full lamp list
     n_imp = S.rescale_imported_lights(lopts, keep=keep_imported)
     region = None
     inside = None
@@ -280,17 +328,30 @@ def render_group(job, q, quality, scn, tod, shots, tmp, out_dir):
         n_em = S.emissive_to_lights(lopts, region=region, sources=None)
     elif job['scope'] == 'common':
         n_em = S.emissive_to_lights(lopts, region=None, sources={'building'})
-    elif tod == 'dusk':
+    elif tod == 'dusk' or evening:
         n_em = S.emissive_to_lights(lopts, region=None, sources={'building'} | {k for k in objs_by if k.startswith('unit-')})
     else:
         n_em = 0
-    n_portal = S.window_portals(region, inside) if is_unit and opts.get('portals', True) else 0
+    if evening:
+        # street lamps (context) + every lamp of the loaded apartments
+        n_st = S.emissive_to_lights(dict(lopts, lamp_boost=opts.get('street_boost', 1.0), dim={}), region=None, sources={'context'}) if 'context' in objs_by else 0
+        n_lamp = 0
+        if is_unit or job['scope'] == 'exterior':
+            for t in unit_tags:
+                ld = lamp_data(*t[5:].rsplit('-', 1))
+                if ld.get('lamps'):
+                    n_lamp += S.lamp_lights(ld['lamps'], tod, lopts, check_fixture=True, log=log)
+        log(f'evening lights: street={n_st} lamp-list={n_lamp} lit-window fraction={mopts.get("lit_windows", {}).get("frac")}')
+    n_portal = S.window_portals(region, inside) if is_unit and opts.get('portals', tod != 'night') else 0
     ntri = sum(len(o.data.polygons) for o in bpy.data.objects if o.type == 'MESH')
     nl = sum(1 for o in bpy.data.objects if o.type == 'LIGHT')
     log(f'lights: imported={n_imp} emissive->lights={n_em} portals={n_portal} boost={lopts["lamp_boost"]} total_lights={nl} polys={ntri}')
 
-    winfo = LI.setup_world(tod, dict(hdri_res=opts.get('hdri_res', '4k'), sky_override=opts.get('sky', {}).get(tod) if opts.get('sky') else None,
-                                     sky_visible_gain=opts.get('sky_visible_gain', 1.0), sky_gain=opts.get('sky_gain', 1.4), tmpdir=tmp), log)
+    if evening:
+        winfo = LI.setup_world_evening(tod, preset, dict(tmpdir=tmp, evening=(opts.get('evening') or {}).get(tod)), log)
+    else:
+        winfo = LI.setup_world(tod, dict(hdri_res=opts.get('hdri_res', '4k'), sky_override=opts.get('sky', {}).get(tod) if opts.get('sky') else None,
+                                         sky_visible_gain=opts.get('sky_visible_gain', 1.0), sky_gain=opts.get('sky_gain', 1.4), tmpdir=tmp), log)
     LI.setup_render(dict(samples=q['still_spp'], adaptive_threshold=q['still_thr'], clamp_indirect=10.0,
                          look=opts.get('look', 'AgX - Base Contrast' if (is_unit and job.get('pkg') != 'noir') or job['scope'] == 'common' else 'AgX - Medium High Contrast')))
     log(f'scene ready in {time.time() - t_load:.1f}s  (world {winfo.get("hdri")})')
@@ -301,7 +362,7 @@ def render_group(job, q, quality, scn, tod, shots, tmp, out_dir):
     for s in shots:
         t1 = time.time()
         try:
-            r = render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod)
+            r = render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, evening)
             r['seconds'] = round(time.time() - t1, 1)
             log(f'SHOT {s["id"]} {s["type"]} {r["W"]}x{r["H"]} spp<={r["spp"]} ev={r["ev"]:.2f} in {r["seconds"]}s -> {r["file"]}')
             res.append(r)
@@ -352,16 +413,19 @@ def profile(s, q, quality, tmp, opts):
     LI.setup_render(dict(samples=q['still_spp'], adaptive_threshold=q['still_thr']))
 
 
-def render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod):
+def render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, evening=False):
     sc = bpy.context.scene
     hidden = []
     try:
-        return _render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, hidden)
+        return _render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, hidden, evening)
     finally:
         VM.unhide(hidden)
 
 
-def _render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, hidden):
+KEY = {'day': {'': 0.30, 'noir': 0.17}, 'dusk': {'': 0.25, 'noir': 0.17, 'urban': 0.22}, 'night': {'': 0.22, 'noir': 0.15, 'urban': 0.2}}
+
+
+def _render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, hidden, evening=False):
     sc = bpy.context.scene
     ov = (OVR.get('shots') or {}).get(s['id'], {})
     if is_unit and s['type'] == 'still' and OVR.get('hero_auto', True) and ov.get('auto', True) and s.get('kind') in ('living', 'bedroom', 'bathroom'):
@@ -407,46 +471,63 @@ def _render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, hidden):
     sky_lum = float(np.median(lum[cls == 0])) if n_sky > 20 else None
     if interior:
         # bright, airy real-estate exposure for the ROOM; Noir stays moody but readable
-        key = opts.get('key', {'noir': 0.17}.get(pkg, 0.30))
+        kt = KEY['day' if not evening else tod]
+        key = opts.get('key_' + tod, opts.get('key', kt.get(pkg, kt['']))) if evening else opts.get('key', kt.get(pkg, kt['']))
         li = lum[cls == 2]
         lavg = LI.logavg(li, 3, 97) or 1e-3
         ev = math.log2(key / lavg)
         p97 = float(np.percentile(li, 97))
-        ev_hi = math.log2(opts.get('hi_white', 2.6) / max(p97, 1e-6))
-        ev = max(-12.0, min(12.0, min(ev, ev_hi)))
+        ev_hi = math.log2((opts.get('hi_white_evening', 6.0) if evening else opts.get('hi_white', 2.6)) / max(p97, 1e-6))
+        ev = max(-12.0, min(14.0 if evening else 12.0, min(ev, ev_hi)))
         sel = px[cls == 2][:, :3]
-        # the view through the windows: camera-only ND on the glass so the outside stays readable
+        # the view through the windows: camera-only ND on the glass so the outside stays readable.
+        # Evening: the ND becomes a GAIN (the lamp-lit room is exposed, the blue-hour / night exterior is lifted to a readable level)
         lo_ = lum[cls != 2]
         nd = 1.0
         if lo_.size > 0.01 * cls.size:
             p75 = float(np.percentile(lo_, 75))
-            nd = max(0.05, min(1.0, opts.get('window_target', 1.1) / max(p75 * (2 ** ev), 1e-6)))
+            if evening:
+                wt = opts.get('window_target_' + tod, {'dusk': 0.40, 'night': 0.13}[tod])
+                nd = max(0.05, min(opts.get('window_gain_max', 24.0), wt / max(p75 * (2 ** ev), 1e-6)))
+            else:
+                nd = max(0.05, min(1.0, opts.get('window_target', 1.1) / max(p75 * (2 ** ev), 1e-6)))
         LI.set_window_nd(nd)
-        log(f'[expo] interior: in/out/sky={n_in}/{n_out}/{n_sky} Lavg={lavg:.4g} p97={p97:.4g} ev_hi={ev_hi:.2f} -> ev={ev:.2f} windowND={nd:.2f}')
+        log(f'[expo] interior{" " + tod if evening else ""}: in/out/sky={n_in}/{n_out}/{n_sky} key={key} Lavg={lavg:.4g} p97={p97:.4g} ev_hi={ev_hi:.2f} -> ev={ev:.2f} windowND={nd:.2f}')
     else:
         key = opts.get('key', 0.18)
         if tod == 'dusk':
             key = opts.get('key_dusk', 0.16)
+        elif tod == 'night':
+            key = opts.get('key_night', 0.11)
         geo = cls > 0
         lg = lum[geo] if geo.sum() > 0.05 * cls.size else lum.ravel()
         lavg = LI.logavg(lg, 2, 97) or 1e-3
         ev = math.log2(key / lavg)
         p95 = float(np.percentile(lg, 95))
-        ev_hi = math.log2(opts.get('hi_white_ext', 2.5) / max(p95, 1e-6))
-        ev = max(-12.0, min(12.0, min(ev, ev_hi)))
+        ev_hi = math.log2((opts.get('hi_white_ext_evening', 8.0) if evening else opts.get('hi_white_ext', 2.5)) / max(p95, 1e-6))
+        ev = max(-12.0, min(16.0 if evening else 12.0, min(ev, ev_hi)))
         sel = px[geo][:, :3] if geo.sum() > 20 else px.reshape(-1, 4)[:, :3]
         log(f'[expo] exterior: geo/sky={int(geo.sum())}/{n_sky} Lavg={lavg:.4g} p95={p95:.4g} ev_hi={ev_hi:.2f} -> ev={ev:.2f} sky={sky_lum}')
-        LI.set_sky_visible(ev, sky_lum, opts.get('sky_target', 0.55 if tod != 'dusk' else 0.45), log)
+        if evening:
+            LI.set_sky_visible(ev, sky_lum, opts.get('sky_target_' + tod, {'dusk': 0.30, 'night': 0.035}[tod]), log)
+        else:
+            LI.set_sky_visible(ev, sky_lum, opts.get('sky_target', 0.55 if tod != 'dusk' else 0.45), log)
     sl = 0.2126 * sel[:, 0] + 0.7152 * sel[:, 1] + 0.0722 * sel[:, 2]
     if sel.shape[0] > 40:
         mid = sel[(sl > np.percentile(sl, 20)) & (sl < np.percentile(sl, 95))]
         LI.WB[0] = tuple(float(x) for x in mid.mean(axis=0)) if len(mid) > 20 else None
     else:
         LI.WB[0] = None
-    ev += float(opts.get('ev_bias', 0.0)) + float((opts.get('ev_shot') or {}).get(s['id'], 0.0))
+    # ev_bias is the DAY bias (0.35 for the full set); evenings have their own
+    ev += float(opts.get('ev_bias_' + tod, 0.0) if evening else opts.get('ev_bias', 0.0)) + float((opts.get('ev_shot') or {}).get(s['id'], 0.0))
     sc.view_settings.exposure = ev
-    wbs = opts.get('wb_strength', 0.6 if interior else 0.25)
-    wb = LI.wb_gains(wbs) if wbs > 0 else None
+    if evening:
+        # tungsten light: take most of the orange cast out of the room (the blue evening outside gets bluer, as in a photograph)
+        wbs = opts.get('wb_strength_evening', 0.72 if interior else 0.3)
+        wb = LI.wb_gains(wbs, opts.get('wb_max_evening', 3.2)) if wbs > 0 else None
+    else:
+        wbs = opts.get('wb_strength', 0.6 if interior else 0.25)
+        wb = LI.wb_gains(wbs) if wbs > 0 else None
     if wb:
         log(f'[wb] gains {tuple(round(x, 3) for x in wb)}')
     LI.compositor(dict(vignette=0.0 if pano else opts.get('vignette', 0.0), glare=opts.get('glare', not (is_unit or job['scope'] == 'common')), glare_mix=opts.get('glare_mix', -0.95), glare_threshold=opts.get('glare_threshold', 10.0), wb=wb, ev=ev), pano=pano)
@@ -454,7 +535,8 @@ def _render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, hidden):
     r.image_settings.file_format = 'JPEG'
     r.image_settings.quality = 82 if pano else 85
     r.image_settings.color_mode = 'RGB'
-    fn = f"{s['id']}.jpg"
+    # unit dusk / night = variants of the day image: <id>.dusk.jpg / <id>.night.jpg next to it
+    fn = f"{s['id']}.jpg" if (tod == 'day' or not is_unit) else f"{s['id']}.{tod}.jpg"
     path = os.path.join(out_dir, fn)
     r.filepath = path
     bpy.ops.render.render(write_still=True)
@@ -472,6 +554,11 @@ def _render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, hidden):
     meta = dict(id=s['id'], type=s['type'], file=rel, thumb=os.path.relpath(os.path.join(out_dir, 'thumbs', fn), ROOT),
                 W=W, H=H, spp=sc.cycles.samples, ev=ev, tod=tod, position=s['position'], lookAt=s['lookAt'],
                 roomId=s.get('roomId'), name=s.get('name') or s.get('roomName'), kind=s.get('kind'))
+    if is_unit and tod != 'day':
+        meta['variant'] = tod
+    for k in ('variant_of', 'variant_tod'):
+        if s.get(k):
+            meta[k] = s[k]
     if pano:
         meta['yawOffset'] = round(cinfo['yawOffset'], 5)
         meta['index'] = s.get('index')

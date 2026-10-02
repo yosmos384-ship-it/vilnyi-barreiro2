@@ -5,8 +5,12 @@ name: render
 #   quality  preview | standard | high            (empty = preview for set=preview, standard otherwise)
 #   units    comma list filter (e.g. 1.C,2.A)      packages  comma list (atlantic,lisboa,noir)
 #   shots    comma list of shot ids, or panos / stills
+#   tod      day | dusk | night (comma list allowed): time of day of the apartment renders (dusk/night = variants of the day image)
 #   opts     JSON passed to render_job.py (e.g. {"lamp_boost":5,"ev_bias":0.3})
 # Push to render/blender/** renders the small preview set (1.C x lisboa living still + one pano, 2 exterior shots).
+# Push that adds / changes render/requests/<name>.json runs the plan with the inputs in that file instead
+#   ({set, quality, units, packages, shots, tod, opts, preview, per_shard} or a LIST of such objects -> one run; see plan.py).
+#   When a push touches several request files, the last one in name order is used (name them NNN-what.json).
 on:
   workflow_dispatch:
     inputs:
@@ -15,15 +19,15 @@ on:
       units: { description: 'unit filter, e.g. 1.C,2.A (empty = all)', default: '' }
       packages: { description: 'package filter, e.g. lisboa (empty = all)', default: '' }
       shots: { description: 'shot ids / panos / stills (empty = all)', default: '' }
-      tod: { description: 'interior time of day: day | golden | dusk', default: 'day' }
+      tod: { description: 'interior time of day: day | dusk | night (comma list)', default: 'day' }
       opts: { description: 'JSON options for render_job.py', default: '' }
   push:
     branches: [main]
-    paths: ['render/blender/**', '.github/workflows/render.yml']
+    paths: ['render/blender/**', 'render/requests/**', '.github/workflows/render.yml']
 permissions:
   contents: write
 concurrency:
-  group: render-${{ github.event_name }}-${{ inputs.set || 'preview' }}
+  group: render-${{ github.run_id }}
   cancel-in-progress: false
 env:
   BLENDER_URL: https://download.blender.org/release/Blender4.2/blender-4.2.3-linux-x64.tar.xz
@@ -61,10 +65,25 @@ jobs:
       - uses: actions/checkout@v4
         with: { sparse-checkout: "render\njs" }
       - id: plan
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
-          python3 render/blender/plan.py --set "${{ inputs.set || 'preview' }}" --quality "${{ inputs.quality }}" \
-            --units "${{ inputs.units }}" --packages "${{ inputs.packages }}" --shots "${{ inputs.shots }}" \
-            --tod "${{ inputs.tod || 'day' }}" --opts '${{ inputs.opts }}' | tee -a "$GITHUB_OUTPUT"
+          REQ=""
+          if [ "${{ github.event_name }}" = "push" ]; then
+            # request files added / changed by this push (GitHub compare API: no git history needed)
+            curl -s -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${{ github.repository }}/compare/${{ github.event.before }}...${{ github.sha }}" -o /tmp/compare.json || true
+            REQ=$(python3 -c "import json; d=json.load(open('/tmp/compare.json')); print('\n'.join(sorted(f['filename'] for f in d.get('files', []) if f.get('status') != 'removed' and f['filename'].startswith('render/requests/') and f['filename'].endswith('.json'))))" 2>/dev/null | tail -n 1 || true)
+            if [ -n "$REQ" ] && [ ! -f "$REQ" ]; then REQ=""; fi
+          fi
+          if [ -n "$REQ" ]; then
+            echo "request file: $REQ"; cat "$REQ"
+            python3 render/blender/plan.py --request "$REQ" | tee -a "$GITHUB_OUTPUT"
+          else
+            python3 render/blender/plan.py --set "${{ inputs.set || 'preview' }}" --quality "${{ inputs.quality }}" \
+              --units "${{ inputs.units }}" --packages "${{ inputs.packages }}" --shots "${{ inputs.shots }}" \
+              --tod "${{ inputs.tod || 'day' }}" --opts '${{ inputs.opts }}' | tee -a "$GITHUB_OUTPUT"
+          fi
       - name: Restore texture/HDRI cache
         id: texcache
         uses: actions/cache/restore@v4
