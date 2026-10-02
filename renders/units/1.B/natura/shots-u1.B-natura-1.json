@@ -1,0 +1,84 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.B",
+  "pkg": "natura",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "1.B-natura-h5",
+   "1.B-natura-h6"
+  ],
+  "out": "renders/units/1.B/natura",
+  "name": "u1.B-natura-1",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "1.B-natura-h5",
+   "type": "pano",
+   "file": "renders/units/1.B/natura/1.B-natura-h5.jpg",
+   "thumb": "renders/units/1.B/natura/thumbs/1.B-natura-h5.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.2463078166531103,
+   "tod": "day",
+   "position": [
+    8.35,
+    4.6,
+    6.01
+   ],
+   "lookAt": [
+    9.284,
+    4.3,
+    6.732
+   ],
+   "roomId": "1.B-wc",
+   "name": {
+    "en": "Bathroom",
+    "pt": "I.S.",
+    "he": "חדר רחצה"
+   },
+   "kind": null,
+   "yawOffset": -2.22887,
+   "index": 5,
+   "seconds": 1844.9
+  },
+  {
+   "id": "1.B-natura-h6",
+   "type": "pano",
+   "file": "renders/units/1.B/natura/1.B-natura-h6.jpg",
+   "thumb": "renders/units/1.B/natura/thumbs/1.B-natura-h6.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": -1.1651292052752646,
+   "tod": "day",
+   "position": [
+    8.05,
+    4.6,
+    -0.35
+   ],
+   "lookAt": [
+    10.05,
+    4.4,
+    -12
+   ],
+   "roomId": "1.rear",
+   "name": {
+    "en": "Balcony",
+    "pt": "Varanda",
+    "he": "מרפסת"
+   },
+   "kind": null,
+   "yawOffset": -0.17002,
+   "index": 6,
+   "seconds": 1216.8
+  }
+ ],
+ "seconds": 3066.7,
+ "blender": "4.2.3 LTS"
+}
