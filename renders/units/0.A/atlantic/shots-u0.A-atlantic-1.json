@@ -13,7 +13,9 @@
   ],
   "out": "renders/units/0.A/atlantic",
   "name": "u0.A-atlantic-1",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
@@ -24,7 +26,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 1.8429374666603167,
+   "ev": 3.4350639845445694,
    "tod": "day",
    "position": [
     4.525,
@@ -45,7 +47,7 @@
    "kind": null,
    "yawOffset": 1.96637,
    "index": 5,
-   "seconds": 2361.5
+   "seconds": 2231.6
   },
   {
    "id": "0.A-atlantic-h6",
@@ -55,7 +57,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": 3.2112857335248193,
+   "ev": 4.369525858417762,
    "tod": "day",
    "position": [
     5.55,
@@ -76,7 +78,7 @@
    "kind": null,
    "yawOffset": 2.74543,
    "index": 6,
-   "seconds": 2335.4
+   "seconds": 2199.0
   },
   {
    "id": "0.A-atlantic-h7",
@@ -86,7 +88,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": -2.5618390439481593,
+   "ev": -1.1813323418482482,
    "tod": "day",
    "position": [
     4.3,
@@ -107,7 +109,7 @@
    "kind": null,
    "yawOffset": 2.66393,
    "index": 7,
-   "seconds": 1208.9
+   "seconds": 1181.6
   },
   {
    "id": "0.A-atlantic-h8",
@@ -117,7 +119,7 @@
    "W": 3072,
    "H": 1536,
    "spp": 64,
-   "ev": -2.1764359906170005,
+   "ev": -0.7991474208351771,
    "tod": "day",
    "position": [
     3.1,
@@ -138,9 +140,9 @@
    "kind": null,
    "yawOffset": 0.304,
    "index": 8,
-   "seconds": 1390.8
+   "seconds": 1332.8
   }
  ],
- "seconds": 7314.0,
+ "seconds": 6949.6,
  "blender": "4.2.3 LTS"
 }
