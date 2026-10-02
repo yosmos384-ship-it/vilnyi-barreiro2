@@ -1,0 +1,150 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.C",
+  "pkg": "riviera",
+  "quality": "standard",
+  "tod": "dusk",
+  "shots": [
+   "1.C-riviera-h0",
+   "1.C-riviera-h1",
+   "1.C-riviera-h2",
+   "1.C-riviera-h5"
+  ],
+  "out": "renders/units/1.C/riviera",
+  "name": "u1.C-riviera-dusk-0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "1.C-riviera-h0",
+   "type": "pano",
+   "file": "renders/units/1.C/riviera/1.C-riviera-h0.dusk.jpg",
+   "thumb": "renders/units/1.C/riviera/thumbs/1.C-riviera-h0.dusk.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 7.715724973141273,
+   "tod": "dusk",
+   "position": [
+    3.7,
+    4.6,
+    9.95
+   ],
+   "lookAt": [
+    8.721,
+    4.25,
+    10.788
+   ],
+   "roomId": "1.C-hall",
+   "name": {
+    "en": "Hall",
+    "pt": "Hall",
+    "he": "מסדרון"
+   },
+   "kind": null,
+   "variant": "dusk",
+   "yawOffset": -1.73617,
+   "index": 0,
+   "seconds": 1793.8
+  },
+  {
+   "id": "1.C-riviera-h1",
+   "type": "pano",
+   "file": "renders/units/1.C/riviera/1.C-riviera-h1.dusk.jpg",
+   "thumb": "renders/units/1.C/riviera/thumbs/1.C-riviera-h1.dusk.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 6.555240498666794,
+   "tod": "dusk",
+   "position": [
+    6.799,
+    4.6,
+    10.125
+   ],
+   "lookAt": [
+    5.132,
+    4,
+    9.842
+   ],
+   "roomId": "1.C-hall",
+   "name": {
+    "en": "Hall · view 2",
+    "pt": "Hall · vista 2",
+    "he": "מסדרון · מבט 2"
+   },
+   "kind": null,
+   "variant": "dusk",
+   "yawOffset": 1.40263,
+   "index": 1,
+   "seconds": 1830.4
+  },
+  {
+   "id": "1.C-riviera-h2",
+   "type": "pano",
+   "file": "renders/units/1.C/riviera/1.C-riviera-h2.dusk.jpg",
+   "thumb": "renders/units/1.C/riviera/thumbs/1.C-riviera-h2.dusk.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 6.37676511409494,
+   "tod": "dusk",
+   "position": [
+    8.15,
+    4.6,
+    8.59
+   ],
+   "lookAt": [
+    9.044,
+    4.3,
+    7.628
+   ],
+   "roomId": "1.C-wc",
+   "name": {
+    "en": "Bathroom",
+    "pt": "I.S.",
+    "he": "חדר רחצה"
+   },
+   "kind": null,
+   "variant": "dusk",
+   "yawOffset": -0.74878,
+   "index": 2,
+   "seconds": 1419.5
+  },
+  {
+   "id": "1.C-riviera-h5",
+   "type": "pano",
+   "file": "renders/units/1.C/riviera/1.C-riviera-h5.dusk.jpg",
+   "thumb": "renders/units/1.C/riviera/thumbs/1.C-riviera-h5.dusk.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 7.322300248846155,
+   "tod": "dusk",
+   "position": [
+    5.5,
+    4.6,
+    13.91
+   ],
+   "lookAt": [
+    4.662,
+    3.95,
+    12.6
+   ],
+   "roomId": "1.C-bed1",
+   "name": {
+    "en": "Main bedroom",
+    "pt": "Quarto",
+    "he": "חדר שינה ראשי"
+   },
+   "kind": null,
+   "variant": "dusk",
+   "yawOffset": 0.5691,
+   "index": 5,
+   "seconds": 1407.3
+  }
+ ],
+ "seconds": 6456.7,
+ "blender": "4.2.3 LTS"
+}
