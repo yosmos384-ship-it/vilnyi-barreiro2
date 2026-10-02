@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-10-01T04:02:04Z",
+ "generated": "2026-10-02T00:32:17Z",
  "license": "All assets CC0 1.0 (Poly Haven, ambientCG). Credits below.",
  "notes": {
   "normal": "OpenGL convention (+Y up), linear",
@@ -780,6 +780,68 @@
      1.0,
      1.0
     ]
+   },
+   "natura": {
+    "id": "ash_veneer",
+    "source": "polyhaven",
+    "name": "Ash Veneer",
+    "url": "https://polyhaven.com/a/ash_veneer",
+    "maps": {
+     "albedo": "assets/pbr/ash_veneer-pale/albedo.jpg",
+     "normal": "assets/pbr/ash_veneer-pale/normal.jpg",
+     "roughness": "assets/pbr/ash_veneer-pale/roughness.jpg",
+     "ao": "assets/pbr/ash_veneer-pale/ao.jpg"
+    },
+    "sizeMeters": [
+     1.0,
+     1.0
+    ],
+    "note": "pale ash veneer (brightened, baked)",
+    "alt": [
+     "white_maple_veneer",
+     "washed_grey_oak_veneer"
+    ],
+    "baked": {
+     "brightness": 1.3
+    }
+   },
+   "riviera": {
+    "id": "Plastic013A",
+    "source": "ambientcg",
+    "name": "Plastic 013 A",
+    "url": "https://ambientcg.com/view?id=Plastic013A",
+    "maps": {
+     "albedo": "assets/pbr/plastic013a-linen/albedo.jpg",
+     "normal": "assets/pbr/plastic013a-linen/normal.jpg",
+     "roughness": "assets/pbr/plastic013a-linen/roughness.jpg"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "lacquer #ece6dc (baked)",
+    "baked": {
+     "multiply": "#ece6dc"
+    }
+   },
+   "urban": {
+    "id": "Plastic013A",
+    "source": "ambientcg",
+    "name": "Plastic 013 A",
+    "url": "https://ambientcg.com/view?id=Plastic013A",
+    "maps": {
+     "albedo": "assets/pbr/plastic013a-black/albedo.jpg",
+     "normal": "assets/pbr/plastic013a-black/normal.jpg",
+     "roughness": "assets/pbr/plastic013a-black/roughness.jpg"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "lacquer #2a2b2d (baked)",
+    "baked": {
+     "multiply": "#2a2b2d"
+    }
    }
   },
   "door-walnut": {
@@ -889,6 +951,68 @@
      "multiply": "#7a6a5c",
      "saturation": 0.85
     }
+   },
+   "natura": {
+    "id": "WoodFloor039",
+    "source": "ambientcg",
+    "name": "Wood Floor 039",
+    "url": "https://ambientcg.com/view?id=WoodFloor039",
+    "maps": {
+     "albedo": "assets/pbr/woodfloor039/albedo.jpg",
+     "normal": "assets/pbr/woodfloor039/normal.jpg",
+     "roughness": "assets/pbr/woodfloor039/roughness.jpg",
+     "ao": "assets/pbr/woodfloor039/ao.jpg"
+    },
+    "sizeMeters": [
+     1.9,
+     1.9
+    ],
+    "note": "pale ash boards, white-oiled",
+    "alt": [
+     "oak_wood_planks"
+    ]
+   },
+   "riviera": {
+    "id": "Marble015",
+    "source": "ambientcg",
+    "name": "Marble 015",
+    "url": "https://ambientcg.com/view?id=Marble015",
+    "maps": {
+     "albedo": "assets/pbr/marble015/albedo.jpg",
+     "normal": "assets/pbr/marble015/normal.jpg",
+     "roughness": "assets/pbr/marble015/roughness.jpg"
+    },
+    "sizeMeters": [
+     1.2,
+     1.2
+    ],
+    "note": "honed Moleanos-like limestone; add 60x90 joints as geometry/decal if wanted",
+    "alt": [
+     "Tiles141",
+     "Marble014"
+    ]
+   },
+   "urban": {
+    "id": "Concrete016",
+    "source": "ambientcg",
+    "name": "Concrete 016",
+    "url": "https://ambientcg.com/view?id=Concrete016",
+    "maps": {
+     "albedo": "assets/pbr/concrete016-neutral/albedo.jpg",
+     "normal": "assets/pbr/concrete016-neutral/normal.jpg",
+     "roughness": "assets/pbr/concrete016-neutral/roughness.jpg"
+    },
+    "sizeMeters": [
+     2.5,
+     2.5
+    ],
+    "note": "polished concrete screed (neutralised, baked); roughness ~0.25",
+    "alt": [
+     "Concrete042A"
+    ],
+    "baked": {
+     "saturation": 0.25
+    }
    }
   },
   "wall-paint": {
@@ -947,6 +1071,60 @@
     "baked": {
      "multiply": "#8f8a84"
     }
+   },
+   "natura": {
+    "id": "Plaster002",
+    "source": "ambientcg",
+    "name": "Plaster 002",
+    "url": "https://ambientcg.com/view?id=Plaster002",
+    "maps": {
+     "albedo": "assets/pbr/plaster002-sand/albedo.jpg",
+     "normal": "assets/pbr/plaster002-sand/normal.jpg",
+     "roughness": "assets/pbr/plaster002-sand/roughness.jpg"
+    },
+    "sizeMeters": [
+     2,
+     2
+    ],
+    "note": "warm sand limewash (baked)",
+    "baked": {
+     "multiply": "#e6dac4"
+    }
+   },
+   "riviera": {
+    "id": "Plaster001",
+    "source": "ambientcg",
+    "name": "Plaster 001",
+    "url": "https://ambientcg.com/view?id=Plaster001",
+    "maps": {
+     "albedo": "assets/pbr/plaster001/albedo.jpg",
+     "normal": "assets/pbr/plaster001/normal.jpg",
+     "roughness": "assets/pbr/plaster001/roughness.jpg"
+    },
+    "sizeMeters": [
+     2,
+     2
+    ],
+    "note": "hand-trowelled white plaster"
+   },
+   "urban": {
+    "id": "PaintedPlaster017",
+    "source": "ambientcg",
+    "name": "Painted Plaster 017",
+    "url": "https://ambientcg.com/view?id=PaintedPlaster017",
+    "maps": {
+     "albedo": "assets/pbr/paintedplaster017-softgrey/albedo.jpg",
+     "normal": "assets/pbr/paintedplaster017-softgrey/normal.jpg",
+     "roughness": "assets/pbr/paintedplaster017-softgrey/roughness.jpg"
+    },
+    "sizeMeters": [
+     2,
+     2
+    ],
+    "note": "soft grey paint (baked)",
+    "baked": {
+     "multiply": "#e4e1db"
+    }
    }
   },
   "wall-feature": {
@@ -1004,6 +1182,71 @@
     "note": "charcoal microcement",
     "alt": [
      "Concrete017"
+    ]
+   },
+   "natura": {
+    "id": "ash_veneer",
+    "source": "polyhaven",
+    "name": "Ash Veneer",
+    "url": "https://polyhaven.com/a/ash_veneer",
+    "maps": {
+     "albedo": "assets/pbr/ash_veneer-pale/albedo.jpg",
+     "normal": "assets/pbr/ash_veneer-pale/normal.jpg",
+     "roughness": "assets/pbr/ash_veneer-pale/roughness.jpg",
+     "ao": "assets/pbr/ash_veneer-pale/ao.jpg"
+    },
+    "sizeMeters": [
+     1.0,
+     1.0
+    ],
+    "note": "ash timber slats (brightened, baked)",
+    "alt": [
+     "white_maple_veneer",
+     "washed_grey_oak_veneer"
+    ],
+    "baked": {
+     "brightness": 1.3
+    }
+   },
+   "riviera": {
+    "id": "Plaster004",
+    "source": "ambientcg",
+    "name": "Plaster 004",
+    "url": "https://ambientcg.com/view?id=Plaster004",
+    "maps": {
+     "albedo": "assets/pbr/plaster004-warm/albedo.jpg",
+     "normal": "assets/pbr/plaster004-warm/normal.jpg",
+     "roughness": "assets/pbr/plaster004-warm/roughness.jpg"
+    },
+    "sizeMeters": [
+     2,
+     2
+    ],
+    "note": "heavier trowelled plaster, warm white (baked)",
+    "baked": {
+     "brightness": 1.35,
+     "multiply": "#f4ebdc"
+    }
+   },
+   "urban": {
+    "id": "brick_wall_001",
+    "source": "polyhaven",
+    "name": "Brick Wall 001",
+    "url": "https://polyhaven.com/a/brick_wall_001",
+    "maps": {
+     "albedo": "assets/pbr/brick_wall_001/albedo.jpg",
+     "normal": "assets/pbr/brick_wall_001/normal.jpg",
+     "roughness": "assets/pbr/brick_wall_001/roughness.jpg",
+     "ao": "assets/pbr/brick_wall_001/ao.jpg"
+    },
+    "sizeMeters": [
+     3.0,
+     3.0
+    ],
+    "note": "reclaimed exposed brick",
+    "alt": [
+     "red_brick_03",
+     "Bricks097"
     ]
    }
   },
@@ -1082,6 +1325,66 @@
     "alt": [
      "black_oak_veneer"
     ]
+   },
+   "natura": {
+    "id": "ash_veneer",
+    "source": "polyhaven",
+    "name": "Ash Veneer",
+    "url": "https://polyhaven.com/a/ash_veneer",
+    "maps": {
+     "albedo": "assets/pbr/ash_veneer-pale/albedo.jpg",
+     "normal": "assets/pbr/ash_veneer-pale/normal.jpg",
+     "roughness": "assets/pbr/ash_veneer-pale/roughness.jpg",
+     "ao": "assets/pbr/ash_veneer-pale/ao.jpg"
+    },
+    "sizeMeters": [
+     1.0,
+     1.0
+    ],
+    "note": "pale ash veneer (brightened, baked)",
+    "alt": [
+     "white_maple_veneer",
+     "washed_grey_oak_veneer"
+    ],
+    "baked": {
+     "brightness": 1.3
+    }
+   },
+   "riviera": {
+    "id": "Plastic013A",
+    "source": "ambientcg",
+    "name": "Plastic 013 A",
+    "url": "https://ambientcg.com/view?id=Plastic013A",
+    "maps": {
+     "albedo": "assets/pbr/plastic013a-linen/albedo.jpg",
+     "normal": "assets/pbr/plastic013a-linen/normal.jpg",
+     "roughness": "assets/pbr/plastic013a-linen/roughness.jpg"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "lacquer #ece6dc (baked)",
+    "baked": {
+     "multiply": "#ece6dc"
+    }
+   },
+   "urban": {
+    "id": "oak_veneer_01",
+    "source": "polyhaven",
+    "name": "Oak Veneer 01",
+    "url": "https://polyhaven.com/a/oak_veneer_01",
+    "maps": {
+     "albedo": "assets/pbr/oak_veneer_01/albedo.jpg",
+     "normal": "assets/pbr/oak_veneer_01/normal.jpg",
+     "roughness": "assets/pbr/oak_veneer_01/roughness.jpg",
+     "ao": "assets/pbr/oak_veneer_01/ao.jpg"
+    },
+    "sizeMeters": [
+     1.83,
+     1.83
+    ],
+    "note": "oak doors"
    }
   },
   "door-handle": {
@@ -1141,6 +1444,66 @@
     "baked": {
      "multiply": "#8c6e5c"
     }
+   },
+   "natura": {
+    "id": "Metal027",
+    "source": "ambientcg",
+    "name": "Metal 027",
+    "url": "https://ambientcg.com/view?id=Metal027",
+    "maps": {
+     "albedo": "assets/pbr/metal027/albedo.jpg",
+     "normal": "assets/pbr/metal027/normal.jpg",
+     "roughness": "assets/pbr/metal027/roughness.jpg",
+     "metal": "assets/pbr/metal027/metal.jpg"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "matt black",
+    "alt": [
+     "Metal046A"
+    ]
+   },
+   "riviera": {
+    "id": "Metal048B",
+    "source": "ambientcg",
+    "name": "Metal 048 B",
+    "url": "https://ambientcg.com/view?id=Metal048B",
+    "maps": {
+     "albedo": "assets/pbr/metal048b/albedo.jpg",
+     "normal": "assets/pbr/metal048b/normal.jpg",
+     "roughness": "assets/pbr/metal048b/roughness.jpg",
+     "metal": "assets/pbr/metal048b/metal.jpg"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "aged brass",
+    "alt": [
+     "Metal048C"
+    ]
+   },
+   "urban": {
+    "id": "Metal027",
+    "source": "ambientcg",
+    "name": "Metal 027",
+    "url": "https://ambientcg.com/view?id=Metal027",
+    "maps": {
+     "albedo": "assets/pbr/metal027/albedo.jpg",
+     "normal": "assets/pbr/metal027/normal.jpg",
+     "roughness": "assets/pbr/metal027/roughness.jpg",
+     "metal": "assets/pbr/metal027/metal.jpg"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "matt black",
+    "alt": [
+     "Metal046A"
+    ]
    }
   },
   "bath-floor": {
@@ -1193,6 +1556,66 @@
     "note": "black marble tiles",
     "alt": [
      "granite_tile"
+    ]
+   },
+   "natura": {
+    "id": "Travertine009",
+    "source": "ambientcg",
+    "name": "Travertine 009",
+    "url": "https://ambientcg.com/view?id=Travertine009",
+    "maps": {
+     "albedo": "assets/pbr/travertine009/albedo.jpg",
+     "normal": "assets/pbr/travertine009/normal.jpg",
+     "roughness": "assets/pbr/travertine009/roughness.jpg",
+     "ao": "assets/pbr/travertine009/ao.jpg"
+    },
+    "sizeMeters": [
+     1.2,
+     1.2
+    ],
+    "alt": [
+     "Travertine001"
+    ],
+    "note": "honed travertine"
+   },
+   "riviera": {
+    "id": "Marble015",
+    "source": "ambientcg",
+    "name": "Marble 015",
+    "url": "https://ambientcg.com/view?id=Marble015",
+    "maps": {
+     "albedo": "assets/pbr/marble015/albedo.jpg",
+     "normal": "assets/pbr/marble015/normal.jpg",
+     "roughness": "assets/pbr/marble015/roughness.jpg"
+    },
+    "sizeMeters": [
+     1.2,
+     1.2
+    ],
+    "note": "honed Moleanos-like limestone; add 60x90 joints as geometry/decal if wanted",
+    "alt": [
+     "Tiles141",
+     "Marble014"
+    ]
+   },
+   "urban": {
+    "id": "Terrazzo005",
+    "source": "ambientcg",
+    "name": "Terrazzo 005",
+    "url": "https://ambientcg.com/view?id=Terrazzo005",
+    "maps": {
+     "albedo": "assets/pbr/terrazzo005/albedo.jpg",
+     "normal": "assets/pbr/terrazzo005/normal.jpg",
+     "roughness": "assets/pbr/terrazzo005/roughness.jpg"
+    },
+    "sizeMeters": [
+     1.0,
+     1.0
+    ],
+    "note": "black/white chip terrazzo",
+    "alt": [
+     "Terrazzo001",
+     "Tiles043"
     ]
    }
   },
@@ -1250,6 +1673,65 @@
     "alt": [
      "Marble023"
     ]
+   },
+   "natura": {
+    "id": "Travertine009",
+    "source": "ambientcg",
+    "name": "Travertine 009",
+    "url": "https://ambientcg.com/view?id=Travertine009",
+    "maps": {
+     "albedo": "assets/pbr/travertine009/albedo.jpg",
+     "normal": "assets/pbr/travertine009/normal.jpg",
+     "roughness": "assets/pbr/travertine009/roughness.jpg",
+     "ao": "assets/pbr/travertine009/ao.jpg"
+    },
+    "sizeMeters": [
+     1.2,
+     1.2
+    ],
+    "alt": [
+     "Travertine001"
+    ],
+    "note": "honed travertine"
+   },
+   "riviera": {
+    "id": "Tiles034",
+    "source": "ambientcg",
+    "name": "Tiles 034",
+    "url": "https://ambientcg.com/view?id=Tiles034",
+    "maps": {
+     "albedo": "assets/pbr/tiles034/albedo.jpg",
+     "normal": "assets/pbr/tiles034/normal.jpg",
+     "roughness": "assets/pbr/tiles034/roughness.jpg"
+    },
+    "sizeMeters": [
+     1.0,
+     1.0
+    ],
+    "note": "glazed green tiles with tonal variation (zellige-like)",
+    "alt": [
+     "Tiles032"
+    ]
+   },
+   "urban": {
+    "id": "Terrazzo005",
+    "source": "ambientcg",
+    "name": "Terrazzo 005",
+    "url": "https://ambientcg.com/view?id=Terrazzo005",
+    "maps": {
+     "albedo": "assets/pbr/terrazzo005/albedo.jpg",
+     "normal": "assets/pbr/terrazzo005/normal.jpg",
+     "roughness": "assets/pbr/terrazzo005/roughness.jpg"
+    },
+    "sizeMeters": [
+     1.0,
+     1.0
+    ],
+    "note": "black/white chip terrazzo",
+    "alt": [
+     "Terrazzo001",
+     "Tiles043"
+    ]
    }
   },
   "shower-wall": {
@@ -1304,6 +1786,65 @@
     "alt": [
      "Concrete017"
     ]
+   },
+   "natura": {
+    "id": "Travertine009",
+    "source": "ambientcg",
+    "name": "Travertine 009",
+    "url": "https://ambientcg.com/view?id=Travertine009",
+    "maps": {
+     "albedo": "assets/pbr/travertine009/albedo.jpg",
+     "normal": "assets/pbr/travertine009/normal.jpg",
+     "roughness": "assets/pbr/travertine009/roughness.jpg",
+     "ao": "assets/pbr/travertine009/ao.jpg"
+    },
+    "sizeMeters": [
+     1.2,
+     1.2
+    ],
+    "alt": [
+     "Travertine001"
+    ],
+    "note": "honed travertine"
+   },
+   "riviera": {
+    "id": "Tiles034",
+    "source": "ambientcg",
+    "name": "Tiles 034",
+    "url": "https://ambientcg.com/view?id=Tiles034",
+    "maps": {
+     "albedo": "assets/pbr/tiles034/albedo.jpg",
+     "normal": "assets/pbr/tiles034/normal.jpg",
+     "roughness": "assets/pbr/tiles034/roughness.jpg"
+    },
+    "sizeMeters": [
+     1.0,
+     1.0
+    ],
+    "note": "glazed green tiles with tonal variation (zellige-like)",
+    "alt": [
+     "Tiles032"
+    ]
+   },
+   "urban": {
+    "id": "Terrazzo005",
+    "source": "ambientcg",
+    "name": "Terrazzo 005",
+    "url": "https://ambientcg.com/view?id=Terrazzo005",
+    "maps": {
+     "albedo": "assets/pbr/terrazzo005/albedo.jpg",
+     "normal": "assets/pbr/terrazzo005/normal.jpg",
+     "roughness": "assets/pbr/terrazzo005/roughness.jpg"
+    },
+    "sizeMeters": [
+     1.0,
+     1.0
+    ],
+    "note": "black/white chip terrazzo",
+    "alt": [
+     "Terrazzo001",
+     "Tiles043"
+    ]
    }
   },
   "shower-glass": {
@@ -1350,6 +1891,32 @@
      1.5
     ],
     "note": "stone basin"
+   },
+   "natura": {
+    "ref": "sanitary-ceramic/default"
+   },
+   "riviera": {
+    "ref": "sanitary-ceramic/default"
+   },
+   "urban": {
+    "id": "Concrete034",
+    "source": "ambientcg",
+    "name": "Concrete 034",
+    "url": "https://ambientcg.com/view?id=Concrete034",
+    "maps": {
+     "albedo": "assets/pbr/concrete034/albedo.jpg",
+     "normal": "assets/pbr/concrete034/normal.jpg",
+     "roughness": "assets/pbr/concrete034/roughness.jpg"
+    },
+    "sizeMeters": [
+     1.1,
+     0.55
+    ],
+    "alt": [
+     "Concrete046",
+     "concrete_floor_01"
+    ],
+    "note": "concrete basin"
    }
   },
   "tap-metal": {
@@ -1409,6 +1976,66 @@
     "baked": {
      "multiply": "#8c6e5c"
     }
+   },
+   "natura": {
+    "id": "Metal027",
+    "source": "ambientcg",
+    "name": "Metal 027",
+    "url": "https://ambientcg.com/view?id=Metal027",
+    "maps": {
+     "albedo": "assets/pbr/metal027/albedo.jpg",
+     "normal": "assets/pbr/metal027/normal.jpg",
+     "roughness": "assets/pbr/metal027/roughness.jpg",
+     "metal": "assets/pbr/metal027/metal.jpg"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "matt black",
+    "alt": [
+     "Metal046A"
+    ]
+   },
+   "riviera": {
+    "id": "Metal048B",
+    "source": "ambientcg",
+    "name": "Metal 048 B",
+    "url": "https://ambientcg.com/view?id=Metal048B",
+    "maps": {
+     "albedo": "assets/pbr/metal048b/albedo.jpg",
+     "normal": "assets/pbr/metal048b/normal.jpg",
+     "roughness": "assets/pbr/metal048b/roughness.jpg",
+     "metal": "assets/pbr/metal048b/metal.jpg"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "aged brass",
+    "alt": [
+     "Metal048C"
+    ]
+   },
+   "urban": {
+    "id": "Metal027",
+    "source": "ambientcg",
+    "name": "Metal 027",
+    "url": "https://ambientcg.com/view?id=Metal027",
+    "maps": {
+     "albedo": "assets/pbr/metal027/albedo.jpg",
+     "normal": "assets/pbr/metal027/normal.jpg",
+     "roughness": "assets/pbr/metal027/roughness.jpg",
+     "metal": "assets/pbr/metal027/metal.jpg"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "matt black",
+    "alt": [
+     "Metal046A"
+    ]
    }
   },
   "kitchen-front": {
@@ -1463,6 +2090,68 @@
      1.0
     ],
     "note": "fluted smoked oak"
+   },
+   "natura": {
+    "id": "ash_veneer",
+    "source": "polyhaven",
+    "name": "Ash Veneer",
+    "url": "https://polyhaven.com/a/ash_veneer",
+    "maps": {
+     "albedo": "assets/pbr/ash_veneer-pale/albedo.jpg",
+     "normal": "assets/pbr/ash_veneer-pale/normal.jpg",
+     "roughness": "assets/pbr/ash_veneer-pale/roughness.jpg",
+     "ao": "assets/pbr/ash_veneer-pale/ao.jpg"
+    },
+    "sizeMeters": [
+     1.0,
+     1.0
+    ],
+    "note": "pale ash veneer (brightened, baked)",
+    "alt": [
+     "white_maple_veneer",
+     "washed_grey_oak_veneer"
+    ],
+    "baked": {
+     "brightness": 1.3
+    }
+   },
+   "riviera": {
+    "id": "Plastic013A",
+    "source": "ambientcg",
+    "name": "Plastic 013 A",
+    "url": "https://ambientcg.com/view?id=Plastic013A",
+    "maps": {
+     "albedo": "assets/pbr/plastic013a-sage/albedo.jpg",
+     "normal": "assets/pbr/plastic013a-sage/normal.jpg",
+     "roughness": "assets/pbr/plastic013a-sage/roughness.jpg"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "lacquer #7f9a88 (baked)",
+    "baked": {
+     "multiply": "#7f9a88"
+    }
+   },
+   "urban": {
+    "id": "Plastic013A",
+    "source": "ambientcg",
+    "name": "Plastic 013 A",
+    "url": "https://ambientcg.com/view?id=Plastic013A",
+    "maps": {
+     "albedo": "assets/pbr/plastic013a-black/albedo.jpg",
+     "normal": "assets/pbr/plastic013a-black/normal.jpg",
+     "roughness": "assets/pbr/plastic013a-black/roughness.jpg"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "lacquer #2a2b2d (baked)",
+    "baked": {
+     "multiply": "#2a2b2d"
+    }
    }
   },
   "kitchen-worktop": {
@@ -1520,6 +2209,62 @@
     "alt": [
      "Marble013"
     ]
+   },
+   "natura": {
+    "id": "Travertine009",
+    "source": "ambientcg",
+    "name": "Travertine 009",
+    "url": "https://ambientcg.com/view?id=Travertine009",
+    "maps": {
+     "albedo": "assets/pbr/travertine009/albedo.jpg",
+     "normal": "assets/pbr/travertine009/normal.jpg",
+     "roughness": "assets/pbr/travertine009/roughness.jpg",
+     "ao": "assets/pbr/travertine009/ao.jpg"
+    },
+    "sizeMeters": [
+     1.2,
+     1.2
+    ],
+    "alt": [
+     "Travertine001"
+    ],
+    "note": "travertine-look sintered stone"
+   },
+   "riviera": {
+    "id": "Marble021",
+    "source": "ambientcg",
+    "name": "Marble 021",
+    "url": "https://ambientcg.com/view?id=Marble021",
+    "maps": {
+     "albedo": "assets/pbr/marble021/albedo.jpg",
+     "normal": "assets/pbr/marble021/normal.jpg",
+     "roughness": "assets/pbr/marble021/roughness.jpg"
+    },
+    "sizeMeters": [
+     1.4,
+     1.4
+    ],
+    "note": "white marble-look",
+    "alt": [
+     "Marble001"
+    ]
+   },
+   "urban": {
+    "id": "Metal009",
+    "source": "ambientcg",
+    "name": "Metal 009",
+    "url": "https://ambientcg.com/view?id=Metal009",
+    "maps": {
+     "albedo": "assets/pbr/metal009/albedo.jpg",
+     "normal": "assets/pbr/metal009/normal.jpg",
+     "roughness": "assets/pbr/metal009/roughness.jpg",
+     "metal": "assets/pbr/metal009/metal.jpg"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "brushed stainless steel"
    }
   },
   "kitchen-splashback": {
@@ -1570,6 +2315,62 @@
     "sizeMeters": [
      1.5,
      1.5
+    ]
+   },
+   "natura": {
+    "id": "Travertine009",
+    "source": "ambientcg",
+    "name": "Travertine 009",
+    "url": "https://ambientcg.com/view?id=Travertine009",
+    "maps": {
+     "albedo": "assets/pbr/travertine009/albedo.jpg",
+     "normal": "assets/pbr/travertine009/normal.jpg",
+     "roughness": "assets/pbr/travertine009/roughness.jpg",
+     "ao": "assets/pbr/travertine009/ao.jpg"
+    },
+    "sizeMeters": [
+     1.2,
+     1.2
+    ],
+    "alt": [
+     "Travertine001"
+    ],
+    "note": "honed travertine"
+   },
+   "riviera": {
+    "id": "Tiles027",
+    "source": "ambientcg",
+    "name": "Tiles 027",
+    "url": "https://ambientcg.com/view?id=Tiles027",
+    "maps": {
+     "albedo": "assets/pbr/tiles027/albedo.jpg",
+     "normal": "assets/pbr/tiles027/normal.jpg",
+     "roughness": "assets/pbr/tiles027/roughness.jpg",
+     "ao": "assets/pbr/tiles027/ao.jpg"
+    },
+    "sizeMeters": [
+     0.9,
+     0.9
+    ],
+    "note": "terracotta tiles 15 cm",
+    "alt": [
+     "patio_tiles"
+    ]
+   },
+   "urban": {
+    "id": "Metal009",
+    "source": "ambientcg",
+    "name": "Metal 009",
+    "url": "https://ambientcg.com/view?id=Metal009",
+    "maps": {
+     "albedo": "assets/pbr/metal009/albedo.jpg",
+     "normal": "assets/pbr/metal009/normal.jpg",
+     "roughness": "assets/pbr/metal009/roughness.jpg",
+     "metal": "assets/pbr/metal009/metal.jpg"
+    },
+    "sizeMeters": [
+     1,
+     1
     ]
    }
   },
@@ -1663,6 +2464,68 @@
      1.0,
      1.0
     ]
+   },
+   "natura": {
+    "id": "ash_veneer",
+    "source": "polyhaven",
+    "name": "Ash Veneer",
+    "url": "https://polyhaven.com/a/ash_veneer",
+    "maps": {
+     "albedo": "assets/pbr/ash_veneer-pale/albedo.jpg",
+     "normal": "assets/pbr/ash_veneer-pale/normal.jpg",
+     "roughness": "assets/pbr/ash_veneer-pale/roughness.jpg",
+     "ao": "assets/pbr/ash_veneer-pale/ao.jpg"
+    },
+    "sizeMeters": [
+     1.0,
+     1.0
+    ],
+    "note": "pale ash veneer (brightened, baked)",
+    "alt": [
+     "white_maple_veneer",
+     "washed_grey_oak_veneer"
+    ],
+    "baked": {
+     "brightness": 1.3
+    }
+   },
+   "riviera": {
+    "id": "Plastic013A",
+    "source": "ambientcg",
+    "name": "Plastic 013 A",
+    "url": "https://ambientcg.com/view?id=Plastic013A",
+    "maps": {
+     "albedo": "assets/pbr/plastic013a-sage/albedo.jpg",
+     "normal": "assets/pbr/plastic013a-sage/normal.jpg",
+     "roughness": "assets/pbr/plastic013a-sage/roughness.jpg"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "lacquer #7f9a88 (baked)",
+    "baked": {
+     "multiply": "#7f9a88"
+    }
+   },
+   "urban": {
+    "id": "Plastic013A",
+    "source": "ambientcg",
+    "name": "Plastic 013 A",
+    "url": "https://ambientcg.com/view?id=Plastic013A",
+    "maps": {
+     "albedo": "assets/pbr/plastic013a-black/albedo.jpg",
+     "normal": "assets/pbr/plastic013a-black/normal.jpg",
+     "roughness": "assets/pbr/plastic013a-black/roughness.jpg"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "lacquer #2a2b2d (baked)",
+    "baked": {
+     "multiply": "#2a2b2d"
+    }
    }
   },
   "window-sheer": {
@@ -1680,6 +2543,15 @@
      0.3,
      0.3
     ]
+   },
+   "natura": {
+    "ref": "window-sheer/default"
+   },
+   "riviera": {
+    "ref": "window-sheer/default"
+   },
+   "urban": {
+    "ref": "window-sheer/default"
    }
   },
   "curtain-fabric": {
@@ -1730,6 +2602,56 @@
      0.5,
      0.5
     ]
+   },
+   "natura": {
+    "id": "Fabric062",
+    "source": "ambientcg",
+    "name": "Fabric 062",
+    "url": "https://ambientcg.com/view?id=Fabric062",
+    "maps": {
+     "albedo": "assets/pbr/fabric062/albedo.jpg",
+     "normal": "assets/pbr/fabric062/normal.jpg",
+     "roughness": "assets/pbr/fabric062/roughness.jpg",
+     "ao": "assets/pbr/fabric062/ao.jpg"
+    },
+    "sizeMeters": [
+     0.4,
+     0.4
+    ],
+    "note": "natural linen weave"
+   },
+   "riviera": {
+    "id": "Fabric032",
+    "source": "ambientcg",
+    "name": "Fabric 032",
+    "url": "https://ambientcg.com/view?id=Fabric032",
+    "maps": {
+     "albedo": "assets/pbr/fabric032/albedo.jpg",
+     "normal": "assets/pbr/fabric032/normal.jpg",
+     "roughness": "assets/pbr/fabric032/roughness.jpg"
+    },
+    "sizeMeters": [
+     0.3,
+     0.3
+    ],
+    "note": "white linen"
+   },
+   "urban": {
+    "id": "Fabric030",
+    "source": "ambientcg",
+    "name": "Fabric 030",
+    "url": "https://ambientcg.com/view?id=Fabric030",
+    "maps": {
+     "albedo": "assets/pbr/fabric030/albedo.jpg",
+     "normal": "assets/pbr/fabric030/normal.jpg",
+     "roughness": "assets/pbr/fabric030/roughness.jpg",
+     "ao": "assets/pbr/fabric030/ao.jpg"
+    },
+    "sizeMeters": [
+     0.5,
+     0.5
+    ],
+    "note": "grey roller-blind weave"
    }
   },
   "fabric-sofa": {
@@ -1784,6 +2706,54 @@
      0.5
     ],
     "note": "charcoal weave"
+   },
+   "natura": {
+    "id": "Fabric062",
+    "source": "ambientcg",
+    "name": "Fabric 062",
+    "url": "https://ambientcg.com/view?id=Fabric062",
+    "maps": {
+     "albedo": "assets/pbr/fabric062/albedo.jpg",
+     "normal": "assets/pbr/fabric062/normal.jpg",
+     "roughness": "assets/pbr/fabric062/roughness.jpg",
+     "ao": "assets/pbr/fabric062/ao.jpg"
+    },
+    "sizeMeters": [
+     0.4,
+     0.4
+    ]
+   },
+   "riviera": {
+    "id": "Fabric062",
+    "source": "ambientcg",
+    "name": "Fabric 062",
+    "url": "https://ambientcg.com/view?id=Fabric062",
+    "maps": {
+     "albedo": "assets/pbr/fabric062/albedo.jpg",
+     "normal": "assets/pbr/fabric062/normal.jpg",
+     "roughness": "assets/pbr/fabric062/roughness.jpg",
+     "ao": "assets/pbr/fabric062/ao.jpg"
+    },
+    "sizeMeters": [
+     0.4,
+     0.4
+    ]
+   },
+   "urban": {
+    "id": "Fabric030",
+    "source": "ambientcg",
+    "name": "Fabric 030",
+    "url": "https://ambientcg.com/view?id=Fabric030",
+    "maps": {
+     "albedo": "assets/pbr/fabric030/albedo.jpg",
+     "normal": "assets/pbr/fabric030/normal.jpg",
+     "roughness": "assets/pbr/fabric030/roughness.jpg",
+     "ao": "assets/pbr/fabric030/ao.jpg"
+    },
+    "sizeMeters": [
+     0.5,
+     0.5
+    ]
    }
   },
   "fabric-linen": {
@@ -1804,6 +2774,28 @@
     "alt": [
      "rough_linen"
     ]
+   },
+   "natura": {
+    "id": "Fabric062",
+    "source": "ambientcg",
+    "name": "Fabric 062",
+    "url": "https://ambientcg.com/view?id=Fabric062",
+    "maps": {
+     "albedo": "assets/pbr/fabric062/albedo.jpg",
+     "normal": "assets/pbr/fabric062/normal.jpg",
+     "roughness": "assets/pbr/fabric062/roughness.jpg",
+     "ao": "assets/pbr/fabric062/ao.jpg"
+    },
+    "sizeMeters": [
+     0.4,
+     0.4
+    ]
+   },
+   "riviera": {
+    "ref": "fabric-linen/default"
+   },
+   "urban": {
+    "ref": "fabric-linen/default"
    }
   },
   "fabric-boucle": {
@@ -1860,6 +2852,42 @@
      0.6
     ],
     "note": "black"
+   },
+   "natura": {
+    "ref": "leather/default"
+   },
+   "riviera": {
+    "id": "Leather029",
+    "source": "ambientcg",
+    "name": "Leather 029",
+    "url": "https://ambientcg.com/view?id=Leather029",
+    "maps": {
+     "albedo": "assets/pbr/leather029/albedo.jpg",
+     "normal": "assets/pbr/leather029/normal.jpg",
+     "roughness": "assets/pbr/leather029/roughness.jpg"
+    },
+    "sizeMeters": [
+     0.45,
+     0.45
+    ],
+    "note": "tan"
+   },
+   "urban": {
+    "id": "fabric_leather_02",
+    "source": "polyhaven",
+    "name": "Fabric Leather 02",
+    "url": "https://polyhaven.com/a/fabric_leather_02",
+    "maps": {
+     "albedo": "assets/pbr/fabric_leather_02/albedo.jpg",
+     "normal": "assets/pbr/fabric_leather_02/normal.jpg",
+     "roughness": "assets/pbr/fabric_leather_02/roughness.jpg",
+     "ao": "assets/pbr/fabric_leather_02/ao.jpg"
+    },
+    "sizeMeters": [
+     0.5,
+     0.5
+    ],
+    "note": "cognac leather"
    }
   },
   "wood-furniture": {
@@ -1915,6 +2943,70 @@
      1.0,
      1.0
     ]
+   },
+   "natura": {
+    "id": "ash_veneer",
+    "source": "polyhaven",
+    "name": "Ash Veneer",
+    "url": "https://polyhaven.com/a/ash_veneer",
+    "maps": {
+     "albedo": "assets/pbr/ash_veneer-pale/albedo.jpg",
+     "normal": "assets/pbr/ash_veneer-pale/normal.jpg",
+     "roughness": "assets/pbr/ash_veneer-pale/roughness.jpg",
+     "ao": "assets/pbr/ash_veneer-pale/ao.jpg"
+    },
+    "sizeMeters": [
+     1.0,
+     1.0
+    ],
+    "note": "pale ash veneer (brightened, baked)",
+    "alt": [
+     "white_maple_veneer",
+     "washed_grey_oak_veneer"
+    ],
+    "baked": {
+     "brightness": 1.3
+    }
+   },
+   "riviera": {
+    "id": "teak_veneer",
+    "source": "polyhaven",
+    "name": "Teak Veneer",
+    "url": "https://polyhaven.com/a/teak_veneer",
+    "maps": {
+     "albedo": "assets/pbr/teak_veneer/albedo.jpg",
+     "normal": "assets/pbr/teak_veneer/normal.jpg",
+     "roughness": "assets/pbr/teak_veneer/roughness.jpg",
+     "ao": "assets/pbr/teak_veneer/ao.jpg"
+    },
+    "sizeMeters": [
+     1.0,
+     1.0
+    ],
+    "alt": [
+     "oak_veneer_01"
+    ],
+    "note": "warm honey timber"
+   },
+   "urban": {
+    "id": "oak_veneer_01",
+    "source": "polyhaven",
+    "name": "Oak Veneer 01",
+    "url": "https://polyhaven.com/a/oak_veneer_01",
+    "maps": {
+     "albedo": "assets/pbr/oak_veneer_01-aged/albedo.jpg",
+     "normal": "assets/pbr/oak_veneer_01-aged/normal.jpg",
+     "roughness": "assets/pbr/oak_veneer_01-aged/roughness.jpg",
+     "ao": "assets/pbr/oak_veneer_01-aged/ao.jpg"
+    },
+    "sizeMeters": [
+     1.83,
+     1.83
+    ],
+    "note": "aged oak (baked)",
+    "baked": {
+     "multiply": "#c4a888"
+    }
    }
   },
   "metal-furniture": {
@@ -1977,6 +3069,66 @@
     "baked": {
      "multiply": "#8c6e5c"
     }
+   },
+   "natura": {
+    "id": "Metal027",
+    "source": "ambientcg",
+    "name": "Metal 027",
+    "url": "https://ambientcg.com/view?id=Metal027",
+    "maps": {
+     "albedo": "assets/pbr/metal027/albedo.jpg",
+     "normal": "assets/pbr/metal027/normal.jpg",
+     "roughness": "assets/pbr/metal027/roughness.jpg",
+     "metal": "assets/pbr/metal027/metal.jpg"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "matt black",
+    "alt": [
+     "Metal046A"
+    ]
+   },
+   "riviera": {
+    "id": "Metal048B",
+    "source": "ambientcg",
+    "name": "Metal 048 B",
+    "url": "https://ambientcg.com/view?id=Metal048B",
+    "maps": {
+     "albedo": "assets/pbr/metal048b/albedo.jpg",
+     "normal": "assets/pbr/metal048b/normal.jpg",
+     "roughness": "assets/pbr/metal048b/roughness.jpg",
+     "metal": "assets/pbr/metal048b/metal.jpg"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "aged brass",
+    "alt": [
+     "Metal048C"
+    ]
+   },
+   "urban": {
+    "id": "Metal027",
+    "source": "ambientcg",
+    "name": "Metal 027",
+    "url": "https://ambientcg.com/view?id=Metal027",
+    "maps": {
+     "albedo": "assets/pbr/metal027/albedo.jpg",
+     "normal": "assets/pbr/metal027/normal.jpg",
+     "roughness": "assets/pbr/metal027/roughness.jpg",
+     "metal": "assets/pbr/metal027/metal.jpg"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "matt black",
+    "alt": [
+     "Metal046A"
+    ]
    }
   },
   "marble-table": {
@@ -2015,6 +3167,64 @@
     ],
     "alt": [
      "Marble023"
+    ]
+   },
+   "natura": {
+    "id": "Travertine009",
+    "source": "ambientcg",
+    "name": "Travertine 009",
+    "url": "https://ambientcg.com/view?id=Travertine009",
+    "maps": {
+     "albedo": "assets/pbr/travertine009/albedo.jpg",
+     "normal": "assets/pbr/travertine009/normal.jpg",
+     "roughness": "assets/pbr/travertine009/roughness.jpg",
+     "ao": "assets/pbr/travertine009/ao.jpg"
+    },
+    "sizeMeters": [
+     1.2,
+     1.2
+    ],
+    "alt": [
+     "Travertine001"
+    ],
+    "note": "honed travertine"
+   },
+   "riviera": {
+    "id": "Marble021",
+    "source": "ambientcg",
+    "name": "Marble 021",
+    "url": "https://ambientcg.com/view?id=Marble021",
+    "maps": {
+     "albedo": "assets/pbr/marble021/albedo.jpg",
+     "normal": "assets/pbr/marble021/normal.jpg",
+     "roughness": "assets/pbr/marble021/roughness.jpg"
+    },
+    "sizeMeters": [
+     1.4,
+     1.4
+    ],
+    "alt": [
+     "Marble001"
+    ]
+   },
+   "urban": {
+    "id": "Terrazzo005",
+    "source": "ambientcg",
+    "name": "Terrazzo 005",
+    "url": "https://ambientcg.com/view?id=Terrazzo005",
+    "maps": {
+     "albedo": "assets/pbr/terrazzo005/albedo.jpg",
+     "normal": "assets/pbr/terrazzo005/normal.jpg",
+     "roughness": "assets/pbr/terrazzo005/roughness.jpg"
+    },
+    "sizeMeters": [
+     1.0,
+     1.0
+    ],
+    "note": "black/white chip terrazzo",
+    "alt": [
+     "Terrazzo001",
+     "Tiles043"
     ]
    }
   },
@@ -2138,6 +3348,57 @@
      0.6,
      0.6
     ]
+   },
+   "natura": {
+    "id": "Carpet014",
+    "source": "ambientcg",
+    "name": "Carpet 014",
+    "url": "https://ambientcg.com/view?id=Carpet014",
+    "maps": {
+     "albedo": "assets/pbr/carpet014/albedo.jpg",
+     "normal": "assets/pbr/carpet014/normal.jpg",
+     "roughness": "assets/pbr/carpet014/roughness.jpg"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "cream woven wool"
+   },
+   "riviera": {
+    "id": "hessian_380",
+    "source": "polyhaven",
+    "name": "Hessian 380",
+    "url": "https://polyhaven.com/a/hessian_380",
+    "maps": {
+     "albedo": "assets/pbr/hessian_380/albedo.jpg",
+     "normal": "assets/pbr/hessian_380/normal.jpg",
+     "roughness": "assets/pbr/hessian_380/roughness.jpg",
+     "ao": "assets/pbr/hessian_380/ao.jpg",
+     "metal": "assets/pbr/hessian_380/metal.jpg",
+     "opacity": "assets/pbr/hessian_380/opacity.jpg"
+    },
+    "sizeMeters": [
+     0.274,
+     0.274
+    ],
+    "note": "jute"
+   },
+   "urban": {
+    "id": "Carpet001",
+    "source": "ambientcg",
+    "name": "Carpet 001",
+    "url": "https://ambientcg.com/view?id=Carpet001",
+    "maps": {
+     "albedo": "assets/pbr/carpet001/albedo.jpg",
+     "normal": "assets/pbr/carpet001/normal.jpg",
+     "roughness": "assets/pbr/carpet001/roughness.jpg"
+    },
+    "sizeMeters": [
+     1,
+     1
+    ],
+    "note": "grey flat-weave"
    }
   },
   "book": {
@@ -2224,6 +3485,29 @@
      "kelvin": 2700,
      "wattsPerMetre": 10
     }
+   }
+  },
+  "rattan": {
+   "default": {
+    "id": "Wicker010A",
+    "source": "ambientcg",
+    "name": "Wicker 010 A",
+    "url": "https://ambientcg.com/view?id=Wicker010A",
+    "maps": {
+     "albedo": "assets/pbr/wicker010a/albedo.jpg",
+     "normal": "assets/pbr/wicker010a/normal.jpg",
+     "roughness": "assets/pbr/wicker010a/roughness.jpg",
+     "ao": "assets/pbr/wicker010a/ao.jpg",
+     "opacity": "assets/pbr/wicker010a/opacity.jpg"
+    },
+    "sizeMeters": [
+     0.3,
+     0.3
+    ],
+    "note": "rattan/wicker weave (riviera furniture, baskets)",
+    "alt": [
+     "Wicker008A"
+    ]
    }
   }
  },
@@ -3132,6 +4416,20 @@
    "license": "CC0 1.0"
   },
   {
+   "name": "Carpet 001",
+   "author": "ambientCG (Lennart Demes)",
+   "url": "https://ambientcg.com/view?id=Carpet001",
+   "source": "ambientcg",
+   "license": "CC0 1.0"
+  },
+  {
+   "name": "Carpet 014",
+   "author": "ambientCG (Lennart Demes)",
+   "url": "https://ambientcg.com/view?id=Carpet014",
+   "source": "ambientcg",
+   "license": "CC0 1.0"
+  },
+  {
    "name": "Carpet 016",
    "author": "ambientCG (Lennart Demes)",
    "url": "https://ambientcg.com/view?id=Carpet016",
@@ -3167,6 +4465,13 @@
    "license": "CC0 1.0"
   },
   {
+   "name": "Fabric 030",
+   "author": "ambientCG (Lennart Demes)",
+   "url": "https://ambientcg.com/view?id=Fabric030",
+   "source": "ambientcg",
+   "license": "CC0 1.0"
+  },
+  {
    "name": "Fabric 031",
    "author": "ambientCG (Lennart Demes)",
    "url": "https://ambientcg.com/view?id=Fabric031",
@@ -3198,6 +4503,13 @@
    "name": "Fabric 061",
    "author": "ambientCG (Lennart Demes)",
    "url": "https://ambientcg.com/view?id=Fabric061",
+   "source": "ambientcg",
+   "license": "CC0 1.0"
+  },
+  {
+   "name": "Fabric 062",
+   "author": "ambientCG (Lennart Demes)",
+   "url": "https://ambientcg.com/view?id=Fabric062",
    "source": "ambientcg",
    "license": "CC0 1.0"
   },
@@ -3251,6 +4563,13 @@
    "license": "CC0 1.0"
   },
   {
+   "name": "Leather 029",
+   "author": "ambientCG (Lennart Demes)",
+   "url": "https://ambientcg.com/view?id=Leather029",
+   "source": "ambientcg",
+   "license": "CC0 1.0"
+  },
+  {
    "name": "Marble 002",
    "author": "ambientCG (Lennart Demes)",
    "url": "https://ambientcg.com/view?id=Marble002",
@@ -3261,6 +4580,13 @@
    "name": "Marble 014",
    "author": "ambientCG (Lennart Demes)",
    "url": "https://ambientcg.com/view?id=Marble014",
+   "source": "ambientcg",
+   "license": "CC0 1.0"
+  },
+  {
+   "name": "Marble 015",
+   "author": "ambientCG (Lennart Demes)",
+   "url": "https://ambientcg.com/view?id=Marble015",
    "source": "ambientcg",
    "license": "CC0 1.0"
   },
@@ -3349,6 +4675,13 @@
    "license": "CC0 1.0"
   },
   {
+   "name": "Metal 048 B",
+   "author": "ambientCG (Lennart Demes)",
+   "url": "https://ambientcg.com/view?id=Metal048B",
+   "source": "ambientcg",
+   "license": "CC0 1.0"
+  },
+  {
    "name": "Metal 049 A",
    "author": "ambientCG (Lennart Demes)",
    "url": "https://ambientcg.com/view?id=Metal049A",
@@ -3398,6 +4731,13 @@
    "license": "CC0 1.0"
   },
   {
+   "name": "Plaster 004",
+   "author": "ambientCG (Lennart Demes)",
+   "url": "https://ambientcg.com/view?id=Plaster004",
+   "source": "ambientcg",
+   "license": "CC0 1.0"
+  },
+  {
    "name": "Plastic 013 A",
    "author": "ambientCG (Lennart Demes)",
    "url": "https://ambientcg.com/view?id=Plastic013A",
@@ -3419,6 +4759,13 @@
    "license": "CC0 1.0"
   },
   {
+   "name": "Terrazzo 005",
+   "author": "ambientCG (Lennart Demes)",
+   "url": "https://ambientcg.com/view?id=Terrazzo005",
+   "source": "ambientcg",
+   "license": "CC0 1.0"
+  },
+  {
    "name": "Tiles 002",
    "author": "ambientCG (Lennart Demes)",
    "url": "https://ambientcg.com/view?id=Tiles002",
@@ -3429,6 +4776,20 @@
    "name": "Tiles 010",
    "author": "ambientCG (Lennart Demes)",
    "url": "https://ambientcg.com/view?id=Tiles010",
+   "source": "ambientcg",
+   "license": "CC0 1.0"
+  },
+  {
+   "name": "Tiles 027",
+   "author": "ambientCG (Lennart Demes)",
+   "url": "https://ambientcg.com/view?id=Tiles027",
+   "source": "ambientcg",
+   "license": "CC0 1.0"
+  },
+  {
+   "name": "Tiles 034",
+   "author": "ambientCG (Lennart Demes)",
+   "url": "https://ambientcg.com/view?id=Tiles034",
    "source": "ambientcg",
    "license": "CC0 1.0"
   },
@@ -3468,6 +4829,13 @@
    "license": "CC0 1.0"
   },
   {
+   "name": "Wicker 010 A",
+   "author": "ambientCG (Lennart Demes)",
+   "url": "https://ambientcg.com/view?id=Wicker010A",
+   "source": "ambientcg",
+   "license": "CC0 1.0"
+  },
+  {
    "name": "Wood 051",
    "author": "ambientCG (Lennart Demes)",
    "url": "https://ambientcg.com/view?id=Wood051",
@@ -3482,6 +4850,13 @@
    "license": "CC0 1.0"
   },
   {
+   "name": "Wood Floor 039",
+   "author": "ambientCG (Lennart Demes)",
+   "url": "https://ambientcg.com/view?id=WoodFloor039",
+   "source": "ambientcg",
+   "license": "CC0 1.0"
+  },
+  {
    "name": "Ottoman 01",
    "author": "Caspian Fortune",
    "url": "https://polyhaven.com/a/Ottoman_01",
@@ -3492,6 +4867,13 @@
    "name": "Antique Ceramic Vase 01",
    "author": "James Ray Cock",
    "url": "https://polyhaven.com/a/antique_ceramic_vase_01",
+   "source": "polyhaven",
+   "license": "CC0 1.0"
+  },
+  {
+   "name": "Ash Veneer",
+   "author": "Jenelle van Heerden",
+   "url": "https://polyhaven.com/a/ash_veneer",
    "source": "polyhaven",
    "license": "CC0 1.0"
   },
@@ -3520,6 +4902,13 @@
    "name": "Brass Vase 01",
    "author": "Rico Cilliers",
    "url": "https://polyhaven.com/a/brass_vase_01",
+   "source": "polyhaven",
+   "license": "CC0 1.0"
+  },
+  {
+   "name": "Brick Wall 001",
+   "author": "Rob Tuytel, Dimitrios Savva",
+   "url": "https://polyhaven.com/a/brick_wall_001",
    "source": "polyhaven",
    "license": "CC0 1.0"
   },
@@ -3601,6 +4990,13 @@
    "license": "CC0 1.0"
   },
   {
+   "name": "Fabric Leather 02",
+   "author": "Rob Tuytel",
+   "url": "https://polyhaven.com/a/fabric_leather_02",
+   "source": "polyhaven",
+   "license": "CC0 1.0"
+  },
+  {
    "name": "Food Apple 01",
    "author": "Oliver Harries",
    "url": "https://polyhaven.com/a/food_apple_01",
@@ -3625,6 +5021,13 @@
    "name": "Hanging Picture Frame 01",
    "author": "James Ray Cock",
    "url": "https://polyhaven.com/a/hanging_picture_frame_01",
+   "source": "polyhaven",
+   "license": "CC0 1.0"
+  },
+  {
+   "name": "Hessian 380",
+   "author": "colormass, Rico Cilliers",
+   "url": "https://polyhaven.com/a/hessian_380",
    "source": "polyhaven",
    "license": "CC0 1.0"
   },
