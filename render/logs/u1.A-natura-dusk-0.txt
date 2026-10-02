@@ -1,0 +1,23 @@
+[    0.0s] job u1.A-natura-dusk-0: scope=unit unit=1.A pkg=natura quality=standard shots=3
+[    0.8s] import building: 491 objects in 0.8s
+[    1.2s] import context: 127 objects in 0.3s
+[    1.5s] import unit-1.A-natura: 81 objects in 0.3s
+[    1.9s] box UVs on 635 meshes
+[    1.9s] [presets] from lighting_presets.json (snapshot of js/environment.js)
+[    3.8s] [foliage] leafified 26 objects, crown area 1129 m2 -> ~1467238 leaves
+[    3.8s] materials: built=236 textured=70 by_key={'aluminium-frame': 2, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 3, 'asphalt': 1, 'bark': 1, 'bath-floor': 1, 'bath-wall': 1, 'book': 3, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 3, 'candle-wax': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-taillight': 1, 'car-tyre': 1, 'ceiling': 1, 'ceiling-white': 2, 'ceramic-plate': 4, 'concrete': 5, 'cutlery-steel': 1, 'deck-teak': 2, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'fabric-boucle': 4, 'fabric-linen': 6, 'fabric-sofa': 1, 'floor-main': 2, 'foliage': 21, 'foliage-inner': 1, 'fruit': 3, 'garage-door': 1, 'glass-drinking': 1, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 2, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 2, 'lawn': 2, 'leather': 1, 'led-strip-emissive': 13, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 3, 'mirror': 2, 'paint-white': 1, 'paving-calcada': 2, 'plant-leaf': 3, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'pot-terracotta': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 2, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 1, 'sanitary-ceramic': 3, 'shower-glass': 1, 'shower-wall': 1, 'signage': 39, 'skirting': 2, 'soil': 3, 'steel-dark': 9, 'stone-coping': 2, 'tap-metal': 1, 'timber-soffit': 1, 'wall-feature': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 4, 'zinc-standing-seam': 2}
+[    3.8s] [lamps] dusk: list=6 new=0 merged-with-bulbs=2 strips=3 no-fixture=1 (933 lm per unit intensity)
+[    3.8s] evening lights: street=6 lamp-list=2 lit-window fraction=0.25
+[    3.9s] lights: imported=0 emissive->lights=175 portals=12 boost=1.0 total_lights=193 polys=350538
+[    5.2s] [world] procedural dusk: sun bearing 250 alt -4 key 14.0 lux, sky 70.0 lux (mean radiance 0.06276), stars 131, camera gain 1.0
+[    5.2s] scene ready in 5.2s  (world procedural-dusk)
+[   20.5s] [expo] interior dusk: in/out/sky=19779/205/16 key=0.25 Lavg=0.003568 p97=0.03615 ev_hi=7.37 -> ev=6.13 windowND=0.15
+[   20.5s] [wb] gains (0.484, 1.0, 2.295)
+[ 1652.1s] SHOT 1.A-natura-h2 pano 3072x1536 spp<=64 ev=6.13 in 1646.9s -> renders/units/1.A/natura/1.A-natura-h2.dusk.jpg
+[ 1665.5s] [expo] interior dusk: in/out/sky=19303/565/132 key=0.25 Lavg=0.007352 p97=0.09201 ev_hi=6.03 -> ev=5.09 windowND=0.21
+[ 1665.5s] [wb] gains (0.496, 1.0, 2.173)
+[ 3646.0s] SHOT 1.A-natura-h3 pano 3072x1536 spp<=64 ev=5.09 in 1993.9s -> renders/units/1.A/natura/1.A-natura-h3.dusk.jpg
+[ 3659.4s] [expo] interior dusk: in/out/sky=15635/5917/848 key=0.25 Lavg=0.006757 p97=0.1748 ev_hi=5.10 -> ev=5.10 windowND=0.28
+[ 3659.4s] [wb] gains (0.489, 1.0, 2.165)
+[ 5687.9s] SHOT 1.A-living still 2400x1350 spp<=96 ev=5.10 in 2041.9s -> renders/units/1.A/natura/1.A-living.dusk.jpg
+[ 5687.9s] DONE 3 images in 5687.9s
