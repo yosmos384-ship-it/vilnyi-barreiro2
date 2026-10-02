@@ -1,0 +1,51 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "0.B",
+  "pkg": "atlantic",
+  "quality": "preview",
+  "tod": "night",
+  "shots": [
+   "0.B-living"
+  ],
+  "out": "renders/preview/0.B/atlantic",
+  "name": "preview-u0.B-atlantic-night-0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "0.B-living",
+   "type": "still",
+   "file": "renders/preview/0.B/atlantic/0.B-living.night.jpg",
+   "thumb": "renders/preview/0.B/atlantic/thumbs/0.B-living.night.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": 4.509405100481194,
+   "tod": "night",
+   "position": [
+    9.374,
+    1.45,
+    4.803
+   ],
+   "lookAt": [
+    6.847,
+    1.45,
+    1.099
+   ],
+   "roomId": "0.B-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "night",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 206.8
+  }
+ ],
+ "seconds": 211.9,
+ "blender": "4.2.3 LTS"
+}
