@@ -1,0 +1,117 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.B",
+  "pkg": "atlantic",
+  "quality": "standard",
+  "tod": "night",
+  "shots": [
+   "2.B-atlantic-h0",
+   "2.B-atlantic-h1",
+   "2.B-living"
+  ],
+  "out": "renders/units/2.B/atlantic",
+  "name": "u2.B-atlantic-night-0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "2.B-atlantic-h0",
+   "type": "pano",
+   "file": "renders/units/2.B/atlantic/2.B-atlantic-h0.night.jpg",
+   "thumb": "renders/units/2.B/atlantic/thumbs/2.B-atlantic-h0.night.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 5.162430005897016,
+   "tod": "night",
+   "position": [
+    9,
+    7.6,
+    4.6
+   ],
+   "lookAt": [
+    7.296,
+    7.25,
+    0.474
+   ],
+   "roomId": "2.B-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": 0.39165,
+   "index": 0,
+   "seconds": 1481.1
+  },
+  {
+   "id": "2.B-atlantic-h1",
+   "type": "pano",
+   "file": "renders/units/2.B/atlantic/2.B-atlantic-h1.night.jpg",
+   "thumb": "renders/units/2.B/atlantic/thumbs/2.B-atlantic-h1.night.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 6.155092727457587,
+   "tod": "night",
+   "position": [
+    6.908,
+    7.6,
+    0.842
+   ],
+   "lookAt": [
+    8.25,
+    7,
+    2.9
+   ],
+   "roomId": "2.B-living",
+   "name": {
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": -2.56375,
+   "index": 1,
+   "seconds": 1159.7
+  },
+  {
+   "id": "2.B-living",
+   "type": "still",
+   "file": "renders/units/2.B/atlantic/2.B-living.night.jpg",
+   "thumb": "renders/units/2.B/atlantic/thumbs/2.B-living.night.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 4.605716650185486,
+   "tod": "night",
+   "position": [
+    9.374,
+    7.45,
+    4.803
+   ],
+   "lookAt": [
+    6.847,
+    7.45,
+    1.099
+   ],
+   "roomId": "2.B-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "night",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1652.1
+  }
+ ],
+ "seconds": 4297.9,
+ "blender": "4.2.3 LTS"
+}
