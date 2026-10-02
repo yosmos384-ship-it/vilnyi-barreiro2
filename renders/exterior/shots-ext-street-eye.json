@@ -7,7 +7,9 @@
   ],
   "out": "renders/exterior",
   "name": "ext-street-eye",
-  "opts": {}
+  "opts": {
+   "ev_bias": 0.35
+  }
  },
  "shots": [
   {
@@ -18,11 +20,11 @@
    "W": 1350,
    "H": 2400,
    "spp": 192,
-   "ev": -3.741443715157035,
+   "ev": -3.469883342486905,
    "tod": "day",
    "position": [
     -3.5,
-    0.62,
+    0.65,
     21.8
    ],
    "lookAt": [
@@ -34,10 +36,10 @@
    "name": "Street, eye level (like assets/site-street.jpg)",
    "kind": null,
    "lens": 24.0,
-   "shift_y": 0.0575,
-   "seconds": 1639.5
+   "shift_y": 0.0564,
+   "seconds": 1632.9
   }
  ],
- "seconds": 1861.1,
+ "seconds": 1644.1,
  "blender": "4.2.3 LTS"
 }
