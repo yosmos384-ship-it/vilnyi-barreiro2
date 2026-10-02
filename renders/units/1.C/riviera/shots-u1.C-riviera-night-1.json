@@ -1,0 +1,84 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.C",
+  "pkg": "riviera",
+  "quality": "standard",
+  "tod": "night",
+  "shots": [
+   "1.C-riviera-h6",
+   "1.C-riviera-h7"
+  ],
+  "out": "renders/units/1.C/riviera",
+  "name": "u1.C-riviera-night-1",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "1.C-riviera-h6",
+   "type": "pano",
+   "file": "renders/units/1.C/riviera/1.C-riviera-h6.night.jpg",
+   "thumb": "renders/units/1.C/riviera/thumbs/1.C-riviera-h6.night.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 7.647931573309098,
+   "tod": "night",
+   "position": [
+    8.16,
+    4.6,
+    11.96
+   ],
+   "lookAt": [
+    6.92,
+    4.25,
+    14.139
+   ],
+   "roomId": "1.C-bed2",
+   "name": {
+    "en": "Bedroom 2",
+    "pt": "Quarto 2",
+    "he": "חדר שינה 2"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": 2.62423,
+   "index": 6,
+   "seconds": 1187.8
+  },
+  {
+   "id": "1.C-riviera-h7",
+   "type": "pano",
+   "file": "renders/units/1.C/riviera/1.C-riviera-h7.night.jpg",
+   "thumb": "renders/units/1.C/riviera/thumbs/1.C-riviera-h7.night.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 8.93623841807449,
+   "tod": "night",
+   "position": [
+    8.15,
+    4.6,
+    15.05
+   ],
+   "lookAt": [
+    6.15,
+    4.4,
+    26.7
+   ],
+   "roomId": "1.front",
+   "name": {
+    "en": "Balcony",
+    "pt": "Varanda",
+    "he": "מרפסת"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": 2.97158,
+   "index": 7,
+   "seconds": 714.3
+  }
+ ],
+ "seconds": 1907.6,
+ "blender": "4.2.3 LTS"
+}
