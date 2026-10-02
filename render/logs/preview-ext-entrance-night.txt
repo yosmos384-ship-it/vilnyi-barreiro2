@@ -1,0 +1,73 @@
+[    0.0s] job preview-ext-entrance-night: scope=exterior unit=None pkg=None quality=preview shots=1
+[    0.6s] import building: 491 objects in 0.6s
+[    0.9s] import context: 127 objects in 0.3s
+[    1.2s] import unit-0.A-atlantic: 89 objects in 0.3s
+[    1.5s] import unit-0.B-atlantic: 101 objects in 0.3s
+[    1.8s] import unit-1.A-atlantic: 87 objects in 0.3s
+[    2.2s] import unit-1.B-atlantic: 88 objects in 0.4s
+[    2.7s] import unit-1.C-atlantic: 110 objects in 0.5s
+[    3.1s] import unit-2.A-atlantic: 83 objects in 0.4s
+[    3.5s] import unit-2.B-atlantic: 81 objects in 0.4s
+[    4.1s] import unit-2.C-atlantic: 101 objects in 0.5s
+[    4.9s] box UVs on 1271 meshes
+[    4.9s] [presets] from lighting_presets.json (snapshot of js/environment.js)
+[    7.9s] [foliage] leafified 48 objects, crown area 7107 m2 -> ~9239058 leaves
+[    7.9s]   mat car-paint: key=car-paint col=(1.0, 1.0, 1.0) vcol=Color img=None uv=None
+[    7.9s]   mat env-facade: key=render-cream col=(1.0, 1.0, 1.0) vcol=Color img=Image_2.001 uv=None
+[    7.9s]   mat render-cream:neighbour: key=render-cream col=(0.67, 0.67, 0.657) vcol=Color img=None uv=None
+[    7.9s]   mat steel-dark:context: key=steel-dark col=(1.0, 1.0, 1.0) vcol=Color img=None uv=None
+[    7.9s]   mat render-cream:context: key=render-cream col=(1.0, 1.0, 1.0) vcol=Color img=None uv=None
+[    7.9s]   mat render-pink: key=render-pink col=(0.67, 0.67, 0.657) vcol=Color img=None uv=None
+[    7.9s]   mat env-car: key=car-paint col=(0.0, 0.0, 0.0) vcol=Color img=None uv=None
+[    7.9s]   mat env-car.008: key=car-paint col=(0.0, 0.084, 0.084) vcol=Color img=None uv=None
+[    7.9s]   mat env-car.002: key=car-paint col=(0.084, 0.084, 0.084) vcol=Color img=None uv=None
+[    7.9s]   mat env-car.003: key=car-paint col=(0.165, 0.0, 0.0) vcol=Color img=None uv=None
+[    7.9s]   mat env-car.006: key=car-paint col=(0.165, 0.165, 0.165) vcol=Color img=None uv=None
+[    7.9s]   mat env-car.004: key=car-paint col=(0.332, 0.332, 0.418) vcol=Color img=None uv=None
+[    7.9s]   mat env-car.001: key=car-paint col=(0.503, 0.503, 0.503) vcol=Color img=None uv=None
+[    7.9s]   mat env-car.007: key=car-paint col=(0.831, 0.753, 0.665) vcol=Color img=None uv=None
+[    7.9s]   mat env-car.005: key=car-paint col=(0.831, 0.831, 0.831) vcol=Color img=None uv=None
+[    7.9s]   mat foliage.006: key=foliage col=(0.831, 0.831, 0.753) vcol=Color img=None uv=None
+[    7.9s]   mat foliage.004: key=foliage col=(0.831, 0.913, 0.753) vcol=Color img=None uv=None
+[    7.9s]   mat foliage.008: key=foliage col=(0.913, 0.831, 0.753) vcol=Color img=None uv=None
+[    7.9s]   mat foliage.003: key=foliage col=(0.913, 0.831, 0.831) vcol=Color img=None uv=None
+[    7.9s]   mat foliage.011: key=foliage col=(0.913, 0.913, 0.753) vcol=Color img=None uv=None
+[    7.9s]   mat foliage.001: key=foliage col=(0.913, 0.913, 0.831) vcol=Color img=None uv=None
+[    7.9s]   mat foliage.010: key=foliage col=(0.913, 1.0, 0.831) vcol=Color img=None uv=None
+[    7.9s]   mat foliage.009: key=foliage col=(1.0, 0.913, 0.831) vcol=Color img=None uv=None
+[    7.9s]   mat foliage.005: key=foliage col=(1.0, 0.913, 0.913) vcol=Color img=None uv=None
+[    7.9s]   mat foliage.007: key=foliage col=(1.0, 1.0, 0.831) vcol=Color img=None uv=None
+[    7.9s]   mat foliage: key=foliage col=(1.0, 1.0, 0.913) vcol=Color img=None uv=None
+[    7.9s]   mat foliage.002: key=foliage col=(1.0, 1.0, 1.0) vcol=Color img=None uv=None
+[    7.9s]   obj env-near-asphalt.001 [] ['asphalt']
+[    7.9s]   obj env-near-calcada.001 [] ['paving-calcada.001']
+[    7.9s]   obj env-near-east-house-walls.001 ['Color/CORNER/BYTE_COLOR'] ['render-cream:neighbour']
+[    7.9s]   obj env-near-ground.001 [] ['soil:ground']
+[    7.9s]   obj env-near-kerb.001 [] ['kerb-stone.001']
+[    7.9s]   obj env-near-metal.001 ['Color/CORNER/BYTE_COLOR'] ['steel-dark:context']
+[    7.9s]   obj env-near-osm_facade.001 ['Color/CORNER/BYTE_COLOR'] ['env-facade']
+[    7.9s]   obj env-near-osm_plain.001 ['Color/CORNER/BYTE_COLOR'] ['render-cream:context']
+[    7.9s]   obj env-near-osm_roof.001 [] ['roof-tile-terracotta']
+[    7.9s]   obj env-near-plain.001 ['Color/CORNER/BYTE_COLOR'] ['render-cream:context']
+[    7.9s]   obj env-near-roof.001 [] ['roof-tile-terracotta']
+[    7.9s]   obj env-near-stone.001 [] ['stone-coping:rubble']
+[    7.9s]   obj env-near-west-house-walls.001 ['Color/CORNER/BYTE_COLOR'] ['render-pink']
+[    7.9s]   obj env-near-yard.001 [] ['lawn.001']
+[    7.9s] materials: built=797 textured=279 by_key={'aluminium-frame': 2, 'appliance-glass-black': 17, 'appliance-steel': 8, 'art-canvas': 33, 'asphalt': 1, 'bark': 5, 'bath-floor': 8, 'bath-wall': 8, 'book': 34, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 25, 'candle-wax': 8, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-taillight': 1, 'car-tyre': 1, 'ceiling': 8, 'ceiling-white': 2, 'ceramic-plate': 27, 'concrete': 5, 'curtain-fabric': 5, 'cutlery-steel': 8, 'deck-teak': 11, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 9, 'fabric-boucle': 48, 'fabric-linen': 59, 'fabric-sofa': 8, 'floor-main': 16, 'foliage': 28, 'foliage-inner': 1, 'fruit': 24, 'garage-door': 1, 'glass-drinking': 18, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 8, 'kerb-stone': 2, 'kitchen-front': 8, 'kitchen-splashback': 8, 'kitchen-worktop': 8, 'lamp-shade': 8, 'lawn': 2, 'leather': 5, 'led-strip-emissive': 20, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'marble-table': 2, 'metal-furniture': 32, 'mirror': 9, 'paint-white': 1, 'paving-calcada': 2, 'plant-leaf': 17, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'pot-terracotta': 5, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 2, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 8, 'sanitary-ceramic': 24, 'shower-glass': 8, 'shower-wall': 7, 'signage': 39, 'skirting': 9, 'soil': 10, 'steel-dark': 9, 'stone-coping': 2, 'tap-metal': 8, 'timber-soffit': 1, 'wall-paint': 8, 'window-sheer': 5, 'wine': 8, 'wood-furniture': 34, 'zinc-standing-seam': 2}
+[    8.2s] [lamps] night: list=6 new=0 merged-with-bulbs=2 strips=3 no-fixture=1 (640 lm per unit intensity)
+[    8.2s] [lamps] night: list=7 new=0 merged-with-bulbs=2 strips=2 no-fixture=3 (640 lm per unit intensity)
+[    8.2s] [lamps] night: list=6 new=0 merged-with-bulbs=2 strips=3 no-fixture=1 (640 lm per unit intensity)
+[    8.2s] [lamps] night: list=5 new=0 merged-with-bulbs=2 strips=2 no-fixture=1 (640 lm per unit intensity)
+[    8.2s] [lamps] night: list=7 new=0 merged-with-bulbs=3 strips=2 no-fixture=2 (640 lm per unit intensity)
+[    8.2s] [lamps] night: list=6 new=0 merged-with-bulbs=2 strips=3 no-fixture=1 (640 lm per unit intensity)
+[    8.2s] [lamps] night: list=5 new=0 merged-with-bulbs=2 strips=2 no-fixture=1 (640 lm per unit intensity)
+[    8.3s] [lamps] night: list=7 new=0 merged-with-bulbs=3 strips=2 no-fixture=2 (640 lm per unit intensity)
+[    8.3s] evening lights: street=6 lamp-list=18 lit-window fraction=0.45
+[    8.3s] lights: imported=0 emissive->lights=1880 portals=0 boost=1.6 total_lights=1886 polys=1090678
+[    9.4s] [world] procedural night: moon bearing 168 alt 40 key 7.0 lux, sky 2.6 lux (mean radiance 0.001656), stars 2600, camera gain 1.6
+[    9.4s] scene ready in 9.4s  (world procedural-night)
+[   77.1s] [expo] exterior: geo/sky=22400/0 Lavg=0.003353 p95=0.3374 ev_hi=4.57 -> ev=4.57 sky=None
+[   77.1s] [sky] visible sky x0.56 (measured 0.00265, ev 4.57)
+[   77.1s] [wb] gains (0.729, 1.0, 1.478)
+[  506.4s] SHOT entrance-night still 960x540 spp<=64 ev=4.57 in 497.1s -> renders/preview/exterior/entrance-night.jpg
+[  506.4s] DONE 1 images in 506.4s

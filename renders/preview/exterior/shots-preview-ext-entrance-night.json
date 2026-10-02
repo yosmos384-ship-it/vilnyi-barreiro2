@@ -1,0 +1,45 @@
+{
+ "job": {
+  "scope": "exterior",
+  "quality": "preview",
+  "shots": [
+   "entrance-night"
+  ],
+  "out": "renders/preview/exterior",
+  "name": "preview-ext-entrance-night",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "entrance-night",
+   "type": "still",
+   "file": "renders/preview/exterior/entrance-night.jpg",
+   "thumb": "renders/preview/exterior/thumbs/entrance-night.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": 4.567650999089317,
+   "tod": "night",
+   "position": [
+    7.2,
+    0.75,
+    19.6
+   ],
+   "lookAt": [
+    4.4,
+    1.1,
+    14.7
+   ],
+   "roomId": null,
+   "name": "Street entrance at night",
+   "kind": null,
+   "variant_of": "entrance-day",
+   "variant_tod": "night",
+   "lens": 28.0,
+   "shift_y": 0.0482,
+   "seconds": 497.1
+  }
+ ],
+ "seconds": 506.4,
+ "blender": "4.2.3 LTS"
+}
