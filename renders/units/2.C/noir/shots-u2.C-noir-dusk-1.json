@@ -1,0 +1,117 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.C",
+  "pkg": "noir",
+  "quality": "standard",
+  "tod": "dusk",
+  "shots": [
+   "2.C-noir-h6",
+   "2.C-noir-h7",
+   "2.C-noir-h8"
+  ],
+  "out": "renders/units/2.C/noir",
+  "name": "u2.C-noir-dusk-1",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "2.C-noir-h6",
+   "type": "pano",
+   "file": "renders/units/2.C/noir/2.C-noir-h6.dusk.jpg",
+   "thumb": "renders/units/2.C/noir/thumbs/2.C-noir-h6.dusk.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 9.595163366131514,
+   "tod": "dusk",
+   "position": [
+    8.16,
+    7.6,
+    11.96
+   ],
+   "lookAt": [
+    6.92,
+    7.25,
+    14.139
+   ],
+   "roomId": "2.C-bed2",
+   "name": {
+    "en": "Bedroom 2",
+    "pt": "Quarto 2",
+    "he": "חדר שינה 2"
+   },
+   "kind": null,
+   "variant": "dusk",
+   "yawOffset": 2.62423,
+   "index": 6,
+   "seconds": 573.2
+  },
+  {
+   "id": "2.C-noir-h7",
+   "type": "pano",
+   "file": "renders/units/2.C/noir/2.C-noir-h7.dusk.jpg",
+   "thumb": "renders/units/2.C/noir/thumbs/2.C-noir-h7.dusk.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 6.105102826249868,
+   "tod": "dusk",
+   "position": [
+    7.9,
+    7.6,
+    15.05
+   ],
+   "lookAt": [
+    5.9,
+    7.4,
+    26.7
+   ],
+   "roomId": "2.front.1",
+   "name": {
+    "en": "Balcony",
+    "pt": "Varanda",
+    "he": "מרפסת"
+   },
+   "kind": null,
+   "variant": "dusk",
+   "yawOffset": 2.97158,
+   "index": 7,
+   "seconds": 426.0
+  },
+  {
+   "id": "2.C-noir-h8",
+   "type": "pano",
+   "file": "renders/units/2.C/noir/2.C-noir-h8.dusk.jpg",
+   "thumb": "renders/units/2.C/noir/thumbs/2.C-noir-h8.dusk.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 5.937308348127187,
+   "tod": "dusk",
+   "position": [
+    11.75,
+    7.6,
+    15.05
+   ],
+   "lookAt": [
+    9.75,
+    7.4,
+    26.7
+   ],
+   "roomId": "2.front.2",
+   "name": {
+    "en": "Balcony",
+    "pt": "Varanda",
+    "he": "מרפסת"
+   },
+   "kind": null,
+   "variant": "dusk",
+   "yawOffset": 2.97158,
+   "index": 8,
+   "seconds": 431.9
+  }
+ ],
+ "seconds": 1435.2,
+ "blender": "4.2.3 LTS"
+}

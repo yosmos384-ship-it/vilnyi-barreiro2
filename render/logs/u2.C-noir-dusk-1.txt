@@ -1,0 +1,25 @@
+[    0.0s] job u2.C-noir-dusk-1: scope=unit unit=2.C pkg=noir quality=standard shots=3
+[    0.7s] import building: 491 objects in 0.6s
+[    0.9s] import context: 127 objects in 0.3s
+[    1.3s] import unit-2.C-noir: 98 objects in 0.3s
+[    1.6s] box UVs on 650 meshes
+[    1.6s] [presets] from lighting_presets.json (snapshot of js/environment.js)
+[    3.0s] [foliage] leafified 27 objects, crown area 1129 m2 -> ~1468093 leaves
+[    3.0s] materials: built=246 textured=71 by_key={'aluminium-frame': 2, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 6, 'asphalt': 1, 'bark': 1, 'bath-floor': 1, 'bath-wall': 1, 'book': 7, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 3, 'candle-wax': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-taillight': 1, 'car-tyre': 1, 'ceiling': 1, 'ceiling-white': 2, 'ceramic-plate': 5, 'concrete': 5, 'cutlery-steel': 1, 'deck-teak': 3, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'fabric-boucle': 6, 'fabric-linen': 7, 'fabric-sofa': 1, 'floor-main': 2, 'foliage': 21, 'foliage-inner': 1, 'fruit': 3, 'garage-door': 1, 'glass-drinking': 2, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 2, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 2, 'leather': 2, 'led-strip-emissive': 13, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 3, 'mirror': 2, 'paint-white': 1, 'paving-calcada': 2, 'plant-leaf': 1, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 2, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 1, 'sanitary-ceramic': 3, 'shower-glass': 1, 'shower-wall': 1, 'signage': 39, 'skirting': 2, 'soil': 3, 'steel-dark': 9, 'stone-coping': 2, 'tap-metal': 1, 'timber-soffit': 1, 'wall-paint': 1, 'wine': 1, 'wood-furniture': 6, 'zinc-standing-seam': 2}
+[    3.0s] [lamps] dusk: list=7 new=0 merged-with-bulbs=3 strips=2 no-fixture=2 (933 lm per unit intensity)
+[    3.0s] evening lights: street=6 lamp-list=3 lit-window fraction=0.25
+[    3.0s] lights: imported=0 emissive->lights=103 portals=32 boost=1.0 total_lights=141 polys=398159
+[    4.1s] [world] procedural dusk: sun bearing 250 alt -4 key 14.0 lux, sky 70.0 lux (mean radiance 0.06276), stars 131, camera gain 1.0
+[    4.1s] scene ready in 4.1s  (world procedural-dusk)
+[   15.3s] [expo] interior dusk: in/out/sky=19408/568/24 key=0.17 Lavg=0.0002198 p97=0.003946 ev_hi=10.57 -> ev=9.60 windowND=0.05
+[   15.3s] [wb] gains (0.71, 1.0, 1.075)
+[  577.3s] SHOT 2.C-noir-h6 pano 3072x1536 spp<=64 ev=9.60 in 573.2s -> renders/units/2.C/noir/2.C-noir-h6.dusk.jpg
+[  585.6s] [expo] exterior: geo/sky=14763/5237 Lavg=0.002324 p95=0.04738 ev_hi=7.40 -> ev=6.11 sky=0.11801005899906158
+[  585.6s] [sky] visible sky x0.04 (measured 0.118, ev 6.11)
+[  585.6s] [wb] gains (1.078, 1.0, 0.85)
+[ 1003.4s] SHOT 2.C-noir-h7 pano 3072x1536 spp<=64 ev=6.11 in 426.0s -> renders/units/2.C/noir/2.C-noir-h7.dusk.jpg
+[ 1012.1s] [expo] exterior: geo/sky=14739/5261 Lavg=0.002611 p95=0.04892 ev_hi=7.35 -> ev=5.94 sky=0.11804228276014328
+[ 1012.1s] [sky] visible sky x0.04 (measured 0.118, ev 5.94)
+[ 1012.1s] [wb] gains (1.073, 1.0, 0.852)
+[ 1435.2s] SHOT 2.C-noir-h8 pano 3072x1536 spp<=64 ev=5.94 in 431.9s -> renders/units/2.C/noir/2.C-noir-h8.dusk.jpg
+[ 1435.2s] DONE 3 images in 1435.2s
