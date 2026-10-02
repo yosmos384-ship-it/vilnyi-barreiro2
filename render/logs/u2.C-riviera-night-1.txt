@@ -1,0 +1,25 @@
+[    0.0s] job u2.C-riviera-night-1: scope=unit unit=2.C pkg=riviera quality=standard shots=3
+[    0.9s] import building: 491 objects in 0.8s
+[    1.3s] import context: 127 objects in 0.4s
+[    1.8s] import unit-2.C-riviera: 100 objects in 0.5s
+[    2.2s] box UVs on 654 meshes
+[    2.2s] [presets] from lighting_presets.json (snapshot of js/environment.js)
+[    4.2s] [foliage] leafified 27 objects, crown area 1129 m2 -> ~1468093 leaves
+[    4.2s] materials: built=247 textured=73 by_key={'aluminium-frame': 2, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 4, 'asphalt': 1, 'bark': 1, 'bath-floor': 1, 'bath-wall': 1, 'book': 7, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 3, 'candle-wax': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-taillight': 1, 'car-tyre': 1, 'ceiling': 1, 'ceiling-white': 2, 'ceramic-plate': 5, 'concrete': 5, 'cutlery-steel': 1, 'deck-teak': 3, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'fabric-boucle': 6, 'fabric-linen': 7, 'fabric-sofa': 1, 'floor-joint': 1, 'floor-main': 2, 'foliage': 21, 'foliage-inner': 1, 'fruit': 3, 'garage-door': 1, 'glass-drinking': 2, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 2, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 2, 'leather': 2, 'led-strip-emissive': 13, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'marble-table': 1, 'metal-furniture': 3, 'mirror': 2, 'paint-white': 1, 'paving-calcada': 2, 'plant-leaf': 1, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'pot-terracotta': 1, 'pv-panel': 1, 'rattan': 1, 'render-cream': 3, 'render-pink': 2, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 1, 'sanitary-ceramic': 2, 'shower-glass': 1, 'shower-wall': 1, 'signage': 39, 'skirting': 2, 'soil': 3, 'steel-dark': 9, 'stone-coping': 2, 'tap-metal': 1, 'timber-soffit': 1, 'wall-feature': 1, 'wall-paint': 1, 'wine': 1, 'wood-furniture': 5, 'zinc-standing-seam': 2}
+[    4.3s] [lamps] night: list=7 new=0 merged-with-bulbs=4 strips=1 no-fixture=2 (1400 lm per unit intensity)
+[    4.3s] evening lights: street=6 lamp-list=4 lit-window fraction=0.45
+[    4.3s] lights: imported=0 emissive->lights=93 portals=0 boost=1.0 total_lights=99 polys=407335
+[    5.7s] [world] procedural night: moon bearing 168 alt 40 key 7.0 lux, sky 2.6 lux (mean radiance 0.001656), stars 1500, camera gain 1.6
+[    5.7s] scene ready in 5.7s  (world procedural-night)
+[   21.0s] [expo] interior night: in/out/sky=19408/568/24 key=0.22 Lavg=0.001183 p97=0.01167 ev_hi=9.01 -> ev=7.54 windowND=0.18
+[   21.0s] [wb] gains (0.607, 1.0, 1.738)
+[  973.8s] SHOT 2.C-riviera-h6 pano 3072x1536 spp<=64 ev=7.54 in 968.1s -> renders/units/2.C/riviera/2.C-riviera-h6.night.jpg
+[  984.6s] [expo] exterior: geo/sky=14763/5237 Lavg=0.0002796 p95=0.005268 ev_hi=10.57 -> ev=8.62 sky=0.017999038100242615
+[  984.6s] [sky] visible sky x0.01 (measured 0.018, ev 8.62)
+[  984.6s] [wb] gains (1.082, 1.0, 0.794)
+[ 1506.6s] SHOT 2.C-riviera-h7 pano 3072x1536 spp<=64 ev=8.62 in 532.8s -> renders/units/2.C/riviera/2.C-riviera-h7.night.jpg
+[ 1517.2s] [expo] exterior: geo/sky=14739/5261 Lavg=0.0003169 p95=0.005881 ev_hi=10.41 -> ev=8.44 sky=0.01800379902124405
+[ 1517.2s] [sky] visible sky x0.01 (measured 0.018, ev 8.44)
+[ 1517.2s] [wb] gains (1.05, 1.0, 0.8)
+[ 2051.5s] SHOT 2.C-riviera-h8 pano 3072x1536 spp<=64 ev=8.44 in 544.9s -> renders/units/2.C/riviera/2.C-riviera-h8.night.jpg
+[ 2051.5s] DONE 3 images in 2051.5s

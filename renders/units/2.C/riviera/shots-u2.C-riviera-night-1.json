@@ -1,0 +1,117 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.C",
+  "pkg": "riviera",
+  "quality": "standard",
+  "tod": "night",
+  "shots": [
+   "2.C-riviera-h6",
+   "2.C-riviera-h7",
+   "2.C-riviera-h8"
+  ],
+  "out": "renders/units/2.C/riviera",
+  "name": "u2.C-riviera-night-1",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "2.C-riviera-h6",
+   "type": "pano",
+   "file": "renders/units/2.C/riviera/2.C-riviera-h6.night.jpg",
+   "thumb": "renders/units/2.C/riviera/thumbs/2.C-riviera-h6.night.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 7.539085925101631,
+   "tod": "night",
+   "position": [
+    8.16,
+    7.6,
+    11.96
+   ],
+   "lookAt": [
+    6.92,
+    7.25,
+    14.139
+   ],
+   "roomId": "2.C-bed2",
+   "name": {
+    "en": "Bedroom 2",
+    "pt": "Quarto 2",
+    "he": "חדר שינה 2"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": 2.62423,
+   "index": 6,
+   "seconds": 968.1
+  },
+  {
+   "id": "2.C-riviera-h7",
+   "type": "pano",
+   "file": "renders/units/2.C/riviera/2.C-riviera-h7.night.jpg",
+   "thumb": "renders/units/2.C/riviera/thumbs/2.C-riviera-h7.night.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 8.620024343603635,
+   "tod": "night",
+   "position": [
+    7.9,
+    7.6,
+    15.05
+   ],
+   "lookAt": [
+    5.9,
+    7.4,
+    26.7
+   ],
+   "roomId": "2.front.1",
+   "name": {
+    "en": "Balcony",
+    "pt": "Varanda",
+    "he": "מרפסת"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": 2.97158,
+   "index": 7,
+   "seconds": 532.8
+  },
+  {
+   "id": "2.C-riviera-h8",
+   "type": "pano",
+   "file": "renders/units/2.C/riviera/2.C-riviera-h8.night.jpg",
+   "thumb": "renders/units/2.C/riviera/thumbs/2.C-riviera-h8.night.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 8.439084879026492,
+   "tod": "night",
+   "position": [
+    11.75,
+    7.6,
+    15.05
+   ],
+   "lookAt": [
+    9.75,
+    7.4,
+    26.7
+   ],
+   "roomId": "2.front.2",
+   "name": {
+    "en": "Balcony",
+    "pt": "Varanda",
+    "he": "מרפסת"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": 2.97158,
+   "index": 8,
+   "seconds": 544.9
+  }
+ ],
+ "seconds": 2051.5,
+ "blender": "4.2.3 LTS"
+}
