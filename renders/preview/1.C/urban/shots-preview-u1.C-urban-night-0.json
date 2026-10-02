@@ -1,0 +1,51 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.C",
+  "pkg": "urban",
+  "quality": "preview",
+  "tod": "night",
+  "shots": [
+   "1.C-living"
+  ],
+  "out": "renders/preview/1.C/urban",
+  "name": "preview-u1.C-urban-night-0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "1.C-living",
+   "type": "still",
+   "file": "renders/preview/1.C/urban/1.C-living.night.jpg",
+   "thumb": "renders/preview/1.C/urban/thumbs/1.C-living.night.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": 7.954091482887162,
+   "tod": "night",
+   "position": [
+    10.143,
+    4.45,
+    6.733
+   ],
+   "lookAt": [
+    12.838,
+    4.45,
+    12.623
+   ],
+   "roomId": "1.C-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "night",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 117.6
+  }
+ ],
+ "seconds": 123.2,
+ "blender": "4.2.3 LTS"
+}
