@@ -416,9 +416,10 @@
     "id": "ash_veneer",
     "slot": "ash_veneer-pale",
     "bake": {
-     "brightness": 1.3
+     "saturation": 0.55,
+     "brightness": 1.22
     },
-    "note": "pale ash veneer (brightened, baked)",
+    "note": "pale ash veneer (desaturated + brightened, baked)",
     "alt": [
      "white_maple_veneer",
      "washed_grey_oak_veneer"
@@ -614,7 +615,8 @@
     "id": "PaintedPlaster017",
     "slot": "paintedplaster017-softgrey",
     "bake": {
-     "multiply": "#e4e1db"
+     "saturation": 0.4,
+     "brightness": 1.18
     },
     "sizeMeters": [
      2,
@@ -655,9 +657,10 @@
     "id": "ash_veneer",
     "slot": "ash_veneer-pale",
     "bake": {
-     "brightness": 1.3
+     "saturation": 0.55,
+     "brightness": 1.22
     },
-    "note": "ash timber slats (brightened, baked)",
+    "note": "ash timber slats (desaturated + brightened, baked)",
     "alt": [
      "white_maple_veneer",
      "washed_grey_oak_veneer"
@@ -668,8 +671,9 @@
     "id": "Plaster004",
     "slot": "plaster004-warm",
     "bake": {
-     "brightness": 1.35,
-     "multiply": "#f4ebdc"
+     "saturation": 0.3,
+     "brightness": 1.5,
+     "multiply": "#f7f0e3"
     },
     "sizeMeters": [
      2,
@@ -729,9 +733,10 @@
     "id": "ash_veneer",
     "slot": "ash_veneer-pale",
     "bake": {
-     "brightness": 1.3
+     "saturation": 0.55,
+     "brightness": 1.22
     },
-    "note": "pale ash veneer (brightened, baked)",
+    "note": "pale ash veneer (desaturated + brightened, baked)",
     "alt": [
      "white_maple_veneer",
      "washed_grey_oak_veneer"
@@ -1137,9 +1142,10 @@
     "id": "ash_veneer",
     "slot": "ash_veneer-pale",
     "bake": {
-     "brightness": 1.3
+     "saturation": 0.55,
+     "brightness": 1.22
     },
-    "note": "pale ash veneer (brightened, baked)",
+    "note": "pale ash veneer (desaturated + brightened, baked)",
     "alt": [
      "white_maple_veneer",
      "washed_grey_oak_veneer"
@@ -1350,9 +1356,10 @@
     "id": "ash_veneer",
     "slot": "ash_veneer-pale",
     "bake": {
-     "brightness": 1.3
+     "saturation": 0.55,
+     "brightness": 1.22
     },
-    "note": "pale ash veneer (brightened, baked)",
+    "note": "pale ash veneer (desaturated + brightened, baked)",
     "alt": [
      "white_maple_veneer",
      "washed_grey_oak_veneer"
@@ -1558,9 +1565,10 @@
     "id": "ash_veneer",
     "slot": "ash_veneer-pale",
     "bake": {
-     "brightness": 1.3
+     "saturation": 0.55,
+     "brightness": 1.22
     },
-    "note": "pale ash veneer (brightened, baked)",
+    "note": "pale ash veneer (desaturated + brightened, baked)",
     "alt": [
      "white_maple_veneer",
      "washed_grey_oak_veneer"
