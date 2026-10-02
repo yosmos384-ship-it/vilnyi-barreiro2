@@ -1,0 +1,148 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "0.B",
+  "pkg": "lisboa",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "0.B-living",
+   "0.B-bedroom",
+   "0.B-bathroom",
+   "0.B-garden"
+  ],
+  "out": "renders/units/0.B/lisboa",
+  "name": "u0.B-lisboa-s",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "0.B-living",
+   "type": "still",
+   "file": "renders/units/0.B/lisboa/0.B-living.jpg",
+   "thumb": "renders/units/0.B/lisboa/thumbs/0.B-living.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 2.805882616617337,
+   "tod": "day",
+   "position": [
+    9.374,
+    1.45,
+    4.803
+   ],
+   "lookAt": [
+    6.847,
+    1.45,
+    1.099
+   ],
+   "roomId": "0.B-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1619.8
+  },
+  {
+   "id": "0.B-bedroom",
+   "type": "still",
+   "file": "renders/units/0.B/lisboa/0.B-bedroom.jpg",
+   "thumb": "renders/units/0.B/lisboa/thumbs/0.B-bedroom.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 5.007722387423315,
+   "tod": "day",
+   "position": [
+    10.162,
+    1.4,
+    8.573
+   ],
+   "lookAt": [
+    12.822,
+    1.4,
+    6.245
+   ],
+   "roomId": "0.B-suite",
+   "name": {
+    "en": "Suite",
+    "pt": "Suite",
+    "he": "סוויטה"
+   },
+   "kind": "bedroom",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1670.7
+  },
+  {
+   "id": "0.B-bathroom",
+   "type": "still",
+   "file": "renders/units/0.B/lisboa/0.B-bathroom.jpg",
+   "thumb": "renders/units/0.B/lisboa/thumbs/0.B-bathroom.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 4.6784449777636725,
+   "tod": "day",
+   "position": [
+    9.053,
+    1.45,
+    5.982
+   ],
+   "lookAt": [
+    8.688,
+    1.45,
+    6.473
+   ],
+   "roomId": "0.B-wc",
+   "name": {
+    "en": "Bathroom",
+    "pt": "I.S.",
+    "he": "חדר רחצה"
+   },
+   "kind": "bathroom",
+   "lens": 18.0,
+   "shift_y": 0.0,
+   "seconds": 1798.0
+  },
+  {
+   "id": "0.B-garden",
+   "type": "still",
+   "file": "renders/units/0.B/lisboa/0.B-garden.jpg",
+   "thumb": "renders/units/0.B/lisboa/thumbs/0.B-garden.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": -1.63870157738585,
+   "tod": "day",
+   "position": [
+    8.68,
+    1.6,
+    -4.15
+   ],
+   "lookAt": [
+    8.68,
+    2.4,
+    0
+   ],
+   "roomId": "0.B-garden",
+   "name": {
+    "en": "Private garden & deck",
+    "pt": "Jardim privado",
+    "he": "גינה פרטית ודק"
+   },
+   "kind": "garden",
+   "lens": 20.0,
+   "shift_y": 0.1071,
+   "seconds": 1609.9
+  }
+ ],
+ "seconds": 6703.0,
+ "blender": "4.2.3 LTS"
+}
