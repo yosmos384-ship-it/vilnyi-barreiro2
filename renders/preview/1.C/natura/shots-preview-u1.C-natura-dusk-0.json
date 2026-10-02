@@ -21,7 +21,7 @@
    "W": 960,
    "H": 540,
    "spp": 64,
-   "ev": 5.634851263769337,
+   "ev": 5.563690289115111,
    "tod": "dusk",
    "position": [
     10.143,
@@ -43,9 +43,9 @@
    "variant": "dusk",
    "lens": 24.0,
    "shift_y": 0.0,
-   "seconds": 122.4
+   "seconds": 139.6
   }
  ],
- "seconds": 126.9,
+ "seconds": 143.9,
  "blender": "4.2.3 LTS"
 }
