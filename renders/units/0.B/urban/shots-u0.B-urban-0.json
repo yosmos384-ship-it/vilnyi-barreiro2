@@ -1,0 +1,180 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "0.B",
+  "pkg": "urban",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "0.B-urban-h0",
+   "0.B-urban-h1",
+   "0.B-urban-h2",
+   "0.B-urban-h3",
+   "0.B-urban-h4"
+  ],
+  "out": "renders/units/0.B/urban",
+  "name": "u0.B-urban-0",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "0.B-urban-h0",
+   "type": "pano",
+   "file": "renders/units/0.B/urban/0.B-urban-h0.jpg",
+   "thumb": "renders/units/0.B/urban/thumbs/0.B-urban-h0.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.5417252496895983,
+   "tod": "day",
+   "position": [
+    9,
+    1.6,
+    4.6
+   ],
+   "lookAt": [
+    7.296,
+    1.25,
+    0.474
+   ],
+   "roomId": "0.B-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": null,
+   "yawOffset": 0.39165,
+   "index": 0,
+   "seconds": 1136.9
+  },
+  {
+   "id": "0.B-urban-h1",
+   "type": "pano",
+   "file": "renders/units/0.B/urban/0.B-urban-h1.jpg",
+   "thumb": "renders/units/0.B/urban/thumbs/0.B-urban-h1.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 2.8354504204723816,
+   "tod": "day",
+   "position": [
+    6.908,
+    1.6,
+    0.842
+   ],
+   "lookAt": [
+    8.25,
+    1,
+    2.9
+   ],
+   "roomId": "0.B-living",
+   "name": {
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": -2.56375,
+   "index": 1,
+   "seconds": 1109.5
+  },
+  {
+   "id": "0.B-urban-h2",
+   "type": "pano",
+   "file": "renders/units/0.B/urban/0.B-urban-h2.jpg",
+   "thumb": "renders/units/0.B/urban/thumbs/0.B-urban-h2.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 4.0247307884484815,
+   "tod": "day",
+   "position": [
+    12.81,
+    1.6,
+    4.15
+   ],
+   "lookAt": [
+    11.672,
+    0.95,
+    2.39
+   ],
+   "roomId": "0.B-bed",
+   "name": {
+    "en": "Bedroom",
+    "pt": "Quarto",
+    "he": "חדר שינה"
+   },
+   "kind": null,
+   "yawOffset": 0.57398,
+   "index": 2,
+   "seconds": 1039.2
+  },
+  {
+   "id": "0.B-urban-h3",
+   "type": "pano",
+   "file": "renders/units/0.B/urban/0.B-urban-h3.jpg",
+   "thumb": "renders/units/0.B/urban/thumbs/0.B-urban-h3.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.191769991358844,
+   "tod": "day",
+   "position": [
+    10.608,
+    1.6,
+    4.725
+   ],
+   "lookAt": [
+    12.331,
+    1,
+    3.663
+   ],
+   "roomId": "0.B-bed",
+   "name": {
+    "en": "Bedroom · view 2",
+    "pt": "Quarto · vista 2",
+    "he": "חדר שינה · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": -1.01843,
+   "index": 3,
+   "seconds": 1182.6
+  },
+  {
+   "id": "0.B-urban-h4",
+   "type": "pano",
+   "file": "renders/units/0.B/urban/0.B-urban-h4.jpg",
+   "thumb": "renders/units/0.B/urban/thumbs/0.B-urban-h4.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.7690284255365443,
+   "tod": "day",
+   "position": [
+    7.82,
+    1.6,
+    7.215
+   ],
+   "lookAt": [
+    9.035,
+    1.25,
+    8.629
+   ],
+   "roomId": "0.B-hall",
+   "name": {
+    "en": "Hall",
+    "pt": "Hall",
+    "he": "מבואה"
+   },
+   "kind": null,
+   "yawOffset": -2.43174,
+   "index": 4,
+   "seconds": 1211.2
+  }
+ ],
+ "seconds": 5683.2,
+ "blender": "4.2.3 LTS"
+}
