@@ -1,0 +1,117 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.A",
+  "pkg": "riviera",
+  "quality": "standard",
+  "tod": "night",
+  "shots": [
+   "2.A-riviera-h2",
+   "2.A-riviera-h3",
+   "2.A-living"
+  ],
+  "out": "renders/units/2.A/riviera",
+  "name": "u2.A-riviera-night-0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "2.A-riviera-h2",
+   "type": "pano",
+   "file": "renders/units/2.A/riviera/2.A-riviera-h2.night.jpg",
+   "thumb": "renders/units/2.A/riviera/thumbs/2.A-riviera-h2.night.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 5.618994462735796,
+   "tod": "night",
+   "position": [
+    3.66,
+    7.6,
+    4.6
+   ],
+   "lookAt": [
+    5.06,
+    7.25,
+    0.474
+   ],
+   "roomId": "2.A-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": -0.32712,
+   "index": 2,
+   "seconds": 1249.8
+  },
+  {
+   "id": "2.A-riviera-h3",
+   "type": "pano",
+   "file": "renders/units/2.A/riviera/2.A-riviera-h3.night.jpg",
+   "thumb": "renders/units/2.A/riviera/thumbs/2.A-riviera-h3.night.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 5.440507353364279,
+   "tod": "night",
+   "position": [
+    4.751,
+    7.6,
+    2.306
+   ],
+   "lookAt": [
+    4.07,
+    7,
+    3.672
+   ],
+   "roomId": "2.A-living",
+   "name": {
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": 2.67912,
+   "index": 3,
+   "seconds": 1380.4
+  },
+  {
+   "id": "2.A-living",
+   "type": "still",
+   "file": "renders/units/2.A/riviera/2.A-living.night.jpg",
+   "thumb": "renders/units/2.A/riviera/thumbs/2.A-living.night.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 5.109313769638586,
+   "tod": "night",
+   "position": [
+    3.668,
+    7.45,
+    4.132
+   ],
+   "lookAt": [
+    5.13,
+    7.45,
+    1.635
+   ],
+   "roomId": "2.A-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "night",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1069.1
+  }
+ ],
+ "seconds": 3704.6,
+ "blender": "4.2.3 LTS"
+}
