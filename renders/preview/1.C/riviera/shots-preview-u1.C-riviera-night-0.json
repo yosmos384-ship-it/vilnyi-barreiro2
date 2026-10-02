@@ -1,0 +1,51 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.C",
+  "pkg": "riviera",
+  "quality": "preview",
+  "tod": "night",
+  "shots": [
+   "1.C-living"
+  ],
+  "out": "renders/preview/1.C/riviera",
+  "name": "preview-u1.C-riviera-night-0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "1.C-living",
+   "type": "still",
+   "file": "renders/preview/1.C/riviera/1.C-living.night.jpg",
+   "thumb": "renders/preview/1.C/riviera/thumbs/1.C-living.night.jpg",
+   "W": 960,
+   "H": 540,
+   "spp": 64,
+   "ev": 5.945905251243549,
+   "tod": "night",
+   "position": [
+    10.143,
+    4.45,
+    6.733
+   ],
+   "lookAt": [
+    12.838,
+    4.45,
+    12.623
+   ],
+   "roomId": "1.C-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "night",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 145.8
+  }
+ ],
+ "seconds": 151.3,
+ "blender": "4.2.3 LTS"
+}
