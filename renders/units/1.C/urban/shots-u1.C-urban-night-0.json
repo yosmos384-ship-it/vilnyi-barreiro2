@@ -1,0 +1,117 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.C",
+  "pkg": "urban",
+  "quality": "standard",
+  "tod": "night",
+  "shots": [
+   "1.C-urban-h3",
+   "1.C-urban-h4",
+   "1.C-living"
+  ],
+  "out": "renders/units/1.C/urban",
+  "name": "u1.C-urban-night-0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "1.C-urban-h3",
+   "type": "pano",
+   "file": "renders/units/1.C/urban/1.C-urban-h3.night.jpg",
+   "thumb": "renders/units/1.C/urban/thumbs/1.C-urban-h3.night.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 7.234637357835829,
+   "tod": "night",
+   "position": [
+    10.26,
+    4.6,
+    7.21
+   ],
+   "lookAt": [
+    12.44,
+    4.25,
+    13.982
+   ],
+   "roomId": "1.C-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": -2.83015,
+   "index": 3,
+   "seconds": 1051.2
+  },
+  {
+   "id": "1.C-urban-h4",
+   "type": "pano",
+   "file": "renders/units/1.C/urban/1.C-urban-h4.night.jpg",
+   "thumb": "renders/units/1.C/urban/thumbs/1.C-urban-h4.night.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 10.017736458125889,
+   "tod": "night",
+   "position": [
+    13.086,
+    4.6,
+    13.882
+   ],
+   "lookAt": [
+    11.76,
+    4,
+    9.46
+   ],
+   "roomId": "1.C-living",
+   "name": {
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
+   },
+   "kind": null,
+   "variant": "night",
+   "yawOffset": 0.29133,
+   "index": 4,
+   "seconds": 831.0
+  },
+  {
+   "id": "1.C-living",
+   "type": "still",
+   "file": "renders/units/1.C/urban/1.C-living.night.jpg",
+   "thumb": "renders/units/1.C/urban/thumbs/1.C-living.night.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 7.311507855927905,
+   "tod": "night",
+   "position": [
+    10.143,
+    4.45,
+    6.733
+   ],
+   "lookAt": [
+    12.838,
+    4.45,
+    12.623
+   ],
+   "roomId": "1.C-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "night",
+   "lens": 24.0,
+   "shift_y": 0.0,
+   "seconds": 1075.9
+  }
+ ],
+ "seconds": 2963.6,
+ "blender": "4.2.3 LTS"
+}
