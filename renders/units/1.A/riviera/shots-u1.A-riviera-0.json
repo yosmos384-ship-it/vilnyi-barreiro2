@@ -1,0 +1,180 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.A",
+  "pkg": "riviera",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "1.A-riviera-h0",
+   "1.A-riviera-h1",
+   "1.A-riviera-h2",
+   "1.A-riviera-h3",
+   "1.A-riviera-h4"
+  ],
+  "out": "renders/units/1.A/riviera",
+  "name": "u1.A-riviera-0",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "1.A-riviera-h0",
+   "type": "pano",
+   "file": "renders/units/1.A/riviera/1.A-riviera-h0.jpg",
+   "thumb": "renders/units/1.A/riviera/thumbs/1.A-riviera-h0.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.2324737289423693,
+   "tod": "day",
+   "position": [
+    0.85,
+    4.6,
+    4.6
+   ],
+   "lookAt": [
+    1.028,
+    3.95,
+    2.75
+   ],
+   "roomId": "1.A-suite",
+   "name": {
+    "en": "Master suite",
+    "pt": "Suite",
+    "he": "סוויטת הורים"
+   },
+   "kind": null,
+   "yawOffset": -0.09592,
+   "index": 0,
+   "seconds": 1428.7
+  },
+  {
+   "id": "1.A-riviera-h1",
+   "type": "pano",
+   "file": "renders/units/1.A/riviera/1.A-riviera-h1.jpg",
+   "thumb": "renders/units/1.A/riviera/thumbs/1.A-riviera-h1.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 2.990047359824914,
+   "tod": "day",
+   "position": [
+    2.208,
+    4.6,
+    4.648
+   ],
+   "lookAt": [
+    1.173,
+    4,
+    3.672
+   ],
+   "roomId": "1.A-suite",
+   "name": {
+    "en": "Master suite · view 2",
+    "pt": "Suite · vista 2",
+    "he": "סוויטת הורים · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": 0.81473,
+   "index": 1,
+   "seconds": 1424.1
+  },
+  {
+   "id": "1.A-riviera-h2",
+   "type": "pano",
+   "file": "renders/units/1.A/riviera/1.A-riviera-h2.jpg",
+   "thumb": "renders/units/1.A/riviera/thumbs/1.A-riviera-h2.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 2.4283182366258935,
+   "tod": "day",
+   "position": [
+    3.66,
+    4.6,
+    4.6
+   ],
+   "lookAt": [
+    5.06,
+    4.25,
+    0.474
+   ],
+   "roomId": "1.A-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": null,
+   "yawOffset": -0.32712,
+   "index": 2,
+   "seconds": 1480.6
+  },
+  {
+   "id": "1.A-riviera-h3",
+   "type": "pano",
+   "file": "renders/units/1.A/riviera/1.A-riviera-h3.jpg",
+   "thumb": "renders/units/1.A/riviera/thumbs/1.A-riviera-h3.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 2.015831120509912,
+   "tod": "day",
+   "position": [
+    4.751,
+    4.6,
+    2.306
+   ],
+   "lookAt": [
+    4.07,
+    4,
+    3.672
+   ],
+   "roomId": "1.A-living",
+   "name": {
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": 2.67912,
+   "index": 3,
+   "seconds": 1406.8
+  },
+  {
+   "id": "1.A-riviera-h4",
+   "type": "pano",
+   "file": "renders/units/1.A/riviera/1.A-riviera-h4.jpg",
+   "thumb": "renders/units/1.A/riviera/thumbs/1.A-riviera-h4.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 3.8351265535610373,
+   "tod": "day",
+   "position": [
+    1.375,
+    4.6,
+    6.01
+   ],
+   "lookAt": [
+    0.548,
+    4.3,
+    6.732
+   ],
+   "roomId": "1.A-ensuite",
+   "name": {
+    "en": "En-suite bathroom",
+    "pt": "I.S. suite",
+    "he": "חדר רחצה צמוד"
+   },
+   "kind": null,
+   "yawOffset": 2.28851,
+   "index": 4,
+   "seconds": 996.4
+  }
+ ],
+ "seconds": 6740.4,
+ "blender": "4.2.3 LTS"
+}
