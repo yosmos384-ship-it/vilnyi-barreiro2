@@ -1,0 +1,180 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.B",
+  "pkg": "riviera",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "2.B-riviera-h0",
+   "2.B-riviera-h1",
+   "2.B-riviera-h2",
+   "2.B-riviera-h3",
+   "2.B-riviera-h4"
+  ],
+  "out": "renders/units/2.B/riviera",
+  "name": "u2.B-riviera-0",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "2.B-riviera-h0",
+   "type": "pano",
+   "file": "renders/units/2.B/riviera/2.B-riviera-h0.jpg",
+   "thumb": "renders/units/2.B/riviera/thumbs/2.B-riviera-h0.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 1.5570172613525832,
+   "tod": "day",
+   "position": [
+    9,
+    7.6,
+    4.6
+   ],
+   "lookAt": [
+    7.296,
+    7.25,
+    0.474
+   ],
+   "roomId": "2.B-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": null,
+   "yawOffset": 0.39165,
+   "index": 0,
+   "seconds": 1805.2
+  },
+  {
+   "id": "2.B-riviera-h1",
+   "type": "pano",
+   "file": "renders/units/2.B/riviera/2.B-riviera-h1.jpg",
+   "thumb": "renders/units/2.B/riviera/thumbs/2.B-riviera-h1.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 1.8358408993636726,
+   "tod": "day",
+   "position": [
+    6.908,
+    7.6,
+    0.842
+   ],
+   "lookAt": [
+    8.25,
+    7,
+    2.9
+   ],
+   "roomId": "2.B-living",
+   "name": {
+    "en": "Living & kitchen · view 2",
+    "pt": "Sala / cozinha · vista 2",
+    "he": "סלון ומטבח · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": -2.56375,
+   "index": 1,
+   "seconds": 1471.0
+  },
+  {
+   "id": "2.B-riviera-h2",
+   "type": "pano",
+   "file": "renders/units/2.B/riviera/2.B-riviera-h2.jpg",
+   "thumb": "renders/units/2.B/riviera/thumbs/2.B-riviera-h2.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 2.627208881564008,
+   "tod": "day",
+   "position": [
+    12.81,
+    7.6,
+    4.15
+   ],
+   "lookAt": [
+    11.672,
+    6.95,
+    2.39
+   ],
+   "roomId": "2.B-bed",
+   "name": {
+    "en": "Bedroom",
+    "pt": "Quarto",
+    "he": "חדר שינה"
+   },
+   "kind": null,
+   "yawOffset": 0.57398,
+   "index": 2,
+   "seconds": 1716.1
+  },
+  {
+   "id": "2.B-riviera-h3",
+   "type": "pano",
+   "file": "renders/units/2.B/riviera/2.B-riviera-h3.jpg",
+   "thumb": "renders/units/2.B/riviera/thumbs/2.B-riviera-h3.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 1.653769460516183,
+   "tod": "day",
+   "position": [
+    10.608,
+    7.6,
+    4.725
+   ],
+   "lookAt": [
+    12.331,
+    7,
+    3.663
+   ],
+   "roomId": "2.B-bed",
+   "name": {
+    "en": "Bedroom · view 2",
+    "pt": "Quarto · vista 2",
+    "he": "חדר שינה · מבט 2"
+   },
+   "kind": null,
+   "yawOffset": -1.01843,
+   "index": 3,
+   "seconds": 1803.1
+  },
+  {
+   "id": "2.B-riviera-h4",
+   "type": "pano",
+   "file": "renders/units/2.B/riviera/2.B-riviera-h4.jpg",
+   "thumb": "renders/units/2.B/riviera/thumbs/2.B-riviera-h4.jpg",
+   "W": 3072,
+   "H": 1536,
+   "spp": 64,
+   "ev": 2.6265690178206156,
+   "tod": "day",
+   "position": [
+    6.795,
+    7.6,
+    6.01
+   ],
+   "lookAt": [
+    6.428,
+    7.3,
+    6.732
+   ],
+   "roomId": "2.B-hall",
+   "name": {
+    "en": "Entrance hall",
+    "pt": "Hall",
+    "he": "מבואה"
+   },
+   "kind": null,
+   "yawOffset": 2.67132,
+   "index": 4,
+   "seconds": 1749.5
+  }
+ ],
+ "seconds": 8549.6,
+ "blender": "4.2.3 LTS"
+}
