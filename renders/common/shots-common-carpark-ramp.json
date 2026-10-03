@@ -7,9 +7,7 @@
   ],
   "out": "renders/common",
   "name": "common-carpark-ramp",
-  "opts": {
-   "ev_bias": 0.35
-  }
+  "opts": {}
  },
  "shots": [
   {
@@ -20,7 +18,7 @@
    "W": 2400,
    "H": 1350,
    "spp": 96,
-   "ev": 3.9328515416815324,
+   "ev": 3.5298104820672775,
    "tod": "day",
    "position": [
     12.3,
@@ -37,9 +35,9 @@
    "kind": null,
    "lens": 18.0,
    "shift_y": -0.0519,
-   "seconds": 3630.3
+   "seconds": 3640.2
   }
  ],
- "seconds": 3633.3,
+ "seconds": 3643.8,
  "blender": "4.2.3 LTS"
 }
