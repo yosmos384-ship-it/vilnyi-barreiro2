@@ -460,7 +460,7 @@ def _render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, hidden, e
             if room is not None:
                 hidden += VM.hide_door_leaves(room)
         bpy.context.view_layer.update()
-    for pat in (s.get('hide') or []):
+    for pat in list(s.get('hide') or []) + list(opts.get('hide_objects') or []):
         for ob in bpy.data.objects:
             if pat in ob.name and not ob.hide_render:
                 ob.hide_render = True; ob.hide_viewport = True; hidden.append(ob)

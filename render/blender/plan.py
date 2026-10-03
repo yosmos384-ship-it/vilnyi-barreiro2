@@ -112,7 +112,7 @@ def jobs_for(req, cams):
                         if not shots:
                             continue
                         jobs.append(J(scope='unit', unit=u, pkg=p, quality=q, tod=tod, shots=list(shots),
-                                         out=f'renders/preview/{u}/{p}' if preview else f'renders/units/{u}/{p}',
+                                         out=(f"renders/preview/{req['out_tag']}/{u}/{p}" if req.get('out_tag') else f'renders/preview/{u}/{p}') if preview else f'renders/units/{u}/{p}',
                                          name=f'{pre}u{u}-{p}{tsfx}-{tag}{kname}', opts=opts))
     return jobs
 

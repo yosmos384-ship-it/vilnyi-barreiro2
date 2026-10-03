@@ -1,0 +1,102 @@
+[
+ {
+  "set": "units",
+  "quality": "preview",
+  "preview": true,
+  "units": "1.B",
+  "packages": "atlantic",
+  "tod": "day",
+  "shots": "1.B-bathroom",
+  "tag": "xg",
+  "q": {
+   "still": [
+    640,
+    360
+   ],
+   "still_spp": 24,
+   "expo_samples": 16
+  },
+  "opts": {
+   "ev_bias": 0.35,
+   "hide_objects": [
+    "int-glass"
+   ]
+  },
+  "out_tag": "xg"
+ },
+ {
+  "set": "units",
+  "quality": "preview",
+  "preview": true,
+  "units": "1.B",
+  "packages": "atlantic",
+  "tod": "day",
+  "shots": "1.B-bathroom",
+  "tag": "xl",
+  "q": {
+   "still": [
+    640,
+    360
+   ],
+   "still_spp": 24,
+   "expo_samples": 16
+  },
+  "opts": {
+   "ev_bias": 0.35,
+   "hide_objects": [
+    "int-ledStrip"
+   ]
+  },
+  "out_tag": "xl"
+ },
+ {
+  "set": "units",
+  "quality": "preview",
+  "preview": true,
+  "units": "1.B",
+  "packages": "atlantic",
+  "tod": "day",
+  "shots": "1.B-bathroom",
+  "tag": "xm",
+  "q": {
+   "still": [
+    640,
+    360
+   ],
+   "still_spp": 24,
+   "expo_samples": 16
+  },
+  "opts": {
+   "ev_bias": 0.35,
+   "hide_objects": [
+    "int-metal"
+   ]
+  },
+  "out_tag": "xm"
+ },
+ {
+  "set": "units",
+  "quality": "preview",
+  "preview": true,
+  "units": "1.B",
+  "packages": "atlantic",
+  "tod": "day",
+  "shots": "1.B-bathroom",
+  "tag": "xt",
+  "q": {
+   "still": [
+    640,
+    360
+   ],
+   "still_spp": 24,
+   "expo_samples": 16
+  },
+  "opts": {
+   "ev_bias": 0.35,
+   "hide_objects": [
+    "int-towel"
+   ]
+  },
+  "out_tag": "xt"
+ }
+]
