@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-10-03T03:02:17Z",
+ "generated": "2026-10-03T11:19:08Z",
  "packages": [
   "atlantic",
   "lisboa",
@@ -317,25 +317,25 @@
     "stills": [
      {
       "id": "0.A-bathroom",
-      "roomId": "0.A-ensuite",
+      "roomId": "0.A-wc",
       "name": {
-       "en": "En-suite bathroom",
-       "pt": "I.S. suite",
-       "he": "חדר רחצה צמוד"
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
       },
       "file": "renders/units/0.A/atlantic/0.A-bathroom.jpg",
       "thumb": "renders/units/0.A/atlantic/thumbs/0.A-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       1.749,
-       1.45,
-       5.772
+       4.25,
+       1.6,
+       5.6
       ],
       "lookAt": [
-       0.662,
-       1.45,
-       6.641
+       4.0,
+       0.9,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -351,16 +351,16 @@
       "file": "renders/units/0.A/atlantic/0.A-bedroom.jpg",
       "thumb": "renders/units/0.A/atlantic/thumbs/0.A-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       0.449,
-       1.4,
-       4.763
+       0.45,
+       1.45,
+       5.0
       ],
       "lookAt": [
-       2.332,
-       1.4,
-       1.131
+       2.6,
+       1.15,
+       0.4
       ],
       "W": 2400,
       "H": 1350
@@ -401,16 +401,16 @@
       "file": "renders/units/0.A/atlantic/0.A-living.jpg",
       "thumb": "renders/units/0.A/atlantic/thumbs/0.A-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       3.668,
+       3.35,
        1.45,
-       4.132
+       4.95
       ],
       "lookAt": [
-       5.13,
+       5.6,
        1.45,
-       1.635
+       0.6
       ],
       "W": 2400,
       "H": 1350,
@@ -721,25 +721,25 @@
     "stills": [
      {
       "id": "0.A-bathroom",
-      "roomId": "0.A-ensuite",
+      "roomId": "0.A-wc",
       "name": {
-       "en": "En-suite bathroom",
-       "pt": "I.S. suite",
-       "he": "חדר רחצה צמוד"
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
       },
       "file": "renders/units/0.A/lisboa/0.A-bathroom.jpg",
       "thumb": "renders/units/0.A/lisboa/thumbs/0.A-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       1.749,
-       1.45,
-       5.772
+       4.25,
+       1.6,
+       5.6
       ],
       "lookAt": [
-       0.662,
-       1.45,
-       6.641
+       4.0,
+       0.9,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -755,16 +755,16 @@
       "file": "renders/units/0.A/lisboa/0.A-bedroom.jpg",
       "thumb": "renders/units/0.A/lisboa/thumbs/0.A-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       0.449,
-       1.4,
-       4.763
+       0.45,
+       1.45,
+       5.0
       ],
       "lookAt": [
-       2.332,
-       1.4,
-       1.131
+       2.6,
+       1.15,
+       0.4
       ],
       "W": 2400,
       "H": 1350
@@ -805,16 +805,16 @@
       "file": "renders/units/0.A/lisboa/0.A-living.jpg",
       "thumb": "renders/units/0.A/lisboa/thumbs/0.A-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       3.668,
+       3.35,
        1.45,
-       4.132
+       4.95
       ],
       "lookAt": [
-       5.13,
+       5.6,
        1.45,
-       1.635
+       0.6
       ],
       "W": 2400,
       "H": 1350,
@@ -1125,25 +1125,25 @@
     "stills": [
      {
       "id": "0.A-bathroom",
-      "roomId": "0.A-ensuite",
+      "roomId": "0.A-wc",
       "name": {
-       "en": "En-suite bathroom",
-       "pt": "I.S. suite",
-       "he": "חדר רחצה צמוד"
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
       },
       "file": "renders/units/0.A/natura/0.A-bathroom.jpg",
       "thumb": "renders/units/0.A/natura/thumbs/0.A-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       1.749,
-       1.45,
-       5.772
+       4.25,
+       1.6,
+       5.6
       ],
       "lookAt": [
-       0.662,
-       1.45,
-       6.641
+       4.0,
+       0.9,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -1159,16 +1159,16 @@
       "file": "renders/units/0.A/natura/0.A-bedroom.jpg",
       "thumb": "renders/units/0.A/natura/thumbs/0.A-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       0.449,
-       1.4,
-       4.763
+       0.45,
+       1.45,
+       5.0
       ],
       "lookAt": [
-       2.332,
-       1.4,
-       1.131
+       2.6,
+       1.15,
+       0.4
       ],
       "W": 2400,
       "H": 1350
@@ -1209,16 +1209,16 @@
       "file": "renders/units/0.A/natura/0.A-living.jpg",
       "thumb": "renders/units/0.A/natura/thumbs/0.A-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       3.668,
+       3.35,
        1.45,
-       4.132
+       4.95
       ],
       "lookAt": [
-       5.13,
+       5.6,
        1.45,
-       1.635
+       0.6
       ],
       "W": 2400,
       "H": 1350,
@@ -1529,25 +1529,25 @@
     "stills": [
      {
       "id": "0.A-bathroom",
-      "roomId": "0.A-ensuite",
+      "roomId": "0.A-wc",
       "name": {
-       "en": "En-suite bathroom",
-       "pt": "I.S. suite",
-       "he": "חדר רחצה צמוד"
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
       },
       "file": "renders/units/0.A/noir/0.A-bathroom.jpg",
       "thumb": "renders/units/0.A/noir/thumbs/0.A-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       1.749,
-       1.45,
-       5.772
+       4.25,
+       1.6,
+       5.6
       ],
       "lookAt": [
-       0.662,
-       1.45,
-       6.641
+       4.0,
+       0.9,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -1563,16 +1563,16 @@
       "file": "renders/units/0.A/noir/0.A-bedroom.jpg",
       "thumb": "renders/units/0.A/noir/thumbs/0.A-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       0.449,
-       1.4,
-       4.763
+       0.45,
+       1.45,
+       5.0
       ],
       "lookAt": [
-       2.332,
-       1.4,
-       1.131
+       2.6,
+       1.15,
+       0.4
       ],
       "W": 2400,
       "H": 1350
@@ -1613,16 +1613,16 @@
       "file": "renders/units/0.A/noir/0.A-living.jpg",
       "thumb": "renders/units/0.A/noir/thumbs/0.A-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       3.668,
+       3.35,
        1.45,
-       4.132
+       4.95
       ],
       "lookAt": [
-       5.13,
+       5.6,
        1.45,
-       1.635
+       0.6
       ],
       "W": 2400,
       "H": 1350,
@@ -1933,25 +1933,25 @@
     "stills": [
      {
       "id": "0.A-bathroom",
-      "roomId": "0.A-ensuite",
+      "roomId": "0.A-wc",
       "name": {
-       "en": "En-suite bathroom",
-       "pt": "I.S. suite",
-       "he": "חדר רחצה צמוד"
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
       },
       "file": "renders/units/0.A/riviera/0.A-bathroom.jpg",
       "thumb": "renders/units/0.A/riviera/thumbs/0.A-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       1.749,
-       1.45,
-       5.772
+       4.25,
+       1.6,
+       5.6
       ],
       "lookAt": [
-       0.662,
-       1.45,
-       6.641
+       4.0,
+       0.9,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -1967,16 +1967,16 @@
       "file": "renders/units/0.A/riviera/0.A-bedroom.jpg",
       "thumb": "renders/units/0.A/riviera/thumbs/0.A-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       0.449,
-       1.4,
-       4.763
+       0.45,
+       1.45,
+       5.0
       ],
       "lookAt": [
-       2.332,
-       1.4,
-       1.131
+       2.6,
+       1.15,
+       0.4
       ],
       "W": 2400,
       "H": 1350
@@ -2017,16 +2017,16 @@
       "file": "renders/units/0.A/riviera/0.A-living.jpg",
       "thumb": "renders/units/0.A/riviera/thumbs/0.A-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       3.668,
+       3.35,
        1.45,
-       4.132
+       4.95
       ],
       "lookAt": [
-       5.13,
+       5.6,
        1.45,
-       1.635
+       0.6
       ],
       "W": 2400,
       "H": 1350,
@@ -2337,25 +2337,25 @@
     "stills": [
      {
       "id": "0.A-bathroom",
-      "roomId": "0.A-ensuite",
+      "roomId": "0.A-wc",
       "name": {
-       "en": "En-suite bathroom",
-       "pt": "I.S. suite",
-       "he": "חדר רחצה צמוד"
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
       },
       "file": "renders/units/0.A/urban/0.A-bathroom.jpg",
       "thumb": "renders/units/0.A/urban/thumbs/0.A-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       1.749,
-       1.45,
-       5.772
+       4.25,
+       1.6,
+       5.6
       ],
       "lookAt": [
-       0.662,
-       1.45,
-       6.641
+       4.0,
+       0.9,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -2371,16 +2371,16 @@
       "file": "renders/units/0.A/urban/0.A-bedroom.jpg",
       "thumb": "renders/units/0.A/urban/thumbs/0.A-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       0.449,
-       1.4,
-       4.763
+       0.45,
+       1.45,
+       5.0
       ],
       "lookAt": [
-       2.332,
-       1.4,
-       1.131
+       2.6,
+       1.15,
+       0.4
       ],
       "W": 2400,
       "H": 1350
@@ -2421,16 +2421,16 @@
       "file": "renders/units/0.A/urban/0.A-living.jpg",
       "thumb": "renders/units/0.A/urban/thumbs/0.A-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       3.668,
+       3.35,
        1.45,
-       4.132
+       4.95
       ],
       "lookAt": [
-       5.13,
+       5.6,
        1.45,
-       1.635
+       0.6
       ],
       "W": 2400,
       "H": 1350,
@@ -2788,16 +2788,16 @@
       "file": "renders/units/0.B/atlantic/0.B-bathroom.jpg",
       "thumb": "renders/units/0.B/atlantic/thumbs/0.B-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       9.053,
-       1.45,
-       5.982
+       9.05,
+       1.6,
+       5.58
       ],
       "lookAt": [
-       8.688,
-       1.45,
-       6.473
+       8.6,
+       0.85,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -2813,16 +2813,16 @@
       "file": "renders/units/0.B/atlantic/0.B-bedroom.jpg",
       "thumb": "renders/units/0.B/atlantic/thumbs/0.B-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       10.162,
-       1.4,
-       8.573
+       9.8,
+       1.45,
+       7.9
       ],
       "lookAt": [
-       12.822,
-       1.4,
-       6.245
+       13.5,
+       1.25,
+       6.3
       ],
       "W": 2400,
       "H": 1350
@@ -2863,16 +2863,16 @@
       "file": "renders/units/0.B/atlantic/0.B-living.jpg",
       "thumb": "renders/units/0.B/atlantic/thumbs/0.B-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       9.374,
+       8.3,
        1.45,
-       4.803
+       5.0
       ],
       "lookAt": [
-       6.847,
+       7.6,
        1.45,
-       1.099
+       0.5
       ],
       "W": 2400,
       "H": 1350,
@@ -3228,16 +3228,16 @@
       "file": "renders/units/0.B/lisboa/0.B-bathroom.jpg",
       "thumb": "renders/units/0.B/lisboa/thumbs/0.B-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       9.053,
-       1.45,
-       5.982
+       9.05,
+       1.6,
+       5.58
       ],
       "lookAt": [
-       8.688,
-       1.45,
-       6.473
+       8.6,
+       0.85,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -3253,16 +3253,16 @@
       "file": "renders/units/0.B/lisboa/0.B-bedroom.jpg",
       "thumb": "renders/units/0.B/lisboa/thumbs/0.B-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       10.162,
-       1.4,
-       8.573
+       9.8,
+       1.45,
+       7.9
       ],
       "lookAt": [
-       12.822,
-       1.4,
-       6.245
+       13.5,
+       1.25,
+       6.3
       ],
       "W": 2400,
       "H": 1350
@@ -3303,16 +3303,16 @@
       "file": "renders/units/0.B/lisboa/0.B-living.jpg",
       "thumb": "renders/units/0.B/lisboa/thumbs/0.B-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       9.374,
+       8.3,
        1.45,
-       4.803
+       5.0
       ],
       "lookAt": [
-       6.847,
+       7.6,
        1.45,
-       1.099
+       0.5
       ],
       "W": 2400,
       "H": 1350,
@@ -3668,16 +3668,16 @@
       "file": "renders/units/0.B/natura/0.B-bathroom.jpg",
       "thumb": "renders/units/0.B/natura/thumbs/0.B-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       9.053,
-       1.45,
-       5.982
+       9.05,
+       1.6,
+       5.58
       ],
       "lookAt": [
-       8.688,
-       1.45,
-       6.473
+       8.6,
+       0.85,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -3693,16 +3693,16 @@
       "file": "renders/units/0.B/natura/0.B-bedroom.jpg",
       "thumb": "renders/units/0.B/natura/thumbs/0.B-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       10.275,
-       1.4,
-       8.474
+       9.8,
+       1.45,
+       7.9
       ],
       "lookAt": [
-       12.732,
-       1.4,
-       6.324
+       13.5,
+       1.25,
+       6.3
       ],
       "W": 2400,
       "H": 1350
@@ -3743,16 +3743,16 @@
       "file": "renders/units/0.B/natura/0.B-living.jpg",
       "thumb": "renders/units/0.B/natura/thumbs/0.B-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       9.374,
+       8.3,
        1.45,
-       4.803
+       5.0
       ],
       "lookAt": [
-       6.847,
+       7.6,
        1.45,
-       1.099
+       0.5
       ],
       "W": 2400,
       "H": 1350,
@@ -4108,16 +4108,16 @@
       "file": "renders/units/0.B/noir/0.B-bathroom.jpg",
       "thumb": "renders/units/0.B/noir/thumbs/0.B-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       9.053,
-       1.45,
-       5.982
+       9.05,
+       1.6,
+       5.58
       ],
       "lookAt": [
-       8.688,
-       1.45,
-       6.473
+       8.6,
+       0.85,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -4133,16 +4133,16 @@
       "file": "renders/units/0.B/noir/0.B-bedroom.jpg",
       "thumb": "renders/units/0.B/noir/thumbs/0.B-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       10.162,
-       1.4,
-       8.573
+       9.8,
+       1.45,
+       7.9
       ],
       "lookAt": [
-       12.822,
-       1.4,
-       6.245
+       13.5,
+       1.25,
+       6.3
       ],
       "W": 2400,
       "H": 1350
@@ -4183,16 +4183,16 @@
       "file": "renders/units/0.B/noir/0.B-living.jpg",
       "thumb": "renders/units/0.B/noir/thumbs/0.B-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       9.374,
+       8.3,
        1.45,
-       4.803
+       5.0
       ],
       "lookAt": [
-       6.847,
+       7.6,
        1.45,
-       1.099
+       0.5
       ],
       "W": 2400,
       "H": 1350,
@@ -4548,16 +4548,16 @@
       "file": "renders/units/0.B/riviera/0.B-bathroom.jpg",
       "thumb": "renders/units/0.B/riviera/thumbs/0.B-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       9.053,
-       1.45,
-       5.982
+       9.05,
+       1.6,
+       5.58
       ],
       "lookAt": [
-       8.688,
-       1.45,
-       6.473
+       8.6,
+       0.85,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -4573,16 +4573,16 @@
       "file": "renders/units/0.B/riviera/0.B-bedroom.jpg",
       "thumb": "renders/units/0.B/riviera/thumbs/0.B-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       10.275,
-       1.4,
-       8.474
+       9.8,
+       1.45,
+       7.9
       ],
       "lookAt": [
-       12.732,
-       1.4,
-       6.324
+       13.5,
+       1.25,
+       6.3
       ],
       "W": 2400,
       "H": 1350
@@ -4623,16 +4623,16 @@
       "file": "renders/units/0.B/riviera/0.B-living.jpg",
       "thumb": "renders/units/0.B/riviera/thumbs/0.B-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       9.374,
+       8.3,
        1.45,
-       4.803
+       5.0
       ],
       "lookAt": [
-       6.847,
+       7.6,
        1.45,
-       1.099
+       0.5
       ],
       "W": 2400,
       "H": 1350,
@@ -4988,16 +4988,16 @@
       "file": "renders/units/0.B/urban/0.B-bathroom.jpg",
       "thumb": "renders/units/0.B/urban/thumbs/0.B-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       9.053,
-       1.45,
-       5.982
+       9.05,
+       1.6,
+       5.58
       ],
       "lookAt": [
-       8.688,
-       1.45,
-       6.473
+       8.6,
+       0.85,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -5013,16 +5013,16 @@
       "file": "renders/units/0.B/urban/0.B-bedroom.jpg",
       "thumb": "renders/units/0.B/urban/thumbs/0.B-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       10.388,
-       1.4,
-       8.376
+       9.8,
+       1.45,
+       7.9
       ],
       "lookAt": [
-       12.642,
-       1.4,
-       6.403
+       13.5,
+       1.25,
+       6.3
       ],
       "W": 2400,
       "H": 1350
@@ -5063,16 +5063,16 @@
       "file": "renders/units/0.B/urban/0.B-living.jpg",
       "thumb": "renders/units/0.B/urban/thumbs/0.B-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       9.374,
+       8.3,
        1.45,
-       4.803
+       5.0
       ],
       "lookAt": [
-       6.847,
+       7.6,
        1.45,
-       1.099
+       0.5
       ],
       "W": 2400,
       "H": 1350,
@@ -5353,25 +5353,25 @@
     "stills": [
      {
       "id": "1.A-bathroom",
-      "roomId": "1.A-ensuite",
+      "roomId": "1.A-wc",
       "name": {
-       "en": "En-suite bathroom",
-       "pt": "I.S. suite",
-       "he": "חדר רחצה צמוד"
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
       },
       "file": "renders/units/1.A/atlantic/1.A-bathroom.jpg",
       "thumb": "renders/units/1.A/atlantic/thumbs/1.A-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       1.749,
-       4.45,
-       5.772
+       4.25,
+       4.6,
+       5.6
       ],
       "lookAt": [
-       0.662,
-       4.45,
-       6.641
+       4.0,
+       3.9,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -5387,16 +5387,16 @@
       "file": "renders/units/1.A/atlantic/1.A-bedroom.jpg",
       "thumb": "renders/units/1.A/atlantic/thumbs/1.A-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       0.449,
-       4.4,
-       4.763
+       0.45,
+       4.45,
+       5.0
       ],
       "lookAt": [
-       2.332,
-       4.4,
-       1.131
+       2.6,
+       4.15,
+       0.4
       ],
       "W": 2400,
       "H": 1350
@@ -5412,16 +5412,16 @@
       "file": "renders/units/1.A/atlantic/1.A-living.jpg",
       "thumb": "renders/units/1.A/atlantic/thumbs/1.A-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       3.668,
+       3.35,
        4.45,
-       4.132
+       4.95
       ],
       "lookAt": [
-       5.13,
+       5.6,
        4.45,
-       1.635
+       0.6
       ],
       "W": 2400,
       "H": 1350,
@@ -5700,25 +5700,25 @@
     "stills": [
      {
       "id": "1.A-bathroom",
-      "roomId": "1.A-ensuite",
+      "roomId": "1.A-wc",
       "name": {
-       "en": "En-suite bathroom",
-       "pt": "I.S. suite",
-       "he": "חדר רחצה צמוד"
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
       },
       "file": "renders/units/1.A/lisboa/1.A-bathroom.jpg",
       "thumb": "renders/units/1.A/lisboa/thumbs/1.A-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       1.749,
-       4.45,
-       5.772
+       4.25,
+       4.6,
+       5.6
       ],
       "lookAt": [
-       0.662,
-       4.45,
-       6.641
+       4.0,
+       3.9,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -5734,16 +5734,16 @@
       "file": "renders/units/1.A/lisboa/1.A-bedroom.jpg",
       "thumb": "renders/units/1.A/lisboa/thumbs/1.A-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       0.449,
-       4.4,
-       4.763
+       0.45,
+       4.45,
+       5.0
       ],
       "lookAt": [
-       2.332,
-       4.4,
-       1.131
+       2.6,
+       4.15,
+       0.4
       ],
       "W": 2400,
       "H": 1350
@@ -5759,16 +5759,16 @@
       "file": "renders/units/1.A/lisboa/1.A-living.jpg",
       "thumb": "renders/units/1.A/lisboa/thumbs/1.A-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       3.668,
+       3.35,
        4.45,
-       4.132
+       4.95
       ],
       "lookAt": [
-       5.13,
+       5.6,
        4.45,
-       1.635
+       0.6
       ],
       "W": 2400,
       "H": 1350,
@@ -6047,25 +6047,25 @@
     "stills": [
      {
       "id": "1.A-bathroom",
-      "roomId": "1.A-ensuite",
+      "roomId": "1.A-wc",
       "name": {
-       "en": "En-suite bathroom",
-       "pt": "I.S. suite",
-       "he": "חדר רחצה צמוד"
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
       },
       "file": "renders/units/1.A/natura/1.A-bathroom.jpg",
       "thumb": "renders/units/1.A/natura/thumbs/1.A-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       1.749,
-       4.45,
-       5.772
+       4.25,
+       4.6,
+       5.6
       ],
       "lookAt": [
-       0.662,
-       4.45,
-       6.641
+       4.0,
+       3.9,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -6081,16 +6081,16 @@
       "file": "renders/units/1.A/natura/1.A-bedroom.jpg",
       "thumb": "renders/units/1.A/natura/thumbs/1.A-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       0.449,
-       4.4,
-       4.763
+       0.45,
+       4.45,
+       5.0
       ],
       "lookAt": [
-       2.332,
-       4.4,
-       1.131
+       2.6,
+       4.15,
+       0.4
       ],
       "W": 2400,
       "H": 1350
@@ -6106,16 +6106,16 @@
       "file": "renders/units/1.A/natura/1.A-living.jpg",
       "thumb": "renders/units/1.A/natura/thumbs/1.A-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       3.668,
+       3.35,
        4.45,
-       4.132
+       4.95
       ],
       "lookAt": [
-       5.13,
+       5.6,
        4.45,
-       1.635
+       0.6
       ],
       "W": 2400,
       "H": 1350,
@@ -6394,25 +6394,25 @@
     "stills": [
      {
       "id": "1.A-bathroom",
-      "roomId": "1.A-ensuite",
+      "roomId": "1.A-wc",
       "name": {
-       "en": "En-suite bathroom",
-       "pt": "I.S. suite",
-       "he": "חדר רחצה צמוד"
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
       },
       "file": "renders/units/1.A/noir/1.A-bathroom.jpg",
       "thumb": "renders/units/1.A/noir/thumbs/1.A-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       1.749,
-       4.45,
-       5.772
+       4.25,
+       4.6,
+       5.6
       ],
       "lookAt": [
-       0.662,
-       4.45,
-       6.641
+       4.0,
+       3.9,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -6428,16 +6428,16 @@
       "file": "renders/units/1.A/noir/1.A-bedroom.jpg",
       "thumb": "renders/units/1.A/noir/thumbs/1.A-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       0.449,
-       4.4,
-       4.763
+       0.45,
+       4.45,
+       5.0
       ],
       "lookAt": [
-       2.332,
-       4.4,
-       1.131
+       2.6,
+       4.15,
+       0.4
       ],
       "W": 2400,
       "H": 1350
@@ -6453,16 +6453,16 @@
       "file": "renders/units/1.A/noir/1.A-living.jpg",
       "thumb": "renders/units/1.A/noir/thumbs/1.A-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       3.668,
+       3.35,
        4.45,
-       4.132
+       4.95
       ],
       "lookAt": [
-       5.13,
+       5.6,
        4.45,
-       1.635
+       0.6
       ],
       "W": 2400,
       "H": 1350,
@@ -6741,25 +6741,25 @@
     "stills": [
      {
       "id": "1.A-bathroom",
-      "roomId": "1.A-ensuite",
+      "roomId": "1.A-wc",
       "name": {
-       "en": "En-suite bathroom",
-       "pt": "I.S. suite",
-       "he": "חדר רחצה צמוד"
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
       },
       "file": "renders/units/1.A/riviera/1.A-bathroom.jpg",
       "thumb": "renders/units/1.A/riviera/thumbs/1.A-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       1.749,
-       4.45,
-       5.772
+       4.25,
+       4.6,
+       5.6
       ],
       "lookAt": [
-       0.662,
-       4.45,
-       6.641
+       4.0,
+       3.9,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -6775,16 +6775,16 @@
       "file": "renders/units/1.A/riviera/1.A-bedroom.jpg",
       "thumb": "renders/units/1.A/riviera/thumbs/1.A-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       0.449,
-       4.4,
-       4.763
+       0.45,
+       4.45,
+       5.0
       ],
       "lookAt": [
-       2.332,
-       4.4,
-       1.131
+       2.6,
+       4.15,
+       0.4
       ],
       "W": 2400,
       "H": 1350
@@ -6800,16 +6800,16 @@
       "file": "renders/units/1.A/riviera/1.A-living.jpg",
       "thumb": "renders/units/1.A/riviera/thumbs/1.A-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       3.668,
+       3.35,
        4.45,
-       4.132
+       4.95
       ],
       "lookAt": [
-       5.13,
+       5.6,
        4.45,
-       1.635
+       0.6
       ],
       "W": 2400,
       "H": 1350,
@@ -7088,25 +7088,25 @@
     "stills": [
      {
       "id": "1.A-bathroom",
-      "roomId": "1.A-ensuite",
+      "roomId": "1.A-wc",
       "name": {
-       "en": "En-suite bathroom",
-       "pt": "I.S. suite",
-       "he": "חדר רחצה צמוד"
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
       },
       "file": "renders/units/1.A/urban/1.A-bathroom.jpg",
       "thumb": "renders/units/1.A/urban/thumbs/1.A-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       1.749,
-       4.45,
-       5.772
+       4.25,
+       4.6,
+       5.6
       ],
       "lookAt": [
-       0.662,
-       4.45,
-       6.641
+       4.0,
+       3.9,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -7122,16 +7122,16 @@
       "file": "renders/units/1.A/urban/1.A-bedroom.jpg",
       "thumb": "renders/units/1.A/urban/thumbs/1.A-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       0.449,
-       4.4,
-       4.763
+       0.45,
+       4.45,
+       5.0
       ],
       "lookAt": [
-       2.332,
-       4.4,
-       1.131
+       2.6,
+       4.15,
+       0.4
       ],
       "W": 2400,
       "H": 1350
@@ -7147,16 +7147,16 @@
       "file": "renders/units/1.A/urban/1.A-living.jpg",
       "thumb": "renders/units/1.A/urban/thumbs/1.A-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       3.668,
+       3.35,
        4.45,
-       4.132
+       4.95
       ],
       "lookAt": [
-       5.13,
+       5.6,
        4.45,
-       1.635
+       0.6
       ],
       "W": 2400,
       "H": 1350,
@@ -7416,16 +7416,16 @@
       "file": "renders/units/1.B/atlantic/1.B-bathroom.jpg",
       "thumb": "renders/units/1.B/atlantic/thumbs/1.B-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       7.993,
-       4.45,
-       5.832
+       8.55,
+       4.6,
+       5.6
       ],
       "lookAt": [
-       9.085,
-       4.45,
-       6.594
+       7.95,
+       3.85,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -7441,16 +7441,16 @@
       "file": "renders/units/1.B/atlantic/1.B-bedroom.jpg",
       "thumb": "renders/units/1.B/atlantic/thumbs/1.B-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       10.199,
-       4.4,
-       4.972
+       12.5,
+       4.45,
+       4.4
       ],
       "lookAt": [
-       13.175,
-       4.4,
-       1.739
+       10.4,
+       4.25,
+       0.3
       ],
       "W": 2400,
       "H": 1350
@@ -7466,16 +7466,16 @@
       "file": "renders/units/1.B/atlantic/1.B-living.jpg",
       "thumb": "renders/units/1.B/atlantic/thumbs/1.B-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       9.374,
+       8.3,
        4.45,
-       4.803
+       5.0
       ],
       "lookAt": [
-       6.847,
+       7.6,
        4.45,
-       1.099
+       0.5
       ],
       "W": 2400,
       "H": 1350,
@@ -7733,16 +7733,16 @@
       "file": "renders/units/1.B/lisboa/1.B-bathroom.jpg",
       "thumb": "renders/units/1.B/lisboa/thumbs/1.B-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       7.993,
-       4.45,
-       5.832
+       8.55,
+       4.6,
+       5.6
       ],
       "lookAt": [
-       9.085,
-       4.45,
-       6.594
+       7.95,
+       3.85,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -7758,16 +7758,16 @@
       "file": "renders/units/1.B/lisboa/1.B-bedroom.jpg",
       "thumb": "renders/units/1.B/lisboa/thumbs/1.B-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       10.199,
-       4.4,
-       4.972
+       12.5,
+       4.45,
+       4.4
       ],
       "lookAt": [
-       13.175,
-       4.4,
-       1.739
+       10.4,
+       4.25,
+       0.3
       ],
       "W": 2400,
       "H": 1350
@@ -7783,16 +7783,16 @@
       "file": "renders/units/1.B/lisboa/1.B-living.jpg",
       "thumb": "renders/units/1.B/lisboa/thumbs/1.B-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       9.374,
+       8.3,
        4.45,
-       4.803
+       5.0
       ],
       "lookAt": [
-       6.847,
+       7.6,
        4.45,
-       1.099
+       0.5
       ],
       "W": 2400,
       "H": 1350,
@@ -8050,16 +8050,16 @@
       "file": "renders/units/1.B/natura/1.B-bathroom.jpg",
       "thumb": "renders/units/1.B/natura/thumbs/1.B-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       7.993,
-       4.45,
-       5.832
+       8.55,
+       4.6,
+       5.6
       ],
       "lookAt": [
-       9.085,
-       4.45,
-       6.594
+       7.95,
+       3.85,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -8075,16 +8075,16 @@
       "file": "renders/units/1.B/natura/1.B-bedroom.jpg",
       "thumb": "renders/units/1.B/natura/thumbs/1.B-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       10.199,
-       4.4,
-       4.972
+       12.5,
+       4.45,
+       4.4
       ],
       "lookAt": [
-       13.175,
-       4.4,
-       1.739
+       10.4,
+       4.25,
+       0.3
       ],
       "W": 2400,
       "H": 1350
@@ -8100,16 +8100,16 @@
       "file": "renders/units/1.B/natura/1.B-living.jpg",
       "thumb": "renders/units/1.B/natura/thumbs/1.B-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       9.374,
+       8.3,
        4.45,
-       4.803
+       5.0
       ],
       "lookAt": [
-       6.847,
+       7.6,
        4.45,
-       1.099
+       0.5
       ],
       "W": 2400,
       "H": 1350,
@@ -8367,16 +8367,16 @@
       "file": "renders/units/1.B/noir/1.B-bathroom.jpg",
       "thumb": "renders/units/1.B/noir/thumbs/1.B-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       7.993,
-       4.45,
-       5.832
+       8.55,
+       4.6,
+       5.6
       ],
       "lookAt": [
-       9.085,
-       4.45,
-       6.594
+       7.95,
+       3.85,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -8392,16 +8392,16 @@
       "file": "renders/units/1.B/noir/1.B-bedroom.jpg",
       "thumb": "renders/units/1.B/noir/thumbs/1.B-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       10.199,
-       4.4,
-       4.972
+       12.5,
+       4.45,
+       4.4
       ],
       "lookAt": [
-       13.175,
-       4.4,
-       1.739
+       10.4,
+       4.25,
+       0.3
       ],
       "W": 2400,
       "H": 1350
@@ -8417,16 +8417,16 @@
       "file": "renders/units/1.B/noir/1.B-living.jpg",
       "thumb": "renders/units/1.B/noir/thumbs/1.B-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       9.374,
+       8.3,
        4.45,
-       4.803
+       5.0
       ],
       "lookAt": [
-       6.847,
+       7.6,
        4.45,
-       1.099
+       0.5
       ],
       "W": 2400,
       "H": 1350,
@@ -8684,16 +8684,16 @@
       "file": "renders/units/1.B/riviera/1.B-bathroom.jpg",
       "thumb": "renders/units/1.B/riviera/thumbs/1.B-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       7.993,
-       4.45,
-       5.832
+       8.55,
+       4.6,
+       5.6
       ],
       "lookAt": [
-       9.085,
-       4.45,
-       6.594
+       7.95,
+       3.85,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -8709,16 +8709,16 @@
       "file": "renders/units/1.B/riviera/1.B-bedroom.jpg",
       "thumb": "renders/units/1.B/riviera/thumbs/1.B-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       10.199,
-       4.4,
-       4.972
+       12.5,
+       4.45,
+       4.4
       ],
       "lookAt": [
-       13.175,
-       4.4,
-       1.739
+       10.4,
+       4.25,
+       0.3
       ],
       "W": 2400,
       "H": 1350
@@ -8734,16 +8734,16 @@
       "file": "renders/units/1.B/riviera/1.B-living.jpg",
       "thumb": "renders/units/1.B/riviera/thumbs/1.B-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       9.374,
+       8.3,
        4.45,
-       4.803
+       5.0
       ],
       "lookAt": [
-       6.847,
+       7.6,
        4.45,
-       1.099
+       0.5
       ],
       "W": 2400,
       "H": 1350,
@@ -9001,16 +9001,16 @@
       "file": "renders/units/1.B/urban/1.B-bathroom.jpg",
       "thumb": "renders/units/1.B/urban/thumbs/1.B-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       7.993,
-       4.45,
-       5.832
+       8.55,
+       4.6,
+       5.6
       ],
       "lookAt": [
-       9.085,
-       4.45,
-       6.594
+       7.95,
+       3.85,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -9026,16 +9026,16 @@
       "file": "renders/units/1.B/urban/1.B-bedroom.jpg",
       "thumb": "renders/units/1.B/urban/thumbs/1.B-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       10.199,
-       4.4,
-       4.972
+       12.5,
+       4.45,
+       4.4
       ],
       "lookAt": [
-       13.175,
-       4.4,
-       1.739
+       10.4,
+       4.25,
+       0.3
       ],
       "W": 2400,
       "H": 1350
@@ -9051,16 +9051,16 @@
       "file": "renders/units/1.B/urban/1.B-living.jpg",
       "thumb": "renders/units/1.B/urban/thumbs/1.B-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       9.374,
+       8.3,
        4.45,
-       4.803
+       5.0
       ],
       "lookAt": [
-       6.847,
+       7.6,
        4.45,
-       1.099
+       0.5
       ],
       "W": 2400,
       "H": 1350,
@@ -9412,16 +9412,16 @@
       "file": "renders/units/1.C/atlantic/1.C-bathroom.jpg",
       "thumb": "renders/units/1.C/atlantic/thumbs/1.C-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       8.147,
-       4.45,
-       8.484
+       7.72,
+       4.55,
+       8.98
       ],
       "lookAt": [
-       8.692,
-       4.45,
-       7.964
+       9.1,
+       3.75,
+       7.6
       ],
       "W": 2400,
       "H": 1350
@@ -9437,16 +9437,16 @@
       "file": "renders/units/1.C/atlantic/1.C-bedroom.jpg",
       "thumb": "renders/units/1.C/atlantic/thumbs/1.C-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       3.219,
+       5.75,
        4.4,
-       11.598
+       11.65
       ],
       "lookAt": [
-       5.786,
-       4.4,
-       13.951
+       3.0,
+       4.3,
+       14.3
       ],
       "W": 2400,
       "H": 1350
@@ -9462,16 +9462,16 @@
       "file": "renders/units/1.C/atlantic/1.C-living.jpg",
       "thumb": "renders/units/1.C/atlantic/thumbs/1.C-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       10.143,
+       10.1,
        4.45,
-       6.733
+       8.6
       ],
       "lookAt": [
-       12.838,
+       12.8,
        4.45,
-       12.623
+       14.0
       ],
       "W": 2400,
       "H": 1350,
@@ -9821,16 +9821,16 @@
       "file": "renders/units/1.C/lisboa/1.C-bathroom.jpg",
       "thumb": "renders/units/1.C/lisboa/thumbs/1.C-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       8.147,
-       4.45,
-       8.484
+       7.72,
+       4.55,
+       8.98
       ],
       "lookAt": [
-       8.692,
-       4.45,
-       7.964
+       9.1,
+       3.75,
+       7.6
       ],
       "W": 2400,
       "H": 1350
@@ -9846,16 +9846,16 @@
       "file": "renders/units/1.C/lisboa/1.C-bedroom.jpg",
       "thumb": "renders/units/1.C/lisboa/thumbs/1.C-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       3.219,
+       5.75,
        4.4,
-       11.598
+       11.65
       ],
       "lookAt": [
-       5.786,
-       4.4,
-       13.951
+       3.0,
+       4.3,
+       14.3
       ],
       "W": 2400,
       "H": 1350
@@ -9871,16 +9871,16 @@
       "file": "renders/units/1.C/lisboa/1.C-living.jpg",
       "thumb": "renders/units/1.C/lisboa/thumbs/1.C-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       10.143,
+       10.1,
        4.45,
-       6.733
+       8.6
       ],
       "lookAt": [
-       12.838,
+       12.8,
        4.45,
-       12.623
+       14.0
       ],
       "W": 2400,
       "H": 1350,
@@ -10230,16 +10230,16 @@
       "file": "renders/units/1.C/natura/1.C-bathroom.jpg",
       "thumb": "renders/units/1.C/natura/thumbs/1.C-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       8.147,
-       4.45,
-       8.484
+       7.72,
+       4.55,
+       8.98
       ],
       "lookAt": [
-       8.692,
-       4.45,
-       7.964
+       9.1,
+       3.75,
+       7.6
       ],
       "W": 2400,
       "H": 1350
@@ -10255,16 +10255,16 @@
       "file": "renders/units/1.C/natura/1.C-bedroom.jpg",
       "thumb": "renders/units/1.C/natura/thumbs/1.C-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       3.219,
+       5.75,
        4.4,
-       11.598
+       11.65
       ],
       "lookAt": [
-       5.786,
-       4.4,
-       13.951
+       3.0,
+       4.3,
+       14.3
       ],
       "W": 2400,
       "H": 1350
@@ -10280,16 +10280,16 @@
       "file": "renders/units/1.C/natura/1.C-living.jpg",
       "thumb": "renders/units/1.C/natura/thumbs/1.C-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       10.143,
+       10.1,
        4.45,
-       6.733
+       8.6
       ],
       "lookAt": [
-       12.838,
+       12.8,
        4.45,
-       12.623
+       14.0
       ],
       "W": 2400,
       "H": 1350,
@@ -10639,16 +10639,16 @@
       "file": "renders/units/1.C/noir/1.C-bathroom.jpg",
       "thumb": "renders/units/1.C/noir/thumbs/1.C-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       8.147,
-       4.45,
-       8.484
+       7.72,
+       4.55,
+       8.98
       ],
       "lookAt": [
-       8.692,
-       4.45,
-       7.964
+       9.1,
+       3.75,
+       7.6
       ],
       "W": 2400,
       "H": 1350
@@ -10664,16 +10664,16 @@
       "file": "renders/units/1.C/noir/1.C-bedroom.jpg",
       "thumb": "renders/units/1.C/noir/thumbs/1.C-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       3.219,
+       5.75,
        4.4,
-       11.598
+       11.65
       ],
       "lookAt": [
-       5.786,
-       4.4,
-       13.951
+       3.0,
+       4.3,
+       14.3
       ],
       "W": 2400,
       "H": 1350
@@ -10689,16 +10689,16 @@
       "file": "renders/units/1.C/noir/1.C-living.jpg",
       "thumb": "renders/units/1.C/noir/thumbs/1.C-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       10.143,
+       10.1,
        4.45,
-       6.733
+       8.6
       ],
       "lookAt": [
-       12.838,
+       12.8,
        4.45,
-       12.623
+       14.0
       ],
       "W": 2400,
       "H": 1350,
@@ -11048,16 +11048,16 @@
       "file": "renders/units/1.C/riviera/1.C-bathroom.jpg",
       "thumb": "renders/units/1.C/riviera/thumbs/1.C-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       8.147,
-       4.45,
-       8.484
+       7.72,
+       4.55,
+       8.98
       ],
       "lookAt": [
-       8.692,
-       4.45,
-       7.964
+       9.1,
+       3.75,
+       7.6
       ],
       "W": 2400,
       "H": 1350
@@ -11073,16 +11073,16 @@
       "file": "renders/units/1.C/riviera/1.C-bedroom.jpg",
       "thumb": "renders/units/1.C/riviera/thumbs/1.C-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       3.219,
+       5.75,
        4.4,
-       11.598
+       11.65
       ],
       "lookAt": [
-       5.786,
-       4.4,
-       13.951
+       3.0,
+       4.3,
+       14.3
       ],
       "W": 2400,
       "H": 1350
@@ -11098,16 +11098,16 @@
       "file": "renders/units/1.C/riviera/1.C-living.jpg",
       "thumb": "renders/units/1.C/riviera/thumbs/1.C-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       10.143,
+       10.1,
        4.45,
-       6.733
+       8.6
       ],
       "lookAt": [
-       12.838,
+       12.8,
        4.45,
-       12.623
+       14.0
       ],
       "W": 2400,
       "H": 1350,
@@ -11457,16 +11457,16 @@
       "file": "renders/units/1.C/urban/1.C-bathroom.jpg",
       "thumb": "renders/units/1.C/urban/thumbs/1.C-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       8.147,
-       4.45,
-       8.484
+       7.72,
+       4.55,
+       8.98
       ],
       "lookAt": [
-       8.692,
-       4.45,
-       7.964
+       9.1,
+       3.75,
+       7.6
       ],
       "W": 2400,
       "H": 1350
@@ -11482,16 +11482,16 @@
       "file": "renders/units/1.C/urban/1.C-bedroom.jpg",
       "thumb": "renders/units/1.C/urban/thumbs/1.C-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       3.219,
+       5.75,
        4.4,
-       11.598
+       11.65
       ],
       "lookAt": [
-       5.786,
-       4.4,
-       13.951
+       3.0,
+       4.3,
+       14.3
       ],
       "W": 2400,
       "H": 1350
@@ -11507,16 +11507,16 @@
       "file": "renders/units/1.C/urban/1.C-living.jpg",
       "thumb": "renders/units/1.C/urban/thumbs/1.C-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       10.143,
+       10.1,
        4.45,
-       6.733
+       8.6
       ],
       "lookAt": [
-       12.838,
+       12.8,
        4.45,
-       12.623
+       14.0
       ],
       "W": 2400,
       "H": 1350,
@@ -11797,25 +11797,25 @@
     "stills": [
      {
       "id": "2.A-bathroom",
-      "roomId": "2.A-ensuite",
+      "roomId": "2.A-wc",
       "name": {
-       "en": "En-suite bathroom",
-       "pt": "I.S. suite",
-       "he": "חדר רחצה צמוד"
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
       },
       "file": "renders/units/2.A/atlantic/2.A-bathroom.jpg",
       "thumb": "renders/units/2.A/atlantic/thumbs/2.A-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       1.749,
-       7.45,
-       5.772
+       4.25,
+       7.6,
+       5.6
       ],
       "lookAt": [
-       0.662,
-       7.45,
-       6.641
+       4.0,
+       6.9,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -11831,16 +11831,16 @@
       "file": "renders/units/2.A/atlantic/2.A-bedroom.jpg",
       "thumb": "renders/units/2.A/atlantic/thumbs/2.A-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       0.794,
-       7.4,
-       4.097
+       1.38,
+       7.45,
+       5.2
       ],
       "lookAt": [
-       2.056,
-       7.4,
-       1.663
+       2.4,
+       7.15,
+       0.4
       ],
       "W": 2400,
       "H": 1350
@@ -11856,16 +11856,16 @@
       "file": "renders/units/2.A/atlantic/2.A-living.jpg",
       "thumb": "renders/units/2.A/atlantic/thumbs/2.A-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       3.668,
+       3.35,
        7.45,
-       4.132
+       4.95
       ],
       "lookAt": [
-       5.13,
+       5.6,
        7.45,
-       1.635
+       0.6
       ],
       "W": 2400,
       "H": 1350,
@@ -12144,25 +12144,25 @@
     "stills": [
      {
       "id": "2.A-bathroom",
-      "roomId": "2.A-ensuite",
+      "roomId": "2.A-wc",
       "name": {
-       "en": "En-suite bathroom",
-       "pt": "I.S. suite",
-       "he": "חדר רחצה צמוד"
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
       },
       "file": "renders/units/2.A/lisboa/2.A-bathroom.jpg",
       "thumb": "renders/units/2.A/lisboa/thumbs/2.A-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       1.749,
-       7.45,
-       5.772
+       4.25,
+       7.6,
+       5.6
       ],
       "lookAt": [
-       0.662,
-       7.45,
-       6.641
+       4.0,
+       6.9,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -12178,16 +12178,16 @@
       "file": "renders/units/2.A/lisboa/2.A-bedroom.jpg",
       "thumb": "renders/units/2.A/lisboa/thumbs/2.A-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       0.794,
-       7.4,
-       4.097
+       1.38,
+       7.45,
+       5.2
       ],
       "lookAt": [
-       2.056,
-       7.4,
-       1.663
+       2.4,
+       7.15,
+       0.4
       ],
       "W": 2400,
       "H": 1350
@@ -12203,16 +12203,16 @@
       "file": "renders/units/2.A/lisboa/2.A-living.jpg",
       "thumb": "renders/units/2.A/lisboa/thumbs/2.A-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       3.668,
+       3.35,
        7.45,
-       4.132
+       4.95
       ],
       "lookAt": [
-       5.13,
+       5.6,
        7.45,
-       1.635
+       0.6
       ],
       "W": 2400,
       "H": 1350,
@@ -12491,25 +12491,25 @@
     "stills": [
      {
       "id": "2.A-bathroom",
-      "roomId": "2.A-ensuite",
+      "roomId": "2.A-wc",
       "name": {
-       "en": "En-suite bathroom",
-       "pt": "I.S. suite",
-       "he": "חדר רחצה צמוד"
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
       },
       "file": "renders/units/2.A/natura/2.A-bathroom.jpg",
       "thumb": "renders/units/2.A/natura/thumbs/2.A-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       1.749,
-       7.45,
-       5.772
+       4.25,
+       7.6,
+       5.6
       ],
       "lookAt": [
-       0.662,
-       7.45,
-       6.641
+       4.0,
+       6.9,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -12525,16 +12525,16 @@
       "file": "renders/units/2.A/natura/2.A-bedroom.jpg",
       "thumb": "renders/units/2.A/natura/thumbs/2.A-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       0.794,
-       7.4,
-       4.097
+       1.38,
+       7.45,
+       5.2
       ],
       "lookAt": [
-       2.056,
-       7.4,
-       1.663
+       2.4,
+       7.15,
+       0.4
       ],
       "W": 2400,
       "H": 1350
@@ -12550,16 +12550,16 @@
       "file": "renders/units/2.A/natura/2.A-living.jpg",
       "thumb": "renders/units/2.A/natura/thumbs/2.A-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       3.668,
+       3.35,
        7.45,
-       4.132
+       4.95
       ],
       "lookAt": [
-       5.13,
+       5.6,
        7.45,
-       1.635
+       0.6
       ],
       "W": 2400,
       "H": 1350,
@@ -12838,25 +12838,25 @@
     "stills": [
      {
       "id": "2.A-bathroom",
-      "roomId": "2.A-ensuite",
+      "roomId": "2.A-wc",
       "name": {
-       "en": "En-suite bathroom",
-       "pt": "I.S. suite",
-       "he": "חדר רחצה צמוד"
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
       },
       "file": "renders/units/2.A/noir/2.A-bathroom.jpg",
       "thumb": "renders/units/2.A/noir/thumbs/2.A-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       1.749,
-       7.45,
-       5.772
+       4.25,
+       7.6,
+       5.6
       ],
       "lookAt": [
-       0.662,
-       7.45,
-       6.641
+       4.0,
+       6.9,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -12872,16 +12872,16 @@
       "file": "renders/units/2.A/noir/2.A-bedroom.jpg",
       "thumb": "renders/units/2.A/noir/thumbs/2.A-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       0.794,
-       7.4,
-       4.097
+       1.38,
+       7.45,
+       5.2
       ],
       "lookAt": [
-       2.056,
-       7.4,
-       1.663
+       2.4,
+       7.15,
+       0.4
       ],
       "W": 2400,
       "H": 1350
@@ -12897,16 +12897,16 @@
       "file": "renders/units/2.A/noir/2.A-living.jpg",
       "thumb": "renders/units/2.A/noir/thumbs/2.A-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       3.668,
+       3.35,
        7.45,
-       4.132
+       4.95
       ],
       "lookAt": [
-       5.13,
+       5.6,
        7.45,
-       1.635
+       0.6
       ],
       "W": 2400,
       "H": 1350,
@@ -13185,25 +13185,25 @@
     "stills": [
      {
       "id": "2.A-bathroom",
-      "roomId": "2.A-ensuite",
+      "roomId": "2.A-wc",
       "name": {
-       "en": "En-suite bathroom",
-       "pt": "I.S. suite",
-       "he": "חדר רחצה צמוד"
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
       },
       "file": "renders/units/2.A/riviera/2.A-bathroom.jpg",
       "thumb": "renders/units/2.A/riviera/thumbs/2.A-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       1.749,
-       7.45,
-       5.772
+       4.25,
+       7.6,
+       5.6
       ],
       "lookAt": [
-       0.662,
-       7.45,
-       6.641
+       4.0,
+       6.9,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -13219,16 +13219,16 @@
       "file": "renders/units/2.A/riviera/2.A-bedroom.jpg",
       "thumb": "renders/units/2.A/riviera/thumbs/2.A-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       0.794,
-       7.4,
-       4.097
+       1.38,
+       7.45,
+       5.2
       ],
       "lookAt": [
-       2.056,
-       7.4,
-       1.663
+       2.4,
+       7.15,
+       0.4
       ],
       "W": 2400,
       "H": 1350
@@ -13244,16 +13244,16 @@
       "file": "renders/units/2.A/riviera/2.A-living.jpg",
       "thumb": "renders/units/2.A/riviera/thumbs/2.A-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       3.668,
+       3.35,
        7.45,
-       4.132
+       4.95
       ],
       "lookAt": [
-       5.13,
+       5.6,
        7.45,
-       1.635
+       0.6
       ],
       "W": 2400,
       "H": 1350,
@@ -13532,25 +13532,25 @@
     "stills": [
      {
       "id": "2.A-bathroom",
-      "roomId": "2.A-ensuite",
+      "roomId": "2.A-wc",
       "name": {
-       "en": "En-suite bathroom",
-       "pt": "I.S. suite",
-       "he": "חדר רחצה צמוד"
+       "en": "Guest bathroom",
+       "pt": "I.S. serviço",
+       "he": "חדר רחצה אורחים"
       },
       "file": "renders/units/2.A/urban/2.A-bathroom.jpg",
       "thumb": "renders/units/2.A/urban/thumbs/2.A-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       1.749,
-       7.45,
-       5.772
+       4.25,
+       7.6,
+       5.6
       ],
       "lookAt": [
-       0.662,
-       7.45,
-       6.641
+       4.0,
+       6.9,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -13566,16 +13566,16 @@
       "file": "renders/units/2.A/urban/2.A-bedroom.jpg",
       "thumb": "renders/units/2.A/urban/thumbs/2.A-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       0.794,
-       7.4,
-       4.097
+       1.38,
+       7.45,
+       5.2
       ],
       "lookAt": [
-       2.056,
-       7.4,
-       1.663
+       2.4,
+       7.15,
+       0.4
       ],
       "W": 2400,
       "H": 1350
@@ -13591,16 +13591,16 @@
       "file": "renders/units/2.A/urban/2.A-living.jpg",
       "thumb": "renders/units/2.A/urban/thumbs/2.A-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       3.668,
+       3.35,
        7.45,
-       4.132
+       4.95
       ],
       "lookAt": [
-       5.13,
+       5.6,
        7.45,
-       1.635
+       0.6
       ],
       "W": 2400,
       "H": 1350,
@@ -13860,16 +13860,16 @@
       "file": "renders/units/2.B/atlantic/2.B-bathroom.jpg",
       "thumb": "renders/units/2.B/atlantic/thumbs/2.B-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       7.993,
-       7.45,
-       5.832
+       8.55,
+       7.6,
+       5.6
       ],
       "lookAt": [
-       9.085,
-       7.45,
-       6.594
+       7.95,
+       6.85,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -13885,16 +13885,16 @@
       "file": "renders/units/2.B/atlantic/2.B-bedroom.jpg",
       "thumb": "renders/units/2.B/atlantic/thumbs/2.B-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       10.199,
-       7.4,
-       4.972
+       12.5,
+       7.45,
+       4.4
       ],
       "lookAt": [
-       13.175,
-       7.4,
-       1.739
+       10.4,
+       7.25,
+       0.3
       ],
       "W": 2400,
       "H": 1350
@@ -13910,16 +13910,16 @@
       "file": "renders/units/2.B/atlantic/2.B-living.jpg",
       "thumb": "renders/units/2.B/atlantic/thumbs/2.B-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       9.374,
+       8.3,
        7.45,
-       4.803
+       5.0
       ],
       "lookAt": [
-       6.847,
+       7.6,
        7.45,
-       1.099
+       0.5
       ],
       "W": 2400,
       "H": 1350,
@@ -14177,16 +14177,16 @@
       "file": "renders/units/2.B/lisboa/2.B-bathroom.jpg",
       "thumb": "renders/units/2.B/lisboa/thumbs/2.B-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       7.993,
-       7.45,
-       5.832
+       8.55,
+       7.6,
+       5.6
       ],
       "lookAt": [
-       9.085,
-       7.45,
-       6.594
+       7.95,
+       6.85,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -14202,16 +14202,16 @@
       "file": "renders/units/2.B/lisboa/2.B-bedroom.jpg",
       "thumb": "renders/units/2.B/lisboa/thumbs/2.B-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       10.199,
-       7.4,
-       4.972
+       12.5,
+       7.45,
+       4.4
       ],
       "lookAt": [
-       13.175,
-       7.4,
-       1.739
+       10.4,
+       7.25,
+       0.3
       ],
       "W": 2400,
       "H": 1350
@@ -14227,16 +14227,16 @@
       "file": "renders/units/2.B/lisboa/2.B-living.jpg",
       "thumb": "renders/units/2.B/lisboa/thumbs/2.B-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       9.374,
+       8.3,
        7.45,
-       4.803
+       5.0
       ],
       "lookAt": [
-       6.847,
+       7.6,
        7.45,
-       1.099
+       0.5
       ],
       "W": 2400,
       "H": 1350,
@@ -14494,16 +14494,16 @@
       "file": "renders/units/2.B/natura/2.B-bathroom.jpg",
       "thumb": "renders/units/2.B/natura/thumbs/2.B-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       7.993,
-       7.45,
-       5.832
+       8.55,
+       7.6,
+       5.6
       ],
       "lookAt": [
-       9.085,
-       7.45,
-       6.594
+       7.95,
+       6.85,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -14519,16 +14519,16 @@
       "file": "renders/units/2.B/natura/2.B-bedroom.jpg",
       "thumb": "renders/units/2.B/natura/thumbs/2.B-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       10.199,
-       7.4,
-       4.972
+       12.5,
+       7.45,
+       4.4
       ],
       "lookAt": [
-       13.175,
-       7.4,
-       1.739
+       10.4,
+       7.25,
+       0.3
       ],
       "W": 2400,
       "H": 1350
@@ -14544,16 +14544,16 @@
       "file": "renders/units/2.B/natura/2.B-living.jpg",
       "thumb": "renders/units/2.B/natura/thumbs/2.B-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       9.374,
+       8.3,
        7.45,
-       4.803
+       5.0
       ],
       "lookAt": [
-       6.847,
+       7.6,
        7.45,
-       1.099
+       0.5
       ],
       "W": 2400,
       "H": 1350,
@@ -14811,16 +14811,16 @@
       "file": "renders/units/2.B/noir/2.B-bathroom.jpg",
       "thumb": "renders/units/2.B/noir/thumbs/2.B-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       7.993,
-       7.45,
-       5.832
+       8.55,
+       7.6,
+       5.6
       ],
       "lookAt": [
-       9.085,
-       7.45,
-       6.594
+       7.95,
+       6.85,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -14836,16 +14836,16 @@
       "file": "renders/units/2.B/noir/2.B-bedroom.jpg",
       "thumb": "renders/units/2.B/noir/thumbs/2.B-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       10.199,
-       7.4,
-       4.972
+       12.5,
+       7.45,
+       4.4
       ],
       "lookAt": [
-       13.175,
-       7.4,
-       1.739
+       10.4,
+       7.25,
+       0.3
       ],
       "W": 2400,
       "H": 1350
@@ -14861,16 +14861,16 @@
       "file": "renders/units/2.B/noir/2.B-living.jpg",
       "thumb": "renders/units/2.B/noir/thumbs/2.B-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       9.374,
+       8.3,
        7.45,
-       4.803
+       5.0
       ],
       "lookAt": [
-       6.847,
+       7.6,
        7.45,
-       1.099
+       0.5
       ],
       "W": 2400,
       "H": 1350,
@@ -15128,16 +15128,16 @@
       "file": "renders/units/2.B/riviera/2.B-bathroom.jpg",
       "thumb": "renders/units/2.B/riviera/thumbs/2.B-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       7.993,
-       7.45,
-       5.832
+       8.55,
+       7.6,
+       5.6
       ],
       "lookAt": [
-       9.085,
-       7.45,
-       6.594
+       7.95,
+       6.85,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -15153,16 +15153,16 @@
       "file": "renders/units/2.B/riviera/2.B-bedroom.jpg",
       "thumb": "renders/units/2.B/riviera/thumbs/2.B-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       10.199,
-       7.4,
-       4.972
+       12.5,
+       7.45,
+       4.4
       ],
       "lookAt": [
-       13.175,
-       7.4,
-       1.739
+       10.4,
+       7.25,
+       0.3
       ],
       "W": 2400,
       "H": 1350
@@ -15178,16 +15178,16 @@
       "file": "renders/units/2.B/riviera/2.B-living.jpg",
       "thumb": "renders/units/2.B/riviera/thumbs/2.B-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       9.374,
+       8.3,
        7.45,
-       4.803
+       5.0
       ],
       "lookAt": [
-       6.847,
+       7.6,
        7.45,
-       1.099
+       0.5
       ],
       "W": 2400,
       "H": 1350,
@@ -15445,16 +15445,16 @@
       "file": "renders/units/2.B/urban/2.B-bathroom.jpg",
       "thumb": "renders/units/2.B/urban/thumbs/2.B-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       7.993,
-       7.45,
-       5.832
+       8.55,
+       7.6,
+       5.6
       ],
       "lookAt": [
-       9.085,
-       7.45,
-       6.594
+       7.95,
+       6.85,
+       7.0
       ],
       "W": 2400,
       "H": 1350
@@ -15470,16 +15470,16 @@
       "file": "renders/units/2.B/urban/2.B-bedroom.jpg",
       "thumb": "renders/units/2.B/urban/thumbs/2.B-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       10.199,
-       7.4,
-       4.972
+       12.5,
+       7.45,
+       4.4
       ],
       "lookAt": [
-       13.175,
-       7.4,
-       1.739
+       10.4,
+       7.25,
+       0.3
       ],
       "W": 2400,
       "H": 1350
@@ -15495,16 +15495,16 @@
       "file": "renders/units/2.B/urban/2.B-living.jpg",
       "thumb": "renders/units/2.B/urban/thumbs/2.B-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       9.374,
+       8.3,
        7.45,
-       4.803
+       5.0
       ],
       "lookAt": [
-       6.847,
+       7.6,
        7.45,
-       1.099
+       0.5
       ],
       "W": 2400,
       "H": 1350,
@@ -15890,16 +15890,16 @@
       "file": "renders/units/2.C/atlantic/2.C-bathroom.jpg",
       "thumb": "renders/units/2.C/atlantic/thumbs/2.C-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       8.147,
-       7.45,
-       8.484
+       7.72,
+       7.55,
+       8.98
       ],
       "lookAt": [
-       8.692,
-       7.45,
-       7.964
+       9.1,
+       6.75,
+       7.6
       ],
       "W": 2400,
       "H": 1350
@@ -15915,16 +15915,16 @@
       "file": "renders/units/2.C/atlantic/2.C-bedroom.jpg",
       "thumb": "renders/units/2.C/atlantic/thumbs/2.C-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       3.219,
+       5.75,
        7.4,
-       11.598
+       11.65
       ],
       "lookAt": [
-       5.786,
-       7.4,
-       13.951
+       3.0,
+       7.3,
+       14.3
       ],
       "W": 2400,
       "H": 1350
@@ -15940,16 +15940,16 @@
       "file": "renders/units/2.C/atlantic/2.C-living.jpg",
       "thumb": "renders/units/2.C/atlantic/thumbs/2.C-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       13.075,
+       10.1,
        7.45,
-       6.869
+       8.6
       ],
       "lookAt": [
-       10.492,
+       12.8,
        7.45,
-       12.513
+       14.0
       ],
       "W": 2400,
       "H": 1350,
@@ -16333,16 +16333,16 @@
       "file": "renders/units/2.C/lisboa/2.C-bathroom.jpg",
       "thumb": "renders/units/2.C/lisboa/thumbs/2.C-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       8.147,
-       7.45,
-       8.484
+       7.72,
+       7.55,
+       8.98
       ],
       "lookAt": [
-       8.692,
-       7.45,
-       7.964
+       9.1,
+       6.75,
+       7.6
       ],
       "W": 2400,
       "H": 1350
@@ -16358,16 +16358,16 @@
       "file": "renders/units/2.C/lisboa/2.C-bedroom.jpg",
       "thumb": "renders/units/2.C/lisboa/thumbs/2.C-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       3.219,
+       5.75,
        7.4,
-       11.598
+       11.65
       ],
       "lookAt": [
-       5.786,
-       7.4,
-       13.951
+       3.0,
+       7.3,
+       14.3
       ],
       "W": 2400,
       "H": 1350
@@ -16383,16 +16383,16 @@
       "file": "renders/units/2.C/lisboa/2.C-living.jpg",
       "thumb": "renders/units/2.C/lisboa/thumbs/2.C-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       13.075,
+       10.1,
        7.45,
-       6.869
+       8.6
       ],
       "lookAt": [
-       10.492,
+       12.8,
        7.45,
-       12.513
+       14.0
       ],
       "W": 2400,
       "H": 1350,
@@ -16776,16 +16776,16 @@
       "file": "renders/units/2.C/natura/2.C-bathroom.jpg",
       "thumb": "renders/units/2.C/natura/thumbs/2.C-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       8.147,
-       7.45,
-       8.484
+       7.72,
+       7.55,
+       8.98
       ],
       "lookAt": [
-       8.692,
-       7.45,
-       7.964
+       9.1,
+       6.75,
+       7.6
       ],
       "W": 2400,
       "H": 1350
@@ -16801,16 +16801,16 @@
       "file": "renders/units/2.C/natura/2.C-bedroom.jpg",
       "thumb": "renders/units/2.C/natura/thumbs/2.C-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       3.219,
+       5.75,
        7.4,
-       11.598
+       11.65
       ],
       "lookAt": [
-       5.786,
-       7.4,
-       13.951
+       3.0,
+       7.3,
+       14.3
       ],
       "W": 2400,
       "H": 1350
@@ -16826,16 +16826,16 @@
       "file": "renders/units/2.C/natura/2.C-living.jpg",
       "thumb": "renders/units/2.C/natura/thumbs/2.C-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       13.075,
+       10.1,
        7.45,
-       6.869
+       8.6
       ],
       "lookAt": [
-       10.492,
+       12.8,
        7.45,
-       12.513
+       14.0
       ],
       "W": 2400,
       "H": 1350,
@@ -17219,16 +17219,16 @@
       "file": "renders/units/2.C/noir/2.C-bathroom.jpg",
       "thumb": "renders/units/2.C/noir/thumbs/2.C-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       8.147,
-       7.45,
-       8.484
+       7.72,
+       7.55,
+       8.98
       ],
       "lookAt": [
-       8.692,
-       7.45,
-       7.964
+       9.1,
+       6.75,
+       7.6
       ],
       "W": 2400,
       "H": 1350
@@ -17244,16 +17244,16 @@
       "file": "renders/units/2.C/noir/2.C-bedroom.jpg",
       "thumb": "renders/units/2.C/noir/thumbs/2.C-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       3.219,
+       5.75,
        7.4,
-       11.598
+       11.65
       ],
       "lookAt": [
-       5.786,
-       7.4,
-       13.951
+       3.0,
+       7.3,
+       14.3
       ],
       "W": 2400,
       "H": 1350
@@ -17269,16 +17269,16 @@
       "file": "renders/units/2.C/noir/2.C-living.jpg",
       "thumb": "renders/units/2.C/noir/thumbs/2.C-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       13.075,
+       10.1,
        7.45,
-       6.869
+       8.6
       ],
       "lookAt": [
-       10.492,
+       12.8,
        7.45,
-       12.513
+       14.0
       ],
       "W": 2400,
       "H": 1350,
@@ -17662,16 +17662,16 @@
       "file": "renders/units/2.C/riviera/2.C-bathroom.jpg",
       "thumb": "renders/units/2.C/riviera/thumbs/2.C-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       8.147,
-       7.45,
-       8.484
+       7.72,
+       7.55,
+       8.98
       ],
       "lookAt": [
-       8.692,
-       7.45,
-       7.964
+       9.1,
+       6.75,
+       7.6
       ],
       "W": 2400,
       "H": 1350
@@ -17687,16 +17687,16 @@
       "file": "renders/units/2.C/riviera/2.C-bedroom.jpg",
       "thumb": "renders/units/2.C/riviera/thumbs/2.C-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       3.219,
+       5.75,
        7.4,
-       11.598
+       11.65
       ],
       "lookAt": [
-       5.786,
-       7.4,
-       13.951
+       3.0,
+       7.3,
+       14.3
       ],
       "W": 2400,
       "H": 1350
@@ -17712,16 +17712,16 @@
       "file": "renders/units/2.C/riviera/2.C-living.jpg",
       "thumb": "renders/units/2.C/riviera/thumbs/2.C-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       13.075,
+       10.1,
        7.45,
-       6.869
+       8.6
       ],
       "lookAt": [
-       10.492,
+       12.8,
        7.45,
-       12.513
+       14.0
       ],
       "W": 2400,
       "H": 1350,
@@ -18105,16 +18105,16 @@
       "file": "renders/units/2.C/urban/2.C-bathroom.jpg",
       "thumb": "renders/units/2.C/urban/thumbs/2.C-bathroom.jpg",
       "kind": "bathroom",
-      "lens": 18.0,
+      "lens": 14.0,
       "position": [
-       8.147,
-       7.45,
-       8.484
+       7.72,
+       7.55,
+       8.98
       ],
       "lookAt": [
-       8.692,
-       7.45,
-       7.964
+       9.1,
+       6.75,
+       7.6
       ],
       "W": 2400,
       "H": 1350
@@ -18130,16 +18130,16 @@
       "file": "renders/units/2.C/urban/2.C-bedroom.jpg",
       "thumb": "renders/units/2.C/urban/thumbs/2.C-bedroom.jpg",
       "kind": "bedroom",
-      "lens": 24.0,
+      "lens": 18.0,
       "position": [
-       3.219,
+       5.75,
        7.4,
-       11.598
+       11.65
       ],
       "lookAt": [
-       5.786,
-       7.4,
-       13.951
+       3.0,
+       7.3,
+       14.3
       ],
       "W": 2400,
       "H": 1350
@@ -18155,16 +18155,16 @@
       "file": "renders/units/2.C/urban/2.C-living.jpg",
       "thumb": "renders/units/2.C/urban/thumbs/2.C-living.jpg",
       "kind": "living",
-      "lens": 24.0,
+      "lens": 20.0,
       "position": [
-       13.075,
+       10.1,
        7.45,
-       6.869
+       8.6
       ],
       "lookAt": [
-       10.492,
+       12.8,
        7.45,
-       12.513
+       14.0
       ],
       "W": 2400,
       "H": 1350,
@@ -18261,17 +18261,25 @@
    "H": 1350
   },
   {
-   "id": "street-dusk",
+   "id": "street-day",
    "roomId": null,
-   "name": "Frontal street view at dusk (like assets/street-dusk.jpg)",
-   "file": "renders/exterior/street-dusk.jpg",
-   "thumb": "renders/exterior/thumbs/street-dusk.jpg",
-   "tod": "dusk",
+   "name": "Frontal street view",
+   "file": "renders/exterior/street-day.jpg",
+   "thumb": "renders/exterior/thumbs/street-day.jpg",
+   "tod": "day",
    "lens": 18.0,
    "W": 2400,
    "H": 1350,
-   "variantOf": "street-day",
-   "variantTod": "dusk"
+   "variants": {
+    "dusk": {
+     "file": "renders/exterior/street-dusk.jpg",
+     "thumb": "renders/exterior/thumbs/street-dusk.jpg"
+    },
+    "night": {
+     "file": "renders/exterior/street-night.jpg",
+     "thumb": "renders/exterior/thumbs/street-night.jpg"
+    }
+   }
   },
   {
    "id": "street-eye",
@@ -18284,6 +18292,10 @@
    "W": 1350,
    "H": 2400,
    "variants": {
+    "dusk": {
+     "file": "renders/exterior/street-eye-dusk.jpg",
+     "thumb": "renders/exterior/thumbs/street-eye-dusk.jpg"
+    },
     "night": {
      "file": "renders/exterior/street-eye-night.jpg",
      "thumb": "renders/exterior/thumbs/street-eye-night.jpg"
@@ -18300,19 +18312,6 @@
    "lens": 24.0,
    "W": 2400,
    "H": 1350
-  },
-  {
-   "id": "street-night",
-   "roomId": null,
-   "name": "Frontal street view at night",
-   "file": "renders/exterior/street-night.jpg",
-   "thumb": "renders/exterior/thumbs/street-night.jpg",
-   "tod": "night",
-   "lens": 18.0,
-   "W": 2400,
-   "H": 1350,
-   "variantOf": "street-day",
-   "variantTod": "night"
   }
  ],
  "common": [
