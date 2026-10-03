@@ -1,0 +1,22 @@
+[    0.0s] job u1.C-lisboa-z0: scope=unit unit=1.C pkg=lisboa quality=standard shots=3
+[    0.8s] import building: 491 objects in 0.8s
+[    1.2s] import context: 127 objects in 0.3s
+[    1.7s] import unit-1.C-lisboa: 108 objects in 0.5s
+[    2.1s] box UVs on 660 meshes
+[    3.8s] [foliage] leafified 24 objects, crown area 1111 m2 -> ~1444805 leaves
+[    3.9s] materials: built=255 textured=74 by_key={'aluminium-frame': 2, 'appliance-glass-black': 3, 'appliance-steel': 1, 'art-canvas': 5, 'asphalt': 1, 'bark': 2, 'bath-floor': 1, 'bath-wall': 1, 'book': 7, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 3, 'candle-wax': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-plate': 1, 'car-rim': 1, 'car-taillight': 1, 'car-trim': 1, 'car-tyre': 1, 'ceiling': 1, 'ceiling-white': 2, 'ceramic-plate': 4, 'concrete': 4, 'curtain-fabric': 1, 'cutlery-steel': 1, 'deck-teak': 3, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'fabric-boucle': 6, 'fabric-linen': 8, 'fabric-sofa': 1, 'floor-main': 2, 'foliage': 19, 'foliage-inner': 1, 'fruit': 3, 'garage-door': 1, 'glass-drinking': 2, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 2, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 2, 'leather': 2, 'led-strip-emissive': 13, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'marble-table': 1, 'metal-furniture': 3, 'mirror': 2, 'paint-green': 1, 'paint-hazard': 1, 'paint-red': 1, 'paint-white': 1, 'paint-yellow': 1, 'paving-calcada': 2, 'plant-leaf': 3, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'plastic-red': 1, 'plastic-white': 1, 'pot-terracotta': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 1, 'render-white': 1, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 1, 'sanitary-ceramic': 3, 'shower-glass': 1, 'shower-wall': 1, 'signage': 39, 'skirting': 2, 'soil': 3, 'steel-dark': 5, 'steel-galvanised': 1, 'stone-coping': 2, 'tap-metal': 1, 'timber-soffit': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 7, 'zinc-standing-seam': 2}
+[    5.4s] [signs] lettering on 34 signs, 5 texture planes hidden
+[    5.4s] lights: imported=4 emissive->lights=100 portals=32 boost=2.5 total_lights=136 polys=425817
+[    6.0s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[    6.2s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[    6.2s] scene ready in 6.2s  (world kloofendal_43d_clear_puresky)
+[   22.3s] [expo] interior: in/out/sky=19801/2589/10 key=0.3 Lavg=0.007791 p97=0.3365 ev_hi=2.95 -> ev=2.95 windowND=0.09
+[   22.3s] [wb] gains (0.685, 1.0, 1.383)
+[ 1812.7s] SHOT 1.C-living still 2400x1350 spp<=96 ev=3.30 in 1806.5s -> renders/units/1.C/lisboa/1.C-living.jpg
+[ 1829.8s] [expo] interior: in/out/sky=15411/6989/0 key=0.3 Lavg=0.01705 p97=0.3911 ev_hi=2.73 -> ev=2.73 windowND=0.10
+[ 1829.8s] [wb] gains (0.707, 1.0, 1.438)
+[ 3633.1s] SHOT 1.C-bedroom still 2400x1350 spp<=96 ev=3.08 in 1820.4s -> renders/units/1.C/lisboa/1.C-bedroom.jpg
+[ 3649.4s] [expo] interior: in/out/sky=22400/0/0 key=0.3 Lavg=0.02196 p97=0.185 ev_hi=3.81 -> ev=3.77 windowND=1.00
+[ 3649.4s] [wb] gains (0.625, 1.0, 1.6)
+[ 5510.0s] SHOT 1.C-bathroom still 2400x1350 spp<=96 ev=4.12 in 1876.9s -> renders/units/1.C/lisboa/1.C-bathroom.jpg
+[ 5510.0s] DONE 3 images in 5510.0s
