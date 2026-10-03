@@ -18,7 +18,7 @@
    "W": 2400,
    "H": 1350,
    "spp": 192,
-   "ev": 4.669959481726227,
+   "ev": 4.989192490811015,
    "tod": "night",
    "position": [
     7.2,
@@ -33,13 +33,11 @@
    "roomId": null,
    "name": "Street entrance at night",
    "kind": null,
-   "variant_of": "entrance-day",
-   "variant_tod": "night",
    "lens": 28.0,
    "shift_y": 0.0482,
-   "seconds": 9026.7
+   "seconds": 9247.7
   }
  ],
- "seconds": 9038.8,
+ "seconds": 9264.8,
  "blender": "4.2.3 LTS"
 }
