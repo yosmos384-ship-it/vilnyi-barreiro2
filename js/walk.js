@@ -1,6 +1,6 @@
 // VILNYI · Barreiro 2 — WALK: first-person walkthrough, HUD, stairs and lift.
 // Depends only on data.js and the BUILDING contract API (doors[], lift{...}, floorPickers).
-import { FLOORS, CORE, BALCONIES, FOOTPRINT, UNITS, LOT, RAMP, STREET_Y, LEVELS } from './data.js';
+import { FLOORS, CORE, BALCONIES, FOOTPRINT, UNITS, LOT, RAMP, STREET_Y, LEVELS } from './data.js?v=202610031619';
 
 // ───────────────────────────── constants ─────────────────────────────
 const EYE = 1.62;
@@ -1585,7 +1585,9 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   const CONTROL_SEL = 'button,a,input,select,textarea,label,summary,[role=button],[role=slider],[role=dialog],dialog,[contenteditable],.vw-map,[data-walk-ui],[data-walk-ignore]';
   function isControl(t) {
     if (t && t.nodeType === 3) t = t.parentElement;
-    return !!(t && t.closest && t.closest(CONTROL_SEL));
+    const c = t && t.closest ? t.closest(CONTROL_SEL) : null;
+    // a matching ancestor that CONTAINS the canvas is the host's wrapper (e.g. a full-screen role=dialog around the 3D view), not a control
+    return !!(c && !(dom && c !== dom && c.contains(dom)));
   }
   const _rect = { l: 0, t: 0, r: 0, b: 0, at: -1 };
   function inView(x, y) {            // inside the canvas rectangle (cached ~4×/s)
@@ -1613,7 +1615,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   }
   function renderDebug() {
     if (!dbg.on || !dbg.el) return;
-    let s = 'walk debug · fps ' + dbg.fps + ' · upd ' + perf.avg.toFixed(2) + ' ms\n' +
+    let s = 'walk debug' + (window.__VB2_BUILD ? ' · build ' + window.__VB2_BUILD : '') + ' · fps ' + dbg.fps + ' · upd ' + perf.avg.toFixed(2) + ' ms\n' +
       'PE ' + (typeof window.PointerEvent === 'function' ? 1 : 0) + ' TE ' + ('ontouchstart' in window ? 1 : 0) + ' mtp ' + (navigator.maxTouchPoints || 0) + ' · src ' + (dbg.src || '-') + ' · ' + (window.top !== window ? 'iframe' : 'top') + '\n' +
       'gesture #' + dbg.gestN + ': ' + (dbg.gest || '-') + '\n' +
       'pos ' + pos.x.toFixed(1) + ',' + pos.z.toFixed(1) + ' y ' + feetY.toFixed(2) + ' yaw ' + (yaw * 57.3).toFixed(0) + '°\n';
@@ -2038,10 +2040,10 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     }
     if (ctxState) return;
     ctxState = 1;
-    if (!envGround) import('./environment.js').then(m => { if (!envGround) envGround = m.groundY || m.heightAt || null; }).catch(() => {});
+    if (!envGround) import('./environment.js?v=202610031619').then(m => { if (!envGround) envGround = m.groundY || m.heightAt || null; }).catch(() => {});
     try {
       if (typeof fetch !== 'function') return;
-      fetch(new URL('../data/osm.json', import.meta.url)).then(r => (r.ok ? r.json() : null)).then(j => { if (j) addContext(j); ctxState = 2; }).catch(() => { ctxState = 2; });
+      fetch(new URL('../data/osm.json?v=202610031619', import.meta.url)).then(r => (r.ok ? r.json() : null)).then(j => { if (j) addContext(j); ctxState = 2; }).catch(() => { ctxState = 2; });
     } catch (e) { ctxState = 2; }
   }
 

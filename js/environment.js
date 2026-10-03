@@ -14,7 +14,7 @@
 // The river is a single plane drawn first without depth write, so land/water never z-fight at distance.
 // Data: © OpenStreetMap contributors (ODbL) · EU-DEM (Copernicus), loaded at runtime from ../data/osm.json.
 
-import { PROJECT, LOT, STREET, STREET_Y, LANDMARKS, SITE_FRAME, geoToLocal } from './data.js';
+import { PROJECT, LOT, STREET, STREET_Y, LANDMARKS, SITE_FRAME, geoToLocal } from './data.js?v=202610031619';
 
 let T = null; // THREE namespace (set in buildEnvironment)
 
@@ -945,7 +945,7 @@ function makeMaterials(C, tex, fac) {
 const assetURL = (rel) => new URL('../' + rel, import.meta.url).href;
 let _manifest = null;
 function loadManifest() {
-  if (!_manifest) _manifest = fetch(assetURL('assets/manifest.json')).then(r => (r.ok ? r.json() : null)).catch(() => null);
+  if (!_manifest) _manifest = fetch(assetURL('assets/manifest.json?v=202610031619')).then(r => (r.ok ? r.json() : null)).catch(() => null);
   return _manifest;
 }
 // PBR set → material. uvM = metres per UV unit of the geometry that uses the material. Procedural maps stay until each real map arrives.
@@ -2354,7 +2354,7 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
     await null;
     let osm = null;
     try {
-      const url = new URL('../data/osm.json', import.meta.url);
+      const url = new URL('../data/osm.json?v=202610031619', import.meta.url);
       const res = await fetch(url);
       if (res.ok) osm = await res.json();
     } catch (e) { console.warn('[environment] osm.json unavailable, using the land mask only', e); }

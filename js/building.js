@@ -5,7 +5,7 @@ import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.j
 import {
   LEVELS, SLAB, STREET_Y, CORNICE_Y, MANSARD_PITCH, LOT, FOOTPRINT, CORE, FLOORS,
   PARKING, RAMP, BALCONIES, ROOF
-} from './data.js';
+} from './data.js?v=202610031619';
 
 const ORDER = ['basement', 'ground', 'first', 'second'];
 const LEVEL_Y = { basement: LEVELS.basement.y, ground: LEVELS.ground.y, first: LEVELS.first.y, second: LEVELS.second.y };
@@ -348,7 +348,7 @@ function loadPBR(THREE, M, renderer, onDone) {
   const loader = new THREE.TextureLoader();
   const cache = new Map();
   const img = (path) => { if (!cache.has(path)) cache.set(path, new Promise((res, rej) => loader.load(new URL(path, base).href, (t) => res(shrink(t)), undefined, rej))); return cache.get(path); };
-  fetch(new URL('assets/manifest.json', base)).then(r => r.ok ? r.json() : Promise.reject(new Error('manifest ' + r.status))).then((man) => {
+  fetch(new URL('assets/manifest.json?v=202610031619', base)).then(r => r.ok ? r.json() : Promise.reject(new Error('manifest ' + r.status))).then((man) => {
     const jobs = [];
     for (const k of Object.keys(PBR)) {
       const sp = PBR[k], mat = M[k]; if (!sp.key || !mat) continue;

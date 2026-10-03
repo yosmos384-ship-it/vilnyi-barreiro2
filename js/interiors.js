@@ -13,7 +13,7 @@
 // userData.emissiveTod = { day, dusk, night } (absolute emissiveIntensity per mood).
 // Every material is named with the CONTRACT3 vocabulary key ('<key>' or '<key>:<variant>').
 import * as THREE_NS from 'three';
-import { FLOORS, UNITS, STYLES, BALCONIES, LEVELS, FOOTPRINT, CORNICE_Y, MANSARD_PITCH, roomsOfUnit } from './data.js';
+import { FLOORS, UNITS, STYLES, BALCONIES, LEVELS, FOOTPRINT, CORNICE_Y, MANSARD_PITCH, roomsOfUnit } from './data.js?v=202610031619';
 import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 import { RoundedBoxGeometry } from 'three/addons/geometries/RoundedBoxGeometry.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
@@ -666,7 +666,7 @@ let MANIFEST = null, MANIFEST_P = null;
 function loadManifest() {
   if (MANIFEST_P) return MANIFEST_P;
   MANIFEST_P = (async () => {
-    try { const r = await fetch(assetURL('assets/manifest.json')); if (r.ok) MANIFEST = await r.json(); } catch (e) { MANIFEST = null; }
+    try { const r = await fetch(assetURL('assets/manifest.json?v=202610031619')); if (r.ok) MANIFEST = await r.json(); } catch (e) { MANIFEST = null; }
     return MANIFEST;
   })();
   return MANIFEST_P;

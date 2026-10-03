@@ -19,7 +19,7 @@
 // Phase 2: postfx.js renders the raster views (exterior/interior/aerial presets), pathtrace.js is imported lazily
 // on the first setPhotoreal(true), google3d.js only when PROJECT.googleMapsKey is set, interiors.prewarm runs at idle.
 
-import { UNITS, BALCONIES, LEVELS, PROJECT, PARKING, RAMP, roomsOfUnit, unitById } from './data.js';
+import { UNITS, BALCONIES, LEVELS, PROJECT, PARKING, RAMP, roomsOfUnit, unitById } from './data.js?v=202610031619';
 
 const EXTERIOR_TARGET = [7, 4.2, 7.2];
 const EXTERIOR_CAMERA = [-1.5, 4.2, 25.2];
@@ -54,7 +54,7 @@ export function createViewer(container, options = {}) {
   const touch = !!window.matchMedia?.('(pointer: coarse)').matches || (navigator.maxTouchPoints || 0) > 0;
   const phone = (touch && small) || (navigator.deviceMemory || 8) <= 4;
   const quality = options.quality || (phone ? 'low' : 'high');
-  const PR_CAP = phone ? 1.25 : quality === 'high' ? 2 : 1.5;
+  const PR_CAP = options.prCap > 0 ? options.prCap : phone ? 1.25 : quality === 'high' ? 2 : 1.5;   // prCap: local test knob
   const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
   let floorLabel = options.floorLabel || (f => f);
   let lang = options.lang || 'en';
@@ -160,7 +160,7 @@ export function createViewer(container, options = {}) {
     await tick();
 
     progress(0.3, 'environment');
-    env = await loadModule('environment', './environment.js', m => m.buildEnvironment(THREE, { scene, renderer, quality }));
+    env = await loadModule('environment', './environment.js?v=202610031619', m => m.buildEnvironment(THREE, { scene, renderer, quality }));
     if (!env) addFallbackEnvironment();
     else {
       try { env.setTimeOfDay(tod); } catch (e) { console.warn(e); }
@@ -172,24 +172,24 @@ export function createViewer(container, options = {}) {
     renderer.shadowMap.autoUpdate = false;
     invalidateShadows();
     // post-processing never loads on phones (and is bypassed in walk mode unless the tier is 'high')
-    if (!phone) postfx = await loadModule('postfx', './postfx.js', m => m.createPostFX(THREE, { renderer, scene, camera, quality, mode: 'exterior' }));
+    if (!phone) postfx = await loadModule('postfx', './postfx.js?v=202610031619', m => m.createPostFX(THREE, { renderer, scene, camera, quality, mode: 'exterior' }));
     if (postfx) { try { postfx.setTimeOfDay?.(tod); } catch (e) { /* optional */ } }
     await tick();
 
     progress(0.5, 'building');
-    building = await loadModule('building', './building.js', m => m.buildBuilding(THREE, { scene, renderer }));
+    building = await loadModule('building', './building.js?v=202610031619', m => m.buildBuilding(THREE, { scene, renderer }));
     if (!building) throw Object.assign(new Error('The building model failed to load'), { code: 'building' });
     if (quality === 'low') { try { building.setQuality?.('low'); } catch (e) { /* optional */ } }
     await tick();
 
     progress(0.68, 'interiors');
-    interiors = await loadModule('interiors', './interiors.js', m => m.buildInteriors(THREE, { scene, building, renderer }));
+    interiors = await loadModule('interiors', './interiors.js?v=202610031619', m => m.buildInteriors(THREE, { scene, building, renderer }));
     if (quality === 'low') { try { interiors?.setQuality?.('low'); } catch (e) { /* optional */ } }
     try { interiors?.setTimeOfDay?.(interiorTod(tod)); } catch (e) { /* optional */ }
     await tick();
 
     progress(0.8, 'walk');
-    walker = await loadModule('walk', './walk.js', m => m.createWalker(THREE, { camera, dom: renderer.domElement, scene, building, overlay: hudEl }));
+    walker = await loadModule('walk', './walk.js?v=202610031619', m => m.createWalker(THREE, { camera, dom: renderer.domElement, scene, building, overlay: hudEl }));
     if (walker) {
       try { walker.disable(); } catch (e) { /* not enabled yet */ }
       try {
@@ -207,13 +207,13 @@ export function createViewer(container, options = {}) {
 
     progress(0.9, 'aerial');
     if (env) {
-      aerial = await loadModule('aerial', './aerial.js', m => m.createAerial(THREE, { camera, dom: renderer.domElement, scene, environment: env, labelsEl, lang, onEnterSite: () => { setMode('exterior'); } }));
+      aerial = await loadModule('aerial', './aerial.js?v=202610031619', m => m.createAerial(THREE, { camera, dom: renderer.domElement, scene, environment: env, labelsEl, lang, onEnterSite: () => { setMode('exterior'); } }));
       if (aerial) { try { aerial.disable(); } catch (e) { /* ignore */ } }
     }
     if (controls) controls.addEventListener('change', () => { if (ptOn) pt?.reset(); });
 
     bindPointer();
-    for (const ev of ['pointerdown', 'pointermove', 'pointerup', 'wheel', 'touchstart']) listen(container, ev, () => poke(), { passive: true, capture: true });
+    for (const ev of ['pointerdown', 'pointermove', 'pointerup', 'wheel', 'touchstart', 'touchmove', 'touchend', 'click']) listen(container, ev, () => poke(), { passive: true, capture: true });
     listen(window, 'keydown', () => { if (inView && container.offsetParent !== null) poke(); }, { passive: true });
     listen(document, 'visibilitychange', schedule);
     if ('IntersectionObserver' in window) {
@@ -259,7 +259,7 @@ export function createViewer(container, options = {}) {
   const PR_SCALE = [1, 0.8, 0.8, 0.65];
   function basePR() { return Math.min(window.devicePixelRatio || 1, PR_CAP); }
   function targetPR() {
-    let pr = Math.max(0.6, basePR() * PR_SCALE[gov.level]);
+    let pr = Math.max(Math.min(0.6, PR_CAP), basePR() * PR_SCALE[gov.level]);
     if (phone && gov.moving) pr = Math.min(pr, 1.0);       // phones: 1.0 while moving, back up when still for 400 ms
     return Math.round(pr * 100) / 100;
   }
@@ -377,7 +377,7 @@ export function createViewer(container, options = {}) {
       Promise.resolve(env.fullReady || env.ready).catch(() => null).then(async () => {
         if (disposed) return;
         try {
-          const m = await import('./google3d.js');
+          const m = await import('./google3d.js?v=202610031619');
           if (!m.GOOGLE3D_AVAILABLE?.(key)) return;
           g3d = await m.createGoogle3D(THREE, { renderer, scene, camera, apiKey: key });
           if (!g3d || disposed) { g3d = null; return; }
@@ -496,30 +496,35 @@ export function createViewer(container, options = {}) {
     //   once the double-tap window has passed.
     const DTAP_MS = 350, DTAP_PX = 30, NEAR_M = 12;
     let lastTap = null, tapTimer = 0;
-    listen(dom, 'pointerdown', ev => { down = { x: ev.clientX, y: ev.clientY, t: performance.now() }; lastIdle = performance.now(); controls.autoRotate = false; dolly = null; });
+    // all tap timing uses the EVENT time stamps (not handler time), so a busy main thread cannot split a double tap into two taps
+    const evT = ev => (ev && ev.timeStamp > 0 ? ev.timeStamp : performance.now());
+    let tapSeq = 0;
+    listen(dom, 'pointerdown', ev => { down = { x: ev.clientX, y: ev.clientY, t: evT(ev) }; lastIdle = performance.now(); controls.autoRotate = false; dolly = null; });
     listen(dom, 'pointerup', ev => {
       if (mode !== 'exterior' || !down) return;
       const moved = Math.hypot(ev.clientX - down.x, ev.clientY - down.y);
-      const quick = performance.now() - down.t < 500;
+      const now = evT(ev);
+      const quick = now - down.t < 500;
       down = null;
       if (moved > 7 || !quick) { lastTap = null; return; }
       const f = pick(ev);
       setHover(f, ev);
-      const now = performance.now();
       if (lastTap && now - lastTap.t < DTAP_MS && Math.hypot(ev.clientX - lastTap.x, ev.clientY - lastTap.y) < DTAP_PX) {
-        clearTimeout(tapTimer); lastTap = null;
+        clearTimeout(tapTimer); lastTap = null; tapSeq++;
         if (ev.cancelable) ev.preventDefault();
         forward(ev);
         return;
       }
       lastTap = { x: ev.clientX, y: ev.clientY, t: now };
       clearTimeout(tapTimer);
-      tapTimer = setTimeout(() => { lastTap = null; if (f && mode === 'exterior') emit('floor-select', { floorId: f }); }, DTAP_MS + 30);
+      const seq = ++tapSeq;
+      // single tap on a floor: act after the double-tap window, then give queued input one more turn (a second tap may be waiting)
+      tapTimer = setTimeout(() => { tapTimer = setTimeout(() => { if (seq !== tapSeq || down) return; lastTap = null; if (f && mode === 'exterior') emit('floor-select', { floorId: f }); }, 60); }, DTAP_MS + 30);
     });
     listen(dom, 'dblclick', ev => { ev.preventDefault(); });
     // iOS: a second touch must not zoom the page
     let lastTouchEnd = 0;
-    listen(dom, 'touchend', ev => { const n = performance.now(); if (n - lastTouchEnd < DTAP_MS + 50 && ev.cancelable) ev.preventDefault(); lastTouchEnd = n; }, { passive: false });
+    listen(dom, 'touchend', ev => { const n = evT(ev); if (n - lastTouchEnd < DTAP_MS + 50 && ev.cancelable) ev.preventDefault(); lastTouchEnd = n; }, { passive: false });
     const enterRay = new THREE.Raycaster();
     const ground = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0.85);
     function forward(ev) {
@@ -770,7 +775,7 @@ export function createViewer(container, options = {}) {
       emit('photoreal', { state: 'loading', phase: 'load', p: 0 });
       try {
         if (!pt) {
-          const m = await import('./pathtrace.js');
+          const m = await import('./pathtrace.js?v=202610031619');
           pt = await m.createPathTracer(THREE, {
             renderer, scene, camera,
             onProgress: o => {
@@ -1050,7 +1055,7 @@ export function createViewer(container, options = {}) {
     setPose,
     getPerf,
     setLevel: (l) => setLevel(l, 'manual'),
-    _modules: () => ({ building, interiors, walker, env, renderer }),   // tests only
+    _modules: () => ({ building, interiors, walker, env, renderer, camera, controls, aerial }),   // tests only
     takeLift,
     resize,
     setPaused: b => { paused = !!b; schedule(); },   // freeze the loop (tests, screenshots); the last frame stays

@@ -38,7 +38,7 @@
 //     mesh.rotation.y = yawOffset + SPHERE_YAW_BASE.
 export const SPHERE_YAW_BASE = -Math.PI / 2;
 
-import { STYLES, FLOORS, BALCONIES, unitById, floorById } from './data.js';
+import { STYLES, FLOORS, BALCONIES, unitById, floorById } from './data.js?v=202610031619';
 
 const EYE = 1.6;                // camera height above the floor at every pano (marker floor = pos.y − EYE)
 const R_SPHERE = 10;
@@ -331,7 +331,7 @@ const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t
 
 // ─────────────────────────────── manifest ───────────────────────────────
 const manifestCache = new Map(); // href -> { t, p }
-function defaultManifestUrl() { return new URL('../renders/manifest.json', import.meta.url); }
+function defaultManifestUrl() { return new URL('../renders/manifest.json?v=202610031619', import.meta.url); }
 function loadManifest(url, force) {
   let href = String(url || defaultManifestUrl());
   try { href = new URL(href, typeof location !== 'undefined' ? location.href : undefined).href; } catch (e) { /* keep */ }

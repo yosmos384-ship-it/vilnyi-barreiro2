@@ -4,7 +4,7 @@
 //   opts: { label(obj) => string, status(unitId) => 'available'|'reserved'|'sold',
 //           dim(unitId) => bool, selected: unitId|null, only: unitId|null (unit page: others muted),
 //           showRooms: true, showLabels: true, title: string, focus: unitId (adds data-focus / data-full view boxes) }
-import { FLOORS, BALCONIES, UNITS, PARKING, floorById, unitById } from './data.js';
+import { FLOORS, BALCONIES, UNITS, PARKING, floorById, unitById } from './data.js?v=202610031619';
 
 export const S = 50;           // user units per metre
 const PAD = 1.2;               // metres of margin

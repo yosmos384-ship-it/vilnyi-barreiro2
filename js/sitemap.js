@@ -4,7 +4,7 @@
 // Rendering: one SVG (merged paths per class, LOD by zoom) + an HTML overlay for markers/labels that keep screen size.
 // All DOM/CSS is prefixed `sm-`. Colours derive from the site's CSS variables (light + dark). No side effects on import.
 
-import { PROJECT, LANDMARKS, SITE_FRAME, geoToLocal, FOOTPRINT, LOT } from './data.js';
+import { PROJECT, LANDMARKS, SITE_FRAME, geoToLocal, FOOTPRINT, LOT } from './data.js?v=202610031619';
 
 const NS = 'http://www.w3.org/2000/svg';
 
@@ -344,7 +344,7 @@ function luClass(k) {
 async function loadLandmarks() {
   let list = null;
   try {
-    const m = await import('./aerial.js');
+    const m = await import('./aerial.js?v=202610031619');
     if (Array.isArray(m.LANDMARKS_VERIFIED)) {
       const ids = new Set(m.LANDMARKS_VERIFIED.map(l => l.id));
       const alias = { 'fórum-barreiro': 'forum-barreiro' };
@@ -457,7 +457,7 @@ export async function createSiteMap(container, { lang = 'en', onOpen3D } = {}) {
   let data = null, landmarks = [];
   try {
     const [res, lms] = await Promise.all([
-      fetch(new URL('../data/osm.json', import.meta.url)).then(r => { if (!r.ok) throw new Error('osm ' + r.status); return r.json(); }).catch(() => null),
+      fetch(new URL('../data/osm.json?v=202610031619', import.meta.url)).then(r => { if (!r.ok) throw new Error('osm ' + r.status); return r.json(); }).catch(() => null),
       loadLandmarks().catch(() => [])
     ]);
     data = res; landmarks = lms;

@@ -435,7 +435,7 @@ export const SITE_FRAME = {
   bearingRear: 331.38,          // compass bearing of local -z
   north: { x: 0.4790567791785995, z: -0.8777839155071291 },
   streetCentreZ: 23.8,
-  osmData: 'data/osm.json',     // real OSM context, already in this local frame (© OpenStreetMap contributors, ODbL)
+  osmData: 'data/osm.json?v=202610031619',     // real OSM context, already in this local frame (© OpenStreetMap contributors, ODbL)
   _lat0: 38.668162, _lon0: -9.048337,
   _A: [4.9, 0.5], _u: [0.8777839155071291, -0.4790567791785995], _n: [-0.4790567791785995, -0.8777839155071291]
 };

@@ -767,12 +767,11 @@ button.fcard[aria-pressed="true"] { border-color: var(--bronze); box-shadow: 0 0
 .v-host { position: absolute; inset: 0; }
 .v-root { position: absolute; inset: 0; overflow: hidden; }
 .v-canvas, .v-canvas canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; display: block; }
+/* the label / HUD layers never take touches themselves: the modules set pointer-events on their own controls */
 .v-labels { position: absolute; inset: 0; pointer-events: none; display: none; }
 .v-labels.is-active { display: block; }
-.v-labels > * { pointer-events: auto; }
 .v-hud { position: absolute; inset: 0; pointer-events: none; display: none; }
 .v-hud.is-active { display: block; }
-.v-hud > * { pointer-events: auto; }
 .v-load { position: absolute; inset: 0; display: grid; place-items: center; z-index: 7; background: rgba(15, 14, 12, .72); color: #efe7d8; pointer-events: none; }
 .v-load .bar { width: min(260px, 70%); height: 2px; background: rgba(255, 255, 255, .15); margin-top: 12px; overflow: hidden; }
 .v-load .bar i { display: block; height: 100%; background: var(--accent-hi); width: 0; transition: width .3s; }
@@ -1028,3 +1027,4 @@ button.pkcard[aria-pressed="true"] { border-color: var(--bronze); box-shadow: 0 
   .imm-bar .view-sw .seg-b { width: auto; padding: 0 8px; font-size: .66rem; letter-spacing: .04em; }
   :root[lang="he"] .imm-bar .view-sw .seg-b { font-size: .74rem; letter-spacing: 0; }
 }
+.build { opacity: .7; white-space: nowrap; }

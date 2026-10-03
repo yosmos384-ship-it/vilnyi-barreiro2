@@ -2,10 +2,13 @@
 import {
   PROJECT, BANK, PAYMENT_PLAN, LEVELS, FLOORS, UNITS, STYLES, LANDMARKS, PARKING, BALCONIES, PRICE_PER_M2, TIMES_OF_DAY,
   unitById, floorById
-} from './data.js';
-import { t, L, setLang, getLang, langInfo, fmtMoney, fmtNum, LANGS, DICTS } from './i18n.js';
-import { drawFloorplan, unitRoomAreas, floorUnits } from './floorplan.js';
+} from './data.js?v=202610031619';
+import { t, L, setLang, getLang, langInfo, fmtMoney, fmtNum, LANGS, DICTS } from './i18n.js?v=202610031619';
+import { drawFloorplan, unitRoomAreas, floorUnits } from './floorplan.js?v=202610031619';
 
+// Build version: stamped at build time (mkpages.sh / mkfull.sh → stamp.sh), 'dev' when served unbuilt.
+const BUILD = '202610031619'.startsWith('__') ? 'dev' : '202610031619';
+try { window.__VB2_BUILD = BUILD; } catch (e) { /* read by the debug overlays */ }
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -572,7 +575,7 @@ function initSiteMap() {
     if (initSiteMap._started) return;
     initSiteMap._started = true;
     try {
-      const m = await import('./sitemap.js');
+      const m = await import('./sitemap.js?v=202610031619');
       siteMap = await m.createSiteMap(box, { lang: getLang(), onOpen3D: () => openImmersive('aerial') });
       if (state.mapFocus) siteMap?.highlight?.(state.mapFocus);
     } catch (e) {
@@ -634,7 +637,7 @@ function contactHtml({ text = '', note = false, waLabel = null } = {}) {
 function renderFooter() {
   $('#footDev').innerHTML = `<span class="k">${esc(t('contact.developer'))}</span><b>${esc(PROJECT.developer)}</b><bdi dir="ltr">${esc(PROJECT.postcode)}, Portugal</bdi>`;
   const cr = $('#footCredits');
-  if (cr) cr.innerHTML = ['foot.creditRenders', 'foot.creditAssets', 'foot.creditMap'].map(k => esc(t(k))).join(' ');
+  if (cr) cr.innerHTML = `${['foot.creditRenders', 'foot.creditAssets', 'foot.creditMap'].map(k => esc(t(k))).join(' ')} <span class="build mono">build ${esc(BUILD)}</span>`;
   $('#footContact').innerHTML = contactHtml();
   $('#adminLink').hidden = !state.isOwner;
 }
@@ -824,7 +827,7 @@ async function getViewer() {
       host = document.createElement('div');
       host.className = 'v-host';
       try {
-        const mod = await import('./viewer.js');
+        const mod = await import('./viewer.js?v=202610031619');
         const inner = document.createElement('div');
         inner.className = 'v-inner';
         host.appendChild(inner);
@@ -833,7 +836,7 @@ async function getViewer() {
         loadEl.innerHTML = `<div><div class="lbl">${esc(t('v.loading'))}</div><div class="bar"><i></i></div></div>`;
         host.appendChild(loadEl);
         const dbg = /^(127\.0\.0\.1|localhost)$/.test(location.hostname) ? (window.__vb2 ||= {}) : null;
-        const v = mod.createViewer(inner, { floorLabel: f => `${floorName(f)} · ${levelMark(f)}`, lang: getLang(), quality: dbg?.quality });
+        const v = mod.createViewer(inner, { floorLabel: f => `${floorName(f)} · ${levelMark(f)}`, lang: getLang(), quality: dbg?.quality, prCap: dbg?.prCap });
         if (dbg) dbg.viewer = v;   // local test hook only
         v.on('progress', ({ p }) => {
           const bar = loadEl.querySelector('i'); if (bar) bar.style.width = `${Math.round(p * 100)}%`;
@@ -1054,11 +1057,14 @@ function bindImmersive() {
   $('#immBar').addEventListener('pointerdown', () => showImmBar(), { passive: true });
   $('#immBar').addEventListener('focusin', () => showImmBar());
   $('#immPeek').addEventListener('click', () => { showImmBar(); $('#immClose').focus({ preventScroll: true }); });
+  // noted in the capture phase, before the tour's own handler closes it
+  let escTour = false;
+  window.addEventListener('keydown', e => { if (e.key === 'Escape') escTour = !!tourApi?.isOpen?.(); }, true);
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
       if (!$('#modal').hidden) closeModal();
       else if (!$('#imm').hidden) closeImmersive();
-      else if (tourApi?.isOpen?.()) return;
+      else if (escTour || tourApi?.isOpen?.()) return;   // Escape belonged to the 360° tour (it closes itself)
       else if (unitUI.id) go(`floor-${unitById(unitUI.id).floor}`);
       else if (state.openFloor) dismissFloor();
       return;
@@ -1159,7 +1165,7 @@ function loadRenders() {
   if (!renders.p) {
     renders.p = (async () => {
       try {
-        const r = await fetch('renders/manifest.json', { cache: 'no-cache' });
+        const r = await fetch('renders/manifest.json?v=202610031619', { cache: 'no-cache' });
         if (!r.ok) throw new Error(`renders ${r.status}`);
         const j = await r.json();
         const fix = (o, nameKey) => {
@@ -1196,7 +1202,7 @@ const extStill = id => renders.m?.exterior?.find(s => s.id === id) || null;
 const materials = { m: null, p: null };
 function loadMaterials() {
   if (!materials.p) {
-    materials.p = fetch('assets/manifest.json', { cache: 'no-cache' })
+    materials.p = fetch('assets/manifest.json?v=202610031619', { cache: 'no-cache' })
       .then(r => (r.ok ? r.json() : null)).then(j => { materials.m = j; return j; })
       .catch(() => null);
   }
@@ -1235,7 +1241,7 @@ function getTour() {
   if (!tourP) {
     tourP = (async () => {
       await loadRenders();
-      const [THREE, m] = await Promise.all([import('three'), import('./tour.js')]);
+      const [THREE, m] = await Promise.all([import('three'), import('./tour.js?v=202610031619')]);
       const api = await m.createTour(document.body, {
         THREE, manifestUrl: renders.url || undefined, lang: getLang(), timeOfDay: state.tod,
         onClose: () => { if (!(sheetMode() && (state.openFloor || unitUI.id)) && $('#imm').hidden) document.body.classList.remove('no-scroll'); },
@@ -1397,7 +1403,7 @@ document.addEventListener('click', e => {
   if (b.dataset.view === 'photo' && !b.closest('.tr-root')) toPhotoreal();
   else if (b.dataset.view === '3d' && b.closest('.tr-root')) toRealtime();
 });
-if (/^(127\.0\.0\.1|localhost)$/.test(location.hostname)) (window.__vb2 ||= {}).app = { toPhotoreal, toRealtime, tour: () => tourApi, last: () => ({ photo: toPhotoreal.last, real: toRealtime.last }) };   // local test hook only
+if (/^(127\.0\.0\.1|localhost)$/.test(location.hostname)) (window.__vb2 ||= {}).app = { toPhotoreal, toRealtime, tour: () => tourApi, gal: () => gal, build: BUILD, last: () => ({ photo: toPhotoreal.last, real: toRealtime.last }) };   // local test hook only
 
 // Gallery section: three createGallery instances (exterior · common areas · apartments by package).
 const gal = { ext: null, common: null, units: null, pkg: 'lisboa', started: false };
@@ -1410,7 +1416,7 @@ function initGallery() {
     await loadRenders();
     if (!renders.m) { box.innerHTML = `<p class="fineprint">${esc(t('gal.empty'))}</p>`; return; }
     try {
-      const m = await import('./tour.js');
+      const m = await import('./tour.js?v=202610031619');
       const lang = getLang();
       const onOpenPano = o => { if (o && o.unitId) openTour(o.unitId, o.packageId, o.roomId, { timeOfDay: o.timeOfDay }); };
       [gal.ext, gal.common, gal.units] = await Promise.all([
@@ -2205,7 +2211,7 @@ async function initCapabilities() {
 
 async function initLandmarks() {
   try {
-    const m = await import('./aerial.js');
+    const m = await import('./aerial.js?v=202610031619');
     if (Array.isArray(m.LANDMARKS_VERIFIED) && m.LANDMARKS_VERIFIED.length) { state.landmarks = m.LANDMARKS_VERIFIED; renderLocation(); }
   } catch (e) { /* aerial module not present: use data.js landmarks */ }
 }

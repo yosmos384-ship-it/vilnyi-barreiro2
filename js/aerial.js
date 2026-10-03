@@ -5,7 +5,7 @@
 // (0 = looking along local -z, + towards local +x); compass bearings are derived from SITE_FRAME.north.
 // All DOM/CSS is prefixed `va-`. No side effects on import.
 
-import { PROJECT, LANDMARKS, SITE_FRAME, geoToLocal } from './data.js';
+import { PROJECT, LANDMARKS, SITE_FRAME, geoToLocal } from './data.js?v=202610031619';
 
 // ---------------------------------------------------------------------------
 // Verified landmark coordinates (researched Sept 2026). `source` = where the
@@ -301,7 +301,7 @@ export function createAerial(THREE, { camera, dom, scene, environment, labelsEl,
     if (osmPromise) return osmPromise;
     osmPromise = (async () => {
       try {
-        const url = new URL('../data/osm.json', import.meta.url);
+        const url = new URL('../data/osm.json?v=202610031619', import.meta.url);
         const res = await fetch(url); if (!res.ok) return;
         const d = await res.json();
         if (d.terrain && Array.isArray(d.terrain.h)) terrain = d.terrain;

@@ -11,7 +11,7 @@
 // Tile fragments inside an oriented box around our plot are discarded in the shader, so the real empty lot
 // never shows through our building. Every failure is silent: createGoogle3D resolves to null, or the instance
 // switches itself off (setVisible becomes a no-op) and the site keeps the OSM context.
-import { PROJECT, SITE_FRAME, geoToLocal } from './data.js';
+import { PROJECT, SITE_FRAME, geoToLocal } from './data.js?v=202610031619';
 
 export const GOOGLE3D_LIB_VERSION = '0.3.46';
 
