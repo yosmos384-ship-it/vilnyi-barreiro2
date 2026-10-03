@@ -7,9 +7,7 @@
   ],
   "out": "renders/common",
   "name": "common-basement",
-  "opts": {
-   "ev_bias": 0.35
-  }
+  "opts": {}
  },
  "shots": [
   {
@@ -20,7 +18,7 @@
    "W": 2400,
    "H": 1350,
    "spp": 96,
-   "ev": 2.5260806109653537,
+   "ev": 2.1348114204445054,
    "tod": "day",
    "position": [
     9.6,
@@ -37,9 +35,9 @@
    "kind": null,
    "lens": 18.0,
    "shift_y": -0.0252,
-   "seconds": 3600.9
+   "seconds": 3073.9
   }
  ],
- "seconds": 3603.8,
+ "seconds": 3077.3,
  "blender": "4.2.3 LTS"
 }
