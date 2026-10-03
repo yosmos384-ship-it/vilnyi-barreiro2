@@ -3,7 +3,8 @@
 // export function buildEnvironment(THREE, { scene, renderer, quality:'high'|'low' }) => {
 //   group, sun, hemi, setTimeOfDay('day'|'golden'|'dusk'|'night'), geo(lat, lon) => Vector3, update(dt, camera),
 //   timesOfDay, exposureFor(name), lightingPresets (also module exports),
-//   ready: Promise (resolves when data/osm.json is loaded and the real neighbourhood is built),
+//   ready: Promise (near band built: site, neighbours, street, context within ~120 m),
+//   fullReady: Promise (far band too — built lazily in idle slices), setDetail('full'|'near'|'minimal'), setQuality('high'|'low'),
 //   heightAt(x, z), timeOfDay, waterY, street, attribution
 // }
 //
@@ -39,6 +40,7 @@ const ROW_Z = (SITE_ST.road[0] + SITE_ST.road[1]) / 2, ROAD_HALF = (SITE_ST.road
 const FLATZ = { x0: -45, x1: 60, z0: -40, z1: 45, fall: 45 };
 // terrain grid levels (all lines at 7 + k·cell so the levels nest exactly)
 const INNER = { c: 12, r: 1260 }, MID = { c: 45, r: 6300 }, OUTER = { c: 450, r: 27000 };
+const BAND_MIN = 60, BAND_NEAR = 120, BAND_PATCH = 186;   // setDetail bands (m from the site): minimal | near | terrain patch
 const NEARG = { x0: -53, x1: 67, z0: -29, z1: 55 };   // inner cells replaced by explicit flat ground (lot cut out)
 
 // ---------------------------------------------------------------- small utils
@@ -859,6 +861,7 @@ class Chunks {
     return g;
   }
   meshes(mats, parent, { cast = () => false, receive = true } = {}) {
+    const out = [];
     for (const [k, gb] of this.map) {
       if (gb.empty) continue;
       const [key] = k.split('|');
@@ -868,9 +871,11 @@ class Chunks {
       m.receiveShadow = receive;
       m.matrixAutoUpdate = false;
       m.updateMatrix();
-      parent.add(m);
+      if (parent) parent.add(m);
+      out.push(m);
     }
     this.map.clear();
+    return out;
   }
 }
 
@@ -967,9 +972,12 @@ function applyPBR(C, mat, key, uvM, { normal = true, rough = true, ao = false, t
       if (Array.isArray(tint)) mat.color.setRGB(tint[0], tint[1], tint[2]); else mat.color.set(tint || '#ffffff');
       mat.needsUpdate = true;
     })];
-    if (normal && !C.low) jobs.push(load(set.maps.normal, false).then((t) => { if (t) { mat.normalMap = t; mat.normalScale.set(normalScale, normalScale); mat.needsUpdate = true; } }));
-    if (rough && !C.low) jobs.push(load(set.maps.roughness, false).then((t) => { if (t) { mat.roughnessMap = t; mat.roughness = 1; mat.needsUpdate = true; } }));
-    if (ao && !C.low) jobs.push(load(set.maps.ao, false).then((t) => { if (t) { mat.aoMap = t; mat.aoMapIntensity = 0.8; mat.needsUpdate = true; } }));
+    // detail maps are kept in userData.hi so setQuality('low' | 'high') only swaps references (no re-download)
+    const hi = mat.userData.hi || (mat.userData.hi = { rough0: mat.roughness });
+    const put = (k, t, extra) => { if (!t) return; hi[k] = t; if (extra) extra(); if (!C.low) { mat[k] = t; if (k === 'roughnessMap') mat.roughness = 1; mat.needsUpdate = true; } };
+    if (normal && !C.low) jobs.push(load(set.maps.normal, false).then((t) => put('normalMap', t, () => mat.normalScale.set(normalScale, normalScale))));
+    if (rough && !C.low) jobs.push(load(set.maps.roughness, false).then((t) => put('roughnessMap', t)));
+    if (ao && !C.low) jobs.push(load(set.maps.ao, false).then((t) => put('aoMap', t, () => { mat.aoMapIntensity = 0.8; })));
     return Promise.all(jobs).then(() => true);
   }).catch(() => false);
 }
@@ -982,7 +990,9 @@ function applyRelief(C, mat, key, uvM, scale = 0.6) {
     const size = set.sizeMeters || [2, 2];
     return new Promise((res) => (C.texLoader || (C.texLoader = new T.TextureLoader())).load(assetURL(set.maps.normal), (t) => {
       t.wrapS = t.wrapT = T.RepeatWrapping; t.repeat.set(uvM / size[0], uvM / size[1]); t.anisotropy = C.aniso; t.colorSpace = T.NoColorSpace;
-      mat.normalMap = t; mat.normalScale.set(scale, scale); mat.needsUpdate = true; res(true);
+      (mat.userData.hi || (mat.userData.hi = { rough0: mat.roughness })).normalMap = t; mat.normalScale.set(scale, scale);
+      if (!C.low) { mat.normalMap = t; mat.needsUpdate = true; }
+      res(true);
     }, undefined, () => res(false)));
   }).catch(() => false);
 }
@@ -1167,7 +1177,18 @@ function buildStreetFurniture(C, rng) {
 }
 
 // ---------------------------------------------------------------- trees & cars (instanced)
-function treeGeometries() {
+function treeGeometries(lo) {
+  if (lo) { // phones: ~30 triangles per tree
+    const mkLo = (parts) => { const gb = new GB(); for (const [geo, m, col] of parts) { gb.color(col); gb.geom(geo, m); geo.dispose(); } return gb.build(); };
+    const tr = [0.36, 0.28, 0.2];
+    return [
+      mkLo([[new T.CylinderGeometry(0.14, 0.2, 3.2, 4, 1, true), new T.Matrix4().makeTranslation(0, 1.6, 0), tr],
+        [new T.IcosahedronGeometry(2.6, 0), new T.Matrix4().makeScale(1.05, 0.9, 1.05).setPosition(0, 4.8, 0), [0.34, 0.43, 0.23]]]),
+      mkLo([[new T.ConeGeometry(1.1, 7.6, 5), new T.Matrix4().makeTranslation(0, 4.0, 0), [0.2, 0.3, 0.17]]]),
+      mkLo([[new T.CylinderGeometry(0.18, 0.26, 7, 4, 1, true), new T.Matrix4().makeRotationZ(0.1).setPosition(0.3, 3.5, 0), tr],
+        [new T.IcosahedronGeometry(3, 0), new T.Matrix4().makeScale(1.3, 0.45, 1.2).setPosition(0.6, 7.6, 0), [0.25, 0.35, 0.2]]])
+    ];
+  }
   // kind 0: round broadleaf (plane / lime), kind 1: cypress / pine-like column, kind 2: umbrella pine
   const mk = (parts) => {
     const gb = new GB();
@@ -1192,16 +1213,20 @@ function treeGeometries() {
   return [g0, g1, g2];
 }
 
-function buildTrees(C) {
-  const geos = treeGeometries();
+function buildTrees(C, trees, tag = '', cast = true) {
+  if (!C.treeGeo) C.treeGeo = { hi: treeGeometries(false), lo: treeGeometries(true) };
+  if (!C.treeMeshes) C.treeMeshes = [];
+  const geos = C.treeGeo[C.low ? 'lo' : 'hi'];
   const byKind = [[], [], []];
-  for (const t of C.trees || []) byKind[t.kind].push(t);
+  for (const t of trees || []) byKind[t.kind].push(t);
   const m4 = new T.Matrix4(), q = new T.Quaternion(), e = new T.Euler(), v = new T.Vector3(), sc = new T.Vector3();
   const rng = rngFrom(4242);
   byKind.forEach((list, k) => {
-    if (!list.length) { geos[k].dispose(); return; }
+    if (!list.length) return;
     const im = new T.InstancedMesh(geos[k], C.mats.tree, list.length);
-    im.name = `env-trees-${k}`;
+    im.name = `env-trees${tag}-${k}`;
+    im.userData.kind = k;
+    C.treeMeshes.push(im);
     const col = new T.Color();
     list.forEach((t, i) => {
       e.set(0, rng() * Math.PI * 2, 0); q.setFromEuler(e);
@@ -1209,7 +1234,7 @@ function buildTrees(C) {
       im.setMatrixAt(i, m4.compose(v.set(t.x, t.y - 0.1, t.z), q, sc.set(s, s * (0.9 + rng() * 0.2), s)));
       const k2 = 0.85 + rng() * 0.3; im.setColorAt(i, col.setRGB(k2, k2 * (0.95 + rng() * 0.1), k2 * 0.9));
     });
-    im.castShadow = true; im.receiveShadow = true;
+    im.castShadow = cast; im.receiveShadow = true;
     im.computeBoundingSphere();
     C.group.add(im);
   });
@@ -1581,19 +1606,41 @@ function buildGridMesh({ half, cell, skip, name, colors, uvRect, skirtDepth = 0 
   return m;
 }
 const PAINT = { x0: 7 - INNER.r, z0: 7 - INNER.r, w: 2 * INNER.r };
-function buildTerrain(C, low) {
-  const out = new T.Group(); out.name = 'env-terrain';
+// two meshes sharing one set of vertex buffers: the patch around the site (always shown) and the rest of the level
+function splitByRadius(mesh, r) {
+  const g = mesh.geometry, idx = g.index.array, P = g.attributes.position.array;
+  const a = [], b = [];
+  for (let i = 0; i < idx.length; i += 3) {
+    const i0 = idx[i] * 3, i1 = idx[i + 1] * 3, i2 = idx[i + 2] * 3;
+    const cx = (P[i0] + P[i1] + P[i2]) / 3 - 7, cz = (P[i0 + 2] + P[i1 + 2] + P[i2 + 2]) / 3 - 7;
+    (Math.max(Math.abs(cx), Math.abs(cz)) < r ? a : b).push(idx[i], idx[i + 1], idx[i + 2]);
+  }
+  const mk = (ix, name) => {
+    const gg = new T.BufferGeometry();
+    for (const k in g.attributes) gg.setAttribute(k, g.attributes[k]);
+    gg.setIndex(ix); gg.computeBoundingSphere();
+    const m = new T.Mesh(gg, mesh.material); m.name = name; m.receiveShadow = true; m.matrixAutoUpdate = false;
+    return m;
+  };
+  return [mk(a, mesh.name + '-patch'), mk(b, mesh.name + '-rest')];
+}
+function buildTerrainInner(C, low) {
   const inner = buildGridMesh({ half: INNER.r, cell: low ? 2 * INNER.c : INNER.c, name: 'env-terrain-inner', colors: false, uvRect: PAINT, skirtDepth: 8,
     skip: (x0, z0, x1, z1) => x0 >= NEARG.x0 - 0.01 && x1 <= NEARG.x1 + 0.01 && z0 >= NEARG.z0 - 0.01 && z1 <= NEARG.z1 + 0.01 });
   inner.material = C.mats.terrainInner; inner.receiveShadow = true;
+  return splitByRadius(inner, BAND_PATCH);
+}
+function buildTerrainOuter(C, low, which) {
+  if (which === 'far') {
+    const far = buildGridMesh({ half: OUTER.r, cell: OUTER.c, name: 'env-terrain-far', colors: true,
+      skip: (x0, z0, x1, z1) => x0 >= 7 - MID.r - 0.01 && x1 <= 7 + MID.r + 0.01 && z0 >= 7 - MID.r - 0.01 && z1 <= 7 + MID.r + 0.01 });
+    far.material = C.mats.terrain;
+    return far;
+  }
   const mid = buildGridMesh({ half: MID.r, cell: low ? 2 * MID.c : MID.c, name: 'env-terrain-mid', colors: true, skirtDepth: 20,
     skip: (x0, z0, x1, z1) => x0 >= 7 - INNER.r - 0.01 && x1 <= 7 + INNER.r + 0.01 && z0 >= 7 - INNER.r - 0.01 && z1 <= 7 + INNER.r + 0.01 });
   mid.material = C.mats.terrain;
-  const far = buildGridMesh({ half: OUTER.r, cell: OUTER.c, name: 'env-terrain-far', colors: true,
-    skip: (x0, z0, x1, z1) => x0 >= 7 - MID.r - 0.01 && x1 <= 7 + MID.r + 0.01 && z0 >= 7 - MID.r - 0.01 && z1 <= 7 + MID.r + 0.01 });
-  far.material = C.mats.terrain;
-  out.add(inner, mid, far);
-  return out;
+  return mid;
 }
 
 // ---------------------------------------------------------------- ground paint (landuse, parks, parking, footprint AO) — 1024 px over 2.5 km
@@ -1707,10 +1754,9 @@ const ROAD_W = {
   pedestrian: { w: 4, foot: true }, steps: { w: 2, foot: true }, cycleway: { w: 2, foot: true }
 };
 const SIDEWALK = new Set(['trunk', 'primary', 'secondary', 'tertiary', 'unclassified', 'residential']);
-function buildRoads(C, osm) {
+function buildRoads(C, osm, pass, from = 0, to = Infinity) {
   const inBand = (x, z) => inRect(x, z, SITE_BAND) || inRect(x, z, LOT_R);
   const ribbon = (key, P, o0, o1, up, S) => {
-    const gb = () => C.chunks.gb(P[0][0], P[0][1], key);
     for (let i = 0; i < P.length - 1; i++) {
       const [ax, az] = P[i], [bx, bz] = P[i + 1];
       const L = Math.hypot(bx - ax, bz - az);
@@ -1721,21 +1767,27 @@ function buildRoads(C, osm) {
         const t0 = k / n, t1 = (k + 1) / n;
         const x0 = ax + (bx - ax) * t0, z0 = az + (bz - az) * t0, x1 = ax + (bx - ax) * t1, z1 = az + (bz - az) * t1;
         if (inBand((x0 + x1) / 2 + nx * (o0 + o1) / 2, (z0 + z1) / 2 + nz * (o0 + o1) / 2)) continue;
+        const isNear = Math.hypot((x0 + x1) / 2 - 7, (z0 + z1) / 2 - 7) < BAND_NEAR;
+        if (isNear !== (pass === 'near')) continue;
         // extend each piece slightly along the road so joints between segments close
         const e = 0.3;
         const xa = x0 - tx * e, za = z0 - tz * e, xb = x1 + tx * e, zb = z1 + tz * e;
         const p = (x, z, o) => [x + nx * o, groundY(x + nx * o, z + nz * o) + up, z + nz * o];
         const A = p(xa, za, o0), B = p(xb, zb, o0), Cc = p(xb, zb, o1), D = p(xa, za, o1);
         const U = (q) => [q[0] / S, -q[2] / S];
-        C.chunks.gb(x0, z0, key).quad(A, B, Cc, D, [U(A), U(B), U(Cc), U(D)], [0, 1, 0]);
+        (isNear ? C.mid[key] : C.chunks.gb(x0, z0, key)).quad(A, B, Cc, D, [U(A), U(B), U(Cc), U(D)], [0, 1, 0]);
       }
     }
   };
-  for (const r of osm.r || []) {
+  const roads = osm.r || [];
+  for (let ri = from; ri < Math.min(to, roads.length); ri++) {
+    const r = roads[ri];
     const spec = ROAD_W[r.k];
     if (!spec || !r.p || r.p.length < 2) continue;
     const w = r.w || (r.ln ? Math.max(spec.w, r.ln * 3.1) : spec.w);
-    const near = r.p.some(([x, z]) => Math.hypot(x - 7, z - 7) < 900);
+    let dmin = Infinity; for (const [x, z] of r.p) dmin = Math.min(dmin, Math.hypot(x - 7, z - 7));
+    if (pass === 'near' && dmin > BAND_NEAR + 400) continue;   // (long segments are tested piece by piece)
+    const near = dmin < 900;
     if (spec.foot) ribbon(spec.dirt ? 'dirt' : 'calcada', r.p, -w / 2, w / 2, spec.dirt ? 0.05 : 0.08, spec.dirt ? 6 : 1.6);
     else if (spec.dirt) ribbon('dirt', r.p, -w / 2, w / 2, 0.05, 6);
     else {
@@ -1826,14 +1878,25 @@ function obb(ring) {
   best.ang = Math.atan2(best.uz, best.ux);
   return best;
 }
-function buildOSMBuildings(C, osm, rng, low) {
+function buildOSMBuildings(C, osm, rng, low, pass = 'near', from = 0, to = Infinity) {
   const list = osm.b || [];
   const cov = C.cov;
-  list.forEach((b, idx) => {
-    if (!b.p || b.p.length < 4) return;
+  if (pass === 'near' && !C.farB) { // one cheap sweep: coverage + which footprints belong to the far pass
+    C.farB = [];
+    list.forEach((b, idx) => {
+      if (!b.p || b.p.length < 4) return;
+      let cx = 0, cz = 0; const n = b.p.length - 1;
+      for (let i = 0; i < n; i++) { cx += b.p[i][0]; cz += b.p[i][1]; } cx /= n; cz /= n;
+      cov.mark(cx, cz);
+      b._c = [cx, cz];
+      if (Math.hypot(cx - 7, cz - 7) >= BAND_NEAR) C.farB.push(idx);
+    });
+  }
+  const one = (b, idx) => {
+    if (!b.p || b.p.length < 4 || !b._c) return;
     const ring = b.p.slice(0, -1);
-    let cx = 0, cz = 0; for (const [x, z] of ring) { cx += x; cz += z; } cx /= ring.length; cz /= ring.length;
-    cov.mark(cx, cz);
+    const cx = b._c[0], cz = b._c[1];
+    if ((Math.hypot(cx - 7, cz - 7) < BAND_NEAR) !== (pass === 'near')) return;
     if (inRect(cx, cz, WEST_R) || inRect(cx, cz, EAST_R) || inRect(cx, cz, LOT_R)) return;
     const area = Math.abs(ringArea(ring));
     if (area < 4) return;
@@ -1855,8 +1918,7 @@ function buildOSMBuildings(C, osm, rng, low) {
     const H = b.h ? +b.h : style === 'industrial' ? 8 + hsh * 2 : storeys * STOREY + 0.3;
     const top = gmax + H;
     const d0 = Math.hypot(cx - 7, cz - 7);
-    const key = d0 < 70 ? 'nearOSM' : '';
-    const gbOf = (m) => key ? C.near['osm_' + m] : C.chunks.gb(cx, cz, m);
+    const gbOf = (m) => d0 < BAND_MIN ? C.near['osm_' + m] : d0 < BAND_NEAR ? C.mid['osm_' + m] : C.chunks.gb(cx, cz, m);
     if (k === 'roof') { // canopy: slab on the ground's highest point + 3 m
       const gb = gbOf('plain').color([0.8, 0.79, 0.76]);
       flatRoof(gb, ring, gmax + 3); return;
@@ -1919,7 +1981,9 @@ function buildOSMBuildings(C, osm, rng, low) {
       // parapet
       pg.plain(true); wallRing(pg, ring, top, top + 0.45, 0, 0); pg.plain(false);
     }
-  });
+  };
+  if (pass === 'near') list.forEach(one);
+  else for (let i = from; i < Math.min(to, C.farB.length); i++) one(list[C.farB[i]], C.farB[i]);
 }
 
 // ---------------------------------------------------------------- walls, fences (OSM barriers near the site)
@@ -2049,14 +2113,22 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
   const fac = makeFacadeTextures(rng, low ? 512 : 1024, aniso);
   makeMaterials(C, tex, fac);
   const newNear = () => ({ facade: new GB(), plain: new GB(), roof: new GB(), stone: new GB(), yard: new GB(), metal: new GB(),
-    ground: new GB(), asphalt: new GB(), calcada: new GB(), kerb: new GB(), facadePink: new GB(), facadeWhite: new GB(), osm_facade: new GB(), osm_plain: new GB(), osm_roof: new GB() });
-  C.near = newNear();
+    ground: new GB(), asphalt: new GB(), calcada: new GB(), kerb: new GB(), dirt: new GB(), facadePink: new GB(), facadeWhite: new GB(), osm_facade: new GB(), osm_plain: new GB(), osm_roof: new GB() });
+  C.near = newNear();   // ≤ 60 m  → band 'min'
+  C.mid = newNear();    // ≤ 120 m → band 'near'
+  // --- phase 4: distance bands. setDetail() only toggles these three flags.
+  //   min  : terrain patch, site street, the two neighbour houses, lamps, everything within 60 m
+  //   near : buildings / roads / trees within ~120 m
+  //   far  : the rest of the OSM context, cars, rail, water, mid/far terrain, far city, bridges (built lazily in idle slices)
+  const band = {};
+  for (const k of ['min', 'near', 'far']) { band[k] = new T.Group(); band[k].name = 'env-band-' + k; group.add(band[k]); }
+  C.group = band.min;
   // far scenery (Lisbon, bridges, Cristo Rei) authored in the phase-1 frame, mapped onto the local frame
   C.far = new T.Group();
   C.far.name = 'env-far-scenery';
   C.far.position.set(FAR_XFORM.tx, 0, FAR_XFORM.tz);
   C.far.rotation.y = FAR_XFORM.ry;
-  group.add(C.far);
+  band.far.add(C.far);
 
   // --- sky, lights, fog
   const sky = makeSky();
@@ -2075,24 +2147,24 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
   hemi.name = 'env-hemisphere';
   group.add(hemi);
   scene.fog = new T.FogExp2(0xc9dcef, 0.00006);
-  safe('water', () => group.add(buildWater(C)));
-  safe('bridges', () => buildBridges(C));
+  let waterMesh = null;
+  safe('water', () => { waterMesh = buildWater(C); band.far.add(waterMesh); });
   scene.add(group);
 
   const lampLights = [];
-  const flushNear = () => {
+  const flushSet = (set, parent, cast, tag) => {
     const names = { osm_facade: 'facade', osm_plain: 'plain', osm_roof: 'roof' };
     const rename = { facadePink: 'west-house-walls', facadeWhite: 'east-house-walls' };
-    for (const k in C.near) {
-      if (C.near[k].empty) continue;
+    for (const k in set) {
+      if (set[k].empty) continue;
       const mat = C.mats[names[k] || k];
-      const m = new T.Mesh(C.near[k].build(), mat);
-      m.name = `env-near-${rename[k] || k}`;
-      m.castShadow = k !== 'ground' && k !== 'asphalt' && k !== 'calcada' && k !== 'kerb';
+      const m = new T.Mesh(set[k].build(), mat);
+      m.name = `env-${tag}-${rename[k] || k}`;
+      m.castShadow = cast && k !== 'ground' && k !== 'asphalt' && k !== 'calcada' && k !== 'kerb' && k !== 'dirt';
       m.receiveShadow = true;
-      group.add(m);
+      m.matrixAutoUpdate = false;
+      parent.add(m);
     }
-    C.near = newNear();
   };
   // Walkable ground height near the site (WALK): lot yards, the two pavements (−0.85), the asphalt (−0.95), then the terrain mesh.
   const walkY = (x, z) => {
@@ -2178,43 +2250,107 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
   };
 
   // --- the real neighbourhood (async: data/osm.json, ~0.7 MB)
-  const buildContext = (osm) => {
-    const data = osm || {};
+  // Near band first (→ `ready`), then everything else in idle slices (→ `fullReady`), so the first interactive frame comes fast.
+  const stats = { nearBuildMs: 0, farBuildMs: 0, farSlices: 0, maxSliceMs: 0 };
+  const now = () => (typeof performance !== 'undefined' ? performance.now() : Date.now());
+  // idle slice: requestIdleCallback when the browser has one (not Safari), always backed by a timer —
+  // idle callbacks may never fire while the page produces no frames (hidden tab, canvas scrolled away)
+  const idle = (fn) => {
+    let done = false;
+    const run = () => { if (!done) { done = true; fn(); } };
+    if (typeof requestIdleCallback === 'function') { requestIdleCallback(run, { timeout: 200 }); setTimeout(run, 220); }
+    else setTimeout(run, 30);
+  };
+  const dist7 = (o) => Math.hypot(o.x - 7, o.z - 7);
+  let osmData = {};
+  const buildNearBand = (osm) => {
+    const t0 = now();
+    const data = osmData = osm || {};
     setDEM(data.terrain);
     C.bIndex = buildingIndex(data);
-    safe('terrain', () => { C.mats.terrainInner.map = paintGround(data, rngFrom(77)); C.mats.terrainInner.needsUpdate = true; group.add(buildTerrain(C, low)); });
+    C.group = band.min;
+    safe('terrain', () => {
+      C.mats.terrainInner.map = paintGround(data, rngFrom(77)); C.mats.terrainInner.needsUpdate = true;
+      const [patch, rest] = buildTerrainInner(C, C.low);
+      band.min.add(patch); band.far.add(rest);
+    });
     safe('site-ground', () => buildSiteGround(C, data));
-    safe('roads', () => buildRoads(C, data));
-    safe('rail', () => buildRail(C, data));
-    safe('buildings', () => buildOSMBuildings(C, data, rng, low));
+    safe('roads', () => buildRoads(C, data, 'near'));
+    safe('buildings', () => buildOSMBuildings(C, data, rng, C.low, 'near'));
     safe('barriers', () => buildBarriers(C, data));
     safe('neighbours', () => buildNeighbours(C, rng));
     safe('street-furniture', () => buildStreetFurniture(C, rng));
-    safe('osm-trees', () => buildOSMTrees(C, data, rng, low));
-    // parked cars on Rua Eduardo Couto (keep the lot frontage clear), then along the real streets nearby
-    const zParkS = SITE_ST.road[1] - 1.05, zParkN = SITE_ST.road[0] + 1.05;
-    for (const [x, z, ry, col] of [[-31.5, zParkS, Math.PI, 0.1], [-25.2, zParkS, Math.PI, 0.35], [21.5, zParkS, Math.PI, 0.52], [27.3, zParkS, Math.PI, 0.03],
-      [-19, zParkN, 0, 0.61], [-12.4, zParkN, 0, 0.21], [24.5, zParkN, 0, 0.83]]) C.cars.push({ x, z, ry, col, y: ROAD_UP + TERR_FLAT });
-    safe('osm-cars', () => buildOSMCars(C, data, rng, low));
-    safe('trees', () => buildTrees(C));
-    safe('cars', () => buildCars(C));
+    safe('osm-trees', () => buildOSMTrees(C, data, rng, C.low));
+    safe('trees', () => {
+      C.group = band.min; buildTrees(C, C.trees.filter(t => dist7(t) < BAND_MIN), '-site', true);
+      C.group = band.near; buildTrees(C, C.trees.filter(t => { const d = dist7(t); return d >= BAND_MIN && d < BAND_NEAR; }), '-near', false);
+      C.group = band.min;
+    });
     safe('alpha', () => buildAlphaQuads(C));
-    safe('far-city', () => buildFarCity(C, rng, low));
-    safe('meshes', () => { C.chunks.meshes(C.mats, group, { cast: () => false, receive: true }); flushNear(); });
-    // two warm point lights at the street lamps nearest the entrance (dusk only; intensity 0 otherwise)
+    safe('meshes', () => { flushSet(C.near, band.min, true, 'near'); flushSet(C.mid, band.near, false, 'mid'); C.near = newNear(); C.mid = newNear(); });
+    // two warm point lights at the street lamps nearest the entrance (lit presets only, never in low quality)
     safe('lamp-lights', () => {
       const near = (C.lampPts || []).slice().sort((a, b) => Math.hypot(a[0] - 7, a[2] - 18) - Math.hypot(b[0] - 7, b[2] - 18)).slice(0, 2);
       for (const [x, y, z] of near) {
         const L = new T.PointLight(0xffb46b, 0, 28, 1.6);
         L.position.set(x, y - 0.3, z);
         L.name = 'env-streetlamp-light';
-        group.add(L); lampLights.push(L);
+        L.visible = false;
+        band.min.add(L); lampLights.push(L);
       }
     });
+    band.min.updateMatrixWorld(true); band.near.updateMatrixWorld(true);
     setTimeOfDay(current);
     loadPBR(C);   // real CC0 PBR maps replace the procedural canvases as they arrive (never blocks the first frame)
+    stats.nearBuildMs = Math.round(now() - t0);
   };
-  const ready = (async () => {
+  // far band: a queue of small jobs, one per idle slice
+  const buildFarBand = () => new Promise((resolve) => {
+    const data = osmData, jobs = [];
+    const job = (name, fn) => jobs.push([name, fn]);
+    const far = () => { C.group = band.far; };
+    job('terrain-mid', () => { band.far.add(buildTerrainOuter(C, C.low, 'mid')); });
+    job('terrain-far', () => { band.far.add(buildTerrainOuter(C, C.low, 'far')); });
+    const nR = (data.r || []).length;
+    for (let i = 0; i < nR; i += 250) job('roads', () => { far(); buildRoads(C, data, 'far', i, i + 250); });
+    const nB = (C.farB || []).length, STEP = 120;
+    for (let i = 0; i < nB; i += STEP) job('buildings', () => { far(); buildOSMBuildings(C, data, rng, C.low, 'far', i, i + STEP); });
+    job('rail', () => { far(); buildRail(C, data); });
+    job('cars', () => {
+      far();
+      // parked cars on Rua Eduardo Couto (keep the lot frontage clear), then along the real streets nearby
+      const zParkS = SITE_ST.road[1] - 1.05, zParkN = SITE_ST.road[0] + 1.05;
+      for (const [x, z, ry, col] of [[-31.5, zParkS, Math.PI, 0.1], [-25.2, zParkS, Math.PI, 0.35], [21.5, zParkS, Math.PI, 0.52], [27.3, zParkS, Math.PI, 0.03],
+        [-19, zParkN, 0, 0.61], [-12.4, zParkN, 0, 0.21], [24.5, zParkN, 0, 0.83]]) C.cars.push({ x, z, ry, col, y: ROAD_UP + TERR_FLAT });
+      buildOSMCars(C, data, rng, C.low);
+      buildCars(C);
+    });
+    job('trees', () => { far(); buildTrees(C, C.trees.filter(t => dist7(t) >= BAND_NEAR), '-far', false); });
+    job('bridges', () => { far(); buildBridges(C); });
+    job('far-city', () => { far(); buildFarCity(C, rng, C.low); });
+    let pending = null;
+    job('meshes', () => { pending = C.chunks.meshes(C.mats, null, { cast: () => false, receive: true }); });
+    const t0 = now();
+    const step = () => {
+      const ts = now();
+      let jn = 'upload';
+      try {
+        if (jobs.length) {
+          do { // several small jobs per slice, up to ~8 ms
+            const [name, fn] = jobs.shift(); jn = name;
+            try { fn(); } catch (e) { console.warn('[environment] ' + name, e); }
+          } while (jobs.length && jobs[0][0] === jn && now() - ts < 8);
+        } else if (pending && pending.length) { for (let i = 0; i < 6 && pending.length; i++) band.far.add(pending.pop()); } // GPU uploads spread over frames
+      } finally { C.group = band.min; }
+      const d = now() - ts; stats.farSlices++; (stats.slices || (stats.slices = {}))[jn] = Math.max(stats.slices[jn] || 0, Math.round(d)); stats.maxSliceMs = Math.max(stats.maxSliceMs, Math.round(d));
+      if (jobs.length || (pending && pending.length)) idle(step);
+      else { band.far.updateMatrixWorld(true); stats.farBuildMs = Math.round(now() - t0); resolve(true); }
+    };
+    idle(step);
+  });
+  let resolveNear;
+  const ready = new Promise((r) => { resolveNear = r; });
+  const fullReady = (async () => {
     await null;
     let osm = null;
     try {
@@ -2222,7 +2358,9 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
       const res = await fetch(url);
       if (res.ok) osm = await res.json();
     } catch (e) { console.warn('[environment] osm.json unavailable, using the land mask only', e); }
-    buildContext(osm);
+    try { buildNearBand(osm); } catch (e) { console.warn('[environment] near band', e); }
+    resolveNear(!!osm);
+    await buildFarBand();
     return !!osm;
   })();
 
@@ -2260,6 +2398,7 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
     U.glowCol.value.set(P.glow); U.sunCol.value.set(P.sun).multiplyScalar(P.sunDisc); U.sunDir.value.copy(d);
     U.cloudCover.value = P.cloud; U.cloudLit.value.set(P.cloudLit); U.cloudShade.value.set(P.cloudShade); U.stars.value = P.stars;
     U.moon.value = P.moon ? 1 : 0; U.sunSize.value = P.sunSize || 0.012;
+    animSky = P.cloud > 0 || P.stars > 0;
     hemi.color.set(P.hemiSky); hemi.groundColor.set(P.hemiGround); hemi.intensity = P.hemiI;
     scene.fog.color.set(P.fogCol); scene.fog.density = P.fog;
     scene.background = col(P.fogCol);
@@ -2299,7 +2438,7 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
     M.glow.opacity = P.lamps * 0.6; M.pool.opacity = P.lamps * (P.pool || 0.13);
     M.glassDark.emissiveIntensity = P.lamps * 0.8;
     M.cable.color.set(P.lamps ? '#0b0c10' : '#202224');
-    for (const L of lampLights) L.intensity = P.lamps * (P.lampI || 22);
+    for (const L of lampLights) { L.intensity = P.lamps * (P.lampI || 22); L.visible = P.lamps > 0 && !C.low; }
     envFactor = H ? 1 : P.env;
     applyEnvFactor();
     if (H && W && P.skyHDR !== 0) { W.skyLow.value.copy(scene.fog.color); }
@@ -2310,20 +2449,64 @@ export function buildEnvironment(THREE, { scene, renderer, quality = 'high' } = 
     return new T.Vector3(x, Math.max(WATER_Y, heightAt(x, z)), z);
   }
 
-  let time = 0, envTimer = 0;
-  function update(dt = 0.016, camera) {
-    time += Math.min(dt || 0, 0.1);
-    if (camera) sky.position.copy(camera.getWorldPosition ? camera.getWorldPosition(new T.Vector3()) : camera.position);
-    sky.material.uniforms.time.value = time;
-    if (C.mats.water) C.mats.water.uniforms.time.value = time;
-    envTimer += dt || 0;
-    if (envTimer > 2) { envTimer = 0; if (envFactor !== 1 || envDirty) applyEnvFactor(); } // materials added later (interiors) get the same factor
+  // --- per frame: allocation-free; animated uniforms only for what is visible
+  let time = 0, animSky = true;
+  const _cam = new T.Vector3();
+  const skyU = sky.material.uniforms, waterU = C.mats.water ? C.mats.water.uniforms : null;
+  function update(dt, camera) {
+    time += dt > 0.1 ? 0.1 : (dt || 0);
+    if (camera) { camera.getWorldPosition(_cam); sky.position.copy(_cam); }
+    if (animSky) skyU.time.value = time;                       // clouds / twinkling stars
+    if (waterU && band.far.visible) waterU.time.value = time;  // the Tagus is in the far band
+  }
+
+  // --- phase 4: level of detail & quality (called by the app's performance governor)
+  let detail = 'full';
+  function setDetail(name) {
+    detail = name === 'near' || name === 'minimal' ? name : 'full';
+    band.min.visible = true;
+    band.near.visible = detail !== 'minimal';
+    band.far.visible = detail === 'full';
+    return detail;
+  }
+  let qual = low ? 'low' : 'high';
+  function setQuality(q) {
+    const lo = q === 'low';
+    qual = lo ? 'low' : 'high';
+    const changed = C.low !== lo;
+    C.low = lo;
+    // albedo-only materials on low; detail maps come back by reference on high
+    let needLoad = false;
+    for (const k in C.mats) {
+      const m = C.mats[k], hi = m.userData && m.userData.hi;
+      if (!hi) continue;
+      for (const key of ['normalMap', 'roughnessMap', 'aoMap']) {
+        const want = lo ? null : (hi[key] || null);
+        if (m[key] !== want) { m[key] = want; m.needsUpdate = true; }
+      }
+      if ('roughness' in m) m.roughness = !lo && hi.roughnessMap ? 1 : hi.rough0;
+      if (!lo && !hi.normalMap && !hi.roughnessMap) needLoad = true;
+    }
+    if (!lo && changed && needLoad) loadPBR(C);
+    const n = lo ? 1024 : 2048;
+    if (sun.shadow.mapSize.x !== n) {
+      sun.shadow.mapSize.set(n, n);
+      if (sun.shadow.map) { sun.shadow.map.dispose(); sun.shadow.map = null; }
+    }
+    for (const L of lampLights) L.visible = !lo && L.intensity > 0;
+    if (C.treeGeo) for (const im of C.treeMeshes || []) im.geometry = C.treeGeo[lo ? 'lo' : 'hi'][im.userData.kind];
+    return qual;
   }
 
   setTimeOfDay('golden');
 
   return {
-    group, sun, hemi, setTimeOfDay, geo, update, ready,
+    group, sun, hemi, setTimeOfDay, geo, update,
+    ready,                           // near band built (site, neighbours, street, everything within ~120 m): first interactive frame
+    fullReady,                       // + far band (rest of the map, cars, rail, far city, bridges), built in idle slices
+    setDetail, setQuality,
+    get detail() { return detail; }, get quality() { return qual; },
+    bands: band, stats,
     attribution: '© OpenStreetMap contributors (ODbL) · EU-DEM (Copernicus)',
     get timeOfDay() { return current; },
     heightAt: walkY,                 // walkable ground: lot yards, pavements −0.85, asphalt −0.95, real terrain beyond

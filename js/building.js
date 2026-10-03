@@ -288,7 +288,7 @@ function createMaterials(THREE, T) {
     white: S({ name: 'white', color: 0xf2f2f0, roughness: 0.6 }),
     rubber: S({ name: 'rubber', color: 0x2f3134, roughness: 0.9 })
   };
-  for (const k of Object.keys(M)) { const sp = PBR[k]; M[k].userData.internal = k; if (sp) M[k].name = sp.name; }
+  for (const k of Object.keys(M)) { const sp = PBR[k]; M[k].userData.internal = k; M[k].userData.baseRough = M[k].roughness; if (sp) M[k].name = sp.name; }
   return M;
 }
 
@@ -337,7 +337,7 @@ const PBR = {
 // and stay for good if anything fails (e.g. inside a sandboxed artifact where assets/ is not reachable).
 function loadPBR(THREE, M, renderer, onDone) {
   let base;
-  try { base = new URL('../', import.meta.url); if (!/^https?:$/.test(base.protocol)) return; } catch (e) { return; }
+  try { base = new URL('../', import.meta.url); if (!/^https?:$/.test(base.protocol)) return false; } catch (e) { return false; }
   const aniso = Math.min(8, (renderer && renderer.capabilities && renderer.capabilities.getMaxAnisotropy) ? renderer.capabilities.getMaxAnisotropy() : 4);
   let lowMem = false;
   try { lowMem = (typeof matchMedia === 'function' && matchMedia('(max-width: 820px)').matches) || (navigator.deviceMemory && navigator.deviceMemory <= 4); } catch (e) { /* ignore */ }
@@ -371,7 +371,8 @@ function loadPBR(THREE, M, renderer, onDone) {
       }).catch(() => { /* keep the procedural look for this material */ }));
     }
     return Promise.all(jobs);
-  }).then(() => { if (onDone) onDone(); }).catch(() => { /* procedural fallback */ });
+  }).then(() => { if (onDone) onDone(); }).catch(() => { if (onDone) onDone(); /* procedural fallback */ });
+  return true;
 }
 
 // ───────────────────────── geometry batcher ─────────────────────────
@@ -384,9 +385,9 @@ function createBatcher(THREE) {
   let curTag = null; // when set, geometry goes to its own mesh carrying userData.opening
   function withTag(tag, fn) { const prev = curTag; curTag = tag; try { return fn(); } finally { curTag = prev; } }
   function push(gid, mat, geo) {
-    const tk = curTag && TAGGED.has(mat) ? `w${curTag.wallIndex}o${curTag.openingIndex}` : '';
-    const k = gid + '|' + mat + '|' + tk;
-    let b = buckets.get(k); if (!b) { b = { gid, mat, list: [], tag: tk ? curTag : null, tk }; buckets.set(k, b); }
+    const k = gid + '|' + mat;
+    let b = buckets.get(k); if (!b) { b = { gid, mat, list: [] }; buckets.set(k, b); }
+    if (curTag && TAGGED.has(mat)) geo.userData = { ...geo.userData, tag: curTag };   // (clone() shares userData by reference)
     b.list.push(geo);
   }
   // box by centre + size + optional rotations (ry about y, then rx about local x)
@@ -465,15 +466,16 @@ function createBatcher(THREE) {
   }
   function finalize(groups, M, opts = {}) {
     const meshes = [];
-    for (const { gid, mat, list, tag, tk } of buckets.values()) {
+    for (const { gid, mat, list } of buckets.values()) {
       if (!list.length) continue;
-      const parts = [];
+      const parts = [], ranges = []; let tri = 0;
       for (const g of list) {
         let gg = NI(g);
         if (!gg.attributes.normal) gg.computeVertexNormals();
         if (!gg.userData.keepUV) worldUV(gg);
         for (const k of Object.keys(gg.attributes)) if (!['position', 'normal', 'uv', 'color'].includes(k)) gg.deleteAttribute(k);
         gg.morphAttributes = {};
+        const nt = gg.attributes.position.count / 3; if (gg.userData.tag) ranges.push({ a: tri, b: tri + nt, tag: gg.userData.tag }); tri += nt;
         parts.push(gg);
       }
       let merged = null;
@@ -483,12 +485,17 @@ function createBatcher(THREE) {
         continue;
       }
       merged.computeBoundingSphere(); merged.computeBoundingBox();
-      const me = new THREE.Mesh(merged, M[mat]); me.name = tag ? `opening-${tag.floorId}-${tk}-${mat}` : `${gid}-${mat}`;
-      if (tag) me.userData.opening = { ...tag };
+      const me = new THREE.Mesh(merged, M[mat]); me.name = `${gid}-${mat}`;
+      if (ranges.length) { // one draw call for all the fixed glazing of a floor; a ray hit still resolves to its opening through a proxy object
+        const prox = new Map();
+        for (const r of ranges) { const key = `w${r.tag.wallIndex}o${r.tag.openingIndex}`; if (!prox.has(key)) { const p = new THREE.Object3D(); p.name = `opening-${r.tag.floorId}-${key}-${mat}`; p.userData.opening = { ...r.tag }; p.material = M[mat]; me.add(p); prox.set(key, p); } r.proxy = prox.get(key); }
+        me.raycast = function (rc, hits) { const n0 = hits.length; THREE.Mesh.prototype.raycast.call(this, rc, hits); for (let i = n0; i < hits.length; i++) { const f = hits[i].faceIndex; for (let k = 0; k < ranges.length; k++) if (f >= ranges[k].a && f < ranges[k].b) { hits[i].object = ranges[k].proxy; break; } } };
+      }
       const transparent = M[mat].transparent;
       me.castShadow = !transparent && !(opts.noCast || []).includes(mat);
       me.receiveShadow = !transparent;
-      groups[gid].add(me); meshes.push(me);
+      const det = opts.detail && groups[gid + '-det'] && !opts.envelope(gid, mat);
+      groups[det ? gid + '-det' : gid].add(me); meshes.push(me);
       for (const g of parts) if (g !== merged) g.dispose();
     }
     buckets.clear();
@@ -557,8 +564,67 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
   const GIDS = ['site', 'basement', 'ground', 'ground-ceil', 'first', 'first-ceil', 'second', 'second-ceil', 'roofshell', 'roof'];
   const G = {};
   for (const id of GIDS) { G[id] = new THREE.Group(); G[id].name = 'building-' + id; group.add(G[id]); }
+  // per floor: '-int' = fit-out (partitions, interior doors, furniture of the common areas, car-park contents), '-det' = small fittings
+  // that only matter when you are on that floor. Both are children of the floor group, so 'building-<floor>' still holds the whole floor.
+  for (const id of [...ORDER, 'site']) for (const sfx of id === 'site' ? ['-det'] : ['-int', '-det']) { const g = new THREE.Group(); g.name = 'building-' + id + sfx; G[id + sfx] = g; G[id].add(g); }
+  for (const id of ORDER) { const g = new THREE.Group(); g.name = 'building-' + id + '-doors'; G[id + '-doors'] = g; G[id + '-int'].add(g); }   // interior door leaves (not needed from the street)
   const doors = [];
   const animators = [];
+  const dyn = (o) => { o.userData.dyn = true; return o; };   // objects that move after the build (everything else gets frozen matrices)
+
+  // ───────── tap-to-interact (CONTRACT4): smooth toggles driven from update(dt), no per-frame allocations ─────────
+  const activeTweens = [];
+  const interactables = [];
+  const smooth = (t) => t * t * (3 - 2 * t);
+  const L4 = (en, pt, he, ru) => ({ en, pt, he, ru });
+  const LBL = {
+    doorO: L4('Open door', 'Abrir porta', 'פתיחת דלת', 'Открыть дверь'), doorC: L4('Close door', 'Fechar porta', 'סגירת דלת', 'Закрыть дверь'),
+    slideO: L4('Slide door open', 'Abrir porta de correr', 'פתיחת דלת הזזה', 'Открыть раздвижную дверь'), slideC: L4('Slide door closed', 'Fechar porta de correr', 'סגירת דלת הזזה', 'Закрыть раздвижную дверь'),
+    winO: L4('Open window', 'Abrir janela', 'פתיחת חלון', 'Открыть окно'), winC: L4('Close window', 'Fechar janela', 'סגירת חלון', 'Закрыть окно'),
+    garO: L4('Open garage door', 'Abrir portão da garagem', 'פתיחת שער החניון', 'Открыть ворота гаража'), garC: L4('Close garage door', 'Fechar portão da garagem', 'סגירת שער החניון', 'Закрыть ворота гаража'),
+    call: L4('Call the lift', 'Chamar o elevador', 'הזמנת מעלית', 'Вызвать лифт'),
+    mailO: L4('Open mailbox', 'Abrir caixa de correio', 'פתיחת תיבת דואר', 'Открыть почтовый ящик'), mailC: L4('Close mailbox', 'Fechar caixa de correio', 'סגירת תיבת דואר', 'Закрыть почтовый ящик'),
+    bell: L4('Ring the intercom', 'Tocar ao intercomunicador', 'צלצול באינטרקום', 'Позвонить в домофон'),
+    evO: L4('Start charging', 'Iniciar carregamento', 'התחלת טעינה', 'Начать зарядку'), evC: L4('Stop charging', 'Parar carregamento', 'עצירת טעינה', 'Остановить зарядку')
+  };
+  // obj.userData.interact = { id, kind, label, toggle(), isOn(), range, sound }; apply(t) receives the eased 0..1 state
+  function mkToggle(obj, { id, kind, sound = 'click', range = 2.6, open, close, speed = 1.6, apply, initial = 0, auto = 0, ease = true }) {
+    const st = { t: initial, target: initial, speed, apply, ease, active: false, skip: false, hold: 0, auto };
+    const it = {
+      id, kind, sound, range,
+      get label() { return st.target > 0.5 ? (close || open) : open; },
+      toggle() { st.target = st.target > 0.5 ? 0 : 1; st.skip = false; st.hold = 0; if (!st.active) { st.active = true; activeTweens.push(st); } },
+      isOn() { return st.target > 0.5; },
+      set(v) { st.t = st.target = v; st.skip = true; }   // state pushed from outside (e.g. walk.js auto-doors): stop our tween
+    };
+    it.state = st;
+    if (obj) { obj.userData.interact = it; interactables.push(obj); }
+    return it;
+  }
+  function stepTweens(dt) {
+    for (let i = activeTweens.length - 1; i >= 0; i--) {
+      const s = activeTweens[i];
+      let done = s.skip;
+      if (!done) {
+        if (s.t < s.target) s.t = Math.min(s.target, s.t + dt * s.speed); else if (s.t > s.target) s.t = Math.max(s.target, s.t - dt * s.speed);
+        s.apply(s.ease ? smooth(s.t) : s.t);
+        if (s.t === s.target) {
+          if (s.auto > 0 && s.target === 1) { s.hold += dt; if (s.hold >= s.auto) { s.hold = 0; s.target = 0; } }
+          else done = true;
+        }
+      }
+      if (done) { s.skip = false; s.active = false; activeTweens[i] = activeTweens[activeTweens.length - 1]; activeTweens.pop(); }
+    }
+  }
+  // doors[] entries: setOpen(t) keeps working exactly as before; a tap animates through the same function
+  function wireDoor(d) {
+    if (d.kind === 'elevator' || !d.pivot) return;
+    const raw = d.setOpen, gar = d.kind === 'garage', init = d.kind === 'door' ? 1 : 0;
+    const it = mkToggle(d.pivot, { id: 'door-' + d.id, kind: gar ? 'garage' : 'door', sound: gar ? 'garage' : 'door', range: gar ? 6 : 3.5, open: gar ? LBL.garO : LBL.doorO, close: gar ? LBL.garC : LBL.doorC, speed: gar ? 0.3 : 1.4, apply: (t) => { raw(t); d.t = t; }, initial: init });
+    d.t = init; d.interact = it;
+    d.setOpen = (t) => { t = Math.max(0, Math.min(1, +t || 0)); it.set(t); d.t = t; raw(t); };
+  }
+
   const V3 = (x, y, z) => new THREE.Vector3(x, y, z);
   const shared = { box: new THREE.BoxGeometry(1, 1, 1), cyl: new THREE.CylinderGeometry(1, 1, 1, 12), sph: new THREE.SphereGeometry(1, 12, 8) };
 
@@ -621,6 +687,7 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
       const isExt = w.kind === 'ext' || (w.kind === 'party' && w.a[0] === 0 && w.b[0] === 0);
       const mans = fid === 'second' && w.kind === 'ext';
       const frontGround = fid === 'ground' && w.kind === 'ext' && w.a[1] === 14.7 && w.b[1] === 14.7;
+      const gi = (isExt || w.kind === 'core' || fid === 'basement') ? fid : fid + '-int';   // partitions = fit-out (hidden on inactive floors)
       // wall vertical extent
       let y0 = y, y1 = ceil, inY1 = ceil;
       if (fid === 'basement') { y0 = y; y1 = isExt ? -0.3 : ceil; inY1 = ceil; }
@@ -642,11 +709,11 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
       };
       for (const [a0, a1] of pieces) for (const [s0, s1] of clipTower(a0, a1)) {
         if (isExt && fid !== 'basement') extPiece(gid, w, s0, s1, y0, y1, { inY0: y, inY1 });
-        else if (fid === 'second') wallPieceClipped(gid, 'wall', w, s0, s1, y0, y1, -w.t / 2, w.t / 2);
+        else if (fid === 'second') wallPieceClipped(gi, 'wall', w, s0, s1, y0, y1, -w.t / 2, w.t / 2);
         else if (fid === 'basement' && isExt) {
           // below ramp surface where the ramp runs along the wall
           B.boxAlong(gid, 'bWall', w.a, w.b, s0, s1, y0, y1, -w.t / 2, w.t / 2);
-        } else B.boxAlong(gid, fid === 'basement' ? 'bWall' : 'wall', w.a, w.b, s0, s1, y0, y1, -w.t / 2, w.t / 2);
+        } else B.boxAlong(gi, fid === 'basement' ? 'bWall' : 'wall', w.a, w.b, s0, s1, y0, y1, -w.t / 2, w.t / 2);
       }
       for (const o of openings) {
         if (fid === 'basement' && o.type === 'garage') { // the ramp passes through: solid only below the ramp surface
@@ -660,7 +727,7 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
         const matW = isExt ? null : (fid === 'basement' ? 'bWall' : 'wall');
         const piece = (yy0, yy1, zinc) => {
           if (yy1 - yy0 < 1e-3) return;
-          if (matW) { if (fid === 'second') wallPieceClipped(gid, matW, w, o.from, o.to, yy0, yy1, -w.t / 2, w.t / 2); else B.boxAlong(gid, matW, w.a, w.b, o.from, o.to, yy0, yy1, -w.t / 2, w.t / 2); }
+          if (matW) { if (fid === 'second') wallPieceClipped(gi, matW, w, o.from, o.to, yy0, yy1, -w.t / 2, w.t / 2); else B.boxAlong(gi, matW, w.a, w.b, o.from, o.to, yy0, yy1, -w.t / 2, w.t / 2); }
           else extPiece(zinc ? 'roofshell' : gid, w, o.from, o.to, yy0, yy1, { outMat: zinc ? 'zinc' : 'render', inY0: y, inY1, inMat: zinc ? 'wall' : undefined });
         };
         if (mans) {
@@ -672,7 +739,7 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
           piece(y0, ob);
           piece(ot, y1);
         }
-        B.withTag({ floorId: fid, wallIndex: floor.walls.indexOf(w), openingIndex: w.openings.indexOf(o), type: o.type }, () => buildOpening(fid, w, F, o, ob, ot, isExt));
+        B.withTag({ floorId: fid, wallIndex: floor.walls.indexOf(w), openingIndex: w.openings.indexOf(o), type: o.type }, () => buildOpening(fid, w, F, o, ob, ot, isExt, gi, mans));
       }
     }
   }
@@ -713,7 +780,26 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
   const leafGeo = new THREE.BoxGeometry(1, 1, 1);
   function mbox(sx, sy, sz) { const g = NI(new THREE.BoxGeometry(sx, sy, sz)); B.worldUV(g); return g; }
   const handleGeo = new THREE.CylinderGeometry(0.011, 0.011, 1, 10);
-  const plateTex = new Map();
+  const UNIT_IDS = ['0.A', '0.B', '1.A', '1.B', '1.C', '2.A', '2.B', '2.C'];
+  let brassAtlasCache = null;
+  function brassAtlas() {
+    if (brassAtlasCache) return brassAtlasCache;
+    const cv = makeCanvas(1024, 512), c2 = cv.getContext('2d');
+    const gr = c2.createLinearGradient(0, 0, 0, 512); gr.addColorStop(0, '#c7a765'); gr.addColorStop(0.5, '#b89552'); gr.addColorStop(1, '#c2a05c'); c2.fillStyle = gr; c2.fillRect(0, 0, 1024, 512);
+    for (let i = 0; i < 2600; i++) { c2.fillStyle = `rgba(${i % 2 ? '255,240,200' : '60,40,10'},0.05)`; c2.fillRect((i * 97.3) % 1024, (i * 53.7) % 512, 26, 1); }
+    UNIT_IDS.forEach((u, i) => { const cx = (i % 4) * 256 + 128, cy = Math.floor(i / 4) * 256 + 128;
+      c2.strokeStyle = 'rgba(60,40,15,0.55)'; c2.lineWidth = 3; c2.strokeRect(cx - 119, cy - 119, 238, 238);
+      c2.strokeStyle = 'rgba(60,40,15,0.4)'; c2.lineWidth = 2; c2.strokeRect(cx - 69, cy - 75, 126, 62);
+      c2.fillStyle = '#2b2219'; c2.font = '600 50px Georgia, "Times New Roman", serif'; c2.textAlign = 'center'; c2.textBaseline = 'middle'; c2.fillText(u, cx - 6, cy - 42); c2.fillRect(cx - 82, cy + 34, 164, 13); c2.beginPath(); c2.arc(cx + 90, cy - 44, 10, 0, 7); c2.fill(); });
+    const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4;
+    const mat = new THREE.MeshStandardMaterial({ map: t, metalness: 0.85, roughness: 0.32 }); mat.name = 'brass:unit-plates';
+    // uv rectangle of a unit's cell [u0, v0, du, dv], of its name plate, and a plain brass texel
+    const cell = (u) => { const i = Math.max(0, UNIT_IDS.indexOf(u)); return [(i % 4) / 4, 1 - (Math.floor(i / 4) + 1) / 2, 0.25, 0.5]; };
+    const plateUV = (u) => { const i = Math.max(0, UNIT_IDS.indexOf(u)), cx = (i % 4) * 256 + 128, cy = Math.floor(i / 4) * 256 + 128; return [(cx - 70) / 1024, 1 - (cy - 12) / 512, 128 / 1024, 64 / 512]; };
+    const plain = (u) => { const c = cell(u); return [c[0] + 0.004, c[1] + 0.008]; };
+    brassAtlasCache = { mat, cell, plateUV, plain };
+    return brassAtlasCache;
+  }
   function unitAcross(floor, F, o) {
     const sm = (o.from + o.to) / 2;
     const pA = F.P(sm, 0.45), pB = F.P(sm, -0.45);
@@ -730,27 +816,32 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     const leaf = new THREE.Mesh(mbox(w - 0.03, h - 0.01, thick), M[leafMat]); leaf.name = `door-leaf-${id}`;
     if (curOpening) { leaf.userData.opening = { ...curOpening }; pivot.userData.opening = { ...curOpening }; }
     leaf.position.set((w - 0.02) / 2, (h - 0.01) / 2 + 0.005, 0);
-    leaf.castShadow = true; leaf.receiveShadow = true; pivot.add(leaf);
-    const hx = w - 0.1;
+    leaf.castShadow = false; leaf.receiveShadow = true; pivot.add(leaf); dyn(pivot);
+    const hx = w - 0.1, hgs = [];
+    const hadd = (px, py, pz, rx, rz, sx, sy, sz) => { const g = NI(handleGeo.clone()); g.applyMatrix4(new THREE.Matrix4().compose(V3(px, py, pz), new THREE.Quaternion().setFromEuler(new THREE.Euler(rx, 0, rz)), V3(sx, sy, sz))); hgs.push(g); };
     for (const sgn of [1, -1]) {
       if (kind === 'entry' || kind === 'main') {
-        if (kind === 'main' && sgn > 0) continue;
-        const bar = new THREE.Mesh(handleGeo, M[handleMat]); bar.scale.set(1, kind === 'main' ? 1.4 : 0.9, 1); bar.position.set(hx, h * 0.48, sgn * (thick / 2 + 0.05)); pivot.add(bar);
-        for (const yy of [-0.35, 0.35].map(v => v * (kind === 'main' ? 1.4 : 0.9))) { const st = new THREE.Mesh(handleGeo, M[handleMat]); st.scale.set(0.8, 0.05, 0.8); st.rotation.x = Math.PI / 2; st.position.set(hx, h * 0.48 + yy, sgn * (thick / 2 + 0.025)); st.scale.set(0.8, 0.05, 0.8); pivot.add(st); }
+        const k = kind === 'main' ? 1.4 : 0.9;
+        hadd(hx, h * 0.48, sgn * (thick / 2 + 0.05), 0, 0, 1, k, 1);
+        for (const yy of [-0.35 * k, 0.35 * k]) hadd(hx, h * 0.48 + yy, sgn * (thick / 2 + 0.025), Math.PI / 2, 0, 0.8, 0.05, 0.8);
       } else {
-        const lever = new THREE.Mesh(handleGeo, M[handleMat]); lever.rotation.z = Math.PI / 2; lever.scale.set(1, 0.13, 1); lever.position.set(hx - 0.05, 1.02, sgn * (thick / 2 + 0.05)); pivot.add(lever);
-        const rose = new THREE.Mesh(handleGeo, M[handleMat]); rose.rotation.x = Math.PI / 2; rose.scale.set(2.2, 0.05, 2.2); rose.position.set(hx, 1.02, sgn * (thick / 2 + 0.025)); pivot.add(rose);
+        hadd(hx - 0.05, 1.02, sgn * (thick / 2 + 0.05), 0, Math.PI / 2, 1, 0.13, 1);
+        hadd(hx, 1.02, sgn * (thick / 2 + 0.025), Math.PI / 2, 0, 2.2, 0.05, 2.2);
       }
     }
-    if (plate) {
-      if (!plateTex.has(plate.text)) plateTex.set(plate.text, textCanvasTexture(THREE, plate.text, { w: 256, h: 128, bg: '#b89556', fg: '#2b2219', font: '500 66px Georgia, "Times New Roman", serif' }));
-      const pm = new THREE.Mesh(new THREE.PlaneGeometry(0.16, 0.08), new THREE.MeshStandardMaterial({ map: plateTex.get(plate.text), metalness: 0.8, roughness: 0.3 }));
-      pm.name = `unit-plate-${plate.text}`;
-      pm.position.set(w / 2, 1.55, plate.side * (thick / 2 + 0.002)); if (plate.side < 0) pm.rotation.y = Math.PI;
-      pivot.add(pm);
-      const peep = new THREE.Mesh(handleGeo, M.brass); peep.rotation.x = Math.PI / 2; peep.scale.set(0.8, thick + 0.02, 0.8); peep.position.set(w / 2, 1.45, 0); pivot.add(peep);
+    if (plate && handleMat === 'brass') hadd(w / 2, 1.45, 0, Math.PI / 2, 0, 0.8, thick + 0.02, 0.8);   // peephole
+    let hwMat = M[handleMat];
+    if (plate && plate.text) { // unit plate: part of the hardware mesh, textured from the shared brass atlas
+      const A = brassAtlas(), pl = A.plain(plate.text), r = A.plateUV(plate.text);
+      for (const g of hgs) { const uv = g.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, pl[0], pl[1]); }
+      const pg = NI(new THREE.PlaneGeometry(0.16, 0.08)), uv = pg.attributes.uv;
+      for (let i = 0; i < uv.count; i++) uv.setXY(i, r[0] + uv.getX(i) * r[2], r[1] + uv.getY(i) * r[3]);
+      if (plate.side < 0) pg.rotateY(Math.PI);
+      pg.translate(w / 2, 1.55, plate.side * (thick / 2 + 0.002)); hgs.push(pg); hwMat = A.mat;
     }
-    G[gidOfFloor(floorId)].add(pivot);
+    const hw = new THREE.Mesh(mergeGeometries(hgs, false), hwMat); hw.name = `door-leaf-${id}-hw`; pivot.add(hw);
+    if (curOpening) hw.userData.opening = { ...curOpening };
+    G[kind === 'door' ? (floorId === 'basement' ? 'basement-det' : floorId + '-doors') : floorId].add(pivot);
     const center = V3(...(() => { const c = F.P((o.from + o.to) / 2, 0); return [c[0], y + 1.05, c[1]]; })());
     let cur = -1;
     const d = {
@@ -770,10 +861,88 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
   }
   function glassPane(gid, w, s0, s1, y0, y1, n) { B.boxAlong(gid, 'glass', w.a, w.b, s0, s1, y0, y1, n - 0.006, n + 0.006); }
 
-  function buildOpening(fid, w, F, o, ob, ot, isExt) {
+  // ───────── baked-looking ambient occlusion: vertex-alpha gradient quads (1 draw call per group, no lights, no textures) ─────────
+  const aoBuf = {};
+  const AO_K = 2;   // material opacity is 0.5 → vertex alpha carries 2× the wanted darkness
+  function aoQuad(gid, ax, ay, az, bx, by, bz, cx, cy, cz, dx, dy, dz, a0, a1) { // a,b at darkness a0 · c,d at a1
+    const o = aoBuf[gid] || (aoBuf[gid] = { p: [], c: [] });
+    o.p.push(ax, ay, az, bx, by, bz, cx, cy, cz, ax, ay, az, cx, cy, cz, dx, dy, dz);
+    const A = Math.min(1, a0 * AO_K), Z = Math.min(1, a1 * AO_K), r = 0.11, g = 0.09, b = 0.075;
+    o.c.push(r, g, b, A, r, g, b, A, r, g, b, Z, r, g, b, A, r, g, b, Z, r, g, b, Z);
+  }
+  // vertical gradient on a wall face (n = offset across the wall), from height yA (darkness aA) to yB (aB)
+  function aoWall(gid, F, s0, s1, n, yA, aA, yB, aB) {
+    const p = F.P(s0, n), q = F.P(s1, n);
+    aoQuad(gid, p[0], yA, p[1], q[0], yA, q[1], q[0], yB, q[1], p[0], yB, p[1], aA, aB);
+  }
+  // horizontal gradient on a floor/ceiling along a wall, from offset nA (darkness aA) to nB (aB)
+  function aoFlat(gid, F, s0, s1, y, nA, aA, nB, aB) {
+    const p = F.P(s0, nA), q = F.P(s1, nA), r = F.P(s1, nB), t = F.P(s0, nB);
+    aoQuad(gid, p[0], y, p[1], q[0], y, q[1], r[0], y, r[1], t[0], y, t[1], aA, aB);
+  }
+  function buildAOMeshes() {
+    const mat = new THREE.MeshBasicMaterial({ color: 0xffffff, vertexColors: true, transparent: true, opacity: 0.5, depthWrite: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -1, polygonOffsetUnits: -1 });
+    mat.name = 'ao-overlay'; M.aoOverlay = mat;
+    for (const gid of Object.keys(aoBuf)) {
+      const o = aoBuf[gid]; if (!o.p.length || !G[gid]) continue;
+      const g = new THREE.BufferGeometry();
+      g.setAttribute('position', new THREE.Float32BufferAttribute(o.p, 3)); g.setAttribute('color', new THREE.Float32BufferAttribute(o.c, 4));
+      const m = new THREE.Mesh(g, mat); m.name = `highlight-ao-${gid}`;   // ('highlight' keeps it out of the GLB export and the path tracer: raster-only shading) m.renderOrder = 2;
+      m.userData.pathTraceIgnore = true; m.userData.ui = true; m.userData.noWalkRaycast = true; m.userData.rasterOnly = true;
+      m.raycast = () => {};
+      G[gid].add(m);
+    }
+  }
+
+  // ───────── operable sashes: tilt windows and sliding glass-door leaves ─────────
+  // All sashes of a floor are two instanced meshes per type (frame + glass). Each sash has a proxy Object3D that owns its transform,
+  // carries userData.interact / userData.opening, and is what a raycast hit reports as `object`.
+  const SASH = { slide: { W0: 1.45, H0: 2.41, bar: 0.05, depth: 0.05 }, tilt: { W0: 0.5, H0: 1.28, bar: 0.042, depth: 0.06 } };
+  const sashQ = {};
+  function makeSash({ fid, gid, F, a0, a1, y0, y1, n, mode, travel = 0 }) {
+    const W = a1 - a0, H = y1 - y0; if (W < 0.12 || H < 0.2) return null;
+    const U = SASH[mode], tag = curOpening ? { ...curOpening } : null;
+    const key = tag ? `${fid}-w${tag.wallIndex}o${tag.openingIndex}` : `${fid}-${interactables.length}`;
+    const pv = new THREE.Object3D(); pv.name = `sash-${key}`;
+    const p = F.P(a0, n); pv.position.set(p[0], y0, p[1]); pv.rotation.order = 'YXZ'; pv.rotation.y = F.ry; pv.scale.set(W / U.W0, H / U.H0, 1);
+    pv.material = M.frame;           // lets generic "is this hit solid?" checks treat the proxy like the frame it stands for
+    if (tag) pv.userData.opening = tag;
+    G[gid].add(pv);
+    const rec = { pv, im: null, ig: null, i: 0 };
+    const k = gid + '|' + mode; (sashQ[k] || (sashQ[k] = { gid, mode, list: [] })).list.push(rec);
+    const push = () => { pv.updateMatrix(); pv.matrixWorldNeedsUpdate = true; if (rec.im) { rec.im.setMatrixAt(rec.i, pv.matrix); rec.im.instanceMatrix.needsUpdate = true; rec.ig.setMatrixAt(rec.i, pv.matrix); rec.ig.instanceMatrix.needsUpdate = true; } };
+    const bx = pv.position.x, bz = pv.position.z;
+    mkToggle(pv, mode === 'slide'
+      ? { id: 'slider-' + key, kind: 'door', sound: 'door', range: 3.5, open: LBL.slideO, close: LBL.slideC, speed: 1.1, apply: (t) => { pv.position.x = bx - F.ux * travel * t; pv.position.z = bz - F.uz * travel * t; push(); } }
+      : { id: 'window-' + key, kind: 'window', sound: 'click', range: 3, open: LBL.winO, close: LBL.winC, speed: 2.2, apply: (t) => { pv.rotation.x = 0.11 * t; push(); } });
+    return pv;
+  }
+  function buildSashMeshes() {
+    const geos = {};
+    for (const mode of Object.keys(SASH)) {
+      const { W0: W, H0: H, bar, depth } = SASH[mode];
+      const parts = [[bar / 2, H / 2, 0, bar, H, depth], [W - bar / 2, H / 2, 0, bar, H, depth], [W / 2, H - bar / 2, 0, W - 2 * bar, bar, depth], [W / 2, bar / 2, 0, W - 2 * bar, bar, depth]];
+      if (mode === 'slide') parts.push([bar / 2, 1.05, depth / 2 + 0.018, 0.022, 0.32, 0.036]); else parts.push([W - bar / 2, H / 2, depth / 2 + 0.014, 0.02, 0.13, 0.028]);
+      const gl = new THREE.BoxGeometry(W - 2 * bar + 0.012, H - 2 * bar + 0.012, 0.012); gl.translate(W / 2, H / 2, 0);
+      geos[mode] = { fr: boxesGeo(parts), gl };
+    }
+    for (const k of Object.keys(sashQ)) {
+      const { gid, mode, list } = sashQ[k];
+      const im = new THREE.InstancedMesh(geos[mode].fr, M.frame, list.length), ig = new THREE.InstancedMesh(geos[mode].gl, M.glass, list.length);
+      im.name = `sashes-${gid}-${mode}-frame`; ig.name = `sashes-${gid}-${mode}-glass`; im.castShadow = false; im.receiveShadow = true; ig.castShadow = false; ig.renderOrder = 1;
+      list.forEach((r, i) => { r.im = im; r.ig = ig; r.i = i; r.pv.updateMatrix(); im.setMatrixAt(i, r.pv.matrix); ig.setMatrixAt(i, r.pv.matrix); });
+      for (const m of [im, ig]) {
+        m.instanceMatrix.needsUpdate = true; m.computeBoundingSphere(); m.computeBoundingBox(); m.userData.env = true;
+        m.raycast = function (rc, hits) { const n0 = hits.length; THREE.InstancedMesh.prototype.raycast.call(this, rc, hits); for (let i = n0; i < hits.length; i++) { const r = list[hits[i].instanceId]; if (r) hits[i].object = r.pv; } };
+        G[gid].add(m);
+      }
+    }
+  }
+
+  function buildOpening(fid, w, F, o, ob, ot, isExt, gi, mans) {
     const floor = FLOORS.find(f => f.id === fid); const y = floor.level.y;
     curOpening = { floorId: fid, wallIndex: floor.walls.indexOf(w), openingIndex: w.openings.indexOf(o), type: o.type };
-    const gid = (fid === 'second' && isExt && (w.mansard)) ? 'second' : fid;
+    const gid = gi || fid;
     const h = w.t / 2;
     const s0 = o.from, s1 = o.to;
     if (o.type === 'window' || o.type === 'glassdoor') {
@@ -781,20 +950,23 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
       if (o.type === 'window') {
         frameRect(gid, w, F, s0, s1, ob, ot, nG, 0.09, 0.06);
         const mid = s1 - s0 > 1.0 ? (s0 + s1) / 2 : null;
-        if (mid) B.boxAlong(gid, 'frame', w.a, w.b, mid - 0.03, mid + 0.03, ob, ot, nG - 0.045, nG + 0.045);
-        glassPane(gid, w, s0 + 0.05, s1 - 0.05, ob + 0.05, ot - 0.05, nG);
+        if (mid) { // fixed light + mullion; the other half is a tilt sash
+          B.boxAlong(gid, 'frame', w.a, w.b, mid - 0.03, mid + 0.03, ob, ot, nG - 0.045, nG + 0.045);
+          glassPane(gid, w, s0 + 0.05, mid - 0.02, ob + 0.05, ot - 0.05, nG);
+        }
+        makeSash({ fid, gid, F, a0: mid ? mid + 0.03 : s0 + 0.06, a1: s1 - 0.06, y0: ob + 0.06, y1: ot - 0.06, n: nG + 0.012, mode: 'tilt' });
         if (isExt) {
           B.boxAlong(gid, 'stoneFine', w.a, w.b, s0 - 0.04, s1 + 0.04, ob - 0.05, ob, -h - 0.05, nG - 0.04); // external sill
           B.boxAlong(gid, 'stoneFine', w.a, w.b, s0 - 0.02, s1 + 0.02, ob - 0.03, ob, nG + 0.045, h + 0.03);  // internal sill
+          if (!mans) aoWall(fid, F, s0 - 0.02, s1 + 0.02, -h - 0.004, ob - 0.05, 0.2, ob - 0.42, 0);            // drip shading under the sill
         }
       } else {
-        // sliding glass door: two leaves, overlapping at the centre, on two tracks
+        // sliding glass door: fixed leaf on the outer track, sliding leaf on the inner track (opens on tap)
         frameRect(gid, w, F, s0, s1, ob, ot, nG, 0.14, 0.06);
         const m = (s0 + s1) / 2;
-        for (const [a0, a1, dn] of [[s0 + 0.04, m + 0.04, -0.035], [m - 0.04, s1 - 0.04, 0.035]]) {
-          frameRect(gid, w, F, a0, a1, ob + 0.04, ot - 0.05, nG + dn, 0.05, 0.05);
-          glassPane(gid, w, a0 + 0.05, a1 - 0.05, ob + 0.09, ot - 0.1, nG + dn);
-        }
+        frameRect(gid, w, F, s0 + 0.04, m + 0.04, ob + 0.04, ot - 0.05, nG - 0.035, 0.05, 0.05);
+        glassPane(gid, w, s0 + 0.09, m - 0.01, ob + 0.09, ot - 0.1, nG - 0.035);
+        makeSash({ fid, gid, F, a0: m - 0.04, a1: s1 - 0.04, y0: ob + 0.04, y1: ot - 0.05, n: nG + 0.035, mode: 'slide', travel: m - s0 - 0.08 });
         if (isExt) B.boxAlong(gid, 'darkSteel', w.a, w.b, s0, s1, ob - 0.02, ob + 0.005, -h - 0.02, h);
       }
       return;
@@ -842,16 +1014,48 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     const gs = list.map(([cx, cy, cz, sx, sy, sz]) => { const g = NI(new THREE.BoxGeometry(sx, sy, sz)); g.translate(cx, cy, cz); return g; });
     return mergeGeometries(gs, false);
   }
-  // text plate (canvas) — o: { bg, fg, font, pw, glow, metal, flat, rz }
+  // text plate (canvas) — o: { bg, fg, font, pw, glow, metal, flat, rz }. Signs are queued and baked into one atlas per group.
+  const signQ = [];
   function label(gid, text, x, y, z, ry, w, h, o = {}) {
-    const pw = o.pw || 512, ph = Math.max(32, Math.round(pw * h / w));
-    const t = textCanvasTexture(THREE, text, { w: pw, h: ph, bg: o.bg === undefined ? '#2a2c2f' : o.bg, fg: o.fg || '#f2efe8', font: o.font || `600 ${Math.round(ph * 0.56)}px Helvetica, Arial, sans-serif`, border: o.border || null });
-    const mat = new THREE.MeshStandardMaterial({ map: t, roughness: 0.5, metalness: o.metal || 0, transparent: o.bg === null });
-    if (o.glow) { mat.emissive = new THREE.Color(0xffffff); mat.emissiveMap = t; mat.emissiveIntensity = o.glow; }
-    mat.name = o.glow ? 'led-strip-emissive:sign' : 'signage';
-    const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), mat); m.position.set(x, y, z);
-    if (o.flat) m.rotation.set(-Math.PI / 2, 0, o.rz || 0); else m.rotation.y = ry;
-    m.name = 'sign-' + text.replace(/[^\w.-]+/g, '-'); G[gid].add(m); return m;
+    const rec = { gid, text, x, y, z, ry, w, h, o, name: 'sign-' + text.replace(/[^\w.-]+/g, '-') };
+    signQ.push(rec); return rec;
+  }
+  function buildSigns() {
+    const sets = new Map();
+    for (const r of signQ) {
+      const gid = G[r.gid + '-det'] ? r.gid + '-det' : r.gid;
+      const k = gid + '|' + (r.o.glow ? 'glow' : 'plain') + '|' + (r.o.bg === null ? 'alpha' : 'opaque');
+      if (!sets.has(k)) sets.set(k, { gid, glow: !!r.o.glow, alpha: r.o.bg === null, list: [] });
+      r.pw = r.o.pw || 512; r.ph = Math.max(32, Math.round(r.pw * r.h / r.w)); sets.get(k).list.push(r);
+    }
+    for (const set of sets.values()) {
+      const list = set.list.slice().sort((a, b) => b.ph - a.ph); let sc = 1, AH = 0; const AW = 1024, pad = 4;
+      for (; sc > 0.2; sc *= 0.85) { // shelf packing, shrink until it fits 1024 x 1024
+        let x = 0, y = 0, rowH = 0, ok = true;
+        for (const r of list) { const w = Math.min(AW, Math.round(r.pw * sc)), h = Math.round(r.ph * sc * (w / (r.pw * sc))); if (x + w > AW) { x = 0; y += rowH + pad; rowH = 0; } r.ax = x; r.ay = y; r.aw = w; r.ah = h; x += w + pad; rowH = Math.max(rowH, h); if (y + h > 1024) { ok = false; break; } }
+        AH = y + rowH; if (ok) break;
+      }
+      let H2 = 64; while (H2 < AH) H2 *= 2;
+      const cv = makeCanvas(AW, H2), g = cv.getContext('2d'), geos = []; let glow = 0;
+      for (const r of list) {
+        const o = r.o, k = r.aw / r.pw;
+        g.save(); g.translate(r.ax, r.ay); g.beginPath(); g.rect(0, 0, r.aw, r.ah); g.clip(); g.scale(k, k);
+        if (o.bg !== null) { g.fillStyle = o.bg === undefined ? '#2a2c2f' : o.bg; g.fillRect(0, 0, r.pw, r.ph); }
+        if (o.border) { g.strokeStyle = o.border; g.lineWidth = 4; g.strokeRect(6, 6, r.pw - 12, r.ph - 12); }
+        g.fillStyle = o.fg || '#f2efe8'; g.font = o.font || `600 ${Math.round(r.ph * 0.56)}px Helvetica, Arial, sans-serif`; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(r.text, r.pw / 2, r.ph / 2 + 2);
+        g.restore();
+        const pg = NI(new THREE.PlaneGeometry(r.w, r.h)), uv = pg.attributes.uv;
+        for (let i = 0; i < uv.count; i++) uv.setXY(i, (r.ax + uv.getX(i) * r.aw) / AW, 1 - (r.ay + (1 - uv.getY(i)) * r.ah) / H2);
+        pg.applyMatrix4(new THREE.Matrix4().compose(V3(r.x, r.y, r.z), new THREE.Quaternion().setFromEuler(o.flat ? new THREE.Euler(-Math.PI / 2, 0, o.rz || 0) : new THREE.Euler(0, r.ry, 0)), V3(1, 1, 1)));
+        geos.push(pg); glow += o.glow || 0;
+      }
+      const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4;
+      const mat = new THREE.MeshStandardMaterial({ map: t, roughness: 0.5, metalness: 0, transparent: set.alpha });
+      if (set.glow) { mat.emissive = new THREE.Color(0xffffff); mat.emissiveMap = t; mat.emissiveIntensity = glow / list.length; }
+      mat.name = set.glow ? 'led-strip-emissive:sign' : 'signage';
+      const m = new THREE.Mesh(mergeGeometries(geos, false), mat); m.name = `signs-${set.gid}-${set.glow ? 'glow' : 'plain'}${set.alpha ? '-alpha' : ''}`; m.receiveShadow = !set.alpha;
+      G[set.gid].add(m);
+    }
   }
 
   // Street entrance: full-height glazed door + sidelight in a slim bronze frame (leaf east, sidelight west).
@@ -869,11 +1073,11 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     B.boxAlong(gid, 'steel', w.a, w.b, s0 + fb, split, y + 0.003, y + 0.009, nG - 0.03, nG + 0.03);
     // leaf
     const W = leafW - 0.012, H = top - fb - y - 0.014, st = 0.075, br = 0.2;
-    const pivot = new THREE.Object3D(); pivot.name = 'door-main-entrance';
+    const pivot = dyn(new THREE.Object3D()); pivot.name = 'door-main-entrance';
     const hp = F.P(s0 + fb + 0.006, nG); pivot.position.set(hp[0], y + 0.01, hp[1]);
     const base = F.ry; pivot.rotation.y = base;
     const fr = new THREE.Mesh(boxesGeo([[st / 2, H / 2, 0, st, H, 0.05], [W - st / 2, H / 2, 0, st, H, 0.05], [W / 2, H - st / 2, 0, W - 2 * st, st, 0.05], [W / 2, br / 2, 0, W - 2 * st, br, 0.05]]), M.bronze);
-    fr.name = 'door-frame-main-entrance'; fr.castShadow = true;
+    fr.name = 'door-frame-main-entrance'; fr.castShadow = false;
     const gl = new THREE.Mesh(new THREE.BoxGeometry(W - 2 * st + 0.01, H - st - br + 0.01, 0.012), M.glass); gl.position.set(W / 2, br + (H - st - br) / 2, 0); gl.name = 'door-leaf-main-entrance';
     const hx = W - st - 0.07, hy = 1.12, hl = 1.4;
     const hg = [];
@@ -881,7 +1085,7 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     const hd = new THREE.Mesh(mergeGeometries(hg.map(g => { for (const k of Object.keys(g.attributes)) if (k !== 'position' && k !== 'normal' && k !== 'uv') g.deleteAttribute(k); return g; }), false), M.steel); hd.name = 'door-handle-main-entrance';
     for (const m of [fr, gl, hd]) { if (curOpening) m.userData.opening = { ...curOpening }; pivot.add(m); }
     if (curOpening) pivot.userData.opening = { ...curOpening };
-    G[gid].add(pivot);
+    G['ground-det'].add(pivot);
     const c = F.P((s0 + s1) / 2, 0); let cur = -1;
     const d = { id: 'main-entrance', floorId: 'ground', kind: 'main', center: V3(c[0], y + 1.05, c[1]), pivot, leaf: gl, opening: curOpening ? { ...curOpening } : null,
       setOpen(t) { t = Math.max(0, Math.min(1, +t || 0)); if (t === cur) return; cur = t; pivot.rotation.y = base - Math.PI * 0.5 * t; } };
@@ -895,23 +1099,18 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     B.boxAlong(gid, 'darkSteel', w.a, w.b, s1 - jw, s1, ob, ot, -h - 0.05, h + 0.03);
     B.boxAlong(gid, 'darkSteel', w.a, w.b, s0, s1, ot - lh, ot, -h - 0.05, h + 0.03);
     const W = s1 - s0 - 2 * jw + 0.06, H = ot - lh - ob + 0.03, N = 5, hs = H / N, R = 0.32, Hv = H - hs / 2, nD = h + 0.07;
-    const grp = new THREE.Group(); grp.name = 'garage-door';
+    const grp = new THREE.Group(); grp.name = 'garage-door';   // (sections move, the group itself is static)
     const c = F.P((s0 + s1) / 2, nD); grp.position.set(c[0], ob, c[1]); grp.rotation.y = F.ry;
     const sg = new THREE.BoxGeometry(W, hs - 0.008, 0.045);
     { const uv = sg.attributes.uv; for (let i = 0; i < uv.count; i++) uv.setXY(i, uv.getX(i) * W, uv.getY(i) * hs); }
-    const secs = [];
-    for (let i = 0; i < N; i++) {
-      const m = new THREE.Mesh(sg, M.garage); m.name = 'garage-door-panel'; m.castShadow = true; m.receiveShadow = true;
-      if (curOpening) m.userData.opening = { ...curOpening };
-      if (i === 3) { // glazed vision slots
-        const sl = []; for (let k = 0; k < 5; k++) sl.push([(k - 2) * (W / 5.4), 0, -0.023, W / 7.5, hs * 0.34, 0.006]);
-        const v = new THREE.Mesh(boxesGeo(sl), M.carGlass); v.name = 'garage-door-slots'; if (curOpening) v.userData.opening = { ...curOpening }; m.add(v);
-      }
-      if (i === 0) { const seal = new THREE.Mesh(shared.box, M.rubber); seal.scale.set(W, 0.03, 0.05); seal.position.set(0, -hs / 2 + 0.012, 0); m.add(seal); }
-      grp.add(m); secs.push(m);
-    }
+    const secIM = new THREE.InstancedMesh(sg, M.garage, N); secIM.name = 'garage-door-panel'; secIM.castShadow = true; secIM.receiveShadow = true;
+    const slotList = []; for (let k = 0; k < 5; k++) slotList.push([(k - 2) * (W / 5.4), 0, -0.023, W / 7.5, hs * 0.34, 0.006]);
+    const slots = dyn(new THREE.Mesh(boxesGeo(slotList.slice(0, 5)), M.carGlass)); slots.name = 'garage-door-slots'; slots.rotation.order = 'XYZ';
+    const seal = dyn(new THREE.Mesh(mbox(W, 0.03, 0.05), M.rubber)); seal.name = 'garage-door-seal';
+    for (const m of [secIM, slots, seal]) { if (curOpening) m.userData.opening = { ...curOpening }; grp.add(m); }
     if (curOpening) grp.userData.opening = { ...curOpening };
-    G[gid].add(grp);
+    G['ground-det'].add(grp);
+    const gm = new THREE.Matrix4();
     const place = (t) => {
       const travel = t * (H + 0.25);
       for (let i = 0; i < N; i++) {
@@ -919,9 +1118,13 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
         if (s <= Hv) { yy = s; zz = 0; a = 0; }
         else if (s <= Hv + R * Math.PI / 2) { a = (s - Hv) / R; yy = Hv + R * Math.sin(a); zz = R * (1 - Math.cos(a)); }
         else { a = Math.PI / 2; yy = Hv + R; zz = R + (s - Hv - R * Math.PI / 2); }
-        secs[i].position.set(0, yy, zz); secs[i].rotation.x = a;
+        gm.makeRotationX(a); gm.setPosition(0, yy, zz); secIM.setMatrixAt(i, gm);
+        if (i === 3) { slots.position.set(0, yy, zz); slots.rotation.x = a; }
+        if (i === 0) { const o = -hs / 2 + 0.012; seal.position.set(0, yy + o * Math.cos(a), zz + o * Math.sin(a)); seal.rotation.x = a; }
       }
+      secIM.instanceMatrix.needsUpdate = true;
     };
+    secIM.boundingSphere = new THREE.Sphere(new THREE.Vector3(0, H * 0.6, H * 0.5), H * 1.5); secIM.boundingBox = new THREE.Box3(new THREE.Vector3(-W, -0.5, -0.5), new THREE.Vector3(W, H + 1, H + 1.5));
     place(0);
     // tracks + operator (inside)
     const yT = ob + Hv + R + 0.05;
@@ -932,7 +1135,7 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     B.boxAlong(gid, 'galv', w.a, w.b, (s0 + s1) / 2 - 0.02, (s0 + s1) / 2 + 0.02, yT + 0.1, yT + 0.14, nD, nD + H + 0.8);
     B.boxAlong(gid, 'evWhite', w.a, w.b, (s0 + s1) / 2 - 0.12, (s0 + s1) / 2 + 0.12, yT + 0.02, yT + 0.2, nD + H + 0.5, nD + H + 0.9);
     const cc = F.P((s0 + s1) / 2, 0);
-    const d = { id: 'garage', floorId: 'ground', kind: 'garage', center: V3(cc[0], ob + 1.1, cc[1]), pivot: grp, leaf: secs[0], opening: curOpening ? { ...curOpening } : null,
+    const d = { id: 'garage', floorId: 'ground', kind: 'garage', center: V3(cc[0], ob + 1.1, cc[1]), pivot: grp, leaf: secIM, opening: curOpening ? { ...curOpening } : null,
       setOpen(t) { place(Math.max(0, Math.min(1, +t || 0))); } };
     doors.push(d);
     // outside: height-limit sign, P sign, signal light, wall lights (street face z = 14.85)
@@ -1120,11 +1323,17 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     const dz0 = L.doorZ[0], dz1 = L.doorZ[1], dW = dz1 - dz0;
     // shaft pit + walls are covered by the core walls; add pit floor and shaft lining
     B.boxAB('basement', 'concrete', L.x0, LEVEL_Y.basement - 1.2, L.z0, L.x1, LEVEL_Y.basement - 1.0, L.z1);
-    for (const [gid, y0, y1] of [['basement', LEVEL_Y.basement - 1.2, -0.3], ['ground', -0.3, 2.7], ['first', 2.7, 5.7], ['second', 5.7, ROOF.y]]) B.boxAB(gid, 'bWall', 0, y0, L.z0 - 0.1, 0.25, y1, L.z1 + 0.05); // shaft back wall (party side)
+    for (const [gid, y0, y1] of [['basement', LEVEL_Y.basement - 1.2, -0.3], ['ground', -0.3, 2.7], ['first', 2.7, 5.7], ['second', 5.7, ROOF.y]]) B.boxAB(gid, gid === 'basement' ? 'bWall' : 'wall', 0, y0, L.z0 - 0.1, 0.25, y1, L.z1 + 0.05); // shaft back wall (party side)
     // cab
-    const cab = new THREE.Group(); cab.name = 'lift-cab';
+    const cab = dyn(new THREE.Group()); cab.name = 'lift-cab';
     const cw = 0.98, cd = 1.38, ch = 2.2; // interior
-    const add = (geo, mat, x, y, z, sxx, syy, szz, name) => { const metric = geo === shared.box; const m = new THREE.Mesh(metric ? mbox(sxx, syy, szz) : geo, M[mat] || mat); m.position.set(x, y, z); if (!metric) m.scale.set(sxx, syy, szz); if (name) m.name = name; m.castShadow = false; m.receiveShadow = true; cab.add(m); return m; };
+    const cabParts = {};
+    const add = (geo, mat, x, y, z, sxx, syy, szz, name, axis) => { // static cab parts are merged per material below
+      let g;
+      if (geo === shared.box) { g = mbox(sxx, syy, szz); g.translate(x, y, z); }
+      else { g = NI(geo.clone()); g.scale(sxx, syy, szz); if (axis === 'z') g.rotateZ(Math.PI / 2); else if (axis === 'x') g.rotateX(Math.PI / 2); g.translate(x, y, z); }
+      (cabParts[mat] || (cabParts[mat] = [])).push(g);
+    };
     const bx = shared.box;
     // cab coordinates: origin at cab floor centre; +x towards the doors
     add(bx, 'stone', 0, -0.03, 0, cw + 0.08, 0.06, cd + 0.08, 'cab-floor');
@@ -1143,40 +1352,41 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     add(bx, 'ledPanel', 0, ch - 0.002, 0, cw - 0.25, 0.01, cd - 0.3, 'cab-light');
     add(bx, 'darkSteel', 0, ch + 0.4, 0, cw + 0.1, 0.5, cd + 0.1); // top structure
     // handrails
-    for (const zz of [-cd / 2 + 0.05, cd / 2 - 0.05]) { const r = add(shared.cyl, 'steel', -0.05, 0.92, zz, 0.018, cw - 0.3, 0.018); r.rotation.z = Math.PI / 2; }
-    const hr = add(shared.cyl, 'steel', -cw / 2 + 0.06, 0.92, 0, 0.018, cd - 0.3, 0.018); hr.rotation.x = Math.PI / 2;
+    for (const zz of [-cd / 2 + 0.05, cd / 2 - 0.05]) add(shared.cyl, 'steel', -0.05, 0.92, zz, 0.018, cw - 0.3, 0.018, null, 'z');
+    add(shared.cyl, 'steel', -cw / 2 + 0.06, 0.92, 0, 0.018, cd - 0.3, 0.018, null, 'x');
+    for (const k of Object.keys(cabParts)) { const m = new THREE.Mesh(mergeGeometries(cabParts[k], false), M[k]); m.name = `cab-${k}`; m.castShadow = false; m.receiveShadow = true; cab.add(m); }
     // button panel on the south front return, facing inwards (-x)
     const panel = new THREE.Group(); panel.name = 'lift-panel';
     panel.position.set(cw / 2 - 0.002, 1.1, cd / 2 - fw / 2);
     panel.rotation.y = -Math.PI / 2; // local +z faces -x (into the cab)
-    const plate = new THREE.Mesh(bx, M.darkSteel); plate.scale.set(0.16, 0.5, 0.012); plate.name = 'lift-panel-plate'; panel.add(plate);
+    const plate = new THREE.Mesh(boxesGeo([[0, 0, 0, 0.16, 0.5, 0.012], [0, 0.225, 0.008, 0.12, 0.06, 0.01]]), M.darkSteel); plate.name = 'lift-panel-plate'; panel.add(plate);
     const labels = [['second', '2'], ['first', '1'], ['ground', '0'], ['basement', '-1']];
     const btnGeo = new THREE.CylinderGeometry(0.022, 0.022, 0.012, 20); btnGeo.rotateX(Math.PI / 2);
     labels.forEach(([fid, lab], i) => {
-      const off = new THREE.MeshStandardMaterial({ color: 0xd8d8d8, metalness: 0.9, roughness: 0.25, emissive: 0x000000 });
-      const tt = textCanvasTexture(THREE, lab, { w: 128, h: 128, bg: null, fg: '#1a1a1a', font: '600 70px Helvetica, Arial, sans-serif' });
-      const b = new THREE.Mesh(btnGeo, off); b.name = `lift-button-${fid}`;
+      const tt = textCanvasTexture(THREE, lab, { w: 128, h: 128, bg: '#d6d6d6', fg: '#1a1a1a', font: '600 70px Helvetica, Arial, sans-serif' });
+      const off = new THREE.MeshStandardMaterial({ color: 0xffffff, map: tt, metalness: 0.75, roughness: 0.3, emissive: 0x000000 });
+      const bg0 = NI(btnGeo.clone()); { const uv = bg0.attributes.uv; for (let k = 0; k < uv.count; k++) uv.setXY(k, 0.03, 0.03); }
+      const face = NI(new THREE.CircleGeometry(0.019, 20)); face.translate(0, 0, 0.0065);
+      const b = new THREE.Mesh(mergeGeometries([bg0, face], false), off); b.name = `lift-button-${fid}`;
       b.position.set(0, 0.16 - i * 0.1, 0.012);
       b.userData.liftButton = fid;
-      b.userData.setLit = (on) => { off.emissive.set(on ? 0xffb85a : 0x000000); off.emissiveIntensity = on ? 4 : 0; };
-      // face the +z direction: plane mapping on cylinder cap → fix uv by using a separate label disc
-      const lab2 = new THREE.Mesh(new THREE.CircleGeometry(0.018, 20), new THREE.MeshStandardMaterial({ map: tt, transparent: true, roughness: 0.4, metalness: 0 }));
-      lab2.position.z = 0.0065; lab2.userData.liftButton = fid; b.add(lab2);
+      b.userData.setLit = (on) => { off.emissive.setHex(on ? 0xffb85a : 0x000000); off.emissiveIntensity = on ? 4 : 0; };
+      b.userData.interact = { id: 'lift-button-' + fid, kind: 'lift-button', sound: 'lift', range: 2.2, label: L4('Floor ' + lab, 'Piso ' + lab, 'קומה ' + lab, 'Этаж ' + lab), toggle() { liftObj.call(fid, 'panel'); }, isOn() { return liftObj.target === fid; } };
+      interactables.push(b);
       panel.add(b);
     });
     // floor indicator screen above the buttons
-    const scr = new THREE.Mesh(bx, M.black); scr.scale.set(0.12, 0.06, 0.01); scr.position.set(0, 0.22 + 0.005, 0.008); panel.add(scr);
     cab.add(panel);
     // cab doors (two-panel side-opening, telescopic → both panels move to +z end? use centre-opening for elegance)
     const cabDoors = [];
     for (const sgn of [-1, 1]) {
-      const d = new THREE.Mesh(bx, M.steel); d.scale.set(0.025, 2.08, dW / 2 + 0.01); d.position.set(cw / 2 + 0.07, 1.04, sgn * dW / 4); d.name = 'cab-door'; cab.add(d); cabDoors.push({ m: d, sgn });
+      const d = dyn(new THREE.Mesh(mbox(0.025, 2.08, dW / 2 + 0.01), M.steel)); d.position.set(cw / 2 + 0.07, 1.04, sgn * dW / 4); d.name = 'cab-door'; cab.add(d); cabDoors.push({ m: d, sgn });
     }
     try { const cl = new THREE.PointLight(0xfff0dc, 3, 3, 2); cl.name = 'cab-light-source'; cl.position.set(0, ch - 0.15, 0); cab.add(cl); } catch (e) { /* ignore */ }
     cab.position.set(sx - 0.05, 0, sz);
     group.add(cab);
     // landing doors + stainless frames + indicators
-    const landing = {};
+    const landing = {}, callMats = {};
     for (const fid of ORDER) {
       const y = LEVEL_Y[fid];
       const gid = fid;
@@ -1188,27 +1398,62 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
       // indicator (emissive digit)
       const tt = textCanvasTexture(THREE, fid === 'basement' ? '-1' : String(ORDER.indexOf(fid) - 1), { w: 128, h: 64, bg: '#0d0d0f', fg: '#ffcf8a', font: '600 44px Helvetica, Arial, sans-serif' });
       const ind = new THREE.Mesh(new THREE.PlaneGeometry(0.14, 0.07), new THREE.MeshStandardMaterial({ color: 0x000000, emissive: 0xffffff, emissiveMap: tt, emissiveIntensity: 2.5, roughness: 0.3 }));
-      ind.position.set(x + 0.021, y + 2.3, (dz0 + dz1) / 2); ind.rotation.y = Math.PI / 2; ind.name = `lift-indicator-${fid}`; G[gid].add(ind);
+      ind.position.set(x + 0.021, y + 2.3, (dz0 + dz1) / 2); ind.rotation.y = Math.PI / 2; ind.name = `lift-indicator-${fid}`; G[gid + '-det'].add(ind);
       // call button
       const cbm = new THREE.MeshStandardMaterial({ color: 0xd0d0d0, metalness: 0.9, roughness: 0.25 });
-      const cb = new THREE.Mesh(btnGeo, cbm); cb.rotation.y = Math.PI / 2; cb.position.set(x + 0.02, y + 1.05, dz1 + 0.22); cb.name = `lift-call-${fid}`; cb.userData.liftCall = fid; G[gid].add(cb);
-      B.boxAB(gid, 'steel', x, y + 0.95, dz1 + 0.17, x + 0.012, y + 1.15, dz1 + 0.27);
+      const cb = new THREE.Mesh(btnGeo, cbm); cb.rotation.y = Math.PI / 2; cb.position.set(x + 0.02, y + 1.05, dz1 + 0.22); cb.name = `lift-call-${fid}`; cb.userData.liftCall = fid; G[gid + '-det'].add(cb);
+      const cp = new THREE.Mesh(mbox(0.012, 0.24, 0.12), M.steel); cp.position.set(x + 0.006, y + 1.05, dz1 + 0.22); cp.name = `lift-call-plate-${fid}`; cp.userData.liftCall = fid; G[gid + '-det'].add(cp);
+      const callIt = { id: 'lift-call-' + fid, kind: 'lift-call', sound: 'lift', range: 3, label: LBL.call, toggle() { liftObj.call(fid, 'landing'); }, isOn() { return liftObj.target === fid; } };
+      cb.userData.interact = callIt; cp.userData.interact = callIt; interactables.push(cb, cp); callMats[fid] = cbm;
       const leaves = [];
       for (const sgn of [-1, 1]) {
-        const d = new THREE.Mesh(bx, M.steel); d.scale.set(0.03, 2.1, dW / 2 + 0.01); d.position.set(L.doorOnX + 0.05, y + 1.05, (dz0 + dz1) / 2 + sgn * dW / 4); d.name = `landing-door-${fid}`; d.userData.opening = liftOpening(fid); d.castShadow = true; G[gid].add(d); leaves.push({ m: d, sgn, z0: d.position.z });
+        const d = dyn(new THREE.Mesh(mbox(0.03, 2.1, dW / 2 + 0.01), M.steel)); d.position.set(L.doorOnX + 0.05, y + 1.05, (dz0 + dz1) / 2 + sgn * dW / 4); d.name = `landing-door-${fid}`; d.userData.opening = liftOpening(fid); d.userData.interact = callIt; interactables.push(d); d.castShadow = false; G[gid].add(d); leaves.push({ m: d, sgn, z0: d.position.z });
       }
       landing[fid] = leaves;
     }
     let cabT = 0;
+    const landT = { basement: 0, ground: 0, first: 0, second: 0 };
+    const rawCabDoors = (t) => { cabT = t; for (let i = 0; i < cabDoors.length; i++) { const d = cabDoors[i]; d.m.position.z = d.sgn * (dW / 4 + t * (dW / 2 - 0.02)); } };
+    const rawLanding = (fid, t) => { const ls = landing[fid]; if (!ls) return; landT[fid] = t; for (let i = 0; i < ls.length; i++) { const d = ls[i]; d.m.position.z = d.z0 + d.sgn * t * (dW / 2 - 0.02); } };
+    const clamp01 = (t) => Math.max(0, Math.min(1, +t || 0));
+    // tap-to-call controller (used by the landing call buttons and the cab panel when no other module takes the request)
+    const job = { on: false, phase: 0, y0: 0, y1: 0, u: 0, dur: 1 };
+    const lit = (fid) => { for (let i = 0; i < ORDER.length; i++) { const k = ORDER[i], m = callMats[k]; if (m) { m.emissive.setHex(k === fid ? 0xffb85a : 0x000000); m.emissiveIntensity = k === fid ? 3 : 0; } } for (let i = 0; i < panel.children.length; i++) { const c = panel.children[i]; if (c.userData.setLit) c.userData.setLit(c.userData.liftButton === fid); } };
+    const stop = () => { if (job.on) { job.on = false; liftObj.target = null; lit(null); } };
     liftObj.cab = cab;
     liftObj.shaft = { x: sx, z: sz };
     liftObj.levels = levels;
     liftObj.panel = panel;
-    liftObj.setCabY = (y) => { cab.position.y = +y || 0; };
-    liftObj.setCabDoors = (t) => { cabT = Math.max(0, Math.min(1, +t || 0)); for (const d of cabDoors) d.m.position.z = d.sgn * (dW / 4 + cabT * (dW / 2 - 0.02)); };
-    liftObj.setLandingDoors = (fid, t) => { const ls = landing[fid]; if (!ls) return; t = Math.max(0, Math.min(1, +t || 0)); for (const d of ls) d.m.position.z = d.z0 + d.sgn * t * (dW / 2 - 0.02); };
-    liftObj.setCabY(0); liftObj.setCabDoors(0);
-    for (const fid of ORDER) liftObj.setLandingDoors(fid, 0);
+    liftObj.target = null;          // floor id the cab is travelling to on a tap (null when idle)
+    liftObj.onRequest = null;       // optional hook (floorId, source) => true when another module (walk.js) performs the ride itself
+    liftObj.setCabY = (y) => { stop(); cab.position.y = +y || 0; };
+    liftObj.setCabDoors = (t) => { stop(); rawCabDoors(clamp01(t)); };
+    liftObj.setLandingDoors = (fid, t) => { stop(); rawLanding(fid, clamp01(t)); };
+    liftObj.getState = () => { liftState.y = cab.position.y; liftState.cabDoors = cabT; liftState.moving = job.on && job.phase === 1; liftState.target = liftObj.target; return liftState; };
+    const liftState = { y: 0, cabDoors: 0, moving: false, target: null, landing: landT };
+    liftObj.call = (fid, source) => {
+      if (!(fid in levels)) return false;
+      if (typeof liftObj.onRequest === 'function') { try { if (liftObj.onRequest(fid, source || 'tap') === true) return true; } catch (e) { /* fall through to the built-in ride */ } }
+      job.on = true; job.phase = Math.abs(cab.position.y - levels[fid]) < 0.01 ? 2 : 0; liftObj.target = fid; lit(fid);
+      return true;
+    };
+    animators.push((dt) => {
+      if (!job.on) return;
+      const fid = liftObj.target;
+      if (job.phase === 0) { // close every door
+        let open = cabT; for (let i = 0; i < ORDER.length; i++) open = Math.max(open, landT[ORDER[i]]);
+        if (open > 0) { const v = Math.max(0, open - dt * 1.3); if (cabT > v) rawCabDoors(v); for (let i = 0; i < ORDER.length; i++) if (landT[ORDER[i]] > v) rawLanding(ORDER[i], v); return; }
+        job.y0 = cab.position.y; job.y1 = levels[fid]; job.u = 0; job.dur = Math.max(1.6, Math.abs(job.y1 - job.y0) / 1.1); job.phase = 1;
+      } else if (job.phase === 1) { // travel (ease in/out)
+        job.u = Math.min(1, job.u + dt / job.dur); cab.position.y = job.y0 + (job.y1 - job.y0) * smooth(job.u);
+        if (job.u >= 1) job.phase = 2;
+      } else { // open at the landing
+        const v = Math.min(1, Math.max(cabT, landT[fid]) + dt * 1.1); rawCabDoors(v); rawLanding(fid, v);
+        if (v >= 1) { job.on = false; liftObj.target = null; lit(null); }
+      }
+    });
+    cab.position.y = 0; rawCabDoors(0);
+    for (const fid of ORDER) rawLanding(fid, 0);
     // register elevator 'doors' (kind 'elevator') so other modules can find them
     for (const fid of ORDER) doors.push({ id: `lift-${fid}`, floorId: fid, kind: 'elevator', center: V3(L.doorOnX, LEVEL_Y[fid] + 1.05, (dz0 + dz1) / 2), pivot: landing[fid][0].m, opening: liftOpening(fid), setOpen: (t) => liftObj.setLandingDoors(fid, t) });
   }
@@ -1557,12 +1802,17 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     B.boxAB(eg, 'ledWarm', 3.5, 2.484, 15.84, 5.36, 2.492, 15.87);
     for (const x of [4.0, 4.86]) downlight(eg, x, 2.492, 15.3, 0.04);
     // video intercom
-    B.boxAB(eg, 'steel', 5.33, 1.18, 14.85, 5.5, 1.66, 14.872);
-    B.cyl(eg, 'black', [5.415, 1.61, 14.872], [5.415, 1.61, 14.881], 0.021, 14);
-    B.cyl(eg, 'carGlass', [5.415, 1.61, 14.881], [5.415, 1.61, 14.884], 0.013, 12);
-    B.boxAB(eg, 'carGlass', 5.352, 1.42, 14.872, 5.478, 1.53, 14.876);
-    for (let i = 0; i < 3; i++) B.boxAB(eg, 'darkSteel', 5.375, 1.555 + i * 0.012, 14.872, 5.455, 1.56 + i * 0.012, 14.874);
-    for (let r = 0; r < 4; r++) for (let c = 0; c < 2; c++) B.boxAB(eg, 'brass', 5.365 + c * 0.06, 1.215 + r * 0.045, 14.872, 5.405 + c * 0.06, 1.24 + r * 0.045, 14.878);
+    { const ic = new THREE.Group(); ic.name = 'intercom'; ic.position.set(5.415, 1.42, 14.85);
+      const btn = []; for (let r = 0; r < 4; r++) for (let c = 0; c < 2; c++) btn.push([-0.03 + c * 0.06, -0.1925 + r * 0.045, 0.025, 0.04, 0.025, 0.006]);
+      const plate = new THREE.Mesh(boxesGeo([[0, 0, 0.011, 0.17, 0.48, 0.022], ...btn]), M.steel); plate.name = 'intercom-plate'; plate.receiveShadow = true;
+      const cam = NI(new THREE.CylinderGeometry(0.021, 0.021, 0.012, 14)); cam.rotateX(Math.PI / 2); cam.translate(0, 0.19, 0.028);
+      const bars = []; for (let i = 0; i < 3; i++) bars.push([0, 0.1375 + i * 0.012, 0.023, 0.08, 0.005, 0.002]);
+      const bits = new THREE.Mesh(mergeGeometries([cam, boxesGeo(bars)], false), M.black); bits.name = 'intercom-camera';
+      const sm = new THREE.MeshStandardMaterial({ color: 0x0b0e12, emissive: 0x9fd0ff, emissiveIntensity: 0, roughness: 0.15, metalness: 0.3 }); sm.name = 'led-strip-emissive:screen';
+      const scr = new THREE.Mesh(new THREE.BoxGeometry(0.126, 0.11, 0.004), sm); scr.position.set(0, 0.055, 0.024); scr.name = 'intercom-screen';
+      ic.add(plate, bits, scr); G[eg + '-det'].add(ic);
+      mkToggle(ic, { id: 'intercom', kind: 'intercom', sound: 'click', range: 3, open: LBL.bell, speed: 5, auto: 5, ease: false, apply: (t) => { sm.emissiveIntensity = 2.6 * t; } });
+    }
     // illuminated house number
     B.boxAB(eg, 'ledWarm', 5.735, 1.565, 14.851, 6.665, 2.135, 14.858);
     B.boxAB(eg, 'bronze', 5.75, 1.58, 14.85, 6.65, 2.12, 14.88);
@@ -1690,12 +1940,22 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
   }
 
   function buildBasement() {
-    const y = LEVEL_Y.basement, gid = 'basement', ceil = y + 2.4;
+    const y = LEVEL_Y.basement, gid = 'basement-int', ceil = y + 2.4;
     if (!M.pathPaint) { M.pathPaint = new THREE.MeshStandardMaterial({ color: 0x4d8467, roughness: 0.7 }); M.pathPaint.name = 'paint-green'; }
     const line = (a0, b0, a1, b1, m = 'white', h = 0.005) => B.boxAB(gid, m, Math.min(a0, a1), y + 0.001, Math.min(b0, b1), Math.max(a0, a1), y + h, Math.max(b0, b1));
     const plan = { P1: ['sedan', 0x2b2e33, 1], P2: ['ev', 0xe4e3de, -1], P3: ['suv', 0x5d6a73, 1], P4: ['hatch', 0x6e2424, -1], P5: ['hatch', 0x8a9399, 1], P6: ['sedan', 0x1f2f47, 1], P7: ['suv', 0xb5ac98, 1], P8: ['hatch', 0x33483a, -1] };
     const chargers = new Set(['P1', 'P2', 'P3', 'P7']);
     const zWall = 14.7 - 0.175;
+    const evBody = NI(new RoundedBoxGeometry(0.28, 0.44, 0.124, 2, 0.02)); evBody.translate(0, 0, 0.062);
+    const evFace = (() => { const scr = NI(new THREE.BoxGeometry(0.16, 0.22, 0.004)); scr.translate(0, 0.05, 0.126); const hook = NI(new THREE.TorusGeometry(0.11, 0.012, 6, 16)); hook.translate(0, -0.38, 0.03); return mergeGeometries([scr, hook], false); })();
+    const evLed = new THREE.BoxGeometry(0.12, 0.012, 0.003);
+    const evCharger = (id, cx, cy, cz, ry) => {
+      const g = new THREE.Group(); g.name = `ev-charger-${id}`; g.position.set(cx, cy, cz); g.rotation.y = ry;
+      const lm = new THREE.MeshStandardMaterial({ color: 0x9dffb0, emissive: 0x2cff6a, emissiveIntensity: 3, roughness: 0.4 }); lm.name = 'led-strip-emissive:ev';
+      const body = new THREE.Mesh(evBody, M.evWhite), face = new THREE.Mesh(evFace, M.black), led = new THREE.Mesh(evLed, lm); led.position.set(0, 0.135, 0.129);
+      body.receiveShadow = true; g.add(body, face, led); G[gid].add(g);
+      mkToggle(g, { id: 'ev-charger-' + id, kind: 'ev-charger', sound: 'click', range: 3, open: LBL.evO, close: LBL.evC, speed: 4, ease: false, apply: (t) => { lm.emissive.setRGB(0.17 * (1 - t) + 0.1 * t, 1 - 0.55 * t, 0.42 * (1 - t) + 1.0 * t); lm.color.setRGB(0.6, 1 - 0.3 * t, 0.7 + 0.3 * t); } });
+    };
     for (const p of PARKING) {
       const { x0, x1, z0, z1 } = p, rot = !!p.rotated, mx = (x0 + x1) / 2, mz = (z0 + z1) / 2;
       // bay lines (sides + corner ticks at the open end) and floor number
@@ -1715,8 +1975,8 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
       // EV wall box
       let wb = null;
       if (chargers.has(p.id)) {
-        if (!rot) { wb = [0.24, y + 1.2, mz + 0.8]; B.rboxAB(gid, 'evWhite', 0.176, y + 0.98, mz + 0.66, 0.3, y + 1.42, mz + 0.94, 0.02); B.boxAB(gid, 'black', 0.3, y + 1.14, mz + 0.72, 0.304, y + 1.36, mz + 0.88); B.boxAB(gid, 'ledGreen', 0.304, y + 1.33, mz + 0.74, 0.306, y + 1.34, mz + 0.86); const tr = NI(new THREE.TorusGeometry(0.11, 0.012, 6, 16)); tr.rotateY(Math.PI / 2); tr.translate(0.2, y + 0.82, mz + 0.8); B.push(gid, 'black', tr); }
-        else { wb = [mx + 0.8, y + 1.2, headZ - 0.06]; B.rboxAB(gid, 'evWhite', mx + 0.66, y + 0.98, headZ - 0.124, mx + 0.94, y + 1.42, headZ, 0.02); B.boxAB(gid, 'black', mx + 0.72, y + 1.14, headZ - 0.128, mx + 0.88, y + 1.36, headZ - 0.124); B.boxAB(gid, 'ledGreen', mx + 0.74, y + 1.33, headZ - 0.13, mx + 0.86, y + 1.34, headZ - 0.128); const tr = NI(new THREE.TorusGeometry(0.11, 0.012, 6, 16)); tr.translate(mx + 0.8, y + 0.82, headZ - 0.025); B.push(gid, 'black', tr); }
+        if (!rot) { wb = [0.24, y + 1.2, mz + 0.8]; evCharger(p.id, 0.176, y + 1.2, mz + 0.8, Math.PI / 2); }
+        else { wb = [mx + 0.8, y + 1.2, headZ - 0.06]; evCharger(p.id, mx + 0.8, y + 1.2, headZ, Math.PI); }
       }
       // car
       const [type, col, dir] = plan[p.id] || ['hatch', 0x888888, 1];
@@ -1765,16 +2025,16 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     for (let z = 4.9; z < 6.8; z += 0.9) for (const sx of [-1, 1]) line(2.45 + sx * 0.11, z, 2.45 + sx * 0.11 + 0.1, z + 0.28); // footprints
     // lift lobby: glazed screen with glass door, exit sign
     const zl = 7.1;
-    B.boxAB(gid, 'darkSteel', 1.55, y, zl - 0.03, 1.7, ceil, zl + 0.03); B.boxAB(gid, 'darkSteel', 2.62, y, zl - 0.03, 2.78, ceil, zl + 0.03);
-    B.boxAB(gid, 'darkSteel', 1.7, y + 2.14, zl - 0.03, 2.62, y + 2.2, zl + 0.03); B.boxAB(gid, 'glass', 1.7, y + 2.2, zl - 0.006, 2.62, ceil - 0.02, zl + 0.006);
-    for (const z of [8.02, 8.92]) B.boxAB(gid, 'darkSteel', 2.72, y, z - 0.03, 2.78, ceil, z + 0.03);
-    B.boxAB(gid, 'darkSteel', 2.72, y, zl, 2.78, y + 0.1, 8.95); B.boxAB(gid, 'darkSteel', 2.72, ceil - 0.06, zl, 2.78, ceil, 8.95);
-    B.boxAB(gid, 'glass', 2.744, y + 0.1, zl + 0.03, 2.756, ceil - 0.06, 7.99); B.boxAB(gid, 'glass', 2.744, y + 0.1, 8.05, 2.756, ceil - 0.06, 8.89);
+    B.boxAB('basement', 'darkSteel', 1.55, y, zl - 0.03, 1.7, ceil, zl + 0.03); B.boxAB('basement', 'darkSteel', 2.62, y, zl - 0.03, 2.78, ceil, zl + 0.03);
+    B.boxAB('basement', 'darkSteel', 1.7, y + 2.14, zl - 0.03, 2.62, y + 2.2, zl + 0.03); B.boxAB('basement', 'glass', 1.7, y + 2.2, zl - 0.006, 2.62, ceil - 0.02, zl + 0.006);
+    for (const z of [8.02, 8.92]) B.boxAB('basement', 'darkSteel', 2.72, y, z - 0.03, 2.78, ceil, z + 0.03);
+    B.boxAB('basement', 'darkSteel', 2.72, y, zl, 2.78, y + 0.1, 8.95); B.boxAB('basement', 'darkSteel', 2.72, ceil - 0.06, zl, 2.78, ceil, 8.95);
+    B.boxAB('basement', 'glass', 2.744, y + 0.1, zl + 0.03, 2.756, ceil - 0.06, 7.99); B.boxAB('basement', 'glass', 2.744, y + 0.1, 8.05, 2.756, ceil - 0.06, 8.89);
     {
-      const W = 0.9, H = 2.12, st = 0.05, pivot = new THREE.Object3D(); pivot.name = 'door-basement-lobby'; pivot.position.set(1.71, y + 0.01, zl);
-      const fr = new THREE.Mesh(boxesGeo([[st / 2, H / 2, 0, st, H, 0.04], [W - st / 2, H / 2, 0, st, H, 0.04], [W / 2, H - st / 2, 0, W - 2 * st, st, 0.04], [W / 2, 0.06, 0, W - 2 * st, 0.12, 0.04], [W - 0.12, 1.05, 0, 0.03, 0.4, 0.1]]), M.darkSteel); fr.castShadow = true; fr.name = 'door-frame-basement-lobby';
+      const W = 0.9, H = 2.12, st = 0.05, pivot = dyn(new THREE.Object3D()); pivot.name = 'door-basement-lobby'; pivot.position.set(1.71, y + 0.01, zl);
+      const fr = new THREE.Mesh(boxesGeo([[st / 2, H / 2, 0, st, H, 0.04], [W - st / 2, H / 2, 0, st, H, 0.04], [W / 2, H - st / 2, 0, W - 2 * st, st, 0.04], [W / 2, 0.06, 0, W - 2 * st, 0.12, 0.04], [W - 0.12, 1.05, 0, 0.03, 0.4, 0.1]]), M.darkSteel); fr.castShadow = false; fr.name = 'door-frame-basement-lobby';
       const gl = new THREE.Mesh(new THREE.BoxGeometry(W - 2 * st + 0.01, H - st - 0.12 + 0.01, 0.01), M.glass); gl.position.set(W / 2, 0.12 + (H - st - 0.12) / 2, 0); gl.name = 'door-leaf-basement-lobby';
-      pivot.add(fr, gl); G[gid].add(pivot); let cur = -1;
+      pivot.add(fr, gl); G['basement-det'].add(pivot); let cur = -1;
       const d = { id: 'basement-lobby', floorId: 'basement', kind: 'door', center: V3(2.16, y + 1.05, zl), pivot, leaf: gl, opening: null,
         setOpen(t) { t = Math.max(0, Math.min(1, +t || 0)); if (t === cur) return; cur = t; pivot.rotation.y = -t * Math.PI * 80 / 180; } };
       doors.push(d); d.setOpen(1);
@@ -1813,7 +2073,7 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
 
   // ───────── lobby ─────────
   function buildLobby() {
-    const g = 'ground', y = 0;
+    const g = 'ground-int', y = 0;
     // timber slat feature wall on the west wall (z 11.2 → 14.5): sealed backing, plinth and valance — no light behind the slats
     B.boxAB(g, 'darkSteel', 2.852, y, 11.2, 2.9, 2.7, 14.5);
     for (let z = 11.24; z < 14.46; z += 0.09) B.boxAB(g, 'slatW', 2.9, y + 0.1, z, 2.955, 2.6, z + 0.05);
@@ -1837,13 +2097,35 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     // east wall (x = 9.4): numbered brass mailboxes, large mirror over a concierge console
     const xe = 9.4;
     B.boxAB(g, 'bronze', xe - 0.075, 0.96, 9.66, xe, 1.68, 11.14);
-    const units = ['0.A', '0.B', '1.A', '1.B', '1.C', '2.A', '2.B', '2.C'];
-    for (let r = 0; r < 2; r++) for (let c = 0; c < 4; c++) B.rboxAB(g, 'brass', xe - 0.09, 1.0 + (1 - r) * 0.33, 9.7 + c * 0.355, xe - 0.074, 1.31 + (1 - r) * 0.33, 10.035 + c * 0.355, 0.004);
-    { const cv = makeCanvas(1024, 472), c2 = cv.getContext('2d'); c2.clearRect(0, 0, 1024, 472);
-      units.forEach((u, i) => { const cx = (i % 4) * 256 + 128, cy = Math.floor(i / 4) * 236 + 118; c2.fillStyle = '#2b2219'; c2.font = '600 58px Georgia, "Times New Roman", serif'; c2.textAlign = 'center'; c2.textBaseline = 'middle'; c2.fillText(u, cx, cy - 40); c2.fillRect(cx - 78, cy + 28, 156, 12); c2.beginPath(); c2.arc(cx + 92, cy - 44, 9, 0, 7); c2.fill(); });
-      const t = new THREE.CanvasTexture(cv); t.colorSpace = THREE.SRGBColorSpace; t.anisotropy = 4;
-      const mm = new THREE.MeshStandardMaterial({ map: t, transparent: true, roughness: 0.5 }); mm.name = 'signage';
-      const pm = new THREE.Mesh(new THREE.PlaneGeometry(1.42, 0.655), mm); pm.position.set(xe - 0.0915, 1.3275, 10.4); pm.rotation.y = -Math.PI / 2; pm.name = 'mailbox-labels'; G[g].add(pm); }
+    const units = UNIT_IDS;
+    { const A = brassAtlas(), mm = A.mat;
+      const dw = 0.335, dh = 0.31, dt = 0.016, hx = xe - 0.082, geos = [], hz = [];
+      units.forEach((u, i) => {
+        const c = i % 4, r = Math.floor(i / 4), yb = 1.0 + (1 - r) * 0.33, z0 = 9.7 + c * 0.355;
+        B.boxAB(g, 'black', xe - 0.0765, yb + 0.012, z0 + 0.012, xe - 0.075, yb + dh - 0.012, z0 + dw - 0.012);   // dark cavity behind the door
+        const bg = new THREE.BoxGeometry(dt, dh, dw), uv = bg.attributes.uv, cl = A.cell(u), pl = A.plain(u);
+        for (let k = 0; k < uv.count; k++) { const onFront = k >= 4 && k < 8; uv.setXY(k, onFront ? cl[0] + uv.getX(k) * cl[2] : pl[0], onFront ? cl[1] + uv.getY(k) * cl[3] : pl[1]); }
+        const ng = NI(bg); ng.translate(hx, yb + dh / 2, z0 + dw / 2); geos.push(ng); hz.push(z0);
+      });
+      const mg = mergeGeometries(geos, false), per = mg.attributes.position.count / units.length;
+      const P = mg.attributes.position, N = mg.attributes.normal, P0 = P.array.slice(), N0 = N.array.slice();
+      mg.computeBoundingBox(); mg.boundingBox.expandByScalar(0.36); mg.computeBoundingSphere(); mg.boundingSphere.radius += 0.36;
+      const mb = dyn(new THREE.Mesh(mg, mm)); mb.name = 'mailboxes'; mb.receiveShadow = true; G[g].add(mb);
+      const prox = units.map((u, i) => {
+        const p = new THREE.Object3D(); p.name = `mailbox-${u}`; p.material = mm; mb.add(p);
+        mkToggle(p, { id: 'mailbox-' + u, kind: 'mailbox', sound: 'click', range: 2.6, open: LBL.mailO, close: LBL.mailC, speed: 2.4, apply: (tt) => {
+          const a = -1.75 * tt, cs = Math.cos(a), sn = Math.sin(a), z0 = hz[i];
+          for (let k = i * per; k < (i + 1) * per; k++) {
+            const j = k * 3, dx = P0[j] - hx, dz = P0[j + 2] - z0;
+            P.array[j] = hx + dx * cs + dz * sn; P.array[j + 2] = z0 - dx * sn + dz * cs;
+            N.array[j] = N0[j] * cs + N0[j + 2] * sn; N.array[j + 2] = -N0[j] * sn + N0[j + 2] * cs;
+          }
+          P.needsUpdate = true; N.needsUpdate = true;
+        } });
+        return p;
+      });
+      mb.raycast = function (rc, hits) { const n0 = hits.length; THREE.Mesh.prototype.raycast.call(this, rc, hits); for (let i = n0; i < hits.length; i++) { const p = prox[Math.floor(hits[i].faceIndex * 3 / per)]; if (p) hits[i].object = p; } };
+    }
     label(g, 'CORREIO', xe - 0.002, 1.78, 10.4, -Math.PI / 2, 0.5, 0.07, { bg: null, fg: '#6b5a44', pw: 512, font: '500 60px Helvetica, Arial, sans-serif' });
     B.boxAB(g, 'bronze', xe - 0.03, 0.98, 11.56, xe, 2.48, 13.64);
     B.boxAB(g, 'mirror', xe - 0.034, 1.01, 11.59, xe - 0.03, 2.45, 13.61);
@@ -1854,7 +2136,7 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     for (const z of [12.2, 12.6, 13.0]) B.boxAB(g, 'brass', xe - 0.424, 0.7, z - 0.06, xe - 0.42, 0.712, z + 0.06);
     B.cyl(g, 'brass', [xe - 0.2, 0.875, 13.15], [xe - 0.2, 0.885, 13.15], 0.07, 16); B.cyl(g, 'brass', [xe - 0.2, 0.885, 13.15], [xe - 0.2, 1.2, 13.15], 0.01, 8);
     B.cyl(g, 'ledWarm', [xe - 0.2, 1.18, 13.15], [xe - 0.2, 1.4, 13.15], 0.11, 16, 0.08);
-    B.boxAB(g, 'bronze', xe - 0.34, 0.875, 12.0, xe - 0.1, 0.89, 12.34); B.boxAB(g, 'white', xe - 0.31, 0.89, 12.04, xe - 0.14, 0.9, 12.28);
+    B.boxAB(g, 'bronze', xe - 0.34, 0.875, 12.0, xe - 0.1, 0.89, 12.34); B.boxAB(g, 'stoneFine', xe - 0.31, 0.89, 12.04, xe - 0.14, 0.9, 12.28);
     B.cyl(g, 'planterDark', [xe - 0.2, 0.875, 12.62], [xe - 0.2, 1.03, 12.62], 0.06, 12, 0.075); bush(g, xe - 0.2, 1.0, 12.62, 0.13, 'olive', 406);
     // upholstered bench on the north wall
     B.rboxAB(g, 'walnut', 7.62, 0.2, 9.32, 9.2, 0.4, 9.78, 0.01);
@@ -1864,18 +2146,18 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     B.cyl(g, 'planterDark', [8.95, 0, 14.12], [8.95, 0.62, 14.12], 0.25, 20, 0.3);
     bush(g, 8.95, 0.56, 14.12, 0.42, 'olive', 404); grassClump(g, 8.95, 0.6, 14.12, 0.9, 405, 'grass');
     // mat well inside the door
-    B.boxAB(g, 'steel', 3.73, 0.0, 13.58, 5.17, 0.003, 14.52); B.boxAB(g, 'rubber', 3.75, 0.0, 13.6, 5.15, 0.006, 14.5);
+    B.boxAB(g, 'bronze', 3.73, 0.0, 13.58, 5.17, 0.003, 14.52); B.boxAB(g, 'black', 3.75, 0.0, 13.6, 5.15, 0.006, 14.5);
     // stair door: bronze portal, glazed leaf (held open) + fixed glazed guard beside the flight, wayfinding
     const zs0 = 9.5, zs1 = 11.1, xs = 2.75, zm = 10.46;
-    B.boxAB(g, 'bronze', xs - 0.105, 0, zs0, xs + 0.105, 2.3, zs0 + 0.035); B.boxAB(g, 'bronze', xs - 0.105, 0, zs1 - 0.035, xs + 0.105, 2.3, zs1); B.boxAB(g, 'bronze', xs - 0.105, 2.265, zs0, xs + 0.105, 2.3, zs1);
-    B.boxAB(g, 'bronze', xs - 0.03, 0, zm, xs + 0.03, 2.265, zm + 0.04); B.boxAB(g, 'bronze', xs - 0.03, 0, zm + 0.04, xs + 0.03, 0.1, zs1 - 0.035);
-    B.boxAB(g, 'glass', xs - 0.006, 0.1, zm + 0.04, xs + 0.006, 2.265, zs1 - 0.035);
+    B.boxAB('ground', 'bronze', xs - 0.105, 0, zs0, xs + 0.105, 2.3, zs0 + 0.035); B.boxAB('ground', 'bronze', xs - 0.105, 0, zs1 - 0.035, xs + 0.105, 2.3, zs1); B.boxAB('ground', 'bronze', xs - 0.105, 2.265, zs0, xs + 0.105, 2.3, zs1);
+    B.boxAB('ground', 'bronze', xs - 0.03, 0, zm, xs + 0.03, 2.265, zm + 0.04); B.boxAB('ground', 'bronze', xs - 0.03, 0, zm + 0.04, xs + 0.03, 0.1, zs1 - 0.035);
+    B.boxAB('ground', 'glass', xs - 0.006, 0.1, zm + 0.04, xs + 0.006, 2.265, zs1 - 0.035);
     {
       const W = zm - zs0 - 0.045, H = 2.24, st = 0.05;
-      const pivot = new THREE.Object3D(); pivot.name = 'door-ground-stairs'; pivot.position.set(xs + 0.03, 0.005, zs0 + 0.04); const base = -Math.PI / 2; pivot.rotation.y = base; // leaf along +z when closed
-      const fr = new THREE.Mesh(boxesGeo([[st / 2, H / 2, 0, st, H, 0.04], [W - st / 2, H / 2, 0, st, H, 0.04], [W / 2, H - st / 2, 0, W - 2 * st, st, 0.04], [W / 2, 0.075, 0, W - 2 * st, 0.15, 0.04], [W - 0.1, 1.1, 0, 0.025, 0.5, 0.1]]), M.bronze); fr.castShadow = true; fr.name = 'door-frame-ground-stairs';
+      const pivot = dyn(new THREE.Object3D()); pivot.name = 'door-ground-stairs'; pivot.position.set(xs + 0.03, 0.005, zs0 + 0.04); const base = -Math.PI / 2; pivot.rotation.y = base; // leaf along +z when closed
+      const fr = new THREE.Mesh(boxesGeo([[st / 2, H / 2, 0, st, H, 0.04], [W - st / 2, H / 2, 0, st, H, 0.04], [W / 2, H - st / 2, 0, W - 2 * st, st, 0.04], [W / 2, 0.075, 0, W - 2 * st, 0.15, 0.04], [W - 0.1, 1.1, 0, 0.025, 0.5, 0.1]]), M.bronze); fr.castShadow = false; fr.name = 'door-frame-ground-stairs';
       const gl = new THREE.Mesh(new THREE.BoxGeometry(W - 2 * st + 0.01, H - st - 0.15 + 0.01, 0.01), M.glass); gl.position.set(W / 2, 0.15 + (H - st - 0.15) / 2, 0); gl.name = 'door-leaf-ground-stairs';
-      pivot.add(fr, gl); G[g].add(pivot); let cur = -1;
+      pivot.add(fr, gl); G['ground-det'].add(pivot); let cur = -1;
       const d = { id: 'ground-stairs', floorId: 'ground', kind: 'door', center: V3(xs, 1.05, (zs0 + zm) / 2), pivot, leaf: gl, opening: null,
         setOpen(t) { t = Math.max(0, Math.min(1, +t || 0)); if (t === cur) return; cur = t; pivot.rotation.y = base + t * Math.PI / 2; } };
       doors.push(d); d.setOpen(1);
@@ -1900,13 +2182,43 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
         if (o.from > s) segs.push([s, o.from]); s = Math.max(s, o.to);
       }
       if (s < F.L) segs.push([s, F.L]);
+      const gs = w.kind === 'core' ? gid : gid + '-int', ga = gid + '-int', ceil = y + 2.7;
       for (const sg of sides) for (const [a, b] of segs) {
         // skip the skirting where the inner side is outdoors (street wall behind the tower is fine)
         const mid = F.P((a + b) / 2, sg * (h + 0.3));
         if (!pointInPoly(mid[0], mid[1], FP)) continue;
-        B.boxAlong(gid, 'skirting', w.a, w.b, a, b, y, y + 0.08, sg > 0 ? h : -h - 0.012, sg > 0 ? h + 0.012 : -h);
+        B.boxAlong(gs, 'skirting', w.a, w.b, a, b, y, y + 0.08, sg > 0 ? h : -h - 0.012, sg > 0 ? h + 0.012 : -h);
+        if (b - a < 0.12) continue;
+        // soft contact shading: wall foot, floor edge, wall head and ceiling edge
+        const nf = sg * (h + 0.003), n1 = sg * (h + 0.014), n2 = sg * (h + 0.4);
+        aoWall(ga, F, a, b, nf, y + 0.08, 0.3, y + 0.55, 0);
+        aoFlat(ga, F, a, b, y + 0.004, n1, 0.36, sg * (h + 0.45), 0);
+        if (floor.id !== 'second' || mansardInnerY(mid[0], mid[1]) > ceil + 0.3) {
+          aoWall(ga, F, a, b, nf, ceil - 0.012, 0.3, ceil - 0.5, 0);
+          aoFlat(ga, F, a, b, ceil - 0.012, sg * (h + 0.003), 0.28, sg * (h + 0.45), 0);
+        }
       }
     }
+  }
+
+  // exterior shading that a sun shadow map cannot give: under balconies, under the cornice, at the foot of the garden façade
+  function buildExteriorAO() {
+    const fz = { a: [0, 14.855], b: [14, 14.855], P: null }, rz = { a: [0, -0.155], b: [14, -0.155] };
+    const FZ = (z) => ({ P: (sx, n) => [sx, z + n] });
+    for (const b of BALCONIES) {
+      if (b.deck) continue;
+      const y = LEVEL_Y[b.level], xs = b.poly.map(p => p[0]), zs = b.poly.map(p => p[1]);
+      const x0 = Math.min(...xs), x1 = Math.max(...xs), front = Math.min(...zs) >= 14.6, th = b.dormer ? 0.3 : 0.34;
+      const F = FZ(front ? 14.855 : -0.155), gid = b.level === 'second' ? 'first' : (b.level === 'first' ? 'ground' : 'ground');
+      aoWall(gid, F, x0, x1, 0, y - th, 0.34, y - th - 0.75, 0);
+    }
+    // cornice / gutter line (first-floor wall head)
+    aoWall('second', FZ(14.855), 2.95, 13.88, 0, 6.3, 0.26, 5.9, 0);
+    aoWall('second', FZ(-0.155), 0, 12.2, 0, 6.3, 0.26, 5.9, 0);
+    aoWall('second', { P: (sz, n) => [14.035 + n, sz] }, 4.9, 14.7, 0, 6.3, 0.26, 5.9, 0);
+    // foot of the garden façade
+    aoWall('ground', FZ(-0.155), 0, 12.2, 0, -0.14, 0.24, 0.42, 0);
+    void fz; void rz;
   }
 
   // ───────── pickers & highlight ─────────
@@ -1914,6 +2226,7 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
   const highlight = {};
   function buildPickersAndHighlight() {
     const pickMat = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0, depthWrite: false, colorWrite: false });
+    pickMat.visible = false;   // still raycastable, but costs no draw call
     const spans = { ground: [-0.85, 3.0], first: [3.0, 6.0], second: [6.0, ROOF.y + 0.2] };
     for (const fid of ['ground', 'first', 'second']) {
       const [y0, y1] = spans[fid];
@@ -1949,26 +2262,73 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     for (const k of Object.keys(highlight)) highlight[k].target = k === fid ? 1 : 0;
   }
 
-  // ───────── cutaway ─────────
-  let cutFloor = null;
-  function setCutaway(fid) {
-    cutFloor = fid && ORDER.includes(fid) ? fid : null;
-    const idx = cutFloor ? ORDER.indexOf(cutFloor) : 99;
-    const show = (gid, level) => { G[gid].visible = level <= idx; };
-    show('basement', 0); show('ground', 1); show('first', 2); show('second', 3);
-    G['ground-ceil'].visible = idx > 1; G['first-ceil'].visible = idx > 2; G['second-ceil'].visible = idx > 3;
-    G.roofshell.visible = idx > 3 || (idx === 99); G.roof.visible = idx > 3;
-    // the ground slab (in 'ground') also forms the basement ceiling: hidden when cutting at the basement
-    // lift cab: hide when above the cut
+  // ───────── visibility: cutaway + active floor ─────────
+  let cutFloor = null, activeFloor = null, garageOpen = false;
+  const LV = { basement: 0, ground: 1, first: 2, second: 3 };
+  function applyVisibility() {
+    const idx = cutFloor ? LV[cutFloor] : 99, af = cutFloor ? null : activeFloor, all = af === null, ext = af === 'exterior';
+    for (let i = 0; i < ORDER.length; i++) {
+      const fid = ORDER[i], here = all || af === fid;
+      // floor group = envelope (walls, slabs, glazing, balconies, stairs, entry + lift doors): always there so the building stays whole
+      G[fid].visible = LV[fid] <= idx && (fid !== 'basement' || all || af === 'basement' || af === 'ground' || garageOpen);
+      // fit-out and small fittings: only where somebody can see them
+      G[fid + '-int'].visible = fid === 'basement' ? (here || garageOpen) : (here || ext);
+      G[fid + '-det'].visible = here || ext;
+      G[fid + '-doors'].visible = here;
+      if (fid !== 'basement') G[fid + '-ceil'].visible = idx > LV[fid] && (here || ext);
+    }
+    G['site-det'].visible = all || ext || af === 'ground';
+    G.roofshell.visible = idx > 3;
+    G.roof.visible = idx > 3 && (all || ext || af === 'second');
     if (liftObj.cab) liftObj.cab.visible = !cutFloor || liftObj.cab.position.y <= LEVEL_Y[cutFloor] + 0.5;
-    for (const d of doors) if (d.pivot && d.pivot.parent) {/* handled by group visibility */}
+  }
+  function setCutaway(fid) { cutFloor = fid && ORDER.includes(fid) ? fid : null; applyVisibility(); }
+  // floorId: 'basement'|'ground'|'first'|'second' while walking there · 'exterior' for the orbit view (car park contents hidden) · null = everything
+  function setActiveFloor(fid) { activeFloor = fid === 'exterior' || ORDER.includes(fid) ? fid : null; applyVisibility(); }
+
+  // ───────── quality switch ─────────
+  let quality = 'high';
+  const KEEP_NORMAL = new Set(['render', 'brick', 'zinc', 'stone', 'wall']);
+  const VEG_LOW = new Set(['grass', 'grassDry', 'ivy']);
+  const vegMeshes = [], extraLights = [];
+  function lowTex(t) {
+    if (!t || !t.image || !(t.image.width > 512)) return t;
+    if (t.userData.low) return t.userData.low;
+    try {
+      const c = makeCanvas(512, 512); c.getContext('2d').drawImage(t.image, 0, 0, 512, 512);
+      const n = new THREE.CanvasTexture(c); n.wrapS = t.wrapS; n.wrapT = t.wrapT; n.repeat.copy(t.repeat); n.rotation = t.rotation; n.colorSpace = t.colorSpace; n.anisotropy = 2;
+      t.userData.low = n; return n;
+    } catch (e) { return t; }
+  }
+  function applyQuality() {
+    const low = quality === 'low';
+    for (const k of Object.keys(M)) {
+      const m = M[k], u = m.userData; if (!m.isMeshStandardMaterial) continue;
+      if (u.hq) { m.map = u.hq.map; m.normalMap = u.hq.normalMap; m.roughnessMap = u.hq.roughnessMap; m.aoMap = u.hq.aoMap; m.roughness = u.hq.roughness; u.hq = null; m.needsUpdate = true; }
+      if (!low) continue;
+      u.hq = { map: m.map, normalMap: m.normalMap, roughnessMap: m.roughnessMap, aoMap: m.aoMap, roughness: m.roughness };
+      m.map = lowTex(m.map);
+      m.normalMap = KEEP_NORMAL.has(k) ? lowTex(m.normalMap) : null;
+      if (m.roughnessMap) { m.roughnessMap = null; m.roughness = u.baseRough != null ? u.baseRough : 0.8; }
+      m.aoMap = null; m.needsUpdate = true;
+    }
+    for (let i = 0; i < vegMeshes.length; i++) vegMeshes[i].visible = !low;
+    for (let i = 0; i < extraLights.length; i++) extraLights[i].visible = !low;
+  }
+  function setQuality(q) { const n = q === 'low' ? 'low' : 'high'; if (n === quality) return; quality = n; applyQuality(); warmTextures(); }
+  // upload every texture now so nothing is uploaded while walking
+  function warmTextures() {
+    if (!renderer || typeof renderer.initTexture !== 'function') return;
+    const seen = new Set();
+    const one = (m) => { if (!m) return; for (const k of ['map', 'normalMap', 'roughnessMap', 'aoMap', 'metalnessMap', 'emissiveMap', 'bumpMap']) { const t = m[k]; if (t && t.image && !seen.has(t)) { seen.add(t); try { renderer.initTexture(t); } catch (e) { /* ignore */ } } } };
+    group.traverse(o => { if (o.isMesh) { if (Array.isArray(o.material)) o.material.forEach(one); else one(o.material); } });
   }
 
   // ───────── assemble ─────────
   const steps = [
     () => { for (const f of FLOORS) buildWalls(f); },
     buildSlabs, buildCommonCeilings, buildStairs, buildLift, buildMansard, buildTower, buildBalconies,
-    buildSite, buildBasement, buildLobby, () => { for (const f of FLOORS) buildSkirting(f); },
+    buildSite, buildBasement, buildLobby, () => { for (const f of FLOORS) buildSkirting(f); }, buildExteriorAO,
     () => { // PV panels on the flat roof (3 × 6), tilted 10° towards the south
       const pv = { ...ROOF.pv, w: ROOF.pv.d, d: ROOF.pv.w }, x0 = 2.62, z0 = 4.75, gapX = 0.02, gapZ = 1.05;
       const tilt = pv.tilt * Math.PI / 180;
@@ -1987,27 +2347,68 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     buildPickersAndHighlight
   ];
   for (const s of steps) { try { s(); } catch (err) { if (typeof console !== 'undefined') console.warn('[building] step failed', s.name || '', err); } }
-  try { B.finalize(G, M, { noCast: ['glass', 'railGlass', 'downlight', 'ledPanel', 'grass'] }); } catch (err) { if (typeof console !== 'undefined') console.warn('[building] finalize failed', err); }
+  // shadow casters: only what shapes the light (envelope, partitions, slabs, trees); small fittings never enter the shadow pass
+  const CAST = new Set(['render', 'wall', 'ceiling', 'zinc', 'zincTrim', 'brick', 'capGrey', 'baseFloor', 'bCeil', 'bWall', 'concrete', 'stone', 'stoneFine', 'teak', 'garage', 'kerb', 'olive', 'oliveLight', 'leaf', 'trunk', 'pv', 'planterDark', 'carPaint']);
+  const noCast = Object.keys(M).filter(k => !CAST.has(k));
+  const ENVELOPE = new Set(['render', 'wall', 'ceiling', 'bCeil', 'bWall', 'zinc', 'zincTrim', 'brick', 'stone', 'stoneFine', 'frame', 'glass', 'railGlass', 'oak', 'steel', 'concrete', 'epoxy']);
+  const SITE_DET = new Set(['downlight', 'ledWarm', 'hazard', 'steel', 'rubber', 'capGrey', 'galv']);
+  try { B.finalize(G, M, { noCast, detail: true, envelope: (gid, mat) => gid === 'site' ? !SITE_DET.has(mat) : ENVELOPE.has(mat) }); } catch (err) { if (typeof console !== 'undefined') console.warn('[building] finalize failed', err); }
+  try { buildSashMeshes(); buildSigns(); } catch (err) { if (typeof console !== 'undefined') console.warn('[building] sashes/signs failed', err); }
+  try { buildAOMeshes(); } catch (err) { if (typeof console !== 'undefined') console.warn('[building] ao failed', err); }
+  for (const d of doors) { try { wireDoor(d); } catch (e) { /* keep the plain door */ } }
+  const garageDoor = doors.find(d => d.kind === 'garage') || null;
   // interiors don't need shadow casting from ceiling/floor finishes inside — keep the exterior shells casting
-  group.traverse(o => { if (o.isMesh && /-(ceil)/.test(o.parent ? o.parent.name : '')) o.castShadow = false; });
+  group.traverse(o => {
+    if (o.isMesh && /-(ceil|int)$/.test(o.parent ? o.parent.name : '') && !/-wall$|plaster/.test(o.name + (o.material && o.material.name || ''))) o.castShadow = false;
+    if (o.isMesh && o.material && VEG_LOW.has(o.material.userData.internal)) vegMeshes.push(o);
+    if (o.isPointLight) extraLights.push(o);
+  });
 
   group.traverse(o => { if (o.isMesh && o.material && !o.material.name) o.material.name = /picker|highlight/.test(o.name + (o.parent ? o.parent.name : '')) ? 'helper' : /button|call/.test(o.name) ? 'lift-steel:button' : 'signage'; });
+  // static objects: frozen local matrices (three.js then skips recomposing ~500 matrices every frame)
+  (function freeze(o) { o.updateMatrix(); if (!o.userData.dyn && o !== group) o.matrixAutoUpdate = false; for (let i = 0; i < o.children.length; i++) freeze(o.children[i]); })(group);
+  group.updateMatrixWorld(true);
   if (scene) scene.add(group);
   const pbrState = { loaded: false };
-  try { loadPBR(THREE, M, renderer, () => { pbrState.loaded = true; }); } catch (e) { /* procedural fallback */ }
+  const ready = new Promise((resolve) => {
+    let fin = false;
+    const done = () => { if (fin) return; fin = true; try { for (const k of Object.keys(M)) { M[k].userData.hq = null; if (M[k].userData.pbr) pbrState.loaded = true; } if (quality === 'low') applyQuality(); warmTextures(); } catch (e) { /* ignore */ } resolve(); };
+    try { if (loadPBR(THREE, M, renderer, done) === false) done(); } catch (e) { done(); }
+    try { setTimeout(done, 25000); } catch (e) { /* ignore */ }
+  });
+  applyVisibility();
 
   // ───────── update ─────────
+  const HL = Object.keys(highlight);
+  let cabStill = 9, lastCabY = 0;
   function update(dt) {
     dt = Math.min(0.1, Math.max(0, +dt || 0));
-    for (const k of Object.keys(highlight)) {
-      const h = highlight[k];
+    for (let i = 0; i < HL.length; i++) {
+      const h = highlight[HL[i]];
       if (h.t === h.target) continue;
       h.t = h.target > h.t ? Math.min(h.target, h.t + dt * 4) : Math.max(h.target, h.t - dt * 3);
       h.g.visible = h.t > 0.001;
       h.mats[0].opacity = 0.2 * h.t; h.mats[1].opacity = 0.9 * h.t;
     }
-    for (const a of animators) a(dt);
-    if (cutFloor && liftObj.cab) liftObj.cab.visible = liftObj.cab.position.y <= LEVEL_Y[cutFloor] + 0.5;
+    stepTweens(dt);
+    for (let i = 0; i < animators.length; i++) animators[i](dt);
+    if (garageDoor) { const go = garageDoor.t > 0.01; if (go !== garageOpen) { garageOpen = go; applyVisibility(); } }
+    const cab = liftObj.cab;
+    if (cab) {
+      const y = cab.position.y; if (y !== lastCabY) { lastCabY = y; cabStill = 0; } else if (cabStill < 9) cabStill += dt;
+      let v = true;
+      if (cutFloor) v = y <= LEVEL_Y[cutFloor] + 0.5;
+      else if (activeFloor && activeFloor !== 'exterior') v = cabStill < 1.5 || Math.abs(y - LEVEL_Y[activeFloor]) < 1.6 || liftObj.getState().cabDoors > 0;
+      if (cab.visible !== v) cab.visible = v;
+    }
+  }
+  function dispose() {
+    const seen = new Set();
+    const tex = (m) => { for (const k of ['map', 'normalMap', 'roughnessMap', 'aoMap', 'metalnessMap', 'emissiveMap', 'bumpMap']) { const t = m[k]; if (t && !seen.has(t)) { seen.add(t); if (t.userData && t.userData.low) t.userData.low.dispose(); t.dispose(); } } };
+    group.traverse(o => { if (!o.isMesh) return; if (o.geometry) o.geometry.dispose(); const ms = Array.isArray(o.material) ? o.material : [o.material]; for (const m of ms) if (m && !seen.has(m)) { seen.add(m); tex(m); m.dispose(); } });
+    for (const k of Object.keys(M)) { const m = M[k]; if (!seen.has(m)) { tex(m); m.dispose(); } if (m.userData.hq) for (const t of Object.values(m.userData.hq)) if (t && t.isTexture) t.dispose(); }
+    if (group.parent) group.parent.remove(group);
+    activeTweens.length = 0; animators.length = 0;
   }
 
   return {
@@ -2015,10 +2416,15 @@ export function buildBuilding(THREE, { scene, renderer } = {}) {
     floorPickers,
     highlightFloor,
     setCutaway,
+    setActiveFloor,
+    setQuality,
     doors,
     lift: liftObj,
     update,
     // extras
+    interactables,                 // every Object3D carrying userData.interact (raycast this list directly for taps)
+    ready,                         // resolves when the PBR maps are loaded (or skipped) and uploaded to the GPU
+    dispose,
     materials: M, pbr: pbrState,
     levels: LEVEL_Y,
     rampY,

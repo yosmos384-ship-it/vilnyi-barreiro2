@@ -8,7 +8,7 @@
 //     ready: Promise<{ modules }>, setMode(mode, opts) => Promise<boolean>, getMode(),
 //     selectUnit(unitId, styleId) => Promise, setTimeOfDay('day'|'dusk'|'night'|'golden'), getTimeOfDay(), setLang(lang),
 //     hotspots(unitId) => [...], lookFrom(hotspot), balconyView(unitId), goToLift(floorId), goToLobby(), goToParking(),
-//     walkUnit(unitId, roomId?), takeLift(from, to), resize(), has(moduleName), on(event, cb) => off, dispose(),
+//     walkUnit(unitId, roomId?), takeLift(from, to), goToStreet(), getPose() / setPose({x,y,z,yaw}), getPerf(), resize(), has(moduleName), on(event, cb) => off, dispose(),
 //     setPhotoreal(on) => Promise<boolean>, isPhotoreal(), setPhotorealLabels({...}), setHeading(bearing),
 //     attribution() => string
 //   }
@@ -49,8 +49,12 @@ export function createViewer(container, options = {}) {
     return () => { listeners[ev] = (listeners[ev] || []).filter(f => f !== cb); };
   };
 
-  const small = Math.min(window.innerWidth, window.innerHeight) < 700;
-  const quality = options.quality || (small || (navigator.deviceMemory || 8) <= 4 ? 'low' : 'high');
+  // Device tier (the ceiling the governor never exceeds): a phone = touch + small screen, or little memory → 'low'.
+  const small = Math.min(window.innerWidth, window.innerHeight, window.screen?.width || 9999, window.screen?.height || 9999) < 700;
+  const touch = !!window.matchMedia?.('(pointer: coarse)').matches || (navigator.maxTouchPoints || 0) > 0;
+  const phone = (touch && small) || (navigator.deviceMemory || 8) <= 4;
+  const quality = options.quality || (phone ? 'low' : 'high');
+  const PR_CAP = phone ? 1.25 : quality === 'high' ? 2 : 1.5;
   const reducedMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
   let floorLabel = options.floorLabel || (f => f);
   let lang = options.lang || 'en';
@@ -80,6 +84,7 @@ export function createViewer(container, options = {}) {
   let hoveredFloor = null;
   let currentUnit = null;
   let currentStyle = null;
+  const unitStyles = {};
   let dolly = null;     // exterior double-tap: { t0, ms, c0, c1, g0, g1 }
   let lastIdle = performance.now();
   let tod = 'golden';
@@ -117,12 +122,12 @@ export function createViewer(container, options = {}) {
     progress(0.18, 'renderer');
 
     renderer = new THREE.WebGLRenderer({ antialias: quality === 'high', powerPreference: 'high-performance', preserveDrawingBuffer: false });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, quality === 'high' ? 2 : 1.5));
+    renderer.setPixelRatio(basePR());
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.0;
     renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.shadowMap.type = quality === 'high' ? THREE.PCFSoftShadowMap : THREE.PCFShadowMap;
     canvasHost.appendChild(renderer.domElement);
     renderer.domElement.style.touchAction = 'none';
     renderer.domElement.setAttribute('aria-label', 'Barreiro 2 3D model');
@@ -166,17 +171,20 @@ export function createViewer(container, options = {}) {
     }
     renderer.shadowMap.autoUpdate = false;
     invalidateShadows();
-    postfx = await loadModule('postfx', './postfx.js', m => m.createPostFX(THREE, { renderer, scene, camera, quality, mode: 'exterior' }));
+    // post-processing never loads on phones (and is bypassed in walk mode unless the tier is 'high')
+    if (!phone) postfx = await loadModule('postfx', './postfx.js', m => m.createPostFX(THREE, { renderer, scene, camera, quality, mode: 'exterior' }));
     if (postfx) { try { postfx.setTimeOfDay?.(tod); } catch (e) { /* optional */ } }
     await tick();
 
     progress(0.5, 'building');
     building = await loadModule('building', './building.js', m => m.buildBuilding(THREE, { scene, renderer }));
     if (!building) throw Object.assign(new Error('The building model failed to load'), { code: 'building' });
+    if (quality === 'low') { try { building.setQuality?.('low'); } catch (e) { /* optional */ } }
     await tick();
 
     progress(0.68, 'interiors');
-    interiors = await loadModule('interiors', './interiors.js', m => m.buildInteriors(THREE, { scene, building }));
+    interiors = await loadModule('interiors', './interiors.js', m => m.buildInteriors(THREE, { scene, building, renderer }));
+    if (quality === 'low') { try { interiors?.setQuality?.('low'); } catch (e) { /* optional */ } }
     try { interiors?.setTimeOfDay?.(interiorTod(tod)); } catch (e) { /* optional */ }
     await tick();
 
@@ -186,7 +194,9 @@ export function createViewer(container, options = {}) {
       try { walker.disable(); } catch (e) { /* not enabled yet */ }
       try {
         let lastUnit = null;
+        walker.setLang?.(lang);
         walker.onChange(info => {
+          applyPlace(info);
           emit('place', info);
           if (info && info.unitId && info.unitId !== lastUnit) emit('unit-select', { unitId: info.unitId, source: 'walk' });
           lastUnit = info ? info.unitId : null;
@@ -203,6 +213,8 @@ export function createViewer(container, options = {}) {
     if (controls) controls.addEventListener('change', () => { if (ptOn) pt?.reset(); });
 
     bindPointer();
+    for (const ev of ['pointerdown', 'pointermove', 'pointerup', 'wheel', 'touchstart']) listen(container, ev, () => poke(), { passive: true, capture: true });
+    listen(window, 'keydown', () => { if (inView && container.offsetParent !== null) poke(); }, { passive: true });
     listen(document, 'visibilitychange', schedule);
     if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver(entries => { inView = entries[0].isIntersecting; schedule(); });
@@ -216,13 +228,139 @@ export function createViewer(container, options = {}) {
     } else listen(window, 'resize', resize);
     listen(renderer.domElement, 'webglcontextlost', e => { e.preventDefault(); emit('error', { error: new Error('WebGL context lost') }); });
 
+    // nothing interactive before the textures are on the GPU and the shaders are compiled: the first moves must not hitch
+    progress(0.93, 'textures');
+    await waitFor(Promise.all([building.ready, env?.ready].map(p => Promise.resolve(p).catch(() => null))), 20000);
+    if (disposed) throw new Error('disposed');
     await applyMode(options.initialMode || 'exterior', options.initialOpts || {});
+    progress(0.97, 'shaders');
+    await warmUp();
     renderer.render(scene, camera);
     progress(1, 'done');
     schedule();
     afterLoad();
     return { modules: { ...modules }, quality };
   })();
+
+  const waitFor = (p, ms) => Promise.race([p, new Promise(r => setTimeout(r, ms))]);
+  async function warmUp() {
+    if (!renderer || disposed) return;
+    try {
+      if (typeof renderer.compileAsync === 'function') await waitFor(renderer.compileAsync(scene, camera), 12000);
+      else renderer.compile(scene, camera);
+    } catch (e) { try { renderer.compile(scene, camera); } catch (e2) { /* first frame compiles instead */ } }
+  }
+
+  // ───────── performance governor ─────────
+  // level 0 = the device tier's full quality · 1 = lower pixel ratio · 2 = + low textures (setQuality('low') on the modules)
+  // · 3 = + no post-processing and a still lower pixel ratio. Steps down when the rolling 60-frame average is over 40 ms,
+  // back up one level after 5 s under 20 ms. Never above the device tier.
+  const gov = { level: 0, max: 3, n: 0, sum: 0, ring: new Float32Array(60), i: 0, goodSince: 0, lastStep: 0, moving: false, lastMove: 0, activeUntil: 0, lastRender: 0, pr: 0, log: [], shadows: true, detail: null, floor: undefined, unit: undefined, inside: false, fogD: null };
+  const PR_SCALE = [1, 0.8, 0.8, 0.65];
+  function basePR() { return Math.min(window.devicePixelRatio || 1, PR_CAP); }
+  function targetPR() {
+    let pr = Math.max(0.6, basePR() * PR_SCALE[gov.level]);
+    if (phone && gov.moving) pr = Math.min(pr, 1.0);       // phones: 1.0 while moving, back up when still for 400 ms
+    return Math.round(pr * 100) / 100;
+  }
+  function applyPR() {
+    const pr = targetPR();
+    if (!renderer || pr === gov.pr) return;
+    gov.pr = pr;
+    renderer.setPixelRatio(pr);
+    const w = Math.max(1, container.clientWidth), h = Math.max(1, container.clientHeight);
+    renderer.setSize(w, h, false);
+    try { postfx?.setSize(w, h); } catch (e) { /* ignore */ }
+  }
+  function govNote(what) {
+    gov.log.push({ t: Math.round(performance.now()), what, level: gov.level, pr: gov.pr, mode, avg: gov.n ? +(gov.sum / gov.n).toFixed(1) : 0 });
+    if (gov.log.length > 60) gov.log.shift();
+  }
+  function setLevel(l, why) {
+    l = Math.max(0, Math.min(gov.max, l));
+    if (l === gov.level) return;
+    const was = gov.level;
+    gov.level = l;
+    const wantLow = quality === 'low' || l >= 2, hadLow = quality === 'low' || was >= 2;
+    if (wantLow !== hadLow) {
+      const q = wantLow ? 'low' : 'high';
+      for (const m of [building, interiors, env]) { try { m?.setQuality?.(q); } catch (e) { /* optional */ } }
+    }
+    applyPR();
+    gov.n = 0; gov.sum = 0; gov.i = 0; gov.goodSince = 0; gov.lastStep = performance.now();
+    govNote(`${why}: level ${was} → ${l}`);
+    emit('perf', { level: l, why });
+  }
+  function govSample(ms, now) {
+    if (ms > 3000) return;                                  // tab switch / long upload: not a frame-rate sample
+    if (ms > 400) ms = 400;
+    if (gov.n < 60) gov.n++; else gov.sum -= gov.ring[gov.i];
+    gov.ring[gov.i] = ms; gov.sum += ms; gov.i = (gov.i + 1) % 60;
+    const avg = gov.sum / gov.n;
+    // badly overloaded (under 10 fps): do not wait for the full 60-frame window
+    if (gov.n >= 10 && avg > 100 && now - gov.lastStep > 1500) { setLevel(gov.level + 1, `avg ${avg.toFixed(0)} ms`); return; }
+    if (gov.n < 60 || now - gov.lastStep < 2000) return;
+    if (avg > 40) { setLevel(gov.level + 1, `avg ${avg.toFixed(0)} ms`); return; }
+    if (avg < 20 && gov.level > 0) {
+      if (!gov.goodSince) gov.goodSince = now;
+      else if (now - gov.goodSince > 5000) setLevel(gov.level - 1, `avg ${avg.toFixed(0)} ms for 5 s`);
+    } else gov.goodSince = 0;
+  }
+  const usePostfx = () => !!postfx && !phone && gov.level < 3 && (mode !== 'walk' || quality === 'high');
+  const poke = (ms = 1500) => { const t = performance.now() + ms; if (t > gov.activeUntil) gov.activeUntil = t; };
+
+  // What is drawn per mode / place: far context, other floors and other apartments are hidden when they cannot be seen.
+  function setShadows(on) {
+    const sun = env?.sun;
+    if (!sun || gov.shadows === on) return;
+    gov.shadows = on; sun.castShadow = on;
+    invalidateShadows();
+  }
+  function setDetail(name) {
+    if (gov.detail === name) return;
+    gov.detail = name;
+    if (g3d && !ptOn) return;                              // Google tiles replace the OSM context
+    try { env?.setDetail?.(name); } catch (e) { /* optional */ }
+  }
+  function setFloor(f) { if (gov.floor === f) return; gov.floor = f; try { building?.setActiveFloor?.(f); } catch (e) { /* optional */ } invalidateShadows(); }
+  function setUnit(u) { if (gov.unit === u) return; gov.unit = u; try { interiors?.setActiveUnit?.(u); } catch (e) { /* optional */ } }
+  function setInside(inside) {
+    if (gov.inside === inside) return;
+    gov.inside = inside;
+    const f = scene.fog;                                    // no fog indoors
+    if (f && 'density' in f) { if (inside) { gov.fogD = f.density; f.density = 0; } else if (gov.fogD != null) { f.density = gov.fogD; gov.fogD = null; } }
+  }
+  const furnished = new Set();
+  function applyPlace(info) {
+    if (mode !== 'walk' || !info) return;
+    let st = null;
+    try { st = walker.getState(); } catch (e) { st = null; }
+    const outside = st ? !!st.outside && !info.unitId && !info.inLift : !info.floorId;
+    setInside(!outside);
+    if (outside) { setDetail('near'); setFloor('ground'); setUnit(currentUnit || null); }
+    else {
+      setDetail('minimal');
+      setFloor(info.floorId || st?.floorId || 'ground');
+      if (info.unitId) {
+        setUnit(info.unitId);
+        if (interiors && !furnished.has(info.unitId)) {
+          furnished.add(info.unitId);
+          Promise.resolve(interiors.furnish(info.unitId, (info.unitId === currentUnit && currentStyle) || unitStyles[info.unitId] || 'atlantic')).then(() => { invalidateShadows(); poke(); }, () => { furnished.delete(info.unitId); });
+        }
+      } else setUnit(null);
+    }
+    poke();
+  }
+  function applyModeDetail(next) {
+    if (next === 'exterior') { setInside(false); setDetail(phone ? 'near' : 'full'); setFloor('exterior'); setUnit(currentUnit || null); setShadows(true); }
+    else if (next === 'aerial') { setInside(false); setDetail('full'); setFloor('exterior'); setUnit(currentUnit || null); setShadows(true); }
+    else if (next === 'walk') {
+      setShadows(quality === 'high');                      // low tier: no shadow pass while walking
+      let info = null;
+      try { const st = walker?.getState?.(); if (st) info = { floorId: st.floorId, roomId: st.roomId, unitId: st.unitId, inLift: st.inLift }; } catch (e) { info = null; }
+      if (info) applyPlace(info); else { setDetail('near'); setFloor('ground'); }
+    }
+  }
 
   // Idle work after the first frame: interior texture prewarm, optional Google 3D tiles.
   function afterLoad() {
@@ -236,7 +374,7 @@ export function createViewer(container, options = {}) {
     }, 3000);
     const key = PROJECT.googleMapsKey;
     if (env && typeof key === 'string' && key.trim().length >= 20) {
-      Promise.resolve(env.ready).catch(() => null).then(async () => {
+      Promise.resolve(env.fullReady || env.ready).catch(() => null).then(async () => {
         if (disposed) return;
         try {
           const m = await import('./google3d.js');
@@ -253,19 +391,15 @@ export function createViewer(container, options = {}) {
   }
 
   // While the Google tiles show, hide the OSM context meshes (lights and the sky stay).
+  // The context lives in env.bands (min / near / far groups); the far band exists only after env.fullReady.
   function setEnvContext(visible) {
-    if (!env?.group) return;
-    if (!visible) {
-      if (g3dHidden) return;
-      g3dHidden = [];
-      env.group.traverse(o => {
-        if (!(o.isMesh || o.isLine || o.isPoints || o.isSprite) || !o.visible) return;
-        if (o.name === 'env-sky' || o.parent?.name === 'env-sky') return;
-        o.visible = false; g3dHidden.push(o);
-      });
-    } else if (g3dHidden) {
-      for (const o of g3dHidden) o.visible = true;
+    const b = env?.bands;
+    if (!b) return;
+    if (!visible) { for (const k of ['min', 'near', 'far']) if (b[k]) b[k].visible = false; g3dHidden = true; }
+    else if (g3dHidden) {
       g3dHidden = null;
+      const d = gov.detail || 'full';
+      try { env.setDetail?.(d); } catch (e) { for (const k of ['min', 'near', 'far']) if (b[k]) b[k].visible = true; }
     }
   }
   function applyGoogleVisibility() {
@@ -404,6 +538,7 @@ export function createViewer(container, options = {}) {
       }
       // "on the building" = on its envelope (walls, glazing, roof), not the paving, planters or garden walls of the same group
       const onEnvelope = target && target.point.y > -0.4 && target.point.x > -0.6 && target.point.x < 14.5 && target.point.z > -0.6 && target.point.z < 15.6;
+      if (target && walker && target.opening && target.opening.type === 'main') { setHover(null); setMode('walk', { street: true }); return; }   // the entrance: arrive at the front door
       if (target && walker && (target.opening || (onEnvelope && target.distance < NEAR_M))) { enterThrough(target); return; }
       let point = target ? target.point : null;
       if (!point) {
@@ -452,8 +587,15 @@ export function createViewer(container, options = {}) {
   function frame(now) {
     raf = 0;
     if (!shouldRun()) return;
+    // Render on demand: with nothing happening (camera still, no input, no transition) the loop idles at ≤ 10 fps — slow
+    // animations (water, a door closing) still play, and the phone stays cool. Any input or camera move restores full rate.
+    const idle = now > gov.activeUntil && !ptOn && !dolly && !(mode === 'exterior' && controls.autoRotate) && mode !== 'aerial';
+    if (idle && now - gov.lastRender < 100) { gov.consec = 0; raf = requestAnimationFrame(frame); return; }
     const dt = Math.min((now - last) / 1000, 0.1);
+    if (!idle && gov.consec > 2) govSample(now - last, now);
+    gov.consec = idle ? 0 : (gov.consec || 0) + 1;
     last = now;
+    gov.lastRender = now;
     try {
       if (mode === 'exterior') {
         if (dolly) {
@@ -472,17 +614,20 @@ export function createViewer(container, options = {}) {
       if (mode === 'walk' && walker) walker.update(dt);
       if (mode === 'aerial' && aerial) aerial.update(dt);
       if (g3d) { try { g3d.update(dt); } catch (e) { /* google3d switches itself off */ } }
-      // doors and the lift move in walk mode: refresh the (otherwise static) shadow map a few times a second
-      if (mode === 'walk' && ++shadowTick % 12 === 0) invalidateShadows();
+      // static shadow map: redrawn on light / mode / floor changes; on the high tier also twice a second while walking (doors, lift)
+      if (mode === 'walk' && gov.shadows && !idle && ++shadowTick % 30 === 0) invalidateShadows();
       camera.updateMatrixWorld();
       const m = camera.matrixWorld.elements;
       let moved = false;
       for (let i = 0; i < 16; i++) if (Math.abs(m[i] - lastCam[i]) > 1e-5) { moved = true; lastCam[i] = m[i]; }
+      if (moved) { gov.lastMove = now; if (!gov.moving) { gov.moving = true; if (phone) applyPR(); } }
+      else if (gov.moving && now - gov.lastMove > 400) { gov.moving = false; if (phone) applyPR(); }
       if (ptOn && pt) {
         if (moved) pt.reset();
         pt.render();
-      } else if (postfx) postfx.render(dt);
+      } else if (usePostfx()) postfx.render(dt);
       else renderer.render(scene, camera);
+      if (moved) poke(700);                                 // counted from the END of the frame, so slow frames stay "active"
     } catch (e) {
       console.error('[viewer] frame', e);
     }
@@ -493,7 +638,10 @@ export function createViewer(container, options = {}) {
     if (!renderer) return;
     const w = Math.max(1, container.clientWidth);
     const h = Math.max(1, container.clientHeight);
+    gov.pr = targetPR();
+    renderer.setPixelRatio(gov.pr);
     renderer.setSize(w, h, false);
+    poke();
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     try { postfx?.setSize(w, h); } catch (e) { /* ignore */ }
@@ -561,9 +709,11 @@ export function createViewer(container, options = {}) {
           if (opts.unitId) walker.goToUnit(opts.unitId, opts.roomId);
           else if (opts.liftFloor) walker.goToLift(opts.liftFloor);
           else if (opts.position && opts.lookAt) walker.teleport(opts.position, opts.lookAt);
-          else if (prev !== 'walk') {
-            // default: step into the lobby from the front door
-            walker.teleport(new THREE.Vector3(...LOBBY_VIEW.position), new THREE.Vector3(...LOBBY_VIEW.lookAt));
+          else if (opts.street || prev !== 'walk') {
+            // default: arrive on the street, facing the front door (tap it to open, walk into the lobby)
+            let ok = false;
+            try { ok = !!walker.goToStreet?.(); } catch (e) { ok = false; }
+            if (!ok) walker.teleport(new THREE.Vector3(...LOBBY_VIEW.position), new THREE.Vector3(...LOBBY_VIEW.lookAt));
           }
         } else {
           // static look without a walker module
@@ -578,11 +728,25 @@ export function createViewer(container, options = {}) {
     try { postfx?.setMode(next === 'walk' ? 'interior' : next); } catch (e) { /* ignore */ }
     if (ptOn && pt) { try { pt.setScope(next === 'walk' ? 'interior' : 'exterior'); pt.reset(); } catch (e) { /* ignore */ } }
     if (next === 'exterior' && ptOn) controls.autoRotate = false;
+    applyModeDetail(next);
     applyGoogleVisibility();
     invalidateShadows();
+    poke(2500);
     emit('mode', { mode: next, prev });
     schedule();
     return true;
+  }
+
+  // Ceilings etc. flagged material.userData.rasterEmissive glow only to fake bounce light in the rasteriser:
+  // the path tracer computes the real thing, so they are switched off while it runs.
+  const mutedEm = new Map();
+  function muteRasterEmissive(on) {
+    if (on) {
+      scene.traverse(o => {
+        const ms = Array.isArray(o.material) ? o.material : o.material ? [o.material] : [];
+        for (const m of ms) if (m.userData?.rasterEmissive && !mutedEm.has(m)) { mutedEm.set(m, m.emissiveIntensity); m.emissiveIntensity = 0; }
+      });
+    } else { for (const [m, v] of mutedEm) m.emissiveIntensity = v; mutedEm.clear(); }
   }
 
   // ---------- photoreal (progressive path tracing) ----------
@@ -592,6 +756,7 @@ export function createViewer(container, options = {}) {
     if (!on) {
       ptOn = false;
       try { pt?.stop(); } catch (e) { /* ignore */ }
+      muteRasterEmissive(false);
       applyGoogleVisibility();
       lastIdle = performance.now();
       emit('photoreal', { state: 'off' });
@@ -622,6 +787,7 @@ export function createViewer(container, options = {}) {
           if (ptLabels) { try { pt.setLabels?.(ptLabels); } catch (e) { /* optional */ } }
         }
         pt.setScope(mode === 'walk' ? 'interior' : 'exterior');
+        muteRasterEmissive(true);
         ptOn = true;
         if (controls) controls.autoRotate = false;
         applyGoogleVisibility();
@@ -650,9 +816,13 @@ export function createViewer(container, options = {}) {
   async function selectUnit(unitId, styleId) {
     currentUnit = unitId;
     currentStyle = styleId || currentStyle;
+    if (unitId && styleId) unitStyles[unitId] = styleId;
     try { await ready; } catch (e) { return; }
     if (interiors && unitId) {
+      furnished.add(unitId);
       try { await interiors.furnish(unitId, styleId || 'atlantic'); } catch (e) { console.warn('[viewer] furnish', e); }
+      if (mode !== 'walk') { gov.unit = undefined; setUnit(unitId); }
+      poke(3000);
       invalidateShadows();
       if (ptOn) pt?.reset();
     }
@@ -724,6 +894,36 @@ export function createViewer(container, options = {}) {
     return setMode('walk', { liftFloor: floorId || 'ground' });
   }
 
+  // Pose for the 3D ⇄ photoreal switch. Yaw convention (same as tour.js): direction = (−sin ψ, 0, −cos ψ).
+  function getPose() {
+    if (mode !== 'walk' || !walker) return null;
+    try {
+      const st = walker.getState();
+      return { x: st.x, y: st.eyeY, z: st.z, yaw: st.yaw, pitch: st.pitch, floorId: st.floorId, roomId: st.roomId, unitId: st.unitId, inLift: !!st.inLift, riding: !!st.riding, outside: !!st.outside };
+    } catch (e) { return null; }
+  }
+  async function setPose({ x, y, z, yaw = 0 }) {
+    try { await ready; } catch (e) { return false; }
+    if (!walker) return false;
+    const pos = new THREE.Vector3(x, y, z);
+    return setMode('walk', { position: pos, lookAt: new THREE.Vector3(x - Math.sin(yaw) * 4, y, z - Math.cos(yaw) * 4) });
+  }
+  async function goToStreet() {
+    try { await ready; } catch (e) { return false; }
+    if (!walker) return false;
+    return setMode('walk', { street: true });
+  }
+  function getPerf() {
+    const i = renderer?.info;
+    let w = null;
+    try { w = walker?.getPerf?.() || null; } catch (e) { w = null; }
+    return {
+      tier: quality, phone, level: gov.level, pixelRatio: gov.pr, postfx: usePostfx(), shadows: gov.shadows, detail: gov.detail, floor: gov.floor, unit: gov.unit, inside: gov.inside,
+      avgMs: gov.n ? +(gov.sum / gov.n).toFixed(1) : null, calls: i?.render.calls ?? null, triangles: i?.render.triangles ?? null,
+      geometries: i?.memory.geometries ?? null, textures: i?.memory.textures ?? null, programs: i?.programs?.length ?? null, walker: w, log: gov.log.slice()
+    };
+  }
+
   // Entry points for the 3D bar. Lobby: just inside the street door, looking down the hall to the lift.
   const LOBBY_VIEW = { position: [9.4, 1.62, 13.6], lookAt: [5, 1.5, 9.6] };
   async function goToLobby() {
@@ -787,6 +987,7 @@ export function createViewer(container, options = {}) {
       scene.background = new THREE.Color(bg);
       scene.fog.color.set(bg);
     }
+    poke(2000);
     emit('time', { timeOfDay: name });
     schedule();
     return true;
@@ -795,6 +996,7 @@ export function createViewer(container, options = {}) {
   function setLang(l) {
     lang = l;
     try { aerial?.setLang?.(l); } catch (e) { /* ignore */ }
+    try { walker?.setLang?.(l); } catch (e) { /* ignore */ }
   }
 
   function dispose() {
@@ -843,6 +1045,12 @@ export function createViewer(container, options = {}) {
     goToLift,
     goToLobby,
     goToParking,
+    goToStreet,
+    getPose,
+    setPose,
+    getPerf,
+    setLevel: (l) => setLevel(l, 'manual'),
+    _modules: () => ({ building, interiors, walker, env, renderer }),   // tests only
     takeLift,
     resize,
     setPaused: b => { paused = !!b; schedule(); },   // freeze the loop (tests, screenshots); the last frame stays

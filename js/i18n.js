@@ -642,6 +642,27 @@ const P5 = {
 };
 Object.assign(en, P5.en); Object.assign(pt, P5.pt); Object.assign(he, P5.he); Object.assign(ru, P5.ru);
 
+// ---- Phase 6: 3D ⇄ photoreal switch, street entry, interaction hints ----
+const P6 = {
+  en: { 'view.label': 'View', 'view.3d': '3D', 'view.photo': 'Photoreal', 'view.noPano': 'There is no 360° panorama at this spot yet. Here is the nearest photoreal view.', 'view.waitLift': 'Switching when the lift arrives…',
+    'walk.streetHint': 'Tap the door to open · double-tap to walk', 'walk.coach': 'Tap things to open them: doors, cupboards, the fridge, taps',
+    'unit.walkStreet': 'Free 3D walk · from the street', 'unit.walkInside': 'Start inside the apartment',
+    'sel.3d.hint': 'Drag to orbit · tap a floor for its plan · double-tap to move closer or step inside' },
+  pt: { 'view.label': 'Vista', 'view.3d': '3D', 'view.photo': 'Realista', 'view.noPano': 'Ainda não há panorama 360° neste ponto. Aqui está a vista fotorrealista mais próxima.', 'view.waitLift': 'A mudar quando o elevador chegar…',
+    'walk.streetHint': 'Toque na porta para abrir · toque duplo para andar', 'walk.coach': 'Toque nas coisas para as abrir: portas, armários, frigorífico, torneiras',
+    'unit.walkStreet': 'Passeio 3D livre · a partir da rua', 'unit.walkInside': 'Começar dentro do apartamento',
+    'sel.3d.hint': 'Arraste para rodar · toque num piso para ver a planta · toque duplo para se aproximar ou entrar' },
+  he: { 'view.label': 'תצוגה', 'view.3d': '3D', 'view.photo': 'ריאליסטי', 'view.noPano': 'עדיין אין פנורמת 360° בנקודה הזו. הנה התמונה הריאליסטית הקרובה ביותר.', 'view.waitLift': 'נעבור כשהמעלית תגיע…',
+    'walk.streetHint': 'הקישו על הדלת כדי לפתוח · הקשה כפולה כדי ללכת', 'walk.coach': 'הקישו על דברים כדי לפתוח אותם: דלתות, ארונות, מקרר, ברזים',
+    'unit.walkStreet': 'סיור תלת־ממדי חופשי · מהרחוב', 'unit.walkInside': 'להתחיל בתוך הדירה',
+    'sel.3d.hint': 'גררו כדי לסובב · הקישו על קומה לתוכנית · הקשה כפולה כדי להתקרב או להיכנס' },
+  ru: { 'view.label': 'Вид', 'view.3d': '3D', 'view.photo': 'Реалистично', 'view.noPano': 'В этой точке пока нет панорамы 360°. Показываем ближайший фотореалистичный вид.', 'view.waitLift': 'Переключим, когда лифт приедет…',
+    'walk.streetHint': 'Нажмите на дверь, чтобы открыть · двойное касание — идти', 'walk.coach': 'Нажимайте на предметы, чтобы открыть: двери, шкафы, холодильник, краны',
+    'unit.walkStreet': 'Свободная 3D-прогулка · с улицы', 'unit.walkInside': 'Начать внутри квартиры',
+    'sel.3d.hint': 'Тяните, чтобы вращать · нажмите на этаж для плана · двойное касание — приблизиться или войти' }
+};
+Object.assign(en, P6.en); Object.assign(pt, P6.pt); Object.assign(he, P6.he); Object.assign(ru, P6.ru);
+
 export const DICTS = { en, pt, he, ru };
 
 let current = 'en';

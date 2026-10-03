@@ -12,7 +12,10 @@ const LOOK_SPEED = 1.0;           // rad/s pitch (look up / down buttons)
 const STEP_TOL = 0.45;            // max height change per move step (stairs)
 const DOOR_NEAR = 1.4;
 const DOOR_FAR = 2.1;
-const DOOR_TIME = 0.7;            // s to open / close a leaf
+const DOOR_TIME = 0.6;            // s to open / close a leaf
+const DOOR_HOLD = 6;              // s a tapped door keeps its state before auto behaviour resumes
+const DOUBLE_MS = 330;            // double-tap window; a single tap acts after it
+const DT_MAX = 0.1;
 const LIFT_DOOR_TIME = 0.9;
 const LIFT_SPEED = 1.0;           // m/s average
 const PITCH_MIN = -1.3, PITCH_MAX = 1.15;
@@ -57,9 +60,9 @@ const CAB_C = { x: (LIFT.x0 + LIFT.x1) / 2, z: (LIFT.z0 + LIFT.z1) / 2 };
 const LIFT_DOOR_PT = { x: LIFT.doorOnX, z: (LIFT.doorZ[0] + LIFT.doorZ[1]) / 2 };
 
 const T = {
-  en: { hint: 'Drag to look · Double-click to walk', hintTouch: 'Drag to look · Double-tap to walk', plan: 'Plan', lift: 'Lift', apartment: 'Apartment', balcony: 'Balcony', terrace: 'Terrace', deck: 'Garden deck', outside: 'Outside', fwd: 'Forward', back: 'Back', left: 'Turn left', right: 'Turn right', lookUp: 'Look up', lookDown: 'Look down', hideUi: 'Hide controls', showUi: 'Show controls', up: 'Up', down: 'Down', floor: 'Floor', close: 'Close plan' },
-  pt: { hint: 'Arraste para olhar · Duplo clique para andar', hintTouch: 'Arraste para olhar · Toque duplo para andar', plan: 'Planta', lift: 'Elevador', apartment: 'Apartamento', balcony: 'Varanda', terrace: 'Terraço', deck: 'Deck do jardim', outside: 'Exterior', fwd: 'Avançar', back: 'Recuar', left: 'Rodar à esquerda', right: 'Rodar à direita', lookUp: 'Olhar para cima', lookDown: 'Olhar para baixo', hideUi: 'Ocultar controlos', showUi: 'Mostrar controlos', up: 'Subir', down: 'Descer', floor: 'Piso', close: 'Fechar planta' },
-  he: { hint: 'גררו כדי להסתכל · לחיצה כפולה כדי ללכת', hintTouch: 'גררו כדי להסתכל · הקשה כפולה כדי ללכת', plan: 'תוכנית', lift: 'מעלית', apartment: 'דירה', balcony: 'מרפסת', terrace: 'טרסה', deck: 'דק גינה', outside: 'בחוץ', fwd: 'קדימה', back: 'אחורה', left: 'פנייה שמאלה', right: 'פנייה ימינה', lookUp: 'הבט למעלה', lookDown: 'הבט למטה', hideUi: 'הסתרת הפקדים', showUi: 'הצגת הפקדים', up: 'למעלה', down: 'למטה', floor: 'קומה', close: 'סגירת תוכנית' }
+  en: { hint: 'Drag to look · Double-click to walk · Click to open', hintTouch: 'Drag to look · Double-tap to walk · Tap to open', plan: 'Plan', lift: 'Lift', apartment: 'Apartment', balcony: 'Balcony', terrace: 'Terrace', deck: 'Garden deck', outside: 'Outside', fwd: 'Forward', back: 'Back', left: 'Turn left', right: 'Turn right', lookUp: 'Look up', lookDown: 'Look down', hideUi: 'Hide controls', tap: 'Tap', openDoor: 'Open door', closeDoor: 'Close door', garageDoor: 'Garage door', showUi: 'Show controls', up: 'Up', down: 'Down', floor: 'Floor', close: 'Close plan' },
+  pt: { hint: 'Arraste para olhar · Duplo clique para andar · Clique para abrir', hintTouch: 'Arraste para olhar · Toque duplo para andar · Toque para abrir', plan: 'Planta', lift: 'Elevador', apartment: 'Apartamento', balcony: 'Varanda', terrace: 'Terraço', deck: 'Deck do jardim', outside: 'Exterior', fwd: 'Avançar', back: 'Recuar', left: 'Rodar à esquerda', right: 'Rodar à direita', lookUp: 'Olhar para cima', lookDown: 'Olhar para baixo', hideUi: 'Ocultar controlos', tap: 'Toque', openDoor: 'Abrir porta', closeDoor: 'Fechar porta', garageDoor: 'Portão da garagem', showUi: 'Mostrar controlos', up: 'Subir', down: 'Descer', floor: 'Piso', close: 'Fechar planta' },
+  he: { hint: 'גררו כדי להסתכל · לחיצה כפולה כדי ללכת · לחיצה לפתיחה', hintTouch: 'גררו כדי להסתכל · הקשה כפולה כדי ללכת · הקשה לפתיחה', plan: 'תוכנית', lift: 'מעלית', apartment: 'דירה', balcony: 'מרפסת', terrace: 'טרסה', deck: 'דק גינה', outside: 'בחוץ', fwd: 'קדימה', back: 'אחורה', left: 'פנייה שמאלה', right: 'פנייה ימינה', lookUp: 'הבט למעלה', lookDown: 'הבט למטה', hideUi: 'הסתרת הפקדים', tap: 'הקישו', openDoor: 'פתיחת דלת', closeDoor: 'סגירת דלת', garageDoor: 'שער החניון', showUi: 'הצגת הפקדים', up: 'למעלה', down: 'למטה', floor: 'קומה', close: 'סגירת תוכנית' }
 };
 
 // ───────────────────────────── small helpers ─────────────────────────────
@@ -72,7 +75,7 @@ const wrapAngle = (a) => { while (a > Math.PI) a -= 2 * Math.PI; while (a < -Mat
 function pointInPoly(x, z, poly) {
   let inside = false;
   for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
-    const [xi, zi] = poly[i], [xj, zj] = poly[j];
+    const a = poly[i], b = poly[j], xi = a[0], zi = a[1], xj = b[0], zj = b[1];
     if ((zi > z) !== (zj > z) && x < ((xj - xi) * (z - zi)) / (zj - zi) + xi) inside = !inside;
   }
   return inside;
@@ -101,8 +104,8 @@ function pushOut(p, s, r) {
   const du = u - cu, dv = v - cv, d = Math.hypot(du, dv);
   if (d >= r) return false;
   if (d < 1e-7) {
-    const pen = [s.ht - v, v + s.ht, u, s.L - u];
-    const k = pen.indexOf(Math.min(...pen));
+    const p0 = s.ht - v, p1 = v + s.ht, p2 = u, p3 = s.L - u, mn = Math.min(p0, p1, p2, p3);
+    const k = mn === p0 ? 0 : mn === p1 ? 1 : mn === p2 ? 2 : 3;
     if (k === 0) v = s.ht + r; else if (k === 1) v = -(s.ht + r); else if (k === 2) u = -r; else u = s.L + r;
   } else {
     u = cu + (du / d) * r; v = cv + (dv / d) * r;
@@ -126,16 +129,17 @@ function clipEdgeZMax(p, q, zc) {
 
 // Stair heights at plan point (all storeys), or null if outside the stair box.
 function inStairBox(x, z) { return x >= SL.x0 - 0.3 && x <= SL.x1 && z >= SL.z0 && z <= SL.z1 + 0.3; }
-function stairHeights(x, z) {
-  if (z <= SL.zLand) return LEVEL_YS;
-  if (z >= SL.zTurn) return STOREYS.map(s => s.ym);
-  const k = (z - SL.zLand) / (SL.zTurn - SL.zLand);
-  if (x >= SL.xMid) return STOREYS.map(s => s.y0 + k * (s.ym - s.y0));
-  return STOREYS.map(s => s.y1 + k * (s.ym - s.y1));
+function pushStairHeights(out, x, z) {   // no allocations: appends to `out`
+  if (z <= SL.zLand) { for (let i = 0; i < LEVEL_YS.length; i++) out.push(LEVEL_YS[i]); return; }
+  const turn = z >= SL.zTurn, k = (z - SL.zLand) / (SL.zTurn - SL.zLand), east = x >= SL.xMid;
+  for (let i = 0; i < STOREYS.length; i++) {
+    const s = STOREYS[i];
+    out.push(turn ? s.ym : east ? s.y0 + k * (s.ym - s.y0) : s.y1 + k * (s.ym - s.y1));
+  }
 }
 function nearestFloorId(y) {
   let best = ORDER[0], bd = Infinity;
-  for (const id of ORDER) { const d = Math.abs(LEVEL_Y[id] - y); if (d < bd - 1e-6) { bd = d; best = id; } }
+  for (let i = 0; i < ORDER.length; i++) { const id = ORDER[i], d = Math.abs(LEVEL_Y[id] - y); if (d < bd - 1e-6) { bd = d; best = id; } }
   return best;
 }
 function balconiesOf(floorId) { return BALCONIES.filter(b => b.level === floorId); }
@@ -154,6 +158,8 @@ const CSS = `
 .vw-unit:empty{display:none}
 .vw-hint{position:absolute;inset-block-end:calc(var(--vw-inset) + 6px);left:50%;transform:translateX(-50%);padding:8px 16px;border-radius:999px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap;opacity:0;transition:opacity .8s}
 .vw-hint.vw-on{opacity:.9}
+.vw-chip{transition:opacity .25s;text-transform:none;letter-spacing:.04em;font-size:12px}
+.vw-chip.vw-on{opacity:.95}
 .vw-pad{position:absolute;bottom:calc(var(--vw-inset) + var(--vw-sb));left:calc(var(--vw-inset) + var(--vw-sx));pointer-events:none}
 .vw-padgrid{display:grid;grid-template-columns:repeat(3,var(--vw-b));grid-template-rows:repeat(3,var(--vw-b));gap:5px;direction:ltr}
 .vw-padhub{grid-column:2;grid-row:2;align-self:center;justify-self:center;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.28);box-shadow:0 0 0 1px rgba(0,0,0,.15)}
@@ -226,6 +232,8 @@ const CSS = `
 .vw-compact .vw-label>*+*:not(:empty)::before{content:'·';margin-inline-end:.45em;opacity:.55;color:#f5f1ea}
 .vw-compact .vw-hint{inset-block-end:auto;inset-block-start:calc(var(--vw-top,var(--vw-inset)) + var(--vw-st) + 32px);padding:5px 12px;font-size:9.5px;letter-spacing:.1em;white-space:normal;text-align:center;width:max-content;max-width:86%;line-height:1.4;background:rgba(18,17,16,.5);box-shadow:none}
 .vw-compact .vw-lift{inset-block-start:calc(var(--vw-top,var(--vw-inset)) + var(--vw-st) + 32px);inset-inline-end:calc(var(--vw-inset) + var(--vw-sx));width:auto;flex-direction:row;padding:5px 8px;gap:6px;border-radius:12px;direction:ltr;background:rgba(18,17,16,.5);box-shadow:none}
+.vw-compact .vw-chip{font-size:11px;letter-spacing:.03em}
+.vw-compact.vw-inlift .vw-chip{inset-block-start:calc(var(--vw-top,var(--vw-inset)) + var(--vw-st) + 80px)}
 .vw-compact .vw-lift>.vw-cap{display:none}
 .vw-compact .vw-lift-ind{width:40px;height:30px;gap:3px;border-radius:8px}
 .vw-compact .vw-lift-num{font-size:17px;min-width:14px}
@@ -298,7 +306,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     const interior = d.kind === 'door';      // BUILDING opens interior doors by default
     const big = d.kind === 'garage';
     doorRecs.push({ d, t: interior ? 1 : 0, target: interior ? 1 : 0, interior, cx: d.center ? d.center.x : 0, cz: d.center ? d.center.z : 0,
-      y: LEVEL_Y[d.floorId] ?? 0, near: big ? 3.4 : DOOR_NEAR, far: big ? 4.6 : DOOR_FAR });
+      y: LEVEL_Y[d.floorId] ?? 0, near: big ? 3.4 : DOOR_NEAR, far: big ? 4.6 : DOOR_FAR, hold: 0, synth: null });
   }
   function findDoor(fid, x, z) {
     let best = null, bd = 1.0;
@@ -438,7 +446,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     const segs = segsAt(p.x, p.z);
     for (let it = 0; it < 4; it++) {
       let moved = false;
-      for (const sg of segs) if (activeAt(sg, fy) && pushOut(p, sg, RADIUS)) moved = true;
+      for (let i = 0; i < segs.length; i++) { const sg = segs[i]; if (activeAt(sg, fy) && pushOut(p, sg, RADIUS)) moved = true; }
       if (!moved) break;
     }
     return p;
@@ -474,11 +482,13 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     if (envGround) { try { const y = envGround(x, z); if (Number.isFinite(y) && y > -40) return y; } catch (e) { /* */ } }
     return z > LOT.zFront ? STREET_Y : -0.12;
   }
+  const SURF = [];                 // scratch list reused by every query
+  const stepP = { x: 0, z: 0 };    // scratch point for collision steps
   function surfaces(x, z) {
-    const out = [];
+    const out = SURF; out.length = 0;
     if (Math.abs(x - 7) > AREA || Math.abs(z - 7) > AREA) return out;
     const ramp = inRamp(x, z), foot = inFoot(x, z);
-    if (inStairBox(x, z)) out.push(...stairHeights(x, z));
+    if (inStairBox(x, z)) pushStairHeights(out, x, z);
     else {
       if (ramp) out.push(rampY(z));
       else if (pointInPoly(x, z, BASE_POLY)) out.push(LEVEL_Y.basement);
@@ -488,27 +498,29 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
       }
     }
     if (!foot) {
-      for (const b of BALCONIES) if (pointInPoly(x, z, b.poly)) out.push(b.deck ? 0 : LEVEL_Y[b.level]);
+      for (let i = 0; i < BALCONIES.length; i++) { const b = BALCONIES[i]; if (pointInPoly(x, z, b.poly)) out.push(b.deck ? 0 : LEVEL_Y[b.level]); }
       if (!ramp) out.push(extGround(x, z));
     }
     return out;
   }
   function pickSurface(cands, ref, up) {
     let best = null;
-    for (const c of cands) if (c <= ref + up && (best === null || c > best)) best = c;
+    for (let i = 0; i < cands.length; i++) { const c = cands[i]; if (c <= ref + up && (best === null || c > best)) best = c; }
     return best;
   }
   function surfaceAt(x, z, ref, up = STEP_TOL) { return pickSurface(surfaces(x, z), ref, up); }
   function floorOf(x, z, h) {
     if (!inFoot(x, z) && !inRamp(x, z) && !(h < -1.4 && pointInPoly(x, z, BASE_POLY))) {
-      for (const b of BALCONIES) if (!b.deck && pointInPoly(x, z, b.poly) && Math.abs(LEVEL_Y[b.level] - h) < 0.3) return b.level;
+      for (let i = 0; i < BALCONIES.length; i++) { const b = BALCONIES[i]; if (!b.deck && pointInPoly(x, z, b.poly) && Math.abs(LEVEL_Y[b.level] - h) < 0.3) return b.level; }
       return 'ground';
     }
     return nearestFloorId(h);
   }
   function inRegion(x, z, fid) {     // a slab of that level exists here (helpers & mini-map)
     const y = LEVEL_Y[fid];
-    return surfaces(x, z).some(c => Math.abs(c - y) < 0.3);
+    const c = surfaces(x, z);
+    for (let i = 0; i < c.length; i++) if (Math.abs(c[i] - y) < 0.3) return true;
+    return false;
   }
   const inCabArea = (x, z) => x < LIFT.x1 - 0.02 && x > LIFT.x0 - 0.3 && z > LIFT.z0 && z < LIFT.z1;
   const playerInCab = () => inCabArea(pos.x, pos.z);
@@ -531,7 +543,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     if (dd > 0) {
       const nx = pos.x + f.dx * dd, nz = pos.z + f.dz * dd;
       const h = pickSurface(surfaces(nx, nz), f.y1, 0.05);
-      if (h !== null && Math.abs(h - f.y1) < 0.05) { const p = resolve({ x: nx, z: nz }, f.y1); pos.x = p.x; pos.z = p.z; }
+      if (h !== null && Math.abs(h - f.y1) < 0.05) { stepP.x = nx; stepP.z = nz; resolve(stepP, f.y1); pos.x = stepP.x; pos.z = stepP.z; }
     }
     feetY = f.y0 + (f.y1 - f.y0) * easeInOut(u);
     eyeY = feetY + EYE;
@@ -539,16 +551,17 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   }
 
   function tryStep(nx, nz) {
-    const p = resolve({ x: nx, z: nz }, feetY);
+    stepP.x = nx; stepP.z = nz;
+    const p = resolve(stepP, feetY);
     const entering = !inFoot(pos.x, pos.z) && inFoot(p.x, p.z);
     const h = surfaceAt(p.x, p.z, feetY, entering ? ENTER_STEP : STEP_TOL);
     if (h === null) return false;
     // never enter the shaft unless the cab is here with open doors
     if (inCabArea(p.x, p.z) && !inCabArea(pos.x, pos.z) && !(cabLevel === nearestFloorId(h) && liftDoor > 0.7)) return false;
-    const dx = p.x - pos.x, dz = p.z - pos.z;
-    pos.x = p.x; pos.z = p.z;
+    const px = p.x, pz = p.z, dx = px - pos.x, dz = pz - pos.z;
+    pos.x = px; pos.z = pz;
     if (h < feetY - DROP_TOL) { startFall(h, dx, dz); return 'fall'; }
-    feetY = h; floorId = floorOf(p.x, p.z, h);
+    feetY = h; floorId = floorOf(px, pz, h);
     return true;
   }
   function moveBy(dx, dz) {
@@ -812,6 +825,83 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     } catch (e) { /* ignore */ }
   }
 
+  let noiseBuf = null;
+  const waters = new Map();          // key → { src, g } running water loops
+  function noise() {
+    if (!noiseBuf) {
+      const n = Math.floor(audio.sampleRate * 2);
+      noiseBuf = audio.createBuffer(1, n, audio.sampleRate);
+      const d = noiseBuf.getChannelData(0);
+      for (let i = 0; i < n; i++) d[i] = Math.random() * 2 - 1;
+    }
+    const src = audio.createBufferSource();
+    src.buffer = noiseBuf; src.loop = true;
+    return src;
+  }
+  function stopWater(key) {
+    const w = waters.get(key);
+    if (!w) return;
+    waters.delete(key);
+    try {
+      const now = audio.currentTime;
+      w.g.gain.cancelScheduledValues(now); w.g.gain.setValueAtTime(Math.max(0.0001, w.g.gain.value), now);
+      w.g.gain.exponentialRampToValueAtTime(0.0001, now + 0.3);
+      w.src.stop(now + 0.35);
+    } catch (e) { /* */ }
+  }
+  // kind: 'water' (loop; on=false stops it) | 'flush' | 'door' | 'drawer' | 'click' | 'lift'. Only sounds after a user gesture.
+  function playSound(kind, on = true, key = kind) {
+    lastSound = kind + (kind === 'water' ? (on ? ':on' : ':off') : '');
+    if (kind === 'water' && !on) { stopWater(key); return true; }
+    if (!audio || audio.state !== 'running') return false;
+    try {
+      const now = audio.currentTime, out = audio.destination;
+      if (kind === 'lift') { chime('arrive'); return true; }
+      if (kind === 'water') {
+        if (waters.has(key)) return true;
+        if (waters.size >= 3) stopWater(waters.keys().next().value);
+        const src = noise(), hp = audio.createBiquadFilter(), bp = audio.createBiquadFilter(), g = audio.createGain();
+        hp.type = 'highpass'; hp.frequency.value = 700;
+        bp.type = 'bandpass'; bp.frequency.value = 2600; bp.Q.value = 0.5;
+        g.gain.setValueAtTime(0.0001, now); g.gain.exponentialRampToValueAtTime(0.05, now + 0.35);
+        src.connect(hp); hp.connect(bp); bp.connect(g); g.connect(out);
+        src.start(now, Math.random());
+        waters.set(key, { src, g });
+        return true;
+      }
+      if (kind === 'flush') {
+        const src = noise(), lp = audio.createBiquadFilter(), g = audio.createGain();
+        lp.type = 'lowpass'; lp.Q.value = 2.5;
+        lp.frequency.setValueAtTime(3200, now); lp.frequency.exponentialRampToValueAtTime(900, now + 0.9); lp.frequency.exponentialRampToValueAtTime(220, now + 2.5);
+        g.gain.setValueAtTime(0.0001, now); g.gain.exponentialRampToValueAtTime(0.13, now + 0.12);
+        g.gain.setValueAtTime(0.11, now + 1.2); g.gain.exponentialRampToValueAtTime(0.0001, now + 2.5);
+        src.connect(lp); lp.connect(g); g.connect(out);
+        src.start(now, Math.random()); src.stop(now + 2.6);
+        return true;
+      }
+      if (kind === 'click') {
+        const o = audio.createOscillator(), g = audio.createGain();
+        o.type = 'triangle'; o.frequency.setValueAtTime(1900, now); o.frequency.exponentialRampToValueAtTime(900, now + 0.03);
+        g.gain.setValueAtTime(0.05, now); g.gain.exponentialRampToValueAtTime(0.0001, now + 0.05);
+        o.connect(g); g.connect(out); o.start(now); o.stop(now + 0.06);
+        return true;
+      }
+      // 'door' / 'drawer': soft thud (+ a short slide for drawers)
+      const drawer = kind === 'drawer';
+      const o = audio.createOscillator(), g = audio.createGain();
+      o.type = 'sine'; o.frequency.setValueAtTime(drawer ? 140 : 95, now + (drawer ? 0.16 : 0)); o.frequency.exponentialRampToValueAtTime(drawer ? 80 : 52, now + (drawer ? 0.3 : 0.16));
+      g.gain.setValueAtTime(0.0001, now); g.gain.setValueAtTime(drawer ? 0.07 : 0.13, now + (drawer ? 0.16 : 0.001)); g.gain.exponentialRampToValueAtTime(0.0001, now + (drawer ? 0.34 : 0.22));
+      o.connect(g); g.connect(out); o.start(now); o.stop(now + 0.4);
+      const src = noise(), f = audio.createBiquadFilter(), ng = audio.createGain();
+      f.type = drawer ? 'bandpass' : 'lowpass'; f.frequency.value = drawer ? 650 : 800; f.Q.value = drawer ? 1.2 : 0.7;
+      ng.gain.setValueAtTime(0.0001, now); ng.gain.exponentialRampToValueAtTime(drawer ? 0.03 : 0.04, now + 0.012);
+      ng.gain.exponentialRampToValueAtTime(0.0001, now + (drawer ? 0.2 : 0.07));
+      src.connect(f); f.connect(ng); ng.connect(out); src.start(now, Math.random()); src.stop(now + 0.3);
+      return true;
+    } catch (e) { return false; }
+  }
+  let lastSound = '';
+
   // ── HUD ──
   injectCSS();
   const hud = buildHud();
@@ -837,6 +927,8 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     label.append(h.floor, h.room, h.unit);
     // hint
     h.hint = el('div', 'vw-hint vw-glass');
+    h.chip = el('div', 'vw-hint vw-chip vw-glass');
+    h.chip.dir = 'auto';
     // pad
     const pad = el('div', 'vw-pad');
     const padGrid = el('div', 'vw-padgrid');
@@ -901,7 +993,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     ud.append(h.liftUp, h.liftDown);
     lp.append(h.liftHead, ind, btns, ud);
     h.lift = lp;
-    root.append(label, h.hint, pad, mapWrap, lp);
+    root.append(label, h.hint, h.chip, pad, mapWrap, lp);
     root.addEventListener('pointerdown', unlockAudio, { passive: true });
     root.addEventListener('dblclick', (e) => e.preventDefault());
     root.addEventListener('gesturestart', (e) => e.preventDefault());
@@ -987,6 +1079,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     if (!hud.root) return;
     const show = playerInCab() && (!job || job.carry || !job.moving);
     hud.lift.classList.toggle('vw-open', !!show);
+    hud.root.classList.toggle('vw-inlift', !!show);
     if (show && compact && hintTimer > 0) hideHint();
     const y = job && job.moving ? cabY : LIFT_Y[cabLevel || floorId];
     const nf = nearestFloorId(y);
@@ -1197,6 +1290,205 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     }
     return null;
   }
+  // ── tap-to-interact (CONTRACT4: obj.userData.interact = { id, kind, label, toggle(), isOn(), range, sound }) ──
+  // A small cached list of interactable roots (collected every 2 s or when flagged dirty); picking tests their bounding
+  // spheres first and only then raycasts that one object — never the whole scene.
+  const inter = { list: [], byObj: new Map(), at: -1e9, dirty: true, stamp: 0 };
+  const _box = new THREE.Box3(), _sph = new THREE.Sphere(), _hits = [], _v = new THREE.Vector3();
+  const _cRay = new THREE.Ray();
+  const DOORISH = new Set(['door', 'garage', 'window', 'wardrobe']);
+  const SOUND_OF = { door: 'door', garage: 'door', window: 'door', wardrobe: 'door', cabinet: 'door', fridge: 'door', oven: 'door', dishwasher: 'door', mailbox: 'door',
+    drawer: 'drawer', tap: 'water', shower: 'water', 'toilet-flush': 'flush', 'toilet-lid': 'click', lamp: 'click', tv: 'click', curtain: 'drawer', 'lift-call': 'click', 'lift-button': 'click' };
+  function sphereOf(e) {
+    try {
+      _box.setFromObject(e.obj);
+      if (_box.isEmpty()) { e.obj.getWorldPosition(e.c); e.r = 0.4; }
+      else { _box.getBoundingSphere(_sph); e.c.copy(_sph.center); e.r = Math.max(0.08, _sph.radius); }
+    } catch (err) { e.r = 0.5; }
+  }
+  function isUnder(o, root) { for (let a = o; a; a = a.parent) if (a === root) return true; return false; }
+  function matchDoor(e) {       // an interactable that is one of building.doors → walk.js drives it (collision + auto-open stay in sync)
+    const it = e.it;
+    for (let i = 0; i < doorRecs.length; i++) {
+      const r = doorRecs[i], d = r.d;
+      if (it.id != null && it.id === d.id) return r;
+      if (d.pivot && d.pivot.isObject3D && isUnder(e.obj, d.pivot)) return r;
+      if (d.leaf && d.leaf.isObject3D && isUnder(e.obj, d.leaf)) return r;
+    }
+    if (it.kind === 'door' || it.kind === 'garage') {
+      for (let i = 0; i < doorRecs.length; i++) {
+        const r = doorRecs[i];
+        if (Math.hypot(e.c.x - r.cx, e.c.z - r.cz) < 0.7 && e.c.y > r.y - 0.3 && e.c.y < r.y + 2.8) return r;
+      }
+    }
+    return null;
+  }
+  function interEntry(obj, it, rec) {
+    let e = inter.byObj.get(obj);
+    if (!e) {
+      e = { obj, it, rec: rec || null, c: new THREE.Vector3(), r: 0.5, stamp: 0, synth: false };
+      inter.byObj.set(obj, e);
+      sphereOf(e);
+      if (!e.rec) e.rec = matchDoor(e);
+    }
+    e.it = it; e.stamp = inter.stamp;
+    inter.list.push(e);
+    return e;
+  }
+  function visitInter(o) {
+    const it = o.userData && o.userData.interact;
+    if (it && typeof it === 'object' && (typeof it.toggle === 'function' || o.userData.liftButton != null)) interEntry(o, it, null);
+  }
+  function hasInterAround(o) {
+    for (let a = o; a; a = a.parent) if (a.userData && a.userData.interact) return true;
+    return false;
+  }
+  function refreshInteractables() {
+    inter.stamp++; inter.list.length = 0; inter.at = clock; inter.dirty = false;
+    if (scene && scene.userData) scene.userData.interactDirty = false;
+    try { if (scene) scene.traverse(visitInter); } catch (e) { /* guard */ }
+    // every building door is tappable even when its owner did not tag it
+    for (let i = 0; i < doorRecs.length; i++) {
+      const r = doorRecs[i], pv = r.d.pivot;
+      if (!pv || !pv.isObject3D) continue;
+      let tagged = hasInterAround(pv) || !!(r.d.leaf && r.d.leaf.isObject3D && hasInterAround(r.d.leaf));
+      for (let k = 0; k < inter.list.length && !tagged; k++) if (inter.list[k].rec === r) tagged = true;
+      if (tagged) continue;
+      if (!r.synth) r.synth = { id: 'door:' + r.d.id, kind: r.d.kind === 'garage' ? 'garage' : 'door', range: r.d.kind === 'door' ? 3.5 : 4.5, toggle() {}, isOn: () => r.target > 0.5 };
+      const e = interEntry(pv, r.synth, r);
+      e.synth = true;
+    }
+    if (inter.byObj.size > inter.list.length + 64) for (const [o, e] of inter.byObj) if (e.stamp !== inter.stamp) inter.byObj.delete(o);
+    return inter.list.length;
+  }
+  const markInterDirty = () => { inter.dirty = true; };
+  function visibleChain(o) { for (let a = o; a; a = a.parent) if (a.visible === false) return false; return true; }
+  // is the straight line from the eye blocked by a wall / closed door / slab before `dist`?
+  function occluded(ox, oy, oz, dx, dy, dz, dist, isDoor) {
+    const end = dist - 0.15;
+    for (let t = 0.25; t < end; t += 0.12) {
+      const x = ox + dx * t, y = oy + dy * t, z = oz + dz * t;
+      if (inFoot(x, z) && (y < feetY - 0.06 || y > feetY + 2.95)) return true;
+      const segs = segsAt(x, z);
+      for (let i = 0; i < segs.length; i++) {
+        const sg = segs[i];
+        if (sg.ht < 0.04 || sg.wy0 > y || sg.wy1 < y || (sg.cond && (isDoor || !sg.cond()))) continue;
+        if (segDist(x, z, sg) < 0.01) return true;
+      }
+    }
+    return false;
+  }
+  const rangeOf = (e) => (Number.isFinite(e.it.range) ? e.it.range : DOORISH.has(e.it.kind) ? 3.5 : 2.6);
+  // precise = raycast the candidate objects (gestures only); otherwise spheres only (cheap; centre-of-screen hint)
+  function pickInteract(ray, precise) {
+    if (inter.dirty || clock - inter.at > 2) refreshInteractables();
+    const o = ray.origin, d = ray.direction;
+    let best = null, bd = Infinity;
+    for (let i = 0; i < inter.list.length; i++) {
+      const e = inter.list[i];
+      const range = rangeOf(e);
+      const ex = e.c.x - o.x, ey = e.c.y - o.y, ez = e.c.z - o.z;
+      if (Math.sqrt(ex * ex + ey * ey + ez * ez) - e.r > range + 0.6 || !visibleChain(e.obj)) continue;
+      let dist;
+      if (precise) {
+        sphereOf(e);                                   // animated parts move: refresh just this one
+        _sph.center.copy(e.c); _sph.radius = e.r + 0.02;
+        if (!ray.intersectsSphere(_sph)) continue;
+        _hits.length = 0;
+        raycaster.ray.copy(ray); raycaster.near = 0; raycaster.far = range + 0.05;
+        try { raycaster.intersectObject(e.obj, true, _hits); } catch (err) { continue; }
+        dist = Infinity;
+        for (let k = 0; k < _hits.length; k++) {       // nearest hit that belongs to this interactable (not to a nested one)
+          let owner = null;
+          for (let a = _hits[k].object; a; a = a.parent) { if (a === e.obj) { owner = e.obj; break; } if (a.userData && a.userData.interact) { owner = a; break; } }
+          if (owner === e.obj) { dist = _hits[k].distance; break; }
+        }
+        _hits.length = 0;
+      } else {
+        const t = ex * d.x + ey * d.y + ez * d.z;
+        if (t < 0.15) continue;
+        const px = d.x * t - ex, py = d.y * t - ey, pz = d.z * t - ez;
+        const rr = Math.min(e.r * 0.75, 0.6);
+        if (px * px + py * py + pz * pz > rr * rr) continue;
+        dist = Math.max(0.1, t - e.r * 0.5);
+      }
+      if (dist > range || dist >= bd) continue;
+      if (occluded(o.x, o.y, o.z, d.x, d.y, d.z, dist, !!e.rec)) continue;
+      bd = dist; best = e;
+    }
+    raycaster.far = 40;
+    return best;
+  }
+  function labelOf(e) {
+    if (e.rec && (e.synth || !e.it.label)) return tr(e.rec.d.kind === 'garage' ? 'garageDoor' : e.rec.target > 0.5 ? 'closeDoor' : 'openDoor');
+    const lb = e.it.label;
+    if (!lb) return '';
+    return typeof lb === 'string' ? lb : (lb[lang()] || lb.en || '');
+  }
+  let chipUntil = 0, hoverE = null, lastInteract = null;
+  function showChip(text, sec) {
+    if (!hud.chip || !text) return;
+    if (hud.chip.textContent !== text) hud.chip.textContent = text;
+    hud.chip.classList.add('vw-on');
+    chipUntil = clock + sec;
+    hideHint();
+  }
+  function doInteract(e) {
+    const it = e.it, obj = e.obj;
+    const kind = it.kind || 'click';
+    let on = true;
+    lastInteract = it.id != null ? it.id : kind;
+    const lb = obj.userData && obj.userData.liftButton;
+    if (lb != null && normFloor(lb)) {                   // 3D lift panel button → ride (walk.js owns the lift)
+      showChip(labelOf(e), 1.4);
+      ride(normFloor(lb));
+      return true;
+    }
+    if (e.rec) {                                         // a building door: toggle + hold, collision stays in sync
+      const r = e.rec, label = labelOf(e);
+      r.target = r.target > 0.5 ? 0 : 1; r.hold = DOOR_HOLD;
+      playSound('door');
+      showChip(label, 1.4);
+      hoverE = e;
+      return true;
+    }
+    if (kind === 'lift-call' && !job && cabLevel !== floorId) enqueue(floorId, false);
+    const label = labelOf(e);
+    try { if (typeof it.toggle === 'function') it.toggle(); } catch (err) { /* an owner's error must not break walking */ }
+    try { on = typeof it.isOn === 'function' ? !!it.isOn() : true; } catch (err) { on = true; }
+    const snd = it.sound || SOUND_OF[kind] || 'click';
+    if (snd === 'water') playSound('water', on, 'w:' + (it.id != null ? it.id : obj.uuid));
+    else if (snd !== 'none') playSound(snd);
+    showChip(label, 1.6);
+    hoverE = e;
+    return true;
+  }
+  // screen point → world ray without allocating
+  const _ndc = new THREE.Vector2(), _tapRay = new THREE.Ray();
+  function rayAt(clientX, clientY, out) {
+    const r = dom.getBoundingClientRect();
+    _ndc.set(((clientX - r.left) / r.width) * 2 - 1, -((clientY - r.top) / r.height) * 2 + 1);
+    applyCamera();
+    raycaster.setFromCamera(_ndc, camera);
+    return out.copy(raycaster.ray);
+  }
+  const pending = { e: null, at: 0 };          // single tap waiting for the double-tap window to pass
+  function stepInteract() {
+    if (pending.e && performance.now() - pending.at >= DOUBLE_MS) { const e = pending.e; pending.e = null; doInteract(e); }
+  }
+  function stepHover() {                       // ~4 Hz: "tap to open" chip when the screen centre is over something in reach
+    if (hud.chip && chipUntil && clock > chipUntil) { hud.chip.classList.remove('vw-on'); chipUntil = 0; }
+    if (uiHidden || fall || (job && job.moving)) return;
+    _cRay.origin.set(pos.x, eyeY, pos.z);
+    const cp = Math.cos(pitch);
+    _cRay.direction.set(-Math.sin(yaw) * cp, Math.sin(pitch), -Math.cos(yaw) * cp);
+    const e = pickInteract(_cRay, false);
+    if (e !== hoverE) {
+      hoverE = e;
+      if (e) { const lb = labelOf(e); if (lb) showChip(tr('tap') + ' · ' + lb, 2.4); }
+    }
+  }
+
   // Double-tap / double-click: ALWAYS step forward along the horizontal bearing of the tap ray, by the distance to
   // the tapped floor point clamped to [1, 3] m. Collision slides along walls; if fully blocked the ring shakes.
   function walkToScreen(clientX, clientY) {
@@ -1249,8 +1541,8 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   }
 
   // ── input ──
-  const ptr = { id: null, x: 0, y: 0, sx: 0, sy: 0, t0: 0, moved: 0, lastT: 0, vx: 0, vy: 0 };
-  let lastTap = { t: -1e9, x: 0, y: 0 };
+  const ptr = { id: null, x: 0, y: 0, sx: 0, sy: 0, t0: 0, moved: 0, lastT: 0 };
+  const lastTap = { t: -1e9, x: 0, y: 0 };
   const touches = new Set();
   const LOOK_K = () => 0.0036 * ((camera.fov || 60) / 60);
   function on(target, type, fn, opts) { target.addEventListener(type, fn, opts); listeners.push([target, type, fn, opts]); }
@@ -1267,54 +1559,87 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   function isControl(t) {
     return !!(t && t.closest && t.closest('button,a,input,select,textarea,label,summary,[role=button],[role=slider],[role=dialog],[contenteditable],.vw-map,[data-walk-ignore]'));
   }
-  // single tap: only the 3D lift buttons react; double tap (< 350 ms, < 30 px) walks forward
+  // double tap (two taps < 330 ms, < 30 px apart) walks forward; a single tap on an interactable in reach toggles it
+  // once the double-tap window has passed (so the first tap of a double-tap never opens anything)
   function handleTap(x, y, now) {
-    const fid = pickPanel(x, y);
-    if (fid) { ride(fid); lastTap.t = -1e9; return false; }
-    if (now - lastTap.t < TAP_MS && Math.hypot(x - lastTap.x, y - lastTap.y) < TAP_PX) {
-      lastTap.t = -1e9;
+    if (now - lastTap.t < DOUBLE_MS && Math.hypot(x - lastTap.x, y - lastTap.y) < TAP_PX) {
+      lastTap.t = -1e9; pending.e = null;
       if (!walkToScreen(x, y)) shakeRing();
       return true;
     }
-    lastTap = { t: now, x, y };
+    lastTap.t = now; lastTap.x = x; lastTap.y = y;
+    const e = pickInteract(rayAt(x, y, _tapRay), true);
+    if (e) { pending.e = e; pending.at = now; return false; }
+    pending.e = null;
+    const fid = pickPanel(x, y);            // lift panel buttons that carry no interact tag
+    if (fid) { ride(fid); lastTap.t = -1e9; }
     return false;
   }
-  const tt = { on: false, sx: 0, sy: 0, t0: 0, max: 0 };
+  let dragMode = 'follow';           // 'follow': the view turns towards the drag (drag right → look right, drag up → look up); 'grab': the scene follows the finger
+  function setDragMode(m) { dragMode = m === 'grab' ? 'grab' : 'follow'; return dragMode; }
+  const drag = { lastT: 0, vx: 0, vy: 0 };
+  function lookBy(dx, dy) {
+    const k = LOOK_K() * (dragMode === 'follow' ? -1 : 1);
+    yaw += dx * k;
+    pitch = clamp(pitch + dy * k, PITCH_MIN, PITCH_MAX);
+    const now = performance.now(), dtm = Math.max(4, now - drag.lastT) / 1000;
+    drag.lastT = now;
+    drag.vx = drag.vx * 0.6 + (dx * k / dtm) * 0.4;
+    drag.vy = drag.vy * 0.6 + (dy * k / dtm) * 0.4;
+  }
+  function lookStart() { drag.lastT = performance.now(); drag.vx = drag.vy = 0; yawVel = pitchVel = 0; }
+  function lookEnd(movedPx) {
+    if (performance.now() - drag.lastT < 80 && movedPx > 8) { yawVel = clamp(drag.vx, -6, 6); pitchVel = clamp(drag.vy, -4, 4); }
+  }
+  const tt = { on: false, id: -1, sx: 0, sy: 0, lx: 0, ly: 0, t0: 0, max: 0, two: 0 };
   function onTouchStartRoot(e) {
     if (isControl(e.target)) return;
     if (e.cancelable) e.preventDefault();       // no double-tap zoom, no scroll, no synthetic mouse events
     unlockAudio();
-    if (e.touches.length === 1) { const t = e.touches[0]; tt.on = true; tt.sx = t.clientX; tt.sy = t.clientY; tt.t0 = performance.now(); tt.max = 0; tt.two = 0; }
-    else { tt.on = false; lastTap.t = -1e9; tt.two = e.touches.length === 2 ? performance.now() : 0; }
+    hideHint();
+    if (e.touches.length === 1) {
+      const t = e.touches[0];
+      tt.on = true; tt.id = t.identifier; tt.sx = tt.lx = t.clientX; tt.sy = tt.ly = t.clientY; tt.t0 = performance.now(); tt.max = 0; tt.two = 0;
+      lookStart();
+    } else { tt.on = false; lastTap.t = -1e9; pending.e = null; tt.two = e.touches.length === 2 ? performance.now() : 0; }
   }
   function onTouchMoveRoot(e) {
     if (isControl(e.target)) return;
     if (e.cancelable) e.preventDefault();
-    if (tt.on && e.touches.length === 1) { const t = e.touches[0]; tt.max = Math.max(tt.max, Math.hypot(t.clientX - tt.sx, t.clientY - tt.sy)); }
+    if (tt.on && e.touches.length === 1) {
+      const t = e.touches[0];
+      if (t.identifier !== tt.id) return;
+      lookBy(t.clientX - tt.lx, t.clientY - tt.ly);       // touch look is driven by touch events only (no pointer capture to get stuck)
+      tt.lx = t.clientX; tt.ly = t.clientY;
+      tt.max = Math.max(tt.max, Math.hypot(t.clientX - tt.sx, t.clientY - tt.sy));
+    }
   }
   function onTouchEndRoot(e) {
     if (tt.two && e.touches.length === 0) {       // two-finger tap: bring hidden controls back
       if (performance.now() - tt.two < 450 && uiHidden) setControlsVisible(true);
       tt.two = 0; return;
     }
-    if (!tt.on || isControl(e.target)) return;
+    if (!tt.on || e.touches.length > 0) return;
     tt.on = false;
     const t = e.changedTouches && e.changedTouches[0];
     if (!t) return;
     const now = performance.now();
     const d = Math.max(tt.max, Math.hypot(t.clientX - tt.sx, t.clientY - tt.sy));
-    if (d > 12 || now - tt.t0 > TAP_MS) { lastTap.t = -1e9; return; }
+    lookEnd(d);
+    if (d > 12 || now - tt.t0 > TAP_MS) { lastTap.t = -1e9; pending.e = null; return; }   // a drag is never a tap
     if (handleTap(t.clientX, t.clientY, now) && e.cancelable) e.preventDefault();
   }
+  const touchPtr = (e) => e.pointerType === 'touch' && HAS_TOUCH;   // touch is handled by the touch-event path
   function onPointerDown(e) {
+    if (touchPtr(e)) return;
     if (e.button !== undefined && e.button > 0 && e.pointerType === 'mouse') return;
     if (isControl(e.target)) return;
     unlockAudio();
     touches.add(e.pointerId);
-    if (ptr.id !== null) return;
+    if (ptr.id !== null && performance.now() - ptr.lastT < 1500) return;   // a stale pointer never blocks a new drag
     ptr.id = e.pointerId; ptr.x = ptr.sx = e.clientX; ptr.y = ptr.sy = e.clientY;
-    ptr.t0 = ptr.lastT = performance.now(); ptr.moved = 0; ptr.vx = ptr.vy = 0;
-    yawVel = pitchVel = 0;
+    ptr.t0 = ptr.lastT = performance.now(); ptr.moved = 0;
+    lookStart();
     try { (inputRoot || dom).setPointerCapture(e.pointerId); } catch (er) { /* */ }
     if (dom) dom.style.cursor = 'grabbing';
     hideHint();
@@ -1324,25 +1649,20 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     const dx = e.clientX - ptr.x, dy = e.clientY - ptr.y;
     ptr.x = e.clientX; ptr.y = e.clientY;
     ptr.moved += Math.abs(dx) + Math.abs(dy);
+    ptr.lastT = performance.now();
     if (touches.size > 1) return;
-    const k = LOOK_K();
-    yaw += dx * k;
-    pitch = clamp(pitch + dy * k, PITCH_MIN, PITCH_MAX);
-    const now = performance.now(), dtm = Math.max(1, now - ptr.lastT) / 1000;
-    ptr.lastT = now;
-    ptr.vx = ptr.vx * 0.6 + (dx * k / dtm) * 0.4;
-    ptr.vy = ptr.vy * 0.6 + (dy * k / dtm) * 0.4;
+    lookBy(dx, dy);
   }
   function onPointerUp(e) {
+    if (touchPtr(e)) return;
     touches.delete(e.pointerId);
     if (e.pointerId !== ptr.id) return;
     ptr.id = null;
     dom.style.cursor = 'grab';
     const now = performance.now();
-    if (now - ptr.lastT < 70 && ptr.moved > 8) { yawVel = clamp(ptr.vx, -6, 6); pitchVel = clamp(ptr.vy, -4, 4); }
-    if (e.pointerType === 'touch' && HAS_TOUCH) return;   // touch taps are recognised from touch events
+    lookEnd(ptr.moved);
     const isTap = ptr.moved < 10 && now - ptr.t0 < TAP_MS && e.type === 'pointerup';
-    if (!isTap) { lastTap.t = -1e9; return; }
+    if (!isTap) { lastTap.t = -1e9; pending.e = null; return; }
     handleTap(e.clientX, e.clientY, now);
   }
   function onWheel(e) {
@@ -1365,11 +1685,13 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   function onBlur() { keys.clear(); for (const k in hudIn) hudIn[k] = false; }
   function onContext(e) { e.preventDefault(); }
 
-  const padLit = {};
+  const padLit = { fwd: false, back: false, left: false, right: false, lup: false, ldown: false };
+  function litKey(k, on) { if (padLit[k] !== on) { padLit[k] = on; hud.pad[k].classList.toggle('vw-down', on); } }
   function syncPadHighlight() {
     if (!hud.pad) return;
-    const st = { fwd: keys.has('f') || hudIn.fwd, back: keys.has('b') || hudIn.back, left: keys.has('tl') || hudIn.left, right: keys.has('tr') || hudIn.right, lup: keys.has('lu') || hudIn.lup, ldown: keys.has('ld') || hudIn.ldown };
-    for (const k in st) if (padLit[k] !== st[k]) { padLit[k] = st[k]; hud.pad[k].classList.toggle('vw-down', st[k]); }
+    litKey('fwd', keys.has('f') || hudIn.fwd); litKey('back', keys.has('b') || hudIn.back);
+    litKey('left', keys.has('tl') || hudIn.left); litKey('right', keys.has('tr') || hudIn.right);
+    litKey('lup', keys.has('lu') || hudIn.lup); litKey('ldown', keys.has('ld') || hudIn.ldown);
   }
   function hideHint() { if (hud.hint) hud.hint.classList.remove('vw-on'); hintTimer = 0; }
 
@@ -1421,13 +1743,20 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     camera.rotation.set(pitch, yaw, reduceMotion ? 0 : rideSway * 0.35, 'YXZ');
     camera.updateMatrixWorld();
   }
+  let doorOpening = false;      // a door right in front of us is on its way open → an auto-walk waits instead of giving up
   function stepDoors(dt) {
     const riding = job && job.carry && job.moving;
-    for (const r of doorRecs) {
-      const same = !riding && Math.abs(feetY - r.y) < 1.4;
-      const d = Math.hypot(pos.x - r.cx, pos.z - r.cz);
-      if (same && d < r.near) r.target = 1;
-      else if (!r.interior && (!same || d > r.far)) r.target = 0;   // interior doors stay open once open
+    doorOpening = false;
+    for (let i = 0; i < doorRecs.length; i++) {
+      const r = doorRecs[i];
+      const near = Math.abs(feetY - r.y) < 1.4, d = Math.hypot(pos.x - r.cx, pos.z - r.cz);
+      if (r.hold > 0) r.hold -= dt;                                  // tapped: keep that state for a while
+      else {
+        const same = !riding && near;
+        if (same && d < r.near) r.target = 1;
+        else if (!r.interior && (!same || d > r.far)) r.target = 0;   // interior doors stay open once open
+      }
+      if (r.t < 0.5 && r.target === 1 && near && d < 1.3) doorOpening = true;
       if (r.t !== r.target) {
         r.t = approach(r.t, r.target, dt / DOOR_TIME);
         try { r.d.setOpen(smooth(r.t)); } catch (e) { /* guard */ }
@@ -1435,11 +1764,12 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     }
   }
   function update(dtIn) {
-    const dt = clamp(dtIn || 0, 0, 0.05);
+    const dt = clamp(dtIn || 0, 0, DT_MAX);
     clock += dt;
     if (!enabled) { if (job) stepLift(dt); return; }
+    const t0 = performance.now();
     // look inertia
-    if (ptr.id === null && (Math.abs(yawVel) > 1e-4 || Math.abs(pitchVel) > 1e-4)) {
+    if (ptr.id === null && !tt.on && (Math.abs(yawVel) > 1e-4 || Math.abs(pitchVel) > 1e-4)) {
       yaw += yawVel * dt; pitch = clamp(pitch + pitchVel * dt, PITCH_MIN, PITCH_MAX);
       const damp = Math.exp(-dt * 5.5);
       yawVel *= damp; pitchVel *= damp;
@@ -1484,7 +1814,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
       const moved = moveBy(vel.x * dt, vel.z * dt);
       if (auto) {
         auto.best = Math.max(auto.best, Math.hypot(pos.x - auto.sx, pos.z - auto.sz));
-        if (moved < want * 0.3) auto.stuck += dt; else auto.stuck = 0;
+        if (moved < want * 0.3 && !doorOpening) auto.stuck += dt; else auto.stuck = 0;
         if (auto.stuck > 0.3) {
           const blocked = auto.best < 0.15;
           auto = null; ringFade = 0.001;
@@ -1502,11 +1832,30 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     else eyeY += (feetY + EYE - eyeY) * (1 - Math.exp(-dt * 14));
     if (!(job && job.carry && job.moving)) rideSway = 0;
     applyCamera();
-    const st = emitState(false);
-    updateLiftPanel();
-    drawMap(st);
-    stepHudFade();
+    stepInteract();
+    // HUD / bookkeeping at a low rate (no per-frame DOM work or allocations): state 8 Hz, plan + hover hint 4 Hz
+    if (clock - tickAt >= 0.125 || floorId !== tickFloor) {
+      tickAt = clock; tickFloor = floorId; tickN++;
+      if (scene && scene.userData && scene.userData.interactDirty) inter.dirty = true;
+      const st = emitState(false);
+      updateLiftPanel();
+      stepHudFade();
+      if (tickN & 1) { drawMap(st); stepHover(); }
+    } else if (job && job.moving) updateLiftPanel();
     if (hintTimer > 0) { hintTimer -= dt; if (hintTimer <= 0) hideHint(); }
+    const ms = performance.now() - t0;
+    perf.n++; perf.avg += (ms - perf.avg) * (perf.n < 30 ? 1 / perf.n : 0.03); if (ms > perf.max) perf.max = ms;
+  }
+  let tickAt = -1, tickFloor = '', tickN = 0;
+  const perf = { avg: 0, max: 0, n: 0 };
+  function getPerf() { const r = { avgMs: perf.avg, maxMs: perf.max, frames: perf.n, interactables: inter.list.length, segments: SEGS.length }; perf.max = 0; return r; }
+  function goToStreet() {
+    let mx = 4.45, mz = 14.7;
+    for (let i = 0; i < doorRecs.length; i++) if (doorRecs[i].d.kind === 'main') { mx = doorRecs[i].cx; mz = doorRecs[i].cz; }
+    const x = clamp(mx, PATH_X[0] + 0.5, PATH_X[1] - 0.5);
+    _v.set(x, STREET_Y + EYE, LOT.zFront + 0.5);
+    teleport(_v, { x: mx, y: 1.15, z: mz });
+    return true;
   }
 
   // ── enable / disable ──
@@ -1595,7 +1944,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
       on(R, 'touchstart', onTouchStartRoot, { passive: false });
       on(R, 'touchmove', onTouchMoveRoot, { passive: false });
       on(R, 'touchend', onTouchEndRoot, { passive: false });
-      on(R, 'touchcancel', () => { tt.on = false; }, { passive: true });
+      on(R, 'touchcancel', () => { tt.on = false; tt.two = 0; pending.e = null; }, { passive: true });
       on(dom, 'wheel', onWheel, { passive: false });
       on(R, 'contextmenu', (e) => { if (!isControl(e.target)) e.preventDefault(); }, false);
       on(R, 'dblclick', (e) => { if (!isControl(e.target)) e.preventDefault(); }, false);   // walking is recognised manually
@@ -1607,6 +1956,9 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     on(window, 'keyup', onKeyUp, false);
     on(window, 'blur', onBlur, false);
     on(window, 'resize', applyCompact, { passive: true });
+    on(window, 'interact-dirty', markInterDirty, false);
+    if (scene && scene.addEventListener) scene.addEventListener('interact-dirty', markInterDirty);
+    inter.dirty = true;
     if (camera) { saved.order = camera.rotation.order; }
     if (!liftInit) { liftInit = true; setCab(cabY, cabLevel); applyLiftDoors(true); }
     if (!placed) {
@@ -1640,7 +1992,10 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     stopMotion();
     if (dom) { dom.style.touchAction = saved.touchAction || ''; dom.style.cursor = saved.cursor || ''; dom.style.userSelect = saved.us || ''; }
     if (inputRoot && inputRoot !== dom) { inputRoot.style.touchAction = saved.rootTA || ''; inputRoot.style.webkitUserSelect = saved.rootUS || ''; }
-    fall = null;
+    fall = null; pending.e = null;
+    if (scene && scene.removeEventListener) scene.removeEventListener('interact-dirty', markInterDirty);
+    for (const k of Array.from(waters.keys())) stopWater(k);
+    if (hud.chip) hud.chip.classList.remove('vw-on');
     if (camera && saved.order) camera.rotation.order = saved.order;
     if (hud.root) hud.root.hidden = true;
     if (job && job.carry) { // finish the ride instantly so nobody is left in the shaft
@@ -1664,12 +2019,13 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     // extras
     walkTo(x, z) { return walkTo(x, z); },
     enterAt,
-    setLang(l) { langOverride = l; refreshHudText(); },
+    setLang(l) { langOverride = l; hoverE = null; refreshHudText(); },
     setMapOpen,
     setCompact, setControlsVisible,
+    playSound, refreshInteractables, setDragMode, getPerf, goToStreet,
     getState() {
-      const st = lastState || locate();
-      return { floorId: st.floorId, roomId: st.roomId, unitId: st.unitId, inLift: st.inLift, x: pos.x, z: pos.z, feetY, eyeY, yaw, pitch, cabY, cabLevel, liftDoor, riding: !!(job && job.moving), autoWalking: !!auto, falling: !!fall, outside: !inFoot(pos.x, pos.z), compact, controlsHidden: uiHidden };
+      const st = locate();
+      return { floorId: st.floorId, roomId: st.roomId, unitId: st.unitId, inLift: st.inLift, x: pos.x, z: pos.z, feetY, eyeY, yaw, pitch, cabY, cabLevel, liftDoor, riding: !!(job && job.moving), autoWalking: !!auto, falling: !!fall, outside: !inFoot(pos.x, pos.z), compact, controlsHidden: uiHidden, dragMode, lastSound, lastInteract, chip: hud.chip && hud.chip.classList.contains('vw-on') ? hud.chip.textContent : '' };
     },
     dispose
   };

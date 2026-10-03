@@ -1007,3 +1007,24 @@ button.pkcard[aria-pressed="true"] { border-color: var(--bronze); box-shadow: 0 
 .modal { z-index: 92; }
 .tr-root.tr-fixed { z-index: 95; }
 .toast { z-index: 99; }
+
+/* ---- phase 6: 3D ⇄ photoreal switch, lightbox ---- */
+.view-sw { flex: none; border-color: var(--accent-hi); }
+.view-sw .seg-b { padding: 7px 12px; }
+.view-sw:empty { display: none; }
+.tr-root .tr-slot > .view-sw { background: rgba(17, 16, 15, .56); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border-radius: 12px; padding: 3px; pointer-events: auto; }
+.tr-root .view-sw .seg-b { font-family: inherit; border-radius: 9px; min-height: 32px; cursor: pointer; }
+.modal-card.is-lb { max-width: min(1100px, 100%); padding: 0; background: #14110d; color: #fff; overflow: hidden; }
+.lb { margin: 0; display: grid; }
+.lb img { width: 100%; max-height: 78vh; object-fit: contain; background: #000; }
+.lb figcaption { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; font-size: .9rem; }
+.lb .btn-line { color: #fff; border-color: rgba(255, 255, 255, .4); }
+@media (max-width: 700px), (max-height: 500px) {
+  .imm-bar { overflow-x: auto; scrollbar-width: none; }
+  .imm-bar::-webkit-scrollbar { display: none; }
+  .imm-bar .pr-btn { display: none; }                      /* path-traced preview: desktop only */
+  .imm-bar .seg-b { width: 30px; }
+  .imm-chip { width: 32px; height: 34px; }
+  .imm-bar .view-sw .seg-b { width: auto; padding: 0 8px; font-size: .66rem; letter-spacing: .04em; }
+  :root[lang="he"] .imm-bar .view-sw .seg-b { font-size: .74rem; letter-spacing: 0; }
+}

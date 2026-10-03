@@ -42,6 +42,8 @@ const PRICE_MAX = Math.max(...UNITS.map(u => u.price));
 // Price per m² of interior area: the project rate from data.js (falls back to the unit's own ratio).
 const ppmOf = u => PRICE_PER_M2 || Math.round(u.price / u.area);
 const ppmFmt = (n = PRICE_PER_M2) => `<bdi class="ppm">${fmtMoney(n)} / ${esc(t('misc.m2'))}</bdi>`;
+const once = k => { try { if (sessionStorage.getItem(k)) return false; sessionStorage.setItem(k, '1'); return true; } catch (e) { if (once[k]) return false; once[k] = true; return true; } };
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 const reducedMotion = () => !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
 
 // ---------------------------------------------------------------- utilities
@@ -842,8 +844,15 @@ async function getViewer() {
           if (!$('#imm').hidden) closeImmersive(false);
           go(`floor-${floorId}`);
         });
-        v.on('mode', ({ mode }) => updateImmModes(mode));
-        v.on('place', info => updatePlace(info));
+        v.on('mode', ({ mode, prev }) => {
+          updateImmModes(mode);
+          // arriving on the street: say how to get in (once per session)
+          if (mode === 'walk' && prev !== 'walk') setTimeout(() => { if (v.getPose?.()?.outside && once('vb2.hintStreet')) toast(t('walk.streetHint'), 5200); }, 300);
+        });
+        v.on('place', info => {
+          updatePlace(info);
+          if (info && info.unitId && once('vb2.coach')) toast(t('walk.coach'), 5200);   // first time in an apartment
+        });
         v.on('photoreal', ev => onPhotoreal(ev));
         v.setPhotorealLabels?.(ptLabels());
         viewerApi = v;
@@ -1017,6 +1026,7 @@ function updatePlace(info) {
 }
 
 function updateImmLabels() {
+  mountViewSwitch();
   for (const el of $$('#imm [data-i18n]')) el.textContent = t(el.dataset.i18n);
   const tb = $('#immTod');
   if (tb) tb.innerHTML = TIMES_OF_DAY.map(x => `<button type="button" data-tod="${x.id}" aria-pressed="${x.id === state.tod}" aria-label="${esc(todName(x.id))}" title="${esc(todName(x.id))}">${TOD_ICON[x.id] || ''}</button>`).join('');
@@ -1249,7 +1259,9 @@ async function openTour(unitId, pkg, roomId, opts = {}) {
     clearTimeout(slow);
     if (!$('#imm').hidden) closeImmersive(false);
     if (opts.timeOfDay && opts.timeOfDay !== state.tod) setTod(opts.timeOfDay, 'tour');
-    const ok = await tr.open(unitId, pkg, roomId || undefined, { timeOfDay: state.tod });
+    mountViewSwitch();
+    // panoId / yaw: the exact panorama and heading to continue from (tour.js uses them when it supports them, else the room)
+    const ok = await tr.open(unitId, pkg, roomId || undefined, { timeOfDay: state.tod, panoId: opts.panoId, position: opts.position, yaw: opts.yaw });
     if (ok === false) toast(t('tour.failed'), 4200);
     return ok !== false;
   } catch (e) {
@@ -1264,6 +1276,128 @@ function onTourPackage(pkg) {
   state.style[tourUnit] = pkg;
   if (unitUI.id === tourUnit) renderUnitSheet(true);
 }
+
+// ---------------------------------------------------------------- 3D ⇄ photoreal, from the same place
+// A two-segment switch in the 3D bar and in the 360° tour. 3D → Photoreal opens the nearest panorama of the apartment
+// (same room preferred, within 4 m) at the same heading; Photoreal → 3D puts the walker on the panorama's spot, looking
+// the same way. Package and light carry over. The last choice is remembered for the session.
+const viewPref = {
+  get() { try { return sessionStorage.getItem('vb2.view'); } catch (e) { return viewPref.v || null; } },
+  set(v) { viewPref.v = v; try { sessionStorage.setItem('vb2.view', v); } catch (e) { /* blocked */ } }
+};
+const viewSwitchHtml = on => `<div class="seg seg-dark view-sw" role="group" aria-label="${esc(t('view.label'))}">
+  <button type="button" class="seg-b${on === '3d' ? ' is-on' : ''}" data-view="3d" aria-pressed="${on === '3d'}">${esc(t('view.3d'))}</button>
+  <button type="button" class="seg-b${on === 'photo' ? ' is-on' : ''}" data-view="photo" aria-pressed="${on === 'photo'}">${esc(t('view.photo'))}</button></div>`;
+function mountViewSwitch() {
+  const bar = $('#viewSw');
+  if (bar) bar.outerHTML = viewSwitchHtml('3d').replace('view-sw"', 'view-sw" id="viewSw"');
+  const slot = tourApi?.slot || $('.tr-root .tr-slot');   // the tour's host slot: never re-rendered by tour.js
+  if (slot) slot.innerHTML = viewSwitchHtml('photo');
+}
+function panoSet(unitId, pkg) {
+  const um = renders.m?.units?.[unitId];
+  if (!um) return null;
+  const id = um[pkg]?.panos?.length ? pkg : STYLES.map(x => x.id).find(i => um[i]?.panos?.length);
+  return id ? { pkg: id, panos: um[id].panos } : null;
+}
+function nearestPano(unitId, pkg, pose, maxD = 4) {
+  const set = panoSet(unitId, pkg);
+  if (!set) return null;
+  let best = null, bd = Infinity;
+  for (const p of set.panos) {
+    if (!Array.isArray(p.position) || Math.abs(p.position[1] - pose.y) > 1.5) continue;
+    const d = Math.hypot(p.position[0] - pose.x, p.position[2] - pose.z);
+    const score = d + (p.roomId && p.roomId === pose.roomId ? 0 : 1.5);     // same room preferred
+    if (d <= maxD && score < bd) { bd = score; best = { pano: p, d, pkg: set.pkg }; }
+  }
+  return best;
+}
+// No panorama here (street, lobby, stairs, lift, car park): the closest photoreal still instead.
+function fallbackStill(pose) {
+  const m = renders.m;
+  if (!m) return null;
+  const by = (list, ids) => { for (const id of ids) { const x = (list || []).find(q => q.id === id); if (x) return x; } return null; };
+  const night = state.tod === 'night', dusk = state.tod === 'dusk';
+  if (pose && pose.unitId) {
+    const st = unitStills(pose.unitId, state.style[pose.unitId] || STYLES[0].id);
+    return st.find(q => q.roomId === pose.roomId) || st[0] || null;
+  }
+  if (!pose || pose.outside) return by(m.exterior, night ? ['street-eye-night', 'entrance-night', 'street-night'] : dusk ? ['entrance-dusk', 'street-dusk'] : ['street-eye', 'entrance-day']) || (m.exterior || [])[0] || null;
+  if (pose.inLift) return by(m.common, ['lift-interior', 'lobby']);
+  if (pose.floorId === 'basement') return by(m.common, ['basement', 'carpark-2', 'carpark-ramp']);
+  if (pose.floorId === 'ground') return by(m.common, night ? ['lobby-night', 'lobby-2-night', 'lobby'] : ['lobby', 'lobby-2']);
+  return by(m.common, ['landing-first', 'lobby']);
+}
+function openLightbox(still) {
+  const src = stillSrc(still);
+  const name = typeof still.name === 'string' ? still.name : L(still.name);
+  openModal(`<figure class="lb"><img src="${esc(src)}" alt="${esc(name || '')}"><figcaption><span id="modalTitle">${esc(name || t('gal.title'))}</span><button type="button" class="btn btn-line btn-sm" data-close>${esc(t('int.close'))}</button></figcaption></figure>`);
+  $('#modalCard').classList.add('is-lb');
+  $('#modalCard [data-close]').onclick = closeModal;
+}
+let switching = false;
+async function toPhotoreal() {
+  if (switching) return false;
+  switching = true;
+  try {
+    await loadRenders();
+    const v = viewerApi;
+    let pose = v?.getPose?.() || null;
+    if (pose?.riding) {                                    // in the lift: switch on arrival
+      toast(t('view.waitLift'), 2600);
+      for (let i = 0; i < 80 && pose?.riding; i++) { await sleep(250); pose = v.getPose?.() || null; }
+    }
+    if (pose && pose.unitId) {
+      const hit = nearestPano(pose.unitId, state.style[pose.unitId] || v.currentUnit?.() && state.style[v.currentUnit()] || STYLES[0].id, pose);
+      if (hit) {
+        viewPref.set('photo');
+        toPhotoreal.last = { unitId: pose.unitId, panoId: hit.pano.id, d: hit.d, yaw: pose.yaw, from: { x: pose.x, y: pose.y, z: pose.z } };
+        // the tour picks the panorama nearest to the walker's eye position and opens it at the same heading
+        return await openTour(pose.unitId, state.style[pose.unitId] || hit.pkg, hit.pano.roomId, { timeOfDay: state.tod, position: [pose.x, pose.y, pose.z], yaw: pose.yaw });
+      }
+    }
+    const still = fallbackStill(pose);
+    if (!still) { toast(t('tour.failed'), 4200); return false; }
+    openLightbox(still);
+    toast(t('view.noPano'), 4200);
+    return false;
+  } finally { switching = false; }
+}
+async function toRealtime() {
+  if (switching || !tourApi?.isOpen?.()) return false;
+  switching = true;
+  try {
+    const g = tourApi.getState?.() || null, dbg = g ? null : (tourApi._debug?.() || {});
+    const d = g ? { pkg: g.packageId, id: g.panoId, yaw: g.yaw } : dbg;
+    const unitId = g?.unitId || tourUnit, pkg = d.pkg || state.style[unitId] || STYLES[0].id;
+    const list = renders.m?.units?.[unitId]?.[pkg]?.panos || [];
+    const pano = Array.isArray(g?.position) ? { id: g.panoId, position: g.position } : (list.find(p => p.id === d.id) || list[d.idx] || null);
+    viewPref.set('3d');
+    if (STYLES.some(x => x.id === pkg)) state.style[unitId] = pkg;
+    tourApi.close();
+    const v = await getViewer();
+    if (!v) { toast(t('sel.3d.failed'), 4200); return false; }
+    await openImmersive('keep');
+    try { await v.ready; } catch (e) { toast(t('sel.3d.failed'), 4200); return false; }
+    await v.selectUnit(unitId, pkg);
+    if (state.todChosen) v.setTimeOfDay(state.tod);
+    const ok = pano && Array.isArray(pano.position)
+      ? await v.setPose({ x: pano.position[0], y: pano.position[1], z: pano.position[2], yaw: Number.isFinite(d.yaw) ? d.yaw : 0 })
+      : await v.walkUnit(unitId);
+    toRealtime.last = { unitId, pkg, panoId: pano?.id || null, yaw: d.yaw, to: pano?.position || null };
+    if (unitUI.id === unitId) renderUnitSheet(true);
+    if (!ok) toast(t('v.unavailable'));
+    return !!ok;
+  } finally { switching = false; }
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('.view-sw [data-view]');
+  if (!b) return;
+  e.stopPropagation();
+  if (b.dataset.view === 'photo' && !b.closest('.tr-root')) toPhotoreal();
+  else if (b.dataset.view === '3d' && b.closest('.tr-root')) toRealtime();
+});
+if (/^(127\.0\.0\.1|localhost)$/.test(location.hostname)) (window.__vb2 ||= {}).app = { toPhotoreal, toRealtime, tour: () => tourApi, last: () => ({ photo: toPhotoreal.last, real: toRealtime.last }) };   // local test hook only
 
 // Gallery section: three createGallery instances (exterior · common areas · apartments by package).
 const gal = { ext: null, common: null, units: null, pkg: 'lisboa', started: false };
@@ -1430,8 +1564,8 @@ function renderUnitSheet(keep = false) {
         </div>
         ${st === 'available' ? '' : `<p class="notice">${esc(t('unit.notAvailable', { status: t('status.' + st).toLowerCase() }))}</p>`}
         <div class="us-cta">
-          <button type="button" class="btn btn-bronze" data-us="tour">${esc(t('tour.photoreal'))}</button>
-          <button type="button" class="btn btn-line" data-us="walk">${esc(t('tour.free'))}</button>
+          <button type="button" class="btn ${viewPref.get() === '3d' ? 'btn-line' : 'btn-bronze'}" data-us="tour">${esc(t('tour.photoreal'))}</button>
+          <button type="button" class="btn ${viewPref.get() === '3d' ? 'btn-bronze' : 'btn-line'}" data-us="walk">${esc(t('unit.walkStreet'))}</button>
           ${st === 'available' ? `<a class="btn btn-solid" href="#reserve-${unitToken(u.id)}">${esc(t('nav.reserve'))}</a>` : `<button type="button" class="btn btn-solid" data-act="interest" data-unit="${u.id}">${esc(t('unit.interest'))}</button>`}
         </div>
         <div class="us-facts">
@@ -1453,6 +1587,7 @@ function renderUnitSheet(keep = false) {
         <details class="us-fold" id="usBoard"${sc?.board ? ' open' : ''}><summary>${esc(t('pkg.board'))} · ${esc(nameOf(style))}</summary>${boardHtml(styleId)}</details>
         <details class="us-fold" id="usRooms"${sc?.rooms ? ' open' : ''}><summary>${esc(t('unit.rooms'))}</summary><table class="rooms"><tbody>${roomRows}</tbody></table><p class="fineprint" style="margin-top:10px">${esc(t('unit.roomsNote'))}</p></details>
         <div class="us-more">
+          <button type="button" class="chip" data-us="inside">${esc(t('unit.walkInside'))}</button>
           <button type="button" class="chip" data-us="balcony">${esc(garden ? t('unit.gardenView') : t('unit.balconyView'))}</button>
           <button type="button" class="chip" data-us="lift">${esc(t('unit.lift.take'))}</button>
           <button type="button" class="chip" data-act="interest" data-unit="${u.id}">${esc(t('unit.interest'))}</button>
@@ -1573,14 +1708,16 @@ function dismissAll() {
 
 async function unitAction(u, action) {
   const sid = state.style[u.id] || STYLES[0].id;
-  if (action === 'tour') { await openTour(u.id, sid, undefined, { timeOfDay: state.tod }); return; }
+  if (action === 'tour') { viewPref.set('photo'); await openTour(u.id, sid, undefined, { timeOfDay: state.tod }); return; }
+  viewPref.set('3d');
   const v = await getViewer();
   if (!v) { toast(t('sel.3d.failed'), 4200); return; }
   await openImmersive('keep');
   try { await v.ready; } catch (e) { toast(t('sel.3d.failed'), 4200); return; }
   await v.selectUnit(u.id, sid);
   let ok = true;
-  if (action === 'walk') ok = await v.walkUnit(u.id);
+  if (action === 'walk') ok = await v.goToStreet();              // from the street: tap the front door, lobby, lift
+  else if (action === 'inside') ok = await v.walkUnit(u.id);
   else if (action === 'balcony') ok = await v.balconyView(u.id);
   else if (action === 'lift') ok = await v.takeLift(u.floor === 'ground' ? 'basement' : 'ground', u.floor);
   if (!ok) toast(t('v.unavailable'));
@@ -1934,6 +2071,7 @@ function openModal(html) {
 }
 function closeModal() {
   $('#modal').hidden = true;
+  $('#modalCard').classList.remove('is-lb');
   if ($('#imm').hidden && !(state.openFloor && sheetMode())) document.body.classList.remove('no-scroll');
   if (state.route === 'interest') { try { history.replaceState(null, '', '#top'); } catch (e) { /* sandboxed */ } }
 }
@@ -2088,7 +2226,7 @@ function bindGlobal() {
     if (c) { copyText(c.dataset.copy, c.dataset.copyTarget ? $(c.dataset.copyTarget) : null, c); return; }
     const a = e.target.closest('[data-act]');
     if (!a) return;
-    if (a.dataset.act === 'explore') openImmersive('exterior');
+    if (a.dataset.act === 'explore') openImmersive('walk', { street: true });
     else if (a.dataset.act === 'aerial') openImmersive('aerial');
     else if (a.dataset.act === 'interest' && !a.closest('#page')) openInterest(a.dataset.unit || '');
   });

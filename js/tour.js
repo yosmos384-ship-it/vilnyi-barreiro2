@@ -1,8 +1,16 @@
 // VILNYI · Barreiro 2 — photoreal 360° tour (Matterport-style) over Blender Cycles equirect panoramas.
 //
 //   export async function createTour(container, { THREE, manifestUrl, lang, timeOfDay?, onClose, onPackageChange, onTimeOfDayChange })
-//     => { open(unitId, packageId, roomId?, { timeOfDay? }?) → Promise<boolean>, setPackage(packageId), setTimeOfDay('day'|'dusk'|'night'),
-//          setLang(lang), close(), dispose(), isOpen() }
+//     => { open(unitId, packageId, roomId?, { timeOfDay?, panoId?, position?, yaw? }?) → Promise<boolean>,
+//          setPackage(packageId, { yaw? }?), setTimeOfDay('day'|'dusk'|'night', { yaw? }?), setLang(lang), close(), dispose(), isOpen(),
+//          getState() → { unitId, packageId, panoId, roomId, position:[x,y,z], yaw, pitch, fov, timeOfDay } | null,
+//          slot: HTMLElement }
+//   open(): which pano — `panoId` if given; else the pano nearest to `position` [x,y,z] (three.js world; same room preferred: the
+//   `roomId` argument, or the data.js room containing the point); else `roomId`; else the unit's viewRoom. `yaw` (world yaw ψ =
+//   three.js camera.rotation.y, see below) is the direction faced on opening instead of pano.initialYaw / the default.
+//   Package and light crossfades always keep the current yaw; setPackage/setTimeOfDay take an optional { yaw } to set it explicitly.
+//   Host slot: `.tr-slot` (also returned as `slot`) is a stable, empty element in the top bar that this module never re-renders or
+//   empties — inject host controls (e.g. the "3D | Photoreal" segment) there, NOT into .tr-title/.tr-cap which are rewritten.
 //   export async function createGallery(container, { manifestUrl, lang, unitId?, packageId?, include?, timeOfDay?, onOpenPano? })
 //     => { setLang(lang), setFilter({ unitId, packageId, include }), setTimeOfDay(id), open(index), close(), dispose(), count() }
 //
@@ -142,12 +150,14 @@ const CSS = `
 .tr-btn[hidden]{display:none}
 .tr-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
 /* top bar */
-.tr-top{position:absolute;inset-block-start:var(--tr-top);inset-inline:var(--tr-in);display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"title act" "pk pk";gap:10px;align-items:start;pointer-events:none;z-index:3}
+.tr-top{position:absolute;inset-block-start:var(--tr-top);inset-inline:var(--tr-in);display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"title act" "slot slot" "pk pk";gap:10px;align-items:start;pointer-events:none;z-index:3}
 .tr-title{grid-area:title;pointer-events:auto;border-radius:14px;padding:9px 15px 10px;min-width:0;max-width:440px;justify-self:start}
 .tr-room{font-family:var(--f-display,'Cormorant','Cormorant Garamond',Georgia,serif);font-size:21px;font-weight:500;letter-spacing:.005em;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tr-title .tr-cap b{color:var(--tr-accent);font-weight:500;unicode-bidi:isolate}
 .tr-title .tr-cap{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tr-act{grid-area:act;display:flex;gap:8px;pointer-events:auto}
+.tr-slot{grid-area:slot;justify-self:start;pointer-events:auto;display:flex;gap:8px;align-items:center;min-width:0;max-width:100%}
+.tr-slot:empty{display:none}
 .tr-pk{grid-area:pk;pointer-events:auto;border-radius:14px;padding:3px;justify-self:start;min-width:0;max-width:100%;position:relative;overflow:hidden}
 .tr-pks{position:relative;display:flex;gap:2px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-webkit-overflow-scrolling:touch;touch-action:pan-x;overscroll-behavior:contain;scroll-behavior:smooth;border-radius:11px}
 .tr-pks::-webkit-scrollbar{display:none}
@@ -226,7 +236,7 @@ const CSS = `
 .tr-root.tr-isempty .tr-pk,.tr-root.tr-isempty .tr-pad,.tr-root.tr-isempty .tr-map,.tr-root.tr-isempty .tr-hint,.tr-root.tr-isempty [data-k=map],.tr-root.tr-isempty [data-k=gyro],.tr-root.tr-isempty .tr-shade{display:none!important}
 @media (min-width:760px){
  .tr-root{--tr-in:20px}
- .tr-top{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"title pk act"}
+ .tr-top{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"title pk act" "slot slot slot"}
  .tr-act{justify-self:end}
  .tr-pk{justify-self:center}
  .tr-pkb{padding:8px 14px 9px}
@@ -399,6 +409,14 @@ function rayPolyDist(px, pz, dx, dz, poly) {
   return best;
 }
 const yawOf = (dx, dz) => Math.atan2(-dx, -dz);
+function pointInPoly(x, z, poly) {
+  let inside = false;
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const [xi, zi] = poly[i], [xj, zj] = poly[j];
+    if ((zi > z) !== (zj > z) && x < (xj - xi) * (z - zi) / (zj - zi) + xi) inside = !inside;
+  }
+  return inside;
+}
 
 // ─────────────────────────────── image / texture loading ───────────────────────────────
 function loadImage(url, priority) {
@@ -536,7 +554,8 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
   mapBtn.setAttribute('aria-pressed', 'false');
   gyroBtn.setAttribute('aria-pressed', 'false');
   act.append(todBox, mapBtn, gyroBtn, fsBtn, closeBtn);
-  top.append(titleBox, pkBox, act);
+  const slot = el('div', 'tr-slot');   // host-owned: never emptied or re-rendered by this module
+  top.append(titleBox, pkBox, act, slot);
   // pad
   const pad = el('div', 'tr-pad');
   const padF = mkBtn('fwd', 'aup'); padF.classList.add('tr-f');
@@ -1130,12 +1149,26 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
     cur.list = um[pkg].panos;
     const unit = unitById(unitId);
     let idx = -1;
-    if (roomId) idx = cur.list.findIndex(p => p.roomId === roomId || p.id === roomId);
+    const o = opts || {};
+    if (o.panoId != null) idx = cur.list.findIndex(p => p.id === String(o.panoId));
+    if (idx < 0 && Array.isArray(o.position) && o.position.length >= 3 && o.position.every(n => typeof n === 'number' && isFinite(n))) {
+      const [px, py, pz] = o.position;
+      // same room preferred: the roomId argument, else the room of this unit that contains the point
+      let rid = roomId || null;
+      if (!rid) for (const r of ROOM_BY_ID.values()) if (r.unit === unitId && pointInPoly(px, pz, r.poly)) { rid = r.id; break; }
+      let bd = Infinity;
+      cur.list.forEach((p, i) => {
+        if (!p.hasPos) return;
+        const d = Math.hypot(p.pos[0] - px, p.pos[2] - pz) + Math.abs(p.pos[1] - py) * 0.25 + (rid && p.roomId !== rid ? 1000 : 0);
+        if (d < bd) { bd = d; idx = i; }
+      });
+    }
+    if (idx < 0 && roomId) idx = cur.list.findIndex(p => p.roomId === roomId || p.id === roomId);
     if (idx < 0 && unit && unit.viewRoom) idx = cur.list.findIndex(p => p.roomId === unit.viewRoom);
     if (idx < 0) idx = 0;
     updatePkButtons();
     refreshText();
-    yaw = initialYawFor(cur.list[idx]); pitch = 0; fov = FOV_DEFAULT; yawVel = pitchVel = 0; turnAnim = null;
+    yaw = typeof o.yaw === 'number' && isFinite(o.yaw) ? o.yaw : initialYawFor(cur.list[idx]); pitch = 0; fov = FOV_DEFAULT; yawVel = pitchVel = 0; turnAnim = null;
     cur.idx = -1;
     showHint();
     if (pkg !== packageId && typeof onPackageChange === 'function') { try { onPackageChange(pkg); } catch (e) { /* */ } }
@@ -1468,15 +1501,28 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
   function startLoop() { if (!raf) { lastT = 0; dirty = true; raf = requestAnimationFrame(frame); } }
   function stopLoop() { if (raf) cancelAnimationFrame(raf); raf = 0; }
 
+  function setYaw(o) {
+    if (o && typeof o.yaw === 'number' && isFinite(o.yaw)) { yaw = o.yaw; yawVel = 0; turnAnim = null; if (gyro) gyro.offset = null; dirty = true; }
+  }
+  function getState() {
+    if (!cur) return null;
+    const p = cur.list && cur.list[cur.idx];
+    return {
+      unitId: cur.unitId, packageId: cur.pkg, panoId: p ? p.id : null, roomId: p ? p.roomId : null,
+      position: p && p.hasPos ? p.pos.slice() : null, yaw: wrapPI(yaw), pitch, fov, timeOfDay: tod
+    };
+  }
   setMapOpen(mapOpen);
   refreshText();
   if (!renderer) { showEmpty(true); }
 
   return {
     open: (unitId, packageId, roomId, opts) => open(unitId, packageId, roomId, opts).catch(() => false),
-    setTimeOfDay: (id) => switchTod(id).catch(() => false),
+    setTimeOfDay: (id, o) => { setYaw(o); return switchTod(id).catch(() => false); },
     getTimeOfDay: () => tod,
-    setPackage: (id) => { if (cur && isOpenFlag && cur.list.length) return switchPackage(id).catch(() => false); if (cur) cur.pkg = id; return Promise.resolve(false); },
+    setPackage: (id, o) => { setYaw(o); if (cur && isOpenFlag && cur.list.length) return switchPackage(id).catch(() => false); if (cur) cur.pkg = id; return Promise.resolve(false); },
+    getState,
+    slot,
     setLang: (l) => { L = normLang(l); refreshText(); dirty = true; },
     close,
     isOpen: () => isOpenFlag,
