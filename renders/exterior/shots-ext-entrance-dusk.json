@@ -7,9 +7,7 @@
   ],
   "out": "renders/exterior",
   "name": "ext-entrance-dusk",
-  "opts": {
-   "ev_bias": 0.35
-  }
+  "opts": {}
  },
  "shots": [
   {
@@ -20,7 +18,7 @@
    "W": 2400,
    "H": 1350,
    "spp": 192,
-   "ev": 1.150214731328819,
+   "ev": 0.9324655600317291,
    "tod": "dusk",
    "position": [
     7.2,
@@ -37,9 +35,9 @@
    "kind": null,
    "lens": 28.0,
    "shift_y": 0.0482,
-   "seconds": 11454.0
+   "seconds": 12803.5
   }
  ],
- "seconds": 11464.8,
+ "seconds": 12819.7,
  "blender": "4.2.3 LTS"
 }
