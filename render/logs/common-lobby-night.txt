@@ -1,15 +1,16 @@
 [    0.0s] job common-lobby-night: scope=common unit=None pkg=None quality=standard shots=1
-[    0.8s] import building: 491 objects in 0.7s
+[    0.8s] import building: 491 objects in 0.8s
 [    1.1s] import context: 127 objects in 0.3s
-[    1.3s] box UVs on 555 meshes
-[    1.3s] [presets] from lighting_presets.json (snapshot of js/environment.js)
-[    2.4s] [foliage] leafified 38 objects, crown area 7103 m2 -> ~9234294 leaves
-[    2.4s] materials: built=165 textured=37 by_key={'aluminium-frame': 2, 'asphalt': 1, 'bark': 1, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-taillight': 1, 'car-tyre': 1, 'ceiling-white': 2, 'ceramic-plate': 1, 'concrete': 5, 'deck-teak': 1, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 1, 'foliage': 20, 'foliage-inner': 1, 'garage-door': 1, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'kerb-stone': 2, 'lawn': 2, 'leather': 1, 'led-strip-emissive': 12, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'mirror': 1, 'paint-white': 1, 'paving-calcada': 2, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 2, 'render-white': 2, 'roof-tile-terracotta': 1, 'rubber': 1, 'signage': 39, 'skirting': 1, 'soil': 2, 'steel-dark': 9, 'stone-coping': 2, 'timber-soffit': 1, 'zinc-standing-seam': 2}
-[    2.5s] evening lights: street=6 lamp-list=0 lit-window fraction=0.45
-[    2.5s] lights: imported=0 emissive->lights=750 portals=0 boost=1.6 total_lights=756 polys=283019
-[    3.8s] [world] procedural night: moon bearing 168 alt 40 key 7.0 lux, sky 2.6 lux (mean radiance 0.001656), stars 1500, camera gain 1.6
-[    3.8s] scene ready in 3.8s  (world procedural-night)
-[   72.7s] [expo] interior night: in/out/sky=22400/0/0 key=0.22 Lavg=0.04618 p97=0.7888 ev_hi=2.93 -> ev=2.25 windowND=1.00
-[   72.7s] [wb] gains (0.505, 1.0, 2.696)
-[ 3804.6s] SHOT lobby-night still 2400x1350 spp<=96 ev=2.25 in 3800.7s -> renders/common/lobby-night.jpg
-[ 3804.6s] DONE 1 images in 3804.6s
+[    1.4s] box UVs on 555 meshes
+[    1.4s] [presets] from js/environment.js
+[    2.6s] [foliage] leafified 35 objects, crown area 7086 m2 -> ~9211556 leaves
+[    2.6s] materials: built=165 textured=34 by_key={'aluminium-frame': 2, 'asphalt': 1, 'bark': 1, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-plate': 1, 'car-rim': 1, 'car-taillight': 1, 'car-trim': 1, 'car-tyre': 1, 'ceiling-white': 2, 'concrete': 4, 'deck-teak': 1, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 1, 'foliage': 18, 'foliage-inner': 1, 'garage-door': 1, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'kerb-stone': 2, 'lawn': 2, 'leather': 1, 'led-strip-emissive': 12, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'mirror': 1, 'paint-green': 1, 'paint-hazard': 1, 'paint-red': 1, 'paint-white': 1, 'paint-yellow': 1, 'paving-calcada': 2, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'plastic-red': 1, 'plastic-white': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 1, 'render-white': 1, 'roof-tile-terracotta': 1, 'rubber': 1, 'signage': 39, 'skirting': 1, 'soil': 2, 'steel-dark': 5, 'steel-galvanised': 1, 'stone-coping': 2, 'timber-soffit': 1, 'zinc-standing-seam': 2}
+[    4.3s] [signs] lettering on 34 signs, 5 texture planes hidden
+[    4.4s] evening lights: street=6 lamp-list=0 lit-window fraction=0.45
+[    4.4s] lights: imported=0 emissive->lights=742 portals=0 boost=1.6 total_lights=748 polys=282923
+[    5.7s] [world] procedural night: moon bearing 168 alt 40 key 7.0 lux, sky 2.6 lux (mean radiance 0.001656), stars 1500, camera gain 1.6
+[    5.7s] scene ready in 5.7s  (world procedural-night)
+[   78.9s] [expo] interior night: in/out/sky=22400/0/0 key=0.22 Lavg=0.03722 p97=0.4957 ev_hi=3.60 -> ev=2.56 windowND=1.00
+[   78.9s] [wb] gains (0.507, 1.0, 2.674)
+[ 4119.5s] SHOT lobby-night still 2400x1350 spp<=96 ev=2.56 in 4113.8s -> renders/common/lobby-night.jpg
+[ 4119.5s] DONE 1 images in 4119.5s

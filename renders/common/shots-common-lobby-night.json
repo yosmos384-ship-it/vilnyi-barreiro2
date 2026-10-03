@@ -18,7 +18,7 @@
    "W": 2400,
    "H": 1350,
    "spp": 96,
-   "ev": 2.2522224933904216,
+   "ev": 2.563259083353602,
    "tod": "night",
    "position": [
     9,
@@ -33,13 +33,11 @@
    "roomId": null,
    "name": "Entrance lobby at night",
    "kind": null,
-   "variant_of": "lobby",
-   "variant_tod": "night",
    "lens": 18.0,
    "shift_y": -0.0034,
-   "seconds": 3800.7
+   "seconds": 4113.8
   }
  ],
- "seconds": 3804.6,
+ "seconds": 4119.5,
  "blender": "4.2.3 LTS"
 }
