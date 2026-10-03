@@ -1,0 +1,22 @@
+[    0.0s] job preview-u1.A-atlantic-z0: scope=unit unit=1.A pkg=atlantic quality=preview shots=3
+[    0.9s] import building: 491 objects in 0.8s
+[    1.2s] import context: 127 objects in 0.3s
+[    1.6s] import unit-1.A-atlantic: 87 objects in 0.4s
+[    2.0s] box UVs on 639 meshes
+[    3.7s] [foliage] leafified 23 objects, crown area 1111 m2 -> ~1444499 leaves
+[    3.7s] materials: built=241 textured=63 by_key={'aluminium-frame': 2, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 3, 'asphalt': 1, 'bark': 1, 'bath-floor': 1, 'bath-wall': 1, 'book': 3, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 4, 'candle-wax': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-plate': 1, 'car-rim': 1, 'car-taillight': 1, 'car-trim': 1, 'car-tyre': 1, 'ceiling': 1, 'ceiling-white': 2, 'ceramic-plate': 3, 'concrete': 4, 'curtain-fabric': 1, 'cutlery-steel': 1, 'deck-teak': 2, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'fabric-boucle': 6, 'fabric-linen': 7, 'fabric-sofa': 1, 'floor-main': 2, 'foliage': 19, 'foliage-inner': 1, 'fruit': 3, 'garage-door': 1, 'glass-drinking': 2, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 2, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 2, 'leather': 1, 'led-strip-emissive': 13, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 4, 'mirror': 2, 'paint-green': 1, 'paint-hazard': 1, 'paint-red': 1, 'paint-white': 1, 'paint-yellow': 1, 'paving-calcada': 2, 'plant-leaf': 3, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'plastic-red': 1, 'plastic-white': 1, 'pot-terracotta': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 1, 'render-white': 1, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 1, 'sanitary-ceramic': 3, 'shower-glass': 1, 'shower-wall': 1, 'signage': 39, 'skirting': 2, 'soil': 3, 'steel-dark': 5, 'steel-galvanised': 1, 'stone-coping': 2, 'tap-metal': 1, 'timber-soffit': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 4, 'zinc-standing-seam': 2}
+[    5.2s] [signs] lettering on 34 signs, 5 texture planes hidden
+[    5.3s] lights: imported=4 emissive->lights=176 portals=14 boost=2.5 total_lights=194 polys=357232
+[    5.8s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[    6.0s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[    6.0s] scene ready in 6.0s  (world kloofendal_43d_clear_puresky)
+[   21.4s] [expo] interior: in/out/sky=20064/2089/247 key=0.3 Lavg=0.06375 p97=0.8107 ev_hi=1.68 -> ev=1.68 windowND=0.05
+[   21.4s] [wb] gains (0.803, 1.0, 1.202)
+[  111.2s] SHOT 1.A-living still 800x450 spp<=32 ev=2.03 in 105.2s -> renders/preview/1.A/atlantic/1.A-living.jpg
+[  125.8s] [expo] interior: in/out/sky=22199/201/0 key=0.3 Lavg=0.04136 p97=0.2497 ev_hi=3.38 -> ev=2.86 windowND=1.00
+[  125.8s] [wb] gains (0.625, 1.0, 1.6)
+[  219.9s] SHOT 1.A-bedroom still 800x450 spp<=32 ev=3.21 in 108.7s -> renders/preview/1.A/atlantic/1.A-bedroom.jpg
+[  234.3s] [expo] interior: in/out/sky=22400/0/0 key=0.3 Lavg=0.01935 p97=0.2897 ev_hi=3.17 -> ev=3.17 windowND=1.00
+[  234.3s] [wb] gains (0.625, 1.0, 1.6)
+[  321.2s] SHOT 1.A-bathroom still 800x450 spp<=32 ev=3.52 in 101.3s -> renders/preview/1.A/atlantic/1.A-bathroom.jpg
+[  321.2s] DONE 3 images in 321.2s

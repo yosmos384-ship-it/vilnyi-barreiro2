@@ -1,0 +1,60 @@
+Fra:1 Mem:2025.16M (Peak 2105.53M) | Time:00:05.05 | Mem:1864.03M, Peak:1864.03M | Scene, ViewLayer | Synchronizing object | vbSign-unit-plate-2.A
+Fra:1 Mem:2025.15M (Peak 2105.53M) | Time:00:05.05 | Mem:1864.03M, Peak:1864.03M | Scene, ViewLayer | Synchronizing object | vbSign-unit-plate-2.B
+Fra:1 Mem:2025.12M (Peak 2105.53M) | Time:00:05.05 | Mem:1864.03M, Peak:1864.03M | Scene, ViewLayer | Synchronizing object | vbSign-unit-plate-2.C
+Fra:1 Mem:2025.09M (Peak 2105.53M) | Time:00:05.05 | Mem:1864.03M, Peak:1864.03M | Scene, ViewLayer | Initializing
+Fra:1 Mem:2025.09M (Peak 2105.53M) | Time:00:06.29 | Mem:1864.03M, Peak:1864.03M | Scene, ViewLayer | Waiting for render to start
+Fra:1 Mem:2025.09M (Peak 2105.53M) | Time:00:06.33 | Mem:1864.03M, Peak:1864.03M | Scene, ViewLayer | Loading render kernels (may take a few minutes the first time)
+Fra:1 Mem:2025.09M (Peak 2105.53M) | Time:00:06.33 | Mem:1864.03M, Peak:1864.03M | Scene, ViewLayer | Updating Scene
+Fra:1 Mem:2025.09M (Peak 2105.53M) | Time:00:06.33 | Mem:1864.03M, Peak:1864.03M | Scene, ViewLayer | Updating Shaders
+Fra:1 Mem:2025.09M (Peak 2105.53M) | Time:00:06.33 | Mem:1864.03M, Peak:1864.03M | Scene, ViewLayer | Updating Background
+Fra:1 Mem:2025.09M (Peak 2105.53M) | Time:00:06.33 | Mem:1864.03M, Peak:1864.03M | Scene, ViewLayer | Updating Camera
+Fra:1 Mem:2025.09M (Peak 2105.53M) | Time:00:06.33 | Mem:1864.03M, Peak:1864.03M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:2014.05M (Peak 2105.53M) | Time:00:06.46 | Mem:1395.69M, Peak:1864.03M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:2014.05M (Peak 2105.53M) | Time:00:06.47 | Mem:1395.69M, Peak:1864.03M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:2014.05M (Peak 2105.53M) | Time:00:06.51 | Mem:1395.69M, Peak:1864.03M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:2014.05M (Peak 2105.53M) | Time:00:06.55 | Mem:1395.69M, Peak:1864.03M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:2014.05M (Peak 2105.53M) | Time:00:06.55 | Mem:1395.69M, Peak:1864.03M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:1971.13M (Peak 2105.53M) | Time:00:06.56 | Mem:1346.61M, Peak:1864.03M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:2085.37M (Peak 2105.53M) | Time:00:06.63 | Mem:1346.67M, Peak:1864.03M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:1986.04M (Peak 2105.53M) | Time:00:06.73 | Mem:1361.52M, Peak:1864.03M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:1997.07M (Peak 2105.53M) | Time:00:06.73 | Mem:1361.52M, Peak:1864.03M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Fra:1 Mem:1997.07M (Peak 2105.53M) | Time:00:07.42 | Mem:1748.57M, Peak:1864.03M | Scene, ViewLayer | Updating Scene BVH | Building BVH 0%
+Fra:1 Mem:1997.07M (Peak 2105.53M) | Time:00:07.67 | Mem:1811.95M, Peak:1864.03M | Scene, ViewLayer | Updating Scene BVH | Building BVH 57%
+Fra:1 Mem:1997.07M (Peak 2105.53M) | Time:00:07.84 | Mem:1829.86M, Peak:1873.95M | Scene, ViewLayer | Updating Scene BVH | Copying BVH to device
+Fra:1 Mem:1997.07M (Peak 2105.53M) | Time:00:07.84 | Mem:1829.86M, Peak:1873.95M | Scene, ViewLayer | Updating Mesh | Computing normals
+Fra:1 Mem:2031.24M (Peak 2105.53M) | Time:00:07.84 | Mem:1829.86M, Peak:1873.95M | Scene, ViewLayer | Updating Mesh | Copying Mesh to device
+Fra:1 Mem:2031.24M (Peak 2105.53M) | Time:00:07.84 | Mem:1864.03M, Peak:1873.95M | Scene, ViewLayer | Updating Objects Flags
+Fra:1 Mem:2031.24M (Peak 2105.53M) | Time:00:07.88 | Mem:1864.03M, Peak:1873.95M | Scene, ViewLayer | Updating Primitive Offsets
+Fra:1 Mem:2031.24M (Peak 2105.53M) | Time:00:07.90 | Mem:1864.03M, Peak:1873.95M | Scene, ViewLayer | Updating Images
+Fra:1 Mem:2031.24M (Peak 2105.53M) | Time:00:07.90 | Mem:1864.03M, Peak:1873.95M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:2031.24M (Peak 2105.53M) | Time:00:07.90 | Mem:1864.03M, Peak:1873.95M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:2031.24M (Peak 2105.53M) | Time:00:07.90 | Mem:1864.03M, Peak:1873.95M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:2020.18M (Peak 2105.53M) | Time:00:07.90 | Mem:1852.97M, Peak:1873.95M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:2031.24M (Peak 2105.53M) | Time:00:07.93 | Mem:1864.03M, Peak:1873.95M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:2031.24M (Peak 2105.53M) | Time:00:07.93 | Mem:1864.03M, Peak:1873.95M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:2031.24M (Peak 2105.53M) | Time:00:07.93 | Mem:1864.03M, Peak:1873.95M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:2031.24M (Peak 2105.53M) | Time:00:07.93 | Mem:1864.03M, Peak:1873.95M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:2031.24M (Peak 2105.53M) | Time:00:07.94 | Mem:1864.03M, Peak:1873.95M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:2031.24M (Peak 2105.53M) | Time:00:07.94 | Mem:1864.03M, Peak:1873.95M | Scene, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:2031.24M (Peak 2105.53M) | Time:00:07.94 | Mem:1864.03M, Peak:1873.95M | Scene, ViewLayer | Sample 0/32
+Fra:1 Mem:2056.99M (Peak 2105.53M) | Time:00:10.28 | Remaining:01:12.32 | Mem:1889.78M, Peak:1889.78M | Scene, ViewLayer | Sample 1/32
+Fra:1 Mem:2056.99M (Peak 2105.53M) | Time:00:47.92 | Remaining:00:35.27 | Mem:1889.78M, Peak:1889.78M | Scene, ViewLayer | Sample 17/32
+Fra:1 Mem:2067.98M (Peak 2105.53M) | Time:01:26.82 | Mem:1889.78M, Peak:1889.78M | Scene, ViewLayer | Sample 32/32
+Fra:1 Mem:2067.98M (Peak 2105.53M) | Time:01:26.82 | Mem:1889.78M, Peak:1889.78M | Scene, ViewLayer | Finished
+Fra:1 Mem:2067.98M (Peak 2105.53M) | Time:01:26.82 | Compositing
+Fra:1 Mem:2067.98M (Peak 2105.53M) | Time:01:26.82 | Compositing | Initializing execution
+Fra:1 Mem:2067.98M (Peak 2105.53M) | Time:01:26.82 | Compositing | Operation 2-8
+Fra:1 Mem:2073.54M (Peak 2105.53M) | Time:01:26.83 | Compositing | Operation 3-8
+Fra:1 Mem:2073.54M (Peak 2105.53M) | Time:01:26.83 | Compositing | Operation 4-8
+Fra:1 Mem:2073.54M (Peak 2105.53M) | Time:01:26.83 | Compositing | Operation 5-8
+Fra:1 Mem:2073.54M (Peak 2105.53M) | Time:01:26.83 | Compositing | Operation 6-8
+Fra:1 Mem:2073.54M (Peak 2105.53M) | Time:01:26.83 | Compositing | Operation 7-8
+Fra:1 Mem:2073.54M (Peak 2105.53M) | Time:01:26.83 | Compositing | Operation 8-8
+Fra:1 Mem:2073.54M (Peak 2105.53M) | Time:01:26.83 | Compositing | Operation 9-8
+Saved: '/home/runner/work/vilnyi-barreiro2/vilnyi-barreiro2/renders/preview/1.A/atlantic/1.A-bathroom.jpg'
+Time: 01:26.87 (Saving: 00:00.03)
+
+[  321.2s] SHOT 1.A-bathroom still 800x450 spp<=32 ev=3.52 in 101.3s -> renders/preview/1.A/atlantic/1.A-bathroom.jpg
+[  321.2s] DONE 3 images in 321.2s
+
+Blender quit

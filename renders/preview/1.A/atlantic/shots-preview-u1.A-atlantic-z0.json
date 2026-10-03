@@ -1,0 +1,124 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.A",
+  "pkg": "atlantic",
+  "quality": "preview",
+  "tod": "day",
+  "shots": [
+   "1.A-living",
+   "1.A-bedroom",
+   "1.A-bathroom"
+  ],
+  "out": "renders/preview/1.A/atlantic",
+  "name": "preview-u1.A-atlantic-z0",
+  "opts": {
+   "ev_bias": 0.35
+  },
+  "q": {
+   "still": [
+    800,
+    450
+   ],
+   "still_spp": 32,
+   "expo_samples": 16
+  }
+ },
+ "shots": [
+  {
+   "id": "1.A-living",
+   "type": "still",
+   "file": "renders/preview/1.A/atlantic/1.A-living.jpg",
+   "thumb": "renders/preview/1.A/atlantic/thumbs/1.A-living.jpg",
+   "W": 800,
+   "H": 450,
+   "spp": 32,
+   "ev": 2.031331757652695,
+   "tod": "day",
+   "position": [
+    3.35,
+    4.45,
+    4.95
+   ],
+   "lookAt": [
+    5.6,
+    4.45,
+    0.6
+   ],
+   "roomId": "1.A-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "lens": 20.0,
+   "shift_y": 0.0,
+   "seconds": 105.2
+  },
+  {
+   "id": "1.A-bedroom",
+   "type": "still",
+   "file": "renders/preview/1.A/atlantic/1.A-bedroom.jpg",
+   "thumb": "renders/preview/1.A/atlantic/thumbs/1.A-bedroom.jpg",
+   "W": 800,
+   "H": 450,
+   "spp": 32,
+   "ev": 3.2085913186514925,
+   "tod": "day",
+   "position": [
+    0.45,
+    4.45,
+    5.0
+   ],
+   "lookAt": [
+    2.6,
+    4.15,
+    0.4
+   ],
+   "roomId": "1.A-suite",
+   "name": {
+    "en": "Master suite",
+    "pt": "Suite",
+    "he": "סוויטת הורים"
+   },
+   "kind": "bedroom",
+   "lens": 18.0,
+   "shift_y": -0.0295,
+   "seconds": 108.7
+  },
+  {
+   "id": "1.A-bathroom",
+   "type": "still",
+   "file": "renders/preview/1.A/atlantic/1.A-bathroom.jpg",
+   "thumb": "renders/preview/1.A/atlantic/thumbs/1.A-bathroom.jpg",
+   "W": 800,
+   "H": 450,
+   "spp": 32,
+   "ev": 3.515724294403,
+   "tod": "day",
+   "position": [
+    3.9,
+    4.6,
+    5.6
+   ],
+   "lookAt": [
+    3.9,
+    3.9,
+    7.0
+   ],
+   "roomId": "1.A-wc",
+   "name": {
+    "en": "Guest bathroom",
+    "pt": "I.S. serviço",
+    "he": "חדר רחצה אורחים"
+   },
+   "kind": "bathroom",
+   "lens": 14.0,
+   "shift_y": -0.1944,
+   "seconds": 101.3
+  }
+ ],
+ "seconds": 321.2,
+ "blender": "4.2.3 LTS"
+}
