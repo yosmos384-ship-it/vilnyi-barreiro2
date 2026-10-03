@@ -1,0 +1,51 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.A",
+  "pkg": "riviera",
+  "quality": "standard",
+  "tod": "dusk",
+  "shots": [
+   "2.A-living"
+  ],
+  "out": "renders/units/2.A/riviera",
+  "name": "u2.A-riviera-dusk-z0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "2.A-living",
+   "type": "still",
+   "file": "renders/units/2.A/riviera/2.A-living.dusk.jpg",
+   "thumb": "renders/units/2.A/riviera/thumbs/2.A-living.dusk.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 5.693302589770693,
+   "tod": "dusk",
+   "position": [
+    3.35,
+    7.45,
+    4.95
+   ],
+   "lookAt": [
+    5.6,
+    7.45,
+    0.6
+   ],
+   "roomId": "2.A-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "dusk",
+   "lens": 20.0,
+   "shift_y": 0.0,
+   "seconds": 1243.3
+  }
+ ],
+ "seconds": 1249.8,
+ "blender": "4.2.3 LTS"
+}
