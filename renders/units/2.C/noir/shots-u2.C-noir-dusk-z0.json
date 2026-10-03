@@ -1,0 +1,51 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.C",
+  "pkg": "noir",
+  "quality": "standard",
+  "tod": "dusk",
+  "shots": [
+   "2.C-living"
+  ],
+  "out": "renders/units/2.C/noir",
+  "name": "u2.C-noir-dusk-z0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "2.C-living",
+   "type": "still",
+   "file": "renders/units/2.C/noir/2.C-living.dusk.jpg",
+   "thumb": "renders/units/2.C/noir/thumbs/2.C-living.dusk.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 6.945659696999476,
+   "tod": "dusk",
+   "position": [
+    10.1,
+    7.45,
+    8.6
+   ],
+   "lookAt": [
+    12.8,
+    7.45,
+    14.0
+   ],
+   "roomId": "2.C-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "dusk",
+   "lens": 20.0,
+   "shift_y": 0.0,
+   "seconds": 1009.5
+  }
+ ],
+ "seconds": 1017.2,
+ "blender": "4.2.3 LTS"
+}
