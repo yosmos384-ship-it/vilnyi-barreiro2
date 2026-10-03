@@ -7,9 +7,7 @@
   ],
   "out": "renders/common",
   "name": "common-carpark-2",
-  "opts": {
-   "ev_bias": 0.35
-  }
+  "opts": {}
  },
  "shots": [
   {
@@ -20,7 +18,7 @@
    "W": 2400,
    "H": 1350,
    "spp": 96,
-   "ev": 2.5013648453358748,
+   "ev": 2.156030805542892,
    "tod": "day",
    "position": [
     9.4,
@@ -37,9 +35,9 @@
    "kind": null,
    "lens": 18.0,
    "shift_y": -0.0462,
-   "seconds": 2743.9
+   "seconds": 3341.1
   }
  ],
- "seconds": 2746.5,
+ "seconds": 3344.6,
  "blender": "4.2.3 LTS"
 }

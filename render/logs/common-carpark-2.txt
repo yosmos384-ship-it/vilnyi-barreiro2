@@ -1,13 +1,14 @@
 [    0.0s] job common-carpark-2: scope=common unit=None pkg=None quality=standard shots=1
-[    0.8s] import building: 491 objects in 0.7s
-[    0.9s] box UVs on 478 meshes
-[    1.8s] [foliage] leafified 16 objects, crown area 168 m2 -> ~218896 leaves
-[    1.8s] materials: built=126 textured=25 by_key={'aluminium-frame': 2, 'bark': 1, 'brass': 1, 'brick-facade': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 1, 'car-taillight': 1, 'car-tyre': 1, 'ceiling-white': 2, 'ceramic-plate': 1, 'concrete': 5, 'deck-teak': 1, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 1, 'foliage': 8, 'foliage-inner': 1, 'garage-door': 1, 'glass-railing': 3, 'glass-window': 1, 'gravel': 2, 'handrail-steel': 1, 'kerb-stone': 1, 'lawn': 1, 'leather': 1, 'led-strip-emissive': 12, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'mirror': 1, 'paint-white': 1, 'paving-calcada': 1, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'pv-panel': 1, 'render-pink': 1, 'render-white': 2, 'rubber': 1, 'signage': 39, 'skirting': 1, 'soil': 1, 'steel-dark': 5, 'stone-coping': 1, 'timber-soffit': 1, 'zinc-standing-seam': 2}
-[    1.8s] lights: imported=2 emissive->lights=746 portals=0 boost=3.0 total_lights=748 polys=200708
-[    2.4s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
-[    2.6s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
-[    2.6s] scene ready in 2.6s  (world kloofendal_43d_clear_puresky)
-[   12.9s] [expo] interior: in/out/sky=22400/0/0 Lavg=0.02706 p97=0.5853 ev_hi=2.15 -> ev=2.15 windowND=1.00
-[   12.9s] [wb] gains (0.736, 1.0, 1.397)
-[ 2746.5s] SHOT carpark-2 still 2400x1350 spp<=96 ev=2.50 in 2743.9s -> renders/common/carpark-2.jpg
-[ 2746.5s] DONE 1 images in 2746.5s
+[    0.8s] import building: 491 objects in 0.8s
+[    1.0s] box UVs on 478 meshes
+[    2.0s] [foliage] leafified 13 objects, crown area 151 m2 -> ~196157 leaves
+[    2.0s] materials: built=126 textured=22 by_key={'aluminium-frame': 2, 'bark': 1, 'brass': 1, 'brick-facade': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 1, 'car-plate': 1, 'car-rim': 1, 'car-taillight': 1, 'car-trim': 1, 'car-tyre': 1, 'ceiling-white': 2, 'concrete': 4, 'deck-teak': 1, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 1, 'foliage': 6, 'foliage-inner': 1, 'garage-door': 1, 'glass-railing': 3, 'glass-window': 1, 'gravel': 2, 'handrail-steel': 1, 'kerb-stone': 1, 'lawn': 1, 'leather': 1, 'led-strip-emissive': 12, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'mirror': 1, 'paint-green': 1, 'paint-hazard': 1, 'paint-red': 1, 'paint-white': 1, 'paint-yellow': 1, 'paving-calcada': 1, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'plastic-red': 1, 'plastic-white': 1, 'pv-panel': 1, 'render-white': 1, 'rubber': 1, 'signage': 39, 'skirting': 1, 'soil': 1, 'steel-dark': 1, 'steel-galvanised': 1, 'stone-coping': 1, 'timber-soffit': 1, 'zinc-standing-seam': 2}
+[    2.7s] [signs] lettering on 34 signs, 5 texture planes hidden
+[    2.7s] lights: imported=2 emissive->lights=738 portals=0 boost=3.0 total_lights=740 polys=200612
+[    3.3s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[    3.5s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[    3.5s] scene ready in 3.5s  (world kloofendal_43d_clear_puresky)
+[   15.4s] [expo] interior: in/out/sky=22400/0/0 key=0.3 Lavg=0.03077 p97=0.5834 ev_hi=2.16 -> ev=2.16 windowND=1.00
+[   15.4s] [wb] gains (0.703, 1.0, 1.403)
+[ 3344.6s] SHOT carpark-2 still 2400x1350 spp<=96 ev=2.16 in 3341.1s -> renders/common/carpark-2.jpg
+[ 3344.6s] DONE 1 images in 3344.6s
