@@ -1,0 +1,51 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "0.B",
+  "pkg": "lisboa",
+  "quality": "standard",
+  "tod": "dusk",
+  "shots": [
+   "0.B-living"
+  ],
+  "out": "renders/units/0.B/lisboa",
+  "name": "u0.B-lisboa-dusk-z0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "0.B-living",
+   "type": "still",
+   "file": "renders/units/0.B/lisboa/0.B-living.dusk.jpg",
+   "thumb": "renders/units/0.B/lisboa/thumbs/0.B-living.dusk.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 6.350409080808454,
+   "tod": "dusk",
+   "position": [
+    8.3,
+    1.45,
+    5.0
+   ],
+   "lookAt": [
+    7.6,
+    1.45,
+    0.5
+   ],
+   "roomId": "0.B-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "dusk",
+   "lens": 18.0,
+   "shift_y": 0.0,
+   "seconds": 1440.9
+  }
+ ],
+ "seconds": 1447.6,
+ "blender": "4.2.3 LTS"
+}
