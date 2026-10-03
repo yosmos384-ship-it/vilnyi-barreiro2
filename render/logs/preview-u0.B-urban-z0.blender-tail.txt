@@ -1,0 +1,60 @@
+Fra:1 Mem:2152.49M (Peak 2232.96M) | Time:00:06.40 | Mem:1982.88M, Peak:1982.88M | Scene, ViewLayer | Updating Meshes Flags
+Fra:1 Mem:2141.46M (Peak 2232.96M) | Time:00:06.53 | Mem:1513.48M, Peak:1982.88M | Scene, ViewLayer | Updating Objects
+Fra:1 Mem:1799.70M (Peak 2232.96M) | Time:00:06.57 | Mem:1171.71M, Peak:1982.88M | Scene, ViewLayer | Updating Objects | Copying Transformations to device
+Fra:1 Mem:2141.47M (Peak 2232.96M) | Time:00:06.63 | Mem:1502.46M, Peak:1982.88M | Scene, ViewLayer | Updating Objects | Applying Static Transformations
+Fra:1 Mem:2141.47M (Peak 2232.96M) | Time:00:06.77 | Mem:1502.46M, Peak:1982.88M | Scene, ViewLayer | Updating Particle Systems
+Fra:1 Mem:2141.47M (Peak 2232.96M) | Time:00:06.77 | Mem:1502.46M, Peak:1982.88M | Scene, ViewLayer | Updating Meshes
+Fra:1 Mem:2096.54M (Peak 2232.96M) | Time:00:06.78 | Mem:1451.09M, Peak:1982.88M | Scene, ViewLayer | Updating Mesh | Computing attributes
+Fra:1 Mem:2211.63M (Peak 2232.96M) | Time:00:06.93 | Mem:1451.15M, Peak:1982.88M | Scene, ViewLayer | Updating Mesh | Copying Attributes to device
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 27/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 27/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 27/27 | Building BVH 0%
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 26/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 26/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 25/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 25/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 24/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 24/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 23/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 23/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 22/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 22/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 21/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 21/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 20/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 20/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 19/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 19/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 18/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 18/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 17/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 17/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 16/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 16/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 15/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 15/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 14/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 14/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 13/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 13/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 12/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 12/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 11/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 11/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 10/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 10/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 9/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 9/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 8/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 8/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 7/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 7/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH Mesh_88.001 2/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH Mesh_86.001 1/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.27M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 5/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1465.96M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH vbLeaf 5/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.01M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH Mesh_33.002 4/27 | Refitting BVH
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:06.98 | Mem:1466.01M, Peak:1982.88M | Scene, ViewLayer | Updating Geometry BVH Mesh_33.002 4/27 | Refitting BVH nodes
+Fra:1 Mem:2112.31M (Peak 2232.96M) | Time:00:07.07 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Scene BVH | Building
+Fra:1 Mem:2123.34M (Peak 2232.96M) | Time:00:07.07 | Mem:1466.87M, Peak:1982.88M | Scene, ViewLayer | Updating Scene BVH | Building BVH
+Writing: /tmp/blender.crash.txt
