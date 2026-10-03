@@ -1,0 +1,116 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.A",
+  "pkg": "riviera",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "1.A-living",
+   "1.A-bedroom",
+   "1.A-bathroom"
+  ],
+  "out": "renders/units/1.A/riviera",
+  "name": "u1.A-riviera-z0",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "1.A-living",
+   "type": "still",
+   "file": "renders/units/1.A/riviera/1.A-living.jpg",
+   "thumb": "renders/units/1.A/riviera/thumbs/1.A-living.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 2.156714801288228,
+   "tod": "day",
+   "position": [
+    3.35,
+    4.45,
+    4.95
+   ],
+   "lookAt": [
+    5.6,
+    4.45,
+    0.6
+   ],
+   "roomId": "1.A-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "lens": 20.0,
+   "shift_y": 0.0,
+   "seconds": 1908.2
+  },
+  {
+   "id": "1.A-bedroom",
+   "type": "still",
+   "file": "renders/units/1.A/riviera/1.A-bedroom.jpg",
+   "thumb": "renders/units/1.A/riviera/thumbs/1.A-bedroom.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 3.3700016661954226,
+   "tod": "day",
+   "position": [
+    0.45,
+    4.45,
+    5.0
+   ],
+   "lookAt": [
+    2.6,
+    4.15,
+    0.4
+   ],
+   "roomId": "1.A-suite",
+   "name": {
+    "en": "Master suite",
+    "pt": "Suite",
+    "he": "סוויטת הורים"
+   },
+   "kind": "bedroom",
+   "lens": 18.0,
+   "shift_y": -0.0295,
+   "seconds": 1875.7
+  },
+  {
+   "id": "1.A-bathroom",
+   "type": "still",
+   "file": "renders/units/1.A/riviera/1.A-bathroom.jpg",
+   "thumb": "renders/units/1.A/riviera/thumbs/1.A-bathroom.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 3.9686385811227423,
+   "tod": "day",
+   "position": [
+    4.25,
+    4.6,
+    5.6
+   ],
+   "lookAt": [
+    4.0,
+    3.9,
+    7.0
+   ],
+   "roomId": "1.A-wc",
+   "name": {
+    "en": "Guest bathroom",
+    "pt": "I.S. serviço",
+    "he": "חדר רחצה אורחים"
+   },
+   "kind": "bathroom",
+   "lens": 14.0,
+   "shift_y": -0.1914,
+   "seconds": 1267.4
+  }
+ ],
+ "seconds": 5058.1,
+ "blender": "4.2.3 LTS"
+}
