@@ -7,9 +7,7 @@
   ],
   "out": "renders/exterior",
   "name": "ext-street-golden-34",
-  "opts": {
-   "ev_bias": 0.35
-  }
+  "opts": {}
  },
  "shots": [
   {
@@ -20,7 +18,7 @@
    "W": 2400,
    "H": 1350,
    "spp": 192,
-   "ev": -0.5566628216413224,
+   "ev": -0.9055681692656432,
    "tod": "golden",
    "position": [
     22.5,
@@ -37,9 +35,9 @@
    "kind": null,
    "lens": 24.0,
    "shift_y": 0.1094,
-   "seconds": 1552.6
+   "seconds": 1630.2
   }
  ],
- "seconds": 1563.3,
+ "seconds": 1646.0,
  "blender": "4.2.3 LTS"
 }
