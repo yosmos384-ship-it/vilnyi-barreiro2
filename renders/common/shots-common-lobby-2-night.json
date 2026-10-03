@@ -18,7 +18,7 @@
    "W": 2400,
    "H": 1350,
    "spp": 96,
-   "ev": 1.759665323417439,
+   "ev": 1.8833386858144991,
    "tod": "night",
    "position": [
     3.4,
@@ -33,13 +33,11 @@
    "roomId": null,
    "name": "Lobby towards the entrance, at night",
    "kind": null,
-   "variant_of": "lobby-2",
-   "variant_tod": "night",
    "lens": 18.0,
    "shift_y": -0.0262,
-   "seconds": 4101.3
+   "seconds": 4056.1
   }
  ],
- "seconds": 4104.9,
+ "seconds": 4060.3,
  "blender": "4.2.3 LTS"
 }
