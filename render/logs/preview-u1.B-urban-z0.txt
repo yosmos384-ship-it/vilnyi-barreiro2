@@ -1,0 +1,23 @@
+[    0.0s] job preview-u1.B-urban-z0: scope=unit unit=1.B pkg=urban quality=preview shots=3
+[    0.7s] import building: 491 objects in 0.6s
+[    0.9s] import context: 127 objects in 0.3s
+[    1.2s] import unit-1.B-urban: 87 objects in 0.3s
+[    1.4s] box UVs on 641 meshes
+[    3.0s] [foliage] leafified 23 objects, crown area 1111 m2 -> ~1444499 leaves
+[    3.0s] materials: built=241 textured=66 by_key={'aluminium-frame': 2, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 4, 'asphalt': 1, 'bark': 2, 'bath-floor': 1, 'bath-wall': 1, 'book': 3, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 4, 'candle-wax': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-plate': 1, 'car-rim': 1, 'car-taillight': 1, 'car-trim': 1, 'car-tyre': 1, 'ceiling': 1, 'ceiling-white': 2, 'ceramic-plate': 3, 'concrete': 4, 'cutlery-steel': 1, 'deck-teak': 2, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 3, 'fabric-boucle': 6, 'fabric-linen': 5, 'fabric-sofa': 1, 'floor-main': 2, 'foliage': 19, 'foliage-inner': 1, 'fruit': 3, 'garage-door': 1, 'glass-drinking': 1, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 2, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 2, 'leather': 2, 'led-strip-emissive': 13, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 3, 'mirror': 2, 'paint-green': 1, 'paint-hazard': 1, 'paint-red': 1, 'paint-white': 1, 'paint-yellow': 1, 'paving-calcada': 2, 'plant-leaf': 3, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'plastic-red': 1, 'plastic-white': 1, 'pot-terracotta': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 1, 'render-white': 1, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 1, 'sanitary-ceramic': 1, 'shower-glass': 1, 'shower-wall': 1, 'signage': 39, 'skirting': 2, 'soil': 3, 'steel-dark': 6, 'steel-galvanised': 1, 'stone-coping': 2, 'tap-metal': 1, 'timber-soffit': 1, 'wall-feature': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 5, 'zinc-standing-seam': 2}
+[    4.1s] [signs] lettering on 34 signs, 5 texture planes hidden
+[    4.1s] flames hidden by day: 1
+[    4.2s] lights: imported=2 emissive->lights=73 portals=18 boost=2.5 total_lights=93 polys=346386
+[    4.7s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[    4.9s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[    4.9s] scene ready in 4.9s  (world kloofendal_43d_clear_puresky)
+[   16.7s] [expo] interior: in/out/sky=19841/2195/364 key=0.3 Lavg=0.01487 p97=1.109 ev_hi=1.23 -> ev=1.23 windowND=0.74
+[   16.7s] [wb] gains (0.892, 1.0, 1.088)
+[   57.8s] SHOT 1.B-living still 800x450 spp<=32 ev=1.58 in 52.8s -> renders/preview/1.B/urban/1.B-living.jpg
+[   68.4s] [expo] interior: in/out/sky=20460/1716/224 key=0.3 Lavg=0.03878 p97=0.7094 ev_hi=1.87 -> ev=1.87 windowND=1.00
+[   68.4s] [wb] gains (0.879, 1.0, 1.128)
+[  113.4s] SHOT 1.B-bedroom still 800x450 spp<=32 ev=2.22 in 55.6s -> renders/preview/1.B/urban/1.B-bedroom.jpg
+[  124.2s] [expo] interior: in/out/sky=22400/0/0 key=0.3 Lavg=0.008382 p97=0.4708 ev_hi=2.47 -> ev=2.47 windowND=1.00
+[  124.2s] [wb] gains (0.495, 1.0, 2.261)
+[  166.2s] SHOT 1.B-bathroom still 800x450 spp<=32 ev=2.82 in 52.8s -> renders/preview/1.B/urban/1.B-bathroom.jpg
+[  166.2s] DONE 3 images in 166.2s
