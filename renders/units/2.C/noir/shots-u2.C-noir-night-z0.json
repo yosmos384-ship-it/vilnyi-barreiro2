@@ -1,0 +1,51 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.C",
+  "pkg": "noir",
+  "quality": "standard",
+  "tod": "night",
+  "shots": [
+   "2.C-living"
+  ],
+  "out": "renders/units/2.C/noir",
+  "name": "u2.C-noir-night-z0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "2.C-living",
+   "type": "still",
+   "file": "renders/units/2.C/noir/2.C-living.night.jpg",
+   "thumb": "renders/units/2.C/noir/thumbs/2.C-living.night.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 7.077130625886221,
+   "tod": "night",
+   "position": [
+    10.1,
+    7.45,
+    8.6
+   ],
+   "lookAt": [
+    12.8,
+    7.45,
+    14.0
+   ],
+   "roomId": "2.C-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "night",
+   "lens": 20.0,
+   "shift_y": 0.0,
+   "seconds": 798.3
+  }
+ ],
+ "seconds": 804.2,
+ "blender": "4.2.3 LTS"
+}
