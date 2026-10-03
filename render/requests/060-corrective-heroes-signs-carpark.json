@@ -1,0 +1,32 @@
+[
+ {
+  "set": "units",
+  "quality": "standard",
+  "tod": "day",
+  "shots": "0.A-living,0.A-bedroom,0.A-bathroom,0.B-living,0.B-bedroom,0.B-bathroom,1.A-living,1.A-bedroom,1.A-bathroom,1.B-living,1.B-bedroom,1.B-bathroom,1.C-living,1.C-bedroom,1.C-bathroom,2.A-living,2.A-bedroom,2.A-bathroom,2.B-living,2.B-bedroom,2.B-bathroom,2.C-living,2.C-bedroom,2.C-bathroom",
+  "tag": "z",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ {
+  "set": "units",
+  "quality": "standard",
+  "tod": "dusk,night",
+  "shots": "0.A-living,0.B-living,1.A-living,1.B-living,1.C-living,2.A-living,2.B-living,2.C-living",
+  "tag": "z",
+  "opts": {}
+ },
+ {
+  "set": "exterior",
+  "quality": "standard",
+  "shots": "entrance-day,entrance-dusk,entrance-night,street-day,street-dusk,street-night,street-eye,street-eye-dusk,street-eye-night,street-golden-34",
+  "opts": {}
+ },
+ {
+  "set": "common",
+  "quality": "standard",
+  "shots": "lobby,lobby-2,lobby-night,lobby-2-night,lift-interior,landing-first,basement,carpark-2,carpark-ramp",
+  "opts": {}
+ }
+]
