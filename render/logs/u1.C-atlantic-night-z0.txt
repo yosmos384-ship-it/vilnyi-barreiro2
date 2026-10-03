@@ -1,0 +1,18 @@
+[    0.0s] job u1.C-atlantic-night-z0: scope=unit unit=1.C pkg=atlantic quality=standard shots=1
+[    0.9s] import building: 491 objects in 0.8s
+[    1.3s] import context: 127 objects in 0.4s
+[    1.8s] import unit-1.C-atlantic: 110 objects in 0.5s
+[    2.3s] box UVs on 662 meshes
+[    2.3s] [presets] from js/environment.js
+[    4.1s] [foliage] leafified 24 objects, crown area 1111 m2 -> ~1444805 leaves
+[    4.1s] materials: built=258 textured=71 by_key={'aluminium-frame': 2, 'appliance-glass-black': 3, 'appliance-steel': 1, 'art-canvas': 5, 'asphalt': 1, 'bark': 2, 'bath-floor': 1, 'bath-wall': 1, 'book': 7, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 4, 'candle-wax': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-plate': 1, 'car-rim': 1, 'car-taillight': 1, 'car-trim': 1, 'car-tyre': 1, 'ceiling': 1, 'ceiling-white': 2, 'ceramic-plate': 4, 'concrete': 4, 'curtain-fabric': 1, 'cutlery-steel': 1, 'deck-teak': 3, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'fabric-boucle': 6, 'fabric-linen': 8, 'fabric-sofa': 1, 'floor-main': 2, 'foliage': 19, 'foliage-inner': 1, 'fruit': 3, 'garage-door': 1, 'glass-drinking': 3, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 2, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 2, 'leather': 2, 'led-strip-emissive': 13, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'marble-table': 1, 'metal-furniture': 4, 'mirror': 2, 'paint-green': 1, 'paint-hazard': 1, 'paint-red': 1, 'paint-white': 1, 'paint-yellow': 1, 'paving-calcada': 2, 'plant-leaf': 3, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'plastic-red': 1, 'plastic-white': 1, 'pot-terracotta': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 1, 'render-white': 1, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 1, 'sanitary-ceramic': 3, 'shower-glass': 1, 'shower-wall': 1, 'signage': 39, 'skirting': 2, 'soil': 3, 'steel-dark': 5, 'steel-galvanised': 1, 'stone-coping': 2, 'tap-metal': 1, 'timber-soffit': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 7, 'zinc-standing-seam': 2}
+[    6.0s] [signs] lettering on 34 signs, 5 texture planes hidden
+[    6.0s] [lamps] night: list=7 new=0 merged-with-bulbs=3 strips=2 no-fixture=2 (1400 lm per unit intensity)
+[    6.0s] evening lights: street=6 lamp-list=3 lit-window fraction=0.45
+[    6.0s] lights: imported=0 emissive->lights=158 portals=0 boost=1.0 total_lights=164 polys=430397
+[    7.4s] [world] procedural night: moon bearing 168 alt 40 key 7.0 lux, sky 2.6 lux (mean radiance 0.001656), stars 1500, camera gain 1.6
+[    7.4s] scene ready in 7.4s  (world procedural-night)
+[   24.6s] [expo] interior night: in/out/sky=19578/2812/10 key=0.22 Lavg=0.001919 p97=0.08446 ev_hi=6.15 -> ev=6.15 windowND=0.40
+[   24.6s] [wb] gains (0.535, 1.0, 2.295)
+[ 1825.1s] SHOT 1.C-living still 2400x1350 spp<=96 ev=6.15 in 1817.6s -> renders/units/1.C/atlantic/1.C-living.night.jpg
+[ 1825.1s] DONE 1 images in 1825.1s

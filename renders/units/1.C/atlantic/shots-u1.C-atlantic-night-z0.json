@@ -1,0 +1,51 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.C",
+  "pkg": "atlantic",
+  "quality": "standard",
+  "tod": "night",
+  "shots": [
+   "1.C-living"
+  ],
+  "out": "renders/units/1.C/atlantic",
+  "name": "u1.C-atlantic-night-z0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "1.C-living",
+   "type": "still",
+   "file": "renders/units/1.C/atlantic/1.C-living.night.jpg",
+   "thumb": "renders/units/1.C/atlantic/thumbs/1.C-living.night.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 6.150507445392315,
+   "tod": "night",
+   "position": [
+    10.1,
+    4.45,
+    8.6
+   ],
+   "lookAt": [
+    12.8,
+    4.45,
+    14.0
+   ],
+   "roomId": "1.C-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "night",
+   "lens": 20.0,
+   "shift_y": 0.0,
+   "seconds": 1817.6
+  }
+ ],
+ "seconds": 1825.1,
+ "blender": "4.2.3 LTS"
+}
