@@ -1,0 +1,51 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.A",
+  "pkg": "lisboa",
+  "quality": "standard",
+  "tod": "night",
+  "shots": [
+   "2.A-living"
+  ],
+  "out": "renders/units/2.A/lisboa",
+  "name": "u2.A-lisboa-night-z0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "2.A-living",
+   "type": "still",
+   "file": "renders/units/2.A/lisboa/2.A-living.night.jpg",
+   "thumb": "renders/units/2.A/lisboa/thumbs/2.A-living.night.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 6.326860264780174,
+   "tod": "night",
+   "position": [
+    3.35,
+    7.45,
+    4.95
+   ],
+   "lookAt": [
+    5.6,
+    7.45,
+    0.6
+   ],
+   "roomId": "2.A-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "night",
+   "lens": 20.0,
+   "shift_y": 0.0,
+   "seconds": 607.6
+  }
+ ],
+ "seconds": 611.9,
+ "blender": "4.2.3 LTS"
+}
