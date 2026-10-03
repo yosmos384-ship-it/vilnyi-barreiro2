@@ -1,0 +1,15 @@
+[    0.0s] job preview-common-lobby: scope=common unit=None pkg=None quality=preview shots=1
+[    0.8s] import building: 491 objects in 0.8s
+[    1.1s] import context: 127 objects in 0.3s
+[    1.4s] box UVs on 555 meshes
+[    2.6s] [foliage] leafified 35 objects, crown area 7086 m2 -> ~9211556 leaves
+[    2.6s] materials: built=165 textured=34 by_key={'aluminium-frame': 2, 'asphalt': 1, 'bark': 1, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-plate': 1, 'car-rim': 1, 'car-taillight': 1, 'car-trim': 1, 'car-tyre': 1, 'ceiling-white': 2, 'concrete': 4, 'deck-teak': 1, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 1, 'foliage': 18, 'foliage-inner': 1, 'garage-door': 1, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'kerb-stone': 2, 'lawn': 2, 'leather': 1, 'led-strip-emissive': 12, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'mirror': 1, 'paint-green': 1, 'paint-hazard': 1, 'paint-red': 1, 'paint-white': 1, 'paint-yellow': 1, 'paving-calcada': 2, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'plastic-red': 1, 'plastic-white': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 1, 'render-white': 1, 'roof-tile-terracotta': 1, 'rubber': 1, 'signage': 39, 'skirting': 1, 'soil': 2, 'steel-dark': 5, 'steel-galvanised': 1, 'stone-coping': 2, 'timber-soffit': 1, 'zinc-standing-seam': 2}
+[    4.3s] [signs] lettering on 34 signs, 5 texture planes hidden
+[    4.4s] lights: imported=2 emissive->lights=738 portals=0 boost=3.0 total_lights=740 polys=282923
+[    5.0s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[    5.2s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[    5.2s] scene ready in 5.2s  (world kloofendal_43d_clear_puresky)
+[   70.6s] [expo] interior: in/out/sky=22400/0/0 key=0.3 Lavg=0.06058 p97=0.7595 ev_hi=1.78 -> ev=1.78 windowND=1.00
+[   70.6s] [wb] gains (0.625, 1.0, 1.6)
+[  283.6s] SHOT lobby still 800x450 spp<=32 ev=1.78 in 278.4s -> renders/preview/common/lobby.jpg
+[  283.7s] DONE 1 images in 283.7s
