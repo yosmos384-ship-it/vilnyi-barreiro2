@@ -1,0 +1,51 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.A",
+  "pkg": "urban",
+  "quality": "standard",
+  "tod": "dusk",
+  "shots": [
+   "1.A-living"
+  ],
+  "out": "renders/units/1.A/urban",
+  "name": "u1.A-urban-dusk-z0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "1.A-living",
+   "type": "still",
+   "file": "renders/units/1.A/urban/1.A-living.dusk.jpg",
+   "thumb": "renders/units/1.A/urban/thumbs/1.A-living.dusk.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 5.77158681431788,
+   "tod": "dusk",
+   "position": [
+    3.35,
+    4.45,
+    4.95
+   ],
+   "lookAt": [
+    5.6,
+    4.45,
+    0.6
+   ],
+   "roomId": "1.A-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "dusk",
+   "lens": 20.0,
+   "shift_y": 0.0,
+   "seconds": 981.8
+  }
+ ],
+ "seconds": 988.6,
+ "blender": "4.2.3 LTS"
+}
