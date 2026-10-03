@@ -7,9 +7,7 @@
   ],
   "out": "renders/common",
   "name": "common-lobby",
-  "opts": {
-   "ev_bias": 0.35
-  }
+  "opts": {}
  },
  "shots": [
   {
@@ -20,7 +18,7 @@
    "W": 2400,
    "H": 1350,
    "spp": 96,
-   "ev": 1.5793848722427697,
+   "ev": 1.7659992690853028,
    "tod": "day",
    "position": [
     9,
@@ -37,9 +35,9 @@
    "kind": null,
    "lens": 18.0,
    "shift_y": -0.0034,
-   "seconds": 4404.8
+   "seconds": 2425.6
   }
  ],
- "seconds": 4408.6,
+ "seconds": 2428.9,
  "blender": "4.2.3 LTS"
 }
