@@ -1,0 +1,23 @@
+[    0.0s] job preview-u1.B-riviera-z0: scope=unit unit=1.B pkg=riviera quality=preview shots=3
+[    0.9s] import building: 491 objects in 0.8s
+[    1.2s] import context: 127 objects in 0.4s
+[    1.5s] import unit-1.B-riviera: 84 objects in 0.3s
+[    1.9s] box UVs on 638 meshes
+[    4.0s] [foliage] leafified 23 objects, crown area 1111 m2 -> ~1444499 leaves
+[    4.0s] materials: built=239 textured=69 by_key={'aluminium-frame': 2, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 2, 'asphalt': 1, 'bark': 2, 'bath-floor': 1, 'bath-wall': 1, 'book': 3, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 3, 'candle-wax': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-plate': 1, 'car-rim': 1, 'car-taillight': 1, 'car-trim': 1, 'car-tyre': 1, 'ceiling': 1, 'ceiling-white': 2, 'ceramic-plate': 3, 'concrete': 4, 'curtain-fabric': 1, 'cutlery-steel': 1, 'deck-teak': 2, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'fabric-boucle': 6, 'fabric-linen': 7, 'fabric-sofa': 1, 'floor-joint': 1, 'floor-main': 2, 'foliage': 19, 'foliage-inner': 1, 'fruit': 3, 'garage-door': 1, 'glass-drinking': 1, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 2, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 1, 'lawn': 2, 'leather': 1, 'led-strip-emissive': 13, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 3, 'mirror': 2, 'paint-green': 1, 'paint-hazard': 1, 'paint-red': 1, 'paint-white': 1, 'paint-yellow': 1, 'paving-calcada': 2, 'plant-leaf': 2, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'plastic-red': 1, 'plastic-white': 1, 'pot-terracotta': 2, 'pv-panel': 1, 'rattan': 1, 'render-cream': 3, 'render-pink': 1, 'render-white': 1, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 1, 'sanitary-ceramic': 1, 'shower-glass': 1, 'shower-wall': 1, 'signage': 39, 'skirting': 2, 'soil': 3, 'steel-dark': 5, 'steel-galvanised': 1, 'stone-coping': 2, 'tap-metal': 1, 'timber-soffit': 1, 'wall-feature': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 4, 'zinc-standing-seam': 2}
+[    5.7s] [signs] lettering on 34 signs, 5 texture planes hidden
+[    5.7s] flames hidden by day: 1
+[    5.7s] lights: imported=2 emissive->lights=62 portals=20 boost=2.5 total_lights=84 polys=359280
+[    6.3s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[    6.5s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[    6.5s] scene ready in 6.5s  (world kloofendal_43d_clear_puresky)
+[   21.7s] [expo] interior: in/out/sky=20122/1921/357 key=0.3 Lavg=0.08945 p97=0.9302 ev_hi=1.48 -> ev=1.48 windowND=0.05
+[   21.7s] [wb] gains (0.824, 1.0, 1.235)
+[   98.8s] SHOT 1.B-living still 800x450 spp<=32 ev=1.83 in 92.3s -> renders/preview/1.B/riviera/1.B-living.jpg
+[  112.7s] [expo] interior: in/out/sky=21007/1239/154 key=0.3 Lavg=0.06524 p97=0.8164 ev_hi=1.67 -> ev=1.67 windowND=0.34
+[  112.7s] [wb] gains (0.856, 1.0, 1.172)
+[  193.5s] SHOT 1.B-bedroom still 800x450 spp<=32 ev=2.02 in 94.7s -> renders/preview/1.B/riviera/1.B-bedroom.jpg
+[  206.4s] [expo] interior: in/out/sky=22400/0/0 key=0.3 Lavg=0.003934 p97=0.3353 ev_hi=2.96 -> ev=2.96 windowND=1.00
+[  206.4s] [wb] gains (0.617, 1.0, 2.4)
+[  263.8s] SHOT 1.B-bathroom still 800x450 spp<=32 ev=3.31 in 70.3s -> renders/preview/1.B/riviera/1.B-bathroom.jpg
+[  263.8s] DONE 3 images in 263.8s

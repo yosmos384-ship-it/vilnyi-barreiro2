@@ -1,0 +1,124 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.B",
+  "pkg": "riviera",
+  "quality": "preview",
+  "tod": "day",
+  "shots": [
+   "1.B-living",
+   "1.B-bedroom",
+   "1.B-bathroom"
+  ],
+  "out": "renders/preview/1.B/riviera",
+  "name": "preview-u1.B-riviera-z0",
+  "opts": {
+   "ev_bias": 0.35
+  },
+  "q": {
+   "still": [
+    800,
+    450
+   ],
+   "still_spp": 32,
+   "expo_samples": 16
+  }
+ },
+ "shots": [
+  {
+   "id": "1.B-living",
+   "type": "still",
+   "file": "renders/preview/1.B/riviera/1.B-living.jpg",
+   "thumb": "renders/preview/1.B/riviera/thumbs/1.B-living.jpg",
+   "W": 800,
+   "H": 450,
+   "spp": 32,
+   "ev": 1.8328996114942626,
+   "tod": "day",
+   "position": [
+    8.3,
+    4.45,
+    5.0
+   ],
+   "lookAt": [
+    7.6,
+    4.45,
+    0.5
+   ],
+   "roomId": "1.B-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "lens": 18.0,
+   "shift_y": 0.0,
+   "seconds": 92.3
+  },
+  {
+   "id": "1.B-bedroom",
+   "type": "still",
+   "file": "renders/preview/1.B/riviera/1.B-bedroom.jpg",
+   "thumb": "renders/preview/1.B/riviera/thumbs/1.B-bedroom.jpg",
+   "W": 800,
+   "H": 450,
+   "spp": 32,
+   "ev": 2.02112420005731,
+   "tod": "day",
+   "position": [
+    12.5,
+    4.45,
+    4.4
+   ],
+   "lookAt": [
+    10.4,
+    4.25,
+    0.3
+   ],
+   "roomId": "1.B-bed",
+   "name": {
+    "en": "Bedroom",
+    "pt": "Quarto",
+    "he": "חדר שינה"
+   },
+   "kind": "bedroom",
+   "lens": 18.0,
+   "shift_y": -0.0217,
+   "seconds": 94.7
+  },
+  {
+   "id": "1.B-bathroom",
+   "type": "still",
+   "file": "renders/preview/1.B/riviera/1.B-bathroom.jpg",
+   "thumb": "renders/preview/1.B/riviera/thumbs/1.B-bathroom.jpg",
+   "W": 800,
+   "H": 450,
+   "spp": 32,
+   "ev": 3.3050209868840326,
+   "tod": "day",
+   "position": [
+    8.6,
+    4.6,
+    5.6
+   ],
+   "lookAt": [
+    8.6,
+    3.85,
+    7.0
+   ],
+   "roomId": "1.B-wc",
+   "name": {
+    "en": "Bathroom",
+    "pt": "I.S.",
+    "he": "חדר רחצה"
+   },
+   "kind": "bathroom",
+   "lens": 14.0,
+   "shift_y": -0.2083,
+   "seconds": 70.3
+  }
+ ],
+ "seconds": 263.8,
+ "blender": "4.2.3 LTS"
+}
