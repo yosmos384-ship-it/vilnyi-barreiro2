@@ -1,0 +1,51 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.A",
+  "pkg": "natura",
+  "quality": "standard",
+  "tod": "night",
+  "shots": [
+   "1.A-living"
+  ],
+  "out": "renders/units/1.A/natura",
+  "name": "u1.A-natura-night-z0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "1.A-living",
+   "type": "still",
+   "file": "renders/units/1.A/natura/1.A-living.night.jpg",
+   "thumb": "renders/units/1.A/natura/thumbs/1.A-living.night.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 5.752196971159259,
+   "tod": "night",
+   "position": [
+    3.35,
+    4.45,
+    4.95
+   ],
+   "lookAt": [
+    5.6,
+    4.45,
+    0.6
+   ],
+   "roomId": "1.A-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "night",
+   "lens": 20.0,
+   "shift_y": 0.0,
+   "seconds": 1894.2
+  }
+ ],
+ "seconds": 1901.0,
+ "blender": "4.2.3 LTS"
+}
