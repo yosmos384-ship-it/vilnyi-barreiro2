@@ -7,7 +7,15 @@
   ],
   "out": "renders/preview/common",
   "name": "preview-common-lobby-night",
-  "opts": {}
+  "opts": {},
+  "q": {
+   "still": [
+    800,
+    450
+   ],
+   "still_spp": 32,
+   "expo_samples": 16
+  }
  },
  "shots": [
   {
@@ -15,10 +23,10 @@
    "type": "still",
    "file": "renders/preview/common/lobby-night.jpg",
    "thumb": "renders/preview/common/thumbs/lobby-night.jpg",
-   "W": 960,
-   "H": 540,
-   "spp": 64,
-   "ev": 2.2570917704044957,
+   "W": 800,
+   "H": 450,
+   "spp": 32,
+   "ev": 2.566180690264135,
    "tod": "night",
    "position": [
     9,
@@ -33,13 +41,11 @@
    "roomId": null,
    "name": "Entrance lobby at night",
    "kind": null,
-   "variant_of": "lobby",
-   "variant_tod": "night",
    "lens": 18.0,
    "shift_y": -0.0034,
-   "seconds": 352.6
+   "seconds": 248.8
   }
  ],
- "seconds": 355.2,
+ "seconds": 254.0,
  "blender": "4.2.3 LTS"
 }
