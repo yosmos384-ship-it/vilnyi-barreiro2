@@ -18,7 +18,7 @@
    "W": 2400,
    "H": 1350,
    "spp": 192,
-   "ev": 6.157793496706777,
+   "ev": 6.195550411880808,
    "tod": "night",
    "position": [
     7,
@@ -33,13 +33,11 @@
    "roomId": null,
    "name": "Frontal street view at night",
    "kind": null,
-   "variant_of": "street-dusk",
-   "variant_tod": "night",
    "lens": 18.0,
    "shift_y": 0.1696,
-   "seconds": 4817.8
+   "seconds": 4721.3
   }
  ],
- "seconds": 4830.1,
+ "seconds": 4738.9,
  "blender": "4.2.3 LTS"
 }
