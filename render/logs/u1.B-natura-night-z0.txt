@@ -1,0 +1,18 @@
+[    0.0s] job u1.B-natura-night-z0: scope=unit unit=1.B pkg=natura quality=standard shots=1
+[    0.8s] import building: 491 objects in 0.8s
+[    1.2s] import context: 127 objects in 0.3s
+[    1.5s] import unit-1.B-natura: 80 objects in 0.3s
+[    1.9s] box UVs on 634 meshes
+[    1.9s] [presets] from js/environment.js
+[    3.8s] [foliage] leafified 23 objects, crown area 1111 m2 -> ~1444499 leaves
+[    3.8s] materials: built=236 textured=67 by_key={'aluminium-frame': 2, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 4, 'asphalt': 1, 'bark': 1, 'bath-floor': 1, 'bath-wall': 1, 'book': 3, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 3, 'candle-wax': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-plate': 1, 'car-rim': 1, 'car-taillight': 1, 'car-trim': 1, 'car-tyre': 1, 'ceiling': 1, 'ceiling-white': 2, 'ceramic-plate': 3, 'concrete': 4, 'cutlery-steel': 1, 'deck-teak': 2, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'fabric-boucle': 4, 'fabric-linen': 6, 'fabric-sofa': 1, 'floor-main': 2, 'foliage': 19, 'foliage-inner': 1, 'fruit': 3, 'garage-door': 1, 'glass-drinking': 1, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 2, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 2, 'lawn': 2, 'leather': 1, 'led-strip-emissive': 13, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 3, 'mirror': 2, 'paint-green': 1, 'paint-hazard': 1, 'paint-red': 1, 'paint-white': 1, 'paint-yellow': 1, 'paving-calcada': 2, 'plant-leaf': 3, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'plastic-red': 1, 'plastic-white': 1, 'pot-terracotta': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 1, 'render-white': 1, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 1, 'sanitary-ceramic': 2, 'shower-glass': 1, 'shower-wall': 1, 'signage': 39, 'skirting': 2, 'soil': 3, 'steel-dark': 5, 'steel-galvanised': 1, 'stone-coping': 2, 'tap-metal': 1, 'timber-soffit': 1, 'wall-feature': 1, 'wall-paint': 1, 'window-sheer': 1, 'wine': 1, 'wood-furniture': 4, 'zinc-standing-seam': 2}
+[    5.2s] [signs] lettering on 34 signs, 5 texture planes hidden
+[    5.2s] [lamps] night: list=5 new=0 merged-with-bulbs=2 strips=2 no-fixture=1 (1400 lm per unit intensity)
+[    5.2s] evening lights: street=6 lamp-list=2 lit-window fraction=0.45
+[    5.2s] lights: imported=0 emissive->lights=115 portals=0 boost=1.0 total_lights=121 polys=350954
+[    6.6s] [world] procedural night: moon bearing 168 alt 40 key 7.0 lux, sky 2.6 lux (mean radiance 0.001656), stars 1500, camera gain 1.6
+[    6.6s] scene ready in 6.6s  (world procedural-night)
+[   22.2s] [expo] interior night: in/out/sky=20187/1856/357 key=0.22 Lavg=0.00583 p97=0.1217 ev_hi=5.62 -> ev=5.24 windowND=0.31
+[   22.2s] [wb] gains (0.472, 1.0, 2.707)
+[ 1685.1s] SHOT 1.B-living still 2400x1350 spp<=96 ev=5.24 in 1678.5s -> renders/units/1.B/natura/1.B-living.night.jpg
+[ 1685.1s] DONE 1 images in 1685.1s
