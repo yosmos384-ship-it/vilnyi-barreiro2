@@ -1,0 +1,23 @@
+[    0.0s] job u2.C-natura-z0: scope=unit unit=2.C pkg=natura quality=standard shots=3
+[    0.8s] import building: 491 objects in 0.8s
+[    1.2s] import context: 127 objects in 0.3s
+[    1.6s] import unit-2.C-natura: 99 objects in 0.4s
+[    1.9s] box UVs on 653 meshes
+[    3.8s] [foliage] leafified 24 objects, crown area 1112 m2 -> ~1445253 leaves
+[    3.8s] materials: built=248 textured=72 by_key={'aluminium-frame': 2, 'appliance-glass-black': 2, 'appliance-steel': 1, 'art-canvas': 6, 'asphalt': 1, 'bark': 2, 'bath-floor': 1, 'bath-wall': 1, 'book': 7, 'brass': 1, 'brick-facade': 1, 'bulb-emissive': 3, 'candle-wax': 1, 'car-glass': 1, 'car-headlight': 1, 'car-paint': 10, 'car-plate': 1, 'car-rim': 1, 'car-taillight': 1, 'car-trim': 1, 'car-tyre': 1, 'ceiling': 1, 'ceiling-white': 2, 'ceramic-plate': 3, 'concrete': 4, 'cutlery-steel': 1, 'deck-teak': 3, 'door-interior': 1, 'door-walnut': 1, 'downlight-emissive': 2, 'fabric-boucle': 5, 'fabric-linen': 6, 'fabric-sofa': 1, 'floor-main': 2, 'foliage': 19, 'foliage-inner': 1, 'fruit': 3, 'garage-door': 1, 'glass-drinking': 2, 'glass-railing': 3, 'glass-window': 2, 'gravel': 3, 'handrail-steel': 1, 'joinery-wardrobe': 1, 'kerb-stone': 2, 'kitchen-front': 1, 'kitchen-splashback': 1, 'kitchen-worktop': 1, 'lamp-shade': 2, 'lawn': 2, 'leather': 2, 'led-strip-emissive': 13, 'lift-steel': 8, 'lobby-floor-stone': 1, 'lobby-wall-walnut-slats': 1, 'metal-furniture': 3, 'mirror': 2, 'paint-green': 1, 'paint-hazard': 1, 'paint-red': 1, 'paint-white': 1, 'paint-yellow': 1, 'paving-calcada': 2, 'plant-leaf': 3, 'planter-concrete': 1, 'plaster-white': 2, 'plastic-black': 1, 'plastic-red': 1, 'plastic-white': 1, 'pv-panel': 1, 'render-cream': 3, 'render-pink': 1, 'render-white': 1, 'roof-tile-terracotta': 1, 'rubber': 1, 'rug': 1, 'sanitary-ceramic': 3, 'shower-glass': 1, 'shower-wall': 1, 'signage': 39, 'skirting': 2, 'soil': 3, 'steel-dark': 5, 'steel-galvanised': 1, 'stone-coping': 2, 'tap-metal': 1, 'timber-soffit': 1, 'wall-feature': 1, 'wall-paint': 1, 'wine': 1, 'wood-furniture': 6, 'zinc-standing-seam': 2}
+[    5.3s] [signs] lettering on 34 signs, 5 texture planes hidden
+[    5.3s] flames hidden by day: 1
+[    5.3s] lights: imported=2 emissive->lights=141 portals=32 boost=2.5 total_lights=175 polys=392203
+[    6.0s] [world] kloofendal_43d_clear_puresky 4096x2048 sun=True sun_E=6.101 sky_E=1.300
+[    6.2s] [world] sun at bearing 200.0 alt 42.9  E=139.1 W/m2(phot) = 95000 lux  sky x22.8
+[    6.3s] scene ready in 6.2s  (world kloofendal_43d_clear_puresky)
+[   22.7s] [expo] interior: in/out/sky=19951/2262/187 key=0.3 Lavg=0.06143 p97=0.6099 ev_hi=2.09 -> ev=2.09 windowND=0.07
+[   22.7s] [wb] gains (0.772, 1.0, 1.307)
+[ 1977.5s] SHOT 2.C-living still 2400x1350 spp<=96 ev=2.44 in 1971.2s -> renders/units/2.C/natura/2.C-living.jpg
+[ 1994.2s] [expo] interior: in/out/sky=15397/6493/510 key=0.3 Lavg=0.04068 p97=0.5997 ev_hi=2.12 -> ev=2.12 windowND=0.07
+[ 1994.2s] [wb] gains (0.847, 1.0, 1.266)
+[ 3640.4s] SHOT 2.C-bedroom still 2400x1350 spp<=96 ev=2.47 in 1662.9s -> renders/units/2.C/natura/2.C-bedroom.jpg
+[ 3657.5s] [expo] interior: in/out/sky=22400/0/0 key=0.3 Lavg=0.03962 p97=0.2895 ev_hi=3.17 -> ev=2.92 windowND=1.00
+[ 3657.5s] [wb] gains (0.417, 1.0, 2.4)
+[ 5666.2s] SHOT 2.C-bathroom still 2400x1350 spp<=96 ev=3.27 in 2025.9s -> renders/units/2.C/natura/2.C-bathroom.jpg
+[ 5666.2s] DONE 3 images in 5666.2s
