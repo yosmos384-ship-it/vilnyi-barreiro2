@@ -5,7 +5,8 @@ python3 plan.py --set preview|exterior|common|units|all --quality q [--units 1.C
 python3 plan.py --request render/requests/<name>.json
     The request file holds the same inputs: {set, quality, units, packages, shots, tod, opts} - or a LIST of such objects
     (their jobs are concatenated into one run). Extra request keys: "preview": true (outputs go to renders/preview/...,
-    which the manifest ignores), "per_shard": n (panoramas per job).
+    which the manifest ignores), "per_shard": n (panoramas per job), "tag": job-name tag for re-runs (use one that sorts after
+    's', e.g. "z": the manifest takes the last shots-*.json in name order), "q": overrides of the quality table.
 
 shots: comma list of shot ids, or the tokens  panos | stills | living  (living = the living-room panoramas + the living hero
 still of each unit - the set rendered for the dusk / night variants).
@@ -51,7 +52,14 @@ def jobs_for(req, cams):
     want = csv(req.get('shots')) or ['all']
     tods = csv(req.get('tod')) or ['day']
     preview = bool(req.get('preview'))
+    tag = str(req.get('tag') or '')     # job-name tag: keeps re-runs from overwriting the shots-<name>.json / logs of the first run
     jobs = []
+    qov = req.get('q') or None      # per-request overrides of the quality table, e.g. {"still": [800, 450], "still_spp": 32}
+
+    def J(**kw):
+        if qov:
+            kw['q'] = qov
+        return kw
     if st == 'preview':
         q = req.get('quality') or 'preview'
         u, p = (units[0] if csv(req.get('units')) else '1.C'), (pkgs[0] if csv(req.get('packages')) else 'lisboa')
@@ -69,13 +77,13 @@ def jobs_for(req, cams):
         for c in cams.get('exterior', []):
             if want not in (['all'], ['stills']) and c['id'] not in want:
                 continue
-            jobs.append(dict(scope='exterior', quality=q, shots=[c['id']], out='renders/preview/exterior' if preview else 'renders/exterior',
+            jobs.append(J(scope='exterior', quality=q, shots=[c['id']], out='renders/preview/exterior' if preview else 'renders/exterior',
                              name=f'{pre}ext-{c["id"]}', opts=opts))
     if st in ('common', 'all'):
         for c in cams.get('common', []):     # one job per shot (lamp-lit common areas are slow)
             if want not in (['all'], ['stills']) and c['id'] not in want:
                 continue
-            jobs.append(dict(scope='common', quality=q, shots=[c['id']], out='renders/preview/common' if preview else 'renders/common',
+            jobs.append(J(scope='common', quality=q, shots=[c['id']], out='renders/preview/common' if preview else 'renders/common',
                              name=f'{pre}common-{c["id"]}', opts=opts))
     if st in ('units', 'all'):
         n = int(req.get('per_shard') or PER_SHARD.get(q, 4))
@@ -103,9 +111,9 @@ def jobs_for(req, cams):
                     for kname, shots in chunks:
                         if not shots:
                             continue
-                        jobs.append(dict(scope='unit', unit=u, pkg=p, quality=q, tod=tod, shots=list(shots),
+                        jobs.append(J(scope='unit', unit=u, pkg=p, quality=q, tod=tod, shots=list(shots),
                                          out=f'renders/preview/{u}/{p}' if preview else f'renders/units/{u}/{p}',
-                                         name=f'{pre}u{u}-{p}{tsfx}-{kname}', opts=opts))
+                                         name=f'{pre}u{u}-{p}{tsfx}-{tag}{kname}', opts=opts))
     return jobs
 
 

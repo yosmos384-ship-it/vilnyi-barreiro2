@@ -111,6 +111,18 @@ BASE = {
     # phase-4 names (natura / riviera / urban)
     'rattan':            dict(tex='acg:Wicker010A', size=0.3, tint='#b08a5c', detail=1.0, rough=(0.55, 0.8), bump=0.5, sheen=0.2, var=0.04),
     'floor-joint':       dict(color='#b9ad98', rough=0.9, var=0.0),
+    # building names outside the CONTRACT3 vocabulary (the exporter's colour guess used to turn the yellow/black column
+    # guards and the green walkway paint into 'foliage' -> leaves)
+    'paint-hazard':      dict(color='#e6b520', proc='hazard', rough=0.55, var=0.02),
+    'paint-yellow':      dict(color='#e6b520', rough=0.5, var=0.02),
+    'paint-red':         dict(color='#b3261e', rough=0.5, var=0.02),
+    'paint-green':       dict(color='#4f8f6c', rough=0.6, var=0.04),
+    'plastic-red':       dict(color='#a8322c', rough=0.4, var=0.0),
+    'plastic-white':     dict(color='#efefec', rough=0.4, var=0.0),
+    'steel-galvanised':  dict(color='#b4b8bb', rough=0.45, metal=1.0, var=0.06),
+    'car-rim':           dict(color='#c9cccf', rough=0.25, metal=1.0, var=0.0),
+    'car-trim':          dict(color='#2a2c30', rough=0.45, var=0.0),
+    'car-plate':         dict(color='#f1f1ec', rough=0.4, var=0.0),
     'terracotta':        dict(tex='terracotta_floor_tiles', size=1.0, color='#b86a45', rough=(0.7, 0.95), keep_color=True),
 }
 

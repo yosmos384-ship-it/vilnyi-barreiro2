@@ -1,5 +1,5 @@
 {
- "_doc": "Camera overrides for render_job.py (three.js metres, Y-up). hero_auto: apartment hero stills (living/bedroom/bathroom) are re-framed by ray-casting the furnished room (clear foreground, long view, window in frame; door leaves of that room hidden). 'shots' entries override any field of a shot after that (position, lookAt, lens_mm, clip_start, auto:false to keep the exported/explicit camera, hide:[object-name substrings]). 'extra_exterior' / 'extra_common' add shots. 'hero_per_package': packages whose hero stills use their own exported framing (cameras.json unitsData.<unit>.packages.<pkg>.hero) instead of the package-independent one. Extra shots may carry variant_of / variant_tod: the manifest then also attaches them as variants.<tod> of that base shot.",
+ "_doc": "Camera overrides for render_job.py (three.js metres, Y-up). hero_auto: apartment hero stills (living/bedroom/bathroom) are re-framed by ray-casting the furnished room (clear foreground, long view, window in frame; door leaves of that room hidden). 'shots' entries override any field of a shot after that (position, lookAt, lens_mm, clip_start, auto:false to keep the exported/explicit camera, hide:[object-name substrings]). 'extra_exterior' / 'extra_common' add shots. 'hero_per_package': packages whose hero stills use their own exported framing (cameras.json unitsData.<unit>.packages.<pkg>.hero) instead of the package-independent one. Extra shots may carry variant_of / variant_tod: the manifest then also attaches them as variants.<tod> of that base shot. 'heroes': explicit hero-still cameras per unit (id = <unit>-living|bedroom|bathroom), merged over the exported hero of the same id for EVERY package and mood; hide_doors hides the door leaves (+ ironmongery) of the shot's room (roomId, plus hide_rooms). 'variant_of': {shot id: [base shot id, tod]} - the manifest folds those shots into variants.<tod> of the base entry.",
  "hero_auto": false,
  "shots": {
   "street-golden-34": {
@@ -110,9 +110,7 @@
     "context"
    ],
    "sensor_width_mm": 36,
-   "aspect": "16:9",
-   "variant_of": "entrance-day",
-   "variant_tod": "dusk"
+   "aspect": "16:9"
   },
   {
    "id": "garage-ramp",
@@ -156,9 +154,7 @@
    "scenes": [
     "building",
     "context"
-   ],
-   "variant_of": "street-dusk",
-   "variant_tod": "night"
+   ]
   },
   {
    "id": "street-eye-night",
@@ -180,9 +176,7 @@
    "scenes": [
     "building",
     "context"
-   ],
-   "variant_of": "street-eye",
-   "variant_tod": "night"
+   ]
   },
   {
    "id": "entrance-night",
@@ -204,9 +198,51 @@
     "context"
    ],
    "sensor_width_mm": 36,
+   "aspect": "16:9"
+  },
+  {
+   "id": "street-day",
+   "name": "Frontal street view",
+   "position": [
+    7,
+    0.5,
+    26.2
+   ],
+   "lookAt": [
+    7,
+    4.4,
+    14.7
+   ],
+   "lens_mm": 18,
+   "sensor_width_mm": 36,
    "aspect": "16:9",
-   "variant_of": "entrance-day",
-   "variant_tod": "night"
+   "time_of_day": "day",
+   "scenes": [
+    "building",
+    "context"
+   ]
+  },
+  {
+   "id": "street-eye-dusk",
+   "name": "Street, eye level, at dusk",
+   "position": [
+    -3.5,
+    0.65,
+    21.8
+   ],
+   "lookAt": [
+    10.5,
+    2.2,
+    10
+   ],
+   "lens_mm": 24,
+   "sensor_width_mm": 36,
+   "aspect": "9:16",
+   "time_of_day": "dusk",
+   "scenes": [
+    "building",
+    "context"
+   ]
   }
  ],
  "extra_common": [
@@ -293,9 +329,7 @@
    "scenes": [
     "building",
     "context"
-   ],
-   "variant_of": "lobby",
-   "variant_tod": "night"
+   ]
   },
   {
    "id": "lobby-2-night",
@@ -316,14 +350,466 @@
     "building"
    ],
    "sensor_width_mm": 36,
-   "aspect": "16:9",
-   "variant_of": "lobby-2",
-   "variant_tod": "night"
+   "aspect": "16:9"
   }
  ],
  "hero_per_package": [
   "natura",
   "riviera",
   "urban"
- ]
+ ],
+ "heroes": {
+  "0.A": [
+   {
+    "id": "0.A-living",
+    "kind": "living",
+    "position": [
+     3.35,
+     1.45,
+     4.95
+    ],
+    "lookAt": [
+     5.6,
+     1.45,
+     0.6
+    ],
+    "lens_mm": 20,
+    "hide_doors": true
+   },
+   {
+    "id": "0.A-bedroom",
+    "kind": "bedroom",
+    "position": [
+     0.45,
+     1.45,
+     5.0
+    ],
+    "lookAt": [
+     2.6,
+     1.15,
+     0.4
+    ],
+    "lens_mm": 18,
+    "hide_doors": true
+   },
+   {
+    "id": "0.A-bathroom",
+    "kind": "bathroom",
+    "position": [
+     3.9,
+     1.6,
+     5.6
+    ],
+    "lookAt": [
+     3.9,
+     0.9,
+     7.0
+    ],
+    "lens_mm": 14,
+    "hide_doors": true,
+    "roomId": "0.A-wc",
+    "roomName": {
+     "en": "Guest bathroom",
+     "pt": "I.S. serviço",
+     "he": "חדר רחצה אורחים"
+    }
+   }
+  ],
+  "1.A": [
+   {
+    "id": "1.A-living",
+    "kind": "living",
+    "position": [
+     3.35,
+     4.45,
+     4.95
+    ],
+    "lookAt": [
+     5.6,
+     4.45,
+     0.6
+    ],
+    "lens_mm": 20,
+    "hide_doors": true
+   },
+   {
+    "id": "1.A-bedroom",
+    "kind": "bedroom",
+    "position": [
+     0.45,
+     4.45,
+     5.0
+    ],
+    "lookAt": [
+     2.6,
+     4.15,
+     0.4
+    ],
+    "lens_mm": 18,
+    "hide_doors": true
+   },
+   {
+    "id": "1.A-bathroom",
+    "kind": "bathroom",
+    "position": [
+     3.9,
+     4.6,
+     5.6
+    ],
+    "lookAt": [
+     3.9,
+     3.9,
+     7.0
+    ],
+    "lens_mm": 14,
+    "hide_doors": true,
+    "roomId": "1.A-wc",
+    "roomName": {
+     "en": "Guest bathroom",
+     "pt": "I.S. serviço",
+     "he": "חדר רחצה אורחים"
+    }
+   }
+  ],
+  "2.A": [
+   {
+    "id": "2.A-living",
+    "kind": "living",
+    "position": [
+     3.35,
+     7.45,
+     4.95
+    ],
+    "lookAt": [
+     5.6,
+     7.45,
+     0.6
+    ],
+    "lens_mm": 20,
+    "hide_doors": true
+   },
+   {
+    "id": "2.A-bedroom",
+    "kind": "bedroom",
+    "position": [
+     0.45,
+     7.45,
+     5.0
+    ],
+    "lookAt": [
+     2.6,
+     7.15,
+     0.4
+    ],
+    "lens_mm": 18,
+    "hide_doors": true
+   },
+   {
+    "id": "2.A-bathroom",
+    "kind": "bathroom",
+    "position": [
+     3.9,
+     7.6,
+     5.6
+    ],
+    "lookAt": [
+     3.9,
+     6.9,
+     7.0
+    ],
+    "lens_mm": 14,
+    "hide_doors": true,
+    "roomId": "2.A-wc",
+    "roomName": {
+     "en": "Guest bathroom",
+     "pt": "I.S. serviço",
+     "he": "חדר רחצה אורחים"
+    }
+   }
+  ],
+  "0.B": [
+   {
+    "id": "0.B-living",
+    "kind": "living",
+    "position": [
+     8.3,
+     1.45,
+     5.0
+    ],
+    "lookAt": [
+     7.6,
+     1.45,
+     0.5
+    ],
+    "lens_mm": 18,
+    "hide_doors": true
+   },
+   {
+    "id": "0.B-bedroom",
+    "kind": "bedroom",
+    "position": [
+     9.8,
+     1.45,
+     7.9
+    ],
+    "lookAt": [
+     13.5,
+     1.25,
+     6.3
+    ],
+    "lens_mm": 18,
+    "hide_doors": true
+   },
+   {
+    "id": "0.B-bathroom",
+    "kind": "bathroom",
+    "position": [
+     9.05,
+     1.6,
+     5.58
+    ],
+    "lookAt": [
+     8.6,
+     0.85,
+     7.0
+    ],
+    "lens_mm": 14,
+    "hide_doors": true
+   }
+  ],
+  "1.B": [
+   {
+    "id": "1.B-living",
+    "kind": "living",
+    "position": [
+     8.3,
+     4.45,
+     5.0
+    ],
+    "lookAt": [
+     7.6,
+     4.45,
+     0.5
+    ],
+    "lens_mm": 18,
+    "hide_doors": true
+   },
+   {
+    "id": "1.B-bedroom",
+    "kind": "bedroom",
+    "position": [
+     12.5,
+     4.45,
+     4.4
+    ],
+    "lookAt": [
+     10.4,
+     4.25,
+     0.3
+    ],
+    "lens_mm": 18,
+    "hide_doors": true
+   },
+   {
+    "id": "1.B-bathroom",
+    "kind": "bathroom",
+    "position": [
+     8.6,
+     4.6,
+     5.6
+    ],
+    "lookAt": [
+     8.6,
+     3.85,
+     7.0
+    ],
+    "lens_mm": 14,
+    "hide_doors": true
+   }
+  ],
+  "2.B": [
+   {
+    "id": "2.B-living",
+    "kind": "living",
+    "position": [
+     8.3,
+     7.45,
+     5.0
+    ],
+    "lookAt": [
+     7.6,
+     7.45,
+     0.5
+    ],
+    "lens_mm": 18,
+    "hide_doors": true
+   },
+   {
+    "id": "2.B-bedroom",
+    "kind": "bedroom",
+    "position": [
+     12.5,
+     7.45,
+     4.4
+    ],
+    "lookAt": [
+     10.4,
+     7.25,
+     0.3
+    ],
+    "lens_mm": 18,
+    "hide_doors": true
+   },
+   {
+    "id": "2.B-bathroom",
+    "kind": "bathroom",
+    "position": [
+     8.6,
+     7.6,
+     5.6
+    ],
+    "lookAt": [
+     8.6,
+     6.85,
+     7.0
+    ],
+    "lens_mm": 14,
+    "hide_doors": true
+   }
+  ],
+  "1.C": [
+   {
+    "id": "1.C-living",
+    "kind": "living",
+    "position": [
+     10.1,
+     4.45,
+     8.6
+    ],
+    "lookAt": [
+     12.8,
+     4.45,
+     14.0
+    ],
+    "lens_mm": 20,
+    "hide_doors": true
+   },
+   {
+    "id": "1.C-bedroom",
+    "kind": "bedroom",
+    "position": [
+     5.75,
+     4.4,
+     11.65
+    ],
+    "lookAt": [
+     3.0,
+     4.3,
+     14.3
+    ],
+    "lens_mm": 18,
+    "hide_doors": true
+   },
+   {
+    "id": "1.C-bathroom",
+    "kind": "bathroom",
+    "position": [
+     7.72,
+     4.55,
+     8.98
+    ],
+    "lookAt": [
+     9.1,
+     3.75,
+     7.6
+    ],
+    "lens_mm": 14,
+    "hide_doors": true
+   }
+  ],
+  "2.C": [
+   {
+    "id": "2.C-living",
+    "kind": "living",
+    "position": [
+     10.1,
+     7.45,
+     8.6
+    ],
+    "lookAt": [
+     12.8,
+     7.45,
+     14.0
+    ],
+    "lens_mm": 20,
+    "hide_doors": true
+   },
+   {
+    "id": "2.C-bedroom",
+    "kind": "bedroom",
+    "position": [
+     5.75,
+     7.4,
+     11.65
+    ],
+    "lookAt": [
+     3.0,
+     7.3,
+     14.3
+    ],
+    "lens_mm": 18,
+    "hide_doors": true
+   },
+   {
+    "id": "2.C-bathroom",
+    "kind": "bathroom",
+    "position": [
+     7.72,
+     7.55,
+     8.98
+    ],
+    "lookAt": [
+     9.1,
+     6.75,
+     7.6
+    ],
+    "lens_mm": 14,
+    "hide_doors": true
+   }
+  ]
+ },
+ "variant_of": {
+  "street-dusk": [
+   "street-day",
+   "dusk"
+  ],
+  "street-night": [
+   "street-day",
+   "night"
+  ],
+  "street-eye-dusk": [
+   "street-eye",
+   "dusk"
+  ],
+  "street-eye-night": [
+   "street-eye",
+   "night"
+  ],
+  "entrance-dusk": [
+   "entrance-day",
+   "dusk"
+  ],
+  "entrance-night": [
+   "entrance-day",
+   "night"
+  ],
+  "lobby-night": [
+   "lobby",
+   "night"
+  ],
+  "lobby-2-night": [
+   "lobby-2",
+   "night"
+  ]
+ }
 }

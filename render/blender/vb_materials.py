@@ -618,6 +618,11 @@ def build(mat, key, variant, pkg, opts):
         else:
             color = nb.rgb(hex_lin(r.get('color', '#cccccc')))
 
+    if r.get('proc') == 'hazard':
+        # painted warning stripes: yellow / black, 45 degrees, 0.2 m pitch
+        sp = nb.node('ShaderNodeSeparateXYZ'); nb.link(uv_m, sp.inputs[0])
+        t = nb.math('FRACT', nb.math('DIVIDE', nb.math('ADD', sp.outputs[0], sp.outputs[1]), 0.2))
+        color = nb.mix('MIX', hex_lin(r.get('color', '#e6b520')), hex_lin('#17181a'), nb.math('GREATER_THAN', t, 0.5))
     if r.get('proc') == 'quartz':
         color = quartz(nb, uv_m, color)
     elif r.get('proc') == 'speckle':

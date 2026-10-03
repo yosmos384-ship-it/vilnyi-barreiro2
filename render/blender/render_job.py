@@ -31,6 +31,7 @@ import vb_scene as S
 import vb_lighting as LI
 import vb_meter as VM
 import vb_presets as VP
+import vb_signs as SG
 import numpy as np
 
 EVENING = ('dusk', 'night')
@@ -135,7 +136,12 @@ def shots_for(job, cams):
         # hero framing: package-independent (atlantic) for the first three packages (their day stills exist);
         # the phase-4 packages use their own clearance-tested framing
         own = job['pkg'] in (OVR.get('hero_per_package') or [])
+        # explicit hero cameras (cameras_override.json 'heroes'): ONE camera per shot for every package and mood
+        hov = {h['id']: h for h in (OVR.get('heroes') or {}).get(job['unit'], [])}
         for c in (pk.get('hero') if own and pk.get('hero') else u.get('hero', [])):
+            if c['id'] in hov:
+                c = dict(c, **hov[c['id']])
+                c.pop('verticals', None); c.pop('fallback', None)
             out.append(dict(c, type='still', tod=tod, scenes=['building', 'context', f"unit-{job['unit']}-{job['pkg']}"]))
     want = job.get('shots', 'all')
     if isinstance(want, str):
@@ -178,7 +184,7 @@ def place_camera(shot, q, quality):
     cam_d.type = 'PERSP'
     cam_d.sensor_fit = 'HORIZONTAL'; cam_d.sensor_width = 36.0
     lens = float(shot.get('lens_mm') or (24 if shot.get('roomId') else 35))
-    lens = max(16.0, min(85.0, lens))
+    lens = max(12.0, min(85.0, lens))
     W, H = q['still']
     if shot.get('aspect') == '9:16':
         W, H = H, W
@@ -303,6 +309,11 @@ def render_group(job, q, quality, scn, tod, shots, tmp, out_dir):
     if st['missing_tex']:
         log(f'materials: MISSING textures: {sorted(st["missing_tex"])}')
 
+    if opts.get('signs', True):
+        try:
+            SG.apply(log)
+        except Exception as e:
+            log('signs failed', repr(e)); log(traceback.format_exc())
     lopts = dict(lamp_boost=opts.get('lamp_boost', 2.5 if is_unit else (6.0 if tod == 'dusk' else 3.0)))
     if evening:
         # lamps are the light source now: real lumens (no daylight-fighting boost), downlights dimmed, lamp list on
@@ -422,7 +433,9 @@ def render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, evening=Fa
         VM.unhide(hidden)
 
 
-KEY = {'day': {'': 0.30, 'noir': 0.17}, 'dusk': {'': 0.25, 'noir': 0.17, 'urban': 0.22}, 'night': {'': 0.22, 'noir': 0.15, 'urban': 0.2}}
+KEY = {'day': {'': 0.30, 'noir': 0.17}, 'dusk': {'': 0.25, 'noir': 0.14, 'urban': 0.18}, 'night': {'': 0.22, 'noir': 0.125, 'urban': 0.16}}
+# bare glazing (no sheers): expose the view for the facades opposite (lower percentile), not for the sky
+WINDOW_DAY = {'': (75, 1.1), 'urban': (40, 1.9)}
 
 
 def _render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, hidden, evening=False):
@@ -437,6 +450,13 @@ def _render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, hidden, e
             if fr:
                 s.update(fr)
     s = apply_override(s)
+    if s.get('hide_doors'):
+        # open door leaves (and their ironmongery) of the camera's room would stand in the foreground
+        for rid in [s.get('roomId')] + list(s.get('hide_rooms') or []):
+            fl, room = VM.room_info(rid) if rid else (None, None)
+            if room is not None:
+                hidden += VM.hide_door_leaves(room)
+        bpy.context.view_layer.update()
     for pat in (s.get('hide') or []):
         for ob in bpy.data.objects:
             if pat in ob.name and not ob.hide_render:
@@ -479,6 +499,11 @@ def _render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, hidden, e
         p97 = float(np.percentile(li, 97))
         ev_hi = math.log2((opts.get('hi_white_evening', 6.0) if evening else opts.get('hi_white', 2.6)) / max(p97, 1e-6))
         ev = max(-12.0, min(14.0 if evening else 12.0, min(ev, ev_hi)))
+        if evening:
+            # dark rooms (dark finishes, a couple of small lamps) must stay moody: compress the lift above a normal evening exposure
+            knee = float(opts.get('ev_knee_evening', 6.5))
+            if ev > knee:
+                ev = knee + 0.5 * (ev - knee)
         sel = px[cls == 2][:, :3]
         # the view through the windows: camera-only ND on the glass so the outside stays readable.
         # Evening: the ND becomes a GAIN (the lamp-lit room is exposed, the blue-hour / night exterior is lifted to a readable level)
@@ -490,8 +515,9 @@ def _render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, hidden, e
                 wt = opts.get('window_target_' + tod, {'dusk': 0.32, 'night': 0.12}[tod])
                 nd = max(0.05, min(opts.get('window_gain_max', 24.0), wt / max(p75 * (2 ** ev), 1e-6)))
             else:
-                # bare glazing (no sheers: urban roller blinds) reads as dark glass at the default target -> brighter outside
-                nd = max(0.05, min(1.0, opts.get('window_target', {'urban': 3.0}.get(pkg, 1.1)) / max(p75 * (2 ** ev), 1e-6)))
+                pct, wtgt = WINDOW_DAY.get(pkg, WINDOW_DAY[''])
+                pv = float(np.percentile(lo_, opts.get('window_pct', pct)))
+                nd = max(0.05 if pkg != 'urban' else 0.16, min(1.0, opts.get('window_target', wtgt) / max(pv * (2 ** ev), 1e-6)))
         LI.set_window_nd(nd)
         log(f'[expo] interior{" " + tod if evening else ""}: in/out/sky={n_in}/{n_out}/{n_sky} key={key} Lavg={lavg:.4g} p97={p97:.4g} ev_hi={ev_hi:.2f} -> ev={ev:.2f} windowND={nd:.2f}')
     else:

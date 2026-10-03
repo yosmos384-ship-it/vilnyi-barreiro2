@@ -12,7 +12,8 @@ Manifest:
 Time of day: `file` / `thumb` are the DAY image; `variants` = { dusk: {file, thumb}, night: {file, thumb} } holds the same
 camera (identical yawOffset) at blue hour / at night. Unit variants are the files <name>.dusk.jpg / <name>.night.jpg next to the
 day file (thumbs likewise). Exterior / common night shots are separate entries (id, name, tod, variantOf = id of the day
-shot with the same framing) AND are attached to that base entry as variants.<tod>.
+shot with the same framing): they are folded into that base entry as variants.<tod> and do not appear as entries of their own
+(a night shot whose base has not been rendered yet stays listed until it has).
 Links: two panos are linked when they are in the same room/balcony, or their rooms connect through a door/opening/glass
 door/entry in FLOORS[].walls (js/data.js), and they are < 9 m apart.
 """
@@ -201,10 +202,12 @@ def extra_shots():
     try:
         ovr = json.load(open(os.path.join(ROOT, 'render', 'blender', 'cameras_override.json')))
         for c in ovr.get('extra_exterior', []) + ovr.get('extra_common', []):
-            out[c['id']] = c
+            out[c['id']] = dict(c)
         cams = json.load(open(os.path.join(ROOT, 'render', 'scenes', 'cameras.json')))
         for c in cams.get('exterior', []) + cams.get('common', []):
-            out.setdefault(c['id'], c)
+            out.setdefault(c['id'], dict(c))
+        for sid, (base, tod) in (ovr.get('variant_of') or {}).items():
+            out.setdefault(sid, {'id': sid}).update(variant_of=base, variant_tod=tod)
     except Exception as e:
         print('extra shots not loaded', e)
     return out
@@ -267,8 +270,8 @@ def main():
                             'panorama CENTRE column (u = 0.5). u grows to the right (clockwise seen from above). Seam at u = 0/1 faces away.',
                'links': 'indices into the same panos array (same room, or rooms connected by a door/opening/glass door, < 9 m)',
                'variants': 'file / thumb = DAY; variants.dusk / variants.night = {file, thumb} of the same camera (same yawOffset) at blue '
-                           'hour / at night (<name>.dusk.jpg / <name>.night.jpg). Exterior / common: variantOf = id of the day shot '
-                           'with the same framing (the entry is also attached there as variants.<tod>).',
+                           'hour / at night (<name>.dusk.jpg / <name>.night.jpg). Exterior / common dusk / night shots exist only as '
+                           'variants of the day shot with the same framing (street-day, street-eye, entrance-day, lobby, lobby-2).',
                'files': 'repo-relative paths (the Pages site serves them at the same relative path)'},
            'units': {}, 'exterior': [], 'common': []}
     for (scope, unit, pkg, sid), s in sorted(shots.items(), key=lambda kv: (kv[0][0], kv[0][1] or '', kv[0][2] or '', kv[1].get('index') if kv[1].get('index') is not None else 999, kv[0][3])):
@@ -294,7 +297,10 @@ def main():
             b = by_id.get(e.get('variantOf'))
             if b is not None and e.get('variantTod') in TODS:
                 b.setdefault('variants', {})[e['variantTod']] = {'file': e['file'], 'thumb': e['thumb']}
+                e['_folded'] = True
                 n_var += 1
+        # a dusk / night shot lives ONLY as a variant of its base (no duplicate gallery entries)
+        man[sect] = [e for e in man[sect] if not e.pop('_folded', False)]
     for pk in man['units'].values():
         for e in pk.values():
             for it in e['panos'] + e['stills']:

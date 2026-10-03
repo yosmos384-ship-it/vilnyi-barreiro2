@@ -191,6 +191,24 @@ def hide_door_leaves(room, margin=0.7):
             except Exception:
                 pass
             hidden.append(ob)
+    # ironmongery (lever, rose, plate) of the hidden leaves: small building meshes inside the leaf's bounding box
+    boxes = []
+    for ob in hidden:
+        ws = [ob.matrix_world @ Vector(b) for b in ob.bound_box]
+        boxes.append((Vector((min(p.x for p in ws) - 0.14, min(p.y for p in ws) - 0.14, min(p.z for p in ws) - 0.02)),
+                      Vector((max(p.x for p in ws) + 0.14, max(p.y for p in ws) + 0.14, max(p.z for p in ws) + 0.02))))
+    if boxes:
+        for ob in bpy.data.objects:
+            if ob.type != 'MESH' or ob.hide_render or ob.get('vb_src') != 'building' or ob.name.startswith('door-leaf-'):
+                continue
+            ws = [ob.matrix_world @ Vector(b) for b in ob.bound_box]
+            mn = Vector((min(p.x for p in ws), min(p.y for p in ws), min(p.z for p in ws)))
+            mx = Vector((max(p.x for p in ws), max(p.y for p in ws), max(p.z for p in ws)))
+            if (mx - mn).length > 0.5:
+                continue
+            if any(lo.x <= mn.x and lo.y <= mn.y and lo.z <= mn.z and mx.x <= hi.x and mx.y <= hi.y and mx.z <= hi.z for lo, hi in boxes):
+                ob.hide_render = True; ob.hide_viewport = True
+                hidden.append(ob)
     return hidden
 
 
