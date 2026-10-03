@@ -1,0 +1,43 @@
+{
+ "job": {
+  "scope": "exterior",
+  "quality": "standard",
+  "shots": [
+   "street-eye-dusk"
+  ],
+  "out": "renders/exterior",
+  "name": "ext-street-eye-dusk",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "street-eye-dusk",
+   "type": "still",
+   "file": "renders/exterior/street-eye-dusk.jpg",
+   "thumb": "renders/exterior/thumbs/street-eye-dusk.jpg",
+   "W": 1350,
+   "H": 2400,
+   "spp": 192,
+   "ev": 0.363579346284754,
+   "tod": "dusk",
+   "position": [
+    -3.5,
+    0.65,
+    21.8
+   ],
+   "lookAt": [
+    10.5,
+    2.2,
+    10
+   ],
+   "roomId": null,
+   "name": "Street, eye level, at dusk",
+   "kind": null,
+   "lens": 24.0,
+   "shift_y": 0.0564,
+   "seconds": 9674.2
+  }
+ ],
+ "seconds": 9688.4,
+ "blender": "4.2.3 LTS"
+}
