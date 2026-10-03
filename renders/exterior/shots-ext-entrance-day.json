@@ -7,9 +7,7 @@
   ],
   "out": "renders/exterior",
   "name": "ext-entrance-day",
-  "opts": {
-   "ev_bias": 0.35
-  }
+  "opts": {}
  },
  "shots": [
   {
@@ -20,7 +18,7 @@
    "W": 2400,
    "H": 1350,
    "spp": 192,
-   "ev": -2.522997973756566,
+   "ev": -2.7960195621468045,
    "tod": "day",
    "position": [
     7.2,
@@ -37,9 +35,9 @@
    "kind": null,
    "lens": 28.0,
    "shift_y": 0.0482,
-   "seconds": 2165.8
+   "seconds": 1631.3
   }
  ],
- "seconds": 2177.4,
+ "seconds": 1644.1,
  "blender": "4.2.3 LTS"
 }
