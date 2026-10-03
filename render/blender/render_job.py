@@ -367,6 +367,9 @@ def render_group(job, q, quality, scn, tod, shots, tmp, out_dir):
                          look=opts.get('look', 'AgX - Base Contrast' if (is_unit and job.get('pkg') != 'noir') or job['scope'] == 'common' else 'AgX - Medium High Contrast')))
     log(f'scene ready in {time.time() - t_load:.1f}s  (world {winfo.get("hdri")})')
 
+    if any(s.get('hide_doors') or s.get('hide') for s in shots):
+        # objects are hidden / shown between shots: Cycles' persistent data crashed on that (BVH refit) -> rebuild per render
+        bpy.context.scene.render.use_persistent_data = False
     res = []
     if opts.get('profile'):
         profile(shots[0], q, quality, tmp, opts)
@@ -547,6 +550,7 @@ def _render_shot(job, q, quality, s, tmp, out_dir, opts, is_unit, tod, hidden, e
         LI.WB[0] = None
     # ev_bias is the DAY bias (0.35 for the full set); evenings have their own
     ev += float(opts.get('ev_bias_' + tod, 0.0) if evening else opts.get('ev_bias', 0.0)) + float((opts.get('ev_shot') or {}).get(s['id'], 0.0))
+    SG.set_exposure(ev, opts.get('sign_target', 1.7))
     sc.view_settings.exposure = ev
     if evening:
         # tungsten light: take most of the orange cast out of the room (the blue evening outside gets bluer, as in a photograph)

@@ -1,0 +1,74 @@
+[
+ {
+  "set": "units",
+  "quality": "preview",
+  "preview": true,
+  "units": "0.A,1.A,2.A,1.B,2.B",
+  "packages": "atlantic",
+  "tod": "day",
+  "shots": "0.A-bathroom,1.A-bathroom,2.A-bathroom,1.B-bathroom,2.B-bathroom,2.A-bedroom",
+  "tag": "y",
+  "q": {
+   "still": [
+    800,
+    450
+   ],
+   "still_spp": 32,
+   "expo_samples": 16
+  },
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ {
+  "set": "units",
+  "quality": "preview",
+  "preview": true,
+  "units": "0.B",
+  "packages": "urban,riviera",
+  "tod": "day",
+  "shots": "0.B-living,0.B-bedroom,0.B-bathroom",
+  "tag": "y",
+  "q": {
+   "still": [
+    800,
+    450
+   ],
+   "still_spp": 32,
+   "expo_samples": 16
+  },
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ {
+  "set": "exterior",
+  "quality": "preview",
+  "preview": true,
+  "shots": "entrance-dusk,entrance-night,street-eye-dusk",
+  "q": {
+   "still": [
+    800,
+    450
+   ],
+   "still_spp": 32,
+   "expo_samples": 16
+  },
+  "opts": {}
+ },
+ {
+  "set": "common",
+  "quality": "preview",
+  "preview": true,
+  "shots": "lobby-night",
+  "q": {
+   "still": [
+    800,
+    450
+   ],
+   "still_spp": 32,
+   "expo_samples": 16
+  },
+  "opts": {}
+ }
+]

@@ -69,7 +69,8 @@ def _mat(name, color, glow=0.0, metal=0.0, rough=0.5):
     out = nt.nodes.new('ShaderNodeOutputMaterial')
     c = M.hex_lin(color)
     if glow > 0:
-        e = nt.nodes.new('ShaderNodeEmission'); e.inputs['Color'].default_value = c; e.inputs['Strength'].default_value = glow
+        e = nt.nodes.new('ShaderNodeEmission'); e.name = 'vbSignEm'; e.inputs['Color'].default_value = c; e.inputs['Strength'].default_value = glow
+        m['vb_glow'] = float(glow)
         nt.links.new(e.outputs[0], out.inputs['Surface'])
         try:
             m.cycles.emission_sampling = 'NONE'
@@ -81,6 +82,19 @@ def _mat(name, color, glow=0.0, metal=0.0, rough=0.5):
         nt.links.new(b.outputs[0], out.inputs['Surface'])
     m['vb_sign'] = 1
     return m
+
+
+def set_exposure(ev, target=1.7):
+    """Illuminated lettering is exposure-relative: it should read as lit text (about `target` scene-linear after exposure for the
+    brightest sign), by day and at night alike, instead of blowing out into glare when the night exposure is +5 EV."""
+    n = 0
+    for m in bpy.data.materials:
+        g = m.get('vb_glow')
+        nd = m.node_tree.nodes.get('vbSignEm') if (g and m.use_nodes) else None
+        if nd is not None:
+            nd.inputs['Strength'].default_value = (float(g) / 5.0) * target / (2.0 ** ev)
+            n += 1
+    return n
 
 
 def apply(log=print):
