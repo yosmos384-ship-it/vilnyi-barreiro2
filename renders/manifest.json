@@ -1,6 +1,6 @@
 {
  "version": 1,
- "generated": "2026-10-02T21:21:29Z",
+ "generated": "2026-10-03T02:39:37Z",
  "packages": [
   "atlantic",
   "lisboa",
@@ -18,7 +18,7 @@
   "position": "three.js world metres (Y-up), eye point of the panorama",
   "yawOffset": "radians; three.js camera yaw (rotation.y, YXZ order; 0 looks along -Z, +pi/2 looks along -X) of the panorama CENTRE column (u = 0.5). u grows to the right (clockwise seen from above). Seam at u = 0/1 faces away.",
   "links": "indices into the same panos array (same room, or rooms connected by a door/opening/glass door, < 9 m)",
-  "variants": "file / thumb = DAY; variants.dusk / variants.night = {file, thumb} of the same camera (same yawOffset) at blue hour / at night (<name>.dusk.jpg / <name>.night.jpg). Exterior / common: variantOf = id of the day shot with the same framing (the entry is also attached there as variants.<tod>).",
+  "variants": "file / thumb = DAY; variants.dusk / variants.night = {file, thumb} of the same camera (same yawOffset) at blue hour / at night (<name>.dusk.jpg / <name>.night.jpg). Exterior / common dusk / night shots exist only as variants of the day shot with the same framing (street-day, street-eye, entrance-day, lobby, lobby-2).",
   "files": "repo-relative paths (the Pages site serves them at the same relative path)"
  },
  "units": {
@@ -18228,32 +18228,6 @@
    }
   },
   {
-   "id": "entrance-dusk",
-   "roomId": null,
-   "name": "Street entrance at dusk",
-   "file": "renders/exterior/entrance-dusk.jpg",
-   "thumb": "renders/exterior/thumbs/entrance-dusk.jpg",
-   "tod": "dusk",
-   "lens": 28.0,
-   "W": 2400,
-   "H": 1350,
-   "variantOf": "entrance-day",
-   "variantTod": "dusk"
-  },
-  {
-   "id": "entrance-night",
-   "roomId": null,
-   "name": "Street entrance at night",
-   "file": "renders/exterior/entrance-night.jpg",
-   "thumb": "renders/exterior/thumbs/entrance-night.jpg",
-   "tod": "night",
-   "lens": 28.0,
-   "W": 2400,
-   "H": 1350,
-   "variantOf": "entrance-day",
-   "variantTod": "night"
-  },
-  {
    "id": "garage-ramp",
    "roomId": null,
    "name": "Garage entrance and ramp",
@@ -18296,12 +18270,8 @@
    "lens": 18.0,
    "W": 2400,
    "H": 1350,
-   "variants": {
-    "night": {
-     "file": "renders/exterior/street-night.jpg",
-     "thumb": "renders/exterior/thumbs/street-night.jpg"
-    }
-   }
+   "variantOf": "street-day",
+   "variantTod": "dusk"
   },
   {
    "id": "street-eye",
@@ -18319,19 +18289,6 @@
      "thumb": "renders/exterior/thumbs/street-eye-night.jpg"
     }
    }
-  },
-  {
-   "id": "street-eye-night",
-   "roomId": null,
-   "name": "Street, eye level, at night",
-   "file": "renders/exterior/street-eye-night.jpg",
-   "thumb": "renders/exterior/thumbs/street-eye-night.jpg",
-   "tod": "night",
-   "lens": 24.0,
-   "W": 1350,
-   "H": 2400,
-   "variantOf": "street-eye",
-   "variantTod": "night"
   },
   {
    "id": "street-golden-34",
@@ -18354,7 +18311,7 @@
    "lens": 18.0,
    "W": 2400,
    "H": 1350,
-   "variantOf": "street-dusk",
+   "variantOf": "street-day",
    "variantTod": "night"
   }
  ],
@@ -18447,32 +18404,6 @@
      "thumb": "renders/common/thumbs/lobby-2-night.jpg"
     }
    }
-  },
-  {
-   "id": "lobby-2-night",
-   "roomId": null,
-   "name": "Lobby towards the entrance, at night",
-   "file": "renders/common/lobby-2-night.jpg",
-   "thumb": "renders/common/thumbs/lobby-2-night.jpg",
-   "tod": "night",
-   "lens": 18.0,
-   "W": 2400,
-   "H": 1350,
-   "variantOf": "lobby-2",
-   "variantTod": "night"
-  },
-  {
-   "id": "lobby-night",
-   "roomId": null,
-   "name": "Entrance lobby at night",
-   "file": "renders/common/lobby-night.jpg",
-   "thumb": "renders/common/thumbs/lobby-night.jpg",
-   "tod": "night",
-   "lens": 18.0,
-   "W": 2400,
-   "H": 1350,
-   "variantOf": "lobby",
-   "variantTod": "night"
   }
  ]
 }
