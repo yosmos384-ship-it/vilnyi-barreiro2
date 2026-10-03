@@ -9,6 +9,11 @@
 //   `roomId` argument, or the data.js room containing the point); else `roomId`; else the unit's viewRoom. `yaw` (world yaw ψ =
 //   three.js camera.rotation.y, see below) is the direction faced on opening instead of pano.initialYaw / the default.
 //   Package and light crossfades always keep the current yaw; setPackage/setTimeOfDay take an optional { yaw } to set it explicitly.
+//   Input: while open, touch + pointer + mouse events are taken from `window` (capture phase, passive:false) and merged, so it
+//   works in iOS Safari / WKWebView / sandboxed iframes without pointer capture. Double-tap (or native dblclick) ANYWHERE =
+//   forward to the linked pano nearest the current view (≤ 75°), else a forward nudge. Elements the host adds inside the tour
+//   are treated as controls (left alone) when they are buttons/links/inputs, sit in `.tr-slot`, or carry `data-tr-ui`.
+//   Diagnostics: add `#tourdebug` to the URL, or tap the title block 5× quickly, to show the last input events / gesture.
 //   Host slot: `.tr-slot` (also returned as `slot`) is a stable, empty element in the top bar that this module never re-renders or
 //   empties — inject host controls (e.g. the "3D | Photoreal" segment) there, NOT into .tr-title/.tr-cap which are rewritten.
 //   export async function createGallery(container, { manifestUrl, lang, unitId?, packageId?, include?, timeOfDay?, onOpenPano? })
@@ -53,14 +58,14 @@ function srcFor(item, tod) {
   }
   return { file: item.file, thumb: item.thumb || null, tod: 'day' };
 }
-const DTAP_MS = 350, DTAP_PX = 30, NUDGE_MS = 400;
+const DTAP_MS = 400, DTAP_PX = 40, TAP_SLOP = 16, NUDGE_MS = 400;
 
 // ─────────────────────────────── i18n ───────────────────────────────
 const T = {
   en: {
     caption: 'Photoreal 360°', apartment: 'Apartment', close: 'Close', fullscreen: 'Full screen', map: 'Plan', gyro: 'Motion',
-    fwd: 'Move forward', back: 'Move back', left: 'Turn left', right: 'Turn right', pkg: 'Finish package',
-    hint: 'Drag to look around · double-click the floor to move', hintTouch: 'Drag to look · double-tap the floor to move',
+    fwd: 'Move forward', back: 'Move back', left: 'Turn left', right: 'Turn right', lookUp: 'Look up', lookDown: 'Look down', pkg: 'Finish package',
+    hint: 'Drag to look around · double-click anywhere to move forward', hintTouch: 'Drag to look · double-tap anywhere to move forward',
     loading: 'Loading view…', error: 'This view could not be loaded', notRendered: 'Not rendered yet',
     emptyCap: 'Blender Cycles · in production', emptyTitle: 'Photoreal renders are being produced',
     emptyBody: 'The 360° walkthrough of apartment {u} is being path-traced in Blender Cycles — every room, in all three finish packages. It will appear here automatically as soon as it is published.',
@@ -70,8 +75,8 @@ const T = {
   },
   pt: {
     caption: 'Fotorrealista 360°', apartment: 'Apartamento', close: 'Fechar', fullscreen: 'Ecrã inteiro', map: 'Planta', gyro: 'Movimento',
-    fwd: 'Avançar', back: 'Recuar', left: 'Rodar à esquerda', right: 'Rodar à direita', pkg: 'Pacote de acabamentos',
-    hint: 'Arraste para olhar · duplo clique no chão para avançar', hintTouch: 'Arraste para olhar · toque duplo no chão para avançar',
+    fwd: 'Avançar', back: 'Recuar', left: 'Rodar à esquerda', right: 'Rodar à direita', lookUp: 'Olhar para cima', lookDown: 'Olhar para baixo', pkg: 'Pacote de acabamentos',
+    hint: 'Arraste para olhar · duplo clique em qualquer ponto para avançar', hintTouch: 'Arraste para olhar · toque duplo em qualquer ponto para avançar',
     loading: 'A carregar…', error: 'Não foi possível carregar esta vista', notRendered: 'Ainda não renderizado',
     emptyCap: 'Blender Cycles · em produção', emptyTitle: 'Os renders fotorrealistas estão a ser produzidos',
     emptyBody: 'A visita 360° do apartamento {u} está a ser calculada em Blender Cycles — todas as divisões, nos três pacotes de acabamentos. Aparecerá aqui automaticamente assim que for publicada.',
@@ -81,8 +86,8 @@ const T = {
   },
   he: {
     caption: 'פוטוריאליסטי 360°', apartment: 'דירה', close: 'סגירה', fullscreen: 'מסך מלא', map: 'תוכנית', gyro: 'תנועה',
-    fwd: 'קדימה', back: 'אחורה', left: 'פנייה שמאלה', right: 'פנייה ימינה', pkg: 'חבילת גמר',
-    hint: 'גררו כדי להסתכל · לחיצה כפולה על הרצפה כדי להתקדם', hintTouch: 'גררו כדי להסתכל · הקשה כפולה על הרצפה כדי להתקדם',
+    fwd: 'קדימה', back: 'אחורה', left: 'פנייה שמאלה', right: 'פנייה ימינה', lookUp: 'מבט למעלה', lookDown: 'מבט למטה', pkg: 'חבילת גמר',
+    hint: 'גררו כדי להסתכל · לחיצה כפולה בכל מקום כדי להתקדם', hintTouch: 'גררו כדי להסתכל · הקשה כפולה בכל מקום במסך כדי להתקדם',
     loading: 'טוען…', error: 'לא ניתן לטעון את התצוגה', notRendered: 'טרם רונדר',
     emptyCap: 'Blender Cycles · בהפקה', emptyTitle: 'ההדמיות הפוטוריאליסטיות בהפקה',
     emptyBody: 'סיור ה-360° בדירה {u} מרונדר כעת ב-Blender Cycles — כל החדרים, בשלוש חבילות הגמר. הוא יופיע כאן אוטומטית מיד עם פרסומו.',
@@ -92,8 +97,8 @@ const T = {
   },
   ru: {
     caption: 'Фотореализм 360°', apartment: 'Квартира', close: 'Закрыть', fullscreen: 'Во весь экран', map: 'План', gyro: 'Гироскоп',
-    fwd: 'Вперёд', back: 'Назад', left: 'Повернуть влево', right: 'Повернуть вправо', pkg: 'Пакет отделки',
-    hint: 'Перетащите, чтобы осмотреться · двойной клик по полу — перейти', hintTouch: 'Проведите, чтобы осмотреться · двойное касание пола — перейти',
+    fwd: 'Вперёд', back: 'Назад', left: 'Повернуть влево', right: 'Повернуть вправо', lookUp: 'Смотреть вверх', lookDown: 'Смотреть вниз', pkg: 'Пакет отделки',
+    hint: 'Перетащите, чтобы осмотреться · двойной клик в любом месте — вперёд', hintTouch: 'Проведите, чтобы осмотреться · двойное касание в любом месте — вперёд',
     loading: 'Загрузка…', error: 'Не удалось загрузить вид', notRendered: 'Ещё не отрендерено',
     emptyCap: 'Blender Cycles · в работе', emptyTitle: 'Фотореалистичные рендеры готовятся',
     emptyBody: '360°-тур по квартире {u} сейчас рендерится в Blender Cycles — все комнаты, во всех трёх пакетах отделки. Он появится здесь автоматически сразу после публикации.',
@@ -116,6 +121,8 @@ const ICON = {
   adown: '<svg viewBox="0 0 24 24"><path d="M12 4.5V19M6 13l6 6 6-6"/></svg>',
   tleft: '<svg viewBox="0 0 24 24"><path d="M5.2 10A7.5 7.5 0 1 1 7 17.3"/><path d="M4.5 4.5v5.8h5.8"/></svg>',
   tright: '<svg viewBox="0 0 24 24"><path d="M18.8 10A7.5 7.5 0 1 0 17 17.3"/><path d="M19.5 4.5v5.8h-5.8"/></svg>',
+  lookup: '<svg viewBox="0 0 24 24"><path d="M5 4.5h14"/><path d="M12 20V9M7 14l5-5 5 5"/></svg>',
+  lookdown: '<svg viewBox="0 0 24 24"><path d="M5 19.5h14"/><path d="M12 4v11M7 10l5 5 5-5"/></svg>',
   chev: '<svg viewBox="0 0 24 24"><path d="M7 14l5-5 5 5"/></svg>',
   aperture: '<svg viewBox="0 0 64 64"><circle cx="32" cy="32" r="27"/><path d="M32 5l9 24M59 32l-24 9M32 59l-9-24M5 32l24-9M51.1 12.9L38 35M51.1 51.1L29 38M12.9 51.1L26 29M12.9 12.9L35 26"/></svg>',
   prev: '<svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg>',
@@ -129,13 +136,15 @@ const ICON = {
 // ─────────────────────────────── CSS ───────────────────────────────
 const CSS = `
 .tr-root{position:absolute;inset:0;z-index:60;overflow:hidden;overscroll-behavior:contain;background:#0c0b0a;color:#f3efe8;font-family:var(--f-body,'Jost','Avenir Next','Segoe UI',system-ui,sans-serif);line-height:1.25;
- -webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent;touch-action:none;
+ -webkit-user-select:none;user-select:none;-webkit-touch-callout:none;-webkit-tap-highlight-color:transparent;touch-action:none;-webkit-text-size-adjust:100%;
  --tr-glass:rgba(17,16,15,.56);--tr-glass-hi:rgba(30,28,26,.72);--tr-line:rgba(255,255,255,.15);--tr-line-hi:rgba(255,255,255,.34);--tr-accent:#cdb07a;--tr-in:14px;--tr-b:44px;
  --tr-top:calc(env(safe-area-inset-top,0px) + var(--tr-in));--tr-bot:calc(env(safe-area-inset-bottom,0px) + var(--tr-in))}
 .tr-root.tr-fixed{position:fixed}
 .tr-root[hidden]{display:none!important}
 .tr-root *{box-sizing:border-box}
-.tr-stage{position:absolute;inset:0;cursor:grab;touch-action:none;outline:none}
+.tr-stage{position:absolute;inset:0;cursor:grab;touch-action:none;outline:none;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+.tr-stage canvas,.tr-btn,.tr-hs,.tr-pkb,.tr-todb{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;touch-action:none}
+.tr-pks .tr-pkb{touch-action:pan-x}
 .tr-stage.tr-drag{cursor:grabbing}
 .tr-stage canvas{display:block;width:100%;height:100%}
 .tr-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.42),rgba(0,0,0,0) 22%,rgba(0,0,0,0) 74%,rgba(0,0,0,.38))}
@@ -199,6 +208,10 @@ const CSS = `
 .tr-pad .tr-btn{width:var(--tr-b);height:var(--tr-b)}
 .tr-pad .tr-btn svg{width:20px;height:20px;stroke-width:1.5}
 .tr-pad .tr-f{grid-column:2;grid-row:1}.tr-pad .tr-l{grid-column:1;grid-row:2}.tr-pad .tr-r{grid-column:3;grid-row:2}.tr-pad .tr-b{grid-column:2;grid-row:3}
+.tr-pad{grid-template-columns:repeat(3,var(--tr-b)) 6px var(--tr-b)}
+.tr-pad .tr-u{grid-column:5;grid-row:1}.tr-pad .tr-d{grid-column:5;grid-row:3}
+.tr-dbg{position:absolute;inset-inline-start:8px;top:calc(var(--tr-top) + 150px);z-index:6;margin:0;padding:8px 10px;max-width:calc(100% - 16px);font:10.5px/1.45 ui-monospace,Menlo,monospace;color:#bff5c8;background:rgba(0,0,0,.78);border:1px solid rgba(120,255,150,.35);border-radius:8px;white-space:pre-wrap;pointer-events:none;direction:ltr;text-align:left}
+.tr-dbg[hidden]{display:none}
 .tr-hub{grid-column:2;grid-row:2;align-self:center;justify-self:center;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3)}
 .tr-btn.tr-off{opacity:.38}
 /* map */
@@ -497,15 +510,18 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
   const pkScroll = el('div', 'tr-pks');
   pkBox.append(pkScroll);
   const pkBtns = new Map();
+  let pressReady = false;
+  const pressLater = [];   // wired once press() exists
   function addPkBtn(id, colour) {
     const b = el('button', 'tr-pkb');
     b.type = 'button';
     b.dataset.pk = id;
     b.innerHTML = `<span class="tr-pkt"><span class="tr-pkd"></span><span class="tr-pkl"></span></span><span class="tr-pkn"></span>`;
     b.querySelector('.tr-pkd').style.background = colour || '#b9b0a2';
-    b.addEventListener('click', () => { if (!b.disabled) userSetPackage(id); });
+    pressLater.push([b, () => userSetPackage(id)]);
     pkBtns.set(id, b);
     pkScroll.append(b);
+    if (pressReady) for (const [x, fn] of pressLater.splice(0)) press(x, fn);
     return b;
   }
   for (const s of STYLES) addPkBtn(s.id, s.palette && s.palette.floor);
@@ -536,7 +552,6 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
     const b = el('button', 'tr-todb', ICON[id]);
     b.type = 'button';
     b.dataset.tod = id;
-    b.addEventListener('click', (e) => { e.stopPropagation(); if (!b.disabled) userSetTod(id); });
     todBtns.set(id, b);
     todBox.append(b);
   }
@@ -562,7 +577,11 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
   const padB = mkBtn('back', 'adown'); padB.classList.add('tr-b');
   const padL = mkBtn('left', 'tleft'); padL.classList.add('tr-l');
   const padR = mkBtn('right', 'tright'); padR.classList.add('tr-r');
-  pad.append(padF, padL, el('span', 'tr-hub'), padR, padB);
+  const padU = mkBtn('lookup', 'lookup'); padU.classList.add('tr-u');
+  const padD = mkBtn('lookdown', 'lookdown'); padD.classList.add('tr-d');
+  pad.append(padF, padL, el('span', 'tr-hub'), padR, padB, padU, padD);
+  const dbgBox = el('pre', 'tr-dbg');
+  dbgBox.hidden = true;
   // map
   const mapBox = el('div', 'tr-map tr-glass');
   const mapCap = el('div', 'tr-cap');
@@ -577,7 +596,7 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
   ecard.append(el('div', null, ICON.aperture), eCap, eTitle, eBody, eBtn);
   empty.append(ecard);
   stage.append(hsLayer);
-  root.append(stage, shade, empty, busy, toast, hint, bar, top, pad, mapBox);
+  root.append(stage, shade, empty, busy, toast, hint, bar, top, pad, mapBox, dbgBox);
   container.appendChild(root);
 
   // ── three ──
@@ -705,7 +724,7 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
     setTimeout(updatePkFades, 0);
     const lab = (b, k) => { b.setAttribute('aria-label', tr(k)); b.title = tr(k); };
     lab(mapBtn, 'map'); lab(gyroBtn, 'gyro'); lab(fsBtn, 'fullscreen'); lab(closeBtn, 'close');
-    lab(padF, 'fwd'); lab(padB, 'back'); lab(padL, 'left'); lab(padR, 'right');
+    lab(padF, 'fwd'); lab(padB, 'back'); lab(padL, 'left'); lab(padR, 'right'); lab(padU, 'lookUp'); lab(padD, 'lookDown');
     hint.textContent = coarse ? tr('hintTouch') : tr('hint');
     toast.textContent = tr('error');
     eCap.textContent = tr('emptyCap');
@@ -810,7 +829,7 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
       const dot = mk('circle', { class: 'tr-mdot', cx: p.pos[0], cy: p.pos[2], r: 0.2 });
       const t = document.createElementNS(SVGNS, 'title'); t.textContent = panoName(p); hit.append(t);
       const go = (e) => { e.stopPropagation(); e.preventDefault(); goTo(i, 'move'); };
-      hit.addEventListener('click', go); dot.addEventListener('click', go);
+      press(hit, go); press(dot, go);
       svg.append(hit, dot);
       dots[i] = dot;
     });
@@ -869,8 +888,7 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
       chip.type = 'button';
       chip.querySelector('span').textContent = panoName(q);
       chip.dir = 'auto';
-      chip.addEventListener('pointerdown', (e) => e.stopPropagation());
-      chip.addEventListener('click', (e) => { e.stopPropagation(); goTo(j, 'move'); });
+      press(chip, () => goTo(j, 'move'));
       chip.addEventListener('pointerenter', () => { hotIdx = j; dirty = true; });
       chip.addEventListener('pointerleave', () => { if (hotIdx === j) hotIdx = -1; dirty = true; });
       hsLayer.append(chip);
@@ -1231,8 +1249,7 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
   }
 
   // ── input ──
-  const pointers = new Map();
-  let drag = null, pinch = null, lastTap = null;
+  let lastTap = null;
   const raycaster = new THREE.Raycaster();
   const ndc = new THREE.Vector2();
   function rayAt(cx, cy) {
@@ -1254,89 +1271,224 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
     const t = -EYE / ray.direction.y;
     return ray.direction.clone().multiplyScalar(t);
   }
-  function onDown(e) {
-    if (!isOpenFlag) return;
-    if (e.pointerType === 'mouse' && e.button !== 0) return;
-    try { stage.setPointerCapture(e.pointerId); } catch (er) { /* */ }
-    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    if (pointers.size === 1) {
-      drag = { id: e.pointerId, x: e.clientX, y: e.clientY, x0: e.clientX, y0: e.clientY, t0: performance.now(), moved: 0, lt: performance.now() };
-      yawVel = pitchVel = 0;
-      turnAnim = null;
-    } else if (pointers.size === 2) {
-      const [a, b] = [...pointers.values()];
-      pinch = { d: Math.hypot(a.x - b.x, a.y - b.y), fov };
-      drag = null;
-    }
+  // ── input (bulletproof: window-level, capture phase, touch + pointer + mouse with de-dup) ──────────────────
+  // While the tour is open every start/move/end is taken from `window` in the capture phase, from THREE sources at once:
+  // touch events ({passive:false}), pointer events and mouse events. One physical contact reported by several sources is
+  // merged (same place within 25 px and 80 ms → alias), so nothing is counted twice; compatibility mouse events that follow
+  // a touch are dropped by timestamp. No pointer capture, no dependence on event.target (it is only used to leave real
+  // controls alone); the touch list re-syncs the contact set on every touch event, so a lost end event cannot wedge it.
+  const contacts = [];                 // { ids:Set, x, y, x0, y0, t0, lt, maxMove, src }
+  let gest = null;                     // { cx, cy, dist, multi, moved }
+  let lastTouchT = -1e9, lastManualDouble = -1e9;
+  const cornerTaps = [];
+  const now = () => performance.now();
+  const CONTROL_SEL = '.tr-btn,.tr-pkb,.tr-todb,.tr-hs,.tr-pk,.tr-tod,.tr-map,.tr-slot,.tr-ebtn,a[href],button,input,select,textarea,[data-tr-ui]';
+  function isControl(t) {
+    try { return !!(t && t.closest && root.contains(t) && t.closest(CONTROL_SEL)); } catch (e) { return false; }
+  }
+  function inRoot(x, y) { const r = root.getBoundingClientRect(); return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom; }
+  function centroid() {
+    let x = 0, y = 0;
+    for (const c of contacts) { x += c.x; y += c.y; }
+    const n = contacts.length || 1;
+    x /= n; y /= n;
+    let d = 0;
+    if (contacts.length >= 2) d = Math.hypot(contacts[0].x - contacts[1].x, contacts[0].y - contacts[1].y);
+    return { x, y, d };
+  }
+  function regest() {
+    if (!contacts.length) { gest = null; stage.classList.remove('tr-drag'); return; }
+    const c = centroid();
+    gest = { cx: c.x, cy: c.y, dist: c.d, multi: (gest && gest.multi) || contacts.length > 1, moved: gest ? gest.moved : 0 };
+  }
+  const findContact = (id) => contacts.find(c => c.ids.has(id));
+  function cDown(src, id, x, y, target) {
+    if (!isOpenFlag) return false;
+    const t = now();
+    if (src === 'touch' || src === 'ptouch') lastTouchT = t;
+    else if (t - lastTouchT < 800) return false;                       // compatibility mouse event after a touch
+    if (!inRoot(x, y) || isControl(target) || root.classList.contains('tr-isempty')) return false;
+    if (findContact(id)) return true;
+    // the same physical contact arriving from another event family → alias, don't add
+    const twin = contacts.find(c => t - c.t0 < 80 && Math.hypot(c.x0 - x, c.y0 - y) < 25 && c.src !== src);
+    if (twin) { twin.ids.add(id); return true; }
+    contacts.push({ ids: new Set([id]), x, y, x0: x, y0: y, t0: t, lt: t, maxMove: 0, src });
+    yawVel = pitchVel = 0;
+    turnAnim = null;
     cursor.visible = false;
     hint.classList.remove('tr-on');
+    regest();
+    dbg(src + ' down', `n=${contacts.length} @${x | 0},${y | 0}`);
+    return true;
   }
-  function onMove(e) {
-    if (!isOpenFlag) return;
-    if (pointers.has(e.pointerId)) pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
-    if (pinch && pointers.size >= 2) {
-      const [a, b] = [...pointers.values()];
-      const d = Math.hypot(a.x - b.x, a.y - b.y);
-      if (d > 10) { fov = clamp(pinch.fov * pinch.d / d, FOV_MIN, FOV_MAX); dirty = true; }
-      return;
-    }
-    if (drag && drag.id === e.pointerId) {
-      const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
-      drag.x = e.clientX; drag.y = e.clientY;
-      drag.moved += Math.abs(dx) + Math.abs(dy);
-      if (drag.moved > 4) stage.classList.add('tr-drag');
-      const k = (fov * fovMul * Math.PI / 180) / Math.max(1, stage.clientHeight);
-      const now = performance.now(), dtm = Math.max(1, now - drag.lt) / 1000;
-      drag.lt = now;
-      const dyaw = dx * k, dpitch = dy * k;
-      if (gyro) gyro.offset += dyaw; else yaw += dyaw;
-      pitch = clamp(pitch + dpitch, -1.45, 1.45);
-      yawVel = yawVel * 0.6 + (dyaw / dtm) * 0.4;
-      pitchVel = pitchVel * 0.6 + (dpitch / dtm) * 0.4;
-      dirty = true;
-      return;
-    }
-    if (e.pointerType === 'mouse' && !pointers.size) {
-      // hover: marker highlight + floor cursor ring
-      const m = markerAt(e.clientX, e.clientY);
-      if (m !== hotIdx) { hotIdx = m; dirty = true; }
-      stage.style.cursor = m >= 0 ? 'pointer' : '';
-      const fp = m < 0 && !trans ? floorPointAt(e.clientX, e.clientY) : null;
-      if (fp && Math.hypot(fp.x, fp.z) < 9) { cursor.position.copy(fp); cursor.visible = true; } else cursor.visible = false;
-      dirty = true;
-    }
+  function cMove(id, x, y) {
+    const c = findContact(id);
+    if (!c || !gest) return false;
+    if (c.x === x && c.y === y) return true;
+    c.x = x; c.y = y;
+    c.maxMove = Math.max(c.maxMove, Math.hypot(x - c.x0, y - c.y0));
+    const t = now(), dtm = Math.max(1, t - c.lt) / 1000;
+    c.lt = t;
+    const cen = centroid();
+    const dx = cen.x - gest.cx, dy = cen.y - gest.cy;
+    gest.cx = cen.x; gest.cy = cen.y;
+    gest.moved += Math.abs(dx) + Math.abs(dy);
+    if (gest.moved > 6) stage.classList.add('tr-drag');
+    // one- or two-finger drag = turn / look (content follows the fingers)
+    const k = (fov * fovMul * Math.PI / 180) / Math.max(1, stage.clientHeight);
+    const dyaw = dx * k, dpitch = dy * k;
+    if (gyro && gyro.offset != null) gyro.offset += dyaw; else yaw += dyaw;
+    pitch = clamp(pitch + dpitch, -1.45, 1.45);
+    yawVel = yawVel * 0.6 + (dyaw / dtm) * 0.4;
+    pitchVel = pitchVel * 0.6 + (dpitch / dtm) * 0.4;
+    // pinch = FOV
+    if (contacts.length >= 2 && gest.dist > 12 && cen.d > 12) {
+      fov = clamp(fov * gest.dist / cen.d, FOV_MIN, FOV_MAX);
+      if (Math.abs(cen.d - gest.dist) > 0.5) lastGesture = 'pinch → fov ' + fov.toFixed(0);
+    } else if (gest.moved > 6) lastGesture = (contacts.length > 1 ? 'two-finger drag' : 'drag') + ' → turn';
+    if (contacts.length >= 2) gest.dist = cen.d;
+    dirty = true;
+    dbg('move', `n=${contacts.length} d=${dx.toFixed(0)},${dy.toFixed(0)}`, true);
+    return true;
   }
-  function onUp(e) {
-    if (!pointers.has(e.pointerId)) return;
-    pointers.delete(e.pointerId);
+  function cUp(id, x, y, cancelled) {
+    const c = findContact(id);
+    if (!c) return false;
+    contacts.splice(contacts.indexOf(c), 1);
+    const g = gest;
+    const t = now();
+    if (x == null) { x = c.x; y = c.y; }
+    dbg(cancelled ? 'cancel' : 'up', `n=${contacts.length} moved=${c.maxMove.toFixed(0)} dt=${(t - c.t0).toFixed(0)}`);
+    if (contacts.length) { regest(); return true; }
+    gest = null;
     stage.classList.remove('tr-drag');
-    if (pinch) { if (pointers.size < 2) pinch = null; drag = null; return; }
-    if (!drag || drag.id !== e.pointerId) return;
-    const d = drag; drag = null;
-    const now = performance.now();
-    if (now - d.lt > 80) { yawVel = 0; pitchVel = 0; }
-    // a tap = finger lifted close to where it landed (net displacement, real fingers jitter) and quickly.
-    // Double-tap is detected here by hand (two taps < 350 ms and < 30 px apart) — never via 'dblclick', which iOS does not deliver reliably.
-    if (Math.hypot(e.clientX - d.x0, e.clientY - d.y0) < 12 && now - d.t0 < DTAP_MS) {
-      yawVel = pitchVel = 0;
-      const m = markerAt(e.clientX, e.clientY);
-      if (m >= 0) { lastTap = null; goTo(m, 'move'); return; }
-      if (lastTap && now - lastTap.t < DTAP_MS && Math.hypot(e.clientX - lastTap.x, e.clientY - lastTap.y) < DTAP_PX) {
-        lastTap = null;
-        doubleTap(e.clientX, e.clientY);
-      } else lastTap = { t: now, x: e.clientX, y: e.clientY };
-    }
+    if (t - c.lt > 90) { yawVel = 0; pitchVel = 0; }
+    if (g && g.multi) { yawVel = pitchVel = 0; }
+    if (!cancelled && g && !g.multi && c.maxMove < TAP_SLOP && t - c.t0 < DTAP_MS) { yawVel = pitchVel = 0; onTap(x, y); }
+    return true;
   }
-  function doubleTap(cx, cy) {
-    const ray = rayAt(cx, cy);
-    const dyaw = yawOf(ray.direction.x, ray.direction.z);
-    const fp = floorPointAt(cx, cy);
-    const j = linkInDirection(dyaw, 60 * Math.PI / 180, fp && Math.hypot(fp.x, fp.z) < 12 ? fp : null);
+  function cReset(why) {
+    if (!contacts.length && !gest) return;
+    contacts.length = 0; gest = null;
+    stage.classList.remove('tr-drag');
+    dbg('reset', why);
+  }
+  function onTap(x, y) {
+    const t = now();
+    // 5 quick taps on the title block (top-left; top-right in RTL) toggle the diagnostic overlay — the title is a panel, not a walk target
+    const r = titleBox.getBoundingClientRect();
+    if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) {
+      cornerTaps.push(t);
+      while (cornerTaps.length && t - cornerTaps[0] > 2500) cornerTaps.shift();
+      if (cornerTaps.length >= 5) { cornerTaps.length = 0; setDebug(!debugOn); }
+      lastTap = null;
+      return;
+    }
+    cornerTaps.length = 0;
+    const m = markerAt(x, y);
+    if (m >= 0) { lastTap = null; lastGesture = 'tap marker → pano ' + m; dbg('tap', lastGesture); goTo(m, 'move'); return; }
+    if (lastTap && t - lastTap.t < DTAP_MS && Math.hypot(x - lastTap.x, y - lastTap.y) < DTAP_PX) {
+      lastTap = null;
+      lastManualDouble = t;
+      doubleTap(x, y, 'double-tap');
+    } else { lastTap = { t, x, y }; lastGesture = 'tap'; dbg('tap', `@${x | 0},${y | 0}`); }
+  }
+  // Double-tap ANYWHERE = walk forward: the linked pano best aligned with the CURRENT VIEW (within 75°); the tapped point only
+  // biases the choice between candidates. Nothing ahead → forward nudge, so the gesture always answers.
+  function doubleTap(cx, cy, how) {
+    let j = -1, bestS = Infinity;
+    let tapYaw = null;
+    try { const ray = rayAt(cx, cy); tapYaw = yawOf(ray.direction.x, ray.direction.z); } catch (e) { /* */ }
+    for (const it of hsItems) {
+      const a = Math.abs(wrapPI(it.yaw - yaw));
+      if (a > 75 * Math.PI / 180) continue;
+      const sc = a + (tapYaw == null ? 0 : 0.35 * Math.abs(wrapPI(it.yaw - tapYaw)));
+      if (sc < bestS) { bestS = sc; j = it.idx; }
+    }
+    lastGesture = (how || 'double-tap') + (j >= 0 ? ' → forward to "' + panoName(cur.list[j]) + '"' : ' → nudge (nothing ahead)');
+    dbg('GESTURE', lastGesture);
     if (j >= 0) goTo(j, 'move'); else nudge();
   }
-  function onWheel(e) {
+  // ── raw event adapters ──
+  function insidePkScroll(t) { try { return !!(t && t.closest && t.closest('.tr-pks')); } catch (e) { return false; } }
+  function syncTouches(e) {
+    // the live touch list is authoritative: drop touch contacts that are no longer on the glass (lost touchend)
+    const live = new Set();
+    for (const t of e.touches || []) live.add('t' + t.identifier);
+    for (const c of contacts.slice()) {
+      const tid = [...c.ids].find(i => i[0] === 't');
+      if (tid && !live.has(tid)) cUp(tid, null, null, true);
+    }
+  }
+  function onTouchStart(e) {
     if (!isOpenFlag) return;
+    lastTouchT = now();
+    syncTouches(e);
+    let took = false;
+    for (const t of e.changedTouches || []) took = cDown('touch', 't' + t.identifier, t.clientX, t.clientY, e.target) || took;
+    // preventDefault: no double-tap zoom, no text selection / callout, no synthetic mouse events
+    if (took && e.cancelable) e.preventDefault();
+  }
+  function onTouchMove(e) {
+    if (!isOpenFlag) return;
+    lastTouchT = now();
+    let took = false;
+    for (const t of e.changedTouches || []) took = cMove('t' + t.identifier, t.clientX, t.clientY) || took;
+    const t0 = e.changedTouches && e.changedTouches[0];
+    if (e.cancelable && (took || (t0 && inRoot(t0.clientX, t0.clientY) && !insidePkScroll(e.target)))) e.preventDefault();
+  }
+  function onTouchEnd(e) {
+    if (!isOpenFlag) return;
+    lastTouchT = now();
+    let took = false;
+    for (const t of e.changedTouches || []) took = cUp('t' + t.identifier, t.clientX, t.clientY, e.type === 'touchcancel') || took;
+    syncTouches(e);
+    if (took && e.cancelable) e.preventDefault();
+  }
+  function onPtrDown(e) {
+    if (!isOpenFlag) return;
+    if (e.pointerType === 'mouse') { if (e.button !== 0) return; cDown('pmouse', 'p' + e.pointerId, e.clientX, e.clientY, e.target); return; }
+    // a new primary touch pointer means no finger was down: clear anything a lost pointerup left behind
+    if (e.isPrimary && contacts.some(c => c.src === 'ptouch' && now() - c.t0 > 80)) cReset('stale pointer');
+    cDown('ptouch', 'p' + e.pointerId, e.clientX, e.clientY, e.target);
+  }
+  function onPtrMove(e) {
+    if (!isOpenFlag) return;
+    if (cMove('p' + e.pointerId, e.clientX, e.clientY)) return;
+    if (e.pointerType === 'mouse') hover(e);
+  }
+  function onPtrUp(e) { if (isOpenFlag) cUp('p' + e.pointerId, e.clientX, e.clientY, e.type === 'pointercancel'); }
+  function onMouseDown(e) { if (isOpenFlag && e.button === 0) cDown('mouse', 'm', e.clientX, e.clientY, e.target); }
+  function onMouseMove(e) {
+    if (!isOpenFlag) return;
+    const c = findContact('m');
+    if (c && e.buttons === 0) { cUp('m', e.clientX, e.clientY, true); return; }   // button released outside the window
+    if (!cMove('m', e.clientX, e.clientY) && !contacts.length && now() - lastTouchT > 800) hover(e);
+  }
+  function onMouseUp(e) { if (isOpenFlag) cUp('m', e.clientX, e.clientY, false); }
+  function hover(e) {
+    if (contacts.length || !inRoot(e.clientX, e.clientY) || isControl(e.target)) {
+      if (cursor.visible || hotIdx >= 0) { cursor.visible = false; dirty = true; }
+      return;
+    }
+    const m = markerAt(e.clientX, e.clientY);
+    if (m !== hotIdx) { hotIdx = m; dirty = true; }
+    stage.style.cursor = m >= 0 ? 'pointer' : '';
+    const fp = m < 0 && !trans ? floorPointAt(e.clientX, e.clientY) : null;
+    if (fp && Math.hypot(fp.x, fp.z) < 9) { cursor.position.copy(fp); cursor.visible = true; } else cursor.visible = false;
+    dirty = true;
+  }
+  function onDblClick(e) {
+    if (!isOpenFlag || !inRoot(e.clientX, e.clientY) || isControl(e.target) || root.classList.contains('tr-isempty')) return;
     e.preventDefault();
+    // a native dblclick is accepted too — unless our own detector already handled this very double tap
+    if (now() - lastManualDouble > 700) { lastManualDouble = now(); lastTap = null; doubleTap(e.clientX, e.clientY, 'native dblclick'); }
+    else dbg('dblclick', 'native (already handled)');
+  }
+  function onWheel(e) {
+    if (!isOpenFlag || !inRoot(e.clientX, e.clientY)) return;
+    if (insidePkScroll(e.target)) return;
+    if (e.cancelable) e.preventDefault();
     const dy = e.deltaMode === 1 ? e.deltaY * 16 : e.deltaY;
     fov = clamp(fov + dy * 0.03, FOV_MIN, FOV_MAX);
     dirty = true;
@@ -1348,54 +1500,151 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
     const k = e.key;
     if (e.type === 'keyup') { keys.delete(k); return; }
     if (k === 'Escape') { e.preventDefault(); close(); return; }
-    if (k === 'ArrowLeft' || k === 'ArrowRight' || k === 'a' || k === 'd') { e.preventDefault(); keys.add(k); turnAnim = null; dirty = true; return; }
+    if (k === 'ArrowLeft' || k === 'ArrowRight' || k === 'a' || k === 'd' || k === 'PageUp' || k === 'PageDown') { e.preventDefault(); keys.add(k); turnAnim = null; dirty = true; return; }
     if (e.repeat) return;
     if (k === 'ArrowUp' || k === 'w') { e.preventDefault(); moveForward(); }
     else if (k === 'ArrowDown' || k === 's') { e.preventDefault(); moveBack(); }
     else if (k === '+' || k === '=') { fov = clamp(fov - 8, FOV_MIN, FOV_MAX); dirty = true; }
     else if (k === '-' || k === '_') { fov = clamp(fov + 8, FOV_MIN, FOV_MAX); dirty = true; }
   }
-  if (typeof window !== 'undefined' && window.PointerEvent) {
-    stage.addEventListener('pointerdown', onDown);
-    stage.addEventListener('pointermove', onMove);
-    stage.addEventListener('pointerup', onUp);
-    stage.addEventListener('pointercancel', onUp);
-  } else {
-    // very old WebKit: same handlers fed from touch + mouse events
-    const each = (fn) => (e) => { if (e.target.closest && e.target.closest('.tr-hs')) return; e.preventDefault(); for (const t of e.changedTouches) fn({ pointerId: t.identifier, clientX: t.clientX, clientY: t.clientY, pointerType: 'touch', button: 0 }); };
-    stage.addEventListener('touchstart', each(onDown), { passive: false });
-    stage.addEventListener('touchmove', each(onMove), { passive: false });
-    stage.addEventListener('touchend', each(onUp), { passive: false });
-    stage.addEventListener('touchcancel', each(onUp), { passive: false });
-    const mouse = (fn) => (e) => fn({ pointerId: 1, clientX: e.clientX, clientY: e.clientY, pointerType: 'mouse', button: e.button });
-    stage.addEventListener('mousedown', mouse(onDown));
-    window.addEventListener('mousemove', mouse(onMove));
-    window.addEventListener('mouseup', mouse(onUp));
+  const onGesture = (e) => { if (isOpenFlag && e.cancelable) e.preventDefault(); };          // Safari page pinch-zoom
+  const onCtx = (e) => { if (isOpenFlag && inRoot(e.clientX, e.clientY) && !isControl(e.target)) e.preventDefault(); };
+  const onBlur = () => { keys.clear(); cReset('blur'); stopHolds(); };
+  const onVis = () => { if (document.hidden) { cReset('hidden'); stopHolds(); } };
+  const onHash = () => { if (/tourdebug/i.test(hashes())) setDebug(true); };
+  function hashes() {
+    let h = '';
+    try { h += location.hash + location.search; } catch (e) { /* */ }
+    try { if (window.top !== window) h += window.top.location.hash + window.top.location.search; } catch (e) { /* cross-origin parent */ }
+    return h;
   }
-  stage.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse' && !pointers.size) { cursor.visible = false; hotIdx = -1; dirty = true; } });
-  stage.addEventListener('wheel', onWheel, { passive: false });
-  stage.addEventListener('dblclick', (e) => e.preventDefault());
-  stage.addEventListener('contextmenu', (e) => e.preventDefault());
-  root.addEventListener('gesturestart', (e) => e.preventDefault());
-  const onBlur = () => keys.clear();
-  function addGlobal() { window.addEventListener('keydown', onKey); window.addEventListener('keyup', onKey); window.addEventListener('blur', onBlur); }
-  function removeGlobal() { window.removeEventListener('keydown', onKey); window.removeEventListener('keyup', onKey); window.removeEventListener('blur', onBlur); keys.clear(); }
+  const CAP = { capture: true, passive: false };
+  const GLOBAL = [
+    ['touchstart', onTouchStart], ['touchmove', onTouchMove], ['touchend', onTouchEnd], ['touchcancel', onTouchEnd],
+    ['pointerdown', onPtrDown], ['pointermove', onPtrMove], ['pointerup', onPtrUp], ['pointercancel', onPtrUp],
+    ['mousedown', onMouseDown], ['mousemove', onMouseMove], ['mouseup', onMouseUp],
+    ['dblclick', onDblClick], ['wheel', onWheel], ['contextmenu', onCtx],
+    ['gesturestart', onGesture], ['gesturechange', onGesture], ['gestureend', onGesture],
+    ['keydown', onKey], ['keyup', onKey]
+  ];
+  let globalOn = false;
+  function addGlobal() {
+    if (globalOn) return;
+    globalOn = true;
+    for (const [t, f] of GLOBAL) window.addEventListener(t, f, CAP);
+    window.addEventListener('blur', onBlur);
+    document.addEventListener('visibilitychange', onVis);
+    window.addEventListener('hashchange', onHash);
+    if (/tourdebug/i.test(hashes())) setDebug(true);
+  }
+  function removeGlobal() {
+    if (!globalOn) return;
+    globalOn = false;
+    for (const [t, f] of GLOBAL) window.removeEventListener(t, f, CAP);
+    window.removeEventListener('blur', onBlur);
+    document.removeEventListener('visibilitychange', onVis);
+    window.removeEventListener('hashchange', onHash);
+    keys.clear(); cReset('close'); stopHolds();
+  }
 
-  // buttons
-  const press = (b, fn) => { b.addEventListener('click', (e) => { e.stopPropagation(); fn(); }); b.addEventListener('pointerdown', (e) => e.stopPropagation()); };
-  press(padF, moveForward);
-  press(padB, moveBack);
-  // hold ◀ ▶ = keep turning in 30° steps
-  for (const [b, s] of [[padL, 1], [padR, -1]]) {
-    let holdT = 0;
-    const stop = () => { clearInterval(holdT); holdT = 0; b.classList.remove('tr-down'); };
-    b.addEventListener('pointerdown', (e) => { e.stopPropagation(); e.preventDefault(); turn(s); b.classList.add('tr-down'); clearInterval(holdT); holdT = setInterval(() => turn(s), 330); });
-    b.addEventListener('pointerup', stop); b.addEventListener('pointercancel', stop); b.addEventListener('pointerleave', stop);
-    b.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); turn(s); } });
+  // ── diagnostic overlay (#tourdebug in the URL, or 5 quick taps in the top-left corner) ──
+  let debugOn = false, lastGesture = '—';
+  const dbgLines = [];
+  function dbg(type, detail, coalesce) {
+    const last = dbgLines[dbgLines.length - 1];
+    if (coalesce && last && last.type === type) { last.n++; last.detail = detail; }
+    else { dbgLines.push({ type, detail: detail || '', n: 1, t: now() }); if (dbgLines.length > 9) dbgLines.shift(); }
+    if (debugOn) dirty = true;
+  }
+  function setDebug(v) {
+    debugOn = !!v;
+    dbgBox.hidden = !debugOn;
+    dirty = true;
+  }
+  function renderDebug() {
+    if (!debugOn) return;
+    const p = cur && cur.list && cur.list[cur.idx];
+    let framed = false; try { framed = window.top !== window; } catch (e) { framed = true; }
+    const cap = `PointerEvent:${typeof window.PointerEvent !== 'undefined' ? 'y' : 'n'} touch:${'ontouchstart' in window ? 'y' : 'n'} maxTP:${navigator.maxTouchPoints || 0} iframe:${framed ? 'y' : 'n'}`;
+    dbgBox.textContent = [
+      'TOUR INPUT DEBUG  (5 taps top-left to hide)',
+      cap,
+      `pano:${p ? p.id : '-'} links:${hsItems.length} fwd:${fwdIdx}`,
+      `yaw:${wrapPI(yaw).toFixed(2)} pitch:${pitch.toFixed(2)} fov:${fov.toFixed(0)} contacts:${contacts.length}`,
+      'gesture: ' + lastGesture,
+      '— last events —',
+      ...dbgLines.map(l => `${l.type}${l.n > 1 ? ' ×' + l.n : ''}  ${l.detail}`)
+    ].join('\n');
+  }
+
+  // ── buttons ──
+  // Arrow pad: fires on touchstart / pointerdown / mousedown, whichever arrives first (the others are de-duplicated).
+  const holds = new Set();
+  function stopHolds() { for (const h of [...holds]) h(); }
+  function holdBtn(b, onStart, onStop) {
+    let active = false, lastT = -1e9;
+    const stop = () => { if (!active) return; active = false; holds.delete(stop); b.classList.remove('tr-down'); if (onStop) onStop(); };
+    const start = (e) => {
+      const t = now();
+      if (e.type === 'touchstart') { lastTouchT = t; if (e.cancelable) e.preventDefault(); }   // no ghost click, no zoom
+      if (e.type === 'mousedown' && (t - lastTouchT < 800 || e.button !== 0)) return;
+      if (e.type === 'pointerdown' && e.pointerType === 'mouse' && e.button !== 0) return;
+      e.stopPropagation();
+      if (active || t - lastT < 60) return;                                                     // same press from another event family
+      lastT = t; active = true; holds.add(stop);
+      b.classList.add('tr-down');
+      dbg('button', b.dataset.k + ' (' + e.type + ')');
+      lastGesture = 'button ' + b.dataset.k;
+      onStart();
+    };
+    b.addEventListener('touchstart', start, { passive: false });
+    b.addEventListener('pointerdown', start);
+    b.addEventListener('mousedown', start);
+    for (const t of ['touchend', 'touchcancel', 'pointerup', 'pointercancel', 'pointerleave', 'mouseup', 'mouseleave']) b.addEventListener(t, stop);
+    b.addEventListener('click', (e) => { e.stopPropagation(); e.preventDefault(); });
+    b.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onStart(); if (onStop) onStop(); } });
+    b.addEventListener('contextmenu', (e) => e.preventDefault());
+  }
+  // any end event anywhere releases held buttons (a finger that slid off the button, a lost pointerup…)
+  const END_EVENTS = ['touchend', 'touchcancel', 'pointerup', 'pointercancel', 'mouseup'];
+  for (const t of END_EVENTS) window.addEventListener(t, stopHolds, true);
+  let hudTurn = 0, hudPitch = 0, turnHoldT = 0;
+  holdBtn(padF, moveForward);
+  holdBtn(padB, moveBack);
+  for (const [b, sgn] of [[padL, 1], [padR, -1]]) {
+    // ◀ ▶ : 30° step at once; keep holding → continuous turn
+    holdBtn(b, () => { turn(sgn); clearTimeout(turnHoldT); turnHoldT = setTimeout(() => { turnAnim = null; hudTurn = sgn; dirty = true; }, 340); },
+      () => { clearTimeout(turnHoldT); hudTurn = 0; });
+  }
+  for (const [b, sgn] of [[padU, 1], [padD, -1]]) {
+    // ⤒ ⤓ : look up / down — a tap gives ~12°, holding keeps going
+    holdBtn(b, () => { pitchVel = sgn * 0.9; hudPitch = sgn; dirty = true; }, () => { hudPitch = 0; });
+  }
+  // plain controls: click, plus touchend as a fallback for webviews that swallow the click (de-duplicated by timestamp)
+  function press(b, fn) {
+    let lastFire = -1e9, ts = null;
+    const fire = (e) => {
+      const t = now();
+      if (t - lastFire < 500) return;
+      lastFire = t;
+      dbg('button', (b.dataset.k || b.dataset.pk || b.dataset.tod || 'chip') + ' (' + e.type + ')');
+      fn(e);
+    };
+    b.addEventListener('click', (e) => { e.stopPropagation(); if (!b.disabled) fire(e); });
+    b.addEventListener('touchstart', (e) => { const t = e.changedTouches[0]; ts = { x: t.clientX, y: t.clientY }; lastTouchT = now(); }, { passive: true });
+    b.addEventListener('touchend', (e) => {
+      const t = e.changedTouches[0];
+      if (!ts || b.disabled || Math.hypot(t.clientX - ts.x, t.clientY - ts.y) > 10) { ts = null; return; }
+      ts = null;
+      const r = b.getBoundingClientRect();
+      if (t.clientX < r.left - 6 || t.clientX > r.right + 6 || t.clientY < r.top - 6 || t.clientY > r.bottom + 6) return;
+      if (e.cancelable) e.preventDefault();
+      fire(e);
+    }, { passive: false });
   }
   press(mapBtn, () => setMapOpen(!mapOpen));
   press(closeBtn, close);
-  eBtn.addEventListener('click', close);
+  press(eBtn, close);
   press(fsBtn, () => {
     try {
       const fsEl = document.fullscreenElement || document.webkitFullscreenElement;
@@ -1409,8 +1658,9 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
   document.addEventListener('fullscreenchange', onFsChange);
   document.addEventListener('webkitfullscreenchange', onFsChange);
   press(gyroBtn, () => setGyro(!gyro));
-  mapBox.addEventListener('pointerdown', (e) => e.stopPropagation());
-  top.addEventListener('pointerdown', (e) => e.stopPropagation());
+  for (const [id, b] of todBtns) press(b, () => userSetTod(id));
+  for (const [b, fn] of pressLater.splice(0)) press(b, fn);
+  pressReady = true;
 
   // ── gyroscope (off by default) ──
   const _q = new THREE.Quaternion(), _e = new THREE.Euler(), _q1 = new THREE.Quaternion(-Math.sqrt(0.5), 0, 0, Math.sqrt(0.5)), _z = new THREE.Vector3(0, 0, 1), _q0 = new THREE.Quaternion(), _f = new THREE.Vector3();
@@ -1470,7 +1720,11 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
     }
     const kl = keys.has('ArrowLeft') || keys.has('a'), kr = keys.has('ArrowRight') || keys.has('d');
     if (kl !== kr) { yaw += (kl ? 1 : -1) * 1.5 * dt; dirty = true; }
-    if (!drag && (Math.abs(yawVel) > 1e-4 || Math.abs(pitchVel) > 1e-4)) {
+    if (hudTurn) { yaw += hudTurn * 1.5 * dt; dirty = true; }
+    const ku = keys.has('PageUp'), kd = keys.has('PageDown');
+    const pv = hudPitch || (ku !== kd ? (ku ? 1 : -1) : 0);
+    if (pv) { pitch = clamp(pitch + pv * 0.9 * dt, -1.45, 1.45); pitchVel = pv * 0.9; dirty = true; }
+    if (!contacts.length && (Math.abs(yawVel) > 1e-4 || Math.abs(pitchVel) > 1e-4)) {
       const decay = Math.exp(-dt * 4.2);
       if (gyro) gyro.offset += yawVel * dt; else yaw += yawVel * dt;
       pitch = clamp(pitch + pitchVel * dt, -1.45, 1.45);
@@ -1490,6 +1744,7 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
     layoutHotspots();
     renderer.render(scene, camera);
     updateMapState();
+    renderDebug();
   }
   function frame(t) {
     raf = requestAnimationFrame(frame);
@@ -1536,13 +1791,14 @@ export async function createTour(container, { THREE, manifestUrl = defaultManife
       sphereGeo.dispose(); markerGeo.dispose(); ringTex.dispose(); blank.dispose();
       spheres.forEach(s => s.material.dispose()); cursor.material.dispose();
       if (ro) ro.disconnect(); else window.removeEventListener('resize', resize);
+      for (const t of END_EVENTS) window.removeEventListener(t, stopHolds, true);
       document.removeEventListener('fullscreenchange', onFsChange);
       document.removeEventListener('webkitfullscreenchange', onFsChange);
       if (renderer) { renderer.dispose(); try { renderer.forceContextLoss(); } catch (e) { /* */ } }
       root.remove();
     },
     // for tests / integration
-    _debug: () => ({ tod, shown: cur && cur.shown && cur.shown.split('/').pop(), yaw, pitch, fov, idx: cur && cur.idx, pkg: cur && cur.pkg, id: cur && cur.list[cur.idx] && cur.list[cur.idx].id, links: hsItems.map(h => h.idx), fwd: fwdIdx, cached: [...fullCache.map.keys()].length })
+    _debug: () => ({ gesture: lastGesture, debug: debugOn, contacts: contacts.length, events: dbgLines.map(l => l.type), tod, shown: cur && cur.shown && cur.shown.split('/').pop(), yaw, pitch, fov, idx: cur && cur.idx, pkg: cur && cur.pkg, id: cur && cur.list[cur.idx] && cur.list[cur.idx].id, links: hsItems.map(h => h.idx), fwd: fwdIdx, cached: [...fullCache.map.keys()].length })
   };
 }
 

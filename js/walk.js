@@ -6,6 +6,7 @@ import { FLOORS, CORE, BALCONIES, FOOTPRINT, UNITS, LOT, RAMP, STREET_Y, LEVELS 
 const EYE = 1.62;
 const RADIUS = 0.25;
 const WALK_SPEED = 1.45;          // m/s
+const TAP_WALK = 2.5;             // m walked per double tap
 const RUN_SPEED = 2.6;
 const TURN_SPEED = 1.9;           // rad/s (keys / HUD)
 const LOOK_SPEED = 1.0;           // rad/s pitch (look up / down buttons)
@@ -14,7 +15,7 @@ const DOOR_NEAR = 1.4;
 const DOOR_FAR = 2.1;
 const DOOR_TIME = 0.6;            // s to open / close a leaf
 const DOOR_HOLD = 6;              // s a tapped door keeps its state before auto behaviour resumes
-const DOUBLE_MS = 330;            // double-tap window; a single tap acts after it
+const DOUBLE_MS = 400;            // double-tap window; a single tap acts after it
 const DT_MAX = 0.1;
 const LIFT_DOOR_TIME = 0.9;
 const LIFT_SPEED = 1.0;           // m/s average
@@ -60,9 +61,10 @@ const CAB_C = { x: (LIFT.x0 + LIFT.x1) / 2, z: (LIFT.z0 + LIFT.z1) / 2 };
 const LIFT_DOOR_PT = { x: LIFT.doorOnX, z: (LIFT.doorZ[0] + LIFT.doorZ[1]) / 2 };
 
 const T = {
-  en: { hint: 'Drag to look · Double-click to walk · Click to open', hintTouch: 'Drag to look · Double-tap to walk · Tap to open', plan: 'Plan', lift: 'Lift', apartment: 'Apartment', balcony: 'Balcony', terrace: 'Terrace', deck: 'Garden deck', outside: 'Outside', fwd: 'Forward', back: 'Back', left: 'Turn left', right: 'Turn right', lookUp: 'Look up', lookDown: 'Look down', hideUi: 'Hide controls', tap: 'Tap', openDoor: 'Open door', closeDoor: 'Close door', garageDoor: 'Garage door', showUi: 'Show controls', up: 'Up', down: 'Down', floor: 'Floor', close: 'Close plan' },
-  pt: { hint: 'Arraste para olhar · Duplo clique para andar · Clique para abrir', hintTouch: 'Arraste para olhar · Toque duplo para andar · Toque para abrir', plan: 'Planta', lift: 'Elevador', apartment: 'Apartamento', balcony: 'Varanda', terrace: 'Terraço', deck: 'Deck do jardim', outside: 'Exterior', fwd: 'Avançar', back: 'Recuar', left: 'Rodar à esquerda', right: 'Rodar à direita', lookUp: 'Olhar para cima', lookDown: 'Olhar para baixo', hideUi: 'Ocultar controlos', tap: 'Toque', openDoor: 'Abrir porta', closeDoor: 'Fechar porta', garageDoor: 'Portão da garagem', showUi: 'Mostrar controlos', up: 'Subir', down: 'Descer', floor: 'Piso', close: 'Fechar planta' },
-  he: { hint: 'גררו כדי להסתכל · לחיצה כפולה כדי ללכת · לחיצה לפתיחה', hintTouch: 'גררו כדי להסתכל · הקשה כפולה כדי ללכת · הקשה לפתיחה', plan: 'תוכנית', lift: 'מעלית', apartment: 'דירה', balcony: 'מרפסת', terrace: 'טרסה', deck: 'דק גינה', outside: 'בחוץ', fwd: 'קדימה', back: 'אחורה', left: 'פנייה שמאלה', right: 'פנייה ימינה', lookUp: 'הבט למעלה', lookDown: 'הבט למטה', hideUi: 'הסתרת הפקדים', tap: 'הקישו', openDoor: 'פתיחת דלת', closeDoor: 'סגירת דלת', garageDoor: 'שער החניון', showUi: 'הצגת הפקדים', up: 'למעלה', down: 'למטה', floor: 'קומה', close: 'סגירת תוכנית' }
+  en: { hint: 'Drag to look · Double-click to walk · Click to open', hintTouch: 'Drag to look · Double-tap to walk · Tap to open', plan: 'Plan', lift: 'Lift', apartment: 'Apartment', balcony: 'Balcony', terrace: 'Terrace', deck: 'Garden deck', outside: 'Outside', fwd: 'Forward', back: 'Back', left: 'Turn left', right: 'Turn right', lookUp: 'Look up', lookDown: 'Look down', stepL: 'Step left', stepR: 'Step right', hideUi: 'Hide controls', tap: 'Tap', openDoor: 'Open door', closeDoor: 'Close door', garageDoor: 'Garage door', showUi: 'Show controls', up: 'Up', down: 'Down', floor: 'Floor', close: 'Close plan' },
+  pt: { hint: 'Arraste para olhar · Duplo clique para andar · Clique para abrir', hintTouch: 'Arraste para olhar · Toque duplo para andar · Toque para abrir', plan: 'Planta', lift: 'Elevador', apartment: 'Apartamento', balcony: 'Varanda', terrace: 'Terraço', deck: 'Deck do jardim', outside: 'Exterior', fwd: 'Avançar', back: 'Recuar', left: 'Rodar à esquerda', right: 'Rodar à direita', lookUp: 'Olhar para cima', lookDown: 'Olhar para baixo', stepL: 'Passo à esquerda', stepR: 'Passo à direita', hideUi: 'Ocultar controlos', tap: 'Toque', openDoor: 'Abrir porta', closeDoor: 'Fechar porta', garageDoor: 'Portão da garagem', showUi: 'Mostrar controlos', up: 'Subir', down: 'Descer', floor: 'Piso', close: 'Fechar planta' },
+  he: { hint: 'גררו כדי להסתכל · לחיצה כפולה כדי ללכת · לחיצה לפתיחה', hintTouch: 'גררו כדי להסתכל · הקשה כפולה כדי ללכת · הקשה לפתיחה', plan: 'תוכנית', lift: 'מעלית', apartment: 'דירה', balcony: 'מרפסת', terrace: 'טרסה', deck: 'דק גינה', outside: 'בחוץ', fwd: 'קדימה', back: 'אחורה', left: 'פנייה שמאלה', right: 'פנייה ימינה', lookUp: 'הבט למעלה', lookDown: 'הבט למטה', stepL: 'צעד שמאלה', stepR: 'צעד ימינה', hideUi: 'הסתרת הפקדים', tap: 'הקישו', openDoor: 'פתיחת דלת', closeDoor: 'סגירת דלת', garageDoor: 'שער החניון', showUi: 'הצגת הפקדים', up: 'למעלה', down: 'למטה', floor: 'קומה', close: 'סגירת תוכנית' },
+  ru: { hint: 'Ведите, чтобы осмотреться · Двойной клик — идти · Клик — открыть', hintTouch: 'Ведите пальцем — осмотреться · Двойное касание — идти · Касание — открыть', plan: 'План', lift: 'Лифт', apartment: 'Квартира', balcony: 'Балкон', terrace: 'Терраса', deck: 'Терраса в саду', outside: 'Снаружи', fwd: 'Вперёд', back: 'Назад', left: 'Повернуть налево', right: 'Повернуть направо', lookUp: 'Вверх', lookDown: 'Вниз', stepL: 'Шаг влево', stepR: 'Шаг вправо', hideUi: 'Скрыть управление', tap: 'Нажмите', openDoor: 'Открыть дверь', closeDoor: 'Закрыть дверь', garageDoor: 'Гаражные ворота', showUi: 'Показать управление', up: 'Вверх', down: 'Вниз', floor: 'Этаж', close: 'Закрыть план' }
 };
 
 // ───────────────────────────── small helpers ─────────────────────────────
@@ -170,13 +172,15 @@ const CSS = `
 .vw-btn.vw-down{background:rgba(205,176,122,.26);border-color:var(--vw-accent);color:#fff}
 .vw-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round}
 .vw-pad .vw-fwd{grid-column:2;grid-row:1}.vw-pad .vw-left{grid-column:1;grid-row:2}.vw-pad .vw-back{grid-column:2;grid-row:3}.vw-pad .vw-right{grid-column:3;grid-row:2}
-.vw-pad .vw-btn,.vw-look .vw-btn{width:var(--vw-b);height:var(--vw-b)}
+.vw-padgrid .vw-btn{width:var(--vw-b);height:var(--vw-b);position:relative}
+.vw-padgrid .vw-btn::after{content:'';position:absolute;inset:-3px}
+.vw-pad2 .vw-lup{grid-column:2;grid-row:1}.vw-pad2 .vw-sl{grid-column:1;grid-row:2}.vw-pad2 .vw-sr{grid-column:3;grid-row:2}.vw-pad2 .vw-ldown{grid-column:2;grid-row:3}
+.vw-pad2 .vw-eye{grid-column:1;grid-row:1;align-self:start;justify-self:start}.vw-pad2 .vw-maptoggle{grid-column:3;grid-row:1}
+.vw-pad2 .vw-btn svg{width:18px;height:18px}
+.vw-debug{position:absolute;inset-block-start:calc(var(--vw-inset) + var(--vw-st) + 34px);left:calc(var(--vw-inset) + var(--vw-sx));margin:0;padding:6px 8px;max-width:78%;font:10px/1.35 ui-monospace,Menlo,Consolas,monospace;color:#d8ffd8;background:rgba(0,0,0,.72);border:1px solid rgba(120,255,120,.35);border-radius:8px;white-space:pre-wrap;pointer-events:none;direction:ltr;text-align:left;z-index:3}
 .vw-pad .vw-btn svg{width:20px;height:20px;stroke-width:1.5}
-.vw-row{display:flex;align-items:flex-end;gap:8px;pointer-events:none}
-.vw-look{display:flex;flex-direction:column;gap:5px;pointer-events:none;direction:ltr}
-.vw-look .vw-btn svg{width:18px;height:18px}
 .vw-mapwrap{position:absolute;bottom:calc(var(--vw-inset) + var(--vw-sb));right:calc(var(--vw-inset) + var(--vw-sx));display:flex;flex-direction:column;align-items:flex-end;gap:8px;pointer-events:none;direction:ltr}
-.vw-maptoggle{width:auto;padding:0 14px 0 12px;gap:8px;display:inline-flex;align-items:center;font-size:10px;letter-spacing:.18em;text-transform:uppercase}
+.vw-maptoggle{padding:0}
 .vw-maptoggle[aria-pressed=true]{border-color:var(--vw-accent);color:var(--vw-accent)}
 .vw-map{pointer-events:auto;padding:10px;background:rgba(14,13,12,.78);display:none;position:relative}
 .vw-map.vw-open{display:block;animation:vw-in .28s ease-out}
@@ -200,30 +204,23 @@ const CSS = `
 @keyframes vw-blink{0%,100%{opacity:1}50%{opacity:.35}}
 @media (pointer:coarse){.vw-root{--vw-b:48px}}
 @media (pointer:coarse) and (max-width:560px){.vw-root{--vw-b:42px}.vw-padgrid{gap:4px}}
-@media (max-width:560px){.vw-root{--vw-inset:12px}.vw-maptoggle span{display:none}.vw-maptoggle{width:var(--vw-b);padding:0;justify-content:center}.vw-label{max-width:56vw}.vw-lift{width:84px;padding:10px 0;gap:9px}.vw-lift-ind{width:58px;height:40px}.vw-lift-num{font-size:22px}.vw-lift-btns{gap:6px}.vw-lbtn{width:38px;height:38px;font-size:13px}.vw-lift-ud{width:66px;padding-top:8px}.vw-lift-ud .vw-btn{width:30px;height:30px}.vw-hint{inset-block-end:calc(var(--vw-inset) + 3 * var(--vw-b) + 26px);white-space:normal;text-align:center;width:max-content;max-width:78vw;line-height:1.5}}
-.vw-eye{width:32px;height:32px;border-radius:50%;opacity:.8}
-.vw-eye svg{width:15px;height:15px}
-.vw-hide .vw-label,.vw-hide .vw-hint,.vw-hide .vw-pad,.vw-hide .vw-lift,.vw-hide .vw-map,.vw-hide .vw-maptoggle,.vw-hide .vw-look{opacity:0!important;visibility:hidden!important;pointer-events:none!important;transition:opacity .25s,visibility 0s .25s}
+@media (max-width:560px){.vw-root{--vw-inset:12px}.vw-label{max-width:56vw}.vw-lift{width:84px;padding:10px 0;gap:9px}.vw-lift-ind{width:58px;height:40px}.vw-lift-num{font-size:22px}.vw-lift-btns{gap:6px}.vw-lbtn{width:38px;height:38px;font-size:13px}.vw-lift-ud{width:66px;padding-top:8px}.vw-lift-ud .vw-btn{width:30px;height:30px}.vw-hint{inset-block-end:calc(var(--vw-inset) + 3 * var(--vw-b) + 26px);white-space:normal;text-align:center;width:max-content;max-width:78vw;line-height:1.5}}
+.vw-padgrid .vw-eye{width:32px;height:32px;border-radius:50%;opacity:.8}
+.vw-padgrid .vw-eye svg{width:15px;height:15px}
+.vw-hide .vw-label,.vw-hide .vw-hint,.vw-hide .vw-pad,.vw-hide .vw-lift,.vw-hide .vw-map,.vw-hide .vw-maptoggle,.vw-hide .vw-pad2 .vw-btn:not(.vw-eye),.vw-hide .vw-pad2 .vw-padhub{opacity:0!important;visibility:hidden!important;pointer-events:none!important;transition:opacity .25s,visibility 0s .25s}
 .vw-hide .vw-btn:not(.vw-eye),.vw-hide .vw-map canvas{pointer-events:none!important}
 .vw-hide .vw-eye{opacity:.3!important;background:rgba(18,17,16,.3)}
 /* compact (phones): light controls tucked into the corners, nothing over the centre of the view */
 .vw-compact{--vw-inset:10px;--vw-b:34px}
 .vw-compact .vw-padgrid{gap:4px}
 .vw-compact .vw-btn{border-radius:10px;-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);box-shadow:none}
-.vw-compact .vw-pad .vw-btn,.vw-compact .vw-row .vw-btn{opacity:.55;transition:opacity .6s,background .18s,border-color .18s}
-.vw-compact.vw-idle .vw-pad .vw-btn,.vw-compact.vw-idle .vw-row .vw-btn{opacity:.25}
-.vw-compact .vw-pad .vw-btn.vw-down,.vw-compact .vw-row .vw-btn.vw-down{opacity:1;transition:opacity .05s}
-.vw-compact .vw-pad .vw-btn svg{width:16px;height:16px}
+.vw-compact .vw-padgrid .vw-btn{opacity:.55;transition:opacity .6s,background .18s,border-color .18s}
+.vw-compact.vw-idle .vw-padgrid .vw-btn{opacity:.25}
+.vw-compact .vw-padgrid .vw-btn.vw-down{opacity:1;transition:opacity .05s}
+.vw-compact .vw-padgrid .vw-btn svg{width:16px;height:16px}
 .vw-compact .vw-padhub{width:4px;height:4px;opacity:.6}
-.vw-compact .vw-row{gap:6px}
-.vw-compact .vw-look{gap:4px}
-.vw-compact .vw-look .vw-btn{width:30px;height:30px}
-.vw-compact .vw-look .vw-btn svg{width:14px;height:14px}
-.vw-compact .vw-maptoggle{width:34px;height:34px;padding:0;justify-content:center}
-.vw-compact .vw-maptoggle span{display:none}
-.vw-compact .vw-maptoggle svg{width:15px;height:15px}
-.vw-compact .vw-eye{width:26px;height:26px}
-.vw-compact .vw-eye svg{width:13px;height:13px}
+.vw-compact .vw-padgrid .vw-eye{width:26px;height:26px}
+.vw-compact .vw-padgrid .vw-eye svg{width:13px;height:13px}
 .vw-compact .vw-map{padding:6px}
 .vw-compact .vw-label{inset-block-start:calc(var(--vw-top,var(--vw-inset)) + var(--vw-st));inset-inline-start:calc(var(--vw-inset) + var(--vw-sx));padding:4px 11px 5px;border-radius:999px;display:flex;align-items:baseline;gap:.45em;max-width:calc(100% - 2 * var(--vw-inset) - 2 * var(--vw-sx));box-sizing:border-box;white-space:nowrap;overflow:hidden;background:rgba(18,17,16,.5);box-shadow:none;opacity:0;transition:opacity .6s}
 .vw-compact .vw-label.vw-show{opacity:.92}
@@ -258,6 +255,8 @@ const ICON = {
   lookdown: '<svg viewBox="0 0 24 24"><path d="M5 19.5h14"/><path d="M12 4v11M7 10l5 5 5-5"/></svg>',
   eye: '<svg viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.8"/></svg>',
   eyeoff: '<svg viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><path d="M4 4l16 16"/></svg>',
+  stepl: '<svg viewBox="0 0 24 24"><path d="M11 6l-6 6 6 6M19 6l-6 6 6 6"/></svg>',
+  stepr: '<svg viewBox="0 0 24 24"><path d="M13 6l6 6-6 6M5 6l6 6-6 6"/></svg>',
   tri: '<svg viewBox="0 0 12 14"><path d="M6 1l5 6H1z"/><path d="M6 13l5-6H1z" opacity="0"/></svg>'
 };
 
@@ -284,6 +283,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     return T[l] ? l : 'en';
   };
   const tr = (k) => T[lang()][k] || T.en[k];
+  const rawLang = () => (langOverride || (typeof document !== 'undefined' && document.documentElement.lang) || 'en').slice(0, 2).toLowerCase();
 
   // ── state ──
   const pos = { x: 6.1, z: 12 };
@@ -293,7 +293,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   let enabled = false, placed = false, clock = 0;
   let auto = null;                 // auto-walk target {x,z,stuck}
   const keys = new Set();
-  const hudIn = { fwd: false, back: false, left: false, right: false, lup: false, ldown: false };
+  const hudIn = { fwd: false, back: false, left: false, right: false, lup: false, ldown: false, sl: false, sr: false };
   let wheelImpulse = 0;
   const listeners = [];
   let lastState = null;
@@ -306,7 +306,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     const interior = d.kind === 'door';      // BUILDING opens interior doors by default
     const big = d.kind === 'garage';
     doorRecs.push({ d, t: interior ? 1 : 0, target: interior ? 1 : 0, interior, cx: d.center ? d.center.x : 0, cz: d.center ? d.center.z : 0,
-      y: LEVEL_Y[d.floorId] ?? 0, near: big ? 3.4 : DOOR_NEAR, far: big ? 4.6 : DOOR_FAR, hold: 0, synth: null });
+      y: LEVEL_Y[d.floorId] ?? 0, near: big ? 4.2 : DOOR_NEAR, far: big ? 5.4 : DOOR_FAR, hold: 0, synth: null, time: big ? 2.0 : DOOR_TIME });
   }
   function findDoor(fid, x, z) {
     let best = null, bd = 1.0;
@@ -933,25 +933,42 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     const pad = el('div', 'vw-pad');
     const padGrid = el('div', 'vw-padgrid');
     pad.append(padGrid);
+    // press-and-hold button: reacts on touchstart / pointerdown / mousedown (never waits for a click)
     const mk = (cls, icon, key) => {
       const b = el('button', 'vw-btn ' + cls, ICON[icon]);
       b.type = 'button';
       b.dataset.k = key;
-      const down = (e) => { e.preventDefault(); unlockAudio(); hudIn[key] = true; b.classList.add('vw-down'); try { b.setPointerCapture(e.pointerId); } catch (er) { /* */ } };
-      const up = () => { hudIn[key] = false; b.classList.remove('vw-down'); };
+      const down = (e) => { if (e.cancelable) e.preventDefault(); poke(); hudIn[key] = true; b.classList.add('vw-down'); };
+      const up = (e) => { if (e && e.type === 'touchend' && e.cancelable) e.preventDefault(); hudIn[key] = false; b.classList.remove('vw-down'); unlockAudio(); };
+      b.addEventListener('touchstart', down, { passive: false });
+      b.addEventListener('touchend', up, { passive: false });
+      b.addEventListener('touchcancel', up);
       b.addEventListener('pointerdown', down);
       b.addEventListener('pointerup', up);
       b.addEventListener('pointercancel', up);
-      b.addEventListener('lostpointercapture', up);
+      b.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') up(e); });
+      b.addEventListener('mousedown', down);
+      b.addEventListener('mouseup', up);
       b.addEventListener('contextmenu', (e) => e.preventDefault());
       return b;
     };
+    // one-shot button: fires on touchend (no 300 ms click delay), click is the fallback
+    const fast = (b, fn) => {
+      let at = -1e9, tx = 0, ty = 0;
+      b.addEventListener('touchstart', (e) => { const t = e.changedTouches[0]; tx = t.clientX; ty = t.clientY; poke(); }, { passive: true });
+      b.addEventListener('touchend', (e) => {
+        const t = e.changedTouches[0];
+        if (Math.hypot(t.clientX - tx, t.clientY - ty) > 24) return;
+        if (e.cancelable) e.preventDefault();
+        at = performance.now(); unlockAudio(); fn(e);
+      }, { passive: false });
+      b.addEventListener('click', (e) => { e.stopPropagation(); if (performance.now() - at < 700) return; unlockAudio(); fn(e); });
+    };
+    h.fast = fast;
     h.pad = { fwd: mk('vw-fwd', 'aup', 'fwd'), left: mk('vw-left', 'aleft', 'left'), back: mk('vw-back', 'adown', 'back'), right: mk('vw-right', 'aright', 'right'),
-      lup: mk('vw-lup', 'lookup', 'lup'), ldown: mk('vw-ldown', 'lookdown', 'ldown') };
+      lup: mk('vw-lup', 'lookup', 'lup'), ldown: mk('vw-ldown', 'lookdown', 'ldown'), sl: mk('vw-sl', 'stepl', 'sl'), sr: mk('vw-sr', 'stepr', 'sr') };
     padGrid.append(h.pad.fwd, h.pad.left, el('span', 'vw-padhub'), h.pad.right, h.pad.back);
-    const look = el('div', 'vw-look');
-    look.append(h.pad.lup, h.pad.ldown);
-    // map
+    // map + second cluster (bottom-right): look up / down, step left / right, plan and eye in the corners
     const mapWrap = el('div', 'vw-mapwrap');
     h.mapPanel = el('div', 'vw-map vw-glass');
     h.mapCap = el('div', 'vw-cap');
@@ -960,14 +977,14 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     h.mapBtn = el('button', 'vw-btn vw-maptoggle');
     h.mapBtn.type = 'button';
     h.mapBtn.setAttribute('aria-pressed', 'false');
-    h.mapBtn.addEventListener('click', () => { unlockAudio(); setMapOpen(!mapOpen); });
+    fast(h.mapBtn, () => setMapOpen(!mapOpen));
     h.canvas.addEventListener('pointerdown', onMapPointer);
-    const row = el('div', 'vw-row');
     h.eye = el('button', 'vw-btn vw-eye', ICON.eye);
     h.eye.type = 'button';
-    h.eye.addEventListener('click', (e) => { e.stopPropagation(); setControlsVisible(uiHidden); });
-    row.append(h.eye, h.mapBtn, look);
-    mapWrap.append(h.mapPanel, row);
+    fast(h.eye, () => setControlsVisible(uiHidden));
+    const pad2 = el('div', 'vw-padgrid vw-pad2');
+    pad2.append(h.eye, h.pad.lup, h.mapBtn, h.pad.sl, el('span', 'vw-padhub'), h.pad.sr, h.pad.ldown);
+    mapWrap.append(h.mapPanel, pad2);
     // lift panel
     const lp = el('div', 'vw-lift vw-glass');
     lp.setAttribute('role', 'group');
@@ -981,15 +998,15 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
       const f = FLOOR_BY_ID[id];
       const b = el('button', 'vw-btn vw-lbtn', String(f.level.label).replace('-', '−'));
       b.type = 'button';
-      b.addEventListener('click', (e) => { e.stopPropagation(); unlockAudio(); ride(id); });
+      fast(b, () => ride(id));
       h.liftBtns.set(id, b);
       btns.append(b);
     }
     const ud = el('div', 'vw-lift-ud');
     h.liftUp = el('button', 'vw-btn', ICON.up); h.liftUp.type = 'button';
     h.liftDown = el('button', 'vw-btn', ICON.down); h.liftDown.type = 'button';
-    h.liftUp.addEventListener('click', () => { unlockAudio(); stepFloor(1); });
-    h.liftDown.addEventListener('click', () => { unlockAudio(); stepFloor(-1); });
+    fast(h.liftUp, () => stepFloor(1));
+    fast(h.liftDown, () => stepFloor(-1));
     ud.append(h.liftUp, h.liftDown);
     lp.append(h.liftHead, ind, btns, ud);
     h.lift = lp;
@@ -1006,13 +1023,15 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     const l = lang();
     hud.root.setAttribute('lang', l);
     hud.hint.textContent = coarse ? tr('hintTouch') : tr('hint');
-    hud.mapBtn.innerHTML = ICON.plan + '<span>' + tr('plan') + '</span>';
+    hud.mapBtn.innerHTML = ICON.plan;
     hud.pad.fwd.setAttribute('aria-label', tr('fwd'));
     hud.pad.back.setAttribute('aria-label', tr('back'));
     hud.pad.left.setAttribute('aria-label', tr('left'));
     hud.pad.right.setAttribute('aria-label', tr('right'));
     hud.pad.lup.setAttribute('aria-label', tr('lookUp'));
     hud.pad.ldown.setAttribute('aria-label', tr('lookDown'));
+    hud.pad.sl.setAttribute('aria-label', tr('stepL'));
+    hud.pad.sr.setAttribute('aria-label', tr('stepR'));
     for (const k in hud.pad) hud.pad[k].title = hud.pad[k].getAttribute('aria-label');
     hud.mapBtn.setAttribute('aria-label', tr('plan'));
     hud.eye.setAttribute('aria-label', tr(uiHidden ? 'showUi' : 'hideUi'));
@@ -1054,7 +1073,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   function poke() { lastPoke = clock; }
   function stepHudFade() {
     if (!hud.root) return;
-    if (hudIn.fwd || hudIn.back || hudIn.left || hudIn.right || hudIn.lup || hudIn.ldown) lastPoke = clock;
+    if (hudIn.fwd || hudIn.back || hudIn.left || hudIn.right || hudIn.lup || hudIn.ldown || hudIn.sl || hudIn.sr) lastPoke = clock;
     hud.root.classList.toggle('vw-idle', compact && clock - lastPoke > 2.5);
     hud.label.classList.toggle('vw-show', !compact || clock < labelUntil);
     if (compact && mapOpen && clock - mapOpenedAt > 8) setMapOpen(false);   // the plan never lingers over the view
@@ -1423,7 +1442,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     if (e.rec && (e.synth || !e.it.label)) return tr(e.rec.d.kind === 'garage' ? 'garageDoor' : e.rec.target > 0.5 ? 'closeDoor' : 'openDoor');
     const lb = e.it.label;
     if (!lb) return '';
-    return typeof lb === 'string' ? lb : (lb[lang()] || lb.en || '');
+    return typeof lb === 'string' ? lb : (lb[rawLang()] || lb[lang()] || lb.en || '');
   }
   let chipUntil = 0, hoverE = null, lastInteract = null;
   function showChip(text, sec) {
@@ -1452,7 +1471,13 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
       hoverE = e;
       return true;
     }
-    if (kind === 'lift-call' && !job && cabLevel !== floorId) enqueue(floorId, false);
+    if (kind === 'lift-call') {                          // landing call button → bring the cab to that floor
+      const cf = normFloor(obj.userData.liftCall) || floorId;
+      showChip(labelOf(e), 1.4);
+      playSound('click');
+      if (!job && !jobs.length && cabLevel !== cf) enqueue(cf, false);
+      return true;
+    }
     const label = labelOf(e);
     try { if (typeof it.toggle === 'function') it.toggle(); } catch (err) { /* an owner's error must not break walking */ }
     try { on = typeof it.isOn === 'function' ? !!it.isOn() : true; } catch (err) { on = true; }
@@ -1489,20 +1514,21 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     }
   }
 
-  // Double-tap / double-click: ALWAYS step forward along the horizontal bearing of the tap ray, by the distance to
-  // the tapped floor point clamped to [1, 3] m. Collision slides along walls; if fully blocked the ring shakes.
+  // Double-tap / double-click ANYWHERE: always walk forward 2.5 m along the current view direction (projected on the
+  // floor). The tapped point only biases the heading when it lies on the floor within 60° of the view direction.
+  // Collision slides along walls and passes through openings; if fully blocked the ring shakes — never "nothing".
   function walkToScreen(clientX, clientY) {
     if ((job && job.carry) || fall) return false;
-    applyCamera();
-    raycaster.setFromCamera(ndc(clientX, clientY), camera);
-    const o = raycaster.ray.origin, d = raycaster.ray.direction;
-    let hl = Math.hypot(d.x, d.z), bx = d.x, bz = d.z;
-    if (hl < 0.05) { bx = -Math.sin(yaw); bz = -Math.cos(yaw); hl = 1; }
-    bx /= hl; bz /= hl;
-    let dist = 3;
-    if (d.y < -0.02) dist = ((o.y - feetY) / -d.y) * Math.hypot(d.x, d.z);
-    dist = clamp(dist, 1, 3);
-    return walkTo(pos.x + bx * dist, pos.z + bz * dist);
+    let hx = -Math.sin(yaw), hz = -Math.cos(yaw);
+    if (Number.isFinite(clientX) && Number.isFinite(clientY)) {
+      const d = rayAt(clientX, clientY, _tapRay).direction;
+      const hl = Math.hypot(d.x, d.z);
+      if (d.y < -0.02 && hl > 0.05) {
+        const bx = d.x / hl, bz = d.z / hl;
+        if (bx * hx + bz * hz >= 0.5) { hx = bx; hz = bz; }
+      }
+    }
+    return walkTo(pos.x + hx * TAP_WALK, pos.z + hz * TAP_WALK);
   }
   function walkTo(x, z, yHint) {
     if ((job && job.carry) || fall) return false;
@@ -1541,35 +1567,80 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   }
 
   // ── input ──
-  const ptr = { id: null, x: 0, y: 0, sx: 0, sy: 0, t0: 0, moved: 0, lastT: 0 };
+  // Bullet-proof for iOS webviews: everything is listened for on `window` in the CAPTURE phase while enabled, from
+  // three independent event families — touch events, pointer events, mouse events (+ click / dblclick as a last
+  // resort). One gesture has one "source"; touch events win over touch-pointers when both arrive; nothing depends on
+  // pointer capture or on event.target (real controls are skipped with closest()); a lost touchend / pointerup is
+  // healed by the next touchstart / pointerdown.
   const lastTap = { t: -1e9, x: 0, y: 0 };
-  const touches = new Set();
   const LOOK_K = () => 0.0036 * ((camera.fov || 60) / 60);
   function on(target, type, fn, opts) { target.addEventListener(type, fn, opts); listeners.push([target, type, fn, opts]); }
-  const HAS_TOUCH = typeof window !== 'undefined' && ('ontouchstart' in window || (navigator.maxTouchPoints || 0) > 0);
-  const TAP_MS = 350, TAP_PX = 30;
+  const TAP_MS = 700, TAP_MOVE = 16, TAP_PX = 40;      // a tap: < 16 px travel, < 700 ms; double tap: < 400 ms, < 40 px apart
   let inputRoot = null;
   function pickInputRoot() {
-    // the closest ancestor holding both the canvas and the HUD overlay: touches on overlays (labels, attribution, HUD
-    // glass) still reach us; real controls are skipped by isControl()
     let r = overlay && overlay.parentElement;
     while (r && dom && !r.contains(dom)) r = r.parentElement;
-    return r || dom;
+    return r || (dom && dom.parentElement) || dom;
   }
+  const CONTROL_SEL = 'button,a,input,select,textarea,label,summary,[role=button],[role=slider],[role=dialog],dialog,[contenteditable],.vw-map,[data-walk-ui],[data-walk-ignore]';
   function isControl(t) {
-    return !!(t && t.closest && t.closest('button,a,input,select,textarea,label,summary,[role=button],[role=slider],[role=dialog],[contenteditable],.vw-map,[data-walk-ignore]'));
+    if (t && t.nodeType === 3) t = t.parentElement;
+    return !!(t && t.closest && t.closest(CONTROL_SEL));
   }
-  // double tap (two taps < 330 ms, < 30 px apart) walks forward; a single tap on an interactable in reach toggles it
-  // once the double-tap window has passed (so the first tap of a double-tap never opens anything)
+  const _rect = { l: 0, t: 0, r: 0, b: 0, at: -1 };
+  function inView(x, y) {            // inside the canvas rectangle (cached ~4×/s)
+    const now = performance.now();
+    if (now - _rect.at > 250) { const r = dom.getBoundingClientRect(); _rect.l = r.left; _rect.t = r.top; _rect.r = r.right; _rect.b = r.bottom; _rect.at = now; }
+    return x >= _rect.l && x <= _rect.r && y >= _rect.t && y <= _rect.b;
+  }
+
+  // diagnostics (ring buffer, no allocations while logging)
+  const dbg = { on: false, el: null, ev: [], i: 0, n: 0, lastT: 0, gest: '', gestN: 0, fps: 0, fN: 0, fT: 0, corner: 0, cornerT: 0, src: '' };
+  for (let i = 0; i < 6; i++) dbg.ev.push({ type: '', tag: '', dt: 0, n: 0 });
+  function logEv(e, n) {
+    const now = performance.now(), r = dbg.ev[dbg.i];
+    const t = e.target;
+    r.type = e.type + (e.pointerType ? ':' + e.pointerType : ''); r.tag = t && t.tagName ? t.tagName.toLowerCase() : '?'; r.dt = dbg.lastT ? Math.round(now - dbg.lastT) : 0; r.n = n;
+    dbg.lastT = now; dbg.i = (dbg.i + 1) % 6; dbg.n++;
+  }
+  function gesture(name) { dbg.gest = name; dbg.gestN++; }
+  function setDebug(v) {
+    dbg.on = !!v;
+    if (!hud.root) return;
+    if (dbg.on && !dbg.el) { dbg.el = el('pre', 'vw-debug'); hud.root.appendChild(dbg.el); }
+    if (dbg.el) dbg.el.style.display = dbg.on ? 'block' : 'none';
+    if (dbg.on) renderDebug();
+  }
+  function renderDebug() {
+    if (!dbg.on || !dbg.el) return;
+    let s = 'walk debug · fps ' + dbg.fps + ' · upd ' + perf.avg.toFixed(2) + ' ms\n' +
+      'PE ' + (typeof window.PointerEvent === 'function' ? 1 : 0) + ' TE ' + ('ontouchstart' in window ? 1 : 0) + ' mtp ' + (navigator.maxTouchPoints || 0) + ' · src ' + (dbg.src || '-') + ' · ' + (window.top !== window ? 'iframe' : 'top') + '\n' +
+      'gesture #' + dbg.gestN + ': ' + (dbg.gest || '-') + '\n' +
+      'pos ' + pos.x.toFixed(1) + ',' + pos.z.toFixed(1) + ' y ' + feetY.toFixed(2) + ' yaw ' + (yaw * 57.3).toFixed(0) + '°\n';
+    for (let k = 0; k < 6; k++) { const r = dbg.ev[(dbg.i + k) % 6]; if (r.type) s += r.type + ' <' + r.tag + '> +' + r.dt + 'ms' + (r.n ? ' n' + r.n : '') + '\n'; }
+    dbg.el.textContent = s;
+  }
+
+  // double tap / dblclick: ALWAYS walk forward (see walkToScreen); single tap: toggles an interactable in reach once
+  // the double-tap window has passed, so the first tap of a double tap never opens anything
+  let lastTapAt = -1e9, lastWalkAt = -1e9, lastEndAt = -1e9;   // used to ignore the click / dblclick that follows a handled gesture
   function handleTap(x, y, now) {
+    lastTapAt = performance.now();
+    // five quick taps in the top-left corner toggle the diagnostic overlay
+    if (x < _rect.l + 90 && y < _rect.t + 90) {
+      if (now - dbg.cornerT > 3000) { dbg.corner = 0; dbg.cornerT = now; }
+      if (++dbg.corner >= 5) { dbg.corner = 0; setDebug(!dbg.on); }
+    }
     if (now - lastTap.t < DOUBLE_MS && Math.hypot(x - lastTap.x, y - lastTap.y) < TAP_PX) {
-      lastTap.t = -1e9; pending.e = null;
+      lastTap.t = -1e9; pending.e = null; lastWalkAt = now;
+      gesture('double-tap → walk');
       if (!walkToScreen(x, y)) shakeRing();
       return true;
     }
+    gesture('tap');
     lastTap.t = now; lastTap.x = x; lastTap.y = y;
     const e = pickInteract(rayAt(x, y, _tapRay), true);
-    if (e) { pending.e = e; pending.at = now; return false; }
+    if (e) { pending.e = e; pending.at = performance.now(); return false; }
     pending.e = null;
     const fid = pickPanel(x, y);            // lift panel buttons that carry no interact tag
     if (fid) { ride(fid); lastTap.t = -1e9; }
@@ -1591,80 +1662,168 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   function lookEnd(movedPx) {
     if (performance.now() - drag.lastT < 80 && movedPx > 8) { yawVel = clamp(drag.vx, -6, 6); pitchVel = clamp(drag.vy, -4, 4); }
   }
-  const tt = { on: false, id: -1, sx: 0, sy: 0, lx: 0, ly: 0, t0: 0, max: 0, two: 0 };
-  function onTouchStartRoot(e) {
-    if (isControl(e.target)) return;
-    if (e.cancelable) e.preventDefault();       // no double-tap zoom, no scroll, no synthetic mouse events
-    unlockAudio();
-    hideHint();
-    if (e.touches.length === 1) {
-      const t = e.touches[0];
-      tt.on = true; tt.id = t.identifier; tt.sx = tt.lx = t.clientX; tt.sy = tt.ly = t.clientY; tt.t0 = performance.now(); tt.max = 0; tt.two = 0;
-      lookStart();
-    } else { tt.on = false; lastTap.t = -1e9; pending.e = null; tt.two = e.touches.length === 2 ? performance.now() : 0; }
-  }
-  function onTouchMoveRoot(e) {
-    if (isControl(e.target)) return;
-    if (e.cancelable) e.preventDefault();
-    if (tt.on && e.touches.length === 1) {
-      const t = e.touches[0];
-      if (t.identifier !== tt.id) return;
-      lookBy(t.clientX - tt.lx, t.clientY - tt.ly);       // touch look is driven by touch events only (no pointer capture to get stuck)
-      tt.lx = t.clientX; tt.ly = t.clientY;
-      tt.max = Math.max(tt.max, Math.hypot(t.clientX - tt.sx, t.clientY - tt.sy));
-    }
-  }
-  function onTouchEndRoot(e) {
-    if (tt.two && e.touches.length === 0) {       // two-finger tap: bring hidden controls back
-      if (performance.now() - tt.two < 450 && uiHidden) setControlsVisible(true);
-      tt.two = 0; return;
-    }
-    if (!tt.on || e.touches.length > 0) return;
-    tt.on = false;
-    const t = e.changedTouches && e.changedTouches[0];
-    if (!t) return;
-    const now = performance.now();
-    const d = Math.max(tt.max, Math.hypot(t.clientX - tt.sx, t.clientY - tt.sy));
-    lookEnd(d);
-    if (d > 12 || now - tt.t0 > TAP_MS) { lastTap.t = -1e9; pending.e = null; return; }   // a drag is never a tap
-    if (handleTap(t.clientX, t.clientY, now) && e.cancelable) e.preventDefault();
-  }
-  const touchPtr = (e) => e.pointerType === 'touch' && HAS_TOUCH;   // touch is handled by the touch-event path
-  function onPointerDown(e) {
-    if (touchPtr(e)) return;
-    if (e.button !== undefined && e.button > 0 && e.pointerType === 'mouse') return;
-    if (isControl(e.target)) return;
-    unlockAudio();
-    touches.add(e.pointerId);
-    if (ptr.id !== null && performance.now() - ptr.lastT < 1500) return;   // a stale pointer never blocks a new drag
-    ptr.id = e.pointerId; ptr.x = ptr.sx = e.clientX; ptr.y = ptr.sy = e.clientY;
-    ptr.t0 = ptr.lastT = performance.now(); ptr.moved = 0;
-    lookStart();
-    try { (inputRoot || dom).setPointerCapture(e.pointerId); } catch (er) { /* */ }
+
+  // ── one gesture state for all event families ──
+  // G.src: which family owns the current gesture ('touch' | 'pointer' | 'mouse'); G.n: contacts now; G.maxN: most at once
+  const G = { src: '', n: 0, maxN: 0, sx: 0, sy: 0, cx: 0, cy: 0, pd: 0, t0: 0, lastT: 0, moved: 0, pinch: 0, ptype: '' };
+  const pts = new Map();             // pointer family: pointerId → {x, y}
+  const ptPool = [];
+  function gReset() { G.src = ''; G.n = 0; G.maxN = 0; G.moved = 0; G.pinch = 0; for (const p of pts.values()) ptPool.push(p); pts.clear(); }
+  const stamp = (e) => (e && e.timeStamp > 0 ? e.timeStamp : performance.now());   // event time: immune to slow handlers
+  function gBegin(src, x, y, n, ptype, ts) {         // first contact of a gesture
+    G.src = src; G.n = n; G.maxN = n; G.sx = G.cx = x; G.sy = G.cy = y; G.pd = 0; G.moved = 0; G.pinch = 0; G.ptype = ptype || src;
+    G.t0 = ts; G.lastT = performance.now();
+    dbg.src = src;
+    lookStart(); hideHint(); poke();
     if (dom) dom.style.cursor = 'grabbing';
-    hideHint();
+  }
+  function gRebase(cx, cy, pd, n) { G.cx = cx; G.cy = cy; G.pd = pd; G.n = n; if (n > G.maxN) G.maxN = n; G.lastT = performance.now(); }
+  function gMove(cx, cy, pd) {                       // centroid moved (1 finger: look; 2 fingers: turn + pinch walk)
+    const dx = cx - G.cx, dy = cy - G.cy;
+    G.cx = cx; G.cy = cy; G.lastT = performance.now();
+    G.moved = Math.max(G.moved, Math.hypot(cx - G.sx, cy - G.sy));
+    if (G.n >= 2) {
+      const dd = pd - G.pd; G.pd = pd;
+      G.pinch += Math.abs(dd);
+      if (G.moved > TAP_MOVE || G.pinch > TAP_MOVE) {
+        lookBy(dx, dy);
+        if (Math.abs(dd) > 0.01 && !fall && !(job && job.carry)) {    // pinch out = forward, pinch in = back
+          const m = clamp(dd * 0.012, -0.25, 0.25);
+          auto = null; moveBy(-Math.sin(yaw) * m, -Math.cos(yaw) * m);
+        }
+      }
+    } else lookBy(dx, dy);
+  }
+  function gEnd(x, y, cancelled, ts) {               // last contact lifted
+    const dur = ts - G.t0, moved = G.moved, maxN = G.maxN, pinch = G.pinch;
+    gReset(); lastEndAt = performance.now();
+    unlockAudio();                                   // touchend / pointerup / mouseup count as user activation (touchstart does not on iOS)
+    if (dom) dom.style.cursor = 'grab';
+    if (cancelled) { lastTap.t = -1e9; pending.e = null; gesture('cancel'); return false; }
+    if (maxN >= 2) {
+      lastTap.t = -1e9; pending.e = null;
+      if (moved < TAP_MOVE && pinch < TAP_MOVE && dur < 500) { gesture('two-finger tap'); if (uiHidden) setControlsVisible(true); }
+      else gesture(pinch > moved ? 'pinch → move' : 'two-finger drag → turn');
+      return false;
+    }
+    if (moved < TAP_MOVE && dur < TAP_MS) return handleTap(x, y, ts);
+    lookEnd(moved);
+    lastTap.t = -1e9; pending.e = null;                // a drag is never a tap
+    gesture('drag → look');
+    return false;
+  }
+
+  // touch events
+  function touchGeom(tl) {            // centroid + spread of the current touches → G-ready numbers in _tg
+    let cx = 0, cy = 0;
+    const n = tl.length;
+    for (let i = 0; i < n; i++) { cx += tl[i].clientX; cy += tl[i].clientY; }
+    _tg.cx = cx / (n || 1); _tg.cy = cy / (n || 1);
+    _tg.pd = n >= 2 ? Math.hypot(tl[0].clientX - tl[1].clientX, tl[0].clientY - tl[1].clientY) : 0;
+  }
+  const _tg = { cx: 0, cy: 0, pd: 0 };
+  function onTouchStart(e) {
+    logEv(e, e.touches.length);
+    const t0 = e.changedTouches[0];
+    const fresh = e.touches.length === e.changedTouches.length;        // no older finger is still down
+    if (G.src === 'touch' && !fresh) {                                  // one more finger joins
+      if (e.cancelable) e.preventDefault();
+      touchGeom(e.touches); gRebase(_tg.cx, _tg.cy, _tg.pd, e.touches.length);
+      return;
+    }
+    if (isControl(e.target) || !t0 || !inView(t0.clientX, t0.clientY)) { if (G.src === 'touch') gReset(); return; }
+    if (e.cancelable) e.preventDefault();       // no double-tap zoom, no scroll, no synthetic mouse events
+    touchGeom(e.touches);
+    if (G.src === 'pointer' && G.ptype === 'touch' && performance.now() - G.t0 < 700) {   // same finger already seen as a pointer: touch takes over
+      G.src = 'touch'; dbg.src = 'touch'; for (const p of pts.values()) ptPool.push(p); pts.clear();
+      gRebase(_tg.cx, _tg.cy, _tg.pd, e.touches.length);
+      return;
+    }
+    // a fresh touch always starts clean — this also heals a lost touchend / pointerup
+    gBegin('touch', _tg.cx, _tg.cy, e.touches.length, 'touch', stamp(e));
+    G.pd = _tg.pd;
+  }
+  function onTouchMove(e) {
+    if (G.src !== 'touch') return;
+    if (e.cancelable) e.preventDefault();        // the page / webview never scrolls or zooms while walking
+    touchGeom(e.touches);
+    if (e.touches.length !== G.n) { gRebase(_tg.cx, _tg.cy, _tg.pd, e.touches.length); return; }
+    gMove(_tg.cx, _tg.cy, _tg.pd);
+  }
+  function onTouchEnd(e) {
+    logEv(e, e.touches.length);
+    if (G.src !== 'touch') return;
+    if (e.cancelable) e.preventDefault();
+    if (e.touches.length > 0) { touchGeom(e.touches); gRebase(_tg.cx, _tg.cy, _tg.pd, e.touches.length); return; }
+    const t = e.changedTouches[0];
+    gEnd(t ? t.clientX : G.cx, t ? t.clientY : G.cy, e.type === 'touchcancel', stamp(e));
+  }
+
+  // pointer events (mouse, pen, and touch when no touch events arrive)
+  function ptrGeom() {
+    let cx = 0, cy = 0, n = 0, ax = 0, ay = 0, pd = 0;
+    for (const p of pts.values()) { cx += p.x; cy += p.y; if (n === 0) { ax = p.x; ay = p.y; } else if (n === 1) pd = Math.hypot(p.x - ax, p.y - ay); n++; }
+    _tg.cx = cx / (n || 1); _tg.cy = cy / (n || 1); _tg.pd = pd;
+  }
+  function onPointerDown(e) {
+    logEv(e, 0);
+    poke();
+    if (G.src === 'touch' || G.src === 'mouse') return;
+    if (e.pointerType === 'mouse' && e.button > 0) return;
+    const now = performance.now();
+    if (G.src === 'pointer' && (pts.has(e.pointerId) || e.isPrimary || now - G.lastT > 1200)) gReset();   // stale gesture (lost pointerup)
+    if (G.src !== 'pointer') {
+      if (isControl(e.target) || !inView(e.clientX, e.clientY)) return;
+      const p = ptPool.pop() || { x: 0, y: 0 }; p.x = e.clientX; p.y = e.clientY; pts.set(e.pointerId, p);
+      gBegin('pointer', e.clientX, e.clientY, 1, e.pointerType || 'mouse', stamp(e));
+      return;
+    }
+    const p = ptPool.pop() || { x: 0, y: 0 }; p.x = e.clientX; p.y = e.clientY; pts.set(e.pointerId, p);
+    ptrGeom(); gRebase(_tg.cx, _tg.cy, _tg.pd, pts.size);
   }
   function onPointerMove(e) {
-    if (e.pointerId !== ptr.id) return;
-    const dx = e.clientX - ptr.x, dy = e.clientY - ptr.y;
-    ptr.x = e.clientX; ptr.y = e.clientY;
-    ptr.moved += Math.abs(dx) + Math.abs(dy);
-    ptr.lastT = performance.now();
-    if (touches.size > 1) return;
-    lookBy(dx, dy);
+    if (G.src !== 'pointer') return;
+    const p = pts.get(e.pointerId);
+    if (!p) return;
+    if (e.pointerType === 'mouse' && e.buttons === 0) { onPointerUp(e); return; }   // released outside the window
+    p.x = e.clientX; p.y = e.clientY;
+    ptrGeom(); gMove(_tg.cx, _tg.cy, _tg.pd);
   }
   function onPointerUp(e) {
-    if (touchPtr(e)) return;
-    touches.delete(e.pointerId);
-    if (e.pointerId !== ptr.id) return;
-    ptr.id = null;
-    dom.style.cursor = 'grab';
-    const now = performance.now();
-    lookEnd(ptr.moved);
-    const isTap = ptr.moved < 10 && now - ptr.t0 < TAP_MS && e.type === 'pointerup';
-    if (!isTap) { lastTap.t = -1e9; pending.e = null; return; }
-    handleTap(e.clientX, e.clientY, now);
+    if (e.type !== 'pointermove') logEv(e, 0);
+    if (G.src !== 'pointer' || !pts.has(e.pointerId)) return;
+    ptPool.push(pts.get(e.pointerId)); pts.delete(e.pointerId);
+    if (pts.size > 0) { ptrGeom(); gRebase(_tg.cx, _tg.cy, _tg.pd, pts.size); return; }
+    gEnd(e.clientX, e.clientY, e.type === 'pointercancel', stamp(e));
   }
+
+  // mouse events — only where PointerEvent does not exist
+  const NO_PE = typeof window === 'undefined' || typeof window.PointerEvent !== 'function';
+  function onMouseDown(e) {
+    logEv(e, 0);
+    if (!NO_PE || G.src === 'touch' || e.button > 0 || performance.now() - lastEndAt < 500) return;
+    if (isControl(e.target) || !inView(e.clientX, e.clientY)) return;
+    gBegin('mouse', e.clientX, e.clientY, 1, 'mouse', stamp(e));
+  }
+  function onMouseMove(e) { if (G.src === 'mouse') { if (e.buttons === 0) gEnd(e.clientX, e.clientY, false, stamp(e)); else gMove(e.clientX, e.clientY, 0); } }
+  function onMouseUp(e) { logEv(e, 0); if (G.src === 'mouse') gEnd(e.clientX, e.clientY, false, stamp(e)); }
+
+  // click / dblclick: last-resort tap sources (when the end of a gesture never reached us)
+  function onClick(e) {
+    logEv(e, 0);
+    if (isControl(e.target) || !inView(e.clientX, e.clientY)) return;
+    const now = performance.now();
+    if (now - lastEndAt > 700 && !G.src) { unlockAudio(); handleTap(e.clientX, e.clientY, stamp(e)); }   // no gesture end reached us for this tap
+  }
+  function onDblClick(e) {
+    logEv(e, 0);
+    if (isControl(e.target) || !inView(e.clientX, e.clientY)) return;
+    e.preventDefault();
+    const now = performance.now();
+    if (now - lastWalkAt > 700) { lastWalkAt = now; lastTap.t = -1e9; pending.e = null; gesture('dblclick → walk'); if (!walkToScreen(e.clientX, e.clientY)) shakeRing(); }
+  }
+  function onGesture(e) { logEv(e, 0); if (inView(e.clientX || _rect.l + 1, e.clientY || _rect.t + 1) || G.src) e.preventDefault(); }
+  function onCtxMenu(e) { if (!isControl(e.target) && inView(e.clientX, e.clientY)) e.preventDefault(); }
   function onWheel(e) {
     e.preventDefault();
     wheelImpulse = clamp(wheelImpulse - Math.sign(e.deltaY) * 0.35, -1.2, 1.2);
@@ -1685,13 +1844,14 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   function onBlur() { keys.clear(); for (const k in hudIn) hudIn[k] = false; }
   function onContext(e) { e.preventDefault(); }
 
-  const padLit = { fwd: false, back: false, left: false, right: false, lup: false, ldown: false };
+  const padLit = { fwd: false, back: false, left: false, right: false, lup: false, ldown: false, sl: false, sr: false };
   function litKey(k, on) { if (padLit[k] !== on) { padLit[k] = on; hud.pad[k].classList.toggle('vw-down', on); } }
   function syncPadHighlight() {
     if (!hud.pad) return;
     litKey('fwd', keys.has('f') || hudIn.fwd); litKey('back', keys.has('b') || hudIn.back);
     litKey('left', keys.has('tl') || hudIn.left); litKey('right', keys.has('tr') || hudIn.right);
     litKey('lup', keys.has('lu') || hudIn.lup); litKey('ldown', keys.has('ld') || hudIn.ldown);
+    litKey('sl', keys.has('sl') || hudIn.sl); litKey('sr', keys.has('sr') || hudIn.sr);
   }
   function hideHint() { if (hud.hint) hud.hint.classList.remove('vw-on'); hintTimer = 0; }
 
@@ -1758,7 +1918,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
       }
       if (r.t < 0.5 && r.target === 1 && near && d < 1.3) doorOpening = true;
       if (r.t !== r.target) {
-        r.t = approach(r.t, r.target, dt / DOOR_TIME);
+        r.t = approach(r.t, r.target, dt / r.time);
         try { r.d.setOpen(smooth(r.t)); } catch (e) { /* guard */ }
       }
     }
@@ -1769,7 +1929,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     if (!enabled) { if (job) stepLift(dt); return; }
     const t0 = performance.now();
     // look inertia
-    if (ptr.id === null && !tt.on && (Math.abs(yawVel) > 1e-4 || Math.abs(pitchVel) > 1e-4)) {
+    if (!G.src && (Math.abs(yawVel) > 1e-4 || Math.abs(pitchVel) > 1e-4)) {
       yaw += yawVel * dt; pitch = clamp(pitch + pitchVel * dt, PITCH_MIN, PITCH_MAX);
       const damp = Math.exp(-dt * 5.5);
       yawVel *= damp; pitchVel *= damp;
@@ -1788,7 +1948,7 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     const fx = -Math.sin(yaw), fz = -Math.cos(yaw);
     const rx = Math.cos(yaw), rz = -Math.sin(yaw);
     let fwd = (keys.has('f') || hudIn.fwd ? 1 : 0) - (keys.has('b') || hudIn.back ? 1 : 0);
-    const side = (keys.has('sr') ? 1 : 0) - (keys.has('sl') ? 1 : 0);
+    const side = (keys.has('sr') || hudIn.sr ? 1 : 0) - (keys.has('sl') || hudIn.sl ? 1 : 0);
     if (wheelImpulse) { fwd += wheelImpulse; wheelImpulse = approach(wheelImpulse, 0, dt * 2.2); }
     let dvx = 0, dvz = 0;
     const speed = keys.has('run') ? RUN_SPEED : WALK_SPEED;
@@ -1840,10 +2000,11 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
       const st = emitState(false);
       updateLiftPanel();
       stepHudFade();
-      if (tickN & 1) { drawMap(st); stepHover(); }
+      if (tickN & 1) { drawMap(st); stepHover(); if (dbg.on) renderDebug(); }
     } else if (job && job.moving) updateLiftPanel();
     if (hintTimer > 0) { hintTimer -= dt; if (hintTimer <= 0) hideHint(); }
-    const ms = performance.now() - t0;
+    const tN = performance.now(), ms = tN - t0;
+    dbg.fN++; if (tN - dbg.fT >= 1000) { dbg.fps = Math.round(dbg.fN * 1000 / (tN - dbg.fT)); dbg.fN = 0; dbg.fT = tN; }
     perf.n++; perf.avg += (ms - perf.avg) * (perf.n < 30 ? 1 / perf.n : 0.03); if (ms > perf.max) perf.max = ms;
   }
   let tickAt = -1, tickFloor = '', tickN = 0;
@@ -1859,6 +2020,14 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
   }
 
   // ── enable / disable ──
+  function liftRequest(fid, source) {
+    if (!enabled) return false;
+    const f = normFloor(fid);
+    if (!f) return false;
+    if (source === 'landing' || !playerInCab()) { if (!job && !jobs.length && cabLevel !== f) enqueue(f, false); }
+    else ride(f);
+    return true;
+  }
   const saved = {};
   let ctxState = 0;   // 0 = not loaded, 1 = loading, 2 = done
   function loadContext() {
@@ -1931,25 +2100,37 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     enabled = true;
     if (dom) {
       inputRoot = pickInputRoot();
-      saved.touchAction = dom.style.touchAction; saved.cursor = dom.style.cursor; saved.us = dom.style.userSelect;
-      saved.rootTA = inputRoot.style.touchAction; saved.rootUS = inputRoot.style.webkitUserSelect;
-      dom.style.touchAction = 'none'; dom.style.cursor = 'grab'; dom.style.userSelect = 'none';
-      inputRoot.style.touchAction = 'none'; inputRoot.style.webkitUserSelect = 'none';
-      const R = inputRoot;
-      on(R, 'pointerdown', poke, { passive: true, capture: true });
-      on(R, 'pointerdown', onPointerDown, { passive: true });
-      on(R, 'pointermove', onPointerMove, { passive: true });
-      on(R, 'pointerup', onPointerUp, { passive: true });
-      on(R, 'pointercancel', onPointerUp, { passive: true });
-      on(R, 'touchstart', onTouchStartRoot, { passive: false });
-      on(R, 'touchmove', onTouchMoveRoot, { passive: false });
-      on(R, 'touchend', onTouchEndRoot, { passive: false });
-      on(R, 'touchcancel', () => { tt.on = false; tt.two = 0; pending.e = null; }, { passive: true });
+      // no scrolling, zooming, text selection or long-press call-outs on the canvas and its container
+      saved.styles = [];
+      for (const elx of (inputRoot && inputRoot !== dom ? [dom, inputRoot] : [dom])) {
+        const st = elx.style;
+        saved.styles.push([elx, st.touchAction, st.userSelect, st.webkitUserSelect, st.webkitTouchCallout, st.webkitTapHighlightColor]);
+        st.touchAction = 'none'; st.userSelect = 'none'; st.webkitUserSelect = 'none'; st.webkitTouchCallout = 'none'; st.webkitTapHighlightColor = 'transparent';
+      }
+      saved.cursor = dom.style.cursor; dom.style.cursor = 'grab';
+      const W = window, C = { capture: true, passive: false }, CP = { capture: true, passive: true };
+      on(W, 'touchstart', onTouchStart, C);
+      on(W, 'touchmove', onTouchMove, C);
+      on(W, 'touchend', onTouchEnd, C);
+      on(W, 'touchcancel', onTouchEnd, C);
+      on(W, 'pointerdown', onPointerDown, CP);
+      on(W, 'pointermove', onPointerMove, CP);
+      on(W, 'pointerup', onPointerUp, CP);
+      on(W, 'pointercancel', onPointerUp, CP);
+      on(W, 'mousedown', onMouseDown, CP);
+      on(W, 'mousemove', onMouseMove, CP);
+      on(W, 'mouseup', onMouseUp, CP);
+      on(W, 'click', onClick, CP);
+      on(W, 'dblclick', onDblClick, C);
+      on(W, 'gesturestart', onGesture, C);          // iOS pinch / double-tap zoom
+      on(W, 'gesturechange', onGesture, C);
+      on(W, 'gestureend', onGesture, C);
+      on(W, 'contextmenu', onCtxMenu, C);
       on(dom, 'wheel', onWheel, { passive: false });
-      on(R, 'contextmenu', (e) => { if (!isControl(e.target)) e.preventDefault(); }, false);
-      on(R, 'dblclick', (e) => { if (!isControl(e.target)) e.preventDefault(); }, false);   // walking is recognised manually
-      on(R, 'gesturestart', onContext, false);          // iOS pinch zoom
-      on(R, 'gesturechange', onContext, false);
+      _rect.at = -1;
+      let dbgWanted = false;
+      try { dbgWanted = /walkdebug/i.test(location.hash + location.search) || /walkdebug/i.test(window.top.location.hash); } catch (e) { /* cross-origin parent */ }
+      if (dbgWanted) setDebug(true);
     }
     loadContext();
     on(window, 'keydown', onKeyDown, false);
@@ -1960,7 +2141,14 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     if (scene && scene.addEventListener) scene.addEventListener('interact-dirty', markInterDirty);
     inter.dirty = true;
     if (camera) { saved.order = camera.rotation.order; }
-    if (!liftInit) { liftInit = true; setCab(cabY, cabLevel); applyLiftDoors(true); }
+    if (lift) {
+      // BUILDING routes its own lift taps / calls through this hook while we are walking (walk.js performs the ride)
+      lift.onRequest = liftRequest;
+      if (!job && typeof lift.getState === 'function') {      // pick up where the building's own lift animation left the cab
+        try { const y = lift.getState().y; if (Number.isFinite(y)) { cabY = y; cabLevel = nearestFloorId(y); liftInit = false; } } catch (e) { /* */ }
+      }
+    }
+    if (!liftInit) { liftInit = true; setCab(LIFT_Y[cabLevel] ?? cabY, cabLevel); applyLiftDoors(true); }
     if (!placed) {
       const lobby = FLOOR_BY_ID.ground.rooms.find(r => r.use === 'lobby');
       if (lobby) {
@@ -1988,15 +2176,17 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     enabled = false;
     for (const [t, type, fn, opts] of listeners.splice(0)) t.removeEventListener(type, fn, opts);
     onBlur();
-    ptr.id = null; touches.clear();
+    gReset();
     stopMotion();
-    if (dom) { dom.style.touchAction = saved.touchAction || ''; dom.style.cursor = saved.cursor || ''; dom.style.userSelect = saved.us || ''; }
-    if (inputRoot && inputRoot !== dom) { inputRoot.style.touchAction = saved.rootTA || ''; inputRoot.style.webkitUserSelect = saved.rootUS || ''; }
+    for (const [elx, ta, us, wus, wtc, wth] of saved.styles || []) { const st = elx.style; st.touchAction = ta; st.userSelect = us; st.webkitUserSelect = wus; st.webkitTouchCallout = wtc; st.webkitTapHighlightColor = wth; }
+    saved.styles = [];
+    if (dom) dom.style.cursor = saved.cursor || '';
     fall = null; pending.e = null;
     if (scene && scene.removeEventListener) scene.removeEventListener('interact-dirty', markInterDirty);
     for (const k of Array.from(waters.keys())) stopWater(k);
     if (hud.chip) hud.chip.classList.remove('vw-on');
     if (camera && saved.order) camera.rotation.order = saved.order;
+    if (lift && lift.onRequest === liftRequest) lift.onRequest = null;
     if (hud.root) hud.root.hidden = true;
     if (job && job.carry) { // finish the ride instantly so nobody is left in the shaft
       const to = job.to;
@@ -2022,7 +2212,8 @@ export function createWalker(THREE, { camera, dom, scene, building, overlay } = 
     setLang(l) { langOverride = l; hoverE = null; refreshHudText(); },
     setMapOpen,
     setCompact, setControlsVisible,
-    playSound, refreshInteractables, setDragMode, getPerf, goToStreet,
+    playSound, refreshInteractables, setDragMode, getPerf, goToStreet, setDebug,
+    getDebug() { renderDebug(); return { on: dbg.on, fps: dbg.fps, src: dbg.src, gesture: dbg.gest, gestures: dbg.gestN, events: dbg.n, text: dbg.el ? dbg.el.textContent : '' }; },
     getState() {
       const st = locate();
       return { floorId: st.floorId, roomId: st.roomId, unitId: st.unitId, inLift: st.inLift, x: pos.x, z: pos.z, feetY, eyeY, yaw, pitch, cabY, cabLevel, liftDoor, riding: !!(job && job.moving), autoWalking: !!auto, falling: !!fall, outside: !inFoot(pos.x, pos.z), compact, controlsHidden: uiHidden, dragMode, lastSound, lastInteract, chip: hud.chip && hud.chip.classList.contains('vw-on') ? hud.chip.textContent : '' };
