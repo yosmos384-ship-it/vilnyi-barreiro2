@@ -1,0 +1,51 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.B",
+  "pkg": "noir",
+  "quality": "standard",
+  "tod": "dusk",
+  "shots": [
+   "1.B-living"
+  ],
+  "out": "renders/units/1.B/noir",
+  "name": "u1.B-noir-dusk-z0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "1.B-living",
+   "type": "still",
+   "file": "renders/units/1.B/noir/1.B-living.dusk.jpg",
+   "thumb": "renders/units/1.B/noir/thumbs/1.B-living.dusk.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 7.002181755743582,
+   "tod": "dusk",
+   "position": [
+    8.3,
+    4.45,
+    5.0
+   ],
+   "lookAt": [
+    7.6,
+    4.45,
+    0.5
+   ],
+   "roomId": "1.B-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "dusk",
+   "lens": 18.0,
+   "shift_y": 0.0,
+   "seconds": 723.9
+  }
+ ],
+ "seconds": 729.7,
+ "blender": "4.2.3 LTS"
+}
