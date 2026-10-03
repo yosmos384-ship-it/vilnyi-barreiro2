@@ -1,0 +1,23 @@
+[
+ {
+  "set": "units",
+  "quality": "preview",
+  "preview": true,
+  "units": "1.A,2.A,1.B,2.B",
+  "packages": "atlantic,urban",
+  "tod": "day",
+  "shots": "1.A-bathroom,2.A-bathroom,1.B-bathroom,2.B-bathroom",
+  "tag": "w",
+  "q": {
+   "still": [
+    800,
+    450
+   ],
+   "still_spp": 32,
+   "expo_samples": 16
+  },
+  "opts": {
+   "ev_bias": 0.35
+  }
+ }
+]

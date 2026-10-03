@@ -1,5 +1,5 @@
 {
- "_doc": "Camera overrides for render_job.py (three.js metres, Y-up). hero_auto: apartment hero stills (living/bedroom/bathroom) are re-framed by ray-casting the furnished room (clear foreground, long view, window in frame; door leaves of that room hidden). 'shots' entries override any field of a shot after that (position, lookAt, lens_mm, clip_start, auto:false to keep the exported/explicit camera, hide:[object-name substrings]). 'extra_exterior' / 'extra_common' add shots. 'hero_per_package': packages whose hero stills use their own exported framing (cameras.json unitsData.<unit>.packages.<pkg>.hero) instead of the package-independent one. Extra shots may carry variant_of / variant_tod: the manifest then also attaches them as variants.<tod> of that base shot. 'heroes': explicit hero-still cameras per unit (id = <unit>-living|bedroom|bathroom), merged over the exported hero of the same id for EVERY package and mood; hide_doors hides the door leaves (+ ironmongery) of the shot's room (roomId, plus hide_rooms). 'variant_of': {shot id: [base shot id, tod]} - the manifest folds those shots into variants.<tod> of the base entry.",
+ "_doc": "Camera overrides for render_job.py (three.js metres, Y-up). hero_auto: apartment hero stills (living/bedroom/bathroom) are re-framed by ray-casting the furnished room (clear foreground, long view, window in frame; door leaves of that room hidden). 'shots' entries override any field of a shot after that (position, lookAt, lens_mm, clip_start, auto:false to keep the exported/explicit camera, hide:[object-name substrings]). 'extra_exterior' / 'extra_common' add shots. 'hero_per_package': packages whose hero stills use their own exported framing (cameras.json unitsData.<unit>.packages.<pkg>.hero) instead of the package-independent one. Extra shots may carry variant_of / variant_tod: the manifest then also attaches them as variants.<tod> of that base shot. 'heroes': explicit hero-still cameras per unit (id = <unit>-living|bedroom|bathroom), merged over the exported hero of the same id for EVERY package and mood; hide_doors hides the door leaves (+ ironmongery) of the shot's room (roomId, plus hide_rooms). 'variant_of': {shot id: [base shot id, tod]} - the manifest folds those shots into variants.<tod> of the base entry. Bathroom heroes of the A / B types hide the shower screen pane (int-glass): it renders as a black slab from these viewpoints.",
  "hero_auto": false,
  "shots": {
   "street-golden-34": {
@@ -412,7 +412,10 @@
      "en": "Guest bathroom",
      "pt": "I.S. serviço",
      "he": "חדר רחצה אורחים"
-    }
+    },
+    "hide": [
+     "int-glass"
+    ]
    }
   ],
   "1.A": [
@@ -468,7 +471,10 @@
      "en": "Guest bathroom",
      "pt": "I.S. serviço",
      "he": "חדר רחצה אורחים"
-    }
+    },
+    "hide": [
+     "int-glass"
+    ]
    }
   ],
   "2.A": [
@@ -524,7 +530,10 @@
      "en": "Guest bathroom",
      "pt": "I.S. serviço",
      "he": "חדר רחצה אורחים"
-    }
+    },
+    "hide": [
+     "int-glass"
+    ]
    }
   ],
   "0.B": [
@@ -614,17 +623,20 @@
     "id": "1.B-bathroom",
     "kind": "bathroom",
     "position": [
-     8.3,
+     8.55,
      4.6,
      5.6
     ],
     "lookAt": [
-     8.5,
+     7.95,
      3.85,
      7.0
     ],
     "lens_mm": 14,
-    "hide_doors": true
+    "hide_doors": true,
+    "hide": [
+     "int-glass"
+    ]
    }
   ],
   "2.B": [
@@ -664,17 +676,20 @@
     "id": "2.B-bathroom",
     "kind": "bathroom",
     "position": [
-     8.3,
+     8.55,
      7.6,
      5.6
     ],
     "lookAt": [
-     8.5,
+     7.95,
      6.85,
      7.0
     ],
     "lens_mm": 14,
-    "hide_doors": true
+    "hide_doors": true,
+    "hide": [
+     "int-glass"
+    ]
    }
   ],
   "1.C": [
