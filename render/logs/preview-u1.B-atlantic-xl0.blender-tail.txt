@@ -1,0 +1,60 @@
+Fra:1 Mem:1329.78M (Peak 1329.78M) | Time:00:05.75 | Mem:1312.52M, Peak:1312.52M | Scene, ViewLayer | Updating Images | Loading nor.jpg
+Fra:1 Mem:1345.78M (Peak 1345.78M) | Time:00:05.75 | Mem:1328.52M, Peak:1328.52M | Scene, ViewLayer | Updating Images | Loading diff.jpg
+Fra:1 Mem:1361.81M (Peak 1361.81M) | Time:00:05.76 | Mem:1344.52M, Peak:1344.52M | Scene, ViewLayer | Updating Images | Loading rough.jpg
+Fra:1 Mem:1369.81M (Peak 1369.81M) | Time:00:05.78 | Mem:1364.52M, Peak:1364.52M | Scene, ViewLayer | Updating Images | Loading nor.jpg
+Fra:1 Mem:1385.81M (Peak 1385.81M) | Time:00:05.79 | Mem:1380.55M, Peak:1380.55M | Scene, ViewLayer | Updating Images | Loading diff.jpg
+Fra:1 Mem:1401.81M (Peak 1401.81M) | Time:00:05.79 | Mem:1396.55M, Peak:1396.55M | Scene, ViewLayer | Updating Images | Loading nor.jpg
+Fra:1 Mem:1417.81M (Peak 1417.81M) | Time:00:05.81 | Mem:1400.55M, Peak:1400.55M | Scene, ViewLayer | Updating Images | Loading rough.jpg
+Fra:1 Mem:1421.82M (Peak 1421.82M) | Time:00:05.82 | Mem:1416.55M, Peak:1416.55M | Scene, ViewLayer | Updating Images | Loading diff.jpg
+Fra:1 Mem:1437.82M (Peak 1437.82M) | Time:00:05.82 | Mem:1432.55M, Peak:1432.55M | Scene, ViewLayer | Updating Images | Loading rough.jpg
+Fra:1 Mem:1441.82M (Peak 1441.82M) | Time:00:05.82 | Mem:1448.55M, Peak:1448.55M | Scene, ViewLayer | Updating Images | Loading nor.jpg
+Fra:1 Mem:1473.85M (Peak 1473.85M) | Time:00:05.84 | Mem:1456.56M, Peak:1456.56M | Scene, ViewLayer | Updating Images | Loading diff.jpg
+Fra:1 Mem:1489.85M (Peak 1489.85M) | Time:00:05.86 | Mem:1472.56M, Peak:1472.56M | Scene, ViewLayer | Updating Images | Loading nor.jpg
+Fra:1 Mem:1505.85M (Peak 1505.85M) | Time:00:05.87 | Mem:1488.59M, Peak:1488.59M | Scene, ViewLayer | Updating Images | Loading diff.jpg
+Fra:1 Mem:1537.76M (Peak 1537.76M) | Time:00:05.88 | Mem:1520.59M, Peak:1520.59M | Scene, ViewLayer | Updating Images | Loading rough.jpg
+Fra:1 Mem:1557.76M (Peak 1557.76M) | Time:00:05.90 | Mem:1540.59M, Peak:1540.59M | Scene, ViewLayer | Updating Images | Loading nor.jpg
+Fra:1 Mem:1573.76M (Peak 1573.76M) | Time:00:05.91 | Mem:1556.59M, Peak:1556.59M | Scene, ViewLayer | Updating Images | Loading rough.jpg
+Fra:1 Mem:1581.73M (Peak 1581.73M) | Time:00:05.93 | Mem:1576.50M, Peak:1576.50M | Scene, ViewLayer | Updating Images | Loading nor.jpg
+Fra:1 Mem:1629.64M (Peak 1629.64M) | Time:00:05.95 | Mem:1612.48M, Peak:1612.48M | Scene, ViewLayer | Updating Images | Loading diff.jpg
+Fra:1 Mem:1661.64M (Peak 1661.64M) | Time:00:05.98 | Mem:1644.38M, Peak:1644.38M | Scene, ViewLayer | Updating Images | Loading rough.jpg
+Fra:1 Mem:1665.64M (Peak 1665.64M) | Time:00:05.98 | Mem:1660.38M, Peak:1660.38M | Scene, ViewLayer | Updating Images | Loading diff.jpg
+Fra:1 Mem:1681.64M (Peak 1681.64M) | Time:00:05.98 | Mem:1676.38M, Peak:1676.38M | Scene, ViewLayer | Updating Images | Loading rough.jpg
+Fra:1 Mem:1685.64M (Peak 1685.64M) | Time:00:05.99 | Mem:1680.38M, Peak:1680.38M | Scene, ViewLayer | Updating Images | Loading diff.jpg
+Fra:1 Mem:1717.64M (Peak 1717.64M) | Time:00:06.01 | Mem:1700.38M, Peak:1700.38M | Scene, ViewLayer | Updating Images | Loading rough.jpg
+Fra:1 Mem:1721.64M (Peak 1721.64M) | Time:00:06.01 | Mem:1716.38M, Peak:1716.38M | Scene, ViewLayer | Updating Images | Loading nor.jpg
+Fra:1 Mem:1737.64M (Peak 1737.64M) | Time:00:06.03 | Mem:1720.38M, Peak:1720.38M | Scene, ViewLayer | Updating Images | Loading rough.jpg
+Fra:1 Mem:1741.64M (Peak 1741.64M) | Time:00:06.03 | Mem:1736.38M, Peak:1736.38M | Scene, ViewLayer | Updating Images | Loading diff.jpg
+Fra:1 Mem:1757.64M (Peak 1757.64M) | Time:00:06.05 | Mem:1740.38M, Peak:1740.38M | Scene, ViewLayer | Updating Images | Loading nor.jpg
+Fra:1 Mem:1789.64M (Peak 1789.64M) | Time:00:06.05 | Mem:1772.38M, Peak:1772.38M | Scene, ViewLayer | Updating Images | Loading rough.jpg
+Fra:1 Mem:1805.64M (Peak 1805.64M) | Time:00:06.09 | Mem:1836.38M, Peak:1836.38M | Scene, ViewLayer | Updating Camera Volume
+Fra:1 Mem:1805.64M (Peak 1805.64M) | Time:00:06.09 | Mem:1836.38M, Peak:1836.38M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:1805.64M (Peak 1805.64M) | Time:00:06.09 | Mem:1836.46M, Peak:1836.46M | Scene, ViewLayer | Updating Lights
+Fra:1 Mem:1805.67M (Peak 1805.67M) | Time:00:06.09 | Mem:1836.49M, Peak:1836.49M | Scene, ViewLayer | Updating Lights | Importance map
+Fra:1 Mem:1821.69M (Peak 1893.67M) | Time:00:06.20 | Mem:1852.52M, Peak:1892.51M | Scene, ViewLayer | Updating Lights | Computing tree
+Fra:1 Mem:1832.73M (Peak 1893.67M) | Time:00:06.24 | Mem:1863.57M, Peak:1892.51M | Scene, ViewLayer | Updating Integrator
+Fra:1 Mem:1832.73M (Peak 1893.67M) | Time:00:06.24 | Mem:1863.57M, Peak:1892.51M | Scene, ViewLayer | Updating Film
+Fra:1 Mem:1832.74M (Peak 1893.67M) | Time:00:06.24 | Mem:1863.49M, Peak:1892.51M | Scene, ViewLayer | Updating Lookup Tables
+Fra:1 Mem:1832.74M (Peak 1893.67M) | Time:00:06.24 | Mem:1863.57M, Peak:1892.51M | Scene, ViewLayer | Updating Baking
+Fra:1 Mem:1832.74M (Peak 1893.67M) | Time:00:06.25 | Mem:1863.57M, Peak:1892.51M | Scene, ViewLayer | Updating Device | Writing constant memory
+Fra:1 Mem:1854.80M (Peak 1893.67M) | Time:00:06.25 | Mem:1863.57M, Peak:1892.51M | Scene, ViewLayer | Loading denoising kernels (may take a few minutes the first time)
+Fra:1 Mem:1854.80M (Peak 1893.67M) | Time:00:06.25 | Mem:1863.57M, Peak:1892.51M | Scene, ViewLayer | Sample 0/24
+Fra:1 Mem:1871.51M (Peak 1893.67M) | Time:00:06.98 | Remaining:00:16.69 | Mem:1880.27M, Peak:1892.51M | Scene, ViewLayer | Sample 1/24
+Fra:1 Mem:1878.55M (Peak 1893.67M) | Time:00:24.25 | Mem:1880.27M, Peak:1892.51M | Scene, ViewLayer | Sample 24/24
+Fra:1 Mem:1878.55M (Peak 1893.67M) | Time:00:24.25 | Mem:1880.27M, Peak:1892.51M | Scene, ViewLayer | Finished
+Fra:1 Mem:360.84M (Peak 1893.67M) | Time:00:25.06 | Compositing
+Fra:1 Mem:360.84M (Peak 1893.67M) | Time:00:25.06 | Compositing | Initializing execution
+Fra:1 Mem:360.84M (Peak 1893.67M) | Time:00:25.06 | Compositing | Operation 2-8
+Fra:1 Mem:364.42M (Peak 1893.67M) | Time:00:25.06 | Compositing | Operation 3-8
+Fra:1 Mem:364.42M (Peak 1893.67M) | Time:00:25.06 | Compositing | Operation 4-8
+Fra:1 Mem:364.42M (Peak 1893.67M) | Time:00:25.07 | Compositing | Operation 5-8
+Fra:1 Mem:364.42M (Peak 1893.67M) | Time:00:25.07 | Compositing | Operation 6-8
+Fra:1 Mem:364.42M (Peak 1893.67M) | Time:00:25.07 | Compositing | Operation 7-8
+Fra:1 Mem:364.42M (Peak 1893.67M) | Time:00:25.07 | Compositing | Operation 8-8
+Fra:1 Mem:364.42M (Peak 1893.67M) | Time:00:25.07 | Compositing | Operation 9-8
+Saved: '/home/runner/work/vilnyi-barreiro2/vilnyi-barreiro2/renders/preview/xl/1.B/atlantic/1.B-bathroom.jpg'
+Time: 00:25.15 (Saving: 00:00.07)
+
+[   39.2s] SHOT 1.B-bathroom still 640x360 spp<=24 ev=3.00 in 35.3s -> renders/preview/xl/1.B/atlantic/1.B-bathroom.jpg
+[   39.2s] DONE 1 images in 39.2s
+
+Blender quit
