@@ -1,0 +1,116 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.A",
+  "pkg": "urban",
+  "quality": "standard",
+  "tod": "day",
+  "shots": [
+   "2.A-living",
+   "2.A-bedroom",
+   "2.A-bathroom"
+  ],
+  "out": "renders/units/2.A/urban",
+  "name": "u2.A-urban-z0",
+  "opts": {
+   "ev_bias": 0.35
+  }
+ },
+ "shots": [
+  {
+   "id": "2.A-living",
+   "type": "still",
+   "file": "renders/units/2.A/urban/2.A-living.jpg",
+   "thumb": "renders/units/2.A/urban/thumbs/2.A-living.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 1.8965420187408832,
+   "tod": "day",
+   "position": [
+    3.35,
+    7.45,
+    4.95
+   ],
+   "lookAt": [
+    5.6,
+    7.45,
+    0.6
+   ],
+   "roomId": "2.A-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "lens": 20.0,
+   "shift_y": 0.0,
+   "seconds": 1295.7
+  },
+  {
+   "id": "2.A-bedroom",
+   "type": "still",
+   "file": "renders/units/2.A/urban/2.A-bedroom.jpg",
+   "thumb": "renders/units/2.A/urban/thumbs/2.A-bedroom.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 3.20072106170243,
+   "tod": "day",
+   "position": [
+    1.38,
+    7.45,
+    5.2
+   ],
+   "lookAt": [
+    2.4,
+    7.15,
+    0.4
+   ],
+   "roomId": "2.A-suite",
+   "name": {
+    "en": "Master suite",
+    "pt": "Suite",
+    "he": "סוויטת הורים"
+   },
+   "kind": "bedroom",
+   "lens": 18.0,
+   "shift_y": -0.0306,
+   "seconds": 1681.7
+  },
+  {
+   "id": "2.A-bathroom",
+   "type": "still",
+   "file": "renders/units/2.A/urban/2.A-bathroom.jpg",
+   "thumb": "renders/units/2.A/urban/thumbs/2.A-bathroom.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 2.8808668826897788,
+   "tod": "day",
+   "position": [
+    4.25,
+    7.6,
+    5.6
+   ],
+   "lookAt": [
+    4.0,
+    6.9,
+    7.0
+   ],
+   "roomId": "2.A-wc",
+   "name": {
+    "en": "Guest bathroom",
+    "pt": "I.S. serviço",
+    "he": "חדר רחצה אורחים"
+   },
+   "kind": "bathroom",
+   "lens": 14.0,
+   "shift_y": -0.1914,
+   "seconds": 1643.2
+  }
+ ],
+ "seconds": 4626.8,
+ "blender": "4.2.3 LTS"
+}
