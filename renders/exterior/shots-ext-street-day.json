@@ -1,0 +1,43 @@
+{
+ "job": {
+  "scope": "exterior",
+  "quality": "standard",
+  "shots": [
+   "street-day"
+  ],
+  "out": "renders/exterior",
+  "name": "ext-street-day",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "street-day",
+   "type": "still",
+   "file": "renders/exterior/street-day.jpg",
+   "thumb": "renders/exterior/thumbs/street-day.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 192,
+   "ev": -3.783643030493052,
+   "tod": "day",
+   "position": [
+    7,
+    0.5,
+    26.2
+   ],
+   "lookAt": [
+    7,
+    4.4,
+    14.7
+   ],
+   "roomId": null,
+   "name": "Frontal street view",
+   "kind": null,
+   "lens": 18.0,
+   "shift_y": 0.1696,
+   "seconds": 1501.5
+  }
+ ],
+ "seconds": 1518.6,
+ "blender": "4.2.3 LTS"
+}
