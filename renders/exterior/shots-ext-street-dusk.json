@@ -7,9 +7,7 @@
   ],
   "out": "renders/exterior",
   "name": "ext-street-dusk",
-  "opts": {
-   "ev_bias": 0.35
-  }
+  "opts": {}
  },
  "shots": [
   {
@@ -20,7 +18,7 @@
    "W": 2400,
    "H": 1350,
    "spp": 192,
-   "ev": 0.8375032161081692,
+   "ev": 0.4960864748755469,
    "tod": "dusk",
    "position": [
     7,
@@ -37,9 +35,9 @@
    "kind": null,
    "lens": 18.0,
    "shift_y": 0.1696,
-   "seconds": 8658.3
+   "seconds": 5159.3
   }
  ],
- "seconds": 8669.6,
+ "seconds": 5170.1,
  "blender": "4.2.3 LTS"
 }
