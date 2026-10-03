@@ -18,7 +18,7 @@
    "W": 1350,
    "H": 2400,
    "spp": 192,
-   "ev": 6.3288734472274095,
+   "ev": 6.352631138620261,
    "tod": "night",
    "position": [
     -3.5,
@@ -33,13 +33,11 @@
    "roomId": null,
    "name": "Street, eye level, at night",
    "kind": null,
-   "variant_of": "street-eye",
-   "variant_tod": "night",
    "lens": 24.0,
    "shift_y": 0.0564,
-   "seconds": 4666.1
+   "seconds": 4572.9
   }
  ],
- "seconds": 4679.1,
+ "seconds": 4589.6,
  "blender": "4.2.3 LTS"
 }
