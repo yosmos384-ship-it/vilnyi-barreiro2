@@ -1,0 +1,51 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.A",
+  "pkg": "natura",
+  "quality": "standard",
+  "tod": "dusk",
+  "shots": [
+   "2.A-living"
+  ],
+  "out": "renders/units/2.A/natura",
+  "name": "u2.A-natura-dusk-z0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "2.A-living",
+   "type": "still",
+   "file": "renders/units/2.A/natura/2.A-living.dusk.jpg",
+   "thumb": "renders/units/2.A/natura/thumbs/2.A-living.dusk.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 5.843754703561828,
+   "tod": "dusk",
+   "position": [
+    3.35,
+    7.45,
+    4.95
+   ],
+   "lookAt": [
+    5.6,
+    7.45,
+    0.6
+   ],
+   "roomId": "2.A-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "dusk",
+   "lens": 20.0,
+   "shift_y": 0.0,
+   "seconds": 927.8
+  }
+ ],
+ "seconds": 932.2,
+ "blender": "4.2.3 LTS"
+}
