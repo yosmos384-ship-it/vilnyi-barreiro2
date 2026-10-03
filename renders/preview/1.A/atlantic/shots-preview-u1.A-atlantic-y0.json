@@ -1,0 +1,60 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.A",
+  "pkg": "atlantic",
+  "quality": "preview",
+  "tod": "day",
+  "shots": [
+   "1.A-bathroom"
+  ],
+  "out": "renders/preview/1.A/atlantic",
+  "name": "preview-u1.A-atlantic-y0",
+  "opts": {
+   "ev_bias": 0.35
+  },
+  "q": {
+   "still": [
+    800,
+    450
+   ],
+   "still_spp": 32,
+   "expo_samples": 16
+  }
+ },
+ "shots": [
+  {
+   "id": "1.A-bathroom",
+   "type": "still",
+   "file": "renders/preview/1.A/atlantic/1.A-bathroom.jpg",
+   "thumb": "renders/preview/1.A/atlantic/thumbs/1.A-bathroom.jpg",
+   "W": 800,
+   "H": 450,
+   "spp": 32,
+   "ev": 3.5230950737632827,
+   "tod": "day",
+   "position": [
+    4.25,
+    4.6,
+    5.6
+   ],
+   "lookAt": [
+    4.0,
+    3.9,
+    7.0
+   ],
+   "roomId": "1.A-wc",
+   "name": {
+    "en": "Guest bathroom",
+    "pt": "I.S. serviço",
+    "he": "חדר רחצה אורחים"
+   },
+   "kind": "bathroom",
+   "lens": 14.0,
+   "shift_y": -0.1914,
+   "seconds": 105.8
+  }
+ ],
+ "seconds": 111.8,
+ "blender": "4.2.3 LTS"
+}
