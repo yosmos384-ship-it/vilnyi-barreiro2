@@ -1,0 +1,127 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "1.B",
+  "pkg": "riviera",
+  "quality": "preview",
+  "tod": "dusk",
+  "shots": [
+   "1.B-living",
+   "1.B-bedroom",
+   "1.B-bathroom"
+  ],
+  "out": "renders/preview/1.B/riviera",
+  "name": "preview-u1.B-riviera-dusk-z0",
+  "opts": {
+   "ev_bias": 0.35
+  },
+  "q": {
+   "still": [
+    800,
+    450
+   ],
+   "still_spp": 32,
+   "expo_samples": 16
+  }
+ },
+ "shots": [
+  {
+   "id": "1.B-living",
+   "type": "still",
+   "file": "renders/preview/1.B/riviera/1.B-living.dusk.jpg",
+   "thumb": "renders/preview/1.B/riviera/thumbs/1.B-living.dusk.jpg",
+   "W": 800,
+   "H": 450,
+   "spp": 32,
+   "ev": 4.950638161768325,
+   "tod": "dusk",
+   "position": [
+    8.3,
+    4.45,
+    5.0
+   ],
+   "lookAt": [
+    7.6,
+    4.45,
+    0.5
+   ],
+   "roomId": "1.B-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "dusk",
+   "lens": 18.0,
+   "shift_y": 0.0,
+   "seconds": 91.0
+  },
+  {
+   "id": "1.B-bedroom",
+   "type": "still",
+   "file": "renders/preview/1.B/riviera/1.B-bedroom.dusk.jpg",
+   "thumb": "renders/preview/1.B/riviera/thumbs/1.B-bedroom.dusk.jpg",
+   "W": 800,
+   "H": 450,
+   "spp": 32,
+   "ev": 6.393053341474377,
+   "tod": "dusk",
+   "position": [
+    12.5,
+    4.45,
+    4.4
+   ],
+   "lookAt": [
+    10.4,
+    4.25,
+    0.3
+   ],
+   "roomId": "1.B-bed",
+   "name": {
+    "en": "Bedroom",
+    "pt": "Quarto",
+    "he": "חדר שינה"
+   },
+   "kind": "bedroom",
+   "variant": "dusk",
+   "lens": 18.0,
+   "shift_y": -0.0217,
+   "seconds": 94.2
+  },
+  {
+   "id": "1.B-bathroom",
+   "type": "still",
+   "file": "renders/preview/1.B/riviera/1.B-bathroom.dusk.jpg",
+   "thumb": "renders/preview/1.B/riviera/thumbs/1.B-bathroom.dusk.jpg",
+   "W": 800,
+   "H": 450,
+   "spp": 32,
+   "ev": 6.737293764364038,
+   "tod": "dusk",
+   "position": [
+    8.6,
+    4.6,
+    5.6
+   ],
+   "lookAt": [
+    8.6,
+    3.85,
+    7.0
+   ],
+   "roomId": "1.B-wc",
+   "name": {
+    "en": "Bathroom",
+    "pt": "I.S.",
+    "he": "חדר רחצה"
+   },
+   "kind": "bathroom",
+   "variant": "dusk",
+   "lens": 14.0,
+   "shift_y": -0.2083,
+   "seconds": 69.0
+  }
+ ],
+ "seconds": 260.7,
+ "blender": "4.2.3 LTS"
+}
