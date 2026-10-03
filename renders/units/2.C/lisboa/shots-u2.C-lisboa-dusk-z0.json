@@ -1,0 +1,51 @@
+{
+ "job": {
+  "scope": "unit",
+  "unit": "2.C",
+  "pkg": "lisboa",
+  "quality": "standard",
+  "tod": "dusk",
+  "shots": [
+   "2.C-living"
+  ],
+  "out": "renders/units/2.C/lisboa",
+  "name": "u2.C-lisboa-dusk-z0",
+  "opts": {}
+ },
+ "shots": [
+  {
+   "id": "2.C-living",
+   "type": "still",
+   "file": "renders/units/2.C/lisboa/2.C-living.dusk.jpg",
+   "thumb": "renders/units/2.C/lisboa/thumbs/2.C-living.dusk.jpg",
+   "W": 2400,
+   "H": 1350,
+   "spp": 96,
+   "ev": 6.801352011972108,
+   "tod": "dusk",
+   "position": [
+    10.1,
+    7.45,
+    8.6
+   ],
+   "lookAt": [
+    12.8,
+    7.45,
+    14.0
+   ],
+   "roomId": "2.C-living",
+   "name": {
+    "en": "Living & kitchen",
+    "pt": "Sala / cozinha",
+    "he": "סלון ומטבח"
+   },
+   "kind": "living",
+   "variant": "dusk",
+   "lens": 20.0,
+   "shift_y": 0.0,
+   "seconds": 1219.8
+  }
+ ],
+ "seconds": 1226.2,
+ "blender": "4.2.3 LTS"
+}
